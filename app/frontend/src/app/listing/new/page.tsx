@@ -11,13 +11,27 @@ import type { NftIndex } from '@echo/model/types/nft-index'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { CreateListingManager } from '@echo/ui/components/listing/create/create-listing-manager'
-import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound } from 'next/navigation'
-import { andThen, assoc, identity, is, isEmpty, isNil, juxt, map, pipe, prop, reject, unless } from 'ramda'
+import {
+  andThen,
+  equals,
+  filter,
+  identity,
+  is,
+  isEmpty,
+  isNil,
+  juxt,
+  map,
+  pathSatisfies,
+  pipe,
+  prop,
+  reject,
+  unless
+} from 'ramda'
 import type { ReactElement } from 'react'
 
 type Params = NextUserParams<
@@ -33,11 +47,6 @@ async function render({ searchParams: { items, target }, user }: Params) {
     notFound()
   }
 
-  const creatorNfts: SelectableNft[] = await pipe(
-    prop('username'),
-    getNftsForOwner as (username: string) => Promise<SelectableNft[]>,
-    andThen(map<SelectableNft, SelectableNft>(assoc('actionDisabled', true)))
-  )(user)
   const listingItems = await unlessNil(
     pipe<[string[] | string], string[], NftIndex[], Promise<Nullable<Nft>>[], Promise<Nullable<Nft>[]>, Promise<Nft[]>>(
       unless(is(Array), juxt([identity])),
@@ -48,8 +57,16 @@ async function render({ searchParams: { items, target }, user }: Params) {
     )
   )(items)
   const listingTarget = await unlessNil(getCollection)(target)
+  if (isNil(listingTarget)) {
+    notFound()
+  }
 
-  if ((isNil(listingTarget) && isEmpty(listingItems)) || isEmpty(creatorNfts)) {
+  const creatorNfts: Nft[] = await pipe(
+    prop('username'),
+    getNftsForOwner as (username: string) => Promise<Nft[]>,
+    andThen(filter(pathSatisfies(equals(listingTarget.contract.chain), ['collection', 'contract', 'chain'])))
+  )(user)
+  if (isEmpty(listingItems) && isEmpty(creatorNfts)) {
     notFound()
   }
 

@@ -1,10 +1,11 @@
+import { collectionComparator } from '@echo/model/helpers/collection/collection-comparator'
+import { nftTokenIdComparator } from '@echo/model/helpers/nft/nft-token-id-comparator'
 import type { NftIndex } from '@echo/model/types/nft-index'
-import { stringComparator } from '@echo/utils/comparators/string-comparator'
 
 export function nftIndexComparator(indexA: NftIndex, indexB: NftIndex) {
-  const collectionDiff = stringComparator(indexA.collection.slug, indexB.collection.slug)
+  const collectionDiff = collectionComparator(indexA.collection, indexB.collection)
   if (collectionDiff === 0) {
-    return indexA.tokenId - indexB.tokenId
+    return nftTokenIdComparator(indexA.tokenId, indexB.tokenId)
   }
   return collectionDiff
 }

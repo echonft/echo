@@ -1,6 +1,7 @@
 import type { Nft } from '@echo/model/types/nft'
 import { CardsLayout } from '@echo/ui/components/base/card/layout/cards-layout'
 import { NftCard } from '@echo/ui/components/nft/card/nft-card'
+import { keyOf } from '@echo/ui/components/nft/key-of'
 import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { map } from 'ramda'
 import type { FunctionComponent } from 'react'
@@ -15,8 +16,7 @@ export const ListingDetailsItemsContainer: FunctionComponent<Props> = ({ items }
       (nft) => (
         <NftCard
           nft={nft}
-          // TODO Validate this behaviour
-          key={`${nft.collection.name}-${nft.tokenId}`}
+          key={keyOf(nft)}
           options={{ owner: { hide: true }, style: { hideOpenSeaLink: true, scaleDisabled: true } }}
         />
       ),

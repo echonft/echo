@@ -6,25 +6,20 @@ import { isListingRoleTarget } from '@echo/ui/helpers/listing/is-listing-role-ta
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
   listing: ListingWithRole
   isMutating?: boolean
-  hasSelectedEnoughNfts?: boolean
-  actions?: {
-    onCancel?: (listing: Listing) => void
-    onFill?: (listing: Listing) => void
-    onViewOffers?: VoidFunction
-  }
+  onCancel?: (listing: Listing) => void
+  onFill?: VoidFunction
 }
 
 export const ListingDetailsButtonsContainer: FunctionComponent<Props> = ({
   listing,
   isMutating = false,
-  hasSelectedEnoughNfts = false,
-  actions
+  onCancel,
+  onFill
 }) => {
   const t = useTranslations('listing.details')
   // We don't show any buttons if the listing is final
@@ -38,8 +33,8 @@ export const ListingDetailsButtonsContainer: FunctionComponent<Props> = ({
           id={'listing-details-modal-cancel-button'}
           label={t('cancelBtn.label')}
           message={t('cancelBtn.message')}
-          loading={isNil(actions?.onCancel)}
-          onFinish={() => actions?.onCancel?.(listing)}
+          loading={isMutating}
+          onFinish={() => onCancel?.(listing)}
         />
       </ListingDetailsButtonsLayout>
     )
@@ -47,11 +42,7 @@ export const ListingDetailsButtonsContainer: FunctionComponent<Props> = ({
   if (isListingRoleTarget(listing)) {
     return (
       <ListingDetailsButtonsLayout>
-        <button
-          className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
-          disabled={isMutating || !hasSelectedEnoughNfts}
-          onClick={() => actions?.onFill?.(listing)}
-        >
+        <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} onClick={onFill}>
           <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('fillBtn')}</span>
         </button>
       </ListingDetailsButtonsLayout>

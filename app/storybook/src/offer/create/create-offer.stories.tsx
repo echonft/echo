@@ -8,7 +8,6 @@ import {
 } from '@echo/model-mocks/user/user-mock'
 import { CreateOffer as Component } from '@echo/ui/components/offer/create/create-offer'
 import type { Meta, StoryObj } from '@storybook/react'
-import { assoc, map, pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/Create',
@@ -17,7 +16,7 @@ const metadata: Meta<typeof Component> = {
     loading: false,
     receiver: getUserMockByUsername(USER_MOCK_CREW_USERNAME),
     receiverItems: getNftMocksByUsername(USER_MOCK_CREW_USERNAME),
-    senderNfts: pipe(getNftMocksByUsername, map(assoc('actionDisabled', true)))(USER_MOCK_JOHNNY_USERNAME)
+    senderNfts: getNftMocksByUsername(USER_MOCK_JOHNNY_USERNAME)
   },
   argTypes: {
     onCancel: {

@@ -24,8 +24,6 @@ jobs:
         run: pnpm exec turbo run prettier:ci --filter=@echo/frontend
       - name: storybook prettier
         run: pnpm exec turbo run prettier:ci --filter=@echo/storybook
-      - name: alchemy prettier
-        run: pnpm exec turbo run prettier:ci --filter=@echo/alchemy
       - name: api prettier
         run: pnpm exec turbo run prettier:ci --filter=@echo/api
       - name: contract-listener prettier
@@ -40,8 +38,6 @@ jobs:
         run: pnpm exec turbo run prettier:ci --filter=@echo/opensea
       - name: sentry prettier
         run: pnpm exec turbo run prettier:ci --filter=@echo/sentry
-      - name: tasks prettier
-        run: pnpm exec turbo run prettier:ci --filter=@echo/tasks
       - name: ui prettier
         run: pnpm exec turbo run prettier:ci --filter=@echo/ui
       - name: utils prettier

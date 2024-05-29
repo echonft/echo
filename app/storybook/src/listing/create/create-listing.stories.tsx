@@ -6,17 +6,13 @@ import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
 import { CreateListing as Component } from '@echo/ui/components/listing/create/create-listing'
 import type { Meta, StoryObj } from '@storybook/react'
-import { assoc, filter, map, pathEq, pipe } from 'ramda'
+import { filter, pathEq, pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'Listing/Create',
   component: Component,
   args: {
-    creatorNfts: pipe(
-      getAllNftMocks,
-      filter(pathEq(USER_MOCK_JOHNNY_USERNAME, ['owner', 'username'])),
-      map(assoc('actionDisabled', true))
-    )(),
+    creatorNfts: pipe(getAllNftMocks, filter(pathEq(USER_MOCK_JOHNNY_USERNAME, ['owner', 'username'])))(),
     loading: false
   },
   argTypes: {

@@ -3,7 +3,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@echo/alchemy/*": ["src/*"],
       "@echo/model/*": ["../model/src/*"],
       "@echo/model-mocks/*": ["../model/test/@mocks/*"],
       "@echo/utils/*": ["../utils/src/*"]

@@ -63,14 +63,12 @@ module.exports = {
         patterns: [
           {
             group: [
-              '@echo/alchemy/src/*',
               '@echo/api/src/*',
               '@echo/firestore/src/*',
               '@echo/firestore/test/mocks/*',
               '@echo/model/src/*',
               '@echo/model/test/mocks/*',
               '@echo/sentry/src/*',
-              '@echo/tasks/src/*',
               '@echo/ui/src/*',
               '@echo/utils/src/*',
               '@echo/utils/test/test-utils/*',

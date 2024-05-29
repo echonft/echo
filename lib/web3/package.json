@@ -23,13 +23,12 @@
   "dependencies": {
     "abitype": "1.0.2",
     "ramda": "0.30.0",
-    "viem": "2.12.5"
+    "viem": "2.13.1"
   },
   "devDependencies": {
     "@babel/core": "7.24.6",
     "@babel/preset-env": "7.24.6",
     "@babel/preset-typescript": "7.24.6",
-    "@echo/alchemy": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "@jest/globals": "29.7.0",

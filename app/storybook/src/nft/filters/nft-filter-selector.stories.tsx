@@ -23,7 +23,7 @@ const metadata: Meta<typeof Component> = {
   ],
   parameters: {
     controls: {
-      exclude: ['filter']
+      exclude: ['filter', 'selected']
     }
   }
 }
@@ -47,8 +47,8 @@ export const Selected: StoryObj<typeof Component> = {
     filter: {
       id: 'id',
       label: 'Trait Name',
-      count: 1754,
-      selected: true
-    }
+      count: 1754
+    },
+    selected: true
   }
 }

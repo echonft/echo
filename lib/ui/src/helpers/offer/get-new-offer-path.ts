@@ -1,10 +1,10 @@
 import { linkProvider } from '@echo/api/routing/link-provider'
+import type { Nft } from '@echo/model/types/nft'
 import { mapNftToQueryParam } from '@echo/ui/helpers/nft/map-nft-to-query-param'
-import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { stringify } from 'qs'
 import { concat, is, isEmpty, map } from 'ramda'
 
-export function getNewOfferPath(selection: SelectableNft[] | SelectableNft) {
+export function getNewOfferPath(selection: Nft[] | Nft) {
   if (is(Array, selection)) {
     if (isEmpty(selection)) {
       throw new Error('Cannot create offer with empty selection')

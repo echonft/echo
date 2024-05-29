@@ -49,7 +49,7 @@ export const Default: StoryObj<ComponentType> = {
           <UserProfile profile={profile} />
         </SectionLayout>
         <SectionLayout>
-          <UserNfts nfts={getAllNftMocks()} />
+          <UserNfts nfts={getAllNftMocks()} isAuthUser={true} />
         </SectionLayout>
       </NavigationPageLayout>
     )

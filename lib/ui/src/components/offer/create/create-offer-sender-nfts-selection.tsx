@@ -1,27 +1,22 @@
 'use client'
 import { type Nft } from '@echo/model/types/nft'
-import { SelectableNftGroups } from '@echo/ui/components/nft/group/selectable-nft-groups'
-import { groupNftsByCollection } from '@echo/ui/helpers/nft/group/group-nfts-by-collection'
-import type { SelectableNft } from '@echo/ui/types/selectable-nft'
-import { isEmpty } from 'ramda'
+import { SelectableNfts } from '@echo/ui/components/nft/selectable/selectable-nfts'
+import type { FunctionComponent } from 'react'
 
-interface Props<T extends Nft> {
-  nfts: T[]
-  selection: SelectableNft[]
-  onSelect?: (nft: SelectableNft) => unknown
-  onUnselect?: (nft: SelectableNft) => unknown
+interface Props {
+  nfts: Nft[]
+  selection: Nft[]
+  onSelect?: (nft: Nft) => unknown
+  onUnselect?: (nft: Nft) => unknown
 }
 
-export const CreateOfferSenderNftsSelection = <T extends Nft>({ nfts, selection, onSelect, onUnselect }: Props<T>) => {
-  const collapsible = isEmpty(selection)
-
+export const CreateOfferSenderNftsSelection: FunctionComponent<Props> = ({ nfts, selection, onSelect, onUnselect }) => {
   return (
-    <SelectableNftGroups
+    <SelectableNfts
       nfts={nfts}
-      groupBy={groupNftsByCollection}
       selection={selection}
       options={{ owner: { hide: true } }}
-      style={{ collapsible, selectionContainer: { minWitdh: true } }}
+      style={{ selectionContainer: { minWitdh: true } }}
       onSelect={onSelect}
       onUnselect={onUnselect}
     />

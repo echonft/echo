@@ -1,20 +1,18 @@
-import { isSelected } from '@echo/ui/helpers/selectable/is-selected'
-import type { NftFilter } from '@echo/ui/types/nft-filter'
-import type { Selectable } from '@echo/ui/types/selectable'
 import { clsx } from 'clsx'
+import type { FunctionComponent } from 'react'
 
-interface Props<T extends NftFilter> {
-  filter: Selectable<T>
+interface Props {
+  selected?: boolean
 }
 
-const SelectedIcon = <T extends NftFilter>({ filter }: Props<T>) => {
-  if (isSelected(filter)) {
+const SelectedIcon: FunctionComponent<Props> = ({ selected }) => {
+  if (selected) {
     return <span className={clsx('w-4', 'h-4', 'bg-yellow-500', 'rounded')} />
   }
   return null
 }
 
-export const NftFilterSelector = <T extends NftFilter>({ filter }: Props<T>) => {
+export const NftFilterSelector: FunctionComponent<Props> = ({ selected }) => {
   return (
     <div
       className={clsx(
@@ -31,7 +29,7 @@ export const NftFilterSelector = <T extends NftFilter>({ filter }: Props<T>) => 
         'bg-transparent'
       )}
     >
-      <SelectedIcon filter={filter} />
+      <SelectedIcon selected={selected} />
     </div>
   )
 }

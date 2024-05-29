@@ -1,14 +1,15 @@
 'use client'
-import { SelectableNftsWithFilters } from '@echo/ui/components/nft/selection/selectable-nfts-with-filters'
+import type { Nft } from '@echo/model/types/nft'
+import { SelectableNftsWithFilters } from '@echo/ui/components/nft/filters/layout/selectable-nfts-with-filters'
+import { NFT_ACTION_LISTING } from '@echo/ui/constants/nft-actions'
 import { getNewListingPathFromItems } from '@echo/ui/helpers/listing/get-new-listing-path-from-items'
 import { ProfileNftsEmpty } from '@echo/ui/pages/profile/nfts/profile-nfts-empty'
-import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { useRouter } from 'next/navigation'
 import { bind, isEmpty, pipe } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  nfts: SelectableNft[]
+  nfts: Nft[]
 }
 
 export const ProfileNfts: FunctionComponent<Props> = ({ nfts }) => {
@@ -19,5 +20,12 @@ export const ProfileNfts: FunctionComponent<Props> = ({ nfts }) => {
   if (isEmpty(nfts)) {
     return <ProfileNftsEmpty />
   }
-  return <SelectableNftsWithFilters nfts={nfts} onSelectionAction={pipe(getNewListingPathFromItems, routerPush)} />
+  return (
+    <SelectableNftsWithFilters
+      nfts={nfts}
+      sortBy={'collection'}
+      action={NFT_ACTION_LISTING}
+      onSelectionAction={pipe(getNewListingPathFromItems, routerPush)}
+    />
+  )
 }
