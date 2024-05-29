@@ -6,7 +6,7 @@ import { SIZE_MD } from '@echo/ui/constants/size'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Base/Icons/Discord Icon',
+  title: 'Base/Icons/Discord',
   component: Component,
   args: {
     size: SIZE_MD
@@ -21,4 +21,4 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-export const DiscordIcon: StoryObj<typeof Component> = {}
+export const Discord: StoryObj<typeof Component> = {}

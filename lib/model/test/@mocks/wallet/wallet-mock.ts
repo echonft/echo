@@ -1,6 +1,6 @@
 import type { Wallet } from '@echo/model/types/wallet'
 import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
-import { CHAIN_ETHEREUM } from '@echo/utils/constants/chain-names'
+import { CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
 import { isNil, toLower } from 'ramda'
 
 export const WALLET_MOCK_CREW_ADDRESS = toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D')

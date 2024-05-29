@@ -4,7 +4,7 @@ import { getWalletsCollectionReference } from '@echo/firestore/helpers/collectio
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { getWalletDocumentDataMockById } from '@echo/firestore-mocks/wallet/get-wallet-document-data-mock-by-id'
 import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
-import { CHAIN_ETHEREUM } from '@echo/utils/constants/chain-names'
+import { CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'

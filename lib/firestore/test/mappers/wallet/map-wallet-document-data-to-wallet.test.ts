@@ -1,6 +1,6 @@
 import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/wallet/map-wallet-document-data-to-wallet'
 import { getWalletDocumentDataMockById } from '@echo/firestore-mocks/wallet/get-wallet-document-data-mock-by-id'
-import { CHAIN_ETHEREUM } from '@echo/utils/constants/chain-names'
+import { CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
 

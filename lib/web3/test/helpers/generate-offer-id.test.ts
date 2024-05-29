@@ -1,7 +1,7 @@
 import type { BaseOffer } from '@echo/model/types/base-offer'
 import type { Nft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
-import { CHAIN_ETHEREUM } from '@echo/utils/constants/chain-names'
+import { CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
 import { generateOfferId } from '@echo/web3/helpers/generate-offer-id'
 import { describe, expect, test } from '@jest/globals'
 

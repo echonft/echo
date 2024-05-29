@@ -6,7 +6,7 @@ import { getChainId } from '@echo/utils/helpers/get-chain-id'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { ECHO_ABI } from '@echo/web3/constants/echo-abi'
-import { echoAddressByChain } from '@echo/web3/constants/echo-address'
+import { getEchoAddressByChain } from '@echo/web3/helpers/get-echo-address-by-chain'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import { mapOfferToContractCreateOffer } from '@echo/web3-dom/mappers/map-offer-to-contract-create-offer'
 import type { ContractCreateOfferArgs } from '@echo/web3-dom/types/contract-create-offer-args'
@@ -24,7 +24,7 @@ export async function createOffer(args: ContractCreateOfferArgs): Promise<HexStr
     prop('chain')
   )(offer)
 
-  const address = echoAddressByChain(chain)
+  const address = getEchoAddressByChain(chain)
   const chainId = getChainId(chain)
   const { request } = await simulateContract(wagmiConfig, {
     abi: ECHO_ABI,

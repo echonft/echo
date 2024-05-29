@@ -1,4 +1,4 @@
-import { CHAIN_ETHEREUM } from '@echo/utils/constants/chain-names'
+import { CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
 import { shortenAddress } from '@echo/web3/helpers/shorten-address'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'

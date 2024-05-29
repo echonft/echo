@@ -21,6 +21,7 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
+    "abitype": "1.0.2",
     "ramda": "0.30.0",
     "viem": "2.12.5"
   },

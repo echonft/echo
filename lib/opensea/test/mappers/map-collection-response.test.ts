@@ -3,15 +3,14 @@ import { COLLECTION_MOCK_SPIRAL_ID } from '@echo/model-mocks/collection/collecti
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { mapCollectionResponse } from '@echo/opensea/mappers/map-collection-response'
 import type { CollectionResponse } from '@echo/opensea/types/response/collection-response'
-import { getSupportedChains } from '@echo/utils/helpers/get-supported-chains'
+import { SUPPORTED_CHAINS } from '@echo/utils/constants/chains/supported-chains'
 import type { ChainName } from '@echo/utils/types/chain-name'
-import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, head, modify, omit, pipe } from 'ramda'
 
 describe('mappers - mapCollectionResponse', () => {
   it('maps correctly', () => {
-    const supportedChain = pipe<[], NonEmptyArray<ChainName>, ChainName>(getSupportedChains, head)()
+    const supportedChain = head(SUPPORTED_CHAINS)
     const unsupportedChain = 'unsupported' as ChainName
     const mock = pipe(
       getCollectionMockById,

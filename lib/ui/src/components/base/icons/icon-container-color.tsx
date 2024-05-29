@@ -15,7 +15,7 @@ export const IconContainerColor: FunctionComponent<PropsWithChildren<Props>> = (
         'flex-row',
         'justify-center',
         'items-center',
-        'text-yellow-700',
+        'text-yellow-500',
         'bg-white/[0.08]',
         className
       )}

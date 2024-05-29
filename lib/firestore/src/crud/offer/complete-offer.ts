@@ -4,7 +4,6 @@ import { getListingOffersByOfferId } from '@echo/firestore/crud/listing-offer/ge
 import { getListingOffersForListing } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-listing'
 import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
-import { switchOfferItemsOwners } from '@echo/firestore/crud/offer/switch-offer-items-owners'
 import { updateOfferState, type UpdateOfferStateArgs } from '@echo/firestore/crud/offer/update-offer-state'
 import { addSwap } from '@echo/firestore/crud/swap/add-swap'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
@@ -39,8 +38,6 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
     assoc<OfferState, 'state'>('state', OFFER_STATE_COMPLETED),
     updateOfferState
   )(args)
-  // switch ownership of the offer items
-  await switchOfferItemsOwners(offer)
   // add swap
   await pipe<
     [CompleteOfferArgs],

@@ -1,10 +1,10 @@
-import { MAINNET_CHAIN_ID, SEPOLIA_CHAIN_ID } from '@echo/utils/constants/chain-ids'
+import { ETHEREUM_CHAIN_ID, SEPOLIA_CHAIN_ID } from '@echo/utils/constants/chains/chain-ids'
 import { getChainById } from '@echo/web3/helpers/get-chain-by-id'
 import { describe, expect, test } from '@jest/globals'
 
 describe('helpers - getChainById', () => {
   test('returns a chain if id is valid', () => {
-    expect(getChainById(MAINNET_CHAIN_ID)).toBeDefined()
+    expect(getChainById(ETHEREUM_CHAIN_ID)).toBeDefined()
     expect(getChainById(SEPOLIA_CHAIN_ID)).toBeDefined()
   })
 

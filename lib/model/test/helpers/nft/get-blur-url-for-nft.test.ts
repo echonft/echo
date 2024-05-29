@@ -1,5 +1,5 @@
 import { getBlurUrlForNft } from '@echo/model/helpers/nft/get-blur-url-for-nft'
-import { CHAIN_ETHEREUM, TESTNET_CHAIN_SEPOLIA } from '@echo/utils/constants/chain-names'
+import { CHAIN_ETHEREUM, TESTNET_CHAIN_SEPOLIA } from '@echo/utils/constants/chains/chains'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
 

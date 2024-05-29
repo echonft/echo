@@ -1,10 +1,8 @@
 /*noinspection CssUnknownTarget*/
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @layer base {
   html {
     @apply w-screen h-screen;
@@ -16,13 +14,12 @@
     @apply fixed top-0 right-0;
   }
 }
-
 @layer components {
   .tooltip {
     @apply !bg-dark-500 !text-white !rounded-lg border border-solid border-white !text-label-xs font-inter z-50;
   }
   .pill {
-    @apply w-max h-max py-3 px-6 rounded-lg enabled:bg-transparent enabled:cursor-pointer enabled:hover:bg-white/[0.08] disabled:bg-white/[0.08] disabled:cursor-default
+    @apply w-max h-max py-3 px-6 rounded-lg enabled:bg-transparent enabled:cursor-pointer enabled:hover:bg-white/[0.08] disabled:bg-white/[0.08] disabled:cursor-default;
   }
   .btn {
     @apply flex flex-row justify-center items-center disabled:opacity-40 rounded-lg select-none outline-none h-max w-max transition-colors;
@@ -40,10 +37,10 @@
     @apply btn bg-purple-400 gap-2.5;
   }
   .btn-auth {
-    @apply flex flex-row items-center rounded-lg bg-dark-500 border border-solid border-white/[0.08] gap-2.5 h-12 w-max py-2.75 px-5 text-white prose-other-bold select-none outline-none disabled:opacity-40 enabled:hover:bg-white/[0.12] transition-colors
+    @apply flex flex-row items-center rounded-lg bg-dark-500 border border-solid border-white/[0.08] gap-2.5 h-12 w-max py-2.75 px-5 text-white prose-other-bold select-none outline-none disabled:opacity-40 enabled:hover:bg-white/[0.12] transition-colors;
   }
   .btn-auth-alt {
-    @apply flex flex-row items-center rounded-lg bg-white/[0.08] gap-2.5 h-12 w-max py-2.75 px-5 text-white prose-other-bold select-none outline-none disabled:opacity-40 enabled:hover:bg-white/[0.12] transition-colors
+    @apply flex flex-row items-center rounded-lg bg-white/[0.08] gap-2.5 h-12 w-max py-2.75 px-5 text-white prose-other-bold select-none outline-none disabled:opacity-40 enabled:hover:bg-white/[0.12] transition-colors;
   }
   .btn-cancel {
     @apply btn bg-red-400 enabled:hover:bg-red-600;
@@ -70,10 +67,9 @@
     @apply btn-label text-dark-500;
   }
   .btn-label-auth {
-    @apply h-max w-max select-none
+    @apply h-max w-max select-none;
   }
 }
-
 @layer utilities {
   .prose-display-lg-bold {
     @apply text-display-lg-bold font-inter;

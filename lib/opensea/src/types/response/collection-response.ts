@@ -1,4 +1,4 @@
-import type { ContractResponse } from '@echo/opensea/types/response/contract-response'
+import type { CollectionContractResponse } from '@echo/opensea/types/response/collection-contract-response'
 import type { Nullable } from '@echo/utils/types/nullable'
 
 export interface CollectionResponse {
@@ -21,7 +21,7 @@ export interface CollectionResponse {
   telegram_url: Nullable<string>
   twitter_username: Nullable<string>
   instagram_username: Nullable<string>
-  contracts: ContractResponse[]
+  contracts: CollectionContractResponse[]
   total_supply: number
   created_date: string
 }

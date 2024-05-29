@@ -1,5 +1,5 @@
 import { type Collection, type Contract } from '@echo/model/types/collection'
-import { CHAIN_ETHEREUM } from '@echo/utils/constants/chain-names'
+import { CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
 import { toLower } from 'ramda'
 
 export const COLLECTION_MOCK_PX_ID = 'Rc8pLQXxgyQGIRL0fr13'

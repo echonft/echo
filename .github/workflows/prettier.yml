@@ -28,6 +28,8 @@ jobs:
         run: pnpm exec turbo run prettier:ci --filter=@echo/alchemy
       - name: api prettier
         run: pnpm exec turbo run prettier:ci --filter=@echo/api
+      - name: contract-listener prettier
+        run: pnpm exec turbo run prettier:ci --filter=@echo/contract-listener
       - name: firestore prettier
         run: pnpm exec turbo run prettier:ci --filter=@echo/firestore
       - name: firestore-functions prettier
@@ -36,8 +38,6 @@ jobs:
         run: pnpm exec turbo run prettier:ci --filter=@echo/model
       - name: opensea prettier
         run: pnpm exec turbo run prettier:ci --filter=@echo/opensea
-      - name: opensea-stream prettier
-        run: pnpm exec turbo run prettier:ci --filter=@echo/opensea-stream
       - name: sentry prettier
         run: pnpm exec turbo run prettier:ci --filter=@echo/sentry
       - name: tasks prettier

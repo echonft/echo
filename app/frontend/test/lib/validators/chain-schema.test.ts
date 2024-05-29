@@ -1,5 +1,5 @@
 import { chainSchema } from '@echo/frontend/lib/validators/chain-schema'
-import { CHAIN_NAMES } from '@echo/utils/constants/chain-names'
+import { CHAINS } from '@echo/utils/constants/chains/chains'
 
 describe('validators - chainSchema', () => {
   it('wrong chain fails validation', () => {
@@ -10,6 +10,6 @@ describe('validators - chainSchema', () => {
     expect(() => chainSchema.parse('other-chain')).toThrow()
   })
   it('supported chain passes', () => {
-    expect(() => chainSchema.parse(CHAIN_NAMES[0])).not.toThrow()
+    expect(() => chainSchema.parse(CHAINS[0])).not.toThrow()
   })
 })

@@ -8,7 +8,7 @@ import { removeWalletRequestHandler } from '@echo/frontend/lib/request-handlers/
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
-import { CHAIN_NAMES } from '@echo/utils/constants/chain-names'
+import { CHAINS } from '@echo/utils/constants/chains/chains'
 import { toLower } from 'ramda'
 
 jest.mock('@echo/firestore/crud/user/get-user-by-username')
@@ -17,7 +17,7 @@ jest.mock('@echo/firestore/crud/wallet/get-wallets-for-user')
 
 describe('request-handlers - user - removeWalletRequestHandler', () => {
   const validWallet = {
-    chain: CHAIN_NAMES[0],
+    chain: CHAINS[0],
     address: toLower('0x12c63bbD266dB84e117356e664f3604055166CEc')
   }
   const validRequest: RemoveWalletRequest = {

@@ -4,7 +4,7 @@ import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { NFT_MOCK_SPIRAL_JOHNNY_2_ID, NFT_MOCK_SPIRAL_JOHNNY_ID } from '@echo/model-mocks/nft/nft-mock'
 import { OFFER_MOCK_FROM_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
 import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
-import { CHAIN_BLAST, CHAIN_ETHEREUM } from '@echo/utils/constants/chain-names'
+import { CHAIN_BLAST, CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, pipe, toLower } from 'ramda'
 

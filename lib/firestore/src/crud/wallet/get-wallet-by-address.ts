@@ -9,6 +9,7 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { allPass, always, andThen, assoc, complement, isNotNil, pipe, propEq, toLower, when } from 'ramda'
 
+// TODO add a flag to only compare with EVM - we will want a chains equal check at some point
 export function getWalletSnapshotByAddress(
   wallet: Wallet
 ): Promise<Nullable<QueryDocumentSnapshot<WalletDocumentData>>> {
