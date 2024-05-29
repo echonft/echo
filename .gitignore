@@ -10,9 +10,7 @@ coverage
 # debug
 .pnpm-debug.log*
 
-# local env files
-.env*
-!.env.vault
+.env.keys
 
 # typescript
 *.tsbuildinfo
