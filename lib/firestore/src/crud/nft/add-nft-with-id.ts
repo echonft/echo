@@ -4,12 +4,13 @@ import type { NftWithId } from '@echo/firestore/types/model/nft/nft-with-id'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { type Nft } from '@echo/model/types/nft'
 import { now } from '@echo/utils/helpers/now'
-import { assoc } from 'ramda'
+import { assoc, dissoc, pipe } from 'ramda'
 
 export async function addNftWithId(nft: NftWithId): Promise<NewDocument<Nft>> {
-  const data = assoc('updatedAt', now(), nft)
-  const id = await setReferenceById<Nft>({
-    documentReference: getNftDocumentReference(nft.id),
+  const id = nft.id
+  const data = pipe<[Nft], Nft, Nft>(assoc('updatedAt', now()), dissoc('id'))(nft)
+  await setReferenceById<Nft>({
+    documentReference: getNftDocumentReference(id),
     data
   })
   return { id, data }
