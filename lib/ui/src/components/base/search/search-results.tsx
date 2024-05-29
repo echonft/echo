@@ -14,7 +14,7 @@ interface Props<T> {
   }>
 }
 
-// TODO fix click on categories
+// FIXME fix click on categories
 export const SearchResults = <T,>({ results, style }: Props<T>) => {
   function getSearchResultStyle(index: number): SearchResultProps<T>['style'] {
     if (index === 0 && !style?.categories?.show) {

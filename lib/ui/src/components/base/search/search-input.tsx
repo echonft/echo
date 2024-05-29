@@ -19,7 +19,7 @@ interface Props {
   onSearch?: (searchQuery: string) => unknown
 }
 
-// TODO fix clear button
+// FIXME fix clear button
 export const SearchInput: FunctionComponent<Props> = ({ query, searching, style, onChange, onSearch }) => {
   const search = useMemo(
     () =>
