@@ -1,19 +1,20 @@
-import { getChain } from '@echo/contract-listener/helpers/get-chain'
 import type { TransferData } from '@echo/contract-listener/types/transfer-data'
 import { getWalletByAddress } from '@echo/firestore/crud/wallet/get-wallet-by-address'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
+import type { ChainName } from '@echo/utils/types/chain-name'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { Erc721TransferLog } from '@echo/web3/types/log/erc721-transfer-log'
 import { isNil, toLower } from 'ramda'
 
-export async function mapErc721TransferLogToTransferData(log: Erc721TransferLog): Promise<Nullable<TransferData>> {
+export async function mapErc721TransferLogToTransferData(
+  log: Erc721TransferLog,
+  chain: ChainName
+): Promise<Nullable<TransferData>> {
   const {
     address: contractAddress,
-    args: { from: fromAddress, to: toAddress, id: tokenId }
+    args: { from: fromAddress, to: toAddress, tokenId }
   } = log
-  // FIXME Perhaps the chain should be passed here because that won't work on multichain
-  const chain = getChain()
   // Need to clean data
   if (isNil(fromAddress) || isNil(toAddress) || isNil(tokenId)) {
     return undefined
@@ -27,7 +28,7 @@ export async function mapErc721TransferLogToTransferData(log: Erc721TransferLog)
       return undefined
     }
     return {
-      tokenId: Number(tokenId.toString()),
+      tokenId: Number(tokenId),
       contractAddress: toLower(contractAddress),
       chain,
       from,
