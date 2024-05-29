@@ -1,7 +1,7 @@
 'use client'
 import type { Wallet } from '@echo/model/types/wallet'
 import { WalletIconSvg } from '@echo/ui/components/base/svg/wallet-icon-svg'
-import { formatAddress } from '@echo/web3/helpers/format-address'
+import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
 import { shortenAddress } from '@echo/web3/helpers/shorten-address'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -19,7 +19,7 @@ export const WalletConnectedButton: FunctionComponent<Props> = ({ wallet }) => {
 
   return (
     <div className={clsx('w-max', 'h-max')}>
-      <CopyToClipboard text={formatAddress(wallet)}>
+      <CopyToClipboard text={formatWalletAddress(wallet)}>
         <button id={buttonId} className={clsx('btn-auth-alt', 'bg-white/[0.08]', 'border-none')}>
           <WalletIconSvg width={24} />
           <span className={clsx('btn-label-auth')}>{shortenAddress(wallet)}</span>

@@ -1,6 +1,6 @@
 import type { Nft } from '@echo/model/types/nft'
 import type { Wallet } from '@echo/model/types/wallet'
-import { formatAddress } from '@echo/web3/helpers/format-address'
+import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
 import { getClientForChain } from '@echo/web3/helpers/get-client-for-chain'
 import { pipe, prop, toLower } from 'ramda'
 import { erc721Abi } from 'viem'
@@ -12,7 +12,7 @@ export async function getNftOwner(nft: Nft): Promise<Wallet> {
   } = nft
   const client = pipe(prop('chain'), getClientForChain)(contract)
   const owner = await client.readContract({
-    address: formatAddress(contract),
+    address: formatWalletAddress(contract),
     abi: erc721Abi,
     functionName: 'ownerOf',
     args: [BigInt(tokenId)]

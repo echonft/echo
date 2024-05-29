@@ -1,7 +1,7 @@
 import type { BaseOffer } from '@echo/model/types/base-offer' // import required types from respective modules
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { getUserMockByUsername } from '@echo/model-mocks/user/user-mock'
-import { formatAddress } from '@echo/web3/helpers/format-address'
+import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
 import { mapOfferToContractCreateOffer } from '@echo/web3-dom/mappers/map-offer-to-contract-create-offer'
 import type { ContractCreateOffer } from '@echo/web3-dom/types/contract-create-offer'
 import { ContractOfferState } from '@echo/web3-dom/types/contract-offer-state'
@@ -19,8 +19,8 @@ describe('mappers - mapOfferToContractCreateOffer', () => {
   it('correctly maps a BaseOffer to ContractCreateOffer', () => {
     const result: ContractCreateOffer = mapOfferToContractCreateOffer(testOffer)
     expect(result).toBeDefined()
-    expect(result.sender).toBe(formatAddress(testOffer.sender.wallet))
-    expect(result.receiver).toBe(formatAddress(testOffer.receiver.wallet))
+    expect(result.sender).toBe(formatWalletAddress(testOffer.sender.wallet))
+    expect(result.receiver).toBe(formatWalletAddress(testOffer.receiver.wallet))
     expect(result.senderItems).toStrictEqual({
       chainId: 1,
       items: [

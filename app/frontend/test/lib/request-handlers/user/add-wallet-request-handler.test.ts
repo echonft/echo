@@ -14,7 +14,7 @@ import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
 import { CHAINS } from '@echo/utils/constants/chains/chains'
-import { formatAddress } from '@echo/web3/helpers/format-address'
+import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
 import { toLower } from 'ramda'
 import { SiweMessage } from 'siwe'
 
@@ -30,7 +30,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
   const chain = CHAINS[0]
   const validSiweMessage = new SiweMessage({
     domain: 'echo.xyz',
-    address: formatAddress({ address, chain }),
+    address: formatWalletAddress({ address, chain }),
     statement: 'Sign in to add this wallet to your account',
     uri: 'https://echo.xyz',
     version: '1',

@@ -15,7 +15,7 @@ import { isNil } from 'ramda'
  */
 export async function processOutTransfer(args: TransferData) {
   const { contractAddress, chain, tokenId } = args
-  pinoLogger.info(`OUT transfer for ${contractAddress}:${tokenId}, processing...`)
+  pinoLogger.info(`[OUT transfer ${contractAddress}:${tokenId}] processing...`)
   try {
     const collection = await getCollection({ chain, address: contractAddress })
     const nftIndex = getNftIndex({ collection, tokenId })
