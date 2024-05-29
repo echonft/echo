@@ -57,7 +57,7 @@ interface NftsStore {
     nfts: Nft[]
     traitFilters: TraitFilter[]
   }
-  sortBy: NftSortBy
+  sortFn: (nfts: Nft[]) => Nft[]
   selectNft: (nft: Nft) => void
   unselectNft: (nft: Nft) => void
   toggleTraitFilterSelection: (filter: TraitFilter) => void
@@ -67,9 +67,12 @@ interface NftsStore {
 function selectNft(nft: Nft): (args: NftsStore) => NftsStore {
   return function (args: NftsStore): NftsStore {
     return pipe<[NftsStore], NftsStore, NftsStore>(
-      setNfts,
-      filterNfts
-    )(modifyPath(['selection', 'nfts'], when<Nft[], Nft[]>(none(eqNft(nft)), append(nft)), args))
+      modify<'selection', NftsStore['selection'], NftsStore['selection']>(
+        'selection',
+        modify('nfts', when<Nft[], Nft[]>(none(eqNft(nft)), append(nft)))
+      ),
+      onSelectionUpdate
+    )(args)
   }
 }
 
@@ -77,21 +80,20 @@ function unselectNft(nft: Nft): (args: NftsStore) => NftsStore {
   return function (args: NftsStore): NftsStore {
     const sourceNft = find(eqNft(nft), args.source)
     const addNft = isNil(sourceNft) ? identity : append(sourceNft)
-    return pipe<[NftsStore], NftsStore, NftsStore>(
+    return pipe<[NftsStore], NftsStore, NftsStore, NftsStore>(
       modify<'nfts', Nft[], Nft[]>('nfts', addNft),
-      filterNfts
-    )(modifyPath(['selection', 'nfts'], reject(eqNft(nft)), args))
+      modify<'selection', NftsStore['selection'], NftsStore['selection']>(
+        'selection',
+        modify<'nfts', Nft[], Nft[]>('nfts', reject(eqNft(nft)))
+      ),
+      onSelectionUpdate
+    )(args)
   }
 }
-
-function setNfts(args: NftsStore): NftsStore {
-  const { source } = args
-  const sortFn = args.sortBy === 'collection' ? sortNftsByCollection : sortNftsByOwner
-  return assoc(
-    'nfts',
-    pipe<[Nft[]], Nft[], Nft[]>(reject<Nft>(isInWith(args.selection.nfts, eqNft)), sortFn)(source),
-    args
-  )
+function onSelectionUpdate(args: NftsStore): NftsStore {
+  const { source, sortFn } = args
+  const sortedNfts = pipe(reject(isInWith(args.selection.nfts, eqNft)), sortFn)(source)
+  return pipe(assoc('nfts', sortedNfts), filterNfts)(args)
 }
 
 function toggleTraitFilterSelection(filter: TraitFilter): (args: NftsStore) => NftsStore {
@@ -121,7 +123,8 @@ function toggleCollectionFilterSelection(filter: CollectionFilter): (args: NftsS
 
 function filterNftsByTraits(args: NftsStore): NftsStore {
   const {
-    selection: { collectionFilter, traitFilters }
+    selection: { collectionFilter, traitFilters },
+    sortFn
   } = args
   const predicate = getByTraitsNftFilterPredicate(traitFilters)
   if (isNil(predicate)) {
@@ -131,20 +134,25 @@ function filterNftsByTraits(args: NftsStore): NftsStore {
     return assocPath(['filteredByNfts', 'byTraits'], args.filteredByNfts.byCollection, args)
   }
   if (isNil(collectionFilter)) {
-    return assocPath(['filteredByNfts', 'byTraits'], filter(predicate, args.nfts), args)
+    return assocPath(['filteredByNfts', 'byTraits'], pipe(filter(predicate), sortFn)(args.nfts), args)
   }
-  return assocPath(['filteredByNfts', 'byTraits'], filter(predicate, args.filteredByNfts.byCollection), args)
+  return assocPath(
+    ['filteredByNfts', 'byTraits'],
+    pipe(filter(predicate), sortFn)(args.filteredByNfts.byCollection),
+    args
+  )
 }
 
 function filterNftsByCollection(args: NftsStore): NftsStore {
   const {
-    selection: { collectionFilter }
+    selection: { collectionFilter },
+    sortFn
   } = args
   if (isNil(collectionFilter)) {
     return assocPath(['filteredByNfts', 'byCollection'], args.nfts, args)
   }
   const predicate = getByCollectionNftFilterPredicate(collectionFilter)
-  return assocPath(['filteredByNfts', 'byCollection'], filter(predicate, args.nfts), args)
+  return assocPath(['filteredByNfts', 'byCollection'], pipe(filter(predicate), sortFn)(args.nfts), args)
 }
 
 function filterNfts(args: NftsStore): NftsStore {
@@ -163,18 +171,20 @@ const useNftsStore = create<NftsStore>((set, get) => ({
     nfts: [],
     traitFilters: []
   },
-  sortBy: 'owner',
+  sortFn: identity,
   initialize: (args) => {
     const { initialSelection, nfts, sortBy } = args
+    const sortFn = sortBy === 'collection' ? sortNftsByCollection : sortNftsByOwner
     if (isEmpty(get().source) || !eqListContentWith(eqNft)(get().source, nfts)) {
+      const sortedNfts = sortFn(nfts)
       set(
         pipe(
           assoc('source', nfts),
-          assoc('filteredNfts', nfts),
-          assoc('filteredByNfts', { byTraits: nfts, byCollection: nfts }),
           assocPath(['selection', 'nfts'], initialSelection?.nfts ?? []),
-          assoc('sortBy', sortBy),
-          setNfts
+          assoc('nfts', sortedNfts),
+          assocPath(['filteredByNfts', 'byTraits'], sortedNfts),
+          assocPath(['filteredByNfts', 'byCollection'], sortedNfts),
+          assoc('sortFn', sortFn)
         )
       )
     }
