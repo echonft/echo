@@ -731,6 +731,9 @@ importers:
 
   lib/opensea:
     dependencies:
+      qs:
+        specifier: 6.12.1
+        version: 6.12.1
       ramda:
         specifier: 0.30.0
         version: 0.30.0
