@@ -5,9 +5,6 @@ declare namespace NodeJS {
     env: {
       ADMIN_TOKEN: string
       ALCHEMY_API_KEY: string
-      ALCHEMY_AUTH_TOKEN: string
-      ALCHEMY_WEBHOOK_NFT_TRANSFERS: string
-      ALCHEMY_WEBHOOK_SWAPS: string
       CI?: number | 'true' | '1'
       DISCORD_CLIENT_ID: string
       DISCORD_CLIENT_SECRET: string

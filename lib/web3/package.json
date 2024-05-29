@@ -29,7 +29,6 @@
     "@babel/core": "7.24.6",
     "@babel/preset-env": "7.24.6",
     "@babel/preset-typescript": "7.24.6",
-    "@echo/alchemy": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "@jest/globals": "29.7.0",

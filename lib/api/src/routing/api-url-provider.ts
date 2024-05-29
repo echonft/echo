@@ -32,9 +32,5 @@ export const apiUrlProvider = {
   },
   user: {
     search: new ApiPath({ path: '/search/user' })
-  },
-  webhooks: {
-    nftTransfer: new ApiPath({ path: '/webhook/nft/transfer' }),
-    swap: new ApiPath({ path: '/webhook/swap' })
   }
 }

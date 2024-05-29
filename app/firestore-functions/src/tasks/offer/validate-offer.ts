@@ -3,6 +3,7 @@ import {
   OFFER_STATE_UPDATE_TRIGGER_REASON_APPROVAL_REVOKED,
   OFFER_STATE_UPDATE_TRIGGER_REASON_OWNERSHIP_CHANGED
 } from '@echo/firestore/constants/offer/offer-state-update-trigger-reasons'
+// eslint-disable-next-line camelcase
 import { unchecked_cancelOffer } from '@echo/firestore/crud/offer/unchecked_cancel-offer'
 import type { Offer } from '@echo/model/types/offer'
 import { errorMessage } from '@echo/utils/helpers/error-message'

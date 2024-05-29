@@ -153,9 +153,6 @@ importers:
       '@dotenvx/dotenvx':
         specifier: 0.44.1
         version: 0.44.1
-      '@echo/alchemy':
-        specifier: workspace:*
-        version: link:../../lib/alchemy
       '@echo/api':
         specifier: workspace:*
         version: link:../../lib/api
@@ -168,9 +165,6 @@ importers:
       '@echo/opensea':
         specifier: workspace:*
         version: link:../../lib/opensea
-      '@echo/tasks':
-        specifier: workspace:*
-        version: link:../../lib/tasks
       '@echo/utils':
         specifier: workspace:*
         version: link:../../lib/utils
@@ -286,6 +280,9 @@ importers:
       '@supercharge/promise-pool':
         specifier: 3.2.0
         version: 3.2.0
+      dayjs:
+        specifier: 1.11.11
+        version: 1.11.11
       firebase-admin:
         specifier: 12.1.1
         version: 12.1.1(encoding@0.1.13)
@@ -329,9 +326,6 @@ importers:
       '@echo/model':
         specifier: workspace:*
         version: link:../../lib/model
-      '@echo/tasks':
-        specifier: workspace:*
-        version: link:../../lib/tasks
       '@echo/ui':
         specifier: workspace:*
         version: link:../../lib/ui
@@ -529,58 +523,6 @@ importers:
       tsconfig-paths-webpack-plugin:
         specifier: 4.1.0
         version: 4.1.0
-      typescript:
-        specifier: 5.4.5
-        version: 5.4.5
-
-  lib/alchemy:
-    dependencies:
-      axios:
-        specifier: 1.7.2
-        version: 1.7.2
-      qs:
-        specifier: 6.12.1
-        version: 6.12.1
-      ramda:
-        specifier: 0.30.0
-        version: 0.30.0
-    devDependencies:
-      '@babel/core':
-        specifier: 7.24.6
-        version: 7.24.6
-      '@babel/preset-env':
-        specifier: 7.24.6
-        version: 7.24.6(@babel/core@7.24.6)
-      '@babel/preset-typescript':
-        specifier: 7.24.6
-        version: 7.24.6(@babel/core@7.24.6)
-      '@echo/model':
-        specifier: workspace:*
-        version: link:../model
-      '@echo/utils':
-        specifier: workspace:*
-        version: link:../utils
-      '@jest/globals':
-        specifier: 29.7.0
-        version: 29.7.0
-      '@jest/types':
-        specifier: 29.6.3
-        version: 29.6.3
-      '@types/node':
-        specifier: 20.12.12
-        version: 20.12.12
-      '@types/qs':
-        specifier: 6.9.15
-        version: 6.9.15
-      '@types/ramda':
-        specifier: 0.30.0
-        version: 0.30.0
-      jest:
-        specifier: 29.7.0
-        version: 29.7.0(@types/node@20.12.12)(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))
-      jest-junit:
-        specifier: 16.0.0
-        version: 16.0.0
       typescript:
         specifier: 5.4.5
         version: 5.4.5
@@ -790,46 +732,6 @@ importers:
       '@echo/utils':
         specifier: workspace:*
         version: link:../utils
-      '@types/node':
-        specifier: 20.12.12
-        version: 20.12.12
-      '@types/ramda':
-        specifier: 0.30.0
-        version: 0.30.0
-      typescript:
-        specifier: 5.4.5
-        version: 5.4.5
-
-  lib/tasks:
-    dependencies:
-      '@supercharge/promise-pool':
-        specifier: 3.2.0
-        version: 3.2.0
-      dayjs:
-        specifier: 1.11.11
-        version: 1.11.11
-      ramda:
-        specifier: 0.30.0
-        version: 0.30.0
-    devDependencies:
-      '@echo/alchemy':
-        specifier: workspace:*
-        version: link:../alchemy
-      '@echo/firestore':
-        specifier: workspace:*
-        version: link:../firestore
-      '@echo/model':
-        specifier: workspace:*
-        version: link:../model
-      '@echo/opensea':
-        specifier: workspace:*
-        version: link:../opensea
-      '@echo/utils':
-        specifier: workspace:*
-        version: link:../utils
-      '@echo/web3':
-        specifier: workspace:*
-        version: link:../web3
       '@types/node':
         specifier: 20.12.12
         version: 20.12.12
@@ -1055,9 +957,6 @@ importers:
       '@babel/preset-typescript':
         specifier: 7.24.6
         version: 7.24.6(@babel/core@7.24.6)
-      '@echo/alchemy':
-        specifier: workspace:*
-        version: link:../alchemy
       '@echo/model':
         specifier: workspace:*
         version: link:../model
@@ -1162,20 +1061,6 @@ packages:
 
   '@apidevtools/json-schema-ref-parser@9.1.2':
     resolution: {integrity: sha512-r1w81DpR+KyRWd3f+rk6TNqMgedmAxZP5v5KWlXQWlgMUUtyEJch0DKEci1SorPMiSeM8XPl7MZ3miJ60JIpQg==}
-
-  '@auth/core@0.28.2':
-    resolution: {integrity: sha512-Rlvu6yKa4bKbhQESMaEm6jHOY5ncIrsrQkC8tcwVQmf+cBLk7ReI9DIJS2O/WkIDoOwvM9PHiXTi5b+b/eyXxw==}
-    peerDependencies:
-      '@simplewebauthn/browser': ^9.0.1
-      '@simplewebauthn/server': ^9.0.2
-      nodemailer: ^6.8.0
-    peerDependenciesMeta:
-      '@simplewebauthn/browser':
-        optional: true
-      '@simplewebauthn/server':
-        optional: true
-      nodemailer:
-        optional: true
 
   '@auth/core@0.31.0':
     resolution: {integrity: sha512-UKk3psvA1cRbk4/c9CkpWB8mdWrkKvzw0DmEYRsWolUQytQ2cRqx+hYuV6ZCsngw/xbj9hpmkZmAZEyq2g4fMg==}
@@ -11935,16 +11820,6 @@ snapshots:
       call-me-maybe: 1.0.2
       js-yaml: 4.1.0
 
-  '@auth/core@0.28.2':
-    dependencies:
-      '@panva/hkdf': 1.1.1
-      '@types/cookie': 0.6.0
-      cookie: 0.6.0
-      jose: 5.3.0
-      oauth4webapi: 2.10.4
-      preact: 10.11.3
-      preact-render-to-string: 5.2.3(preact@10.11.3)
-
   '@auth/core@0.31.0':
     dependencies:
       '@panva/hkdf': 1.1.1
@@ -22366,7 +22241,7 @@ snapshots:
 
   next-auth@5.0.0-beta.18(next@14.2.3(@babel/core@7.24.6)(@opentelemetry/api@1.8.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
     dependencies:
-      '@auth/core': 0.28.2
+      '@auth/core': 0.31.0
       next: 14.2.3(@babel/core@7.24.6)(@opentelemetry/api@1.8.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
 

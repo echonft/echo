@@ -12,7 +12,6 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "@echo/alchemy/*": ["../../lib/alchemy/src/*"],
       "@echo/api/*": ["../../lib/api/src/*"],
       "@echo/bot/*": ["./src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],

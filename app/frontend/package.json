@@ -33,7 +33,6 @@
     "@echo/api": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
-    "@echo/tasks": "workspace:*",
     "@echo/ui": "workspace:*",
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",

@@ -11,13 +11,11 @@ const nextConfig = {
   },
   swcMinify: true,
   transpilePackages: [
-    '@echo/alchemy',
     '@echo/api',
     '@echo/firestore',
     '@echo/model',
     '@echo/opensea',
     '@echo/sentry',
-    '@echo/tasks',
     '@echo/ui',
     '@echo/utils',
     '@echo/web3',

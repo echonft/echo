@@ -31,17 +31,13 @@ jobs:
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/storybook
-      - name: alchemy lint
-        env:
-          NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint:ci --filter=@echo/alchemy
       - name: api lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/api
       - name: contract-listener lint
         env:
-         NODE_OPTIONS: "--max_old_space_size=4096"
+          NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/contract-listener
       - name: firestore lint
         env:
@@ -63,10 +59,6 @@ jobs:
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/sentry
-      - name: tasks lint
-        env:
-          NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint:ci --filter=@echo/tasks
       - name: ui lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
