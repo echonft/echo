@@ -9,6 +9,7 @@ import { SelectableNftsActionButton } from '@echo/ui/components/nft/selectable/s
 import { useNfts } from '@echo/ui/hooks/use-nfts'
 import type { NftSortBy } from '@echo/ui/types/nft-sort-by'
 import { clsx } from 'clsx'
+import { AnimatePresence } from 'framer-motion'
 import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
@@ -54,12 +55,14 @@ export const SelectableNftsWithFilters: FunctionComponent<Props> = ({
             selection={selection.collectionFilter}
             onToggleSelection={toggleCollectionFilterSelection}
           />
-          <TraitFilterPanelVisibilityManager
-            show={!isNil(selection.collectionFilter)}
-            nfts={filteredByNfts.byCollection}
-            selection={selection.traitFilters}
-            onToggleSelection={toggleTraitFilterSelection}
-          />
+          <AnimatePresence>
+            <TraitFilterPanelVisibilityManager
+              show={!isNil(selection.collectionFilter)}
+              nfts={filteredByNfts.byCollection}
+              selection={selection.traitFilters}
+              onToggleSelection={toggleTraitFilterSelection}
+            />
+          </AnimatePresence>
         </NftFiltersPanelsLayout>
         <SelectableNfts
           nfts={filteredByNfts.byTraits}
