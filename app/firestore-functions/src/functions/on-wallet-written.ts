@@ -5,7 +5,8 @@ import { setMaxInstances } from '@echo/firestore-functions/helper/set-max-instan
 import { FirestoreFunctionsLogger } from '@echo/firestore-functions/services/firestore-functions-logger'
 import { removeNftsForWallet } from '@echo/tasks/nft/remove-nfts-for-wallet'
 import { updateUserNfts } from '@echo/tasks/nft/update-user-nfts'
-import { EVM_MAINNET_CHAINS, EVM_TESTNET_CHAINS } from '@echo/utils/constants/chains/evm-chains'
+import { MAINNET_CHAINS } from '@echo/utils/constants/chains/mainnet-chains'
+import { TESTNET_CHAINS } from '@echo/utils/constants/chains/testnet-chains'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { isTestnetChain } from '@echo/utils/helpers/is-testnet-chain'
 import { DocumentSnapshot } from 'firebase-admin/firestore'
@@ -31,7 +32,7 @@ export const onWalletWritten = onDocumentWritten(
                   const isTestnet = isTestnetChain(wallet.chain)
                   const wallets = map(
                     (chain) => assoc('chain', chain, wallet),
-                    isTestnet ? EVM_TESTNET_CHAINS : EVM_MAINNET_CHAINS
+                    isTestnet ? TESTNET_CHAINS : MAINNET_CHAINS
                   )
                   await updateUserNfts(foundUser, wallets, logger)
                 } else {

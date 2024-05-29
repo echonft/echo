@@ -1,1 +1,1 @@
-export const MAINNET_CHAINS = ['blast', 'ethereum'] as const
+export const MAINNET_CHAINS = ['blast'] as const

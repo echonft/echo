@@ -1,1 +1,1 @@
-export const TESTNET_CHAINS = ['sepolia', 'blast_sepolia'] as const
+export const TESTNET_CHAINS = ['blast_sepolia'] as const
