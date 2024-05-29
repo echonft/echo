@@ -3,8 +3,8 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'contract-listener-dev'
-primary_region = 'ewr'
+app = 'echo-contract-listener-dev'
+primary_region = 'yul'
 
 [build]
   dockerfile = '../../../contract-listener.Dockerfile'
