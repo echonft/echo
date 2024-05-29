@@ -32,16 +32,17 @@ export async function processOutEscrowTransfer(args: EscrowData): Promise<void> 
       return
     }
     const nftData = nftSnapshot.data()
-    // We make a check on if to is nil, it should never happen.
-    // In that case, we simply put the NFT back to who it was before
-    // TODO We need to make sure this doesnt lead to some issues
-    //  in the frontend (where a user has an NFT he doesnt really own)
-    const nft: NftWithId = isNil(user)
-      ? { ...nftData, id: nftSnapshot.id }
-      : { ...nftData, id: nftSnapshot.id, owner: user }
-    // We add NFT back in the NFT database and remove the escrowed one
-    await addNftWithId(nft)
-    await deleteEscrowedNft(nftSnapshot.id)
+
+    // If the user is not found after the transaction, it means he is not in the Echo database
+    // We simply delete the NFT in that case
+    if (isNil(user)) {
+      await deleteEscrowedNft(nftSnapshot.id)
+    } else {
+      const nft: NftWithId = { ...nftData, id: nftSnapshot.id, owner: user }
+      // We add NFT back in the NFT database and remove the escrowed one
+      await addNftWithId(nft)
+      await deleteEscrowedNft(nftSnapshot.id)
+    }
   } catch (err) {
     pinoLogger.error(`processOutEscrowTransfer error: ${errorMessage(err)}`)
   }
