@@ -3,11 +3,11 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'opensea-stream-dev'
+app = 'contract-listener-dev'
 primary_region = 'ewr'
 
 [build]
-  dockerfile = '../../../opensea-stream.Dockerfile'
+  dockerfile = '../../../contract-listener.Dockerfile'
 
 [[vm]]
   cpu_kind = 'shared'

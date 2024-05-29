@@ -28,6 +28,8 @@ jobs:
         run: pnpm exec turbo run tsc:ci --filter=@echo/alchemy
       - name: api tsc
         run: pnpm exec turbo run tsc:ci --filter=@echo/api
+      - name: contract-listener tsc
+        run: pnpm exec turbo run tsc:ci --filter=@echo/contract-listener
       - name: firestore tsc
         run: pnpm exec turbo run tsc:ci --filter=@echo/firestore
       - name: firestore-functions tsc
@@ -36,8 +38,6 @@ jobs:
         run: pnpm exec turbo run tsc:ci --filter=@echo/model
       - name: opensea tsc
         run: pnpm exec turbo run tsc:ci --filter=@echo/opensea
-      - name: opensea-stream tsc
-        run: pnpm exec turbo run tsc:ci --filter=@echo/opensea-stream
       - name: sentry tsc
         run: pnpm exec turbo run tsc:ci --filter=@echo/sentry
       - name: tasks tsc

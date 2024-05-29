@@ -39,6 +39,10 @@ jobs:
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/api
+      - name: contract-listener lint
+        env:
+         NODE_OPTIONS: "--max_old_space_size=4096"
+        run: pnpm exec turbo run lint:ci --filter=@echo/contract-listener
       - name: firestore lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
@@ -55,10 +59,6 @@ jobs:
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/opensea
-      - name: opensea-stream lint
-        env:
-          NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint:ci --filter=@echo/opensea-stream
       - name: sentry lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
