@@ -4,7 +4,7 @@ export const TESTNET_CHAIN_BLAST = 'blast_sepolia'
 export const TESTNET_CHAIN_SEPOLIA = 'sepolia'
 export const CHAIN_BLAST = 'blast'
 export const CHAIN_ETHEREUM = 'ethereum'
-export const CHAINS = [TESTNET_CHAIN_BLAST, TESTNET_CHAIN_SEPOLIA, CHAIN_BLAST, CHAIN_ETHEREUM] as const
+export const CHAINS = ['blast_sepolia', 'sepolia', 'blast', 'ethereum'] as const
 
 export const CHAIN: Record<number, ChainName> = {
   81457: CHAIN_BLAST,
