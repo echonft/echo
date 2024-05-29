@@ -1,7 +1,6 @@
 'use client'
 import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
-import { eqNft } from '@echo/model/helpers/nft/eq-nft'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
@@ -20,12 +19,11 @@ import { UserProfileWallets } from '@echo/ui/components/user/profile/user-profil
 import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { SIZE_MD } from '@echo/ui/constants/size'
 import { SWAP_DIRECTION_IN, SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
-import type { Selectable } from '@echo/ui/types/selectable'
-import { isInWith } from '@echo/utils/fp/is-in-with'
+import { useNfts } from '@echo/ui/hooks/use-nfts'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
-import { append, isEmpty, reject } from 'ramda'
-import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
+import { isEmpty } from 'ramda'
+import { type FunctionComponent, useState } from 'react'
 
 interface Props {
   receiver: User
@@ -44,29 +42,16 @@ export const CreateOffer: FunctionComponent<Props> = ({
   onCancel,
   onComplete
 }) => {
-  const [senderSelection, setSenderSelection] = useState<Nft[]>([])
+  const { nfts, selection, selectNft, unselectNft } = useNfts({ nfts: senderNfts, sortBy: 'collection' })
   const [reviewing, setReviewing] = useState(false)
   // TODO Probably should change that, not the most beautiful
   const [settingExpiration, setSettingExpiration] = useState(false)
   const { username, discord, wallet } = receiver
-  const selectSenderNft = useCallback(
-    (nft: Nft) => {
-      setSenderSelection(append(nft))
-    },
-    [setSenderSelection]
-  )
-  const unselectSenderNft = useCallback(
-    (nft: Nft) => {
-      setSenderSelection(reject(eqNft(nft)))
-    },
-    [setSenderSelection]
-  )
-  const nfts = useMemo(() => reject(isInWith(senderSelection, eqNft))(senderNfts), [senderSelection, senderNfts])
 
   if (settingExpiration) {
     return (
       <CreateOfferExpiration
-        senderItems={senderSelection}
+        senderItems={selection.nfts}
         receiverItems={receiverItems}
         onCancel={() => {
           setSettingExpiration(false)
@@ -111,16 +96,16 @@ export const CreateOffer: FunctionComponent<Props> = ({
         <div className={clsx('flex', 'flex-row', 'justify-center', 'h-max', 'w-full', 'px-8')}>
           <CreateOfferSenderNfts
             nfts={nfts}
-            selection={senderSelection}
+            selection={selection.nfts}
             readOnly={reviewing}
-            onSelect={selectSenderNft}
-            onUnselect={unselectSenderNft}
+            onSelect={selectNft}
+            onUnselect={unselectNft}
           />
         </div>
         <div className={clsx('flex', 'flex-row', 'gap-8', 'justify-center', 'items-center', 'pb-5')}>
           <CreateOfferButtons
             readOnly={reviewing}
-            disabled={!reviewing && isEmpty(senderSelection)}
+            disabled={!reviewing && isEmpty(selection.nfts)}
             loading={loading}
             onComplete={() => {
               if (reviewing) {

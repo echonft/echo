@@ -6,9 +6,9 @@ import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/n
 import { NftsAndFiltersLayout } from '@echo/ui/components/nft/filters/layout/nfts-and-filters-layout'
 import { SelectableNfts, type SelectableNftsProps } from '@echo/ui/components/nft/selectable/selectable-nfts'
 import { SelectableNftsActionButton } from '@echo/ui/components/nft/selectable/selectable-nfts-action-button'
-import { NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
 import type { NftSortBy } from '@echo/ui/types/nft-sort-by'
+import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
@@ -39,39 +39,41 @@ export const SelectableNftsWithFilters: FunctionComponent<Props> = ({
   })
 
   return (
-    <NftsAndFiltersLayout>
-      <NftFiltersPanelsLayout>
-        <SelectableNftsActionButton
+    <div className={clsx('w-full', 'h-max')}>
+      <NftsAndFiltersLayout>
+        <NftFiltersPanelsLayout>
+          <SelectableNftsActionButton
+            action={action}
+            count={selection.nfts.length}
+            onClick={() => {
+              onSelectionAction?.(selection.nfts)
+            }}
+          />
+          <CollectionFilterPanel
+            nfts={nfts}
+            selection={selection.collectionFilter}
+            onToggleSelection={toggleCollectionFilterSelection}
+          />
+          <TraitFilterPanelVisibilityManager
+            show={!isNil(selection.collectionFilter)}
+            nfts={filteredByNfts.byCollection}
+            selection={selection.traitFilters}
+            onToggleSelection={toggleTraitFilterSelection}
+          />
+        </NftFiltersPanelsLayout>
+        <SelectableNfts
+          nfts={filteredByNfts.byTraits}
+          selection={selection.nfts}
           action={action}
-          count={selection.nfts.length}
-          onClick={() => {
-            onSelectionAction?.(selection.nfts)
+          options={options}
+          style={style}
+          onAction={(nft) => {
+            onSelectionAction?.([nft])
           }}
+          onSelect={selectNft}
+          onUnselect={unselectNft}
         />
-        <CollectionFilterPanel
-          nfts={nfts}
-          selection={selection.collectionFilter}
-          onToggleSelection={toggleCollectionFilterSelection}
-        />
-        <TraitFilterPanelVisibilityManager
-          show={!isNil(selection.collectionFilter)}
-          nfts={filteredByNfts.byCollection}
-          selection={selection.traitFilters}
-          onToggleSelection={toggleTraitFilterSelection}
-        />
-      </NftFiltersPanelsLayout>
-      <SelectableNfts
-        nfts={filteredByNfts.byTraits}
-        selection={selection.nfts}
-        action={NFT_ACTION_OFFER}
-        options={options}
-        style={style}
-        onAction={(nft) => {
-          onSelectionAction?.([nft])
-        }}
-        onSelect={selectNft}
-        onUnselect={unselectNft}
-      />
-    </NftsAndFiltersLayout>
+      </NftsAndFiltersLayout>
+    </div>
   )
 }

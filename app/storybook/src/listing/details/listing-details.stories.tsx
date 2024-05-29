@@ -10,12 +10,9 @@ import {
 import type { Listing } from '@echo/model/types/listing'
 import type { ListingRole } from '@echo/model/types/listing-role'
 import type { ListingState } from '@echo/model/types/listing-state'
-import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
-import { COLLECTION_MOCK_PX_ID } from '@echo/model-mocks/collection/collection-mock'
 import { getListingMock } from '@echo/model-mocks/listing/get-listing-mock'
-import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
 import { USER_MOCK_CREW_USERNAME, USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
@@ -23,14 +20,13 @@ import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
 import { ListingDetails as Component } from '@echo/ui/components/listing/details/listing-details'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { always, assoc, filter, ifElse, includes, pathEq, pipe } from 'ramda'
+import { always, assoc, ifElse, includes, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 type Role = 'Creator' | 'Target' | 'None'
 type ComponentType = FunctionComponent<{
   state: ListingState
   role: Role
-  targetHasNfts: boolean
   withOffers: boolean
 }>
 
@@ -39,26 +35,18 @@ const metadata: Meta<ComponentType> = {
   args: {
     state: LISTING_STATE_OPEN,
     role: 'None',
-    targetHasNfts: true,
     withOffers: false
   },
   argTypes: {
     role: {
-      defaultValue: 'None',
       options: ['Creator', 'Target', 'None'],
       control: { type: 'radio' }
     },
     state: {
-      defaultValue: LISTING_STATE_OPEN,
       options: LISTING_STATES,
       control: { type: 'select' }
     },
-    targetHasNfts: {
-      defaultValue: true,
-      control: 'boolean'
-    },
     withOffers: {
-      defaultValue: false,
       control: 'boolean'
     }
   }
@@ -67,7 +55,7 @@ const metadata: Meta<ComponentType> = {
 export default metadata
 
 export const Details: StoryObj<ComponentType> = {
-  render: ({ state, role, withOffers, targetHasNfts }) => {
+  render: ({ state, role, withOffers }) => {
     function setExpirationAndReadOnly(listing: Listing): Listing {
       if (listing.state === LISTING_STATE_EXPIRED) {
         return pipe<[Listing], Listing, Listing>(assoc('expiresAt', expiredDate()), assoc('readOnly', true))(listing)
@@ -76,14 +64,6 @@ export const Details: StoryObj<ComponentType> = {
         return pipe<[Listing], Listing, Listing>(assoc('expiresAt', notExpiredDate()), assoc('readOnly', true))(listing)
       }
       return pipe<[Listing], Listing, Listing>(assoc('expiresAt', notExpiredDate()), assoc('readOnly', false))(listing)
-    }
-
-    function getTargetNfts(): Nft[] {
-      return ifElse(
-        always(targetHasNfts),
-        pipe<[], Nft[], Nft[]>(getAllNftMocks, filter(pathEq(COLLECTION_MOCK_PX_ID, ['collection', 'id']))),
-        always([])
-      )()
     }
 
     function getOffers(): Offer[] {
@@ -116,7 +96,6 @@ export const Details: StoryObj<ComponentType> = {
             ? getAuthUserMockByUsername(USER_MOCK_JOHNNY_USERNAME)
             : getAuthUserMockByUsername(USER_MOCK_CREW_USERNAME)
         }
-        userTargetNfts={getTargetNfts()}
         offers={getOffers()}
       />
     )

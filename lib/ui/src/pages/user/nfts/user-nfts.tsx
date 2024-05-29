@@ -1,6 +1,7 @@
 'use client'
 import { type Nft } from '@echo/model/types/nft'
-import { SelectableNftsWithFilters } from '@echo/ui/components/nft/selectable/selectable-nfts-with-filters'
+import { NftsWithFilters } from '@echo/ui/components/nft/filters/layout/nfts-with-filters'
+import { SelectableNftsWithFilters } from '@echo/ui/components/nft/filters/layout/selectable-nfts-with-filters'
 import { NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
 import { getNewOfferPath } from '@echo/ui/helpers/offer/get-new-offer-path'
 import { UserNftsEmpty } from '@echo/ui/pages/user/nfts/user-nfts-empty'
@@ -20,6 +21,9 @@ export const UserNfts: FunctionComponent<Props> = ({ isAuthUser, nfts }) => {
 
   if (isEmpty(nfts)) {
     return <UserNftsEmpty />
+  }
+  if (isAuthUser) {
+    return <NftsWithFilters nfts={nfts} sortBy={'collection'} cardOptions={{ owner: { hide: true } }} />
   }
   return (
     <SelectableNftsWithFilters

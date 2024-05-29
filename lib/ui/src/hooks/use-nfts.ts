@@ -39,7 +39,7 @@ import { create } from 'zustand'
 interface InitializeArgs {
   nfts: Nft[]
   initialSelection?: {
-    nfts?: Nft[]
+    nfts?: Nullable<Nft[]>
   }
   sortBy: NftSortBy
 }

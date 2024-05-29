@@ -13,7 +13,7 @@ export const OfferCardsContainer: FunctionComponent<Props> = ({ offers, options 
     <CardsLayout>
       {map(
         (offer) => (
-          <OfferCard key={offer.idContract} offer={offer} options={options} />
+          <OfferCard key={offer.slug} offer={offer} options={options} />
         ),
         offers
       )}

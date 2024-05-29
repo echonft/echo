@@ -1,7 +1,7 @@
 'use client'
 import type { Nft } from '@echo/model/types/nft'
-import { SelectableNftsLayout } from '@echo/ui/components/nft/group/layout/selectable-nfts-layout'
 import { keyOf } from '@echo/ui/components/nft/key-of'
+import { SelectableNftsLayout } from '@echo/ui/components/nft/selectable/layout/selectable-nfts-layout'
 import {
   SelectableNftCard,
   type SelectableNftCardProps
@@ -10,7 +10,6 @@ import {
   SelectableNftThumbnailContainer,
   type SelectableNftThumbnailContainerProps
 } from '@echo/ui/components/nft/selectable-thumbnail/selectable-nft-thumbnail-container'
-import type { Selectable } from '@echo/ui/types/selectable'
 import { clsx } from 'clsx'
 import { motion } from 'framer-motion'
 import { isEmpty, map } from 'ramda'

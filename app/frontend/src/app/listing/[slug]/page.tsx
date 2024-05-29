@@ -17,7 +17,7 @@ import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import { notFound } from 'next/navigation'
-import { andThen, filter, isNil, map, pathEq, pipe, reject } from 'ramda'
+import { andThen, isNil, map, pipe, reject } from 'ramda'
 import type { ReactElement } from 'react'
 
 type Params = NextUserParams<NextParams<WithSlug>>
@@ -28,7 +28,6 @@ async function render({ params: { slug }, user }: Params) {
   if (isNil(listing)) {
     notFound()
   }
-  const userTargetNfts = filter(pathEq(listing.target.collection.slug, ['collection', 'slug']), nfts)
   const offers = await pipe(
     getPendingOffersForListing,
     andThen(
@@ -38,7 +37,7 @@ async function render({ params: { slug }, user }: Params) {
   return (
     <PageLayout user={user} background={getListingPageLayoutBackground(listing)}>
       <PaddedSectionLayout>
-        <ListingDetails listing={listing} user={user} userTargetNfts={userTargetNfts} offers={offers} />
+        <ListingDetails listing={listing} user={user} offers={offers} />
       </PaddedSectionLayout>
     </PageLayout>
   )

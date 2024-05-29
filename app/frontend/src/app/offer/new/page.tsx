@@ -11,13 +11,30 @@ import type { User } from '@echo/model/types/user'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { CreateOfferManager } from '@echo/ui/components/offer/create/create-offer-manager'
-import type { Selectable } from '@echo/ui/types/selectable'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
+import type { ChainName } from '@echo/utils/types/chain-name'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound } from 'next/navigation'
-import { andThen, assoc, head, identity, is, isNil, juxt, map, pipe, prop, reject, unless } from 'ramda'
+import {
+  andThen,
+  equals,
+  filter,
+  head,
+  identity,
+  is,
+  isNil,
+  juxt,
+  map,
+  path,
+  pathSatisfies,
+  pipe,
+  prop,
+  reject,
+  unless
+} from 'ramda'
 import type { ReactElement } from 'react'
 
 type Params = NextUserParams<
@@ -44,10 +61,14 @@ async function render({ searchParams: { receiverItems }, user }: Params) {
     notFound()
   }
   const receiver = pipe<[Nft[]], Nft, User>(head, prop('owner'))(receiverNfts)
+  const receiverChain = pipe(
+    head,
+    nonNullableReturn(path<ChainName>(['collection', 'contract', 'chain']))
+  )(receiverNfts)
   const senderNfts: Nft[] = await pipe(
     prop('username'),
     getNftsForOwner as (username: string) => Promise<Nft[]>,
-    andThen(map<Nft, Nft>(assoc('actionDisabled', true)))
+    andThen(filter(pathSatisfies(equals(receiverChain), ['collection', 'contract', 'chain'])))
   )(user)
   if (isNilOrEmpty(senderNfts)) {
     notFound()

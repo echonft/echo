@@ -1,7 +1,6 @@
 'use client'
 import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
-import { eqNft } from '@echo/model/helpers/nft/eq-nft'
 import type { Collection } from '@echo/model/types/collection'
 import type { ListingTarget } from '@echo/model/types/listing-target'
 import type { Nft } from '@echo/model/types/nft'
@@ -13,13 +12,12 @@ import { CreateListingSwapDirectionHeader } from '@echo/ui/components/listing/cr
 import { CreateListingTargets } from '@echo/ui/components/listing/create/create-listing-targets'
 import { CreateOfferSwapDirectionHeader } from '@echo/ui/components/offer/create/create-offer-swap-direction-header'
 import { SWAP_DIRECTION_IN, SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
-import type { Selectable } from '@echo/ui/types/selectable'
-import { isInWith } from '@echo/utils/fp/is-in-with'
+import { useNfts } from '@echo/ui/hooks/use-nfts'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
-import { always, append, assoc, isEmpty, isNil, pipe, reject, unless } from 'ramda'
-import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
+import { assoc, isEmpty, isNil } from 'ramda'
+import { type FunctionComponent, useState } from 'react'
 
 interface Props {
   creatorNfts: Nft[]
@@ -38,32 +36,15 @@ export const CreateListing: FunctionComponent<Props> = ({
   onCancel,
   onComplete
 }) => {
-  const [itemsSelection, setItemsSelection] = useState<Nft[]>(items ?? [])
+  const { nfts, selection, selectNft, unselectNft } = useNfts({
+    nfts: creatorNfts,
+    sortBy: 'collection',
+    initialSelection: { nfts: items }
+  })
   const [targetSelection, setTargetSelection] = useState<Nullable<ListingTarget>>(
     isNil(target) ? undefined : { collection: target, amount: 1 }
   )
   const [reviewing, setReviewing] = useState(false)
-  const selectItem = useCallback(
-    (nft: Nft) => {
-      setItemsSelection(append(nft))
-    },
-    [setItemsSelection]
-  )
-
-  const unselectItem = useCallback(
-    (nft: Nft) => {
-      setItemsSelection(reject(eqNft(nft)))
-    },
-    [setItemsSelection]
-  )
-  const nfts = useMemo(
-    () =>
-      pipe<[Nft[]], Nft[], Nft[]>(
-        unless<Nft[], Nft[]>(always(isEmpty(itemsSelection)), always(itemsSelection)),
-        reject(isInWith(itemsSelection, eqNft))
-      )(creatorNfts),
-    [itemsSelection, creatorNfts]
-  )
 
   return (
     <div className={clsx('flex', 'flex-col', 'gap-24')}>
@@ -100,20 +81,20 @@ export const CreateListing: FunctionComponent<Props> = ({
         <div className={clsx('flex', 'flex-row', 'justify-center', 'h-max', 'w-full', 'px-8')}>
           <CreateListingNfts
             nfts={nfts}
-            selection={itemsSelection}
+            selection={selection.nfts}
             readOnly={reviewing}
-            onSelect={selectItem}
-            onUnselect={unselectItem}
+            onSelect={selectNft}
+            onUnselect={unselectNft}
           />
         </div>
         <div className={clsx('flex', 'flex-row', 'gap-8', 'justify-center', 'items-center', 'pb-5')}>
           <CreateListingButtons
             readOnly={reviewing}
-            disabled={!reviewing && (isEmpty(itemsSelection) || isEmpty(targetSelection))}
+            disabled={!reviewing && (isEmpty(selection.nfts) || isEmpty(targetSelection))}
             loading={loading}
             onComplete={() => {
               if (reviewing) {
-                onComplete?.(itemsSelection, targetSelection!)
+                onComplete?.(selection.nfts, targetSelection!)
               } else {
                 setReviewing(true)
               }

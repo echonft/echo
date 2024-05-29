@@ -15,12 +15,12 @@ const metadata: Meta<ComponentType> = {
   },
   argTypes: {
     isAuthUser: {
-      control: 'boolean'
+      control: { type: 'boolean' }
     }
   },
   parameters: {
     controls: {
-      exclude: ['nfts', 'isAuthUser']
+      exclude: ['nfts']
     }
   }
 }
