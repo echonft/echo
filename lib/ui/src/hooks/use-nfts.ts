@@ -1,5 +1,6 @@
 import { eqWithId } from '@echo/model/helpers/eq-with-id'
 import { eqNft } from '@echo/model/helpers/nft/eq-nft'
+import { eqNftOwner } from '@echo/model/helpers/nft/eq-nft-owner'
 import type { Nft } from '@echo/model/types/nft'
 import { getByCollectionNftFilterPredicate } from '@echo/ui/helpers/nft/filters/get-by-collection-nft-filter-predicate'
 import { getByTraitsNftFilterPredicate } from '@echo/ui/helpers/nft/filters/get-by-traits-nft-filter-predicate'
@@ -22,6 +23,7 @@ import {
   either,
   filter,
   find,
+  head,
   identity,
   ifElse,
   isEmpty,
@@ -29,9 +31,11 @@ import {
   modify,
   modifyPath,
   none,
+  type NonEmptyArray,
   path,
   pipe,
   reject,
+  T,
   when
 } from 'ramda'
 import { create } from 'zustand'
@@ -92,8 +96,16 @@ function unselectNft(nft: Nft): (args: NftsStore) => NftsStore {
 }
 function onSelectionUpdate(args: NftsStore): NftsStore {
   const { source, sortFn } = args
-  const sortedNfts = pipe(reject(isInWith(args.selection.nfts, eqNft)), sortFn)(source)
-  return pipe(assoc('nfts', sortedNfts), filterNfts)(args)
+  const selection = args.selection.nfts
+  const selectionFilterFn: (nft: Nft) => boolean = isEmpty(selection)
+    ? T
+    : eqNftOwner(head(selection as NonEmptyArray<Nft>))
+  const sortedNfts = pipe(reject(isInWith(selection, eqNft)), sortFn)(source)
+  return pipe<[NftsStore], NftsStore, NftsStore, NftsStore>(
+    assoc('nfts', sortedNfts),
+    modify<'nfts', Nft[], Nft[]>('nfts', filter(selectionFilterFn)),
+    filterNfts
+  )(args)
 }
 
 function toggleTraitFilterSelection(filter: TraitFilter): (args: NftsStore) => NftsStore {
