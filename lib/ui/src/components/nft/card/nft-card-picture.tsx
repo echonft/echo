@@ -9,11 +9,7 @@ export const NftCardPicture: FunctionComponent<NftCardProps> = (props) => {
   const { nft, options } = props
   return (
     <CardPictureLayout>
-      <CardImage
-        src={nft.pictureUrl ?? ''}
-        alt={nft.tokenId.toString()}
-        scaleDisabled={options?.style?.scaleDisabled}
-      />
+      <CardImage src={nft.pictureUrl} alt={nft.tokenId.toString()} scaleDisabled={options?.style?.scaleDisabled} />
       <CardChainIcon chain={nft.collection.contract.chain} />
       <NftCardDiscordTag {...props} />
     </CardPictureLayout>

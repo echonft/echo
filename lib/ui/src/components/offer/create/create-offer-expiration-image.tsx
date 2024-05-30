@@ -1,13 +1,14 @@
 'use client'
 import { PICTURE_SIZE_XL } from '@echo/ui/constants/picture-size'
 import { addPictureSizeToUrl } from '@echo/ui/helpers/add-picture-size-to-url'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import Image from 'next/image'
 import { type FunctionComponent } from 'react'
 
 interface Props {
   alt: string
-  src: string
+  src: Nullable<string>
 }
 
 export const CreateOfferExpirationImage: FunctionComponent<Props> = ({ alt, src }) => {

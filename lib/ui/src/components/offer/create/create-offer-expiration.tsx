@@ -31,7 +31,7 @@ export const CreateOfferExpiration: FunctionComponent<Props> = ({
   const firstNft = head(senderItems)!
   return (
     <div className={clsx('flex', 'flex-row', 'gap-16', 'items-center', 'py-36', 'px-12')}>
-      <CreateOfferExpirationImage alt={firstNft.tokenId.toString()} src={firstNft.pictureUrl ?? ''} />
+      <CreateOfferExpirationImage alt={firstNft.tokenId.toString()} src={firstNft.pictureUrl} />
       <div className={clsx('flex', 'flex-col', 'gap-12')}>
         <span className={clsx('prose-display-lg-bold', 'text-white', 'whitespace-pre-line')}>
           {t.rich('title', {

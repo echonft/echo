@@ -2,13 +2,14 @@
 import { ImagePlaceholder } from '@echo/ui/components/base/image-placeholder'
 import { PICTURE_SIZE_LG } from '@echo/ui/constants/picture-size'
 import { addPictureSizeToUrl } from '@echo/ui/helpers/add-picture-size-to-url'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import Image from 'next/image'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
   alt: string
-  src: string
+  src: Nullable<string>
   scaleDisabled?: boolean
 }
 

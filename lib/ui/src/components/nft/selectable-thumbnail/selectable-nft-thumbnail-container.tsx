@@ -1,4 +1,5 @@
 import type { Nft } from '@echo/model/types/nft'
+import { keyOf } from '@echo/ui/components/nft/key-of'
 import { SelectableNftThumbnail } from '@echo/ui/components/nft/selectable-thumbnail/selectable-nft-thumbnail'
 import { clsx } from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -42,8 +43,7 @@ export const SelectableNftThumbnailContainer: FunctionComponent<SelectableNftThu
         {map(
           (nft) => (
             <SelectableNftThumbnail
-              // TODO Validate this behaviour (key)
-              key={`${nft.collection.name}-${nft.tokenId}`}
+              key={keyOf(nft)}
               nft={nft}
               onRemove={() => {
                 onRemove?.(nft)
