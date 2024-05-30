@@ -24,18 +24,21 @@ export const TraitFilterPanelVisibilityManager: FunctionComponent<Props> = ({
     }
   }, [show, nfts])
 
-  return (
-    <motion.div
-      transition={{ ease: 'easeOut', duration: 0.4 }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <TraitFilterPanel
-        nfts={show ? nfts : filtersRef.current}
-        selection={selection}
-        onToggleSelection={onToggleSelection}
-      />
-    </motion.div>
-  )
+  if (show) {
+    return (
+      <motion.div
+        transition={{ ease: 'easeOut', duration: 0.4 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <TraitFilterPanel
+          nfts={show ? nfts : filtersRef.current}
+          selection={selection}
+          onToggleSelection={onToggleSelection}
+        />
+      </motion.div>
+    )
+  }
+  return null
 }
