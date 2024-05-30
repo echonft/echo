@@ -14,7 +14,7 @@ export function buildSwapEmbed(offer: Offer, creator: UserDocumentData, counterp
       .setDescription(
         i18next.t('swap.embed.description', {
           creator: userMention(creator.discord.id),
-          counterpart: userMention(counterparty.discord.id)
+          counterparty: userMention(counterparty.discord.id)
         })
       )
       // TODO Maybe a color per collection via settings?
