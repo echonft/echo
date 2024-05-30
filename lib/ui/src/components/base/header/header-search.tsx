@@ -32,9 +32,11 @@ export const HeaderSearch: FunctionComponent = () => {
           }
         }}
         style={{
-          categories: {
-            show: true
-          },
+          // FIXME clicking on categories does not work anymore
+          // add back when it's fixed
+          // categories: {
+          //   show: true
+          // },
           placeHolder: t('placeHolder')
         }}
       />

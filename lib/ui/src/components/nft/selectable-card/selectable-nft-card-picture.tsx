@@ -11,7 +11,7 @@ export const SelectableNftCardPicture: FunctionComponent<Pick<SelectableNftCardP
 }) => {
   return (
     <CardPictureLayout>
-      <CardImage src={nft.pictureUrl ?? ''} alt={nft.tokenId.toString()} />
+      <CardImage src={nft.pictureUrl} alt={nft.tokenId.toString()} />
       <CardChainIcon chain={nft.collection.contract.chain} />
       <SelectableNftCardPictureDiscordTag nft={nft} options={options} />
     </CardPictureLayout>
