@@ -27,8 +27,8 @@ export const CreateOfferExpiration: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.create.expiration')
   const [expiration, setExpiration] = useState<Expiration>(ONE_DAY)
-  // FIXME Shouldn't force unwrap, but receiverItems will never be empty here
-  const firstNft = head(receiverItems)!
+  // FIXME Shouldn't force unwrap, but senderItems will never be empty here
+  const firstNft = head(senderItems)!
   return (
     <div className={clsx('flex', 'flex-row', 'gap-16', 'items-center', 'py-36', 'px-12')}>
       <CreateOfferExpirationImage alt={firstNft.tokenId.toString()} src={firstNft.pictureUrl ?? ''} />

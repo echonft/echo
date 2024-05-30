@@ -36,7 +36,7 @@ export const SearchBox = <T,>({ results, searching, style, onSearch, onSearchCle
         onSearchClear?.()
       }
     },
-    [setQuery]
+    [setQuery, onSearchClear]
   )
 
   // clear the timeout if needed

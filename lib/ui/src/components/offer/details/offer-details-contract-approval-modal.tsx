@@ -11,8 +11,8 @@ import { propIsNotNil } from '@echo/utils/fp/prop-is-not-nil'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
-import { all, assoc, find, isNil, map, pipe, propEq, reject, when } from 'ramda'
-import { type FunctionComponent, useCallback, useState } from 'react'
+import { all, assoc, find, isNil, map, propEq, when } from 'ramda'
+import { type FunctionComponent, useCallback, useEffect, useState } from 'react'
 
 interface Props {
   items: Nft[]
@@ -21,6 +21,10 @@ interface Props {
   subtitle: string
   onSuccess?: EmptyFunction
   onClose?: EmptyFunction
+}
+
+function contractApproved(approval: ContractApproval) {
+  return Boolean(approval.approved)
 }
 
 // TODO Change name of this modal as it's used in the creation flow too
@@ -38,23 +42,27 @@ export const OfferDetailsContractApprovalModal: FunctionComponent<Props> = ({
     propEq(false, 'approved') as (contractApproval: ContractApproval) => boolean,
     approvals
   )
+
   const updateApprovalStatus = useCallback(
     (contract: Contract, approved: Nullable<boolean>) => {
       const foundApproval = find(propEq(contract, 'contract'), approvals)
       if (!isNil(foundApproval)) {
-        if (pipe(reject(propEq(contract, 'contract')), all(propIsNotNil('approved')))(approvals)) {
-          setIsLoading(false)
-        }
-        if (approved && pipe(reject(propEq(contract, 'contract')), all(propEq(true, 'approved')))(approvals)) {
-          onSuccess?.()
-        }
         setApprovals(
           map(when<ContractApproval, ContractApproval>(propEq(contract, 'contract'), assoc('approved', approved)))
         )
       }
     },
-    [approvals, onSuccess]
+    [approvals]
   )
+
+  useEffect(() => {
+    if (isLoading && all(propIsNotNil('approved'), approvals)) {
+      setIsLoading(false)
+    }
+    if (all(contractApproved, approvals)) {
+      onSuccess?.()
+    }
+  }, [approvals, isLoading, onSuccess])
 
   return (
     <Modal open={open} onClose={isLoading ? undefined : onClose} title={title}>
