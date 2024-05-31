@@ -31,6 +31,7 @@ export const apiUrlProvider = {
     wallets: new ApiPath({ path: '/profile/wallets', secure: true })
   },
   user: {
-    search: new ApiPath({ path: '/search/user' })
+    search: new ApiPath({ path: '/search/user' }),
+    update: new ApiPath({ path: '/user/update' })
   }
 }

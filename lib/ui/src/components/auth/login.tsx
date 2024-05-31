@@ -1,14 +1,14 @@
 'use client'
-import type { AuthUser } from '@echo/model/types/auth-user'
 import { LoginStep } from '@echo/ui/components/auth/login-step'
 import { LoginStepIndicator, type LoginStepIndicatorProps } from '@echo/ui/components/auth/login-step-indicator'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
+import type { User } from 'next-auth'
 import { inc, isNil } from 'ramda'
 import { type FunctionComponent, type MouseEventHandler, useEffect, useRef, useState } from 'react'
 
 interface Props {
-  user: Nullable<AuthUser>
+  user: Nullable<User>
   onFinish?: VoidFunction
   onWalletButtonClick?: MouseEventHandler
 }

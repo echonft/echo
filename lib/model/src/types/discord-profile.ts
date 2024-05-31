@@ -3,8 +3,12 @@ import type { WithUsername } from '@echo/model/types/with-username'
 import type { Nullable } from '@echo/utils/types/nullable'
 
 export interface DiscordProfile extends WithId, WithUsername {
-  avatarUrl: string
+  accentColor?: Nullable<number>
+  avatar?: Nullable<string>
   avatarDecorationUrl?: Nullable<string>
+  avatarUrl: string
   bannerColor?: Nullable<string>
   bannerUrl?: Nullable<string>
+  discriminator: string
+  globalName?: Nullable<string>
 }

@@ -1,13 +1,14 @@
-import type { AuthUser } from '@echo/model/types/auth-user'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
+import type { User } from 'next-auth'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
-  user: Nullable<AuthUser>
+  user: Nullable<User>
   excludeProviders?: boolean
 }
+
 export const NavigationPageLayout: FunctionComponent<PropsWithChildren<Props>> = ({
   user,
   excludeProviders,

@@ -14,12 +14,12 @@ import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
 import { assertNonce } from '@echo/frontend/lib/helpers/user/assert/assert-nonce'
 import { assertUserExists } from '@echo/frontend/lib/helpers/user/assert/assert-user-exists'
 import { addWalletSchema } from '@echo/frontend/lib/validators/add-wallet-schema'
-import type { AuthUser } from '@echo/model/types/auth-user'
 import type { Wallet } from '@echo/model/types/wallet'
 import { NextResponse } from 'next/server'
+import type { User } from 'next-auth'
 import { andThen, map, pipe, prop } from 'ramda'
 
-export async function addWalletRequestHandler(user: AuthUser, req: ApiRequest<AddWalletRequest>) {
+export async function addWalletRequestHandler(user: User, req: ApiRequest<AddWalletRequest>) {
   const requestBody = await guardAsyncFn(
     (req: ApiRequest<AddWalletRequest>) => req.json(),
     ErrorStatus.BAD_REQUEST
@@ -36,7 +36,7 @@ export async function addWalletRequestHandler(user: AuthUser, req: ApiRequest<Ad
   assertNonce(nonce, verifiedMessage)
   await guardAsyncFn(addWallet, ErrorStatus.SERVER_ERROR)(foundUser.username, wallet)
   const wallets = await guardAsyncFn(
-    pipe<[AuthUser], string, Promise<WalletDocumentData[]>, Promise<Wallet[]>>(
+    pipe<[User], string, Promise<WalletDocumentData[]>, Promise<Wallet[]>>(
       prop('username'),
       getWalletsForUser,
       andThen(map(mapWalletDocumentDataToWallet))

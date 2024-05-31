@@ -1,5 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
+import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
 import { OFFER_ROLE_RECEIVER, OFFER_ROLE_SENDER } from '@echo/model/constants/offer-role'
 import {
   OFFER_STATE_EXPIRED,
@@ -10,7 +11,6 @@ import {
 import type { Offer } from '@echo/model/types/offer'
 import type { OfferRole } from '@echo/model/types/offer-role'
 import type { OfferState } from '@echo/model/types/offer-state'
-import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
 import { USER_MOCK_CREW_USERNAME, USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
@@ -79,7 +79,7 @@ export const Page: StoryObj<ComponentType> = {
       setExpirationAndReadOnly,
       setRole
     )(OFFER_MOCK_TO_JOHNNYCAGE_ID)
-    const user = getAuthUserMockByUsername(
+    const user = getUserDocumentDataMockByUsername(
       isOfferRoleSender(renderedOffer) ? USER_MOCK_CREW_USERNAME : USER_MOCK_JOHNNY_USERNAME
     )
     return (

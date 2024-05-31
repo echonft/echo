@@ -3,13 +3,13 @@ import { acceptOffer } from '@echo/firestore/crud/offer/accept-offer'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { getUserDocumentDataMockById } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-id'
+import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
 import { acceptOfferRequestHandler } from '@echo/frontend/lib/request-handlers/offer/accept-offer-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { OFFER_STATE_ACCEPTED } from '@echo/model/constants/offer-states'
 import { type Offer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
-import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getOfferMockBySlug } from '@echo/model-mocks/offer/get-offer-mock-by-slug'
 import { OFFER_MOCK_TO_JOHNNYCAGE_SLUG } from '@echo/model-mocks/offer/offer-mock'
 import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
@@ -22,7 +22,7 @@ jest.mock('@echo/firestore/crud/offer/accept-offer')
 describe('request-handlers - offer - acceptOfferRequestHandler', () => {
   const slug = OFFER_MOCK_TO_JOHNNYCAGE_SLUG
   const offer = getOfferMockBySlug(slug)
-  const user = getAuthUserMockByUsername(USER_MOCK_JOHNNY_USERNAME)
+  const user = getUserDocumentDataMockByUsername(USER_MOCK_JOHNNY_USERNAME)
 
   beforeEach(() => {
     jest.clearAllMocks()

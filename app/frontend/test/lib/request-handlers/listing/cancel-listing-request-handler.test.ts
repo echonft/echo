@@ -1,13 +1,13 @@
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import { cancelListing } from '@echo/firestore/crud/listing/cancel-listing'
 import { getListing } from '@echo/firestore/crud/listing/get-listing'
+import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
 import { cancelListingRequestHandler } from '@echo/frontend/lib/request-handlers/listing/cancel-listing-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { LISTING_STATE_CANCELLED } from '@echo/model/constants/listing-states'
 import { type Listing } from '@echo/model/types/listing'
 import type { User } from '@echo/model/types/user'
-import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getListingMockBySlug } from '@echo/model-mocks/listing/get-listing-mock-by-slug'
 import { LISTING_MOCK_SLUG } from '@echo/model-mocks/listing/listing-mock'
 import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
@@ -19,7 +19,7 @@ jest.mock('@echo/firestore/crud/listing/cancel-listing')
 describe('request-handlers - listing - cancelListingRequestHandler', () => {
   const slug = LISTING_MOCK_SLUG
   const listing = getListingMockBySlug(slug)
-  const user = getAuthUserMockByUsername(USER_MOCK_JOHNNY_USERNAME)
+  const user = getUserDocumentDataMockByUsername(USER_MOCK_JOHNNY_USERNAME)
 
   beforeEach(() => {
     jest.clearAllMocks()

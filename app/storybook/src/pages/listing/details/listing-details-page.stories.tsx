@@ -1,5 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
+import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
 import { LISTING_ROLE_CREATOR, LISTING_ROLE_TARGET } from '@echo/model/constants/listing-role'
 import {
   LISTING_STATE_EXPIRED,
@@ -11,7 +12,6 @@ import type { Listing } from '@echo/model/types/listing'
 import type { ListingRole } from '@echo/model/types/listing-role'
 import type { ListingState } from '@echo/model/types/listing-state'
 import type { Offer } from '@echo/model/types/offer'
-import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getListingMock } from '@echo/model-mocks/listing/get-listing-mock'
 import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
 import { USER_MOCK_CREW_USERNAME, USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
@@ -99,8 +99,8 @@ export const Page: StoryObj<ComponentType> = {
     )()
     const user =
       role === 'Creator'
-        ? getAuthUserMockByUsername(USER_MOCK_JOHNNY_USERNAME)
-        : getAuthUserMockByUsername(USER_MOCK_CREW_USERNAME)
+        ? getUserDocumentDataMockByUsername(USER_MOCK_JOHNNY_USERNAME)
+        : getUserDocumentDataMockByUsername(USER_MOCK_CREW_USERNAME)
     return (
       <PageLayout user={user} background={getListingPageLayoutBackground(renderedListing)} excludeProviders={true}>
         <PaddedSectionLayout>

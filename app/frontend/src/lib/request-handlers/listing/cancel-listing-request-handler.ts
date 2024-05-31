@@ -8,11 +8,11 @@ import { assertListing } from '@echo/frontend/lib/helpers/listing/assert/assert-
 import { assertListingCreatorIs } from '@echo/frontend/lib/helpers/listing/assert/assert-listing-creator-is'
 import { assertListingState } from '@echo/frontend/lib/helpers/listing/assert/assert-listing-state'
 import { LISTING_STATE_CANCELLED } from '@echo/model/constants/listing-states'
-import type { AuthUser } from '@echo/model/types/auth-user'
 import type { WithSlug } from '@echo/model/types/with-slug'
 import { NextResponse } from 'next/server'
+import type { User } from 'next-auth'
 
-export async function cancelListingRequestHandler(user: AuthUser, _req: ApiRequest<never>, params: WithSlug) {
+export async function cancelListingRequestHandler(user: User, _req: ApiRequest<never>, params: WithSlug) {
   const { slug } = params
   const listing = await guardAsyncFn(getListing, ErrorStatus.SERVER_ERROR)(slug)
   assertListing(listing)

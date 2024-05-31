@@ -1,14 +1,14 @@
 'use client'
-import type { AuthUser } from '@echo/model/types/auth-user'
 import { LoginStepLayout } from '@echo/ui/components/auth/layout/login-step-layout'
 import { LoginDiscordConnect } from '@echo/ui/components/auth/login-discord-connect'
 import type { Nullable } from '@echo/utils/types/nullable'
+import type { User } from 'next-auth'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  user: Nullable<AuthUser>
+  user: Nullable<User>
   onContinue?: VoidFunction
 }
 

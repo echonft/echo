@@ -1,6 +1,6 @@
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
-import { withUser } from '@echo/frontend/lib/decorators/with-user'
+import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import { setOfferRoleForUser } from '@echo/frontend/lib/helpers/offer/set-offer-role-for-user'
 import type { NextAuthUserParams } from '@echo/frontend/lib/types/next-auth-user-params'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
@@ -37,4 +37,4 @@ async function render({ params: { slug }, user }: Params) {
   )
 }
 
-export default pipe(withLocale<Params, Promise<ReactElement>>, withUser)(render)
+export default pipe(withLocale<Params, Promise<ReactElement>>, withLoggedInUser)(render)

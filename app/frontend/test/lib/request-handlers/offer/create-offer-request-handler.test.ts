@@ -1,6 +1,7 @@
 import { type CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import { type OfferResponse } from '@echo/api/types/responses/offer-response'
 import { addOffer } from '@echo/firestore/crud/offer/add-offer'
+import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
 import { getEscrowedNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-escrowed-nfts-from-indexes'
 import { getNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-nfts-from-indexes'
@@ -10,7 +11,6 @@ import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
 import type { Nft } from '@echo/model/types/nft'
 import type { NftIndex } from '@echo/model/types/nft-index'
-import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getNftMockByIndex } from '@echo/model-mocks/nft/get-nft-mock-by-index'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { OFFER_MOCK_FROM_JOHNNYCAGE_ID, OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
@@ -32,7 +32,7 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
     senderItems: pipe(prop('senderItems'), getNftIndexForNfts)(offerMock),
     expiresAt: futureDate()
   }
-  const user = getAuthUserMockByUsername(USER_MOCK_JOHNNY_USERNAME)
+  const user = getUserDocumentDataMockByUsername(USER_MOCK_JOHNNY_USERNAME)
 
   beforeAll(() => {
     jest.mocked(getNftsFromIndexes).mockImplementation(pipe(map<NftIndex, Nft>(getNftMockByIndex), toPromise))

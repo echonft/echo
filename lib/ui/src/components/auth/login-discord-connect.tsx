@@ -1,5 +1,4 @@
 'use client'
-import type { AuthUser } from '@echo/model/types/auth-user'
 import { LoginDiscordButton } from '@echo/ui/components/auth/login-discord-button'
 import { PICTURE_SIZE_XS } from '@echo/ui/constants/picture-size'
 import { addPictureSizeToUrl } from '@echo/ui/helpers/add-picture-size-to-url'
@@ -9,13 +8,14 @@ import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import Image from 'next/image'
+import type { User } from 'next-auth'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 import { mutate } from 'swr'
 
 interface Props {
-  user: Nullable<AuthUser>
+  user: Nullable<User>
 }
 
 export const LoginDiscordConnect: FunctionComponent<Props> = ({ user }) => {

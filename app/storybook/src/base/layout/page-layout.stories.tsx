@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
+import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
 import { getUserProfileMockByUsername } from '@echo/model-mocks/user/user-profile-mock'
@@ -32,7 +32,7 @@ export default metadata
 
 export const Default: StoryObj<ComponentType> = {
   render: ({ callout }) => {
-    const user = getAuthUserMockByUsername(USER_MOCK_JOHNNY_USERNAME)
+    const user = getUserDocumentDataMockByUsername(USER_MOCK_JOHNNY_USERNAME)
     const profile = getUserProfileMockByUsername(USER_MOCK_JOHNNY_USERNAME)
     const { show, dismiss } = useAlertStore()
     useEffect(() => {

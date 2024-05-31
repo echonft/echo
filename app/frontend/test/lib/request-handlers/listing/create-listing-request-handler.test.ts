@@ -2,6 +2,7 @@ import { type CreateListingRequest } from '@echo/api/types/requests/create-listi
 import { type ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
 import { type ListingResponse } from '@echo/api/types/responses/listing-response'
 import { addListing } from '@echo/firestore/crud/listing/add-listing'
+import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
 import { getListingTargetFromRequest } from '@echo/frontend/lib/helpers/listing/get-listing-target-from-request'
 import { getNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-nfts-from-indexes'
@@ -12,7 +13,6 @@ import type { Listing } from '@echo/model/types/listing'
 import type { ListingTarget } from '@echo/model/types/listing-target'
 import { type Nft } from '@echo/model/types/nft'
 import type { NftIndex } from '@echo/model/types/nft-index'
-import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getCollectionMockBySlug } from '@echo/model-mocks/collection/get-collection-mock-by-slug'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { LISTING_MOCK_ID } from '@echo/model-mocks/listing/listing-mock'
@@ -30,7 +30,7 @@ jest.mock('@echo/frontend/lib/helpers/listing/get-listing-target-from-request')
 
 describe('request-handlers - listing - createListingRequestHandler', () => {
   const listing = getListingMockById(LISTING_MOCK_ID)
-  const user = getAuthUserMockByUsername(USER_MOCK_JOHNNY_USERNAME)
+  const user = getUserDocumentDataMockByUsername(USER_MOCK_JOHNNY_USERNAME)
 
   beforeAll(() => {
     jest.mocked(getNftsFromIndexes).mockImplementation(pipe(map<NftIndex, Nft>(getNftMockByIndex), toPromise))

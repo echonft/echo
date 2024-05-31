@@ -1,6 +1,6 @@
 import { getPendingOffersForReceiver } from '@echo/firestore/crud/offer/get-pending-offers-for-receiver'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
-import { withUser } from '@echo/frontend/lib/decorators/with-user'
+import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import { setOfferRoleReceiver } from '@echo/frontend/lib/helpers/offer/set-offer-role-receiver'
 import type { NextAuthUserParams } from '@echo/frontend/lib/types/next-auth-user-params'
 import { NAVIGATION_PENDING_OFFERS } from '@echo/ui/constants/navigation-item'
@@ -23,4 +23,4 @@ async function render(params: NextAuthUserParams) {
   )
 }
 
-export default pipe(withLocale<NextAuthUserParams, Promise<ReactElement>>, withUser)(render)
+export default pipe(withLocale<NextAuthUserParams, Promise<ReactElement>>, withLoggedInUser)(render)

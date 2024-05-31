@@ -1,5 +1,4 @@
 'use client'
-import type { AuthUser } from '@echo/model/types/auth-user'
 import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
 import { HeaderSwitch } from '@echo/ui/components/base/header/header-switch'
 import { Dependencies } from '@echo/ui/components/base/layout/dependencies'
@@ -16,6 +15,7 @@ import {
 import type { PageLayoutBackground } from '@echo/ui/types/page-layout-background'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
+import type { User } from 'next-auth'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
@@ -24,7 +24,7 @@ interface Props {
   headerVariants?: {
     logoOnly?: boolean
   }
-  user?: Nullable<AuthUser>
+  user?: Nullable<User>
 }
 
 const PageLayoutInner: FunctionComponent<PropsWithChildren<Exclude<Props, 'excludeProviders'>>> = ({
