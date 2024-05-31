@@ -4,8 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "source .env.keys; dotenvx run --env-file=.env.dev -- tsup",
-    "build:ci": "tsup",
+    "build": "tsup",
     "clean": "rm -rf dist",
     "dev": "source .env.keys; nodemon --watch \"src/**\" --watch \"../../lib/**/src/**\" --ext \"ts\" --exec \"dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/index.ts\"",
     "env:pull": "dotenvx hub pull",

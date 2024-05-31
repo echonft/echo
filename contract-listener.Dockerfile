@@ -12,7 +12,7 @@ RUN apt-get update -qq && \
 	apt-get install -y build-essential pkg-config python-is-python3
 COPY --link . /app
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-RUN pnpm exec turbo run build:ci --filter=@echo/contract-listener
+RUN pnpm exec turbo run build --filter=@echo/contract-listener
 RUN pnpm prune --prod
 
 # Final stage for app image

@@ -5,10 +5,6 @@
       "inputs": ["src/**/*.ts", "src/**/*.tsx"],
       "outputs": ["dist/**"]
     },
-    "build:ci": {
-      "inputs": ["src/**/*.ts", "src/**/*.tsx"],
-      "outputs": ["dist/**"]
-    },
     "clean": {
       "cache": false
     },
@@ -52,7 +48,7 @@
       "persistent": true
     },
     "sentry:sourcemaps": {
-      "dependsOn": ["build:ci"],
+      "dependsOn": ["build"],
       "cache": false
     },
     "test": {
@@ -108,22 +104,12 @@
       "outputs": [".next/**", "!.next/cache/**"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
-    "@echo/frontend#build:ci": {
-      "dependsOn": ["@echo/ui#build"],
-      "outputs": [".next/**", "!.next/cache/**"],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
-    },
     "@echo/frontend#dev": {
       "dependsOn": ["@echo/ui#build"],
       "cache": false,
       "persistent": true
     },
     "@echo/storybook#build": {
-      "dependsOn": ["@echo/ui#build"],
-      "outputs": ["storybook-static/**", "dist/**"],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
-    },
-    "@echo/storybook#build:ci": {
       "dependsOn": ["@echo/ui#build"],
       "outputs": ["storybook-static/**", "dist/**"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]

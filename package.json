@@ -38,8 +38,6 @@
     "firestore:indexes:deploy": "firebase deploy --only firestore:indexes",
     "firestore:indexes:pull": "firebase firestore:indexes > ../../firestore.indexes.json",
     "frontend:dev": "turbo run dev --filter=@echo/frontend --filter=@echo/ui",
-    "frontend:dev:testnet": "turbo run dev:testnet --filter=@echo/frontend dev --filter=@echo/ui",
-    "frontend:deploy:testnet": "git rebase main testnet && git push origin testnet",
     "lint": "turbo run lint",
     "lint:ci": "turbo run lint:ci",
     "lint:clean-cache": "rm -f .eslintcache && turbo run lint:clean-cache",

@@ -53,7 +53,7 @@ jobs:
 
       - name: Build next.js app
         # change this if your site requires a custom build command
-        run: pnpm exec turbo run build:ci --filter=@echo/frontend
+        run: pnpm exec turbo run build --filter=@echo/frontend
         env:
           AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
           FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID_DEV }}
