@@ -1,14 +1,14 @@
 import { getBaseUrl } from '@echo/opensea/helpers/get-base-url'
 import { parseFetchResponse } from '@echo/opensea/helpers/parse-fetch-response'
 import { throttleFetch } from '@echo/opensea/helpers/throttle-fetch'
-import type { WithFetchRequest } from '@echo/opensea/types/request/with-fetch-request'
 import type { GetNftResponse } from '@echo/opensea/types/response/get-nft-response'
 import { isTestnetChain } from '@echo/utils/helpers/is-testnet-chain'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
+import type { WithFetch } from '@echo/utils/types/with-fetch'
 import { andThen, pipe, prop } from 'ramda'
 
-export interface FetchNftRequest extends WithFetchRequest {
+export interface FetchNftRequest extends WithFetch {
   contract: HexString
   chain: ChainName
   identifier: string

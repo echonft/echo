@@ -668,6 +668,55 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
 
+  lib/nft-scan:
+    dependencies:
+      qs:
+        specifier: 6.12.1
+        version: 6.12.1
+      ramda:
+        specifier: 0.30.0
+        version: 0.30.0
+    devDependencies:
+      '@babel/core':
+        specifier: 7.24.6
+        version: 7.24.6
+      '@babel/preset-env':
+        specifier: 7.24.6
+        version: 7.24.6(@babel/core@7.24.6)
+      '@babel/preset-typescript':
+        specifier: 7.24.6
+        version: 7.24.6(@babel/core@7.24.6)
+      '@echo/model':
+        specifier: workspace:*
+        version: link:../model
+      '@echo/utils':
+        specifier: workspace:*
+        version: link:../utils
+      '@jest/globals':
+        specifier: 29.7.0
+        version: 29.7.0
+      '@jest/types':
+        specifier: 29.6.3
+        version: 29.6.3
+      '@types/node':
+        specifier: 20.12.12
+        version: 20.12.12
+      '@types/qs':
+        specifier: 6.9.15
+        version: 6.9.15
+      '@types/ramda':
+        specifier: 0.30.0
+        version: 0.30.0
+      jest:
+        specifier: 29.7.0
+        version: 29.7.0(@types/node@20.12.12)(ts-node@10.9.2(@swc/core@1.5.7(@swc/helpers@0.5.5))(@types/node@20.12.12)(typescript@5.4.5))
+      jest-junit:
+        specifier: 16.0.0
+        version: 16.0.0
+      typescript:
+        specifier: 5.4.5
+        version: 5.4.5
+
   lib/opensea:
     dependencies:
       qs:

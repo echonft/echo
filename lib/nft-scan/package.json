@@ -1,0 +1,42 @@
+{
+  "name": "@echo/nft-scan",
+  "version": "1.0.0",
+  "private": true,
+  "sideEffects": false,
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
+    "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts .",
+    "lint:clean-cache": "rm -f .eslintcache",
+    "modules:remove": "rm -rf node_modules",
+    "modules:update": "ncu -u",
+    "modules:update-minor": "ncu -u --target=minor",
+    "prettier": "prettier -u --no-error-on-unmatched-pattern --write --cache .",
+    "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c .",
+    "test": "jest",
+    "test:ci": "jest --ci --no-cache",
+    "test:watch": "jest --watch",
+    "tsc": "tsc --noEmit",
+    "tsc:ci": "pnpm run tsc",
+    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
+  },
+  "dependencies": {
+    "qs": "6.12.1",
+    "ramda": "0.30.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.24.6",
+    "@babel/preset-env": "7.24.6",
+    "@babel/preset-typescript": "7.24.6",
+    "@echo/model": "workspace:*",
+    "@echo/utils": "workspace:*",
+    "@jest/globals": "29.7.0",
+    "@jest/types": "29.6.3",
+    "@types/node": "20.12.12",
+    "@types/qs": "6.9.15",
+    "@types/ramda": "0.30.0",
+    "jest": "29.7.0",
+    "jest-junit": "16.0.0",
+    "typescript": "5.4.5"
+  }
+}

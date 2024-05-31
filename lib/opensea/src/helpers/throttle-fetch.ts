@@ -1,11 +1,11 @@
 import { fetchInit } from '@echo/opensea/constants/fetch-init'
 import { MAX_RETRIES, WAIT_TIME } from '@echo/opensea/constants/fetch-params'
-import type { WithFetchRequest } from '@echo/opensea/types/request/with-fetch-request'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
+import type { WithFetch } from '@echo/utils/types/with-fetch'
 import { always, assoc, converge, identity, inc, pipe, prop } from 'ramda'
 
-interface ThrottleFetchArgs extends WithFetchRequest {
+interface ThrottleFetchArgs extends WithFetch {
   url: string
 }
 
