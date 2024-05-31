@@ -2,7 +2,7 @@ import { walletDocumentDataMock } from '@echo/firestore-mocks/wallet/wallet-docu
 import { isNil } from 'ramda'
 
 export function getWalletDocumentDataMockById(id: string) {
-  const mock = walletDocumentDataMock[id]
+  const mock = walletDocumentDataMock()[id]
   if (isNil(mock)) {
     throw Error(`wrong wallet mock id: ${id}`)
   }

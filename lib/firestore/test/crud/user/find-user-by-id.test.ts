@@ -1,4 +1,5 @@
 import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
+import { userMockJohnnyId } from '@echo/firestore-mocks/user/user-document-data-mock'
 import { expectUserDocumentDataToEqualMock } from '@echo/firestore-test/user/expect-user-document-data-to-equal-mock'
 import { describe, expect, it } from '@jest/globals'
 
@@ -8,7 +9,7 @@ describe('CRUD - user - findUserById', () => {
     expect(user).toBeUndefined()
   })
   it('returns the user with the given id', async () => {
-    const user = await getUserById('oE6yUEQBPn7PZ89yMjKn')
+    const user = await getUserById(userMockJohnnyId())
     expectUserDocumentDataToEqualMock(user)
   })
 })

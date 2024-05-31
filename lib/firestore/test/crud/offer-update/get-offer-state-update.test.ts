@@ -10,8 +10,8 @@ import {
   OFFER_STATE_OPEN,
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
-import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
-import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
+import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -19,13 +19,13 @@ import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
 
 describe('CRUD - offer-update - getOfferStateUpdate', () => {
-  const offerId = OFFER_MOCK_TO_JOHNNYCAGE_ID
+  const offerId = offerMockToJohnnycageId()
   const args: AddOfferStateUpdateArgs = {
     offerId,
     args: {
       state: OFFER_STATE_REJECTED,
       trigger: {
-        by: USER_MOCK_JOHNNY_USERNAME
+        by: userMockJohnnyUsername()
       }
     }
   }

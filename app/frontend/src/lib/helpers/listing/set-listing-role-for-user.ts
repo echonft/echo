@@ -2,14 +2,14 @@ import { setListingRoleCreator } from '@echo/frontend/lib/helpers/listing/set-li
 import { setListingRoleTarget } from '@echo/frontend/lib/helpers/listing/set-listing-role-target'
 import { setListingRoleUndefined } from '@echo/frontend/lib/helpers/listing/set-listing-role-undefined'
 import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
-import type { AuthUser } from '@echo/model/types/auth-user'
 import type { Listing } from '@echo/model/types/listing'
 import type { Nft } from '@echo/model/types/nft'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { Nullable } from '@echo/utils/types/nullable'
+import type { User } from 'next-auth'
 import { any, equals, isNil, pipe } from 'ramda'
 
-export function setListingRoleForUser(user: Nullable<AuthUser>, nfts: Nft[]) {
+export function setListingRoleForUser(user: Nullable<User>, nfts: Nft[]) {
   return function (listing: Listing): ListingWithRole {
     if (isNil(user)) {
       return setListingRoleUndefined(listing)

@@ -10,11 +10,11 @@ import { assertOfferReceiverIs } from '@echo/frontend/lib/helpers/offer/assert/a
 import { assertOfferState } from '@echo/frontend/lib/helpers/offer/assert/assert-offer-state'
 import { assertUserExists } from '@echo/frontend/lib/helpers/user/assert/assert-user-exists'
 import { OFFER_STATE_ACCEPTED } from '@echo/model/constants/offer-states'
-import type { AuthUser } from '@echo/model/types/auth-user'
 import type { WithSlug } from '@echo/model/types/with-slug'
 import { NextResponse } from 'next/server'
+import type { User } from 'next-auth'
 
-export async function acceptOfferRequestHandler(user: AuthUser, _req: ApiRequest<never>, params: WithSlug) {
+export async function acceptOfferRequestHandler(user: User, _req: ApiRequest<never>, params: WithSlug) {
   const { slug } = params
   const offer = await guardAsyncFn(getOffer, ErrorStatus.SERVER_ERROR)(slug)
   assertOffer(offer)

@@ -20,31 +20,31 @@ import { always, ifElse, isNil, mapObjIndexed, pipe, values } from 'ramda'
 function getMock(collectionReferenceName: CollectionReferenceName) {
   switch (collectionReferenceName) {
     case CollectionReferenceName.COLLECTIONS:
-      return collectionMock as Record<string, DocumentData>
+      return collectionMock() as Record<string, DocumentData>
     case CollectionReferenceName.COLLECTION_DISCORD_GUILDS:
-      return collectionDiscordGuildMock as Record<string, DocumentData>
+      return collectionDiscordGuildMock() as Record<string, DocumentData>
     case CollectionReferenceName.COLLECTION_SWAPS_COUNT:
-      return collectionSwapsCountMock as Record<string, DocumentData>
+      return collectionSwapsCountMock() as Record<string, DocumentData>
     case CollectionReferenceName.LISTINGS:
-      return listingDocumentDataMock as Record<string, DocumentData>
+      return listingDocumentDataMock() as Record<string, DocumentData>
     case CollectionReferenceName.LISTING_OFFERS:
-      return listingOfferMock as Record<string, DocumentData>
+      return listingOfferMock() as Record<string, DocumentData>
     case CollectionReferenceName.LISTING_POSTS:
-      return listingPostMock as Record<string, DocumentData>
+      return listingPostMock() as Record<string, DocumentData>
     case CollectionReferenceName.NFTS:
       return nftMock as Record<string, DocumentData>
     case CollectionReferenceName.OFFERS:
-      return offerDocumentDataMock as Record<string, DocumentData>
+      return offerDocumentDataMock() as Record<string, DocumentData>
     case CollectionReferenceName.OFFER_THREADS:
-      return offerThreadMock as Record<string, DocumentData>
+      return offerThreadMock() as Record<string, DocumentData>
     case CollectionReferenceName.SWAPS:
-      return swapMock as Record<string, DocumentData>
+      return swapMock() as Record<string, DocumentData>
     case CollectionReferenceName.SWAP_POSTS:
-      return swapPostMock as Record<string, DocumentData>
+      return swapPostMock() as Record<string, DocumentData>
     case CollectionReferenceName.USERS:
-      return userDocumentDataMock as Record<string, DocumentData>
+      return userDocumentDataMock() as Record<string, DocumentData>
     case CollectionReferenceName.WALLETS:
-      return walletDocumentDataMock as Record<string, DocumentData>
+      return walletDocumentDataMock() as Record<string, DocumentData>
     default:
       return undefined
   }

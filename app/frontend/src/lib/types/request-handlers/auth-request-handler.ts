@@ -1,9 +1,9 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
-import type { AuthUser } from '@echo/model/types/auth-user'
 import type { NextResponse } from 'next/server'
+import type { User } from 'next-auth'
 
 export type AuthRequestHandler<RequestBody, ResponseBody, Params extends object = never> = (
-  user: AuthUser,
+  user: User,
   request: ApiRequest<RequestBody>,
   ...params: Params[]
 ) => Promise<NextResponse<ResponseBody>>

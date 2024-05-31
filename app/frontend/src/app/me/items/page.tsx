@@ -1,6 +1,6 @@
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
-import { withUser } from '@echo/frontend/lib/decorators/with-user'
+import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import type { NextAuthUserParams } from '@echo/frontend/lib/types/next-auth-user-params'
 import type { Nft } from '@echo/model/types/nft'
 import { NAVIGATION_NFTS } from '@echo/ui/constants/navigation-item'
@@ -18,4 +18,4 @@ async function render({ user }: NextAuthUserParams) {
   )
 }
 
-export default pipe(withLocale<NextAuthUserParams, Promise<ReactElement>>, withUser)(render)
+export default pipe(withLocale<NextAuthUserParams, Promise<ReactElement>>, withLoggedInUser)(render)

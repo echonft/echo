@@ -4,7 +4,7 @@ import { OFFER_ROLE_RECEIVER } from '@echo/model/constants/offer-role'
 import type { Offer } from '@echo/model/types/offer'
 import type { OfferRole } from '@echo/model/types/offer-role'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
+import { offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
 import { OfferDetailsAcceptModalSwitch as Component } from '@echo/ui/components/offer/details/action/accept/offer-details-accept-modal-switch'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { Meta, StoryObj } from '@storybook/react'
@@ -39,7 +39,7 @@ export const Accept: StoryObj<typeof Component> = {
     offer: pipe<[string], Offer, OfferWithRole>(
       getOfferMockById,
       assoc<OfferRole, 'role'>('role', OFFER_ROLE_RECEIVER)
-    )(OFFER_MOCK_TO_JOHNNYCAGE_ID),
+    )(offerMockToJohnnycageId()),
     open: true
   }
 }

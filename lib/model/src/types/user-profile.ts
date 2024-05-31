@@ -3,6 +3,6 @@ import { type Wallet } from '@echo/model/types/wallet'
 import type { WithUsername } from '@echo/model/types/with-username'
 
 export interface UserProfile extends WithUsername {
-  discord: Omit<DiscordProfile, 'id'>
+  discord: Omit<DiscordProfile, 'id' | 'discriminator'>
   wallets: Wallet[]
 }

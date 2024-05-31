@@ -2,7 +2,7 @@ import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/wallet/ma
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { User } from '@echo/model/types/user'
-import { assoc, modify, pick, pipe } from 'ramda'
+import { assoc, modify, omit, pick, pipe } from 'ramda'
 
 export function getUserFromFirestoreData(user: UserDocumentData, wallet: WalletDocumentData): User {
   return pipe<
@@ -12,7 +12,7 @@ export function getUserFromFirestoreData(user: UserDocumentData, wallet: WalletD
     User
   >(
     pick(['username', 'discord']),
-    modify<'discord', UserDocumentData['discord'], User['discord']>('discord', pick(['avatarUrl', 'username'])),
+    modify<'discord', UserDocumentData['discord'], User['discord']>('discord', omit(['id', 'discriminator'])),
     assoc('wallet', mapWalletDocumentDataToWallet(wallet))
   )(user)
 }

@@ -1,14 +1,14 @@
 import { userDataConverter } from '@echo/firestore/converters/user/user-data-converter'
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
-import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { describe, expect, it } from '@jest/globals'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { assoc, modify, toUpper } from 'ramda'
 
 describe('converters - userDataConverter', () => {
-  const document: UserDocumentData = getUserDocumentDataMockByUsername(USER_MOCK_JOHNNY_USERNAME)
-  const documentData: UserDocumentData = getUserDocumentDataMockByUsername(USER_MOCK_JOHNNY_USERNAME)
+  const document: UserDocumentData = getUserDocumentDataMockByUsername(userMockJohnnyUsername())
+  const documentData: UserDocumentData = getUserDocumentDataMockByUsername(userMockJohnnyUsername())
   const snapshot = {
     id: 'userId',
     exists: true,

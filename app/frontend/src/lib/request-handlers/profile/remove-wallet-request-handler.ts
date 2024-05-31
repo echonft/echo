@@ -10,12 +10,12 @@ import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
 import { assertUserExists } from '@echo/frontend/lib/helpers/user/assert/assert-user-exists'
 import { removeWalletSchema } from '@echo/frontend/lib/validators/remove-wallet-schema'
-import type { AuthUser } from '@echo/model/types/auth-user'
 import type { Wallet } from '@echo/model/types/wallet'
 import { NextResponse } from 'next/server'
+import type { User } from 'next-auth'
 import { andThen, map, pipe, prop } from 'ramda'
 
-export async function removeWalletRequestHandler(user: AuthUser, req: ApiRequest<RemoveWalletRequest>) {
+export async function removeWalletRequestHandler(user: User, req: ApiRequest<RemoveWalletRequest>) {
   const requestBody = await guardAsyncFn(
     (req: ApiRequest<RemoveWalletRequest>) => req.json(),
     ErrorStatus.BAD_REQUEST
@@ -28,7 +28,7 @@ export async function removeWalletRequestHandler(user: AuthUser, req: ApiRequest
   assertUserExists(foundUser, user.username)
   await guardAsyncFn(removeWallet, ErrorStatus.SERVER_ERROR)(foundUser.username, wallet)
   const wallets = await guardAsyncFn(
-    pipe<[AuthUser], string, Promise<WalletDocumentData[]>, Promise<Wallet[]>>(
+    pipe<[User], string, Promise<WalletDocumentData[]>, Promise<Wallet[]>>(
       prop('username'),
       getWalletsForUser,
       andThen(map(mapWalletDocumentDataToWallet))

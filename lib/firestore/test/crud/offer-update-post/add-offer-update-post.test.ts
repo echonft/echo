@@ -8,8 +8,8 @@ import { deleteOfferUpdate } from '@echo/firestore-test/offer-update/delete-offe
 import { deleteOfferUpdatePost } from '@echo/firestore-test/offer-update-post/delete-offer-update-post'
 import { unchecked_addOfferUpdatePost } from '@echo/firestore-test/offer-update-post/unchecked_add-offer-update-post'
 import { OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
-import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
-import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
+import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -19,11 +19,11 @@ import { isNil } from 'ramda'
 
 describe('CRUD - offer-update-post - addOfferUpdatePost', () => {
   const addOfferStateUpdateArgs: AddOfferStateUpdateArgs = {
-    offerId: OFFER_MOCK_TO_JOHNNYCAGE_ID,
+    offerId: offerMockToJohnnycageId(),
     args: {
       state: OFFER_STATE_REJECTED,
       trigger: {
-        by: USER_MOCK_JOHNNY_USERNAME
+        by: userMockJohnnyUsername()
       }
     }
   }

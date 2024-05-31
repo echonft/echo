@@ -6,6 +6,7 @@ import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/ge
 import { assertUsers } from '@echo/firestore-test/user/assert-users'
 import { deleteUser } from '@echo/firestore-test/user/delete-user'
 import { unchecked_updateUser } from '@echo/firestore-test/user/unchecked_update-user'
+import type { DiscordProfile } from '@echo/model/types/discord-profile'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -44,37 +45,35 @@ describe('CRUD - user - updateUser', () => {
   })
 
   it('adds the user if it does not exist in the database', async () => {
-    const newUserData = {
-      discord: {
-        id: 'discord-id',
-        username: 'discord-username',
-        avatarUrl: 'discord-avatar-url',
-        bannerColor: '#ffffff'
-      }
+    const discordProfile: DiscordProfile = {
+      id: 'discord-id',
+      username: 'discord-username',
+      avatarUrl: 'discord-avatar-url',
+      bannerColor: '#ffffff',
+      discriminator: '0'
     }
-    await updateUser(newUserData)
+    await updateUser(discordProfile)
     const snapshot = (await getUserSnapshotByDiscordId('discord-id'))!
     newUserId = snapshot.id
     expect(newUserId).toBeDefined()
     const foundUser = (await getUserById(newUserId))!
-    expect(foundUser.discord).toStrictEqual(newUserData.discord)
-    expect(foundUser.username).toStrictEqual(newUserData.discord.username)
+    expect(foundUser.discord).toStrictEqual(discordProfile)
+    expect(foundUser.username).toStrictEqual(discordProfile.username)
   })
 
   it('updates the user if it exists in the database', async () => {
     const existingUser = await getUserById('6rECUMhevHfxABZ1VNOm')
     expect(existingUser).toBeDefined()
     updatedUsername = existingUser!.username
-    const newUserData = {
-      discord: {
-        id: existingUser!.discord.id,
-        username: 'discord-username',
-        avatarUrl: 'discord-avatar-url',
-        bannerColor: '#ffffff'
-      }
+    const discordProfile: DiscordProfile = {
+      id: existingUser!.discord.id,
+      username: 'discord-username',
+      avatarUrl: 'discord-avatar-url',
+      bannerColor: '#ffffff',
+      discriminator: '0'
     }
-    await updateUser(newUserData)
+    await updateUser(discordProfile)
     const foundUser = (await getUserByUsername(updatedUsername))!
-    expect(foundUser.discord).toStrictEqual(assoc('id', existingUser!.discord.id, newUserData.discord))
+    expect(foundUser.discord).toStrictEqual(assoc('id', existingUser!.discord.id, discordProfile))
   })
 })

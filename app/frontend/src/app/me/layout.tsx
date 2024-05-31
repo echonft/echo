@@ -1,5 +1,5 @@
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
-import { withUser } from '@echo/frontend/lib/decorators/with-user'
+import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import { getUserProfile } from '@echo/frontend/lib/helpers/user/get-user-profile'
 import type { NextAuthUserParams } from '@echo/frontend/lib/types/next-auth-user-params'
 import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
@@ -21,4 +21,4 @@ async function render({ user, children }: NextAuthUserParams<NextLayoutParams>) 
   )
 }
 
-export default pipe(withLocale<NextAuthUserParams<NextLayoutParams>, Promise<ReactElement>>, withUser)(render)
+export default pipe(withLocale<NextAuthUserParams<NextLayoutParams>, Promise<ReactElement>>, withLoggedInUser)(render)

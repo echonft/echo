@@ -3,7 +3,6 @@
 declare namespace NodeJS {
   interface Process {
     env: {
-      ADMIN_TOKEN: string
       ALCHEMY_API_KEY: string
       CI?: number | 'true' | '1'
       DISCORD_CLIENT_ID: string

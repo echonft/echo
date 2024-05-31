@@ -8,11 +8,11 @@ import { assertOffer } from '@echo/frontend/lib/helpers/offer/assert/assert-offe
 import { assertOfferSenderIs } from '@echo/frontend/lib/helpers/offer/assert/assert-offer-sender-is'
 import { assertOfferState } from '@echo/frontend/lib/helpers/offer/assert/assert-offer-state'
 import { OFFER_STATE_CANCELLED } from '@echo/model/constants/offer-states'
-import type { AuthUser } from '@echo/model/types/auth-user'
 import type { WithSlug } from '@echo/model/types/with-slug'
 import { NextResponse } from 'next/server'
+import type { User } from 'next-auth'
 
-export async function cancelOfferRequestHandler(user: AuthUser, _req: ApiRequest<never>, params: WithSlug) {
+export async function cancelOfferRequestHandler(user: User, _req: ApiRequest<never>, params: WithSlug) {
   const { slug } = params
   const offer = await guardAsyncFn(getOffer, ErrorStatus.SERVER_ERROR)(slug)
   assertOffer(offer)

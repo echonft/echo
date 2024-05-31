@@ -1,20 +1,20 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { type AuthUser } from '@echo/model/types/auth-user'
+import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import type { DefaultJWT, DefaultSession } from 'next-auth'
 
 declare module 'next-auth' {
-  interface User extends AuthUser {}
+  interface User extends UserDocumentData {}
 
   interface JWT extends DefaultJWT {
-    user: AuthUser
+    user?: UserDocumentData
   }
 
   interface Session extends DefaultSession {
-    user?: AuthUser
+    user?: UserDocumentData
   }
 }
 
 declare module '@sentry/types' {
-  interface User extends Pick<AuthUser, 'username'> {}
+  interface User extends Pick<UserDocumentData, 'username'> {}
 }

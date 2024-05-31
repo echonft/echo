@@ -9,14 +9,14 @@ import { getEscrowedNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-e
 import { getNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-nfts-from-indexes'
 import { createOfferSchema } from '@echo/frontend/lib/validators/create-offer-schema'
 import { generateBaseOffer } from '@echo/model/helpers/offer/generate-base-offer'
-import type { AuthUser } from '@echo/model/types/auth-user'
 import type { Nft } from '@echo/model/types/nft'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { generateOfferId } from '@echo/web3/helpers/generate-offer-id'
 import { NextResponse } from 'next/server'
+import type { User } from 'next-auth'
 import { head } from 'ramda'
 
-export async function createOfferRequestHandler(user: AuthUser, req: ApiRequest<CreateOfferRequest>) {
+export async function createOfferRequestHandler(user: User, req: ApiRequest<CreateOfferRequest>) {
   const requestBody = await guardAsyncFn(
     (req: ApiRequest<CreateOfferRequest>) => req.json(),
     ErrorStatus.BAD_REQUEST

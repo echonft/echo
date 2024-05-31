@@ -2,13 +2,13 @@ import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
 import { deleteWallet } from '@echo/firestore/crud/wallet/delete-wallet'
 import {
   getUserDocumentDataMockById,
-  USER_MOCK_CREW_ID,
-  USER_MOCK_JOHNNY_ID
+  userMockCrewId,
+  userMockJohnnyId
 } from '@echo/firestore-mocks/user/user-document-data-mock'
 import { getWalletDocumentDataMockByUserId } from '@echo/firestore-mocks/wallet/get-wallet-document-data-mock-by-user-id'
 import { assertWallets } from '@echo/firestore-test/wallet/assert-wallets'
 import { getWalletById } from '@echo/firestore-test/wallet/get-wallet-by-id'
-import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { CHAIN_BLAST, CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
@@ -38,21 +38,21 @@ describe('CRUD - wallet - addWallet', () => {
     }
   })
   it('return the wallet with the new chain if an EVM wallet already exists with the same address and user', async () => {
-    const wallet = getWalletDocumentDataMockByUserId(USER_MOCK_CREW_ID)
+    const wallet = getWalletDocumentDataMockByUserId(userMockCrewId())
     const user = getUserDocumentDataMockById(wallet.userId)
     const otherEvmChainWallet = pipe(pick(['address', 'chain']), assoc('chain', CHAIN_BLAST))(wallet)
     const { data } = await addWallet(user.username, otherEvmChainWallet)
     expect(data).toStrictEqual(assoc('chain', CHAIN_BLAST, wallet))
   })
   it('throws if trying to add an existing EVM wallet that is link to another user', async () => {
-    const wallet = getWalletDocumentDataMockByUserId(USER_MOCK_CREW_ID)
+    const wallet = getWalletDocumentDataMockByUserId(userMockCrewId())
     const otherEvmChainWallet = pipe(pick(['address', 'chain']), assoc('chain', CHAIN_BLAST))(wallet)
-    await expect(addWallet(USER_MOCK_JOHNNY_USERNAME, otherEvmChainWallet)).rejects.toBeDefined()
+    await expect(addWallet(userMockJohnnyUsername(), otherEvmChainWallet)).rejects.toBeDefined()
   })
   it('throws if the wallet already exists and is not EVM', async () => {
     const address = '0xnewaddress'
     const chain = 'solona'
-    const { id, data } = await addWallet(USER_MOCK_JOHNNY_USERNAME, {
+    const { id, data } = await addWallet(userMockJohnnyUsername(), {
       address,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
@@ -60,13 +60,13 @@ describe('CRUD - wallet - addWallet', () => {
     })
     addedWalletId = id
     expect(data).toStrictEqual({
-      userId: USER_MOCK_JOHNNY_ID,
+      userId: userMockJohnnyId(),
       address,
       chain,
       isEvm: false
     })
     await expect(
-      addWallet(USER_MOCK_JOHNNY_USERNAME, {
+      addWallet(userMockJohnnyUsername(), {
         address,
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
@@ -81,13 +81,13 @@ describe('CRUD - wallet - addWallet', () => {
   })
   it('add wallet', async () => {
     const address = toLower('0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8')
-    const { id } = await addWallet(USER_MOCK_JOHNNY_USERNAME, {
+    const { id } = await addWallet(userMockJohnnyUsername(), {
       address,
       chain: CHAIN_ETHEREUM
     })
     addedWalletId = id
     const wallet = (await getWalletById(id))!
-    expect(wallet.userId).toEqual('oE6yUEQBPn7PZ89yMjKn')
+    expect(wallet.userId).toEqual(userMockJohnnyId())
     expect(wallet.chain).toEqual(CHAIN_ETHEREUM)
     expect(wallet.address).toEqual(address)
   })

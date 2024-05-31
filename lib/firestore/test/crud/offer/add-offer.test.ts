@@ -18,21 +18,13 @@ import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import type { BaseOffer } from '@echo/model/types/base-offer'
 import type { Nft } from '@echo/model/types/nft'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
-import { LISTING_MOCK_ID } from '@echo/model-mocks/listing/listing-mock'
+import { listingMockId } from '@echo/model-mocks/listing/listing-mock'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
-import {
-  NFT_MOCK_PX_CREW_ID,
-  NFT_MOCK_SPIRAL_JOHNNY_2_ID,
-  NFT_MOCK_SPIRAL_JOHNNY_ID
-} from '@echo/model-mocks/nft/nft-mock'
+import { nftMockPxCrewId, nftMockSpiralJohnny2Id, nftMockSpiralJohnnyId } from '@echo/model-mocks/nft/nft-mock'
 import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
-import {
-  getUserMockByUsername,
-  USER_MOCK_CREW_USERNAME,
-  USER_MOCK_JOHNNY_USERNAME
-} from '@echo/model-mocks/user/user-mock'
+import { offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
+import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
@@ -44,7 +36,7 @@ import dayjs from 'dayjs'
 import { head, isNil, pick, pipe } from 'ramda'
 
 describe('CRUD - offer - addOffer', () => {
-  const listingId = LISTING_MOCK_ID
+  const listingId = listingMockId()
   let createdOfferId: Nullable<string>
   let createdListingOfferId: Nullable<string>
 
@@ -88,11 +80,11 @@ describe('CRUD - offer - addOffer', () => {
         getOfferMockById,
         pick(['senderItems', 'receiverItems']),
         assertOfferIsNotADuplicate
-      )(OFFER_MOCK_TO_JOHNNYCAGE_ID)
+      )(offerMockToJohnnycageId())
     ).rejects.toBeDefined()
   })
   it('throws if the offer is a duplicate', async () => {
-    const offerMock = getOfferMockById(OFFER_MOCK_TO_JOHNNYCAGE_ID)
+    const offerMock = getOfferMockById(offerMockToJohnnycageId())
     const baseOffer = pick(
       ['expiresAt', 'receiver', 'receiverItems', 'receiverItems', 'sender', 'senderItems'],
       offerMock
@@ -103,10 +95,10 @@ describe('CRUD - offer - addOffer', () => {
   })
   it('add an offer', async () => {
     const expiresAt = dayjs().add(DEFAULT_EXPIRATION_TIME, 'day')
-    const senderItems: NonEmptyArray<Nft> = [getNftMockById(NFT_MOCK_PX_CREW_ID)]
+    const senderItems: NonEmptyArray<Nft> = [getNftMockById(nftMockPxCrewId())]
     const receiverItems: NonEmptyArray<Nft> = [
-      getNftMockById(NFT_MOCK_SPIRAL_JOHNNY_ID),
-      getNftMockById(NFT_MOCK_SPIRAL_JOHNNY_2_ID)
+      getNftMockById(nftMockSpiralJohnnyId()),
+      getNftMockById(nftMockSpiralJohnny2Id())
     ]
     const baseOffer: BaseOffer = {
       expiresAt: expiresAt.unix(),
@@ -118,10 +110,10 @@ describe('CRUD - offer - addOffer', () => {
     const createdOffer = await addOffer(baseOffer, '0xTEST')
     createdOfferId = createdOffer.id
     const newOffer = (await getOfferById(createdOfferId))!
-    expect(newOffer.receiver).toStrictEqual(getUserMockByUsername(USER_MOCK_JOHNNY_USERNAME))
+    expect(newOffer.receiver).toStrictEqual(getUserMockByUsername(userMockJohnnyUsername()))
     expect(eqListContent(newOffer.receiverItems, receiverItems)).toBeTruthy()
     expectDateNumberIsNow(newOffer.createdAt)
-    expect(newOffer.sender).toStrictEqual(getUserMockByUsername(USER_MOCK_CREW_USERNAME))
+    expect(newOffer.sender).toStrictEqual(getUserMockByUsername(userMockCrewUsername()))
     expect(eqListContent(newOffer.senderItems, senderItems)).toBeTruthy()
     expect(newOffer.state).toBe(OFFER_STATE_OPEN)
     expect(newOffer.idContract).toBe('0xTEST')

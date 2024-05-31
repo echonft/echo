@@ -2,7 +2,6 @@
 import type { CancelListingArgs } from '@echo/api/types/fetchers/cancel-listing-args'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import { listingContext } from '@echo/model/sentry/contexts/listing-context'
-import { type AuthUser } from '@echo/model/types/auth-user'
 import type { Offer } from '@echo/model/types/offer'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { ListingDetailsItemsContainerLayout } from '@echo/ui/components/listing/details/layout/listing-details-items-container-layout'
@@ -26,13 +25,14 @@ import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/navigation'
+import type { User } from 'next-auth'
 import { useTranslations } from 'next-intl'
 import { assoc, isEmpty } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
 
 interface Props {
   listing: ListingWithRole
-  user: Nullable<AuthUser>
+  user: Nullable<User>
   offers: Offer[]
 }
 

@@ -1,3 +1,3 @@
-import type { AuthUser } from '@echo/model/types/auth-user'
+import type { User } from 'next-auth'
 
-export type NextAuthUserParams<P = unknown> = P & { user: AuthUser }
+export type NextAuthUserParams<P = unknown> = P & { user: User }

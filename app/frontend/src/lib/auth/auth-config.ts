@@ -1,21 +1,12 @@
 import { apiUrlProvider } from '@echo/api/routing/api-url-provider'
 import { isPathSecure } from '@echo/api/routing/is-path-secure'
-import { getAvatarDecorationUrl } from '@echo/frontend/lib/auth/get-avatar-decoration-url'
-import { getDiscordAvatarUrl } from '@echo/frontend/lib/auth/get-discord-avatar-url'
-import { getDiscordBannerUrl } from '@echo/frontend/lib/auth/get-discord-banner-url'
+import { mapUser } from '@echo/frontend/lib/auth/map-user'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { pathIsNil } from '@echo/utils/fp/path-is-nil'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
-import { type Account, type NextAuthConfig, type Profile, type User } from 'next-auth'
+import { type NextAuthConfig } from 'next-auth'
 import Discord, { type DiscordProfile } from 'next-auth/providers/discord'
-import { assoc, both, complement, dissoc, either, isNil, path, pick, pipe, prop } from 'ramda'
-
-interface SigninEvent {
-  user: User
-  account: Account | null
-  profile?: Profile
-  isNewUser?: boolean
-}
+import { assoc, both, complement, dissoc, either, isNil, path, pipe } from 'ramda'
 
 export const authConfig: NextAuthConfig = {
   callbacks: {
@@ -29,7 +20,7 @@ export const authConfig: NextAuthConfig = {
     },
     jwt: function ({ token, user }) {
       if (!isNil(user)) {
-        return Promise.resolve(assoc('user', dissoc('id', user), token))
+        return assoc('user', dissoc('id', user), token)
       }
       return token
     },
@@ -44,45 +35,21 @@ export const authConfig: NextAuthConfig = {
       return assoc('user', user, session)
     }
   },
-  events: {
-    // FIXME
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    signIn: async function (message: SigninEvent): Promise<void> {
-      const request = pipe<[SigninEvent], User, Pick<User, 'discord'>, string>(
-        prop('user'),
-        pick(['discord']),
-        JSON.stringify
-      )(message)
-      // TODO replace with API call to Firestore
-      await fetch(apiUrlProvider.admin.updateUser.getUrl(), {
-        headers: {
-          Authorization: `Bearer ${process.env.ADMIN_TOKEN}`,
-          'Content-Type': 'application/json'
-        },
-        method: 'POST',
-        body: request
-      })
-    }
-  },
   pages: {
     signIn: '/login'
   },
   providers: [
     Discord({
       authorization: 'https://discord.com/api/oauth2/authorize?scope=identify',
-      profile: (profile: DiscordProfile, _tokens): User => {
-        return {
-          username: profile.username,
-          discord: {
-            avatarUrl: getDiscordAvatarUrl(profile),
-            avatarDecorationUrl: getAvatarDecorationUrl(profile),
-            bannerColor: profile.banner_color ?? undefined,
-            bannerUrl: getDiscordBannerUrl(profile),
-            id: profile.id,
-            username: profile.username
-          }
-        }
+      profile: async (profile: DiscordProfile, token) => {
+        await fetch(apiUrlProvider.user.update.getUrl(), {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          method: 'POST',
+          body: JSON.stringify(token)
+        })
+        return mapUser(profile)
       }
     })
   ]

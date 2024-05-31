@@ -1,6 +1,6 @@
 import { getCollectionSwapsCountMockByCollectionId } from '@echo/firestore-mocks/collection-swaps-count/get-collection-swaps-count-mock-by-collection-id'
 import { getCollectionSwapsCountByCollectionId } from '@echo/firestore-test/collection-swaps-count/get-collection-swaps-count-by-collection-id'
-import { COLLECTION_MOCK_SPIRAL_ID } from '@echo/model-mocks/collection/collection-mock'
+import { collectionMockSpiralId } from '@echo/model-mocks/collection/collection-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('getCollectionSwapsCountByCollectionId', () => {
@@ -9,8 +9,8 @@ describe('getCollectionSwapsCountByCollectionId', () => {
     expect(document).toEqual(undefined)
   })
   it('returns the swaps count associated with the collection id', async () => {
-    const collectionId = COLLECTION_MOCK_SPIRAL_ID
+    const collectionId = collectionMockSpiralId()
     const document = await getCollectionSwapsCountByCollectionId(collectionId)
-    expect(document).toStrictEqual(getCollectionSwapsCountMockByCollectionId(COLLECTION_MOCK_SPIRAL_ID))
+    expect(document).toStrictEqual(getCollectionSwapsCountMockByCollectionId(collectionMockSpiralId()))
   })
 })

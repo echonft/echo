@@ -1,5 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
+import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
 import { OFFER_ROLE_RECEIVER, OFFER_ROLE_SENDER } from '@echo/model/constants/offer-role'
 import {
   OFFER_STATE_EXPIRED,
@@ -10,10 +11,9 @@ import {
 import type { Offer } from '@echo/model/types/offer'
 import type { OfferRole } from '@echo/model/types/offer-role'
 import type { OfferState } from '@echo/model/types/offer-state'
-import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
-import { USER_MOCK_CREW_USERNAME, USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
+import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
@@ -78,9 +78,9 @@ export const Page: StoryObj<ComponentType> = {
       assoc('state', state),
       setExpirationAndReadOnly,
       setRole
-    )(OFFER_MOCK_TO_JOHNNYCAGE_ID)
-    const user = getAuthUserMockByUsername(
-      isOfferRoleSender(renderedOffer) ? USER_MOCK_CREW_USERNAME : USER_MOCK_JOHNNY_USERNAME
+    )(offerMockToJohnnycageId())
+    const user = getUserDocumentDataMockByUsername(
+      isOfferRoleSender(renderedOffer) ? userMockCrewUsername() : userMockJohnnyUsername()
     )
     return (
       <PageLayout user={user} background={getOfferPageLayoutBackground(renderedOffer)} excludeProviders={true}>

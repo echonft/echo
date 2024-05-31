@@ -9,9 +9,9 @@ import { assertOffers } from '@echo/firestore-test/offer/assert-offers'
 import { deleteOffer } from '@echo/firestore-test/offer/delete-offer'
 import { unchecked_addOffer } from '@echo/firestore-test/offer/unchecked_add-offer'
 import { LISTING_STATE_OFFERS_PENDING, LISTING_STATE_OPEN } from '@echo/model/constants/listing-states'
-import { LISTING_MOCK_ID } from '@echo/model-mocks/listing/listing-mock'
+import { listingMockId } from '@echo/model-mocks/listing/listing-mock'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { OFFER_MOCK_FROM_JOHNNYCAGE_ID, OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
+import { offerMockFromJohnnycageId, offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
@@ -54,7 +54,7 @@ describe('CRUD - listing-offer - addListingOffer', () => {
     await expect(
       addListingOffer({
         listingId: 'not-found',
-        offerId: OFFER_MOCK_TO_JOHNNYCAGE_ID,
+        offerId: offerMockToJohnnycageId(),
         fulfillingStatus: ListingOfferFulfillingStatus.PARTIALLY
       })
     ).rejects.toBeDefined()
@@ -62,7 +62,7 @@ describe('CRUD - listing-offer - addListingOffer', () => {
   it('throws if trying to add a listing offer for an offer that does not exist', async () => {
     await expect(
       addListingOffer({
-        listingId: LISTING_MOCK_ID,
+        listingId: listingMockId(),
         offerId: 'not-found',
         fulfillingStatus: ListingOfferFulfillingStatus.PARTIALLY
       })
@@ -71,16 +71,16 @@ describe('CRUD - listing-offer - addListingOffer', () => {
   it('throws if trying to add a listing offer with a listingId and offerId already in the db', async () => {
     await expect(
       addListingOffer({
-        listingId: LISTING_MOCK_ID,
-        offerId: OFFER_MOCK_FROM_JOHNNYCAGE_ID,
+        listingId: listingMockId(),
+        offerId: offerMockFromJohnnycageId(),
         fulfillingStatus: ListingOfferFulfillingStatus.PARTIALLY
       })
     ).rejects.toBeDefined()
   })
   it('add a listing offer', async () => {
-    const listingId = LISTING_MOCK_ID
+    const listingId = listingMockId()
     const initialListingState = (await getListingById(listingId))!.state
-    const { receiverItems, senderItems } = getOfferMockById(OFFER_MOCK_TO_JOHNNYCAGE_ID)
+    const { receiverItems, senderItems } = getOfferMockById(offerMockToJohnnycageId())
     const createdOfferNewDocument = await unchecked_addOffer(receiverItems, senderItems)
     createdOfferId = createdOfferNewDocument.id
     const createdListingOfferNewDocument = await addListingOffer({

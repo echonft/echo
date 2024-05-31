@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { COLLECTION_MOCK_SPIRAL_ID, COLLECTION_MOCK_SPIRAL_SLUG } from '@echo/model-mocks/collection/collection-mock'
+import { collectionMockSpiralId, collectionMockSpiralSlug } from '@echo/model-mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { CollectionNfts as Component } from '@echo/ui/pages/collection/nfts/collection-nfts'
@@ -11,8 +11,8 @@ const metadata: Meta<typeof Component> = {
   title: 'Pages/Collection/Nfts',
   component: Component,
   args: {
-    slug: pipe(getCollectionMockById, prop('slug'))(COLLECTION_MOCK_SPIRAL_ID),
-    nfts: pipe(getAllNftMocks, filter(pathEq(COLLECTION_MOCK_SPIRAL_SLUG, ['collection', 'slug'])))()
+    slug: pipe(getCollectionMockById, prop('slug'))(collectionMockSpiralId()),
+    nfts: pipe(getAllNftMocks, filter(pathEq(collectionMockSpiralSlug(), ['collection', 'slug'])))()
   },
   parameters: {
     controls: {

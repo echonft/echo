@@ -1,13 +1,13 @@
 import { setOfferRoleReceiver } from '@echo/frontend/lib/helpers/offer/set-offer-role-receiver'
 import { setOfferRoleSender } from '@echo/frontend/lib/helpers/offer/set-offer-role-sender'
 import { setOfferRoleUndefined } from '@echo/frontend/lib/helpers/offer/set-offer-role-undefined'
-import type { AuthUser } from '@echo/model/types/auth-user'
 import type { Offer } from '@echo/model/types/offer'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { Nullable } from '@echo/utils/types/nullable'
+import type { User } from 'next-auth'
 import { isNil } from 'ramda'
 
-export function setOfferRoleForUser(user: Nullable<AuthUser>) {
+export function setOfferRoleForUser(user: Nullable<User>) {
   return function (offer: Offer): OfferWithRole {
     if (isNil(user)) {
       return setOfferRoleUndefined(offer)
