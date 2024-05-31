@@ -3,5 +3,5 @@ import { userDocumentDataMock } from '@echo/firestore-mocks/user/user-document-d
 import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
 export function getAllUserDocumentDataMocks() {
-  return Object.values(userDocumentDataMock) as NonEmptyArray<UserDocumentData>
+  return Object.values(userDocumentDataMock()) as NonEmptyArray<UserDocumentData>
 }

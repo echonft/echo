@@ -5,7 +5,7 @@ import type { NewDocument } from '@echo/firestore/types/new-document'
 import { assertNfts } from '@echo/firestore-test/nft/assert-nfts'
 import type { Nft } from '@echo/model/types/nft'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
-import { NFT_MOCK_SPIRAL_JOHNNY_ID } from '@echo/model-mocks/nft/nft-mock'
+import { nftMockSpiralJohnnyId } from '@echo/model-mocks/nft/nft-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
@@ -32,7 +32,7 @@ describe('CRUD - nft - addNft', () => {
     }
   })
   it('addNft', async () => {
-    const originalNft = omit(['updatedAt'], getNftMockById(NFT_MOCK_SPIRAL_JOHNNY_ID))
+    const originalNft = omit(['updatedAt'], getNftMockById(nftMockSpiralJohnnyId()))
     const newDocument = await addNft(originalNft)
     nftId = newDocument.id
     expect(

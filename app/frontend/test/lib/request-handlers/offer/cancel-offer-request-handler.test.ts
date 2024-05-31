@@ -9,17 +9,17 @@ import { OFFER_STATE_CANCELLED } from '@echo/model/constants/offer-states'
 import { type Offer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
 import { getOfferMockBySlug } from '@echo/model-mocks/offer/get-offer-mock-by-slug'
-import { OFFER_MOCK_TO_JOHNNYCAGE_SLUG } from '@echo/model-mocks/offer/offer-mock'
-import { USER_MOCK_CREW_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { offerMockToJohnnycageSlug } from '@echo/model-mocks/offer/offer-mock'
+import { userMockCrewUsername } from '@echo/model-mocks/user/user-mock'
 import { assoc, modify } from 'ramda'
 
 jest.mock('@echo/firestore/crud/offer/get-offer')
 jest.mock('@echo/firestore/crud/offer/cancel-offer')
 
 describe('request-handlers - offer - cancelOfferRequestHandler', () => {
-  const slug = OFFER_MOCK_TO_JOHNNYCAGE_SLUG
+  const slug = offerMockToJohnnycageSlug()
   const offer = getOfferMockBySlug(slug)
-  const user = getUserDocumentDataMockByUsername(USER_MOCK_CREW_USERNAME)
+  const user = getUserDocumentDataMockByUsername(userMockCrewUsername())
 
   beforeEach(() => {
     jest.clearAllMocks()

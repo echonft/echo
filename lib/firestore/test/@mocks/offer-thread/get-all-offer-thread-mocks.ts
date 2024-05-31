@@ -3,5 +3,5 @@ import { offerThreadMock } from '@echo/firestore-mocks/offer-thread/offer-thread
 import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
 export function getAllOfferThreadMocks() {
-  return Object.values(offerThreadMock) as NonEmptyArray<OfferThread>
+  return Object.values(offerThreadMock()) as NonEmptyArray<OfferThread>
 }

@@ -12,8 +12,8 @@ import type { Offer } from '@echo/model/types/offer'
 import type { OfferRole } from '@echo/model/types/offer-role'
 import type { OfferState } from '@echo/model/types/offer-state'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
-import { USER_MOCK_CREW_USERNAME, USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
+import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
@@ -78,9 +78,9 @@ export const Page: StoryObj<ComponentType> = {
       assoc('state', state),
       setExpirationAndReadOnly,
       setRole
-    )(OFFER_MOCK_TO_JOHNNYCAGE_ID)
+    )(offerMockToJohnnycageId())
     const user = getUserDocumentDataMockByUsername(
-      isOfferRoleSender(renderedOffer) ? USER_MOCK_CREW_USERNAME : USER_MOCK_JOHNNY_USERNAME
+      isOfferRoleSender(renderedOffer) ? userMockCrewUsername() : userMockJohnnyUsername()
     )
     return (
       <PageLayout user={user} background={getOfferPageLayoutBackground(renderedOffer)} excludeProviders={true}>

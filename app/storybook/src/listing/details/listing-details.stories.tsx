@@ -14,7 +14,7 @@ import type { ListingState } from '@echo/model/types/listing-state'
 import type { Offer } from '@echo/model/types/offer'
 import { getListingMock } from '@echo/model-mocks/listing/get-listing-mock'
 import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
-import { USER_MOCK_CREW_USERNAME, USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
 import { ListingDetails as Component } from '@echo/ui/components/listing/details/listing-details'
@@ -93,8 +93,8 @@ export const Details: StoryObj<ComponentType> = {
         listing={renderedListing}
         user={
           role === 'Creator'
-            ? getUserDocumentDataMockByUsername(USER_MOCK_JOHNNY_USERNAME)
-            : getUserDocumentDataMockByUsername(USER_MOCK_CREW_USERNAME)
+            ? getUserDocumentDataMockByUsername(userMockJohnnyUsername())
+            : getUserDocumentDataMockByUsername(userMockCrewUsername())
         }
         offers={getOffers()}
       />

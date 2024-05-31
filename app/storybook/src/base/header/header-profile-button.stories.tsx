@@ -2,7 +2,7 @@
 
 import '@echo/ui-css/index.css'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
-import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { HeaderProfileButton as Component } from '@echo/ui/components/base/header/header-profile-button'
 import { type Meta, type StoryObj } from '@storybook/react'
 
@@ -27,6 +27,6 @@ export default metadata
 
 export const ProfileButton: StoryObj<typeof Component> = {
   args: {
-    user: getUserDocumentDataMockByUsername(USER_MOCK_JOHNNY_USERNAME)
+    user: getUserDocumentDataMockByUsername(userMockJohnnyUsername())
   }
 }

@@ -3,5 +3,5 @@ import { swapPostMock } from '@echo/firestore-mocks/swap-post/swap-post-mock'
 import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
 export function getAllSwapPostMocks() {
-  return Object.values(swapPostMock) as NonEmptyArray<SwapPost>
+  return Object.values(swapPostMock()) as NonEmptyArray<SwapPost>
 }

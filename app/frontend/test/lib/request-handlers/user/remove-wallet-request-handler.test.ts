@@ -4,10 +4,11 @@ import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-u
 import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
 import { getUserDocumentDataMockById } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-id'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
+import { userMockJohnnyId } from '@echo/firestore-mocks/user/user-document-data-mock'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
 import { removeWalletRequestHandler } from '@echo/frontend/lib/request-handlers/profile/remove-wallet-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
-import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { CHAINS } from '@echo/utils/constants/chains/chains'
 import { toLower } from 'ramda'
 
@@ -23,7 +24,7 @@ describe('request-handlers - user - removeWalletRequestHandler', () => {
   const validRequest: RemoveWalletRequest = {
     wallet: validWallet
   }
-  const user = getUserDocumentDataMockByUsername(USER_MOCK_JOHNNY_USERNAME)
+  const user = getUserDocumentDataMockByUsername(userMockJohnnyUsername())
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -40,7 +41,7 @@ describe('request-handlers - user - removeWalletRequestHandler', () => {
   })
 
   it('returns a 200 if the request is valid', async () => {
-    jest.mocked(getUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById('oE6yUEQBPn7PZ89yMjKn'))
+    jest.mocked(getUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById(userMockJohnnyId()))
     jest.mocked(removeWallet).mockResolvedValueOnce()
     jest.mocked(getWalletsForUser).mockResolvedValueOnce([])
     const req = mockRequest<RemoveWalletRequest>(validRequest)

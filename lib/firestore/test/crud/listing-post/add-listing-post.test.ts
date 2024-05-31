@@ -3,7 +3,7 @@ import { getListingPost } from '@echo/firestore/crud/listing-post/get-listing-po
 import type { ListingPostDiscordGuild } from '@echo/firestore/types/model/listing-post/listing-post'
 import { assertListingPosts } from '@echo/firestore-test/listing-post/assert-listing-posts'
 import { deleteListingPost } from '@echo/firestore-test/listing-post/delete-listing-post'
-import { LISTING_MOCK_ID } from '@echo/model-mocks/listing/listing-mock'
+import { listingMockId } from '@echo/model-mocks/listing/listing-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
@@ -33,7 +33,7 @@ describe('CRUD - listing-post - addListingPost', () => {
   })
 
   it('add a listing post', async () => {
-    const listingId = LISTING_MOCK_ID
+    const listingId = listingMockId()
     const newDocument = await addListingPost(listingId, guild)
     listingPostId = newDocument.id
     expect(newDocument.data.listingId).toStrictEqual(listingId)

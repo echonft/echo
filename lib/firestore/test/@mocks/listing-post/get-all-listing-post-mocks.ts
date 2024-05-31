@@ -3,5 +3,5 @@ import { listingPostMock } from '@echo/firestore-mocks/listing-post/listing-post
 import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
 export function getAllListingPostMocks() {
-  return Object.values(listingPostMock) as NonEmptyArray<ListingPost>
+  return Object.values(listingPostMock()) as NonEmptyArray<ListingPost>
 }

@@ -3,7 +3,7 @@ import { getOfferThread } from '@echo/firestore/crud/offer-thread/get-offer-thre
 import type { OfferThread, OfferThreadDiscordGuild } from '@echo/firestore/types/model/offer-thread/offer-thread'
 import { assertOfferThreads } from '@echo/firestore-test/offer-thread/assert-offer-threads'
 import { deleteOfferThread } from '@echo/firestore-test/offer-thread/delete-offer-thread'
-import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
+import { offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { omit } from 'ramda'
@@ -24,7 +24,7 @@ describe('CRUD - offer-thread - addOfferThread', () => {
     await expect(addOfferThread({ offerId: 'not-found', guild, state: 'ACTIVE' })).rejects.toBeDefined()
   })
   it('add an offer thread', async () => {
-    const offerId = OFFER_MOCK_TO_JOHNNYCAGE_ID
+    const offerId = offerMockToJohnnycageId()
     const offerThread: Omit<OfferThread, 'postedAt'> = { offerId, guild, state: 'ACTIVE' }
     await addOfferThread(offerThread)
     const document = (await getOfferThread(offerId))!

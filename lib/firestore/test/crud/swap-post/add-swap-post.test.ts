@@ -1,6 +1,6 @@
 import { addSwapPost } from '@echo/firestore/crud/swap-post/add-swap-post'
 import type { SwapPostDiscordGuild } from '@echo/firestore/types/model/swap-post/swap-post'
-import { SWAP_MOCK_ID } from '@echo/firestore-mocks/swap/swap-mock'
+import { swapMockId } from '@echo/firestore-mocks/swap/swap-mock'
 import { assertSwapPosts } from '@echo/firestore-test/swap-post/assert-swap-posts'
 import { deleteSwapPost } from '@echo/firestore-test/swap-post/delete-swap-post'
 import { getSwapPostById } from '@echo/firestore-test/swap-post/get-swap-post-by-id'
@@ -33,11 +33,11 @@ describe('CRUD - swap-post - addSwapPost', () => {
     }
   })
   it('add a swap post', async () => {
-    const swapId = SWAP_MOCK_ID
-    const { id } = await addSwapPost({ swapId, guild })
+    const swapId = swapMockId
+    const { id } = await addSwapPost({ swapId: swapId(), guild })
     createdSwapPostId = id
     const newDocument = (await getSwapPostById(id))!
-    expect(newDocument.swapId).toStrictEqual(swapId)
+    expect(newDocument.swapId).toStrictEqual(swapId())
     expect(newDocument.guild).toStrictEqual(guild)
     expectDateNumberIsNow(newDocument.postedAt)
   })

@@ -2,7 +2,7 @@ import { type ListingDocumentData } from '@echo/firestore/types/model/listing/li
 import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
 import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
-import { LISTING_MOCK_ID } from '@echo/model-mocks/listing/listing-mock'
+import { listingMockId } from '@echo/model-mocks/listing/listing-mock'
 import { always, assoc, converge, dissoc, identity, pipe, prop } from 'ramda'
 
 function getDocumentData(listingId: string): ListingDocumentData {
@@ -14,6 +14,6 @@ function getDocumentData(listingId: string): ListingDocumentData {
   )(listingId) as unknown as ListingDocumentData
 }
 
-export const listingDocumentDataMock: Record<string, ListingDocumentData> = {
-  jUzMtPGKM62mMhEcmbN4: getDocumentData(LISTING_MOCK_ID)
+export function listingDocumentDataMock(): Record<string, ListingDocumentData> {
+  return { jUzMtPGKM62mMhEcmbN4: getDocumentData(listingMockId()) }
 }

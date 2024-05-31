@@ -14,7 +14,7 @@ import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiratio
 import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import { getAllListingMocks } from '@echo/model-mocks/listing/get-all-listing-mocks'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
-import { LISTING_MOCK_ID } from '@echo/model-mocks/listing/listing-mock'
+import { listingMockId } from '@echo/model-mocks/listing/listing-mock'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -59,17 +59,17 @@ describe('CRUD - listing - addListing', () => {
 
   it('assertListingIsNotADuplicate', async () => {
     await expect(
-      pipe(getListingMockById, pick(['items', 'target']), assertListingIsNotADuplicate)(LISTING_MOCK_ID)
+      pipe(getListingMockById, pick(['items', 'target']), assertListingIsNotADuplicate)(listingMockId())
     ).rejects.toBeDefined()
   })
   it('throws if the listing is a duplicate', async () => {
-    const { items, target } = getListingMockById(LISTING_MOCK_ID)
+    const { items, target } = getListingMockById(listingMockId())
     await expect(addListing({ items, target })).rejects.toBeDefined()
     const listings = await getAllListings()
     expect(eqListContent(listings, getAllListingMocks())).toBeTruthy()
   })
   it('add a listing', async () => {
-    const { creator, items, target } = getListingMockById(LISTING_MOCK_ID)
+    const { creator, items, target } = getListingMockById(listingMockId())
     const newTarget = assoc('amount', 1, target)
     const newDocument = await addListing({ items, target: newTarget })
     createdListingId = newDocument.id
