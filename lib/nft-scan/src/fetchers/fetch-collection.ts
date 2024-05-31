@@ -7,22 +7,18 @@ import { stringify } from 'qs'
 import { applySpec, defaultTo, partialRight, pipe, prop } from 'ramda'
 
 export async function fetchCollection(args: GetCollectionRequest): Promise<GetCollectionResponse> {
-  const { fetch, chain, contractAddress } = args
+  const { fetch, chain, address } = args
   const query = pipe(
     applySpec({
-      showAttribute: pipe(prop('showAttribute'), defaultTo(false))
+      show_attribute: pipe(prop('showAttribute'), defaultTo(false))
     }),
     partialRight(stringify, [{ addQueryPrefix: true }])
   )(args)
-  const url = `${getBaseUrl(chain)}/collections/${contractAddress}${query}`
+  const url = `${getBaseUrl(chain)}/collections/${address}${query}`
   const response = await fetch(url, fetchInit)
   if (!response.ok) {
     throw Error(
-      `error fetching collection ${contractAddress}: ${JSON.stringify(
-        { url, status: response.statusText },
-        undefined,
-        2
-      )}`
+      `error fetching collection ${address}: ${JSON.stringify({ url, status: response.statusText }, undefined, 2)}`
     )
   }
   return pipe(prop('data'), parseFetchResponse<GetCollectionResponse>)(response)
