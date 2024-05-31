@@ -22,7 +22,7 @@ declare namespace NodeJS {
       NEXT_RUNTIME: 'nodejs' | 'edge'
       NODE_ENV: 'production' | 'development' | 'test'
       OPEN_SEA_API_KEY: string
-      QUICKNODE_API_KEY: string
+      QUICKNODE_BLAST_ENDPOINT: string
       STORYBOOK?: 'true'
     }
   }

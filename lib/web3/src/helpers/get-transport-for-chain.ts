@@ -38,8 +38,8 @@ export const getTransportForChain = (chain: Chain) => {
   if (chainId === BLAST_SEPOLIA_CHAIN_ID) {
     return fallback(
       [
-        webSocket(`wss://silent-damp-patron.blast-sepolia.quiknode.pro/${process.env.QUICKNODE_API_KEY}/`),
-        http(`https://silent-damp-patron.blast-sepolia.quiknode.pro/${process.env.QUICKNODE_API_KEY}/`)
+        webSocket(`wss://${process.env.QUICKNODE_BLAST_ENDPOINT}`),
+        http(`https://${process.env.QUICKNODE_BLAST_ENDPOINT}`)
       ],
       { rank: true }
     )

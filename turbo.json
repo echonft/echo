@@ -73,6 +73,10 @@
     "tsc:clean-cache": {
       "inputs": ["tsconfig.tsbuildinfo"]
     },
+    "@echo/firestore-functions#deploy": {
+      "dependsOn": ["use:prod"],
+      "cache": false
+    },
     "@echo/firestore-functions#deploy:dev": {
       "dependsOn": ["use:dev"],
       "cache": false
@@ -85,21 +89,15 @@
       "dependsOn": ["use:dev", "build"],
       "cache": false
     },
-    "@echo/firestore-functions#serve:testnet": {
-      "dependsOn": ["use:testnet", "build"],
-      "cache": false
-    },
     "@echo/firestore-functions#start:dev": {
       "dependsOn": ["use:dev", "build"],
       "outputs": ["dist/**"],
       "inputs": ["src/**/*.ts"]
     },
-    "@echo/firestore-functions#start:testnet": {
-      "dependsOn": ["use:testnet", "build"],
-      "outputs": ["dist/**"],
-      "inputs": ["src/**/*.ts"]
-    },
     "@echo/firestore-functions#use:dev": {
+      "cache": false
+    },
+    "@echo/firestore-functions#use:prod": {
       "cache": false
     },
     "@echo/firestore-functions#use:testnet": {

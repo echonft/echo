@@ -3,11 +3,11 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'echo-contract-listener-dev'
+app = 'echobot'
 primary_region = 'yul'
 
 [build]
-dockerfile = '../../../contract-listener.Dockerfile'
+dockerfile = '../../../bot.Dockerfile'
 
 [[vm]]
 cpu_kind = 'shared'

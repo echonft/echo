@@ -18,8 +18,8 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "@sentry/node": "8.5.0",
-    "@sentry/profiling-node": "8.5.0",
+    "@sentry/node": "8.7.0",
+    "@sentry/profiling-node": "8.7.0",
     "ramda": "0.30.0"
   },
   "devDependencies": {
