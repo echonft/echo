@@ -2,11 +2,12 @@ import { getCollectionSwapsCountCollectionReference } from '@echo/firestore/help
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import { type CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
 import { getCollectionSwapsCountSnapshotByCollectionId } from '@echo/firestore-test/collection-swaps-count/get-collection-swaps-count-by-collection-id'
+import type { DeepPartial } from '@echo/utils/types/deep-partial'
 import { isNil } from 'ramda'
 
 export async function unchecked_updateCollectionSwapCounts(
   collectionId: string,
-  data: Partial<CollectionSwapsCount>
+  data: DeepPartial<CollectionSwapsCount>
 ): Promise<CollectionSwapsCount> {
   const snapshot = await getCollectionSwapsCountSnapshotByCollectionId(collectionId)
   if (isNil(snapshot)) {

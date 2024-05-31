@@ -5,9 +5,10 @@ import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import { type Nft } from '@echo/model/types/nft'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import { now } from '@echo/utils/helpers/now'
+import type { DeepPartial } from '@echo/utils/types/deep-partial'
 import { assoc, isNil, pipe } from 'ramda'
 
-export async function updateNft(data: Partial<Omit<Nft, 'updatedAt'>> & Required<NftIndex>): Promise<Nft> {
+export async function updateNft(data: Omit<DeepPartial<Nft>, 'updatedAt'> & Required<NftIndex>): Promise<Nft> {
   const snapshot = await pipe(getNftIndex, getNftSnapshot)(data)
   if (isNil(snapshot)) {
     throw Error(`NFT #${data.tokenId} for collection ${data.collection.slug} does not exist`)
