@@ -4,11 +4,13 @@ import { updateNft as updateNftInFirestore } from '@echo/firestore/crud/nft/upda
 import type { Collection, Contract } from '@echo/model/types/collection'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import type { User } from '@echo/model/types/user'
+import { getNft as getNftFromNftScan } from '@echo/nft-scan/services/get-nft'
 import { getNft as getNftFromOpensea } from '@echo/opensea/services/get-nft'
+import { isTestnet } from '@echo/utils/constants/is-testnet'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
-import { andThen, assoc, isNil, pipe, prop, tap } from 'ramda'
+import { always, andThen, assoc, ifElse, isNil, pipe, prop, tap } from 'ramda'
 
 interface UpdateNftArgs {
   nftIndex: NftIndex
@@ -39,7 +41,7 @@ export async function updateNft(args: UpdateNftArgs) {
 
   pinoLogger.info(`NFT ${JSON.stringify(nftIndex)} not found, fetching...`)
   await pipe(
-    getNftFromOpensea,
+    ifElse(always(isTestnet), getNftFromOpensea, getNftFromNftScan),
     andThen(
       pipe(
         assoc('collection', collection),

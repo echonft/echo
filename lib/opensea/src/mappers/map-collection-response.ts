@@ -11,8 +11,8 @@ import { always, applySpec, find, ifElse, isNil, pipe, prop, propSatisfies, unle
 export function mapCollectionResponse(
   response: CollectionResponse,
   skipContractCheck?: boolean
-): Omit<Collection, 'swapsCount' | 'verified'> {
-  return applySpec<Omit<Collection, 'swapsCount' | 'verified'>>({
+): Omit<Collection, 'swapsCount'> {
+  return applySpec<Omit<Collection, 'swapsCount'>>({
     bannerUrl: pipe(prop('banner_image_url'), removeQueryFromUrl),
     contract: pipe(
       prop('contracts'),
@@ -29,6 +29,7 @@ export function mapCollectionResponse(
     name: prop('name'),
     profilePictureUrl: pipe(prop('image_url'), removeQueryFromUrl),
     slug: prop('collection'),
-    totalSupply: prop('total_supply')
+    totalSupply: prop('total_supply'),
+    verified: false
   })(response)
 }

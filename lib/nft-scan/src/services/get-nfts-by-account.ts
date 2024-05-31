@@ -1,4 +1,4 @@
-import { fetchNft } from '@echo/nft-scan/fetchers/fetch-nft'
+import { fetchNftByAccount } from '@echo/nft-scan/fetchers/fetch-nft-by-account'
 import { mapNftResponse } from '@echo/nft-scan/mappers/map-nft-response'
 import type { GetNftsByAccountRequest } from '@echo/nft-scan/types/request/get-nfts-by-account-request'
 import type { NftResponse } from '@echo/nft-scan/types/response/nft-response'
@@ -8,7 +8,7 @@ import { andThen, assoc, concat, map, partialRight, pipe } from 'ramda'
 export type GetNftsByAccountArgs = Omit<GetNftsByAccountRequest, 'limit' | 'next'>
 
 async function handlePaging(args: GetNftsByAccountRequest, accNfts: NftResponse[]): Promise<NftResponse[]> {
-  const response = await fetchNft(args)
+  const response = await fetchNftByAccount(args)
   const { next, content } = response
   const mergedResponse = concat(accNfts, content)
   if (isNilOrEmpty(next)) {

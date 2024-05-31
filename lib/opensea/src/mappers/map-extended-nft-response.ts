@@ -6,12 +6,7 @@ import { unlessNil } from '@echo/utils/fp/unless-nil'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import { always, applySpec, ifElse, isNil, map, partialRight, pipe, prop } from 'ramda'
 
-export function mapExtendedNftResponse(response: NftExtendedResponse): Omit<
-  Nft,
-  'collection' | 'owner' | 'updatedAt'
-> & {
-  collection: Pick<Collection, 'slug'>
-} {
+export function mapExtendedNftResponse(response: NftExtendedResponse): Omit<Nft, 'collection' | 'owner' | 'updatedAt'> {
   return applySpec<Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & { collection: Pick<Collection, 'slug'> }>({
     animationUrl: prop('animation_url'),
     attributes: pipe(prop('traits'), ifElse(isNil, always([]), map(mapTraitResponse))),

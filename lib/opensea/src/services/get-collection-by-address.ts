@@ -7,9 +7,7 @@ import type { GetContractRequest } from '@echo/opensea/types/request/get-contrac
 import type { ContractResponse } from '@echo/opensea/types/response/contract-response'
 import { andThen, assoc, pipe } from 'ramda'
 
-export async function getCollectionByAddress(
-  args: GetContractRequest
-): Promise<Omit<Collection, 'swapsCount' | 'verified'>> {
+export async function getCollectionByAddress(args: GetContractRequest): Promise<Omit<Collection, 'swapsCount'>> {
   return await pipe(
     fetchContract,
     andThen(
@@ -17,7 +15,7 @@ export async function getCollectionByAddress(
         [ContractResponse],
         Omit<GetCollectionRequest, 'fetch'>,
         GetCollectionRequest,
-        Promise<Omit<Collection, 'swapsCount' | 'verified'>>
+        Promise<Omit<Collection, 'swapsCount'>>
       >(mapContractResponseToCollectionRequest, assoc('fetch', args.fetch), getCollection)
     )
   )(args)

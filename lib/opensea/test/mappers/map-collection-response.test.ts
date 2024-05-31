@@ -40,7 +40,7 @@ describe('mappers - mapCollectionResponse', () => {
       total_supply: mock.totalSupply,
       created_date: 'whatever'
     }
-    const collection: ReturnType<typeof mapCollectionResponse> = pipe(omit(['swapsCount', 'verified']))(mock)
+    const collection: ReturnType<typeof mapCollectionResponse> = pipe(omit(['swapsCount']))(mock)
     expect(mapCollectionResponse(response)).toStrictEqual(collection)
   })
 })
