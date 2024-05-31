@@ -9,10 +9,10 @@ export interface Nft {
   // balance: number
   collection: Collection
   name: string
-  animationUrl?: Nullable<Lowercase<string>>
-  metadataUrl?: Nullable<Lowercase<string>>
+  animationUrl?: Nullable<string>
+  metadataUrl?: Nullable<string>
   owner: User
-  pictureUrl?: Nullable<Lowercase<string>>
+  pictureUrl?: Nullable<string>
   tokenId: number
   // we only support ERC721 for now
   // tokenType: NftTokenType
