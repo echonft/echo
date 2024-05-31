@@ -23,7 +23,7 @@ export function mapNftResponse(response: NftResponse): Omit<Nft, 'collection' | 
       prop('token_uri'),
       unlessNilOrEmpty(cleanIpfsURI)
     ),
-    pictureUrl: pipe(prop('image_uri'), unlessNilOrEmpty(cleanIpfsURI), unlessNilOrEmpty(removeQueryFromUrl)),
+    pictureUrl: pipe(prop('image_uri'), unlessNilOrEmpty(pipe(cleanIpfsURI, removeQueryFromUrl))),
     tokenId: pipe(prop('token_id'), partialRight(parseInt, [10]))
   })(response)
 }
