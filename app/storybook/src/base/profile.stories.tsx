@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { Profile as Component } from '@echo/ui/components/base/profile'
 import { PROFILE_PICTURE_SIZES } from '@echo/ui/constants/profile-picture-size'
 import { SIZE_LG } from '@echo/ui/constants/size'
@@ -61,7 +61,7 @@ export const Profile: StoryObj<ComponentType> = {
       <Component
         banner={{ bannerUrl, bannerColor: color }}
         picture={{
-          alt: USER_MOCK_JOHNNY_USERNAME,
+          alt: userMockJohnnyUsername(),
           pictureUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
           size: pictureSize,
           border: pictureBorder

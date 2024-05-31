@@ -1,20 +1,25 @@
 import type { Wallet } from '@echo/model/types/wallet'
-import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
+import type { HexString } from '@echo/utils/types/hex-string'
 import { isNil, toLower } from 'ramda'
 
-export const WALLET_MOCK_CREW_ADDRESS = toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D')
-export const WALLET_MOCK_JOHNNY_ADDRESS = toLower('0x1e3918Dd44F427F056be6c8E132cf1b5f42dE59e')
+export function walletMockCrewAddress(): Lowercase<HexString> {
+  return toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D')
+}
+export function walletMockJohnnyAddress(): Lowercase<HexString> {
+  return toLower('0x1e3918Dd44F427F056be6c8E132cf1b5f42dE59e')
+}
 
 export function getWalletMockByUsername(username: string) {
   const walletMock: Record<string, Wallet> = {
     crewnft_: {
       chain: CHAIN_ETHEREUM,
-      address: WALLET_MOCK_CREW_ADDRESS
+      address: walletMockCrewAddress()
     },
     johnnycagewins: {
       chain: CHAIN_ETHEREUM,
-      address: WALLET_MOCK_JOHNNY_ADDRESS
+      address: walletMockJohnnyAddress()
     }
   }
 
@@ -26,5 +31,5 @@ export function getWalletMockByUsername(username: string) {
 }
 
 export function getWalletMock(): Wallet {
-  return getWalletMockByUsername(USER_MOCK_JOHNNY_USERNAME)
+  return getWalletMockByUsername(userMockJohnnyUsername())
 }

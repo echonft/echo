@@ -3,20 +3,24 @@ import { getDiscordProfileMockByUsername } from '@echo/model-mocks/user/discord-
 import { getWalletMockByUsername } from '@echo/model-mocks/wallet/wallet-mock'
 import { isNil } from 'ramda'
 
-export const USER_MOCK_CREW_USERNAME = 'crewnft_'
-export const USER_MOCK_JOHNNY_USERNAME = 'johnnycagewins'
+export function userMockCrewUsername() {
+  return 'crewnft_'
+}
+export function userMockJohnnyUsername() {
+  return 'johnnycagewins'
+}
 
 export function getUserMockByUsername(username: string) {
   const userMock: Record<string, User> = {
     crewnft_: {
-      username: USER_MOCK_CREW_USERNAME,
-      discord: getDiscordProfileMockByUsername(USER_MOCK_CREW_USERNAME),
-      wallet: getWalletMockByUsername(USER_MOCK_CREW_USERNAME)
+      username: userMockCrewUsername(),
+      discord: getDiscordProfileMockByUsername(userMockCrewUsername()),
+      wallet: getWalletMockByUsername(userMockCrewUsername())
     },
     johnnycagewins: {
-      username: USER_MOCK_JOHNNY_USERNAME,
-      discord: getDiscordProfileMockByUsername(USER_MOCK_JOHNNY_USERNAME),
-      wallet: getWalletMockByUsername(USER_MOCK_JOHNNY_USERNAME)
+      username: userMockJohnnyUsername(),
+      discord: getDiscordProfileMockByUsername(userMockJohnnyUsername()),
+      wallet: getWalletMockByUsername(userMockJohnnyUsername())
     }
   }
 

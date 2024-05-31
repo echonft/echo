@@ -15,11 +15,11 @@ import { type Nft } from '@echo/model/types/nft'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import { getCollectionMockBySlug } from '@echo/model-mocks/collection/get-collection-mock-by-slug'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
-import { LISTING_MOCK_ID } from '@echo/model-mocks/listing/listing-mock'
+import { listingMockId } from '@echo/model-mocks/listing/listing-mock'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { getNftMockByIndex } from '@echo/model-mocks/nft/get-nft-mock-by-index'
-import { NFT_MOCK_SPIRAL_CREW_ID } from '@echo/model-mocks/nft/nft-mock'
-import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { nftMockSpiralCrewId } from '@echo/model-mocks/nft/nft-mock'
+import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { mapListingTargetToRequest } from '@echo/ui/mappers/to-api/map-listing-target-to-request'
 import { toPromise } from '@echo/utils/fp/to-promise'
 import { map, modify, pipe, prop } from 'ramda'
@@ -29,8 +29,8 @@ jest.mock('@echo/frontend/lib/helpers/nft/get-nfts-from-indexes')
 jest.mock('@echo/frontend/lib/helpers/listing/get-listing-target-from-request')
 
 describe('request-handlers - listing - createListingRequestHandler', () => {
-  const listing = getListingMockById(LISTING_MOCK_ID)
-  const user = getUserDocumentDataMockByUsername(USER_MOCK_JOHNNY_USERNAME)
+  const listing = getListingMockById(listingMockId())
+  const user = getUserDocumentDataMockByUsername(userMockJohnnyUsername())
 
   beforeAll(() => {
     jest.mocked(getNftsFromIndexes).mockImplementation(pipe(map<NftIndex, Nft>(getNftMockByIndex), toPromise))
@@ -54,10 +54,10 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
 
   it('throws if the user is not the owner of every item', async () => {
     const request: CreateListingRequest = {
-      items: [getNftMockById(NFT_MOCK_SPIRAL_CREW_ID)],
+      items: [getNftMockById(nftMockSpiralCrewId())],
       target: pipe<[Listing], ListingTarget, ListingTargetRequest>(prop('target'), mapListingTargetToRequest)(listing)
     }
-    jest.mocked(addListing).mockResolvedValue({ id: LISTING_MOCK_ID, data: listing, listingOffers: [] })
+    jest.mocked(addListing).mockResolvedValue({ id: listingMockId(), data: listing, listingOffers: [] })
     const req = mockRequest<CreateListingRequest>(request)
     try {
       await createListingRequestHandler(user, req)
@@ -72,7 +72,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
       items: getListingItemsIndexes(listing),
       target: pipe<[Listing], ListingTarget, ListingTargetRequest>(prop('target'), mapListingTargetToRequest)(listing)
     }
-    jest.mocked(addListing).mockResolvedValue({ id: LISTING_MOCK_ID, data: listing, listingOffers: [] })
+    jest.mocked(addListing).mockResolvedValue({ id: listingMockId(), data: listing, listingOffers: [] })
     const req = mockRequest<CreateListingRequest>(validRequest)
     const res = await createListingRequestHandler(user, req)
     expect(addListing).toHaveBeenCalledTimes(1)

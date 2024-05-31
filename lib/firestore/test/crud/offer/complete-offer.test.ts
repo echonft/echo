@@ -31,10 +31,10 @@ import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
 import { getOfferItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-items-collection-slugs'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
-import { LISTING_MOCK_ID } from '@echo/model-mocks/listing/listing-mock'
+import { listingMockId } from '@echo/model-mocks/listing/listing-mock'
 import { getNftMockByIndex } from '@echo/model-mocks/nft/get-nft-mock-by-index'
 import { getOfferMockBySlug } from '@echo/model-mocks/offer/get-offer-mock-by-slug'
-import { OFFER_MOCK_TO_JOHNNYCAGE_ID, OFFER_MOCK_TO_JOHNNYCAGE_SLUG } from '@echo/model-mocks/offer/offer-mock'
+import { offerMockToJohnnycageId, offerMockToJohnnycageSlug } from '@echo/model-mocks/offer/offer-mock'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { futureDate } from '@echo/utils/helpers/future-date'
@@ -46,9 +46,9 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from
 import { andThen, assoc, find, isEmpty, isNil, map, pipe, prop, propEq, reject } from 'ramda'
 
 describe('CRUD - offer - completeOffer', () => {
-  const listingId = LISTING_MOCK_ID
-  const offerId = OFFER_MOCK_TO_JOHNNYCAGE_ID
-  const slug = OFFER_MOCK_TO_JOHNNYCAGE_SLUG
+  const listingId = listingMockId()
+  const offerId = offerMockToJohnnycageId()
+  const slug = offerMockToJohnnycageSlug()
   let initialSwapsCounts: CollectionSwapsCount[]
   let createdStateUpdateId: Nullable<string>
   let createdSwapId: Nullable<string>

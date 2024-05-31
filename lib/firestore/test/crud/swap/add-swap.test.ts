@@ -10,7 +10,7 @@ import { deleteSwap } from '@echo/firestore-test/swap/delete-swap'
 import { getSwapById } from '@echo/firestore-test/swap/get-swap-by-id'
 import { getOfferItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-items-collection-slugs'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { OFFER_MOCK_FROM_JOHNNYCAGE_ID, OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
+import { offerMockFromJohnnycageId, offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
@@ -20,7 +20,7 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from
 import { andThen, assoc, find, isEmpty, isNil, map, pipe, prop, propEq, reject } from 'ramda'
 
 describe('CRUD - swap - addSwap', () => {
-  const offerId = OFFER_MOCK_TO_JOHNNYCAGE_ID
+  const offerId = offerMockToJohnnycageId()
   const args: Omit<Swap, 'createdAt'> = {
     offerId,
     transactionId: '0xnew'
@@ -63,7 +63,7 @@ describe('CRUD - swap - addSwap', () => {
     await expect(pipe(assoc('offerId', 'not-found'), addSwap)(args)).rejects.toBeDefined()
   })
   it('throws if trying to add a swap for an offer that already has a swap', async () => {
-    await expect(pipe(assoc('offerId', OFFER_MOCK_FROM_JOHNNYCAGE_ID), addSwap)(args)).rejects.toBeDefined()
+    await expect(pipe(assoc('offerId', offerMockFromJohnnycageId()), addSwap)(args)).rejects.toBeDefined()
   })
   it('add a swap', async () => {
     const offer = getOfferMockById(args.offerId)

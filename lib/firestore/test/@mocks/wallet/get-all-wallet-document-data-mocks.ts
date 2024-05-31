@@ -3,5 +3,5 @@ import { walletDocumentDataMock } from '@echo/firestore-mocks/wallet/wallet-docu
 import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
 export function getAllWalletDocumentDataMocks() {
-  return Object.values(walletDocumentDataMock) as NonEmptyArray<WalletDocumentData>
+  return Object.values(walletDocumentDataMock()) as NonEmptyArray<WalletDocumentData>
 }

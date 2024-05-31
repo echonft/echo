@@ -2,7 +2,7 @@ import { addCollectionDiscordGuild } from '@echo/firestore/crud/collection-disco
 import { assertCollectionDiscordGuilds } from '@echo/firestore-test/collection-discord-guild/assert-collection-discord-guilds'
 import { deleteCollectionDiscordGuild } from '@echo/firestore-test/collection-discord-guild/delete-collection-discord-guild'
 import { getCollectionDiscordGuildById } from '@echo/firestore-test/collection-discord-guild/get-collection-discord-guild-by-id'
-import { COLLECTION_MOCK_PX_ID } from '@echo/model-mocks/collection/collection-mock'
+import { collectionMockPxId } from '@echo/model-mocks/collection/collection-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
@@ -35,11 +35,11 @@ describe('CRUD - collection-discord-guild - addCollectionDiscordGuild', () => {
   })
   it('throws if trying to add a guild that already exists to a collection', async () => {
     await expect(
-      addCollectionDiscordGuild({ collectionId: COLLECTION_MOCK_PX_ID, guild: { id: '100', channelId: '100' } })
+      addCollectionDiscordGuild({ collectionId: collectionMockPxId(), guild: { id: '100', channelId: '100' } })
     ).rejects.toBeDefined()
   })
   it('add a discord guild to an nft collection', async () => {
-    const newDocumentData = { collectionId: COLLECTION_MOCK_PX_ID, guild: { id: 'new', channelId: 'new' } }
+    const newDocumentData = { collectionId: collectionMockPxId(), guild: { id: 'new', channelId: 'new' } }
     const { id, data } = await addCollectionDiscordGuild(newDocumentData)
     collectionDiscordGuildId = id
     expect(data).toStrictEqual(newDocumentData)

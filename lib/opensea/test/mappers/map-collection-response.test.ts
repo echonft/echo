@@ -1,5 +1,5 @@
 import type { Contract } from '@echo/model/types/collection'
-import { COLLECTION_MOCK_SPIRAL_ID } from '@echo/model-mocks/collection/collection-mock'
+import { collectionMockSpiralId } from '@echo/model-mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { mapCollectionResponse } from '@echo/opensea/mappers/map-collection-response'
 import type { CollectionResponse } from '@echo/opensea/types/response/collection-response'
@@ -15,7 +15,7 @@ describe('mappers - mapCollectionResponse', () => {
     const mock = pipe(
       getCollectionMockById,
       modify<'contract', Contract, Contract>('contract', assoc('chain', supportedChain))
-    )(COLLECTION_MOCK_SPIRAL_ID)
+    )(collectionMockSpiralId())
     const response: CollectionResponse = {
       collection: mock.slug,
       name: mock.name,

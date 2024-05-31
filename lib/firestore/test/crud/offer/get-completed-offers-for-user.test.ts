@@ -1,7 +1,7 @@
 import { getCompletedOffersForUser } from '@echo/firestore/crud/offer/get-completed-offers-for-user'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { OFFER_MOCK_FROM_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
-import { USER_MOCK_CREW_USERNAME, USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { offerMockFromJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
+import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - offer - getCompletedOffersForUser', () => {
@@ -10,11 +10,11 @@ describe('CRUD - offer - getCompletedOffersForUser', () => {
     expect(documents).toEqual([])
   })
   it('returns the completed offers for the user', async () => {
-    let documents = await getCompletedOffersForUser(USER_MOCK_JOHNNY_USERNAME)
+    let documents = await getCompletedOffersForUser(userMockJohnnyUsername())
     expect(documents.length).toBe(1)
-    expect(documents[0]).toStrictEqual(getOfferMockById(OFFER_MOCK_FROM_JOHNNYCAGE_ID))
-    documents = await getCompletedOffersForUser(USER_MOCK_CREW_USERNAME)
+    expect(documents[0]).toStrictEqual(getOfferMockById(offerMockFromJohnnycageId()))
+    documents = await getCompletedOffersForUser(userMockCrewUsername())
     expect(documents.length).toBe(1)
-    expect(documents[0]).toStrictEqual(getOfferMockById(OFFER_MOCK_FROM_JOHNNYCAGE_ID))
+    expect(documents[0]).toStrictEqual(getOfferMockById(offerMockFromJohnnycageId()))
   })
 })

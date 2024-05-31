@@ -14,8 +14,8 @@ import {
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
 import { getOfferMockBySlug } from '@echo/model-mocks/offer/get-offer-mock-by-slug'
-import { OFFER_MOCK_TO_JOHNNYCAGE_SLUG } from '@echo/model-mocks/offer/offer-mock'
-import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { offerMockToJohnnycageSlug } from '@echo/model-mocks/offer/offer-mock'
+import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { futureDate } from '@echo/utils/helpers/future-date'
 import { pastDate } from '@echo/utils/helpers/past-date'
@@ -27,12 +27,12 @@ import { assoc, isNil, pipe } from 'ramda'
 
 describe('CRUD - offer - acceptOffer', () => {
   let createdStateUpdateId: Nullable<string>
-  const slug = OFFER_MOCK_TO_JOHNNYCAGE_SLUG
+  const slug = offerMockToJohnnycageSlug()
   const args: Omit<UpdateOfferStateArgs, 'state'> = {
     slug,
     updateArgs: {
       trigger: {
-        by: USER_MOCK_JOHNNY_USERNAME
+        by: userMockJohnnyUsername()
       }
     }
   }

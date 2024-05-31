@@ -9,17 +9,17 @@ import { LISTING_STATE_CANCELLED } from '@echo/model/constants/listing-states'
 import { type Listing } from '@echo/model/types/listing'
 import type { User } from '@echo/model/types/user'
 import { getListingMockBySlug } from '@echo/model-mocks/listing/get-listing-mock-by-slug'
-import { LISTING_MOCK_SLUG } from '@echo/model-mocks/listing/listing-mock'
-import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { listingMockSlug } from '@echo/model-mocks/listing/listing-mock'
+import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { assoc, modify } from 'ramda'
 
 jest.mock('@echo/firestore/crud/listing/get-listing')
 jest.mock('@echo/firestore/crud/listing/cancel-listing')
 
 describe('request-handlers - listing - cancelListingRequestHandler', () => {
-  const slug = LISTING_MOCK_SLUG
+  const slug = listingMockSlug()
   const listing = getListingMockBySlug(slug)
-  const user = getUserDocumentDataMockByUsername(USER_MOCK_JOHNNY_USERNAME)
+  const user = getUserDocumentDataMockByUsername(userMockJohnnyUsername())
 
   beforeEach(() => {
     jest.clearAllMocks()

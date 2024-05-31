@@ -1,19 +1,27 @@
 import { type Nft } from '@echo/model/types/nft'
-import { COLLECTION_MOCK_PX_ID, COLLECTION_MOCK_SPIRAL_ID } from '@echo/model-mocks/collection/collection-mock'
+import { collectionMockPxId, collectionMockSpiralId } from '@echo/model-mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
-import {
-  getUserMockByUsername,
-  USER_MOCK_CREW_USERNAME,
-  USER_MOCK_JOHNNY_USERNAME
-} from '@echo/model-mocks/user/user-mock'
+import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 
-export const NFT_MOCK_SPIRAL_JOHNNY_ID = '8hHFadIrrooORfTOLkBg'
-export const NFT_MOCK_SPIRAL_JOHNNY_2_ID = 'iRZFKEujarikVjpiFAkE'
-export const NFT_MOCK_SPIRAL_CREW_ID = '5SeF1NSN5uPUxtWSr516'
+export function nftMockSpiralJohnnyId() {
+  return '8hHFadIrrooORfTOLkBg'
+}
+export function nftMockSpiralJohnny2Id() {
+  return 'iRZFKEujarikVjpiFAkE'
+}
+export function nftMockSpiralCrewId() {
+  return '5SeF1NSN5uPUxtWSr516'
+}
 
-export const NFT_MOCK_PX_JOHNNY_ID = 'QFjMRNChUAHNswkRADXh'
-export const NFT_MOCK_PX_JOHNNY_2_ID = 'XiDa6k2P7gxXCKSxn2wq'
-export const NFT_MOCK_PX_CREW_ID = 'kRE3UCfXWkJ33nwzj2X1'
+export function nftMockPxJohnnyId() {
+  return 'QFjMRNChUAHNswkRADXh'
+}
+export function nftMockPxJohnny2Id() {
+  return 'XiDa6k2P7gxXCKSxn2wq'
+}
+export function nftMockPxCrewId() {
+  return 'kRE3UCfXWkJ33nwzj2X1'
+}
 
 export const nftMock: Record<string, Nft> = {
   '8hHFadIrrooORfTOLkBg': {
@@ -28,9 +36,9 @@ export const nftMock: Record<string, Nft> = {
       { value: '#complement', trait: 'Background' }
     ],
     animationUrl: 'https://animation.url/',
-    collection: getCollectionMockById(COLLECTION_MOCK_SPIRAL_ID),
+    collection: getCollectionMockById(collectionMockSpiralId()),
     name: 'Spiral Frequencies #1',
-    owner: getUserMockByUsername(USER_MOCK_JOHNNY_USERNAME),
+    owner: getUserMockByUsername(userMockJohnnyUsername()),
     metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
     tokenId: 1,
@@ -72,9 +80,9 @@ export const nftMock: Record<string, Nft> = {
       }
     ],
     animationUrl: 'https://animation.url/',
-    collection: getCollectionMockById(COLLECTION_MOCK_SPIRAL_ID),
+    collection: getCollectionMockById(collectionMockSpiralId()),
     name: 'Spiral Frequencies #2',
-    owner: getUserMockByUsername(USER_MOCK_JOHNNY_USERNAME),
+    owner: getUserMockByUsername(userMockJohnnyUsername()),
     metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/c8ced259cc0a40a5a42d22182e82f9de',
     tokenId: 2,
@@ -116,9 +124,9 @@ export const nftMock: Record<string, Nft> = {
       }
     ],
     animationUrl: 'https://animation.url/',
-    collection: getCollectionMockById(COLLECTION_MOCK_SPIRAL_ID),
+    collection: getCollectionMockById(collectionMockSpiralId()),
     name: 'Spiral Frequencies #3',
-    owner: getUserMockByUsername(USER_MOCK_CREW_USERNAME),
+    owner: getUserMockByUsername(userMockCrewUsername()),
     metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/f7adbf923a17d9b1f9b33d7a23d2b621',
     tokenId: 3,
@@ -175,9 +183,9 @@ export const nftMock: Record<string, Nft> = {
         trait: 'Halo'
       }
     ],
-    collection: getCollectionMockById(COLLECTION_MOCK_PX_ID),
+    collection: getCollectionMockById(collectionMockPxId()),
     name: 'Creative Demigod #1',
-    owner: getUserMockByUsername(USER_MOCK_JOHNNY_USERNAME),
+    owner: getUserMockByUsername(userMockJohnnyUsername()),
     animationUrl: 'https://animation.url/',
     metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/c96b4f27dc8dec8a869932f36205bafa',
@@ -223,9 +231,9 @@ export const nftMock: Record<string, Nft> = {
         trait: 'Tattoo'
       }
     ],
-    collection: getCollectionMockById(COLLECTION_MOCK_PX_ID),
+    collection: getCollectionMockById(collectionMockPxId()),
     name: 'Water Elemental #2',
-    owner: getUserMockByUsername(USER_MOCK_JOHNNY_USERNAME),
+    owner: getUserMockByUsername(userMockJohnnyUsername()),
     animationUrl: 'https://animation.url/',
     metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/eaefecb1e422f0f1848058cfdc8a36a9',
@@ -275,9 +283,9 @@ export const nftMock: Record<string, Nft> = {
         trait: 'Beard'
       }
     ],
-    collection: getCollectionMockById(COLLECTION_MOCK_PX_ID),
+    collection: getCollectionMockById(collectionMockPxId()),
     name: 'Creative Demigod #3',
-    owner: getUserMockByUsername(USER_MOCK_CREW_USERNAME),
+    owner: getUserMockByUsername(userMockCrewUsername()),
     animationUrl: 'https://animation.url/',
     metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/d4ccdfe6a54889abc408c34335b6fb55',

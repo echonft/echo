@@ -3,7 +3,7 @@ import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
 import { getWalletsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-wallets-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { getWalletDocumentDataMockById } from '@echo/firestore-mocks/wallet/get-wallet-document-data-mock-by-id'
-import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
@@ -31,7 +31,7 @@ describe('CRUD - wallet - removeWallet', () => {
   })
   it('throws if the wallet does not exists', async () => {
     await expect(
-      removeWallet(USER_MOCK_JOHNNY_USERNAME, {
+      removeWallet(userMockJohnnyUsername(), {
         chain: CHAIN_ETHEREUM,
         address: toLower('0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8')
       })
@@ -57,7 +57,7 @@ describe('CRUD - wallet - removeWallet', () => {
     const walletId = 'i28NWtlxElPXCnO0c6BC'
     const wallet = getWalletDocumentDataMockById(walletId)
     const walletData = pick(['address', 'chain'], wallet)
-    await removeWallet(USER_MOCK_JOHNNY_USERNAME, walletData)
+    await removeWallet(userMockJohnnyUsername(), walletData)
     deletedWalletId = walletId
     const foundWallet = await getWalletByAddress(walletData)
     expect(foundWallet).toBeUndefined()

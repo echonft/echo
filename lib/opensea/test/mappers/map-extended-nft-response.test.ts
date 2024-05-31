@@ -1,18 +1,18 @@
-import { COLLECTION_MOCK_SPIRAL_SLUG } from '@echo/model-mocks/collection/collection-mock'
+import { collectionMockSpiralSlug } from '@echo/model-mocks/collection/collection-mock'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
-import { NFT_MOCK_SPIRAL_JOHNNY_ID } from '@echo/model-mocks/nft/nft-mock'
+import { nftMockSpiralJohnnyId } from '@echo/model-mocks/nft/nft-mock'
 import { mapExtendedNftResponse } from '@echo/opensea/mappers/map-extended-nft-response'
 import type { NftExtendedResponse } from '@echo/opensea/types/response/nft-extended-response'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, omit, pipe } from 'ramda'
 
 describe('mappers - mapExtendedNftResponse', () => {
-  const nftMock = getNftMockById(NFT_MOCK_SPIRAL_JOHNNY_ID)
+  const nftMock = getNftMockById(nftMockSpiralJohnnyId())
 
   it('no undefined values', () => {
     const response: NftExtendedResponse = {
       identifier: nftMock.tokenId.toString(),
-      collection: COLLECTION_MOCK_SPIRAL_SLUG,
+      collection: collectionMockSpiralSlug(),
       contract: nftMock.collection.contract.address,
       token_standard: 'erc721',
       name: nftMock.name,
@@ -48,7 +48,7 @@ describe('mappers - mapExtendedNftResponse', () => {
   it('with undefined values', () => {
     const response: NftExtendedResponse = {
       identifier: nftMock.tokenId.toString(),
-      collection: COLLECTION_MOCK_SPIRAL_SLUG,
+      collection: collectionMockSpiralSlug(),
       contract: nftMock.collection.contract.address,
       token_standard: 'erc721',
       name: nftMock.name,

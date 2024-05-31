@@ -3,5 +3,5 @@ import { collectionDiscordGuildMock } from '@echo/firestore-mocks/collection-dis
 import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
 export function getAllCollectionDiscordGuildMocks() {
-  return Object.values(collectionDiscordGuildMock) as NonEmptyArray<CollectionDiscordGuild>
+  return Object.values(collectionDiscordGuildMock()) as NonEmptyArray<CollectionDiscordGuild>
 }

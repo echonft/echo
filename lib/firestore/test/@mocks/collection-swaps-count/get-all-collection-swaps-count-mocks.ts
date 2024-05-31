@@ -3,5 +3,5 @@ import { collectionSwapsCountMock } from '@echo/firestore-mocks/collection-swaps
 import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
 export function getAllCollectionSwapsCountMocks() {
-  return Object.values(collectionSwapsCountMock) as NonEmptyArray<CollectionSwapsCount>
+  return Object.values(collectionSwapsCountMock()) as NonEmptyArray<CollectionSwapsCount>
 }

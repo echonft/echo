@@ -1,6 +1,6 @@
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { expectUserDocumentDataToEqualMock } from '@echo/firestore-test/user/expect-user-document-data-to-equal-mock'
-import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - user - findUserByUsername', () => {
@@ -9,7 +9,7 @@ describe('CRUD - user - findUserByUsername', () => {
     expect(user).toBeUndefined()
   })
   it('returns the user with the given username', async () => {
-    const user = await getUserByUsername(USER_MOCK_JOHNNY_USERNAME)
+    const user = await getUserByUsername(userMockJohnnyUsername())
     expectUserDocumentDataToEqualMock(user)
   })
 })

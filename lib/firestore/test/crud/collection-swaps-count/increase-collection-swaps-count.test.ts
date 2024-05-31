@@ -4,15 +4,15 @@ import { assertCollections } from '@echo/firestore-test/collection/assert-collec
 import { assertCollectionSwapsCounts } from '@echo/firestore-test/collection-swaps-count/assert-collection-swaps-counts'
 import { getCollectionSwapsCountByCollectionId } from '@echo/firestore-test/collection-swaps-count/get-collection-swaps-count-by-collection-id'
 import { unchecked_updateCollectionSwapCounts } from '@echo/firestore-test/collection-swaps-count/unchecked_update-collection-swap-counts'
-import { COLLECTION_MOCK_PX_ID, COLLECTION_MOCK_PX_SLUG } from '@echo/model-mocks/collection/collection-mock'
+import { collectionMockPxId, collectionMockPxSlug } from '@echo/model-mocks/collection/collection-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
 import { find, pick, propEq } from 'ramda'
 
 describe('CRUD - collection-swaps-count - increaseCollectionSwapsCount', () => {
-  const collectionSlug = COLLECTION_MOCK_PX_SLUG
-  const collectionId = COLLECTION_MOCK_PX_ID
+  const collectionSlug = collectionMockPxSlug()
+  const collectionId = collectionMockPxId()
   beforeAll(async () => {
     await assertCollections()
     await assertCollectionSwapsCounts()

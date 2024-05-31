@@ -1,19 +1,19 @@
 import type { UserProfile } from '@echo/model/types/user-profile'
 import { getDiscordProfileMockByUsername } from '@echo/model-mocks/user/discord-profile-mock'
-import { USER_MOCK_CREW_USERNAME, USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { getWalletMockByUsername } from '@echo/model-mocks/wallet/wallet-mock'
 import { dissoc, isNil, pipe } from 'ramda'
 
 const userProfileMock: Record<string, UserProfile> = {
   crewnft_: {
-    username: USER_MOCK_CREW_USERNAME,
-    discord: pipe(getDiscordProfileMockByUsername, dissoc('id'), dissoc('discriminator'))(USER_MOCK_CREW_USERNAME),
-    wallets: [getWalletMockByUsername(USER_MOCK_CREW_USERNAME)]
+    username: userMockCrewUsername(),
+    discord: pipe(getDiscordProfileMockByUsername, dissoc('id'), dissoc('discriminator'))(userMockCrewUsername()),
+    wallets: [getWalletMockByUsername(userMockCrewUsername())]
   },
   johnnycagewins: {
-    username: USER_MOCK_JOHNNY_USERNAME,
-    discord: pipe(getDiscordProfileMockByUsername, dissoc('id'), dissoc('discriminator'))(USER_MOCK_JOHNNY_USERNAME),
-    wallets: [getWalletMockByUsername(USER_MOCK_JOHNNY_USERNAME)]
+    username: userMockJohnnyUsername(),
+    discord: pipe(getDiscordProfileMockByUsername, dissoc('id'), dissoc('discriminator'))(userMockJohnnyUsername()),
+    wallets: [getWalletMockByUsername(userMockJohnnyUsername())]
   }
 }
 

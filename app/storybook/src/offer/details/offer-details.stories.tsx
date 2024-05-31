@@ -11,7 +11,7 @@ import type { Offer } from '@echo/model/types/offer'
 import type { OfferRole } from '@echo/model/types/offer-role'
 import type { OfferState } from '@echo/model/types/offer-state'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
+import { offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
 import { OfferDetails as Component } from '@echo/ui/components/offer/details/offer-details'
@@ -74,7 +74,7 @@ export const Details: StoryObj<ComponentType> = {
       assoc('state', state),
       setExpirationAndReadOnly,
       setRole
-    )(OFFER_MOCK_TO_JOHNNYCAGE_ID)
+    )(offerMockToJohnnycageId())
     return <Component offer={renderedOffer} />
   }
 }

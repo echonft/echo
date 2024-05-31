@@ -9,17 +9,17 @@ import { OFFER_STATE_ACCEPTED, OFFER_STATE_REJECTED } from '@echo/model/constant
 import { type Offer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
 import { getOfferMockBySlug } from '@echo/model-mocks/offer/get-offer-mock-by-slug'
-import { OFFER_MOCK_TO_JOHNNYCAGE_SLUG } from '@echo/model-mocks/offer/offer-mock'
-import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { offerMockToJohnnycageSlug } from '@echo/model-mocks/offer/offer-mock'
+import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { assoc, modify } from 'ramda'
 
 jest.mock('@echo/firestore/crud/offer/get-offer')
 jest.mock('@echo/firestore/crud/offer/reject-offer')
 
 describe('request-handlers - offer - rejectOfferRequestHandler', () => {
-  const slug = OFFER_MOCK_TO_JOHNNYCAGE_SLUG
+  const slug = offerMockToJohnnycageSlug()
   const offer = getOfferMockBySlug(slug)
-  const user = getUserDocumentDataMockByUsername(USER_MOCK_JOHNNY_USERNAME)
+  const user = getUserDocumentDataMockByUsername(userMockJohnnyUsername())
 
   beforeEach(() => {
     jest.clearAllMocks()

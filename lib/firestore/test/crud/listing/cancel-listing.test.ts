@@ -9,7 +9,7 @@ import {
   LISTING_STATE_OPEN
 } from '@echo/model/constants/listing-states'
 import { type ListingState } from '@echo/model/types/listing-state'
-import { LISTING_MOCK_ID, LISTING_MOCK_SLUG } from '@echo/model-mocks/listing/listing-mock'
+import { listingMockId, listingMockSlug } from '@echo/model-mocks/listing/listing-mock'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
@@ -18,8 +18,8 @@ describe('CRUD - listing - cancelListing', () => {
   let initialState: ListingState
   let initialExpiresAt: number
   let initialUpdatedAt: number
-  const listingId = LISTING_MOCK_ID
-  const listingSlug = LISTING_MOCK_SLUG
+  const listingId = listingMockId()
+  const listingSlug = listingMockSlug()
 
   beforeAll(async () => {
     await assertListings()
