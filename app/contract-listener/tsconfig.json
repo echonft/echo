@@ -14,6 +14,7 @@
     "paths": {
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
       "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
+      "@echo/nft-scan/*": ["../../lib/nft-scan/src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
       "@echo/model-mocks/*": ["../../lib/model/test/@mocks/*"],
       "@echo/opensea/*": ["../../lib/opensea/src/*"],

@@ -1,4 +1,4 @@
-import type { Contract } from '@echo/model/types/collection'
+import type { Wallet } from '@echo/model/types/wallet'
 import { collectionMockSpiralId } from '@echo/model-mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { mapCollectionResponse } from '@echo/opensea/mappers/map-collection-response'
@@ -14,7 +14,7 @@ describe('mappers - mapCollectionResponse', () => {
     const unsupportedChain = 'unsupported' as ChainName
     const mock = pipe(
       getCollectionMockById,
-      modify<'contract', Contract, Contract>('contract', assoc('chain', supportedChain))
+      modify<'contract', Wallet, Wallet>('contract', assoc('chain', supportedChain))
     )(collectionMockSpiralId())
     const response: CollectionResponse = {
       collection: mock.slug,
@@ -40,7 +40,7 @@ describe('mappers - mapCollectionResponse', () => {
       total_supply: mock.totalSupply,
       created_date: 'whatever'
     }
-    const collection: ReturnType<typeof mapCollectionResponse> = pipe(omit(['swapsCount', 'verified']))(mock)
+    const collection: ReturnType<typeof mapCollectionResponse> = pipe(omit(['swapsCount']))(mock)
     expect(mapCollectionResponse(response)).toStrictEqual(collection)
   })
 })

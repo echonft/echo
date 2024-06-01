@@ -1,5 +1,5 @@
 import { addCollection } from '@echo/firestore/crud/collection/add-collection'
-import { getCollection as getCollectionFromFirestore } from '@echo/firestore/crud/collection/get-collection'
+import { getCollectionByAddress as getCollectionFromFirestore } from '@echo/firestore/crud/collection/get-collection-by-address'
 import { addNft } from '@echo/firestore/crud/nft/add-nft'
 import { getNft } from '@echo/firestore/crud/nft/get-nft'
 import { updateNft } from '@echo/firestore/crud/nft/update-nft'
@@ -10,33 +10,34 @@ import type { NewDocument } from '@echo/firestore/types/new-document'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import type { Collection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
+import type { NftIndex } from '@echo/model/types/nft-index'
 import type { User } from '@echo/model/types/user'
 import type { Wallet } from '@echo/model/types/wallet'
-import { getCollection as getCollectionFromOpensea } from '@echo/opensea/services/get-collection'
-import { getNftsByAccount, type GetNftsByAccountArgs } from '@echo/opensea/services/get-nfts-by-account'
-import type { GetCollectionRequest } from '@echo/opensea/types/request/get-collection-request'
+import { getCollectionByAddress } from '@echo/nft-scan/services/get-collection-by-address'
+import { getNftsByAccount, type GetNftsByAccountArgs } from '@echo/nft-scan/services/get-nfts-by-account'
+import type { GetCollectionRequest } from '@echo/nft-scan/types/request/get-collection-request'
 import { andThenOtherwise } from '@echo/utils/fp/and-then-otherwise'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { isTestnetChain } from '@echo/utils/helpers/is-testnet-chain'
+import type { DeepPartial } from '@echo/utils/types/deep-partial'
 import type { LoggerInterface } from '@echo/utils/types/logger-interface'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { always, andThen, assoc, equals, isNil, pick, pipe, prop, tap } from 'ramda'
+import { always, andThen, assoc, assocPath, equals, isNil, pick, pipe, prop, tap } from 'ramda'
 
 type GetCollectionArgs = Omit<GetCollectionRequest, 'fetch'> & {
   logger?: LoggerInterface
 }
 
 async function getCollection(args: GetCollectionArgs): Promise<Nullable<Collection>> {
-  const collection = await getCollectionFromFirestore(args.slug)
+  const collection = await getCollectionFromFirestore(args.contract)
   if (isNil(collection)) {
     return pipe<
       [GetCollectionArgs],
       GetCollectionArgs & Pick<GetCollectionRequest, 'fetch'>,
-      ReturnType<typeof getCollectionFromOpensea>,
+      ReturnType<typeof getCollectionByAddress>,
       Promise<Collection | undefined>
     >(
       assoc('fetch', fetch),
-      getCollectionFromOpensea,
+      getCollectionByAddress,
       andThenOtherwise(
         pipe(
           assoc('verified', false),
@@ -59,29 +60,37 @@ async function getCollection(args: GetCollectionArgs): Promise<Nullable<Collecti
 
 export async function updateNftsForWallet(wallet: Wallet, owner: User, logger?: LoggerInterface) {
   try {
-    const nfts = await pipe<[Wallet], GetNftsByAccountArgs, ReturnType<typeof getNftsByAccount>>(
+    // TODO Add testnet
+    const nfts = await pipe<
+      [Pick<GetNftsByAccountArgs, 'wallet'>],
+      GetNftsByAccountArgs,
+      ReturnType<typeof getNftsByAccount>
+    >(
       assoc('fetch', fetch),
       getNftsByAccount
-    )(wallet)
+    )({ wallet })
     for (const nft of nfts) {
       try {
         // check if collection exists, if not add it, else set it in the nft
         const collection = await getCollection({
           logger,
-          slug: nft.collection.slug,
-          testnet: isTestnetChain(wallet.chain)
+          contract: wallet
         })
         if (!isNil(collection)) {
-          const existingNft: Nullable<Nft> = await pipe(getNftIndex, getNft)(nft)
+          const nftWithCollectionSlug = assocPath(['collection', 'slug'], collection.slug, nft) as DeepPartial<Nft> &
+            Required<NftIndex>
+          const existingNft: Nullable<Nft> = await pipe(getNftIndex, getNft)(nftWithCollectionSlug)
           if (isNil(existingNft)) {
-            logger?.info(`nft ${nft.collection.slug} #${nft.tokenId} is not in the database, adding...`)
+            logger?.info(
+              `nft #${nft.tokenId} for collection with contract ${JSON.stringify(
+                nft.collection.contract,
+                undefined,
+                2
+              )} is not in the database, adding...`
+            )
             try {
               await pipe<
-                [
-                  Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & {
-                    collection: Pick<Collection, 'slug'>
-                  }
-                ],
+                [Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & Record<'collection', Pick<Collection, 'contract'>>],
                 Omit<Nft, 'owner' | 'updatedAt'>,
                 Omit<Nft, 'updatedAt'>,
                 Promise<NewDocument<Nft>>
@@ -91,9 +100,15 @@ export async function updateNftsForWallet(wallet: Wallet, owner: User, logger?: 
                 addNft
               )(nft)
             } catch (e) {
-              logger?.error(`error adding nft ${nft.collection.slug} #${nft.tokenId}: ${errorMessage(e)}`)
+              logger?.error(
+                `error adding nft #${nft.tokenId} for collection with contract ${JSON.stringify(
+                  nft.collection.contract,
+                  undefined,
+                  2
+                )}: ${errorMessage(e)}`
+              )
             }
-            logger?.info(`added nft ${nft.collection.slug} #${nft.tokenId}`)
+            logger?.info(`added nft ${collection.slug} #${nft.tokenId}`)
           } else if (!equals(existingNft.owner.wallet, owner.wallet)) {
             logger?.warn(
               `nft ${existingNft.collection.slug} #${existingNft.tokenId} is not owned by ${existingNft.owner.wallet.address} anymore, updating owner...`
@@ -104,12 +119,20 @@ export async function updateNftsForWallet(wallet: Wallet, owner: User, logger?: 
                 `updated owner of nft ${existingNft.collection.slug} #${existingNft.tokenId} to ${owner.wallet.address}`
               )
             } catch (e) {
-              logger?.error(`error setting new owner of nft ${nft.collection.slug} #${nft.tokenId}: ${errorMessage(e)}`)
+              logger?.error(
+                `error setting new owner of nft ${existingNft.collection.slug} #${nft.tokenId}: ${errorMessage(e)}`
+              )
             }
           }
         }
       } catch (e) {
-        logger?.error(`error getting NFT ${nft.collection.slug} #${nft.tokenId}}: ${errorMessage(e)}`)
+        logger?.error(
+          `error getting NFT #${nft.tokenId}} for collection with contract ${JSON.stringify(
+            nft.collection.contract,
+            undefined,
+            2
+          )}: ${errorMessage(e)}`
+        )
       }
     }
   } catch (e) {

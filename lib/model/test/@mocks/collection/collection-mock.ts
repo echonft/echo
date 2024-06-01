@@ -1,4 +1,5 @@
-import { type Collection, type Contract } from '@echo/model/types/collection'
+import { type Collection } from '@echo/model/types/collection'
+import type { Wallet } from '@echo/model/types/wallet'
 import { CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
 import { toLower } from 'ramda'
 
@@ -8,7 +9,7 @@ export function collectionMockPxId() {
 export function collectionMockPxSlug(): Lowercase<string> {
   return 'pxmythics-genesis'
 }
-export function collectionMockPxContract(): Contract {
+export function collectionMockPxContract(): Wallet {
   return {
     address: toLower('0x12c63bbD266dB84e117356e664f3604055166CEc'),
     chain: CHAIN_ETHEREUM
@@ -20,7 +21,7 @@ export function collectionMockSpiralId() {
 export function collectionMockSpiralSlug(): Lowercase<string> {
   return 'spiral-frequencies'
 }
-export function collectionMockSpiralContract(): Contract {
+export function collectionMockSpiralContract(): Wallet {
   return {
     address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
     chain: CHAIN_ETHEREUM

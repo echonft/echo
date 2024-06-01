@@ -5,5 +5,5 @@ import type { GetCollectionRequest } from '@echo/nft-scan/types/request/get-coll
 import { andThen, partialRight, pipe } from 'ramda'
 
 export async function getCollectionByAddress(args: GetCollectionRequest): Promise<Omit<Collection, 'swapsCount'>> {
-  return await pipe(fetchCollection, andThen(partialRight(mapCollectionResponse, [args.chain])))(args)
+  return await pipe(fetchCollection, andThen(partialRight(mapCollectionResponse, [args.contract.chain])))(args)
 }

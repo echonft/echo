@@ -1,10 +1,10 @@
-import type { Contract } from '@echo/model/types/collection'
+import type { Wallet } from '@echo/model/types/wallet'
 import { BLAST_CHAIN_ID, ETHEREUM_CHAIN_ID, SEPOLIA_CHAIN_ID } from '@echo/utils/constants/chains/chain-ids'
 import { getChainId } from '@echo/utils/helpers/get-chain-id'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { toLower } from 'ramda'
 
-export function getOpenSeaUrlForNft(contract: Contract, tokenId: number): Nullable<Lowercase<string>> {
+export function getOpenSeaUrlForNft(contract: Wallet, tokenId: number): Nullable<Lowercase<string>> {
   const { address, chain } = contract
   const chainId = getChainId(chain)
 

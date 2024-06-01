@@ -1,4 +1,5 @@
-import type { Collection, Contract } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection'
+import type { Wallet } from '@echo/model/types/wallet'
 import type { GetCollectionResponse } from '@echo/nft-scan/types/response/get-collection-response'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
@@ -13,7 +14,7 @@ export function mapCollectionResponse(
 ): Omit<Collection, 'swapsCount'> {
   return applySpec<Omit<Collection, 'swapsCount'>>({
     bannerUrl: pipe(prop('banner_url'), ifElse(isNil, removeNull, removeQueryFromUrl)),
-    contract: applySpec<Contract>({ address: pipe(prop('contract_address'), toLower), chain: always(chain) }),
+    contract: applySpec<Wallet>({ address: pipe(prop('contract_address'), toLower), chain: always(chain) }),
     description: pipe(prop('description'), removeNull),
     discordUrl: pipe(prop('discord'), removeNull),
     name: prop('name'),

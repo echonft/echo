@@ -31,7 +31,7 @@ async function fetchMainnetCollection(args: GetCollectionRequest) {
   }
 }
 
-export async function getCollection(args: GetCollectionRequest): Promise<Omit<Collection, 'swapsCount' | 'verified'>> {
+export async function getCollection(args: GetCollectionRequest): Promise<Omit<Collection, 'swapsCount'>> {
   const collection = await pipe(fetchCollection, andThen(mapCollectionResponse))(args)
   if (args.testnet) {
     const mainnetCollection = await fetchMainnetCollection(args)

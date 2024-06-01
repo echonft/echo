@@ -1,7 +1,8 @@
 import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
-import type { Collection, Contract } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection'
+import type { Wallet } from '@echo/model/types/wallet'
 import { always, bind, ifElse, isNil, map, pick, pipe, prop } from 'ramda'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
@@ -47,7 +48,7 @@ function logOutput(collections: Collection[], format?: FormatType): void {
   } else {
     for (const collection of collections) {
       console.log(
-        `${collection.name} => ${pipe<[Collection], Contract, string>(prop('contract'), prop('address'))(collection)}`
+        `${collection.name} => ${pipe<[Collection], Wallet, string>(prop('contract'), prop('address'))(collection)}`
       )
     }
   }

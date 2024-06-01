@@ -1,4 +1,5 @@
-import type { Collection, Contract } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection'
+import type { Wallet } from '@echo/model/types/wallet'
 import { mapCollectionResponse } from '@echo/nft-scan/mappers/map-collection-response'
 import type { GetCollectionResponse } from '@echo/nft-scan/types/response/get-collection-response'
 import { collectionResponseMock } from '@echo/nft-scan-mocks/collection-response-mock'
@@ -10,7 +11,7 @@ describe('mappers - mapCollectionResponse', () => {
     contract: {
       address: '0xcfc4c2b14af5b1f8ed97e1717b009dca461d8461'.toLowerCase(),
       chain: CHAIN_BLAST
-    } as Contract,
+    } as Wallet,
     name: 'BACGenesis',
     slug: 'bacgenesis',
     totalSupply: 3000,
@@ -25,12 +26,12 @@ describe('mappers - mapCollectionResponse', () => {
   }
 
   it('maps correctly with no slug', () => {
-    const result = mapCollectionResponse(collectionResponseMock as GetCollectionResponse, CHAIN_BLAST)
+    const result = mapCollectionResponse(collectionResponseMock() as GetCollectionResponse, CHAIN_BLAST)
     expect(result).toEqual(expectedResult)
   })
 
   it('maps correctly with no slug name with space', () => {
-    const response = { ...collectionResponseMock, name: 'Name With Space' } as GetCollectionResponse
+    const response = { ...collectionResponseMock(), name: 'Name With Space' } as GetCollectionResponse
     const resultWithSlug = { ...expectedResult, name: 'Name With Space', slug: 'name-with-space' }
 
     const result = mapCollectionResponse(response, CHAIN_BLAST)
@@ -38,7 +39,7 @@ describe('mappers - mapCollectionResponse', () => {
   })
 
   it('maps correctly with slug', () => {
-    const response = { ...collectionResponseMock, opensea_slug: 'opensea-slug' } as GetCollectionResponse
+    const response = { ...collectionResponseMock(), opensea_slug: 'opensea-slug' } as GetCollectionResponse
     const resultWithSlug = { ...expectedResult, slug: 'opensea-slug' }
     const result = mapCollectionResponse(response, CHAIN_BLAST)
     expect(result).toEqual(resultWithSlug)

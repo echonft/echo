@@ -1,5 +1,5 @@
 'use client'
-import type { Contract } from '@echo/model/types/collection'
+import type { Wallet } from '@echo/model/types/wallet'
 import { OfferDetailsContractApprovalRowIcon } from '@echo/ui/components/offer/details/offer-details-contract-approval-row-icon'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
@@ -13,10 +13,10 @@ import useSWR from 'swr'
 
 interface Props {
   collectionName: string
-  contract: Contract
+  contract: Wallet
   owner: HexString
   approved?: boolean
-  onSuccess?: (contract: Contract, approved: boolean) => unknown
+  onSuccess?: (contract: Wallet, approved: boolean) => unknown
 }
 
 export const OfferDetailsContractApprovalRow: FunctionComponent<Props> = ({

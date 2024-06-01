@@ -33,6 +33,7 @@
     "@babel/preset-typescript": "7.24.6",
     "@dotenvx/dotenvx": "0.44.1",
     "@echo/firestore": "workspace:*",
+    "@echo/nft-scan": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/opensea": "workspace:*",
     "@echo/utils": "workspace:*",

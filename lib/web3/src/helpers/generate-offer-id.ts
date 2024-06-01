@@ -1,6 +1,6 @@
 import type { BaseOffer } from '@echo/model/types/base-offer'
-import type { Contract } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
+import type { Wallet } from '@echo/model/types/wallet'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { getChainId } from '@echo/utils/helpers/get-chain-id'
 import type { ChainName } from '@echo/utils/types/chain-name'
@@ -32,7 +32,7 @@ export function generateOfferId(offer: BaseOffer): HexString {
       applySpec<OfferAbiParameters>({
         sender: nonNullableReturn(path(['sender', 'wallet', 'address'])),
         receiver: nonNullableReturn(path(['receiver', 'wallet', 'address'])),
-        senderItemsChainId: pipe<[BaseOffer], Nft[], Nft, Contract, ChainName, number>(
+        senderItemsChainId: pipe<[BaseOffer], Nft[], Nft, Wallet, ChainName, number>(
           prop('senderItems'),
           head,
           nonNullableReturn(path(['collection', 'contract'])),
@@ -40,7 +40,7 @@ export function generateOfferId(offer: BaseOffer): HexString {
           getChainId
         ),
         senderItems: pipe(prop('senderItems'), hashNfts),
-        receiverItemsChainId: pipe<[BaseOffer], Nft[], Nft, Contract, ChainName, number>(
+        receiverItemsChainId: pipe<[BaseOffer], Nft[], Nft, Wallet, ChainName, number>(
           prop('receiverItems'),
           head,
           nonNullableReturn(path(['collection', 'contract'])),

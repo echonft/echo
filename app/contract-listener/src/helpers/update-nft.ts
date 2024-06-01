@@ -1,14 +1,13 @@
 import { addNft } from '@echo/firestore/crud/nft/add-nft'
 import { getNft } from '@echo/firestore/crud/nft/get-nft'
 import { updateNft as updateNftInFirestore } from '@echo/firestore/crud/nft/update-nft'
-import type { Collection, Contract } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import type { User } from '@echo/model/types/user'
-import { getNft as getNftFromOpensea } from '@echo/opensea/services/get-nft'
+import { getNft as getNftFromNftScan } from '@echo/nft-scan/services/get-nft'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { ChainName } from '@echo/utils/types/chain-name'
-import type { HexString } from '@echo/utils/types/hex-string'
-import { andThen, assoc, isNil, pipe, prop, tap } from 'ramda'
+import { andThen, assoc, isNil, pipe, tap } from 'ramda'
 
 interface UpdateNftArgs {
   nftIndex: NftIndex
@@ -27,7 +26,7 @@ interface UpdateNftArgs {
  * @param {Collection} args.collection - The collection to add the NFT to.
  */
 export async function updateNft(args: UpdateNftArgs) {
-  const { nftIndex, owner, chain, collection } = args
+  const { nftIndex, owner, collection } = args
   const nft = await getNft(nftIndex)
 
   if (!isNil(nft)) {
@@ -39,7 +38,8 @@ export async function updateNft(args: UpdateNftArgs) {
 
   pinoLogger.info(`NFT ${JSON.stringify(nftIndex)} not found, fetching...`)
   await pipe(
-    getNftFromOpensea,
+    // TODO Need to add testnet
+    getNftFromNftScan,
     andThen(
       pipe(
         assoc('collection', collection),
@@ -53,9 +53,8 @@ export async function updateNft(args: UpdateNftArgs) {
       )
     )
   )({
-    chain,
     fetch,
     identifier: nftIndex.tokenId.toString(),
-    contract: pipe<[Collection], Contract, HexString>(prop('contract'), prop('address'))(collection)
+    contract: collection.contract
   })
 }
