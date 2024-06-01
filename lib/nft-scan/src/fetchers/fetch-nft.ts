@@ -7,18 +7,18 @@ import { stringify } from 'qs'
 import { applySpec, defaultTo, partialRight, pipe, prop } from 'ramda'
 
 export async function fetchNft(args: GetNftRequest): Promise<NftResponse> {
-  const { fetch, chain, identifier, contract } = args
+  const { fetch, contract, identifier } = args
   const query = pipe(
     applySpec({
       show_attribute: pipe(prop('showAttribute'), defaultTo(true))
     }),
     partialRight(stringify, [{ addQueryPrefix: true }])
   )(args)
-  const url = `${getBaseUrl(chain)}/assets/${contract}/${identifier}${query}`
+  const url = `${getBaseUrl(contract.chain)}/assets/${contract.address}/${identifier}${query}`
   const response = await fetch(url, fetchInit)
   if (!response.ok) {
     throw Error(
-      `error fetching NFT ${identifier} for contract ${contract}: {url: ${url}\nstatus:${response.statusText}}`
+      `error fetching NFT ${identifier} for contract ${contract.address}: {url: ${url}\nstatus:${response.statusText}}`
     )
   }
   return pipe(prop('data'), parseFetchResponse<NftResponse>)(response)

@@ -8,12 +8,12 @@ import { stringify } from 'qs'
 import { partialRight, pipe, prop } from 'ramda'
 
 export async function fetchNftByAccount(args: GetNftsByAccountRequest): Promise<GetNftsByAccountResponse> {
-  const { fetch, chain, accountAddress } = args
+  const { fetch, wallet } = args
   const query = pipe(mapGetNftsRequestToQueryStringParams, partialRight(stringify, [{ addQueryPrefix: true }]))(args)
-  const url = `${getBaseUrl(chain)}/account/own/${accountAddress}${query}`
+  const url = `${getBaseUrl(wallet.chain)}/account/own/${wallet.address}${query}`
   const response = await fetch(url, fetchInit)
   if (!response.ok) {
-    throw Error(`error fetching NFTs for ${accountAddress}: {url: ${url}\nstatus:${response.statusText}}`)
+    throw Error(`error fetching NFTs for ${wallet.address}: {url: ${url}\nstatus:${response.statusText}}`)
   }
   return pipe(prop('data'), parseFetchResponse<GetNftsByAccountResponse>)(response)
 }

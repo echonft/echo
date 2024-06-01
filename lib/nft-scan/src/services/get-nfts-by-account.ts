@@ -1,5 +1,7 @@
+import type { Collection } from '@echo/model/types/collection'
+import type { Nft } from '@echo/model/types/nft'
 import { fetchNftByAccount } from '@echo/nft-scan/fetchers/fetch-nft-by-account'
-import { mapNftResponse } from '@echo/nft-scan/mappers/map-nft-response'
+import { mapNftResponse, type MapNftResponseArgs } from '@echo/nft-scan/mappers/map-nft-response'
 import type { GetNftsByAccountRequest } from '@echo/nft-scan/types/request/get-nfts-by-account-request'
 import type { NftResponse } from '@echo/nft-scan/types/response/nft-response'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'

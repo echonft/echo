@@ -60,6 +60,7 @@ async function getCollection(args: GetCollectionArgs): Promise<Nullable<Collecti
 
 export async function updateNftsForWallet(wallet: Wallet, owner: User, logger?: LoggerInterface) {
   try {
+    // TODO Add testnet
     const nfts = await pipe<
       [Pick<GetNftsByAccountArgs, 'wallet'>],
       GetNftsByAccountArgs,

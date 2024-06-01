@@ -2,11 +2,9 @@ import { addCollection } from '@echo/firestore/crud/collection/add-collection'
 import { getCollectionByAddress as getCollectionByAddressFromFirestore } from '@echo/firestore/crud/collection/get-collection-by-address'
 import type { Collection } from '@echo/model/types/collection'
 import { getCollectionByAddress as getCollectionByAddressFromNftScan } from '@echo/nft-scan/services/get-collection-by-address'
-import { getCollectionByAddress as getCollectionByAddressFromOpenSea } from '@echo/opensea/services/get-collection-by-address'
 import type { GetContractRequest } from '@echo/opensea/types/request/get-contract-request'
-import { isTestnet } from '@echo/utils/constants/is-testnet'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
-import { always, andThen, assoc, ifElse, isNil, pipe, prop, tap } from 'ramda'
+import { andThen, assoc, isNil, pipe, prop, tap } from 'ramda'
 
 /**
  * Returns the collection for a given NFT.
@@ -20,10 +18,12 @@ export async function getCollection(args: Omit<GetContractRequest, 'fetch'>): Pr
   // Collection is new, need to fetch it and then add it
   if (isNil(collection)) {
     pinoLogger.info(`Collection ${args.address} not found, fetching...`)
+    // TODO Clean this
+    // TODO Need to add testnet
     const fetchedCollection = await pipe(
       assoc('fetch', fetch),
-      ifElse(always(isTestnet), getCollectionByAddressFromOpenSea, getCollectionByAddressFromNftScan)
-    )(args)
+      getCollectionByAddressFromNftScan
+    )({ contract: { address: args.address, chain: args.chain } })
 
     return pipe(
       assoc('verified', false),

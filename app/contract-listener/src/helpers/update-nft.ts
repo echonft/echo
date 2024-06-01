@@ -5,12 +5,9 @@ import type { Collection } from '@echo/model/types/collection'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import type { User } from '@echo/model/types/user'
 import { getNft as getNftFromNftScan } from '@echo/nft-scan/services/get-nft'
-import { getNft as getNftFromOpensea } from '@echo/opensea/services/get-nft'
-import { isTestnet } from '@echo/utils/constants/is-testnet'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { ChainName } from '@echo/utils/types/chain-name'
-import type { HexString } from '@echo/utils/types/hex-string'
-import { always, andThen, assoc, ifElse, isNil, pipe, prop, tap } from 'ramda'
+import { andThen, assoc, isNil, pipe, tap } from 'ramda'
 
 interface UpdateNftArgs {
   nftIndex: NftIndex
@@ -29,7 +26,7 @@ interface UpdateNftArgs {
  * @param {Collection} args.collection - The collection to add the NFT to.
  */
 export async function updateNft(args: UpdateNftArgs) {
-  const { nftIndex, owner, chain, collection } = args
+  const { nftIndex, owner, collection } = args
   const nft = await getNft(nftIndex)
 
   if (!isNil(nft)) {
@@ -41,10 +38,8 @@ export async function updateNft(args: UpdateNftArgs) {
 
   pinoLogger.info(`NFT ${JSON.stringify(nftIndex)} not found, fetching...`)
   await pipe(
-    // TODO We should fix the typing here but right now we dont care because collection is overwritten anyway
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    ifElse(always(isTestnet), getNftFromOpensea, getNftFromNftScan),
+    // TODO Need to add testnet
+    getNftFromNftScan,
     andThen(
       pipe(
         assoc('collection', collection),
@@ -58,9 +53,8 @@ export async function updateNft(args: UpdateNftArgs) {
       )
     )
   )({
-    chain,
     fetch,
     identifier: nftIndex.tokenId.toString(),
-    contract: pipe<[Collection], Wallet, HexString>(prop('contract'), prop('address'))(collection)
+    contract: collection.contract
   })
 }
