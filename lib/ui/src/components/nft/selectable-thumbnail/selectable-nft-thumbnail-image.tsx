@@ -47,6 +47,7 @@ export const SelectableNftThumbnailImage: FunctionComponent<Props> = ({ nft, onL
         alt={nft.tokenId.toString()}
         width={PICTURE_SIZE_MD}
         height={PICTURE_SIZE_MD}
+        crossOrigin={'anonymous'}
         unoptimized={true}
         onLoad={() => {
           setLoaded(true)
