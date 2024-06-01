@@ -32,6 +32,7 @@
     "contract-listener:deploy": "flyctl deploy --local-only --update-only --config=app/contract-listener/.fly/fly.toml --dockerfile=contract-listener.Dockerfile",
     "contract-listener:deploy:dev": "flyctl deploy --local-only --update-only --config=app/contract-listener/.fly/fly.dev.toml --dockerfile=contract-listener.Dockerfile",
     "env:pull": "turbo run env:pull",
+    "frontend:deploy": "vercel --prod && vercel promote echo-echonft.vercel.app",
     "firestore:functions:deploy": "turbo run deploy --filter=@echo/firestore-functions",
     "firestore:functions:deploy:dev": "turbo run deploy:dev --filter=@echo/firestore-functions",
     "firestore:functions:deploy:testnet": "turbo run deploy:testnet --filter=@echo/firestore-functions",

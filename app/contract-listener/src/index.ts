@@ -11,12 +11,13 @@ import { watchErc721TransferEvents } from '@echo/web3/watchers/watch-erc721-tran
 
 initializeFirebase()
 // TODO map on SUPPORTED_CHAINS
-const client = getClientForChain(getChain())
+const chain = getChain()
+const client = getClientForChain(chain)
 watchEchoEvents(client, parseEchoLogs, (error) => pinoLogger.error(`Error watching Echo event: ${errorMessage(error)}`))
 watchErc721TransferEvents(client, parseErc721TansferLogs, (error) =>
   pinoLogger.error(`Error watching ERC721 event: ${errorMessage(error)}`)
 )
 
-pinoLogger.info('Watching events...')
+pinoLogger.info(`Watching events on ${chain}`)
 // Keep the process running indefinitely
 process.stdin.resume()
