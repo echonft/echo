@@ -9,8 +9,8 @@ jest.mock('@echo/nft-scan/fetchers/fetch-nft-by-account')
 
 describe('services - getNftsByAccount', () => {
   it('maps properly with paging', async () => {
-    jest.mocked(fetchNftByAccount).mockImplementation(fetchNftMock)
-    const expectedResult = [nftMock['1']!, nftMock['2']!, nftMock['3']!]
+    jest.mocked(fetchNft).mockImplementation(fetchNftMock)
+    const expectedResult = [nftMock()['1']!, nftMock()['2']!, nftMock()['3']!]
     const result = await getNftsByAccount({
       accountAddress: '0xtest',
       chain: CHAIN_BLAST

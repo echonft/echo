@@ -14,7 +14,7 @@ describe('mappers - mapAttributeResponse', () => {
       { trait: 'Eyes', value: 'None' },
       { trait: 'Acessories', value: 'None' }
     ]
-    const mappedResult = map(mapAttributeResponse)(attributesResponseMock)
+    const mappedResult = map(mapAttributeResponse)(attributesResponseMock())
     expect(mappedResult).toEqual(expectedResult)
   })
 })

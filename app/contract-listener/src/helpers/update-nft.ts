@@ -1,7 +1,7 @@
 import { addNft } from '@echo/firestore/crud/nft/add-nft'
 import { getNft } from '@echo/firestore/crud/nft/get-nft'
 import { updateNft as updateNftInFirestore } from '@echo/firestore/crud/nft/update-nft'
-import type { Collection, Contract } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import type { User } from '@echo/model/types/user'
 import { getNft as getNftFromNftScan } from '@echo/nft-scan/services/get-nft'
@@ -61,6 +61,6 @@ export async function updateNft(args: UpdateNftArgs) {
     chain,
     fetch,
     identifier: nftIndex.tokenId.toString(),
-    contract: pipe<[Collection], Contract, HexString>(prop('contract'), prop('address'))(collection)
+    contract: pipe<[Collection], Wallet, HexString>(prop('contract'), prop('address'))(collection)
   })
 }

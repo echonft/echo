@@ -7,7 +7,7 @@
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
       "@echo/firestore-functions/*": ["./src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
-      "@echo/opensea/*": ["../../lib/opensea/src/*"],
+      "@echo/nft-scan/*": ["../../lib/nft-scan/src/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"],
       "@echo/web3/*": ["../../lib/web3/src/*"]
     }

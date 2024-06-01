@@ -5,9 +5,8 @@ import { isNil } from 'ramda'
 
 export async function fetchNftMock(args: GetNftsByAccountRequest): Promise<GetNftsByAccountResponse> {
   const { next } = args
-
   if (isNil(next)) {
-    return Promise.resolve(pagedNftResponseMock['0']!)
+    return Promise.resolve(pagedNftResponseMock()['0']!)
   }
-  return Promise.resolve(pagedNftResponseMock[next]!)
+  return Promise.resolve(pagedNftResponseMock()[next]!)
 }

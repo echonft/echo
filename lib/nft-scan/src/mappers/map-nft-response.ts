@@ -1,3 +1,4 @@
+import type { Collection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
 import { cleanIpfsURI } from '@echo/nft-scan/helpers/clean-ipfs-uri'
 import { mapAttributeResponse } from '@echo/nft-scan/mappers/map-attribute-response'
@@ -6,14 +7,31 @@ import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { unlessNilOrEmpty } from '@echo/utils/fp/unless-nil-or-empty'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
+import type { ChainName } from '@echo/utils/types/chain-name'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { always, applySpec, ifElse, isNil, map, partialRight, pipe, prop } from 'ramda'
+import { always, applySpec, ifElse, isNil, map, partialRight, pipe, prop, toLower } from 'ramda'
 
-export function mapNftResponse(response: NftResponse): Omit<Nft, 'collection' | 'owner' | 'updatedAt'> {
-  return applySpec<Omit<Nft, 'collection' | 'owner' | 'updatedAt'>>({
+export interface MapNftResponseArgs {
+  response: NftResponse
+  chain: ChainName
+}
+
+export function mapNftResponse(
+  args: MapNftResponseArgs
+): Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & Record<'collection', Pick<Collection, 'contract'>> {
+  const { response, chain } = args
+  return applySpec<
+    Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & Record<'collection', Pick<Collection, 'contract'>>
+  >({
     // FIXME This will always be undefined, should probably remove it
     animationUrl: prop('animation_url'),
     attributes: pipe(prop('attributes'), ifElse(isNil, always([]), map(mapAttributeResponse))),
+    collection: applySpec({
+      contract: {
+        address: pipe(prop('contract_address'), toLower),
+        chain: always(chain)
+      }
+    }),
     name: ifElse<[NftResponse], string, string>(
       pipe(prop('name'), isNilOrEmpty),
       prop('token_id'),
