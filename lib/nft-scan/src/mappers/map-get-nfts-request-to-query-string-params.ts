@@ -5,7 +5,7 @@ import { always, applySpec, defaultTo, pipe, prop } from 'ramda'
 export function mapGetNftsRequestToQueryStringParams(args: GetNftsByAccountRequest): GetNftsByAccountQueryParams {
   return applySpec<GetNftsByAccountQueryParams>({
     erc_type: always('erc721'),
-    cursor: prop('cursor'),
+    cursor: prop('next'),
     limit: prop('limit'),
     show_attribute: pipe(prop('showAttribute'), defaultTo(true))
   })(args)

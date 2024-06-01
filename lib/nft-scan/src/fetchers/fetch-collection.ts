@@ -2,9 +2,10 @@ import { fetchInit } from '@echo/nft-scan/constants/fetch-init'
 import { getBaseUrl } from '@echo/nft-scan/helpers/get-base-url'
 import { parseFetchResponse } from '@echo/nft-scan/helpers/parse-fetch-response'
 import type { GetCollectionRequest } from '@echo/nft-scan/types/request/get-collection-request'
+import type { BaseResponse } from '@echo/nft-scan/types/response/base-response'
 import type { GetCollectionResponse } from '@echo/nft-scan/types/response/get-collection-response'
 import { stringify } from 'qs'
-import { applySpec, defaultTo, partialRight, pipe, prop } from 'ramda'
+import { andThen, applySpec, defaultTo, partialRight, pipe, prop } from 'ramda'
 
 export async function fetchCollection(args: GetCollectionRequest): Promise<GetCollectionResponse> {
   const { fetch, contract } = args
@@ -18,8 +19,12 @@ export async function fetchCollection(args: GetCollectionRequest): Promise<GetCo
   const response = await fetch(url, fetchInit)
   if (!response.ok) {
     throw Error(
-      `error fetching collection ${contract.address}: ${JSON.stringify({ url, status: response.statusText }, undefined, 2)}`
+      `error fetching collection ${contract.address}: ${JSON.stringify(
+        { url, status: response.statusText },
+        undefined,
+        2
+      )}`
     )
   }
-  return pipe(prop('data'), parseFetchResponse<GetCollectionResponse>)(response)
+  return pipe(parseFetchResponse<BaseResponse<GetCollectionResponse>>, andThen(prop('data')))(response)
 }

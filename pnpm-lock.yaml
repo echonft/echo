@@ -162,6 +162,9 @@ importers:
       '@echo/model':
         specifier: workspace:*
         version: link:../../lib/model
+      '@echo/nft-scan':
+        specifier: workspace:*
+        version: link:../../lib/nft-scan
       '@echo/opensea':
         specifier: workspace:*
         version: link:../../lib/opensea

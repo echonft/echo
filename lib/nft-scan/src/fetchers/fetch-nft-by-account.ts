@@ -3,9 +3,10 @@ import { getBaseUrl } from '@echo/nft-scan/helpers/get-base-url'
 import { parseFetchResponse } from '@echo/nft-scan/helpers/parse-fetch-response'
 import { mapGetNftsRequestToQueryStringParams } from '@echo/nft-scan/mappers/map-get-nfts-request-to-query-string-params'
 import type { GetNftsByAccountRequest } from '@echo/nft-scan/types/request/get-nfts-by-account-request'
+import type { BaseResponse } from '@echo/nft-scan/types/response/base-response'
 import type { GetNftsByAccountResponse } from '@echo/nft-scan/types/response/get-nfts-by-account-response'
 import { stringify } from 'qs'
-import { partialRight, pipe, prop } from 'ramda'
+import { andThen, partialRight, pipe, prop } from 'ramda'
 
 export async function fetchNftByAccount(args: GetNftsByAccountRequest): Promise<GetNftsByAccountResponse> {
   const { fetch, wallet } = args
@@ -15,5 +16,5 @@ export async function fetchNftByAccount(args: GetNftsByAccountRequest): Promise<
   if (!response.ok) {
     throw Error(`error fetching NFTs for ${wallet.address}: {url: ${url}\nstatus:${response.statusText}}`)
   }
-  return pipe(prop('data'), parseFetchResponse<GetNftsByAccountResponse>)(response)
+  return pipe(parseFetchResponse<BaseResponse<GetNftsByAccountResponse>>, andThen(prop('data')))(response)
 }

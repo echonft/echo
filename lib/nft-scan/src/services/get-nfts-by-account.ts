@@ -5,9 +5,9 @@ import { mapNftResponse, type MapNftResponseArgs } from '@echo/nft-scan/mappers/
 import type { GetNftsByAccountRequest } from '@echo/nft-scan/types/request/get-nfts-by-account-request'
 import type { NftResponse } from '@echo/nft-scan/types/response/nft-response'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { always, andThen, applySpec, assoc, concat, identity, map, partialRight, pipe } from 'ramda'
+import { always, andThen, applySpec, assoc, concat, defaultTo, identity, map, partialRight, pipe } from 'ramda'
 
-export type GetNftsByAccountArgs = Omit<GetNftsByAccountRequest, 'limit' | 'next'>
+export type GetNftsByAccountArgs = Omit<GetNftsByAccountRequest, 'next'>
 
 async function handlePaging(args: GetNftsByAccountRequest, accNfts: NftResponse[]): Promise<NftResponse[]> {
   const response = await fetchNftByAccount(args)
@@ -23,7 +23,7 @@ export async function getNftsByAccount(
   args: GetNftsByAccountArgs
 ): Promise<(Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & Record<'collection', Pick<Collection, 'contract'>>)[]> {
   return pipe(
-    assoc('limit', 100),
+    assoc('limit', defaultTo(100, args.limit)),
     partialRight(handlePaging, [[]]),
     andThen(
       map(pipe(applySpec<MapNftResponseArgs>({ chain: always(args.wallet.chain), response: identity }), mapNftResponse))

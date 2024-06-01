@@ -2,9 +2,10 @@ import { fetchInit } from '@echo/nft-scan/constants/fetch-init'
 import { getBaseUrl } from '@echo/nft-scan/helpers/get-base-url'
 import { parseFetchResponse } from '@echo/nft-scan/helpers/parse-fetch-response'
 import type { GetNftRequest } from '@echo/nft-scan/types/request/get-nft-request'
+import type { BaseResponse } from '@echo/nft-scan/types/response/base-response'
 import type { NftResponse } from '@echo/nft-scan/types/response/nft-response'
 import { stringify } from 'qs'
-import { applySpec, defaultTo, partialRight, pipe, prop } from 'ramda'
+import { andThen, applySpec, defaultTo, partialRight, pipe, prop } from 'ramda'
 
 export async function fetchNft(args: GetNftRequest): Promise<NftResponse> {
   const { fetch, contract, identifier } = args
@@ -21,5 +22,5 @@ export async function fetchNft(args: GetNftRequest): Promise<NftResponse> {
       `error fetching NFT ${identifier} for contract ${contract.address}: {url: ${url}\nstatus:${response.statusText}}`
     )
   }
-  return pipe(prop('data'), parseFetchResponse<NftResponse>)(response)
+  return pipe(parseFetchResponse<BaseResponse<NftResponse>>, andThen(prop('data')))(response)
 }
