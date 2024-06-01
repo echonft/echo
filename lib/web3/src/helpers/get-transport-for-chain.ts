@@ -35,7 +35,7 @@ function alchemyTransportUrl(chainId: number) {
 
 export const getTransportForChain = (chain: Chain) => {
   const chainId = chain.id
-  if (chainId === BLAST_SEPOLIA_CHAIN_ID) {
+  if (chainId === BLAST_SEPOLIA_CHAIN_ID || chainId === BLAST_CHAIN_ID) {
     return fallback(
       [
         webSocket(`wss://${process.env.QUICKNODE_BLAST_ENDPOINT}`),
@@ -43,9 +43,6 @@ export const getTransportForChain = (chain: Chain) => {
       ],
       { rank: true }
     )
-  }
-  if (chainId == BLAST_CHAIN_ID) {
-    return http(`https://rpc.blast.io`)
   }
   return fallback(
     [webSocket(`wss://${alchemyTransportUrl(chainId)}`), http(`https://${alchemyTransportUrl(chainId)}`)],
