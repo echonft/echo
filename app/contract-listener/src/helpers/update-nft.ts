@@ -41,6 +41,9 @@ export async function updateNft(args: UpdateNftArgs) {
 
   pinoLogger.info(`NFT ${JSON.stringify(nftIndex)} not found, fetching...`)
   await pipe(
+    // TODO We should fix the typing here but right now we dont care because collection is overwritten anyway
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     ifElse(always(isTestnet), getNftFromOpensea, getNftFromNftScan),
     andThen(
       pipe(
