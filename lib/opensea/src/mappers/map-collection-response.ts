@@ -30,6 +30,6 @@ export function mapCollectionResponse(
     profilePictureUrl: pipe(prop('image_url'), removeQueryFromUrl),
     slug: prop('collection'),
     totalSupply: prop('total_supply'),
-    verified: false
+    verified: always(false)
   })(response)
 }

@@ -17,28 +17,28 @@ describe('mappers - mapCollectionResponse', () => {
       modify<'contract', Wallet, Wallet>('contract', assoc('chain', supportedChain))
     )(collectionMockSpiralId())
     const response: CollectionResponse = {
-      collection: mock.slug,
-      name: mock.name,
-      description: mock.description,
-      image_url: mock.profilePictureUrl,
       banner_image_url: mock.bannerUrl,
-      owner: 'whatever',
-      safelist_status: 'verified',
       category: 'whatever',
+      collection: mock.slug,
+      collection_offers_enabled: false,
+      contracts: [assoc('chain', unsupportedChain, mock.contract), mock.contract],
+      created_date: 'whatever',
+      description: mock.description,
+      discord_url: mock.discordUrl,
+      image_url: mock.profilePictureUrl,
+      instagram_username: 'whatever',
       is_disabled: false,
       is_nsfw: false,
-      trait_offers_enabled: false,
-      collection_offers_enabled: false,
+      name: mock.name,
       opensea_url: 'whatever',
+      owner: 'whatever',
       project_url: 'whatever',
-      wiki_url: 'whatever',
-      discord_url: mock.discordUrl,
+      safelist_status: 'verified',
       telegram_url: 'whatever',
-      twitter_username: 'whatever',
-      instagram_username: 'whatever',
-      contracts: [assoc('chain', unsupportedChain, mock.contract), mock.contract],
       total_supply: mock.totalSupply,
-      created_date: 'whatever'
+      trait_offers_enabled: false,
+      twitter_username: 'whatever',
+      wiki_url: 'whatever'
     }
     const collection: ReturnType<typeof mapCollectionResponse> = pipe(omit(['swapsCount']))(mock)
     expect(mapCollectionResponse(response)).toStrictEqual(collection)

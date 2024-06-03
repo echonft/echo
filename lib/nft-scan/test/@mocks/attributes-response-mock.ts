@@ -1,4 +1,6 @@
-export function attributesResponseMock() {
+import type { NftAttributeResponse } from '@echo/nft-scan/types/response/nft-attribute-response'
+
+export function attributesResponseMock(): NftAttributeResponse[] {
   return [
     {
       attribute_name: 'Backgrounds',

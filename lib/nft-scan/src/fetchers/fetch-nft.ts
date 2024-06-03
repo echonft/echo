@@ -1,13 +1,12 @@
 import { fetchInit } from '@echo/nft-scan/constants/fetch-init'
 import { getBaseUrl } from '@echo/nft-scan/helpers/get-base-url'
-import { parseFetchResponse } from '@echo/nft-scan/helpers/parse-fetch-response'
 import type { GetNftRequest } from '@echo/nft-scan/types/request/get-nft-request'
-import type { BaseResponse } from '@echo/nft-scan/types/response/base-response'
-import type { NftResponse } from '@echo/nft-scan/types/response/nft-response'
+import { getNftResponseSchema } from '@echo/nft-scan/validators/get-nft-response-schema'
+import { parseResponse } from '@echo/utils/validators/parse-response'
 import { stringify } from 'qs'
-import { andThen, applySpec, defaultTo, partialRight, pipe, prop } from 'ramda'
+import { applySpec, defaultTo, partialRight, pipe, prop } from 'ramda'
 
-export async function fetchNft(args: GetNftRequest): Promise<NftResponse> {
+export async function fetchNft(args: GetNftRequest): Promise<ReturnType<typeof getNftResponseSchema.parse>> {
   const { fetch, contract, identifier } = args
   const query = pipe(
     applySpec({
@@ -19,8 +18,12 @@ export async function fetchNft(args: GetNftRequest): Promise<NftResponse> {
   const response = await fetch(url, fetchInit)
   if (!response.ok) {
     throw Error(
-      `error fetching NFT ${identifier} for contract ${contract.address}: {url: ${url}\nstatus:${response.statusText}}`
+      `error fetching NFT ${identifier} for contract ${contract.address}: ${JSON.stringify(
+        { url, status: response.statusText },
+        undefined,
+        2
+      )}`
     )
   }
-  return pipe(parseFetchResponse<BaseResponse<NftResponse>>, andThen(prop('data')))(response)
+  return parseResponse(getNftResponseSchema)(response)
 }

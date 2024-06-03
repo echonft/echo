@@ -1,7 +1,7 @@
 import { slugSchema } from '@echo/utils/validators/slug-schema'
-import { z } from 'zod'
+import { number, object } from 'zod'
 
-export const nftIndexSchema = z.object({
+export const nftIndexSchema = object({
   collection: slugSchema,
-  tokenId: z.number().gte(0)
+  tokenId: number().gte(0)
 })

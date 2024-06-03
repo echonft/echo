@@ -1,9 +1,9 @@
 import { hexStringSchema } from '@echo/utils/validators/hex-string-schema'
 import { walletSchema } from '@echo/utils/validators/wallet-schema'
-import { z } from 'zod'
+import { object, string } from 'zod'
 
-export const addWalletSchema = z.object({
+export const addWalletSchema = object({
   wallet: walletSchema,
   signature: hexStringSchema,
-  message: z.string().min(1)
+  message: string().min(1)
 })

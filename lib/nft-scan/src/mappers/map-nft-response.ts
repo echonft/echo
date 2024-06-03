@@ -5,10 +5,11 @@ import type { NftResponse } from '@echo/nft-scan/types/response/nft-response'
 import type { nftResponseSchema } from '@echo/nft-scan/validators/nft-response-schema'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import { removeNull } from '@echo/utils/fp/remove-null'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { ChainName } from '@echo/utils/types/chain-name'
-import { always, applySpec, ifElse, isNil, map, pipe, prop, toLower } from 'ramda'
+import { always, applySpec, ifElse, invoker, isNil, map, pipe, prop } from 'ramda'
 
 export interface MapNftResponseArgs {
   response: ReturnType<typeof nftResponseSchema.parse>
@@ -26,17 +27,17 @@ export function mapNftResponse(
       attributes: pipe(prop('attributes'), ifElse(isNil, always([]), map(mapAttributeResponse))),
       collection: applySpec({
         contract: {
-          address: pipe(prop('contract_address'), toLower),
+          address: prop('contract_address'),
           chain: always(chain)
         }
       }),
       name: ifElse<[NftResponse], string, string>(
         pipe(prop('name'), isNilOrEmpty),
-        prop('token_id'),
+        pipe(prop('token_id'), invoker(0, 'toString')),
         nonNullableReturn(prop('name'))
       ),
-      metadataUrl: prop('token_uri'),
-      pictureUrl: prop('image_uri'),
+      metadataUrl: pipe(prop('token_uri'), removeNull),
+      pictureUrl: pipe(prop('image_uri'), removeNull),
       tokenId: prop('token_id')
     })(response)
   } catch (err) {

@@ -2,14 +2,14 @@ import { fetchInit } from '@echo/nft-scan/constants/fetch-init'
 import { getBaseUrl } from '@echo/nft-scan/helpers/get-base-url'
 import type { GetNftsByAccountQueryParams } from '@echo/nft-scan/types/query-params/get-nfts-by-account-query-params'
 import type { GetAllNftsByAccountRequest } from '@echo/nft-scan/types/request/get-all-nfts-by-account-request'
-import { getAllNftsByAccountDataResponseSchema } from '@echo/nft-scan/validators/get-all-nfts-by-account-data-response-schema'
+import { getAllNftsByAccountResponseSchema } from '@echo/nft-scan/validators/get-all-nfts-by-account-response-schema'
 import { parseResponse } from '@echo/utils/validators/parse-response'
 import { stringify } from 'qs'
 import { always, applySpec, defaultTo, partialRight, pipe, prop } from 'ramda'
 
 export async function fetchAllNftsByAccount(
   args: GetAllNftsByAccountRequest
-): Promise<ReturnType<typeof getAllNftsByAccountDataResponseSchema.parse>> {
+): Promise<ReturnType<typeof getAllNftsByAccountResponseSchema.parse>> {
   const { fetch, wallet } = args
   const query = pipe(
     applySpec<GetNftsByAccountQueryParams>({
@@ -21,7 +21,13 @@ export async function fetchAllNftsByAccount(
   const url = `${getBaseUrl(wallet.chain)}/account/own/all/${wallet.address}${query}`
   const response = await fetch(url, fetchInit)
   if (!response.ok) {
-    throw Error(`error fetching NFTs for ${wallet.address}: {url: ${url}\nstatus:${response.statusText}}`)
+    throw Error(
+      `error fetching NFTs for ${wallet.address}: ${JSON.stringify(
+        { url, status: response.statusText },
+        undefined,
+        2
+      )}}`
+    )
   }
-  return parseResponse(getAllNftsByAccountDataResponseSchema)(response)
+  return parseResponse(getAllNftsByAccountResponseSchema)(response)
 }

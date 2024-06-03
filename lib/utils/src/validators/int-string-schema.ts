@@ -1,6 +1,6 @@
-import { z } from 'zod'
+import { string, z } from 'zod'
 
-export const intStringSchema = z.string().transform((val, ctx) => {
+export const intStringSchema = string().transform((val, ctx) => {
   const parsed = parseInt(val, 10)
   if (isNaN(parsed)) {
     ctx.addIssue({

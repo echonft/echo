@@ -1,8 +1,8 @@
 import { chainSchema } from '@echo/utils/validators/chain-schema'
 import { evmAddressSchema } from '@echo/utils/validators/evm-address-schema'
-import { z } from 'zod'
+import { object } from 'zod'
 
-export const walletSchema = z.object({
+export const walletSchema = object({
   chain: chainSchema,
   address: evmAddressSchema
 })

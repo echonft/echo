@@ -1,10 +1,10 @@
-import type { AttributeResponse } from '@echo/nft-scan/types/response/attribute-response'
+import type { NftAttributeResponse } from '@echo/nft-scan/types/response/nft-attribute-response'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
 
 export interface NftResponse {
   amount: string
-  attributes: Nullable<AttributeResponse[]>
+  attributes: Nullable<NftAttributeResponse[]>
   content_type: string | null
   content_uri: string | null
   contract_address: HexString

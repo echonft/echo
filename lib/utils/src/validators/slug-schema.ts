@@ -1,5 +1,6 @@
-import { z } from 'zod'
+import { toLower } from 'ramda'
+import { object, string } from 'zod'
 
-export const slugSchema = z.object({
-  slug: z.string().min(1)
+export const slugSchema = object({
+  slug: string().min(1).transform<Lowercase<string>>(toLower)
 })

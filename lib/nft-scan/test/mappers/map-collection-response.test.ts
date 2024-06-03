@@ -1,7 +1,8 @@
 import type { Collection } from '@echo/model/types/collection'
 import type { Wallet } from '@echo/model/types/wallet'
 import { mapCollectionResponse } from '@echo/nft-scan/mappers/map-collection-response'
-import type { GetCollectionResponse } from '@echo/nft-scan/types/response/get-collection-response'
+import type { CollectionResponse } from '@echo/nft-scan/types/response/collection-response'
+import { collectionResponseSchema } from '@echo/nft-scan/validators/collection-response-schema'
 import { collectionResponseMock } from '@echo/nft-scan-mocks/collection-response-mock'
 import { CHAIN_BLAST } from '@echo/utils/constants/chains/chains'
 import { describe, expect, it } from '@jest/globals'
@@ -26,22 +27,31 @@ describe('mappers - mapCollectionResponse', () => {
   }
 
   it('maps correctly with no slug', () => {
-    const result = mapCollectionResponse(collectionResponseMock() as GetCollectionResponse, CHAIN_BLAST)
+    const result = mapCollectionResponse({
+      data: collectionResponseSchema.parse(collectionResponseMock()),
+      chain: CHAIN_BLAST
+    })
     expect(result).toEqual(expectedResult)
   })
 
   it('maps correctly with no slug name with space', () => {
-    const response = { ...collectionResponseMock(), name: 'Name With Space' } as GetCollectionResponse
+    const response = { ...collectionResponseMock(), name: 'Name With Space' } as CollectionResponse
     const resultWithSlug = { ...expectedResult, name: 'Name With Space', slug: 'name-with-space' }
 
-    const result = mapCollectionResponse(response, CHAIN_BLAST)
+    const result = mapCollectionResponse({
+      data: collectionResponseSchema.parse(response),
+      chain: CHAIN_BLAST
+    })
     expect(result).toEqual(resultWithSlug)
   })
 
   it('maps correctly with slug', () => {
-    const response = { ...collectionResponseMock(), opensea_slug: 'opensea-slug' } as GetCollectionResponse
+    const response = { ...collectionResponseMock(), opensea_slug: 'opensea-slug' } as CollectionResponse
     const resultWithSlug = { ...expectedResult, slug: 'opensea-slug' }
-    const result = mapCollectionResponse(response, CHAIN_BLAST)
+    const result = mapCollectionResponse({
+      data: collectionResponseSchema.parse(response),
+      chain: CHAIN_BLAST
+    })
     expect(result).toEqual(resultWithSlug)
   })
 })
