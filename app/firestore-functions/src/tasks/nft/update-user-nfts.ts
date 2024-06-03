@@ -74,7 +74,7 @@ export async function updateNftsForWallet(wallet: Wallet, owner: User, logger?: 
         // check if collection exists, if not add it, else set it in the nft
         const collection = await getCollection({
           logger,
-          contract: wallet
+          contract: nft.collection.contract
         })
         if (!isNil(collection)) {
           const nftWithCollectionSlug = assocPath(['collection', 'slug'], collection.slug, nft) as DeepPartial<Nft> &
