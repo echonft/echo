@@ -31,6 +31,8 @@ jobs:
         run: pnpm exec turbo run test:ci --filter=@echo/firestore
       - name: model tests
         run: pnpm exec turbo run test:ci --filter=@echo/model
+      - name: nft-scan tests
+        run: pnpm exec turbo run test:ci --filter=@echo/nft-scan
       - name: opensea tests
         run: pnpm exec turbo run test:ci --filter=@echo/opensea
       - name: ui tests
@@ -49,6 +51,7 @@ jobs:
             app/frontend, ./.coverage/app/frontend/coverage-summary.json
             lib/firestore, ./.coverage/lib/firestore/coverage-summary.json
             lib/model, ./.coverage/lib/model/coverage-summary.json
+            lib/nft-scan, ./.coverage/lib/nft-scan/coverage-summary.json
             lib/opensea, ./.coverage/lib/opensea/coverage-summary.json
             lib/ui, ./.coverage/lib/ui/coverage-summary.json                  
             lib/utils, ./.coverage/lib/utils/coverage-summary.json
@@ -59,6 +62,7 @@ jobs:
             app/frontend, ./.coverage/app/frontend/junit.xml
             lib/firestore, ./.coverage/lib/firestore/junit.xml
             lib/model, ./.coverage/lib/model/junit.xml
+            lib/nft-scan, ./.coverage/lib/nft-scan/junit.xml
             lib/opensea, ./.coverage/lib/model/junit.xml
             lib/ui, ./.coverage/lib/ui/junit.xml                  
             lib/utils, ./.coverage/lib/utils/junit.xml
