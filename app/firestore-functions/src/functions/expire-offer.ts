@@ -2,13 +2,9 @@ import { OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } from '@echo/firestore/constants/
 import { updateOfferState } from '@echo/firestore/crud/offer/update-offer-state'
 import { setMaxInstances } from '@echo/firestore-functions/helper/set-max-instances'
 import { errorMessage } from '@echo/utils/helpers/error-message'
+import { slugSchema } from '@echo/utils/validators/slug-schema'
 import { error } from 'firebase-functions/logger'
 import { onTaskDispatched } from 'firebase-functions/v2/tasks'
-import { z } from 'zod'
-
-const requestSchema = z.object({
-  slug: z.string().min(1)
-})
 
 export const expireOffer = onTaskDispatched(
   setMaxInstances({
@@ -22,7 +18,7 @@ export const expireOffer = onTaskDispatched(
   }),
   async (req) => {
     try {
-      const { slug } = requestSchema.parse(req.data)
+      const { slug } = slugSchema.parse(req.data)
       try {
         await updateOfferState({
           slug,

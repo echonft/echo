@@ -4,17 +4,13 @@ import { type User } from '@echo/model/types/user'
 import type { Nullable } from '@echo/utils/types/nullable'
 
 export interface Nft {
-  attributes: NftAttribute[]
-  // we only support ERC721 for now
-  // balance: number
-  collection: Collection
-  name: string
   animationUrl?: Nullable<string>
+  attributes: NftAttribute[]
+  collection: Collection
   metadataUrl?: Nullable<string>
+  name: string
   owner: User
   pictureUrl?: Nullable<string>
   tokenId: number
-  // we only support ERC721 for now
-  // tokenType: NftTokenType
   updatedAt: number
 }

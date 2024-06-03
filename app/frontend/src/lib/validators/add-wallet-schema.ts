@@ -1,5 +1,5 @@
-import { hexStringSchema } from '@echo/frontend/lib/validators/hex-string-schema'
-import { walletSchema } from '@echo/frontend/lib/validators/wallet-schema'
+import { hexStringSchema } from '@echo/utils/validators/hex-string-schema'
+import { walletSchema } from '@echo/utils/validators/wallet-schema'
 import { z } from 'zod'
 
 export const addWalletSchema = z.object({

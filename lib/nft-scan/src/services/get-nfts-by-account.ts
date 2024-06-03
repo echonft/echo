@@ -1,6 +1,6 @@
 import type { Collection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
-import { fetchNftByAccount } from '@echo/nft-scan/fetchers/fetch-nft-by-account'
+import { fetchNftsByAccount } from '@echo/nft-scan/fetchers/fetch-nfts-by-account'
 import { mapNftResponse, type MapNftResponseArgs } from '@echo/nft-scan/mappers/map-nft-response'
 import type { GetNftsByAccountRequest } from '@echo/nft-scan/types/request/get-nfts-by-account-request'
 import type { NftResponse } from '@echo/nft-scan/types/response/nft-response'
@@ -10,7 +10,7 @@ import { always, andThen, applySpec, assoc, concat, defaultTo, identity, map, pa
 export type GetNftsByAccountArgs = Omit<GetNftsByAccountRequest, 'next'>
 
 async function handlePaging(args: GetNftsByAccountRequest, accNfts: NftResponse[]): Promise<NftResponse[]> {
-  const response = await fetchNftByAccount(args)
+  const response = await fetchNftsByAccount(args)
   const { next, content } = response
   const mergedResponse = concat(accNfts, content)
   if (isNilOrEmpty(next)) {

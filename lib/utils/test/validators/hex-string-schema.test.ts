@@ -1,4 +1,5 @@
-import { hexStringSchema } from '@echo/frontend/lib/validators/hex-string-schema'
+import { hexStringSchema } from '@echo/utils/validators/hex-string-schema'
+import { describe, expect, it } from '@jest/globals'
 
 describe('validators - hexStringSchema', () => {
   it('wrong string fails validation', () => {

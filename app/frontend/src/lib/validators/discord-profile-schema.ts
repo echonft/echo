@@ -1,9 +1,6 @@
-import { always, isNil, when } from 'ramda'
+import { removeUndefined } from '@echo/utils/fp/remove-undefined'
 import { z } from 'zod'
 
-function removeUndefined<T>(value: T | undefined | null) {
-  return when(isNil, always(null))(value) as T | null
-}
 export const discordProfileSchema = z.object({
   accent_color: z
     .number()

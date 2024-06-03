@@ -1,5 +1,6 @@
-import { chainSchema } from '@echo/frontend/lib/validators/chain-schema'
 import { CHAINS } from '@echo/utils/constants/chains/chains'
+import { chainSchema } from '@echo/utils/validators/chain-schema'
+import { describe, expect, it } from '@jest/globals'
 
 describe('validators - chainSchema', () => {
   it('wrong chain fails validation', () => {

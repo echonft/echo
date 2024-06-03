@@ -1,5 +1,6 @@
-import { walletSchema } from '@echo/frontend/lib/validators/wallet-schema'
 import { CHAINS } from '@echo/utils/constants/chains/chains'
+import { walletSchema } from '@echo/utils/validators/wallet-schema'
+import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
 
 describe('validators - walletSchema', () => {

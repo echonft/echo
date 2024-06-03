@@ -2,19 +2,20 @@ import { getAvatarDecorationUrl } from '@echo/frontend/lib/auth/get-avatar-decor
 import { getDiscordAvatarUrl } from '@echo/frontend/lib/auth/get-discord-avatar-url'
 import { getDiscordBannerUrl } from '@echo/frontend/lib/auth/get-discord-banner-url'
 import type { DiscordProfile } from '@echo/model/types/discord-profile'
+import { removeNull } from '@echo/utils/fp/remove-null'
 import type { DiscordProfile as ProviderDiscordProfile } from 'next-auth/providers/discord'
-import { applySpec, prop } from 'ramda'
+import { applySpec, pipe, prop } from 'ramda'
 
 export function mapDiscordProfile(profile: Partial<ProviderDiscordProfile>): DiscordProfile {
   return applySpec<DiscordProfile>({
-    accentColor: prop('accent_color'),
-    avatar: prop('avatar'),
+    accentColor: pipe(prop('accent_color'), removeNull),
+    avatar: pipe(prop('avatar'), removeNull),
     avatarUrl: getDiscordAvatarUrl,
     avatarDecorationUrl: getAvatarDecorationUrl,
-    bannerColor: prop('banner_color'),
+    bannerColor: pipe(prop('banner_color'), removeNull),
     bannerUrl: getDiscordBannerUrl,
     discriminator: prop('discriminator'),
-    globalName: prop('global_name'),
+    globalName: pipe(prop('global_name'), removeNull),
     id: prop('id'),
     username: prop('username')
   })(profile)

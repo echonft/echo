@@ -52,13 +52,13 @@ describe('auth - mapDiscordProfile', () => {
       assoc('banner_color', null)
     )(providerProfile) as ProviderDiscordProfile
     const updatedProfile: DiscordProfile = pipe(
-      assoc('avatar', null),
+      assoc('avatar', undefined),
       assoc('avatarUrl', 'https://cdn.discordapp.com/embed/avatars/0.png'),
-      assoc('globalName', null),
+      assoc('globalName', undefined),
       assoc('bannerUrl', undefined),
-      assoc('accentColor', null),
+      assoc('accentColor', undefined),
       assoc('avatarDecorationUrl', undefined),
-      assoc('bannerColor', null)
+      assoc('bannerColor', undefined)
     )(profile) as DiscordProfile
     expect(mapDiscordProfile(updatedProviderProfile)).toStrictEqual(updatedProfile)
   })

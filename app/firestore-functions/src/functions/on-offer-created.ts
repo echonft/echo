@@ -1,3 +1,4 @@
+import { getFirestoreEventData } from '@echo/firestore-functions/helper/get-firestore-event-data'
 import { getFunctionUrl } from '@echo/firestore-functions/helper/get-function-url'
 import { setMaxInstances } from '@echo/firestore-functions/helper/set-max-instances'
 import type { Offer } from '@echo/model/types/offer'
@@ -9,7 +10,7 @@ import { isNil } from 'ramda'
 
 export const onOfferCreated = onDocumentCreated(setMaxInstances({ document: 'offers/{id}' }), async (event) => {
   const functionName = 'expireOffer'
-  const offer = event.data?.data() as Offer
+  const offer = getFirestoreEventData<Offer>(event)
   if (!isNil(offer)) {
     const queue = getFunctions().taskQueue(functionName)
     const uri = await getFunctionUrl(functionName)
