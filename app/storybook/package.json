@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "storybook build",
+    "build": "storybook build --test",
     "clean": "rm -rf .storybook",
     "dev": "storybook dev -p 6006",
     "lint": "eslint --fix -c .eslintrc.js --ext .ts,.tsx .",

@@ -52,6 +52,36 @@ const config: StorybookConfig = {
   webpackFinal: async (config) => {
     return {
       ...config,
+      optimization: {
+        ...config.optimization,
+        splitChunks: {
+          chunks: 'all',
+          maxInitialRequests: Infinity,
+          minSize: 30 * 1024,
+          cacheGroups: {
+            defaultVendors: {
+              test: /[\\/]node_modules[\\/]/,
+              priority: -10,
+              reuseExistingChunk: true
+            },
+            vendorPreview: {
+              test: /[\\/]node_modules[\\/]/,
+              priority: -20,
+              reuseExistingChunk: true
+            },
+            default: {
+              minChunks: 2,
+              priority: -30,
+              reuseExistingChunk: true
+            }
+          },
+          maxSize: 244 * 1024
+        }
+      },
+      performance: {
+        ...config.performance,
+        maxAssetSize: 244 * 1024
+      },
       resolve: {
         ...config.resolve,
         plugins: [new TsconfigPathsPlugin()]

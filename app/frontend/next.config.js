@@ -22,7 +22,7 @@ const nextConfig = {
     '@echo/web3-dom'
   ],
   webpack: (config) => {
-    // noinspection JSUnresolvedReference
+    // noinspection JSUnresolvedReference,JSValidateTypes
     config.externals.push('pino-pretty', 'lokijs', 'encoding', 'request')
     return config
   }
