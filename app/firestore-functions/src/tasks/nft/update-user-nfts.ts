@@ -7,6 +7,7 @@ import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
+import { updateNftsForWalletTestnet } from '@echo/firestore-functions/tasks/nft/update-user-nfts-testnet'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import type { Collection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
@@ -18,6 +19,7 @@ import { getCollectionByAddress } from '@echo/nft-scan/services/get-collection-b
 import type { GetCollectionRequest } from '@echo/nft-scan/types/request/get-collection-request'
 import { andThenOtherwise } from '@echo/utils/fp/and-then-otherwise'
 import { errorMessage } from '@echo/utils/helpers/error-message'
+import { isTestnetChain } from '@echo/utils/helpers/is-testnet-chain'
 import type { DeepPartial } from '@echo/utils/types/deep-partial'
 import type { LoggerInterface } from '@echo/utils/types/logger-interface'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -60,7 +62,6 @@ async function getCollection(args: GetCollectionArgs): Promise<Nullable<Collecti
 
 export async function updateNftsForWallet(wallet: Wallet, owner: User, logger?: LoggerInterface) {
   try {
-    // TODO testnet
     const collections = await pipe(assoc('fetch', fetch), getAllNftsByAccount)({ wallet })
     for (const collection of collections) {
       // check if collection exists, if not add it, else set it in the nft
@@ -140,11 +141,14 @@ export async function updateNftsForWallet(wallet: Wallet, owner: User, logger?: 
   }
 }
 
-// TODO testnet
 export async function updateUserNfts(user: UserDocumentData, wallets: WalletDocumentData[], logger?: LoggerInterface) {
   for (const wallet of wallets) {
     const owner: User = getUserFromFirestoreData(user, wallet)
-    await updateNftsForWallet(pick(['address', 'chain'], wallet), owner, logger)
+    if (isTestnetChain(wallet.chain)) {
+      await updateNftsForWalletTestnet(pick(['address', 'chain'], wallet), owner, logger)
+    } else {
+      await updateNftsForWallet(pick(['address', 'chain'], wallet), owner, logger)
+    }
     logger?.info(`done updating NFTs for wallet ${JSON.stringify(wallet)}`)
   }
 }
