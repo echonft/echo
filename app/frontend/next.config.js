@@ -15,7 +15,7 @@ const nextConfig = {
     '@echo/firestore',
     '@echo/model',
     '@echo/opensea',
-    '@echo/sentry',
+    '@echo/nft-scan',
     '@echo/ui',
     '@echo/utils',
     '@echo/web3',

@@ -1,5 +1,6 @@
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
+import { captureException, isInitialized } from '@sentry/node'
 import { is, isNil } from 'ramda'
 
 export function guardAsyncFn<TArgs extends unknown[], TResult, TFallbackResult = TResult>(
@@ -11,6 +12,9 @@ export function guardAsyncFn<TArgs extends unknown[], TResult, TFallbackResult =
       return await fn(...args)
     } catch (e) {
       pinoLogger.error(errorMessage(e))
+      if (isInitialized()) {
+        captureException(e)
+      }
       if (isNil(fallback)) {
         return Promise.resolve()
       }

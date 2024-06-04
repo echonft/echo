@@ -8,5 +8,5 @@ export function signIn(): Promise<SignInResponse> {
   setTimeout(() => {
     authUserStore.getState().signIn(userMockJohnnyUsername())
   }, 780)
-  return delayPromise(toPromise, 800)({ error: undefined, status: 200, ok: true, url: null })
+  return delayPromise(toPromise, 800)({ error: undefined, code: undefined, status: 200, ok: true, url: null })
 }
