@@ -21,6 +21,8 @@ jobs:
           run_install: true
       - name: bot tests
         run: pnpm exec turbo run test:ci --filter=@echo/bot
+      - name: contract-listener tests
+        run: pnpm exec turbo run test:ci --filter=@echo/contract-listener
       - name: frontend tests
         run: pnpm exec turbo run test:ci --filter=@echo/frontend
       - name: firestore tests
