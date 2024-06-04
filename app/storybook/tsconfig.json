@@ -1,5 +1,5 @@
 {
-  "extends": "../../lib/tsconfig/tsconfig.dom.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -14,7 +14,8 @@
       "@echo/utils/*": ["../../lib/utils/src/*"],
       "@echo/web3/*": ["../../lib/web3/src/*"],
       "@echo/web3-dom/*": ["../../lib/web3-dom/src/*"]
-    }
+    },
+    "lib": ["dom", "dom.iterable", "esnext"]
   },
   "include": ["src", ".storybook/main.ts", ".storybook/preview.tsx", "../../env.d.ts"],
   "exclude": ["node_modules", "storybook-static"]

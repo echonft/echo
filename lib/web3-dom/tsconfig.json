@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig/tsconfig.dom.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -8,7 +8,8 @@
       "@echo/utils/*": ["../utils/src/*"],
       "@echo/web3/*": ["../web3/src/*"],
       "@echo/web3-dom/*": ["src/*"]
-    }
+    },
+    "lib": ["dom", "dom.iterable", "esnext"]
   },
   "include": ["src", "test", "../../env.d.ts"],
   "exclude": ["node_modules"]

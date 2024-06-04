@@ -1,5 +1,5 @@
 {
-  "extends": "../../lib/tsconfig/tsconfig.dom.json",
+  "extends": "../../tsconfig.json",
   "ts-node": {
     "require": ["tsconfig-paths/register"],
     "transpileOnly": true,
@@ -21,9 +21,7 @@
       "@echo/utils/*": ["../../lib/utils/src/*"],
       "@echo/web3/*": ["../../lib/web3/src/*"]
     },
-    "noEmit": false,
-    "sourceMap": true,
-    "inlineSources": true
+    "noEmit": false
   },
   "include": ["src", "../../env.d.ts"],
   "exclude": ["dist", "node_modules"]

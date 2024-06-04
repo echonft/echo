@@ -1,5 +1,5 @@
 {
-  "extends": "../../lib/tsconfig/tsconfig.dom.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -17,12 +17,17 @@
       "@echo/web3/*": ["../../lib/web3/src/*"],
       "@echo/web3-dom/*": ["../../lib/web3-dom/src/*"]
     },
+    "lib": ["dom", "dom.iterable", "esnext"],
     "plugins": [
       {
         "name": "next"
       }
     ],
-    "types": ["jest"]
+    "types": ["jest"],
+    // Set `sourceRoot` to  "/" to strip the build path prefix
+    // from generated source code references.
+    // This improves issue grouping in Sentry.
+    "sourceRoot": "/"
   },
   "include": ["src", "next-env.d.ts", ".next/types/**/*.ts", "test", "sentry.*.config.ts", "../../env.d.ts"],
   "exclude": ["node_modules", ".next"]
