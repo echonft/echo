@@ -1,5 +1,5 @@
 {
-  "extends": "../../lib/tsconfig/tsconfig.dom.json",
+  "extends": "../../tsconfig.json",
   "ts-node": {
     "require": ["tsconfig-paths/register"],
     "transpileOnly": true,
@@ -22,8 +22,6 @@
       "@echo/utils/*": ["../../lib/utils/src/*"]
     },
     "noEmit": false,
-    "sourceMap": true,
-    "inlineSources": true,
     // Set `sourceRoot` to  "/" to strip the build path prefix
     // from generated source code references.
     // This improves issue grouping in Sentry.

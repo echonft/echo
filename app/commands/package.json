@@ -11,6 +11,7 @@
     "command:check-nft-approval:dev": "source .env.keys; dotenvx run -f .env.dev -- ts-node --project tsconfig.json src/commands/list-collections-contract-command.ts",
     "command:check-nft-approval:testnet": "source .env.keys; dotenvx run -f .env.testnet -- ts-node --project tsconfig.json src/commands/check-nft-approval-command.ts",
     "command:clear-db:dev": "source .env.keys; dotenvx run -f .env.dev -- ts-node --project tsconfig.json src/commands/clear-db-command.ts",
+    "command:clear-db": "source .env.keys; dotenvx run -f .env.prod -- ts-node --project tsconfig.json src/commands/clear-db-command.ts",
     "command:clear-db:testnet": "source .env.keys; dotenvx run -f .env.testnet -- ts-node --project tsconfig.json src/commands/clear-db-command.ts",
     "command:fetch-collection": "source .env.keys; dotenvx run -f .env.dev -- ts-node --project tsconfig.json src/commands/fetch-collection-command.ts",
     "command:fetch-collection-from-nftscan": "source .env.keys; dotenvx run -f .env.dev -- ts-node --project tsconfig.json src/commands/fetch-collection-from-nftscan-command.ts",

@@ -11,17 +11,12 @@ test
 .github
 .husky
 dist
-# other apps
-frontend
-commands
-storybook
 
 # files
 .dockerignore
 .DS_Store
 .gitignore
 LICENSE
-prettier.config.js
 README.md
 jest*
 babel*
