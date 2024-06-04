@@ -1,10 +1,10 @@
-import { z } from 'zod'
+import { number, object, string } from 'zod'
 
-export const discordAuthTokenSchema = z.object({
-  access_token: z.string().min(1),
-  refresh_token: z.string().min(1),
-  expires_in: z.number(),
-  expires_at: z.number(),
-  scope: z.string().min(1),
-  token_type: z.string().min(1)
+export const discordAuthTokenSchema = object({
+  access_token: string().min(1),
+  refresh_token: string().min(1),
+  expires_in: number(),
+  expires_at: number(),
+  scope: string().min(1),
+  token_type: string().min(1)
 })

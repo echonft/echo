@@ -1,41 +1,32 @@
-import { always, isNil, when } from 'ramda'
-import { z } from 'zod'
+import { removeUndefined } from '@echo/utils/fp/remove-undefined'
+import { number, object, string } from 'zod'
 
-function removeUndefined<T>(value: T | undefined | null) {
-  return when(isNil, always(null))(value) as T | null
-}
-export const discordProfileSchema = z.object({
-  accent_color: z
-    .number()
+export const discordProfileSchema = object({
+  accent_color: number()
     .optional()
     .nullable()
     .transform<number | null>(removeUndefined<number>),
-  avatar: z
-    .string()
+  avatar: string()
     .optional()
     .nullable()
     .transform<string | null>(removeUndefined<string>),
-  avatar_decoration: z
-    .string()
+  avatar_decoration: string()
     .optional()
     .nullable()
     .transform<string | null>(removeUndefined<string>),
-  banner_color: z
-    .string()
+  banner_color: string()
     .optional()
     .nullable()
     .transform<string | null>(removeUndefined<string>),
-  banner: z
-    .string()
+  banner: string()
     .optional()
     .nullable()
     .transform<string | null>(removeUndefined<string>),
-  discriminator: z.string().min(1),
-  global_name: z
-    .string()
+  discriminator: string().min(1),
+  global_name: string()
     .optional()
     .nullable()
     .transform<string | null>(removeUndefined<string>),
-  id: z.string().min(1),
-  username: z.string().min(1)
+  id: string().min(1),
+  username: string().min(1)
 })

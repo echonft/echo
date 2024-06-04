@@ -1,4 +1,5 @@
 import { mapNftResponse } from '@echo/nft-scan/mappers/map-nft-response'
+import { nftResponseSchema } from '@echo/nft-scan/validators/nft-response-schema'
 import { attributesMock } from '@echo/nft-scan-mocks/attributes-mock'
 import { nftResponseMock } from '@echo/nft-scan-mocks/nft-response-mock'
 import { CHAIN_BLAST } from '@echo/utils/constants/chains/chains'
@@ -23,13 +24,13 @@ describe('mappers - mapNftResponse', () => {
     metadataUrl: 'https://dweb.link/ipfs/bafybeier5k54xnsw26fhttl673vc57jmbddvkkjn4skiel26t5yawsi3x4/2944.json'
   }
   it('maps correctly with ipfs image uri', () => {
-    expect(mapNftResponse({ chain, response })).toEqual(expectedResult)
+    expect(mapNftResponse({ chain, response: nftResponseSchema.parse(response) })).toEqual(expectedResult)
   })
 
   it('maps correctly with proper image uri', () => {
     const properUriResponse = { ...response, image_uri: 'https://www.bleh.com/1.png' }
     const properUriResult = { ...expectedResult, pictureUrl: 'https://www.bleh.com/1.png' }
-    expect(mapNftResponse({ chain, response: properUriResponse })).toEqual(properUriResult)
+    expect(mapNftResponse({ chain, response: nftResponseSchema.parse(properUriResponse) })).toEqual(properUriResult)
   })
   it('maps correctly with ipfs token uri', () => {
     const ipfsUriResponse = {
@@ -40,18 +41,20 @@ describe('mappers - mapNftResponse', () => {
       ...expectedResult,
       metadataUrl: 'ipfs://bafybeier5k54xnsw26fhttl673vc57jmbddvkkjn4skiel26t5yawsi3x4/2944.json'
     }
-    expect(mapNftResponse({ chain, response: ipfsUriResponse })).toEqual(ipfsUriResult)
+    expect(mapNftResponse({ chain, response: nftResponseSchema.parse(ipfsUriResponse) })).toEqual(ipfsUriResult)
   })
 
   it('maps correctly with no name', () => {
     const noNameResponse = { ...response, name: null }
     const noNameResult = { ...expectedResult, name: '2944' }
-    expect(mapNftResponse({ chain, response: noNameResponse })).toEqual(noNameResult)
+    expect(mapNftResponse({ chain, response: nftResponseSchema.parse(noNameResponse) })).toEqual(noNameResult)
   })
 
   it('maps correctly with no attributes', () => {
     const noAttributesResponse = { ...response, attributes: null }
     const noAttributesResult = { ...expectedResult, attributes: [] }
-    expect(mapNftResponse({ chain, response: noAttributesResponse })).toEqual(noAttributesResult)
+    expect(mapNftResponse({ chain, response: nftResponseSchema.parse(noAttributesResponse) })).toEqual(
+      noAttributesResult
+    )
   })
 })

@@ -1,6 +1,6 @@
-import { walletSchema } from '@echo/frontend/lib/validators/wallet-schema'
-import { z } from 'zod'
+import { walletSchema } from '@echo/utils/validators/wallet-schema'
+import { object } from 'zod'
 
-export const removeWalletSchema = z.object({
+export const removeWalletSchema = object({
   wallet: walletSchema
 })

@@ -1,4 +1,6 @@
-export function collectionResponseMock() {
+import type { CollectionResponse } from '@echo/nft-scan/types/response/collection-response'
+
+export function collectionResponseMock(): CollectionResponse {
   return {
     contract_address: '0xcfc4c2b14af5b1f8ed97e1717b009dca461d8461',
     name: 'BACGenesis',

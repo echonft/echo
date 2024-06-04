@@ -1,13 +1,14 @@
 import { fetchInit } from '@echo/nft-scan/constants/fetch-init'
 import { getBaseUrl } from '@echo/nft-scan/helpers/get-base-url'
-import { parseFetchResponse } from '@echo/nft-scan/helpers/parse-fetch-response'
 import type { GetCollectionRequest } from '@echo/nft-scan/types/request/get-collection-request'
-import type { BaseResponse } from '@echo/nft-scan/types/response/base-response'
-import type { GetCollectionResponse } from '@echo/nft-scan/types/response/get-collection-response'
+import { getCollectionResponseSchema } from '@echo/nft-scan/validators/get-collection-response-schema'
+import { parseResponse } from '@echo/utils/validators/parse-response'
 import { stringify } from 'qs'
-import { andThen, applySpec, defaultTo, partialRight, pipe, prop } from 'ramda'
+import { applySpec, defaultTo, partialRight, pipe, prop } from 'ramda'
 
-export async function fetchCollection(args: GetCollectionRequest): Promise<GetCollectionResponse> {
+export async function fetchCollection(
+  args: GetCollectionRequest
+): Promise<ReturnType<typeof getCollectionResponseSchema.parse>> {
   const { fetch, contract } = args
   const query = pipe(
     applySpec({
@@ -26,5 +27,5 @@ export async function fetchCollection(args: GetCollectionRequest): Promise<GetCo
       )}`
     )
   }
-  return pipe(parseFetchResponse<BaseResponse<GetCollectionResponse>>, andThen(prop('data')))(response)
+  return parseResponse(getCollectionResponseSchema)(response)
 }

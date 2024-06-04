@@ -3,5 +3,5 @@ import type { WithFetch } from '@echo/utils/types/with-fetch'
 
 export interface GetCollectionRequest extends WithFetch {
   contract: Wallet
-  showAttribute?: boolean // To fetch all NFTs attributes. Default: false
+  showAttribute?: boolean // To fetch the collection attributes. Default: false
 }

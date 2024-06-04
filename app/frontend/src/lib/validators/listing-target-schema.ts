@@ -1,7 +1,7 @@
-import { collectionSchema } from '@echo/frontend/lib/validators/collection-schema'
-import { z } from 'zod'
+import { slugSchema } from '@echo/utils/validators/slug-schema'
+import { number, object } from 'zod'
 
-export const listingTargetSchema = z.object({
-  amount: z.number().gt(0),
-  collection: collectionSchema
+export const listingTargetSchema = object({
+  amount: number().gt(0),
+  collection: slugSchema
 })

@@ -1,7 +1,6 @@
 import { getNft } from '@echo/nft-scan/services/get-nft'
 import { CHAIN_ETHEREUM, CHAINS } from '@echo/utils/constants/chains/chains'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
@@ -51,13 +50,13 @@ void (async function () {
     const address = pipe(formatWalletAddress, toLower<HexString>)({ address: a, chain: c })
     try {
       const nft = await getNft({ contract: { address, chain: c }, fetch, identifier: t })
-      pinoLogger.info(`successfuly received NFT: ${JSON.stringify(nft, undefined, 2)}`)
+      console.log(`successfuly received NFT: ${JSON.stringify(nft, undefined, 2)}`)
     } catch (e) {
-      pinoLogger.error(`error fetching NFT #${t} for ${a}: ${errorMessage(e)}`)
-      pinoLogger.error((e as Error).stack)
+      console.error(`error fetching NFT #${t} for ${a}: ${errorMessage(e)}`)
+      console.error((e as Error).stack)
     }
   } catch (e) {
-    pinoLogger.error(`address ${a} is not a valid address`)
+    console.error(`address ${a} is not a valid address`)
   }
   process.exit()
 })()
