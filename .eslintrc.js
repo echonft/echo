@@ -63,17 +63,9 @@ module.exports = {
         patterns: [
           {
             group: [
-              '@echo/api/src/*',
-              '@echo/firestore/src/*',
-              '@echo/firestore/test/mocks/*',
-              '@echo/model/src/*',
-              '@echo/model/test/mocks/*',
-              '@echo/sentry/src/*',
-              '@echo/ui/src/*',
-              '@echo/utils/src/*',
-              '@echo/utils/test/test-utils/*',
-              '@echo/web3/src/*',
-              '@echo/web3-dom/src/*',
+              '@echo/**/src/*',
+              '@echo/**/test/mocks/*',
+              '@echo/**/test-utils/*',
               'lib/*',
               'src/*',
               './*',

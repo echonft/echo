@@ -36,8 +36,6 @@ jobs:
         run: pnpm exec turbo run tsc:ci --filter=@echo/model
       - name: opensea tsc
         run: pnpm exec turbo run tsc:ci --filter=@echo/opensea
-      - name: sentry tsc
-        run: pnpm exec turbo run tsc:ci --filter=@echo/sentry
       - name: ui tsc
         run: pnpm exec turbo run tsc:ci --filter=@echo/ui
       - name: utils tsc

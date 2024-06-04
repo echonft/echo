@@ -1,6 +1,7 @@
 import { client } from '@echo/bot/constants/client'
 import { getDiscordClientToken } from '@echo/bot/helpers/get-discord-client-token'
 import { guardAsyncFn } from '@echo/bot/helpers/guard-async-fn'
+import { initializeSentry } from '@echo/bot/helpers/initialize-sentry'
 import { sendToEchoChannel } from '@echo/bot/helpers/send-to-echo-channel'
 import { listingChangeHandler } from '@echo/bot/listing/listing-change-handler'
 import { initializeTranslations } from '@echo/bot/messages/initialize-translations'
@@ -18,6 +19,7 @@ import { Events } from 'discord.js'
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 client.once(Events.ClientReady, async (_client) => {
   initializeFirebase()
+  initializeSentry()
   await initializeTranslations()
   listenToListings((changeType, snapshot) => guardAsyncFn(listingChangeHandler)(changeType, snapshot))
   listenToOffers((changeType, snapshot) => guardAsyncFn(offerChangeHandler)(changeType, snapshot))
