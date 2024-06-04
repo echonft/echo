@@ -10,7 +10,7 @@ export const getAllNftsByAccountResponseSchema = object({
     assets: nftResponseSchema.array(),
     contract_address: evmAddressSchema,
     contract_name: string(),
-    description: string(),
+    description: string().nullable(),
     floor_price: number().nullable(),
     is_spam: boolean(),
     items_total: number(),
