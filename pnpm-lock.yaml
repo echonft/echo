@@ -132,18 +132,12 @@ importers:
       jest-junit:
         specifier: 16.0.0
         version: 16.0.0
-      nodemon:
-        specifier: 3.1.2
-        version: 3.1.2
-      ts-node:
-        specifier: 10.9.2
-        version: 10.9.2(@swc/core@1.5.7(@swc/helpers@0.5.5))(@types/node@20.12.12)(typescript@5.4.5)
-      tsconfig-paths:
-        specifier: 4.2.0
-        version: 4.2.0
       tsup:
         specifier: 8.0.2
         version: 8.0.2(@swc/core@1.5.7)(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.5.7)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)
+      tsx:
+        specifier: 4.11.2
+        version: 4.11.2
       typescript:
         specifier: 5.4.5
         version: 5.4.5
@@ -195,12 +189,9 @@ importers:
       ramda:
         specifier: 0.30.0
         version: 0.30.0
-      ts-node:
-        specifier: 10.9.2
-        version: 10.9.2(@swc/core@1.5.7(@swc/helpers@0.5.5))(@types/node@20.12.12)(typescript@5.4.5)
-      tsconfig-paths:
-        specifier: 4.2.0
-        version: 4.2.0
+      tsx:
+        specifier: 4.11.2
+        version: 4.11.2
       typescript:
         specifier: 5.4.5
         version: 5.4.5
@@ -669,7 +660,7 @@ importers:
         version: 0.30.0
       jest:
         specifier: 29.7.0
-        version: 29.7.0(@types/node@20.12.12)(ts-node@10.9.2(@swc/core@1.5.7(@swc/helpers@0.5.5))(@types/node@20.12.12)(typescript@5.4.5))
+        version: 29.7.0(@types/node@20.12.12)(ts-node@10.9.2(@swc/core@1.5.7)(@types/node@20.12.12)(typescript@5.4.5))
       jest-junit:
         specifier: 16.0.0
         version: 16.0.0
@@ -721,7 +712,7 @@ importers:
         version: 0.30.0
       jest:
         specifier: 29.7.0
-        version: 29.7.0(@types/node@20.12.12)(ts-node@10.9.2(@swc/core@1.5.7(@swc/helpers@0.5.5))(@types/node@20.12.12)(typescript@5.4.5))
+        version: 29.7.0(@types/node@20.12.12)(ts-node@10.9.2(@swc/core@1.5.7)(@types/node@20.12.12)(typescript@5.4.5))
       jest-junit:
         specifier: 16.0.0
         version: 16.0.0
@@ -770,7 +761,7 @@ importers:
         version: 0.30.0
       jest:
         specifier: 29.7.0
-        version: 29.7.0(@types/node@20.12.12)(ts-node@10.9.2(@swc/core@1.5.7(@swc/helpers@0.5.5))(@types/node@20.12.12)(typescript@5.4.5))
+        version: 29.7.0(@types/node@20.12.12)(ts-node@10.9.2(@swc/core@1.5.7)(@types/node@20.12.12)(typescript@5.4.5))
       jest-junit:
         specifier: 16.0.0
         version: 16.0.0
@@ -995,7 +986,7 @@ importers:
         version: 0.30.0
       jest:
         specifier: 29.7.0
-        version: 29.7.0(@types/node@20.12.12)(ts-node@10.9.2(@swc/core@1.5.7(@swc/helpers@0.5.5))(@types/node@20.12.12)(typescript@5.4.5))
+        version: 29.7.0(@types/node@20.12.12)(ts-node@10.9.2(@swc/core@1.5.7)(@types/node@20.12.12)(typescript@5.4.5))
       jest-junit:
         specifier: 16.0.0
         version: 16.0.0
@@ -1047,7 +1038,7 @@ importers:
         version: 0.30.0
       jest:
         specifier: 29.7.0
-        version: 29.7.0(@types/node@20.12.12)(ts-node@10.9.2(@swc/core@1.5.7(@swc/helpers@0.5.5))(@types/node@20.12.12)(typescript@5.4.5))
+        version: 29.7.0(@types/node@20.12.12)(ts-node@10.9.2(@swc/core@1.5.7)(@types/node@20.12.12)(typescript@5.4.5))
       jest-junit:
         specifier: 16.0.0
         version: 16.0.0
@@ -1102,7 +1093,7 @@ importers:
         version: 23.11.5
       jest:
         specifier: 29.7.0
-        version: 29.7.0(@types/node@20.12.12)(ts-node@10.9.2(@swc/core@1.5.7(@swc/helpers@0.5.5))(@types/node@20.12.12)(typescript@5.4.5))
+        version: 29.7.0(@types/node@20.12.12)(ts-node@10.9.2(@swc/core@1.5.7)(@types/node@20.12.12)(typescript@5.4.5))
       jest-junit:
         specifier: 16.0.0
         version: 16.0.0
@@ -11893,6 +11884,11 @@ packages:
     engines: {node: '>= 6'}
     peerDependencies:
       typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
+
+  tsx@4.11.2:
+    resolution: {integrity: sha512-V5DL5v1BuItjsQ2FN9+4OjR7n5cr8hSgN+VGmm/fd2/0cgQdBIWHcQ3bFYm/5ZTmyxkTDBUIaRuW2divgfPe0A==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
 
   tty-browserify@0.0.1:
     resolution: {integrity: sha512-C3TaO7K81YvjCgQH9Q1S3R3P3BtN3RIM8n+OvX4il1K1zgE8ZhI0op7kClgkxtutIE8hQrcrHBXvIheqKUUCxw==}
@@ -26884,6 +26880,13 @@ snapshots:
     dependencies:
       tslib: 1.14.1
       typescript: 5.4.5
+
+  tsx@4.11.2:
+    dependencies:
+      esbuild: 0.20.2
+      get-tsconfig: 4.7.5
+    optionalDependencies:
+      fsevents: 2.3.3
 
   tty-browserify@0.0.1: {}
 
