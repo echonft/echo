@@ -7,7 +7,7 @@ app = 'echo-bot-dev'
 primary_region = 'yul'
 
 [build]
-dockerfile = '../../../bot.Dockerfile'
+dockerfile = '../../../Dockerfile'
 
 [[vm]]
 cpu_kind = 'shared'
