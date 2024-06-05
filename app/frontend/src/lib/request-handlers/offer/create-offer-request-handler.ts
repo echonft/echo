@@ -10,10 +10,10 @@ import { getNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-nfts-from
 import { createOfferSchema } from '@echo/frontend/lib/validators/create-offer-schema'
 import { generateBaseOffer } from '@echo/model/helpers/offer/generate-base-offer'
 import type { Nft } from '@echo/model/types/nft'
-import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { generateOfferId } from '@echo/web3/helpers/generate-offer-id'
 import { NextResponse } from 'next/server'
 import type { User } from 'next-auth'
+import type { NonEmptyArray } from 'ramda'
 import { head } from 'ramda'
 
 export async function createOfferRequestHandler(user: User, req: ApiRequest<CreateOfferRequest>) {
