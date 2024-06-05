@@ -15,10 +15,6 @@ export async function mapErc721TransferLogToTransferData(
       args: { from, to, tokenId }
     }
   } = args
-  // Need to clean data
-  if (isNil(from) || isNil(to) || isNil(tokenId)) {
-    return undefined
-  }
   const fromWallet = await getWalletByAddress({ chain, address: from })
   const toWallet = await getWalletByAddress({ chain, address: to })
   // If both wallets are not present in our database, discard
