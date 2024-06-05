@@ -1,6 +1,6 @@
 import type { Wallet } from '@echo/model/types/wallet'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
-import { getChainName } from '@echo/utils/helpers/get-chain-name'
+import { getChain } from '@echo/utils/helpers/get-chain'
 import { isSupportedChain } from '@echo/utils/helpers/is-supported-chain'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -33,13 +33,13 @@ function getWallet(args: ReturnType<typeof setStatus>): Nullable<Wallet> {
       propIsNil('address'),
       pipe<[ReturnType<typeof setStatus>], Nullable<number>, boolean>(
         prop('chainId'),
-        ifElse(isNil, always(true), pipe(getChainName, complement(isSupportedChain)))
+        ifElse(isNil, always(true), pipe(getChain, complement(isSupportedChain)))
       )
     ]),
     always(undefined),
     applySpec<Wallet>({
       address: pipe(prop('address'), toLower<HexString>),
-      chain: pipe(prop('chainId'), getChainName)
+      chain: pipe(prop('chainId'), getChain)
     })
   )(args)
 }

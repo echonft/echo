@@ -1,20 +1,17 @@
 import type { Wallet } from '@echo/model/types/wallet'
-import { BLAST_CHAIN_ID, ETHEREUM_CHAIN_ID, SEPOLIA_CHAIN_ID } from '@echo/utils/constants/chains/chain-ids'
-import { getChainId } from '@echo/utils/helpers/get-chain-id'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { toLower } from 'ramda'
 
 export function getOpenSeaUrlForNft(contract: Wallet, tokenId: number): Nullable<Lowercase<string>> {
   const { address, chain } = contract
-  const chainId = getChainId(chain)
 
-  if (chainId === BLAST_CHAIN_ID) {
+  if (chain === 'blast') {
     return toLower(`https://opensea.io/assets/blast/${address}/${tokenId}`)
   }
-  if (chainId === ETHEREUM_CHAIN_ID) {
+  if (chain === 'ethereum') {
     return toLower(`https://opensea.io/assets/ethereum/${address}/${tokenId}`)
   }
-  if (chainId === SEPOLIA_CHAIN_ID) {
+  if (chain === 'sepolia') {
     return toLower(`https://testnets.opensea.io/assets/sepolia/${address}/${tokenId}`)
   }
   return undefined

@@ -1,23 +1,19 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
-import { getChain } from '@echo/contract-listener/helpers/get-chain'
-import { parseEchoLogs } from '@echo/contract-listener/parsers/parse-echo-logs'
-import { parseErc721TansferLogs } from '@echo/contract-listener/parsers/parse-erc721-tansfer-logs'
+import { handleErc721TransferEvent } from '@echo/contract-listener/handlers/handle-erc721-transfer-event'
+import { handleOfferExecutedEvent } from '@echo/contract-listener/handlers/handle-offer-executed-event'
+import { guardAsyncFn } from '@echo/contract-listener/helpers/guard'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
+import { getSupportedChains } from '@echo/utils/helpers/get-supported-chains'
 import { getClientForChain } from '@echo/web3/helpers/get-client-for-chain'
-import { watchEchoEvents } from '@echo/web3/watchers/watch-echo-events'
-import { watchErc721TransferEvents } from '@echo/web3/watchers/watch-erc721-transfer-events'
+import { watchOfferExecutedEvents } from '@echo/web3/watchers/echo/watch-offer-executed-events'
+import { watchErc721TransferEvents } from '@echo/web3/watchers/erc721/watch-erc721-transfer-events'
 
 initializeFirebase()
-// TODO map on SUPPORTED_CHAINS
-const chain = getChain()
-const client = getClientForChain(chain)
-watchEchoEvents(client, parseEchoLogs, (error) => pinoLogger.error(`Error watching Echo event: ${errorMessage(error)}`))
-watchErc721TransferEvents(client, parseErc721TansferLogs, (error) =>
-  pinoLogger.error(`Error watching ERC721 event: ${errorMessage(error)}`)
-)
+for (const chain of getSupportedChains()) {
+  console.log(`Watching events on ${chain}`)
+  const client = getClientForChain(chain)
+  watchOfferExecutedEvents({ client, handler: guardAsyncFn({ fn: handleOfferExecutedEvent }) })
+  watchErc721TransferEvents({ client, handler: guardAsyncFn({ fn: handleErc721TransferEvent }) })
+}
 
-pinoLogger.info(`Watching events on ${chain}`)
 // Keep the process running indefinitely
 process.stdin.resume()

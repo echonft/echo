@@ -22,6 +22,7 @@
       <sourceFolder url="file://$MODULE_DIR$/app/bot/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/lib/nft-scan/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/lib/utils/test/validators" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app/contract-listener/test" isTestSource="true" />
       <excludePattern pattern=".coverage" />
       <excludePattern pattern=".eslintcache" />
       <excludePattern pattern=".idea" />

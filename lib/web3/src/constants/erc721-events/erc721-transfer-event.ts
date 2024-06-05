@@ -1,4 +1,4 @@
-import { ERC721_ABI } from '@echo/web3/constants/erc721-abi'
+import type { Erc721Abi } from '@echo/web3/types/erc721-abi-type'
 import type { ExtractAbiEvent } from 'abitype'
 
-export type ERC721TransferEvent = ExtractAbiEvent<typeof ERC721_ABI, 'Transfer'>
+export type ERC721TransferEvent = ExtractAbiEvent<Erc721Abi, 'Transfer'>

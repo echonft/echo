@@ -5,11 +5,11 @@ import { setMaxInstances } from '@echo/firestore-functions/helper/set-max-instan
 import { FirestoreFunctionsLogger } from '@echo/firestore-functions/services/firestore-functions-logger'
 import { removeNftsForWallet } from '@echo/firestore-functions/tasks/nft/remove-nfts-for-wallet'
 import { updateUserNfts } from '@echo/firestore-functions/tasks/nft/update-user-nfts'
-import { SUPPORTED_CHAINS } from '@echo/utils/constants/chains/supported-chains'
 import { errorMessage } from '@echo/utils/helpers/error-message'
+import { getSupportedChains } from '@echo/utils/helpers/get-supported-chains'
 import { DocumentSnapshot } from 'firebase-admin/firestore'
 import { onDocumentWritten } from 'firebase-functions/v2/firestore'
-import { assoc, isNil, map } from 'ramda'
+import { assoc, isNil, map, pipe } from 'ramda'
 
 export const onWalletWritten = onDocumentWritten(
   setMaxInstances({ document: 'wallets/{id}', timeoutSeconds: 540 }),
@@ -27,7 +27,10 @@ export const onWalletWritten = onDocumentWritten(
             if (!isNil(foundUser)) {
               try {
                 if (wallet.isEvm) {
-                  const wallets = map((chain) => assoc('chain', chain, wallet), SUPPORTED_CHAINS)
+                  const wallets = pipe(
+                    getSupportedChains,
+                    map((chain) => assoc('chain', chain, wallet))
+                  )()
                   await updateUserNfts(foundUser, wallets, logger)
                 } else {
                   await updateUserNfts(foundUser, [wallet], logger)

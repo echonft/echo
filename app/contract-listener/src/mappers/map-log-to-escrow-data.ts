@@ -1,18 +1,13 @@
 import type { EscrowData } from '@echo/contract-listener/types/escrow-data'
-import type { ChainName } from '@echo/utils/types/chain-name'
-import type { Erc721TransferLog } from '@echo/web3/types/log/erc721-transfer-log'
+import type { EventLogHandlerArgs } from '@echo/contract-listener/types/event-log-handler-args'
+import type { Erc721TransferEventLog } from '@echo/web3/types/log/erc721-transfer-event-log'
 import { applySpec, path, prop } from 'ramda'
 
-interface MapLogToEscrowDataArgs {
-  log: Erc721TransferLog
-  chain: ChainName
-}
-
-export function mapLogToEscrowData(args: MapLogToEscrowDataArgs): EscrowData {
+export function mapLogToEscrowData(args: EventLogHandlerArgs<Erc721TransferEventLog>): EscrowData {
   return applySpec<EscrowData>({
     from: path(['log', 'args', 'from']),
     to: path(['log', 'args', 'to']),
-    tokenId: path(['log', 'args', 'id']),
+    tokenId: path(['log', 'args', 'tokenId']),
     contractAddress: path(['log', 'address']),
     chain: prop('chain')
   })(args)

@@ -1,3 +1,1 @@
-import { CHAINS } from '@echo/utils/constants/chains/chains'
-
-export type ChainName = (typeof CHAINS)[number]
+export type ChainName = 'blast' | 'ethereum' | 'blast_sepolia' | 'sepolia'

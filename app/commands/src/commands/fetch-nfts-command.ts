@@ -1,6 +1,7 @@
 import { getNftsByAccount } from '@echo/opensea/services/get-nfts-by-account'
-import { CHAIN_ETHEREUM, CHAINS } from '@echo/utils/constants/chains/chains'
+import { CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
 import { errorMessage } from '@echo/utils/helpers/error-message'
+import { getChains } from '@echo/utils/helpers/get-chains'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
@@ -29,7 +30,7 @@ void (async function () {
         alias: 'chain',
         describe: 'chain',
         type: 'string',
-        choices: CHAINS,
+        choices: getChains(),
         default: CHAIN_ETHEREUM,
         coerce: (arg) => arg as ChainName
       }
