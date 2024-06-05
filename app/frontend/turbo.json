@@ -3,9 +3,8 @@
   "extends": ["//"],
   "tasks": {
     "build": {
-      "dependsOn": ["@echo/ui#build"],
-      "outputs": [".next/**", "!.next/cache/**"],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts", "../../../lib/**/*.ts", "../../../lib/**/*.tsx"]
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "../../../lib/**/*.ts", "../../../lib/**/*.tsx"],
+      "outputs": [".next/**", "!.next/cache/**"]
     },
     "dev": {
       "dependsOn": ["@echo/ui#build"]

@@ -6,11 +6,11 @@
       "inputs": ["src/**/*.ts"],
       "outputs": ["dist/**"]
     },
-    "deploy": {},
-    "deploy:dev": {},
-    "deploy:prod": {},
-    "machine:restart": {},
-    "machine:restart:dev": {},
-    "machine:restart:prod": {}
+    "deploy:dev": {
+      "cache": false
+    },
+    "deploy:prod": {
+      "cache": false
+    }
   }
 }

@@ -3,9 +3,8 @@
   "extends": ["//"],
   "tasks": {
     "build": {
-      "dependsOn": ["@echo/ui#build"],
-      "outputs": ["storybook-static/**", "dist/**"],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"],
+      "outputs": ["storybook-static/**", "dist/**"]
     },
     "dev": {
       "dependsOn": ["@echo/ui#build"]

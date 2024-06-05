@@ -7,7 +7,7 @@ app = 'echo-contract-listener-dev'
 primary_region = 'yul'
 
 [build]
-dockerfile = '../../../contract-listener.Dockerfile'
+dockerfile = '../../../Dockerfile'
 
 [[vm]]
 cpu_kind = 'shared'
