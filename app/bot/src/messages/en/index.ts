@@ -30,9 +30,8 @@ export const messages = {
         ' to an agreement. Happy swapping!',
       name: 'offer-{{timestamp}}',
       redeemable: {
-        single: '{{- redeemer}} still has NFTs to redeem. Once this is done, thread will close automatically.',
-        multiple:
-          '{{- sender}} and {{- receiver}} still have NFTs to redeem. Once this is done, thread will close automatically.'
+        single: '{{- redeemer}} still has NFTs to redeem.',
+        multiple: '{{- sender}} and {{- receiver}} still have NFTs to redeem.'
       }
     },
     update: {
