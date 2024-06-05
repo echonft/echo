@@ -3,10 +3,10 @@ import { createError } from '@echo/frontend/lib/helpers/error/create-error'
 import { isDev } from '@echo/utils/constants/is-dev'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
+import type { NonPromise } from '@echo/utils/types/non-promise'
 import { captureException } from '@sentry/nextjs'
 
 type SeverityLevel = 'fatal' | 'error' | 'warning' | 'log' | 'info' | 'debug'
-type NonPromise<T> = T extends Promise<unknown> ? never : T
 
 function getSeverity(status: ErrorStatus) {
   switch (status) {

@@ -27,13 +27,12 @@ import { offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
 import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIs } from '@echo/utils-test/expect-date-number-is'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
-import { head, isNil, pick, pipe } from 'ramda'
+import { head, isNil, type NonEmptyArray, pick, pipe } from 'ramda'
 
 describe('CRUD - offer - addOffer', () => {
   const listingId = listingMockId()

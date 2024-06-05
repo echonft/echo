@@ -1,9 +1,8 @@
 import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
 import { getListingItemsCollectionSlugs } from '@echo/model/helpers/listing/get-listing-items-collection-slugs'
 import type { Nft } from '@echo/model/types/nft'
-import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import type { WithFieldValue } from 'firebase-admin/firestore'
-import { assoc, has } from 'ramda'
+import { assoc, has, type NonEmptyArray } from 'ramda'
 
 type ModelObject = WithFieldValue<Omit<ListingDocumentData, 'itemCollections'>>
 type WithItems = Omit<ModelObject, 'items'> & {

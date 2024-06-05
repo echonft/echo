@@ -2,8 +2,7 @@ import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import type { Nft } from '@echo/model/types/nft'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import type { User } from '@echo/model/types/user'
-import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
-import { complement, dissoc, equals, isEmpty, length, map, pipe, prop, uniq } from 'ramda'
+import { complement, dissoc, equals, isEmpty, length, map, type NonEmptyArray, pipe, prop, uniq } from 'ramda'
 
 /**
  * Asserts the validity of items
