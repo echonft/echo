@@ -1,4 +1,4 @@
-export const ECHO_ABI = [
+export const echoAbi = [
   {
     inputs: [
       { internalType: 'address', name: 'owner', type: 'address' },

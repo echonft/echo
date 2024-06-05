@@ -8,8 +8,8 @@ import { switchChain as wagmiSwitchChain } from 'wagmi/actions'
 
 export async function switchChain(chain?: ChainName): Promise<void> {
   const defaultChain = head(SUPPORTED_CHAINS)
-  const chainId = pipe(whenNil(always(defaultChain)), getChainId)(chain)
   try {
+    const chainId = pipe(whenNil(always(defaultChain)), getChainId)(chain)
     await wagmiSwitchChain(wagmiConfig, { chainId })
   } catch (err) {
     return

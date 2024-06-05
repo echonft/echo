@@ -5,8 +5,6 @@ import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
 import { isNil } from 'ramda'
 
 /**
@@ -18,18 +16,14 @@ import { isNil } from 'ramda'
  */
 export async function processInTransfer(args: Omit<TransferData, 'to'> & { to: WalletDocumentData }): Promise<void> {
   const { contractAddress, chain, to, tokenId } = args
-  pinoLogger.info(`[IN transfer ${contractAddress}:${tokenId}] to wallet ${JSON.stringify(to)}, processing...`)
-  try {
-    const userDocumentData = await getUserById(to.userId)
-    if (isNil(userDocumentData)) {
-      pinoLogger.error(`[IN transfer ${contractAddress}:${tokenId}] user ${to.userId} not found`)
-      return
-    }
-    const user = getUserFromFirestoreData(userDocumentData, to)
-    const collection = await getCollection({ chain, address: contractAddress })
-    const nftIndex = getNftIndex({ collection, tokenId })
-    await updateNft({ nftIndex, owner: user, collection, chain })
-  } catch (err) {
-    pinoLogger.error(`processInTransfer error: ${errorMessage(err)}`)
+  console.log(`[IN transfer ${contractAddress}:${tokenId}] to wallet ${JSON.stringify(to)}, processing...`)
+  const userDocumentData = await getUserById(to.userId)
+  if (isNil(userDocumentData)) {
+    console.error(`[IN transfer ${contractAddress}:${tokenId}] user ${to.userId} not found`)
+    return
   }
+  const user = getUserFromFirestoreData(userDocumentData, to)
+  const collection = await getCollection({ chain, address: contractAddress })
+  const nftIndex = getNftIndex({ collection, tokenId })
+  await updateNft({ nftIndex, owner: user, collection, chain })
 }

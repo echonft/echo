@@ -1,5 +1,5 @@
 import { getChainId } from '@echo/utils/helpers/get-chain-id'
-import { ECHO_ABI } from '@echo/web3/constants/echo-abi'
+import { echoAbi } from '@echo/web3/constants/echo-abi'
 import { getEchoAddressByChain } from '@echo/web3/helpers/get-echo-address-by-chain'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import { getEchoTradingFees } from '@echo/web3-dom/helpers/get-echo-trading-fees'
@@ -12,7 +12,7 @@ export async function executeOffer(args: ContractUpdateOfferArgs) {
   const chainId = getChainId(chain)
   const tradingFees = await getEchoTradingFees({ chain })
   const { request } = await simulateContract(wagmiConfig, {
-    abi: ECHO_ABI,
+    abi: echoAbi,
     functionName: 'executeOffer',
     address,
     chainId,

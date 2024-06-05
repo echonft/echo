@@ -5,7 +5,7 @@ import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { getChainId } from '@echo/utils/helpers/get-chain-id'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
-import { ECHO_ABI } from '@echo/web3/constants/echo-abi'
+import { echoAbi } from '@echo/web3/constants/echo-abi'
 import { getEchoAddressByChain } from '@echo/web3/helpers/get-echo-address-by-chain'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import { mapOfferToContractCreateOffer } from '@echo/web3-dom/mappers/map-offer-to-contract-create-offer'
@@ -27,7 +27,7 @@ export async function createOffer(args: ContractCreateOfferArgs): Promise<HexStr
   const address = getEchoAddressByChain(chain)
   const chainId = getChainId(chain)
   const { request } = await simulateContract(wagmiConfig, {
-    abi: ECHO_ABI,
+    abi: echoAbi,
     functionName: 'createOffer',
     address,
     chainId,
