@@ -1,7 +1,8 @@
 import type { Wallet } from '@echo/model/types/wallet'
 import { getCollectionByAddress } from '@echo/nft-scan/services/get-collection-by-address'
-import { CHAIN_ETHEREUM, CHAINS } from '@echo/utils/constants/chains/chains'
+import { CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
 import { errorMessage } from '@echo/utils/helpers/error-message'
+import { getChains } from '@echo/utils/helpers/get-chains'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
@@ -31,7 +32,7 @@ void (async function () {
         alias: 'chain',
         describe: 'chain',
         type: 'string',
-        choices: CHAINS,
+        choices: getChains(),
         default: CHAIN_ETHEREUM,
         coerce: (arg) => arg as ChainName
       }

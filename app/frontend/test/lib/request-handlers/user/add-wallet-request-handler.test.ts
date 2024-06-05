@@ -14,7 +14,7 @@ import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
 import { addWalletRequestHandler } from '@echo/frontend/lib/request-handlers/profile/add-wallet-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
-import { CHAINS } from '@echo/utils/constants/chains/chains'
+import type { ChainName } from '@echo/utils/types/chain-name'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
 import { toLower } from 'ramda'
 import { SiweMessage } from 'siwe'
@@ -28,7 +28,7 @@ jest.mock('@echo/firestore/crud/wallet/get-wallets-for-user')
 
 describe('request-handlers - user - addWalletRequestHandler', () => {
   const address = toLower('0x12c63bbD266dB84e117356e664f3604055166CEc')
-  const chain = CHAINS[0]
+  const chain: ChainName = 'blast'
   const validSiweMessage = new SiweMessage({
     domain: 'echo.xyz',
     address: formatWalletAddress({ address, chain }),
