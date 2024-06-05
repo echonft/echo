@@ -6,7 +6,7 @@ import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer
 import { OFFER_STATE_ACCEPTED, OFFER_STATE_EXPIRED, OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
-import { type AnyThreadChannel } from 'discord.js'
+import { type AnyThreadChannel, userMention } from 'discord.js'
 import i18next from 'i18next'
 import { any, isEmpty, isNil, pathEq } from 'ramda'
 
@@ -41,17 +41,20 @@ export async function postEscrowMessageIfNeeded(args: {
   const { offer, offerThread, thread } = args
   if (shouldPostEscrowMessage(offer)) {
     if (await areBothPartiesInEscrow(offerThread.offerId)) {
-      const sender = await getUserDiscordId(offer.sender.username)
-      const receiver = await getUserDiscordId(offer.receiver.username)
+      const senderId = await getUserDiscordId(offer.sender.username)
+      const receiverId = await getUserDiscordId(offer.receiver.username)
       await sendToThread(thread, {
         components: [buildOfferLinkButton(offer.slug)],
-        content: i18next.t('offer.thread.redeemable.multiple', { sender, receiver })
+        content: i18next.t('offer.thread.redeemable.multiple', {
+          sender: userMention(senderId),
+          receiver: userMention(receiverId)
+        })
       })
     } else {
-      const sender = await getUserDiscordId(offer.sender.username)
+      const senderId = await getUserDiscordId(offer.sender.username)
       await sendToThread(thread, {
         components: [buildOfferLinkButton(offer.slug)],
-        content: i18next.t('offer.thread.redeemable.single', { redeemer: sender })
+        content: i18next.t('offer.thread.redeemable.single', { redeemer: userMention(senderId) })
       })
     }
     pinoLogger.info(`[OFFER ${offerThread.offerId}] posted escrow update to thread ${offerThread.guild.threadId}`)
