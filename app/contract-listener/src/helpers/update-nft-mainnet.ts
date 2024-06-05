@@ -19,7 +19,6 @@ export async function updateNftMainnet(args: UpdateNftArgs) {
 
   pinoLogger.info(`NFT ${JSON.stringify(nftIndex)} not found, fetching...`)
   await pipe(
-    // TODO Need to add testnet
     getNftFromNftScan,
     andThen(
       pipe(
