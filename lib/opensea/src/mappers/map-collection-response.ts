@@ -4,7 +4,7 @@ import type { CollectionContractResponse } from '@echo/opensea/types/response/co
 import type { CollectionResponse } from '@echo/opensea/types/response/collection-response'
 import { isIn } from '@echo/utils/fp/is-in'
 import { throwError } from '@echo/utils/fp/throw-error'
-import { getSupportedChains } from '@echo/utils/helpers/get-supported-chains'
+import { getSupportedChains } from '@echo/utils/helpers/chains/get-supported-chains'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import { always, applySpec, find, ifElse, isNil, pipe, prop, propSatisfies, unless } from 'ramda'
 

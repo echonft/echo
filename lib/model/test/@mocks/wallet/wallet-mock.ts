@@ -1,6 +1,5 @@
 import type { Wallet } from '@echo/model/types/wallet'
 import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
-import { CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { isNil, toLower } from 'ramda'
 
@@ -14,11 +13,11 @@ export function walletMockJohnnyAddress(): Lowercase<HexString> {
 export function getWalletMockByUsername(username: string) {
   const walletMock: Record<string, Wallet> = {
     crewnft_: {
-      chain: CHAIN_ETHEREUM,
+      chain: 'ethereum',
       address: walletMockCrewAddress()
     },
     johnnycagewins: {
-      chain: CHAIN_ETHEREUM,
+      chain: 'ethereum',
       address: walletMockJohnnyAddress()
     }
   }

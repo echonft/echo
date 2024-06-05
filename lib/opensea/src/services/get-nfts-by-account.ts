@@ -9,7 +9,7 @@ import type { GetNftsByAccountResponse } from '@echo/opensea/types/response/get-
 import type { NftExtendedResponse } from '@echo/opensea/types/response/nft-extended-response'
 import type { NftResponse } from '@echo/opensea/types/response/nft-response'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { isTestnetChain } from '@echo/utils/helpers/is-testnet-chain'
+import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
 import { stringify } from 'qs'
 import { andThen, assoc, concat, filter, map, partialRight, pick, pipe, propEq, reject } from 'ramda'
 

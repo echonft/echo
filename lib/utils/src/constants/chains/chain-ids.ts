@@ -1,4 +1,0 @@
-export const BLAST_CHAIN_ID = 81457
-export const BLAST_SEPOLIA_CHAIN_ID = 168587773
-export const ETHEREUM_CHAIN_ID = 1
-export const SEPOLIA_CHAIN_ID = 11155111

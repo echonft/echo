@@ -3,7 +3,7 @@ import { collectionMockSpiralId } from '@echo/model-mocks/collection/collection-
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { mapCollectionResponse } from '@echo/opensea/mappers/map-collection-response'
 import type { CollectionResponse } from '@echo/opensea/types/response/collection-response'
-import { getSupportedChains } from '@echo/utils/helpers/get-supported-chains'
+import { getSupportedChains } from '@echo/utils/helpers/chains/get-supported-chains'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, head, modify, omit, pipe } from 'ramda'

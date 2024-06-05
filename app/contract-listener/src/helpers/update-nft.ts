@@ -3,7 +3,7 @@ import { updateNftTestnet } from '@echo/contract-listener/helpers/update-nft-tes
 import type { Collection } from '@echo/model/types/collection'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import type { User } from '@echo/model/types/user'
-import { isTestnetChain } from '@echo/utils/helpers/is-testnet-chain'
+import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
 import type { ChainName } from '@echo/utils/types/chain-name'
 
 export interface UpdateNftArgs {

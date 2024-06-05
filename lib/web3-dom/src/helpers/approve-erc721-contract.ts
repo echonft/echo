@@ -1,4 +1,4 @@
-import { getChainId } from '@echo/utils/helpers/get-chain-id'
+import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
 import { getEchoAddressByChain } from '@echo/web3/helpers/get-echo-address-by-chain'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'

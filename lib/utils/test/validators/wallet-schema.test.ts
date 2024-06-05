@@ -1,4 +1,4 @@
-import { getChains } from '@echo/utils/helpers/get-chains'
+import { getChains } from '@echo/utils/helpers/chains/get-chains'
 import { walletSchema } from '@echo/utils/validators/wallet-schema'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'

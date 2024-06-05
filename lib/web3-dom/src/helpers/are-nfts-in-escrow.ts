@@ -1,6 +1,6 @@
 import type { Nft } from '@echo/model/types/nft'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
-import { getChainId } from '@echo/utils/helpers/get-chain-id'
+import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { getChainById } from '@echo/web3/helpers/get-chain-by-id'
 import { getEchoAddressByChain } from '@echo/web3/helpers/get-echo-address-by-chain'

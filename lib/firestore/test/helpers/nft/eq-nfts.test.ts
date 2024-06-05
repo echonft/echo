@@ -4,7 +4,6 @@ import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnny2Id, nftMockSpiralJohnnyId } from '@echo/model-mocks/nft/nft-mock'
 import { offerMockFromJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
 import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
-import { CHAIN_BLAST, CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, pipe, toLower } from 'ramda'
 
@@ -23,7 +22,7 @@ describe('helpers - nft - eqNfts', () => {
           username: userMockJohnnyUsername(),
           wallet: {
             address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
-            chain: CHAIN_ETHEREUM
+            chain: 'ethereum'
           } as Wallet
         })
       )(nftMockSpiralJohnnyId()),
@@ -54,7 +53,7 @@ describe('helpers - nft - eqNfts', () => {
           username: 'another-guy',
           wallet: {
             address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
-            chain: CHAIN_ETHEREUM
+            chain: 'ethereum'
           } as Wallet
         })
       )(nftMockSpiralJohnnyId()),
@@ -73,7 +72,7 @@ describe('helpers - nft - eqNfts', () => {
           username: offerMockFromJohnnycageId(),
           wallet: {
             address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
-            chain: CHAIN_BLAST
+            chain: 'blast'
           } as Wallet
         })
       )(nftMockSpiralJohnnyId()),

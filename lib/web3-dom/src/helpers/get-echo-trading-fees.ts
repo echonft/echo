@@ -1,4 +1,4 @@
-import { getChainId } from '@echo/utils/helpers/get-chain-id'
+import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { echoAbi } from '@echo/web3/constants/echo-abi'
 import { getChainById } from '@echo/web3/helpers/get-chain-by-id'

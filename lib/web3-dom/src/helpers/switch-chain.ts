@@ -1,6 +1,6 @@
 import { whenNil } from '@echo/utils/fp/when-nil'
-import { getChainId } from '@echo/utils/helpers/get-chain-id'
-import { getSupportedChains } from '@echo/utils/helpers/get-supported-chains'
+import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
+import { getSupportedChains } from '@echo/utils/helpers/chains/get-supported-chains'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import { always, head, type NonEmptyArray, pipe } from 'ramda'

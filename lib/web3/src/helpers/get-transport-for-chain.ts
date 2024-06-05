@@ -1,16 +1,16 @@
 import {
-  BLAST_CHAIN_ID,
-  BLAST_SEPOLIA_CHAIN_ID,
-  ETHEREUM_CHAIN_ID,
-  SEPOLIA_CHAIN_ID
-} from '@echo/utils/constants/chains/chain-ids'
+  blastChainId,
+  blastSepoliaChainId,
+  ethereumChainId,
+  sepoliaChainId
+} from '@echo/utils/helpers/chains/chain-ids'
 import { type Chain, fallback, http, webSocket } from 'viem'
 
 function alchemyChainName(chainId: number) {
   switch (chainId) {
-    case ETHEREUM_CHAIN_ID:
+    case ethereumChainId():
       return 'eth-mainnet'
-    case SEPOLIA_CHAIN_ID:
+    case sepoliaChainId():
       return 'eth-sepolia'
     case 137:
       return 'polygon-mainnet'
@@ -35,7 +35,7 @@ function alchemyTransportUrl(chainId: number) {
 
 export const getTransportForChain = (chain: Chain) => {
   const chainId = chain.id
-  if (chainId === BLAST_SEPOLIA_CHAIN_ID || chainId === BLAST_CHAIN_ID) {
+  if (chainId === blastSepoliaChainId() || chainId === blastChainId()) {
     return fallback(
       [
         webSocket(`wss://${process.env.QUICKNODE_BLAST_ENDPOINT}`),

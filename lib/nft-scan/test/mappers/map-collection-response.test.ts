@@ -4,14 +4,13 @@ import { mapCollectionResponse } from '@echo/nft-scan/mappers/map-collection-res
 import type { CollectionResponse } from '@echo/nft-scan/types/response/collection-response'
 import { collectionResponseSchema } from '@echo/nft-scan/validators/collection-response-schema'
 import { collectionResponseMock } from '@echo/nft-scan-mocks/collection-response-mock'
-import { CHAIN_BLAST } from '@echo/utils/constants/chains/chains'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - mapCollectionResponse', () => {
   const expectedResult: Omit<Collection, 'swapsCount'> = {
     contract: {
       address: '0xcfc4c2b14af5b1f8ed97e1717b009dca461d8461'.toLowerCase(),
-      chain: CHAIN_BLAST
+      chain: 'blast'
     } as Wallet,
     name: 'BACGenesis',
     slug: 'bacgenesis',
@@ -29,7 +28,7 @@ describe('mappers - mapCollectionResponse', () => {
   it('maps correctly with no slug', () => {
     const result = mapCollectionResponse({
       data: collectionResponseSchema.parse(collectionResponseMock()),
-      chain: CHAIN_BLAST
+      chain: 'blast'
     })
     expect(result).toEqual(expectedResult)
   })
@@ -40,7 +39,7 @@ describe('mappers - mapCollectionResponse', () => {
 
     const result = mapCollectionResponse({
       data: collectionResponseSchema.parse(response),
-      chain: CHAIN_BLAST
+      chain: 'blast'
     })
     expect(result).toEqual(resultWithSlug)
   })
@@ -50,7 +49,7 @@ describe('mappers - mapCollectionResponse', () => {
     const resultWithSlug = { ...expectedResult, slug: 'opensea-slug' }
     const result = mapCollectionResponse({
       data: collectionResponseSchema.parse(response),
-      chain: CHAIN_BLAST
+      chain: 'blast'
     })
     expect(result).toEqual(resultWithSlug)
   })

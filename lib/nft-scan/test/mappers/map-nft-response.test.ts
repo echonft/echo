@@ -2,12 +2,11 @@ import { mapNftResponse } from '@echo/nft-scan/mappers/map-nft-response'
 import { nftResponseSchema } from '@echo/nft-scan/validators/nft-response-schema'
 import { attributesMock } from '@echo/nft-scan-mocks/attributes-mock'
 import { nftResponseMock } from '@echo/nft-scan-mocks/nft-response-mock'
-import { CHAIN_BLAST } from '@echo/utils/constants/chains/chains'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
 
 describe('mappers - mapNftResponse', () => {
-  const chain = CHAIN_BLAST
+  const chain = 'blast'
   const response = nftResponseMock()['1']!
   const expectedResult: ReturnType<typeof mapNftResponse> = {
     collection: {

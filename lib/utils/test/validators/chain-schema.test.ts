@@ -1,4 +1,4 @@
-import { getChains } from '@echo/utils/helpers/get-chains'
+import { getChains } from '@echo/utils/helpers/chains/get-chains'
 import { chainSchema } from '@echo/utils/validators/chain-schema'
 import { describe, expect, it } from '@jest/globals'
 

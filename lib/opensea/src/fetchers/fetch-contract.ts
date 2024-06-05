@@ -3,7 +3,7 @@ import { parseFetchResponse } from '@echo/opensea/helpers/parse-fetch-response'
 import { throttleFetch } from '@echo/opensea/helpers/throttle-fetch'
 import type { GetContractRequest } from '@echo/opensea/types/request/get-contract-request'
 import type { ContractResponse } from '@echo/opensea/types/response/contract-response'
-import { isTestnetChain } from '@echo/utils/helpers/is-testnet-chain'
+import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
 
 export async function fetchContract(args: GetContractRequest): Promise<ContractResponse> {
   const { fetch, address, chain } = args

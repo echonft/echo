@@ -1,6 +1,6 @@
 import type { GetCollectionRequest } from '@echo/opensea/types/request/get-collection-request'
 import type { ContractResponse } from '@echo/opensea/types/response/contract-response'
-import { isTestnetChain } from '@echo/utils/helpers/is-testnet-chain'
+import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
 import { applySpec, pipe, prop } from 'ramda'
 
 export function mapContractResponseToCollectionRequest(

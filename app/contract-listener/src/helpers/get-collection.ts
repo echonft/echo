@@ -2,7 +2,7 @@ import { getCollectionMainnet } from '@echo/contract-listener/helpers/get-collec
 import { getCollectionTestnet } from '@echo/contract-listener/helpers/get-collection-testnet'
 import type { Collection } from '@echo/model/types/collection'
 import type { GetContractRequest } from '@echo/opensea/types/request/get-contract-request'
-import { isTestnetChain } from '@echo/utils/helpers/is-testnet-chain'
+import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
 
 /**
  * Returns the collection for a given NFT.

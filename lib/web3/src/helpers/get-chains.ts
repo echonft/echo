@@ -1,5 +1,5 @@
-import { getChainId } from '@echo/utils/helpers/get-chain-id'
-import { getSupportedChains } from '@echo/utils/helpers/get-supported-chains'
+import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
+import { getSupportedChains } from '@echo/utils/helpers/chains/get-supported-chains'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { getChainById } from '@echo/web3/helpers/get-chain-by-id'
 import { map, pipe } from 'ramda'

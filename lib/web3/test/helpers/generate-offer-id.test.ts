@@ -1,7 +1,6 @@
 import type { BaseOffer } from '@echo/model/types/base-offer'
 import type { Nft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
-import { CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
 import { generateOfferId } from '@echo/web3/helpers/generate-offer-id'
 import { describe, expect, test } from '@jest/globals'
 
@@ -10,7 +9,7 @@ describe('helpers - generateOfferId', () => {
   const contractGeneratedId = '0xcc241bff15d865e5b158c0817a3d7d562d3f631d683f48dcb96ed1b7f0e83a8f'
   const user = { wallet: { address: '0x7DA16cd402106Adaf39092215DbB54092b80B6E6' } } as unknown as User
   const nft = {
-    collection: { contract: { chain: CHAIN_ETHEREUM, address: '0x7DA16cd402106Adaf39092215DbB54092b80B6E6' } },
+    collection: { contract: { chain: 'ethereum', address: '0x7DA16cd402106Adaf39092215DbB54092b80B6E6' } },
     tokenId: 2
   } as unknown as Nft
   test('returns the same ID as contract for same values', () => {

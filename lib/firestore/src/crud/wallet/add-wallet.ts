@@ -5,7 +5,7 @@ import { setReference } from '@echo/firestore/helpers/crud/reference/set-referen
 import { type WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { type Wallet } from '@echo/model/types/wallet'
-import { isEvmChain } from '@echo/utils/helpers/is-evm-chain'
+import { isEvmChain } from '@echo/utils/helpers/chains/is-evm-chain'
 import { assoc, isNil, pipe } from 'ramda'
 
 export async function addWallet(username: string, wallet: Wallet): Promise<NewDocument<WalletDocumentData>> {

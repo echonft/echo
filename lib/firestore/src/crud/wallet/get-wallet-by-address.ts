@@ -4,7 +4,7 @@ import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/crud/que
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { type Wallet } from '@echo/model/types/wallet'
-import { isEvmChain } from '@echo/utils/helpers/is-evm-chain'
+import { isEvmChain } from '@echo/utils/helpers/chains/is-evm-chain'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { allPass, always, andThen, assoc, complement, isNotNil, pipe, propEq, toLower, when } from 'ramda'
