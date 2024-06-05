@@ -19,28 +19,30 @@ jobs:
           version: latest
           run_install: true
       - name: bot tsc
-        run: pnpm exec turbo run tsc:ci --filter=@echo/bot
+        run: pnpm exec turbo run tsc --filter=@echo/bot
       - name: frontend tsc
-        run: pnpm exec turbo run tsc:ci --filter=@echo/frontend
+        run: pnpm exec turbo run tsc --filter=@echo/frontend
       - name: storybook tsc
-        run: pnpm exec turbo run tsc:ci --filter=@echo/storybook
+        run: pnpm exec turbo run tsc --filter=@echo/storybook
       - name: api tsc
-        run: pnpm exec turbo run tsc:ci --filter=@echo/api
+        run: pnpm exec turbo run tsc --filter=@echo/api
       - name: contract-listener tsc
-        run: pnpm exec turbo run tsc:ci --filter=@echo/contract-listener
+        run: pnpm exec turbo run tsc --filter=@echo/contract-listener
       - name: firestore tsc
-        run: pnpm exec turbo run tsc:ci --filter=@echo/firestore
+        run: pnpm exec turbo run tsc --filter=@echo/firestore
       - name: firestore-functions tsc
-        run: pnpm exec turbo run tsc:ci --filter=@echo/firestore-functions
+        run: pnpm exec turbo run tsc --filter=@echo/firestore-functions
       - name: model tsc
-        run: pnpm exec turbo run tsc:ci --filter=@echo/model
+        run: pnpm exec turbo run tsc --filter=@echo/model
+      - name: nft-scan tsc
+        run: pnpm exec turbo run tsc --filter=@echo/nft-scan
       - name: opensea tsc
-        run: pnpm exec turbo run tsc:ci --filter=@echo/opensea
+        run: pnpm exec turbo run tsc --filter=@echo/opensea
       - name: ui tsc
-        run: pnpm exec turbo run tsc:ci --filter=@echo/ui
+        run: pnpm exec turbo run tsc --filter=@echo/ui
       - name: utils tsc
-        run: pnpm exec turbo run tsc:ci --filter=@echo/utils
+        run: pnpm exec turbo run tsc --filter=@echo/utils
       - name: web3 tsc
-        run: pnpm exec turbo run tsc:ci --filter=@echo/web3
+        run: pnpm exec turbo run tsc --filter=@echo/web3
       - name: web3-dom tsc
-        run: pnpm exec turbo run tsc:ci --filter=@echo/web3-dom
+        run: pnpm exec turbo run tsc --filter=@echo/web3-dom

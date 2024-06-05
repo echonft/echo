@@ -1,0 +1,14 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["@echo/ui#build"],
+      "outputs": [".next/**", "!.next/cache/**"],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "../../../lib/**/*.ts", "../../../lib/**/*.tsx"]
+    },
+    "dev": {
+      "dependsOn": ["@echo/ui#build"]
+    }
+  }
+}

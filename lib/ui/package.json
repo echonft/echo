@@ -9,19 +9,12 @@
     "clean": "rm -rf dist",
     "dev": "tsup --watch src/",
     "lint": "eslint --fix -c .eslintrc.js --ext .ts,.tsx .",
-    "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts,.tsx .",
-    "lint:clean-cache": "rm -f .eslintcache",
     "modules:remove": "rm -rf node_modules",
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",
-    "prettier": "prettier -u --no-error-on-unmatched-pattern --write --cache .",
-    "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c .",
+    "prettier": "prettier . -u -c --no-error-on-unmatched-pattern",
     "test": "jest",
-    "test:ci": "jest --ci --no-cache",
-    "test:watch": "jest --watch",
-    "tsc": "tsc --noEmit",
-    "tsc:ci": "pnpm run tsc",
-    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
+    "tsc": "tsc --noEmit"
   },
   "dependencies": {
     "@headlessui/react": "2.0.4",

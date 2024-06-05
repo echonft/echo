@@ -1,3 +1,4 @@
+import type { Command } from '@echo/commands/types/command'
 import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
@@ -16,23 +17,25 @@ type FormatType = (typeof formats)[number]
  *                              "human" is a human readable output, in the form of "collection => address"
  *
  */
-void (async function () {
-  const { i } = await yargs(hideBin(process.argv))
-    .options({
-      f: {
-        alias: 'format',
-        choices: formats,
-        describe: 'format',
-        type: 'string'
-      }
-    })
-    .parse()
-  initializeFirebase()
-  const collections = await getAllCollections()
-  logOutput(collections, i as FormatType)
-  await terminateFirestore()
-  process.exit()
-})()
+export const listCollectionsContractCommand: Command = {
+  name: 'list-collection-contracts',
+  execute: async function () {
+    const { i } = await yargs(hideBin(process.argv))
+      .options({
+        f: {
+          alias: 'format',
+          choices: formats,
+          describe: 'format',
+          type: 'string'
+        }
+      })
+      .parse()
+    initializeFirebase()
+    const collections = await getAllCollections()
+    logOutput(collections, i as FormatType)
+    await terminateFirestore()
+  }
+}
 
 function logOutput(collections: Collection[], format?: FormatType): void {
   const log = bind(console.log, console)
