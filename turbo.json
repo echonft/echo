@@ -1,9 +1,8 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "pipeline": {
+  "tasks": {
     "build": {
-      "inputs": ["src/**/*.ts", "src/**/*.tsx"],
-      "outputs": ["dist/**"]
+      "dependsOn": ["lint", "tsc", "clean"]
     },
     "clean": {
       "cache": false
@@ -19,109 +18,41 @@
     "env:pull": {
       "cache": false
     },
-    "lint": {
-      "cache": false
-    },
-    "lint:ci": {
-      "cache": false
-    },
-    "lint:clean-cache": {
-      "inputs": [".eslintcache"]
-    },
-    "modules:remove": {
-      "cache": false
-    },
-    "modules:update": {
-      "cache": false
-    },
-    "modules:update-minor": {
-      "cache": false
-    },
-    "prettier": {
-      "cache": false
-    },
-    "prettier:ci": {
-      "cache": false
-    },
+    "lint": {},
+    "modules:remove": {},
+    "modules:update": {},
+    "modules:update-minor": {},
+    "prettier": {},
     "start": {
       "dependsOn": ["build"],
       "persistent": true
     },
     "sentry:sourcemaps": {
-      "dependsOn": ["build"],
-      "cache": false
+      "dependsOn": ["build"]
     },
-    "test": {
-      "inputs": ["jest.config.*", "**/*.ts"]
+    "test": {},
+    "tsc": {},
+    "//#firebase:use:dev": {},
+    "//#firebase:use:prod": {},
+    "//#firestore:functions:deploy:dev": {
+      "dependsOn": ["//#firebase:use:dev"]
     },
-    "test:ci": {
-      "cache": false
+    "//#firestore:functions:deploy:prod": {
+      "dependsOn": ["//#firebase:use:prod"]
     },
-    "test:watch": {
-      "cache": false
+    "//#firestore:indexes:deploy": {},
+    "//#firestore:indexes:deploy:dev": {
+      "dependsOn": ["//#firebase:use:dev"]
     },
-    "tsc": {
-      "cache": false
+    "//#firestore:indexes:deploy:prod": {
+      "dependsOn": ["//#firebase:use:prod"]
     },
-    "tsc:ci": {
-      "cache": false
+    "//#firestore:indexes:pull": {},
+    "//#firestore:indexes:pull:dev": {
+      "dependsOn": ["//#firebase:use:dev"]
     },
-    "tsc:clean-cache": {
-      "inputs": ["tsconfig.tsbuildinfo"]
-    },
-    "@echo/firestore-functions#deploy": {
-      "dependsOn": ["use:prod"],
-      "cache": false
-    },
-    "@echo/firestore-functions#deploy:dev": {
-      "dependsOn": ["use:dev"],
-      "cache": false
-    },
-    "@echo/firestore-functions#deploy:testnet": {
-      "dependsOn": ["use:testnet"],
-      "cache": false
-    },
-    "@echo/firestore-functions#serve:dev": {
-      "dependsOn": ["use:dev", "build"],
-      "cache": false
-    },
-    "@echo/firestore-functions#start:dev": {
-      "dependsOn": ["use:dev", "build"],
-      "outputs": ["dist/**"],
-      "inputs": ["src/**/*.ts"]
-    },
-    "@echo/firestore-functions#use:dev": {
-      "cache": false
-    },
-    "@echo/firestore-functions#use:prod": {
-      "cache": false
-    },
-    "@echo/firestore-functions#use:testnet": {
-      "cache": false
-    },
-    "@echo/frontend#build": {
-      "dependsOn": ["@echo/ui#build"],
-      "outputs": [".next/**", "!.next/cache/**"],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
-    },
-    "@echo/frontend#dev": {
-      "dependsOn": ["@echo/ui#build"],
-      "cache": false,
-      "persistent": true
-    },
-    "@echo/storybook#build": {
-      "dependsOn": ["@echo/ui#build"],
-      "outputs": ["storybook-static/**", "dist/**"],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
-    },
-    "@echo/storybook#dev": {
-      "dependsOn": ["@echo/ui#build"],
-      "cache": false,
-      "persistent": true
-    },
-    "@echo/ui#build": {
-      "outputs": ["dist/index.css"],
-      "inputs": ["tailwind.config.cjs", "src/index.css", "src/**/*.tsx", "src/**/*.ts"]
+    "//#firestore:indexes:pull:prod": {
+      "dependsOn": ["//#firebase:use:prod"]
     }
   }
 }

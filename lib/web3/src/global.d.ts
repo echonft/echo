@@ -1,7 +1,6 @@
-import type { Abi, ExtractAbiEvent } from 'abitype'
 import type {
+  Abi,
   ContractEventName,
-  Log,
   Transport,
   WatchContractEventOnLogsParameter,
   WatchContractEventParameters as viemWatchContractEventParameters
@@ -16,10 +15,6 @@ declare module 'viem' {
   > extends viemWatchContractEventParameters<abi, eventName, strict, transport> {
     onLogs: (logs: WatchContractEventOnLogsParameter<abi, eventName, strict>) => void | Promise<void>
   }
-
-  export type WatchContractEventOnLogsFn<abi, eventName extends ContractEventName<abi>> = (
-    logs: Log<bigint, number, false, ExtractAbiEvent<abi, eventName>>[]
-  ) => void | Promise<void>
 }
 
 export {}

@@ -22,52 +22,56 @@ jobs:
       - name: bot lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint:ci --filter=@echo/bot
+        run: pnpm exec turbo run lint --filter=@echo/bot -- --quiet
       - name: frontend lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint:ci --filter=@echo/frontend
+        run: pnpm exec turbo run lint --filter=@echo/frontend -- --quiet
       - name: storybook lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint:ci --filter=@echo/storybook
+        run: pnpm exec turbo run lint --filter=@echo/storybook -- --quiet
       - name: api lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint:ci --filter=@echo/api
+        run: pnpm exec turbo run lint --filter=@echo/api -- --quiet
       - name: contract-listener lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint:ci --filter=@echo/contract-listener
+        run: pnpm exec turbo run lint --filter=@echo/contract-listener -- --quiet
       - name: firestore lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint:ci --filter=@echo/firestore
+        run: pnpm exec turbo run lint --filter=@echo/firestore -- --quiet
       - name: firestore-functions lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint:ci --filter=@echo/firestore-functions
+        run: pnpm exec turbo run lint --filter=@echo/firestore-functions -- --quiet
       - name: model lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint:ci --filter=@echo/model
+        run: pnpm exec turbo run lint --filter=@echo/model -- --quiet
+      - name: nft-scan lint
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
+        run: pnpm exec turbo run lint --filter=@echo/nft-scan -- --quiet
       - name: opensea lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint:ci --filter=@echo/opensea
+        run: pnpm exec turbo run lint --filter=@echo/opensea -- --quiet
       - name: ui lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint:ci --filter=@echo/ui
+        run: pnpm exec turbo run lint --filter=@echo/ui -- --quiet
       - name: utils lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint:ci --filter=@echo/utils
+        run: pnpm exec turbo run lint --filter=@echo/utils -- --quiet
       - name: web3 lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint:ci --filter=@echo/web3
+        run: pnpm exec turbo run lint --filter=@echo/web3 -- --quiet
       - name: web3-dom lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint:ci --filter=@echo/web3-dom
+        run: pnpm exec turbo run lint --filter=@echo/web3-dom -- --quiet
