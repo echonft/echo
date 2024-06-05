@@ -1,14 +1,14 @@
 import { ethereumChainId, sepoliaChainId } from '@echo/utils/helpers/chains/chain-ids'
-import { getChainById } from '@echo/web3/helpers/get-chain-by-id'
+import { getViemChainById } from '@echo/web3/helpers/chain/get-viem-chain-by-id'
 import { describe, expect, test } from '@jest/globals'
 
 describe('helpers - getChainById', () => {
   test('returns a chain if id is valid', () => {
-    expect(getChainById(ethereumChainId())).toBeDefined()
-    expect(getChainById(sepoliaChainId())).toBeDefined()
+    expect(getViemChainById(ethereumChainId())).toBeDefined()
+    expect(getViemChainById(sepoliaChainId())).toBeDefined()
   })
 
   test('throws if chain id is invalid', () => {
-    expect(() => getChainById(2)).toThrow()
+    expect(() => getViemChainById(2)).toThrow()
   })
 })

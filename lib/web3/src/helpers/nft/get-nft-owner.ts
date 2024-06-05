@@ -1,7 +1,7 @@
 import type { Nft } from '@echo/model/types/nft'
 import type { Wallet } from '@echo/model/types/wallet'
+import { getClientForChain } from '@echo/web3/helpers/chain/get-client-for-chain'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
-import { getClientForChain } from '@echo/web3/helpers/get-client-for-chain'
 import { pipe, prop, toLower } from 'ramda'
 import { erc721Abi } from 'viem'
 

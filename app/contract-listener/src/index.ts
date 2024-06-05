@@ -3,7 +3,7 @@ import { handleOfferExecutedEvent } from '@echo/contract-listener/handlers/handl
 import { guardAsyncFn } from '@echo/contract-listener/helpers/guard'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { getSupportedChains } from '@echo/utils/helpers/chains/get-supported-chains'
-import { getClientForChain } from '@echo/web3/helpers/get-client-for-chain'
+import { getClientForChain } from '@echo/web3/helpers/chain/get-client-for-chain'
 import { watchOfferExecutedEvents } from '@echo/web3/watchers/echo/watch-offer-executed-events'
 import { watchErc721TransferEvents } from '@echo/web3/watchers/erc721/watch-erc721-transfer-events'
 

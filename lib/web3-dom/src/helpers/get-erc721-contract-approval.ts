@@ -1,6 +1,6 @@
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
+import { getViemChainById } from '@echo/web3/helpers/chain/get-viem-chain-by-id'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
-import { getChainById } from '@echo/web3/helpers/get-chain-by-id'
 import { getEchoAddressByChain } from '@echo/web3/helpers/get-echo-address-by-chain'
 import { getWalletClient } from '@echo/web3-dom/helpers/get-wallet-client'
 import type { GetErc721ContractApprovalArgs } from '@echo/web3-dom/types/get-erc-721-contract-approval-args'
@@ -13,7 +13,7 @@ export async function getErc721ContractApproval(args: GetErc721ContractApprovalA
   const address = formatWalletAddress(contract)
   const echoAddress = getEchoAddressByChain(contract.chain)
   const chainId = getChainId(contract.chain)
-  const client = pipe(getChainById, getWalletClient)(chainId)
+  const client = pipe(getViemChainById, getWalletClient)(chainId)
   return await readContract(client, {
     abi: erc721Abi,
     functionName: 'isApprovedForAll',

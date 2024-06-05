@@ -1,7 +1,13 @@
 import type { ChainName } from '@echo/utils/types/chain-name'
-import type { CHAINS } from '@echo/web3/constants/chains'
-import type { PublicClient, Transport } from 'viem'
+import type { Chain, PublicClient, Transport } from 'viem'
+import { blast, blastSepolia, mainnet, sepolia } from 'viem/chains'
 
-export type ViemClient<T extends ChainName> = Omit<PublicClient<Transport, (typeof CHAINS)[T]>, 'name'> & {
+const chains: Record<ChainName, Chain> = {
+  blast: blast,
+  blast_sepolia: blastSepolia,
+  ethereum: mainnet,
+  sepolia: sepolia
+} as const
+export type ViemClient<T extends ChainName> = Omit<PublicClient<Transport, (typeof chains)[T]>, 'name'> & {
   name: ChainName
 }

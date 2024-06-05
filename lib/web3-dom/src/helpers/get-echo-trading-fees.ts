@@ -1,7 +1,7 @@
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { echoAbi } from '@echo/web3/constants/echo-abi'
-import { getChainById } from '@echo/web3/helpers/get-chain-by-id'
+import { getViemChainById } from '@echo/web3/helpers/chain/get-viem-chain-by-id'
 import { getEchoAddressByChain } from '@echo/web3/helpers/get-echo-address-by-chain'
 import { getWalletClient } from '@echo/web3-dom/helpers/get-wallet-client'
 import { pipe } from 'ramda'
@@ -15,7 +15,7 @@ export async function getEchoTradingFees(args: GetEchoTradingFeesArgs): Promise<
   const { chain } = args
   const echoAddress = getEchoAddressByChain(chain)
   const chainId = getChainId(chain)
-  const client = pipe(getChainById, getWalletClient)(chainId)
+  const client = pipe(getViemChainById, getWalletClient)(chainId)
   return await readContract(client, {
     abi: echoAbi,
     functionName: 'tradingFee',
