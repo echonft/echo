@@ -1,8 +1,7 @@
 import type { Command } from '@echo/commands/types/command'
 import { getNft } from '@echo/nft-scan/services/get-nft'
-import { CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
+import { getChains } from '@echo/utils/helpers/chains/get-chains'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { getChains } from '@echo/utils/helpers/get-chains'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
@@ -35,7 +34,7 @@ export const fetchNftFromNftscanCommand: Command = {
           describe: 'chain',
           type: 'string',
           choices: getChains(),
-          default: CHAIN_ETHEREUM,
+          default: 'ethereum',
           coerce: (arg) => arg as ChainName
         }
       })
