@@ -44,7 +44,7 @@ export const OfferDetailsRedeemButton: FunctionComponent<Props> = ({
     nonNullableReturn(path(['collection', 'contract', 'chain']))
   )(offer)
   const count = isOfferRoleReceiver(offer) ? offer.receiverItems.length : offer.senderItems.length
-  const isRedeemable = offer.state === OFFER_STATE_EXPIRED
+  const isRedeemable = offer.state === OFFER_STATE_EXPIRED || offer.expiresAt < Date.now()
   // In the case the offer is rejected (frontend only), user can redeem by cancelling.
   // Otherwise we use the redeem contract call
   const { trigger: triggerContractCancel } = useSWRTrigger<HexString, ContractUpdateOfferArgs>({
