@@ -49,24 +49,24 @@ jobs:
         uses: MishaKav/jest-coverage-comment@main
         with:
           multiple-files: |
-            app/bot, ./.coverage/app/bot/coverage-summary.json
-            app/frontend, ./.coverage/app/frontend/coverage-summary.json
-            lib/firestore, ./.coverage/lib/firestore/coverage-summary.json
-            lib/model, ./.coverage/lib/model/coverage-summary.json
-            lib/nft-scan, ./.coverage/lib/nft-scan/coverage-summary.json
-            lib/opensea, ./.coverage/lib/opensea/coverage-summary.json
-            lib/ui, ./.coverage/lib/ui/coverage-summary.json                  
-            lib/utils, ./.coverage/lib/utils/coverage-summary.json
-            lib/web3, ./.coverage/lib/web3/coverage-summary.json
-            lib/web3-dom, ./.coverage/lib/web3-dom/coverage-summary.json
+            app/bot, ./app/bot/test/.coverage/coverage-summary.json
+            app/frontend, ./app/frontend/test/.coverage/coverage-summary.json
+            lib/firestore, ./lib/firestore/test/.coverage/coverage-summary.json
+            lib/model, ./lib/model/test/.coverage/coverage-summary.json
+            lib/nft-scan, ./lib/nft-scan/test/.coverage/coverage-summary.json
+            lib/opensea, ./lib/opensea/test/.coverage/coverage-summary.json
+            lib/ui, ./lib/ui/test/.coverage/coverage-summary.json                  
+            lib/utils, ./lib/utils/test/.coverage/coverage-summary.json
+            lib/web3, ./lib/web3/test/.coverage/coverage-summary.json
+            lib/web3-dom, ./lib/web3-dom/test/.coverage/coverage-summary.json
           multiple-junitxml-files: |
-            app/bot, ./.coverage/app/bot/junit.xml
-            app/frontend, ./.coverage/app/frontend/junit.xml
-            lib/firestore, ./.coverage/lib/firestore/junit.xml
-            lib/model, ./.coverage/lib/model/junit.xml
-            lib/nft-scan, ./.coverage/lib/nft-scan/junit.xml
-            lib/opensea, ./.coverage/lib/model/junit.xml
-            lib/ui, ./.coverage/lib/ui/junit.xml                  
-            lib/utils, ./.coverage/lib/utils/junit.xml
-            lib/web3, ./.coverage/lib/web3/junit.xml
-            lib/web3-dom, ./.coverage/lib/web3-dom/junit.xml
+            app/bot, ./app/bot/test/.coverage/junit.xml
+            app/frontend, ./app/frontend/test/.coverage/junit.xml
+            lib/firestore, ./lib/firestore/test/.coverage/junit.xml
+            lib/model, ./lib/model/test/.coverage/junit.xml
+            lib/nft-scan, ./lib/nft-scan/test/.coverage/junit.xml
+            lib/opensea, ./lib/model/jtest/.coverage/unit.xml
+            lib/ui, ./lib/ui/test/.coverage/junit.xml                  
+            lib/utils, ./lib/utils/test/.coverage/junit.xml
+            lib/web3, ./lib/web3/test/.coverage/junit.xml
+            lib/web3-dom, ./lib/web3-dom/test/.coverage/junit.xml

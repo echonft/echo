@@ -11,6 +11,7 @@
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier . -u -c --no-error-on-unmatched-pattern",
     "test": "jest",
+    "test:coverage:clean": "rm -rf test/.coverage",
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
