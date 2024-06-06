@@ -14,7 +14,9 @@ import { isNil } from 'ramda'
  *
  * @param {Omit<TransferData, 'to'> & { to: WalletDocumentData }} args
  */
-export async function processInTransfer(args: Omit<TransferData, 'to'> & { to: WalletDocumentData }): Promise<void> {
+export async function processInTransfer(
+  args: Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>
+): Promise<void> {
   const { contractAddress, chain, to, tokenId } = args
   console.log(`[IN transfer ${contractAddress}:${tokenId}] to wallet ${JSON.stringify(to)}, processing...`)
   const userDocumentData = await getUserById(to.userId)

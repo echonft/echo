@@ -1,3 +1,4 @@
+import type { Swap } from '@echo/model/types/swap'
 import { HomeCollections } from '@echo/ui/pages/home/collection/home-collections'
 import { DiscordTile } from '@echo/ui/pages/home/discord/discord-tile'
 import { HomeHero } from '@echo/ui/pages/home/hero/home-hero'
@@ -6,22 +7,21 @@ import { HomeLayout } from '@echo/ui/pages/home/layout/home-layout'
 import { HomeSectionsLayout } from '@echo/ui/pages/home/layout/home-sections-layout'
 import { RecentSwaps } from '@echo/ui/pages/home/swap/recent-swaps'
 import type { CollectionWithRank } from '@echo/ui/types/collection-with-rank'
-import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { head, tail } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
   collections: CollectionWithRank[]
-  offers: OfferWithRole[]
+  swaps: Swap[]
 }
 
-export const HomePage: FunctionComponent<Props> = ({ collections, offers }) => {
+export const HomePage: FunctionComponent<Props> = ({ collections, swaps }) => {
   return (
     <HomeLayout>
       <HomeSectionsLayout>
         <HomeHero collection={head(collections)} />
         <HomeCollections collections={tail(collections)} />
-        <RecentSwaps offers={offers} />
+        <RecentSwaps swaps={swaps} />
         <HomeDiscordTileLayout>
           <DiscordTile />
         </HomeDiscordTileLayout>

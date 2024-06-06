@@ -1,17 +1,17 @@
-import { OfferCardsContainer } from '@echo/ui/components/offer/card/layout/offer-cards-container'
+import type { Swap } from '@echo/model/types/swap'
+import { SwapCardsContainer } from '@echo/ui/components/swap/card/layout/swap-cards-container'
 import { UserSwapsEmpty } from '@echo/ui/pages/user/swaps/user-swaps-empty'
-import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { isEmpty } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
   username: string
-  offers: OfferWithRole[]
+  swaps: Swap[]
 }
 
-export const UserSwaps: FunctionComponent<Props> = ({ username, offers }) => {
-  if (isEmpty(offers)) {
+export const UserSwaps: FunctionComponent<Props> = ({ username, swaps }) => {
+  if (isEmpty(swaps)) {
     return <UserSwapsEmpty username={username} />
   }
-  return <OfferCardsContainer offers={offers} options={{ asLink: true }} />
+  return <SwapCardsContainer swaps={swaps} options={{ asLink: true }} />
 }

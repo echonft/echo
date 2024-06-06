@@ -1,23 +1,23 @@
-import { OfferCardsContainer } from '@echo/ui/components/offer/card/layout/offer-cards-container'
+import type { Swap } from '@echo/model/types/swap'
+import { SwapCardsContainer } from '@echo/ui/components/swap/card/layout/swap-cards-container'
 import { HomeSectionLayout } from '@echo/ui/pages/home/layout/home-section-layout'
-import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { useTranslations } from 'next-intl'
 import { isEmpty } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  offers: OfferWithRole[]
+  swaps: Swap[]
 }
 
-export const RecentSwaps: FunctionComponent<Props> = ({ offers }) => {
+export const RecentSwaps: FunctionComponent<Props> = ({ swaps }) => {
   const t = useTranslations('home.recentSwaps')
 
-  if (isEmpty(offers)) {
+  if (isEmpty(swaps)) {
     return null
   }
   return (
     <HomeSectionLayout title={t('title')}>
-      <OfferCardsContainer offers={offers} options={{ asLink: true }} />
+      <SwapCardsContainer swaps={swaps} options={{ asLink: true }} />
     </HomeSectionLayout>
   )
 }

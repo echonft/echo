@@ -34,7 +34,7 @@ export const linkProvider = {
     new: new Path({ path: '/listing/new', secure: true })
   },
   offer: {
-    details: new Path<OfferPathArgs>({ path: '/offer/:slug' }),
+    details: new Path<OfferPathArgs>({ path: '/offer/:slug', secure: true }),
     new: new Path({ path: '/offer/new', secure: true })
   },
   profile: {
@@ -50,5 +50,8 @@ export const linkProvider = {
     items: new Path<UserPathArgs>({ path: '/user/:username/items' }),
     listings: new Path<UserPathArgs>({ path: '/user/:username/listings' }),
     swaps: new Path<UserPathArgs>({ path: '/user/:username/swaps' })
+  },
+  swap: {
+    details: new Path<OfferPathArgs>({ path: '/swap/:slug' })
   }
 }
