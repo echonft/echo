@@ -13,6 +13,13 @@ export function addPictureSizeToUrl(url: Nullable<string>, size: PictureSize): s
   try {
     // for backward compatibility
     const urlObject = new URL(removeQueryFromUrl(url))
+    if (urlObject.protocol == 'ipfs:') {
+      const url = `https://pinata.echonft.xyz/ipfs/${urlObject.pathname.slice(2)}?img-width=${size}`
+      if (isDev) {
+        return `${url}&pinataGatewayToken=${process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY}`
+      }
+      return url
+    }
     const hostname = urlObject.hostname
     if (hostname.includes('discordapp.com')) {
       return `${urlObject.href}?size=${size}`
@@ -35,13 +42,6 @@ export function addPictureSizeToUrl(url: Nullable<string>, size: PictureSize): s
         }
         return url
       }
-    }
-    if (hostname.startsWith('ipfs://')) {
-      const url = `https://pinata.echonft.xyz/ipfs/${hostname.slice(6)}?img-width=${size}`
-      if (isDev) {
-        return `${url}&pinataGatewayToken=${process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY}`
-      }
-      return url
     }
     return url
   } catch (err) {
