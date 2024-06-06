@@ -63,20 +63,17 @@ function showSwapButton(offer: OfferWithRole) {
   }
 }
 
-function showRedeemButton(offer: OfferWithRole, areNftsInEscrow: boolean | undefined) {
-  if (offer.state === OFFER_STATE_REJECTED || offer.state === OFFER_STATE_EXPIRED) {
-    if (isNil(areNftsInEscrow)) {
-      return false
-    }
-    return areNftsInEscrow
+function showRedeemButton(areNftsInEscrow: boolean | undefined) {
+  if (isNil(areNftsInEscrow)) {
+    return false
   }
-  return false
+  return areNftsInEscrow
 }
 function shouldShowButtons(offer: OfferWithRole, areNftsInEscrow: boolean | undefined) {
   // FIXME could be cleaner
   return (
     anyPass([showAcceptButton, showCancelButton, showRejectButton, showSwapButton])(offer) ||
-    showRedeemButton(offer, areNftsInEscrow)
+    showRedeemButton(areNftsInEscrow)
   )
 }
 
@@ -133,7 +130,7 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({ offer, onSuccess
         />
         <OfferDetailsRedeemButton
           offer={offer}
-          show={showRedeemButton(offer, areNftsInEscrow)}
+          show={showRedeemButton(areNftsInEscrow)}
           onClick={disable}
           onSuccess={success}
           onError={error}

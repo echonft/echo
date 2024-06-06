@@ -28,12 +28,17 @@ export const messages = {
       message:
         '{{- sender}} made you an offer {{- receiver}}. You can use this thread to discuss it, and hopefully come' +
         ' to an agreement. Happy swapping!',
-      name: 'offer-{{timestamp}}'
+      name: 'offer-{{timestamp}}',
+      redeemable: {
+        single: '{{- redeemer}} still has NFTs to redeem.',
+        multiple: '{{- sender}} and {{- receiver}} still have NFTs to redeem.'
+      }
     },
     update: {
       ACCEPTED: '@here {{- receiver}} accepted the offer! You can now execute the swap.',
       CANCELLED: '@here The offer was cancelled.',
       EXPIRED: '@here The offer expired.',
+      REDEEMED: '@here ',
       REJECTED: '@here {{- receiver}} rejected the offer.',
       COMPLETED: '@here The swap is now completed. Congratulations to the both of you!'
     }

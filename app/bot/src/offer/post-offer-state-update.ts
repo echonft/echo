@@ -1,8 +1,7 @@
-import { getThreadOnEchoChannel } from '@echo/bot/helpers/get-thread-on-echo-channel'
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
-import { getOfferThread } from '@echo/firestore/crud/offer-thread/get-offer-thread'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
+import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
 import {
   OFFER_STATE_ACCEPTED,
   OFFER_STATE_CANCELLED,
@@ -13,7 +12,7 @@ import {
 } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
-import { userMention } from 'discord.js'
+import { type AnyThreadChannel, userMention } from 'discord.js'
 import i18next from 'i18next'
 import { isNil } from 'ramda'
 
@@ -42,24 +41,16 @@ async function getMessage(offer: Offer) {
   }
 }
 
-export async function postOfferStateUpdate(offer: Offer, offerId: string) {
-  const offerThread = await getOfferThread(offerId)
-  if (isNil(offerThread)) {
-    pinoLogger.error(`[OFFER ${offerId}] offer thread not found`)
-    return { offerThread: undefined, thread: undefined }
-  }
-  const thread = await getThreadOnEchoChannel(offerThread.guild.threadId)
-  if (isNil(thread)) {
-    pinoLogger.error(
-      `[OFFER ${offerId}] tried to post update to thread ${offerThread.guild.threadId} but this thread does not exist`
-    )
-    return { offerThread, thread: undefined }
-  }
+export async function postOfferStateUpdate(args: {
+  offerThread: OfferThread
+  thread: AnyThreadChannel<boolean>
+  offer: Offer
+}) {
+  const { offerThread, thread, offer } = args
   const content = await getMessage(offer)
   await sendToThread(thread, {
     components: [buildOfferLinkButton(offer.slug)],
     content
   })
-  pinoLogger.info(`[OFFER ${offerId}] posted update to thread ${offerThread.guild.threadId}`)
-  return { offerThread, thread }
+  pinoLogger.info(`[OFFER ${offerThread.offerId}] posted update to thread ${offerThread.guild.threadId}`)
 }

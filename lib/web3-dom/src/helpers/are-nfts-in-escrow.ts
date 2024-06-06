@@ -6,7 +6,7 @@ import { getViemChainById } from '@echo/web3/helpers/chain/get-viem-chain-by-id'
 import { getEchoAddressByChain } from '@echo/web3/helpers/get-echo-address-by-chain'
 import { getWalletClient } from '@echo/web3-dom/helpers/get-wallet-client'
 import { mapNftsToIsOwnerContractCalls } from '@echo/web3-dom/mappers/map-nfts-to-is-owner-contract-calls'
-import { all, any, equals, F, head, ifElse, isNil, map, path, pipe, prop } from 'ramda'
+import { all, any, equals, F, head, ifElse, isNil, map, path, pipe, prop, toLower } from 'ramda'
 import { multicall } from 'viem/actions'
 
 interface AreNftsInEscrowArgs {
@@ -26,5 +26,5 @@ export async function areNftsInEscrow(args: AreNftsInEscrowArgs): Promise<boolea
   // FIXME
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  return pipe(map(prop('result')), ifElse(any(isNil), F, all(equals(echoAddress))))(results)
+  return pipe(map(prop('result')), map(toLower), ifElse(any(isNil), F, all(equals(echoAddress))))(results)
 }
