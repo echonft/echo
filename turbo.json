@@ -35,7 +35,9 @@
     "test:coverage:clean": {
       "cache": false
     },
-    "test": {},
+    "test": {
+      "passThroughEnv": ["CI"]
+    },
     "tsc": {},
     "//#firebase:use:dev": {},
     "//#firebase:use:prod": {},
