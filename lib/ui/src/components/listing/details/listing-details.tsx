@@ -63,7 +63,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, offers }) =>
   return (
     <ListingDetailsLayout>
       <ListingDetailsUserStateLayout role={updatedListing.role}>
-        <ListingDetailsCreator show={isCreator} creator={creator} />
+        <ListingDetailsCreator show={!isCreator} creator={creator} />
         <ListingDetailsState listing={updatedListing} />
       </ListingDetailsUserStateLayout>
       <ListingDetailsItemsLayout>

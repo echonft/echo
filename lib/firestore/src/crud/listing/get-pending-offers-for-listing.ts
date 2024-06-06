@@ -10,7 +10,7 @@ import { andThen, isNil, map, pipe, prop, reject } from 'ramda'
 
 export function getPendingOffersForListing(listing: Listing): Promise<Offer[]> {
   return pipe(
-    prop('id'),
+    prop('slug'),
     getListingOffersByListingId,
     andThen(
       pipe(
