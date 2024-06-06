@@ -20,7 +20,7 @@ export const SearchResults = <T,>({ results, style }: Props<T>) => {
     if (index === 0 && !style?.categories?.show) {
       return { rounded: 'top' }
     }
-    if (index === results!.length - 1) {
+    if (!isNil(results) && index === results.length - 1) {
       return { rounded: 'bottom' }
     }
     return undefined

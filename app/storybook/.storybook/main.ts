@@ -26,6 +26,8 @@ const config: StorybookConfig = {
     }
   ],
   framework: {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     name: getAbsolutePath('@storybook/nextjs'),
     options: {
       builder: {},
@@ -49,7 +51,7 @@ const config: StorybookConfig = {
       }
     }
   }),
-  webpackFinal: async (config) => {
+  webpackFinal: (config) => {
     return {
       ...config,
       optimization: {
@@ -91,6 +93,6 @@ const config: StorybookConfig = {
 }
 export default config
 
-function getAbsolutePath(value: string): any {
+function getAbsolutePath(value: string) {
   return dirname(require.resolve(join(value, 'package.json')))
 }

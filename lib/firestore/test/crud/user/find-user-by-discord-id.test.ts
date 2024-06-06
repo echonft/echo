@@ -7,6 +7,7 @@ describe('CRUD - user - findUserByDiscordId', () => {
     const user = await getUserByDiscordId('not-found')
     expect(user).toBeUndefined()
   })
+  // eslint-disable-next-line jest/expect-expect
   it('returns the user with the given id', async () => {
     const user = await getUserByDiscordId('462798252543049728')
     expectUserDocumentDataToEqualMock(user)

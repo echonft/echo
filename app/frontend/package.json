@@ -8,7 +8,7 @@
     "clean": "rm -rf .next",
     "dev": "source .env.keys; dotenvx run -f .env.dev -- next dev",
     "env:pull": "dotenvx hub pull",
-    "lint": "eslint --fix -c .eslintrc.js --ext .ts,.tsx .",
+    "lint": "eslint",
     "modules:remove": "rm -rf node_modules",
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",
@@ -44,6 +44,7 @@
   },
   "devDependencies": {
     "@dotenvx/dotenvx": "0.44.1",
+    "@next/eslint-plugin-next": "14.2.3",
     "@sentry/cli": "2.32.1",
     "@swc/core": "1.5.24",
     "@swc/jest": "0.2.36",
@@ -53,8 +54,13 @@
     "@types/ramda": "0.30.0",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
+    "@typescript-eslint/eslint-plugin": "7.12.0",
+    "@typescript-eslint/parser": "7.12.0",
+    "eslint-config-next": "14.2.3",
+    "eslint-plugin-react": "7.34.2",
     "jest": "29.7.0",
     "jest-junit": "16.0.0",
+    "globals": "15.3.0",
     "typescript": "5.4.5"
   }
 }

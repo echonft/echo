@@ -4,9 +4,13 @@ import { getCollectionMockById } from '@echo/model-mocks/collection/get-collecti
 
 describe('helpers - collection - assertCollectionExists', () => {
   it('throws if collection is undefined', () => {
-    expect(() => assertCollectionExists(undefined, 'slug')).toThrow()
+    expect(() => {
+      assertCollectionExists(undefined, 'slug')
+    }).toThrow()
   })
   it('does not throw if collection is defined', () => {
-    expect(() => assertCollectionExists(getCollectionMockById(collectionMockPxId()), 'slug')).not.toThrow()
+    expect(() => {
+      assertCollectionExists(getCollectionMockById(collectionMockPxId()), 'slug')
+    }).not.toThrow()
   })
 })

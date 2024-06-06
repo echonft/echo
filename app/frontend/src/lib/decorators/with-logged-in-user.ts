@@ -13,6 +13,6 @@ export function withLoggedInUser<Args extends Record<'user', User>, Return exten
     if (isNil(user)) {
       throw Error('Unauthorized')
     }
-    return fn.call(fn, assoc('user', user, args ?? {}) as Args)
+    return fn.call(fn, assoc('user', user, args) as Args)
   }
 }

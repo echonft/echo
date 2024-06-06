@@ -35,7 +35,7 @@ async function areBothPartiesInEscrow(offerId: string) {
 
 export async function postEscrowMessageIfNeeded(args: {
   offerThread: OfferThread
-  thread: AnyThreadChannel<boolean>
+  thread: AnyThreadChannel
   offer: Offer
 }) {
   const { offer, offerThread, thread } = args

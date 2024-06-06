@@ -94,7 +94,9 @@ export const CreateListing: FunctionComponent<Props> = ({
             loading={loading}
             onComplete={() => {
               if (reviewing) {
-                onComplete?.(selection.nfts, targetSelection!)
+                if (!isNil(targetSelection)) {
+                  onComplete?.(selection.nfts, targetSelection)
+                }
               } else {
                 setReviewing(true)
               }

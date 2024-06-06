@@ -11,6 +11,6 @@ export function withUser<Args extends Record<'user', Nullable<User>>, Return ext
   return async function (args: Args): Promise<Return> {
     initializeFirebase()
     const user = await getAuthUser()
-    return fn.call(fn, assoc('user', user, args ?? {}) as Args)
+    return fn.call(fn, assoc('user', user, args) as Args)
   }
 }

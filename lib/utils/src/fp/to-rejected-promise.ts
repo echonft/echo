@@ -1,3 +1,3 @@
-export function toRejectedPromise<T>(value?: T) {
-  return Promise.reject<T>(value)
+export function toRejectedPromise<T extends unknown[] = never[]>(..._args: T) {
+  return Promise.reject(new Error())
 }

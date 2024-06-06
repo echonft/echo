@@ -9,7 +9,7 @@ export function listenToOffers(
 ) {
   getOffersCollectionReference().onSnapshot((snapshot) => {
     snapshot.docChanges().forEach((change: DocumentChange<Offer, OfferDocumentData>) => {
-      if (!isNil(change.doc?.id)) {
+      if (!isNil(change.doc.id)) {
         onChange(change.type, change.doc)
       }
     })

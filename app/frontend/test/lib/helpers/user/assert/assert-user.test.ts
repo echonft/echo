@@ -4,11 +4,13 @@ import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 
 describe('helpers - user - assert - assertUserExists', () => {
   it('throws if user is undefined', () => {
-    expect(() => assertUserExists(undefined, 'username')).toThrow()
+    expect(() => {
+      assertUserExists(undefined, 'username')
+    }).toThrow()
   })
   it('does not throw if user is defined', () => {
-    expect(() =>
+    expect(() => {
       assertUserExists(getUserDocumentDataMockByUsername(userMockJohnnyUsername()), 'username')
-    ).not.toThrow()
+    }).not.toThrow()
   })
 })

@@ -95,10 +95,8 @@ describe('CRUD - listing-offer - addListingOffer', () => {
     const foundListingOffer = await getListingOfferById(createdListingOfferId)
     expect(foundListingOffer).toStrictEqual(createdListingOfferNewDocument.data)
     // check if the listing state was correctly updated
-    if (initialListingState === LISTING_STATE_OPEN) {
-      expect(newListingState).toEqual(LISTING_STATE_OFFERS_PENDING)
-    } else {
-      expect(newListingState).toEqual(initialListingState)
-    }
+    expect(newListingState).toEqual(
+      initialListingState === LISTING_STATE_OPEN ? LISTING_STATE_OFFERS_PENDING : initialListingState
+    )
   })
 })

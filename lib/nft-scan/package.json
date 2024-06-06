@@ -5,7 +5,7 @@
   "sideEffects": false,
   "license": "MIT",
   "scripts": {
-    "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
+    "lint": "eslint",
     "modules:remove": "rm -rf node_modules",
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",

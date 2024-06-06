@@ -12,7 +12,7 @@ export function setListingRole(user: Nullable<User>) {
     if (isNil(user)) {
       return map(setListingRoleUndefined, listings)
     }
-    const nfts = await getNftsForOwner(user?.username)
+    const nfts = await getNftsForOwner(user.username)
     return map(setListingRoleForUser(user, nfts), listings)
   }
 }

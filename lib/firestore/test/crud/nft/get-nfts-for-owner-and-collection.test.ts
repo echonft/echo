@@ -33,6 +33,7 @@ describe('CRUD - nft - getNftsForOwnerAndCollection', () => {
     const result = await getNftsForOwnerAndCollection(userMockJohnnyUsername(), 'not-found')
     expect(result).toEqual([])
   })
+  // eslint-disable-next-line jest/expect-expect
   it('returns the nfts of the user and the collection', async () => {
     await pipe(getNftsForOwnerAndCollection, andThen(expectNfts(2)))(userMockJohnnyUsername(), collectionMockPxSlug())
     await pipe(getNftsForOwnerAndCollection, andThen(expectNfts(1)))(userMockCrewUsername(), collectionMockPxSlug())

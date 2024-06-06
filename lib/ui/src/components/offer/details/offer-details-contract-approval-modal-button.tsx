@@ -12,7 +12,7 @@ interface Props {
   contract: Nullable<ContractApproval>
   onApproved?: (contract: Wallet, approved: boolean) => void
   onLoading?: VoidFunction
-  onError?: VoidFunction
+  onError?: (contract: Wallet) => void
 }
 
 export const OfferDetailsContractApprovalModalButton: FunctionComponent<Props> = ({

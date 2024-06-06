@@ -9,7 +9,7 @@ export function listenToListings(
 ) {
   getListingsCollectionReference().onSnapshot((snapshot) => {
     snapshot.docChanges().forEach((change: DocumentChange<Listing, ListingDocumentData>) => {
-      if (!isNil(change.doc?.id)) {
+      if (!isNil(change.doc.id)) {
         onChange(change.type, change.doc)
       }
     })

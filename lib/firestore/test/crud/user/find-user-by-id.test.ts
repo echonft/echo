@@ -8,6 +8,7 @@ describe('CRUD - user - findUserById', () => {
     const user = await getUserById('not-found')
     expect(user).toBeUndefined()
   })
+  // eslint-disable-next-line jest/expect-expect
   it('returns the user with the given id', async () => {
     const user = await getUserById(userMockJohnnyId())
     expectUserDocumentDataToEqualMock(user)

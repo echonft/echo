@@ -15,7 +15,7 @@ export const NftThumbnailPicture: FunctionComponent<Props> = ({ nft }) => {
     <NftThumbnailPictureLayout>
       <Image
         className={clsx('select-none')}
-        src={addPictureSizeToUrl(nft.pictureUrl, PICTURE_SIZE_MD) ?? ''}
+        src={addPictureSizeToUrl(nft.pictureUrl, PICTURE_SIZE_MD)}
         alt={nft.tokenId.toString()}
         width={PICTURE_SIZE_MD}
         height={PICTURE_SIZE_MD}
