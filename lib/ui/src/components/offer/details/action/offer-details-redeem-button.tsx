@@ -1,5 +1,5 @@
 'use client'
-import { OFFER_STATE_EXPIRED, OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
+import { OFFER_STATE_EXPIRED } from '@echo/model/constants/offer-states'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Nft } from '@echo/model/types/nft'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
@@ -9,6 +9,7 @@ import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import { now } from '@echo/utils/helpers/now'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { HexString } from '@echo/utils/types/hex-string'
@@ -44,7 +45,7 @@ export const OfferDetailsRedeemButton: FunctionComponent<Props> = ({
     nonNullableReturn(path(['collection', 'contract', 'chain']))
   )(offer)
   const count = isOfferRoleReceiver(offer) ? offer.receiverItems.length : offer.senderItems.length
-  const isRedeemable = offer.state === OFFER_STATE_EXPIRED || offer.state === OFFER_STATE_REJECTED
+  const isRedeemable = offer.state === OFFER_STATE_EXPIRED || offer.expiresAt < now()
   // In the case the offer is rejected (frontend only), user can redeem by cancelling.
   // Otherwise we use the redeem contract call
   const { trigger: triggerContractCancel } = useSWRTrigger<HexString, ContractUpdateOfferArgs>({
