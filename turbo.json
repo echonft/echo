@@ -32,6 +32,9 @@
     "sentry:sourcemaps:upload": {
       "dependsOn": ["sentry:sourcemaps:inject"]
     },
+    "test:coverage:clean": {
+      "cache": false
+    },
     "test": {},
     "tsc": {},
     "//#firebase:use:dev": {},

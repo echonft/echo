@@ -8,6 +8,8 @@
       "@echo/commands/*": ["./src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
+      "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
+      "@echo/firestore-test/*": ["../../lib/firestore/test/@utils/*"],
       "@echo/nft-scan/*": ["../../lib/nft-scan/src/*"],
       "@echo/opensea/*": ["../../lib/opensea/src/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"],

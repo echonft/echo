@@ -63,6 +63,7 @@
     "prettier": "turbo prettier",
     "storybook:dev": "turbo dev --filter=@echo/storybook --filter=@echo/ui",
     "test": "turbo test",
+    "test:coverage:clean": "turbo test:coverage:clean",
     "tsc": "turbo tsc"
   },
   "devDependencies": {

@@ -17,6 +17,7 @@
     "sentry:sourcemaps:upload": "sentry-cli sourcemaps upload --org=echo-nft --project=frontend .next/",
     "start": "next start",
     "test": "jest",
+    "test:coverage:clean": "rm -rf test/.coverage",
     "tsc": "tsc --noEmit"
   },
   "dependencies": {

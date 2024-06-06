@@ -1,13 +1,8 @@
 /** @type {import('jest').Config} */
 module.exports = {
-  collectCoverage: true,
-  collectCoverageFrom: [
-    '<rootDir>/src/**/*.ts',
-    '!<rootDir>/src/**/*.d.ts',
-    '!<rootDir>/src/constants/**',
-    '!<rootDir>/src/types/**'
-  ],
-  coverageDirectory: '<rootDir>/../../.coverage/app/frontend',
+  collectCoverage: Boolean(process.env.CI),
+  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+  coverageDirectory: '<rootDir>/test/.coverage',
   coverageReporters: ['json-summary', 'text'],
   moduleNameMapper: {
     '^@echo/api/(.*)$': '<rootDir>/../../lib/api/src/$1',
@@ -27,12 +22,11 @@ module.exports = {
     [
       'jest-junit',
       {
-        outputDirectory: '<rootDir>/../../.coverage/app/frontend'
+        outputDirectory: '<rootDir>/test/.coverage'
       }
     ]
   ],
   setupFilesAfterEnv: ['<rootDir>/test/setup-env.ts'],
-  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
   transform: {
     '^.+\\.(t|j)sx?$': '@swc/jest'
   }
