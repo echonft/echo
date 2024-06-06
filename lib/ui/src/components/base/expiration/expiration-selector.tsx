@@ -10,7 +10,7 @@ interface Props {
   loading?: boolean
 }
 
-export const CreateOfferExpirationSelector: FunctionComponent<Props> = ({ selectedExpiration, onSelect, loading }) => {
+export const ExpirationSelector: FunctionComponent<Props> = ({ selectedExpiration, onSelect, loading }) => {
   const t = useTranslations('offer.create.expiration')
   return (
     <div className={clsx('flex', 'flex-row', 'gap-2.5')}>

@@ -9,7 +9,7 @@ interface Props {
   src: Nullable<string>
 }
 
-export const CreateOfferExpirationImage: FunctionComponent<Props> = ({ alt, src }) => {
+export const ExpirationImage: FunctionComponent<Props> = ({ alt, src }) => {
   return (
     <div className={clsx('rounded-2xl', 'w-[32rem]', 'h-[32rem]')}>
       <SizeableImage

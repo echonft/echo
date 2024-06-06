@@ -25,6 +25,7 @@ export async function createOfferRequestHandler(user: User, req: ApiRequest<Crea
     (requestBody) => createOfferSchema.parse(requestBody),
     ErrorStatus.BAD_REQUEST
   )(requestBody)
+
   const receiverOfferItems = await guardAsyncFn(getNftsFromIndexes, ErrorStatus.SERVER_ERROR)(receiverItems)
   // We fetch the escrowed NFTs from the DB here because this call is done AFTER transaction has completed
   // and NFTs are thus in escrow

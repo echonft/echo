@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { CreateOfferExpirationSelector as Component } from '@echo/ui/components/offer/create/create-offer-expiration-selector'
+import { ExpirationSelector as Component } from '@echo/ui/components/base/expiration/expiration-selector'
 import { EXPIRATIONS, ONE_DAY } from '@echo/ui/constants/expiration'
 import type { Meta, StoryObj } from '@storybook/react'
 

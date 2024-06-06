@@ -7,6 +7,7 @@ import type { Nft } from '@echo/model/types/nft'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { StateExpiration } from '@echo/ui/components/base/state-expiration'
 import { CreateListingButtons } from '@echo/ui/components/listing/create/create-listing-buttons'
+import { CreateListingExpiration } from '@echo/ui/components/listing/create/create-listing-expiration'
 import { CreateListingNfts } from '@echo/ui/components/listing/create/create-listing-nfts'
 import { CreateListingSwapDirectionHeader } from '@echo/ui/components/listing/create/create-listing-swap-direction-header'
 import { CreateListingTargets } from '@echo/ui/components/listing/create/create-listing-targets'
@@ -25,7 +26,7 @@ interface Props {
   target: Nullable<Collection>
   loading?: boolean
   onCancel?: VoidFunction
-  onComplete?: (items: Nft[], target: ListingTarget) => void
+  onComplete?: (items: Nft[], target: ListingTarget, expiresAt: number) => void
 }
 
 export const CreateListing: FunctionComponent<Props> = ({
@@ -45,10 +46,29 @@ export const CreateListing: FunctionComponent<Props> = ({
     isNil(target) ? undefined : { collection: target, amount: 1 }
   )
   const [reviewing, setReviewing] = useState(false)
+  // TODO Probably should change that, not the most beautiful
+  const [settingExpiration, setSettingExpiration] = useState(false)
+
+  if (settingExpiration) {
+    return (
+      <CreateListingExpiration
+        items={selection.nfts}
+        onCancel={() => {
+          setSettingExpiration(false)
+          setReviewing(false)
+        }}
+        onComplete={(expiration) =>
+          onComplete?.(selection.nfts, targetSelection!, dayjs().add(expiration, 'day').unix())
+        }
+        loading={loading}
+      />
+    )
+  }
 
   return (
     <div className={clsx('flex', 'flex-col', 'gap-24')}>
       <div className={clsx('flex', 'flex-row', 'justify-end')}>
+        {/*  FIXME expiresAt value should be derived from state */}
         <StateExpiration
           expiresAt={dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix()}
           readOnly={false}
@@ -94,9 +114,7 @@ export const CreateListing: FunctionComponent<Props> = ({
             loading={loading}
             onComplete={() => {
               if (reviewing) {
-                if (!isNil(targetSelection)) {
-                  onComplete?.(selection.nfts, targetSelection)
-                }
+                setSettingExpiration(true)
               } else {
                 setReviewing(true)
               }

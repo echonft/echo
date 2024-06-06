@@ -44,10 +44,11 @@ export const CreateListingManager: FunctionComponent<Props> = ({ creatorNfts, it
       items={items}
       target={target}
       loading={isMutating}
-      onComplete={(items: Nft[], target: ListingTarget) => {
+      onComplete={(items: Nft[], target: ListingTarget, expiresAt: number) => {
         void trigger({
           items: getNftIndexForNfts(items),
-          target: mapListingTargetToRequest(target)
+          target: mapListingTargetToRequest(target),
+          expiresAt
         })
       }}
       onCancel={() => {

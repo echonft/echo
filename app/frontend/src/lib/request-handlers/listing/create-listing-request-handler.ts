@@ -16,7 +16,7 @@ export async function createListingRequestHandler(user: User, req: ApiRequest<Cr
     (req: ApiRequest<CreateListingRequest>) => req.json(),
     ErrorStatus.BAD_REQUEST
   )(req)
-  const { items, target } = guardFn(
+  const { items, target, expiresAt } = guardFn(
     (requestBody) => createListingSchema.parse(requestBody),
     ErrorStatus.BAD_REQUEST
   )(requestBody)
@@ -27,6 +27,6 @@ export async function createListingRequestHandler(user: User, req: ApiRequest<Cr
   const { data } = await guardAsyncFn(
     addListing,
     ErrorStatus.SERVER_ERROR
-  )({ items: listingItems, target: listingTarget })
+  )({ items: listingItems, target: listingTarget, expiresAt })
   return NextResponse.json<ListingResponse>({ listing: data })
 }

@@ -1,5 +1,4 @@
 import type { Nft } from '@echo/model/types/nft'
-import type { Offer } from '@echo/model/types/offer'
 import { ExpirationButtonsLayout } from '@echo/ui/components/base/expiration/expiration-buttons-layout'
 import { ExpirationImage } from '@echo/ui/components/base/expiration/expiration-image'
 import { ExpirationLayout } from '@echo/ui/components/base/expiration/expiration-layout'
@@ -8,32 +7,25 @@ import { ExpirationSelectorLayout } from '@echo/ui/components/base/expiration/ex
 import { ExpirationSublayout } from '@echo/ui/components/base/expiration/expiration-sublayout'
 import { ExpirationSubtitle } from '@echo/ui/components/base/expiration/expiration-subtitle'
 import { ExpirationTitle } from '@echo/ui/components/base/expiration/expiration-title'
-import { CreateOfferExpirationCreateButton } from '@echo/ui/components/offer/create/create-offer-expiration-create-button'
 import { ONE_DAY } from '@echo/ui/constants/expiration'
 import type { Expiration } from '@echo/ui/types/expiration'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { head, type NonEmptyArray } from 'ramda'
+import { head } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  senderItems: Nft[]
-  receiverItems: Nft[]
+  items: Nft[]
   onCancel?: VoidFunction
-  onComplete?: (offer: Offer) => unknown
+  onComplete?: (expiration: Expiration) => void
   loading?: boolean
 }
 
-export const CreateOfferExpiration: FunctionComponent<Props> = ({
-  senderItems,
-  receiverItems,
-  onComplete,
-  onCancel,
-  loading
-}) => {
-  const t = useTranslations('offer.create.expiration')
+export const CreateListingExpiration: FunctionComponent<Props> = ({ items, onComplete, onCancel, loading }) => {
+  const t = useTranslations('listing.create.expiration')
   const [expiration, setExpiration] = useState<Expiration>(ONE_DAY)
-  const firstNft = head(senderItems as NonEmptyArray<Nft>)
+  // FIXME Shouldn't force unwrap, but items will never be empty here
+  const firstNft = head(items)!
   return (
     <ExpirationLayout>
       <ExpirationImage alt={firstNft.tokenId.toString()} src={firstNft.pictureUrl} />
@@ -49,16 +41,20 @@ export const CreateOfferExpiration: FunctionComponent<Props> = ({
           <ExpirationButtonsLayout>
             <button
               className={clsx('btn-action', 'h-max', 'w-full', 'py-2.5', 'group', loading && 'animate-pulse')}
+              disabled={loading}
               onClick={onCancel}
             >
               <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('editBtn')}</span>
             </button>
-            <CreateOfferExpirationCreateButton
-              receiverItems={receiverItems}
-              senderItems={senderItems}
-              expiration={expiration}
-              onComplete={onComplete}
-            />
+            <button
+              className={clsx('btn-gradient', 'h-max', 'w-full', 'py-2.5', 'group', loading && 'animate-pulse')}
+              disabled={loading}
+              onClick={() => {
+                onComplete?.(expiration)
+              }}
+            >
+              <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('finalizeBtn')}</span>
+            </button>
           </ExpirationButtonsLayout>
         </ExpirationSelectorLayout>
       </ExpirationSublayout>

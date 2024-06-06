@@ -21,6 +21,7 @@ import { type Nft } from '@echo/model/types/nft'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import { mapListingTargetToRequest } from '@echo/ui/mappers/to-api/map-listing-target-to-request'
 import { toPromise } from '@echo/utils/fp/to-promise'
+import { now } from '@echo/utils/helpers/now'
 import { map, modify, pipe, prop } from 'ramda'
 
 jest.mock('@echo/firestore/crud/listing/add-listing')
@@ -49,7 +50,8 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
   it('throws if the user is not the owner of every item', async () => {
     const request: CreateListingRequest = {
       items: [getNftMockById(nftMockSpiralCrewId())],
-      target: pipe<[Listing], ListingTarget, ListingTargetRequest>(prop('target'), mapListingTargetToRequest)(listing)
+      target: pipe<[Listing], ListingTarget, ListingTargetRequest>(prop('target'), mapListingTargetToRequest)(listing),
+      expiresAt: now() + 60 * 1000
     }
     jest.mocked(addListing).mockResolvedValue({ id: listingMockId(), data: listing, listingOffers: [] })
     const req = mockRequest<CreateListingRequest>(request)
@@ -59,7 +61,8 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
   it('returns 200 if the user owns all the items', async () => {
     const validRequest: CreateListingRequest = {
       items: getListingItemsIndexes(listing),
-      target: pipe<[Listing], ListingTarget, ListingTargetRequest>(prop('target'), mapListingTargetToRequest)(listing)
+      target: pipe<[Listing], ListingTarget, ListingTargetRequest>(prop('target'), mapListingTargetToRequest)(listing),
+      expiresAt: now() + 60 * 1000
     }
     jest.mocked(addListing).mockResolvedValue({ id: listingMockId(), data: listing, listingOffers: [] })
     const req = mockRequest<CreateListingRequest>(validRequest)
