@@ -8,7 +8,7 @@ import { isNil, length, lt, map, pipe, prop, uniq } from 'ramda'
 interface Props<T> {
   show?: boolean
   results: Nullable<SearchResultModel<T>[]>
-  onChange: (category?: SearchResultCategory) => void
+  onChange?: (category?: SearchResultCategory) => void
 }
 
 export const SearchResultsCategories = <T,>({ show, results, onChange }: Props<T>) => {

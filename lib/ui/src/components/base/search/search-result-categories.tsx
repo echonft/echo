@@ -9,7 +9,7 @@ import { type FunctionComponent, useState } from 'react'
 
 interface Props {
   categories: SearchResultCategoryViewModel[]
-  onChange: (category?: SearchResultCategory) => void
+  onChange?: (category?: SearchResultCategory) => void
 }
 
 export const SearchResultCategories: FunctionComponent<Props> = ({ categories, onChange }) => {

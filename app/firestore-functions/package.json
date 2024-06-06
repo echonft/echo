@@ -11,7 +11,7 @@
     "build": "tsup",
     "deploy": "firebase deploy --only functions",
     "env:pull": "dotenvx hub pull",
-    "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
+    "lint": "eslint",
     "modules:remove": "rm -rf node_modules",
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",
@@ -31,6 +31,7 @@
   "devDependencies": {
     "@types/ramda": "0.30.0",
     "eslint-config-google": "0.14.0",
+    "globals": "15.3.0",
     "tsup": "8.1.0",
     "typescript": "5.4.5"
   }

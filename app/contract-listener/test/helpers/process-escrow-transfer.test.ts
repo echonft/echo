@@ -25,7 +25,7 @@ describe('helpers - processEscrowTransfer', () => {
       contractAddress: contractAddress
     } as EscrowData
     await processEscrowTransfer(args)
-    expect(processOutEscrowTransfer).toBeCalledWith(args)
+    expect(processOutEscrowTransfer).toHaveBeenCalledWith(args)
   })
 
   it('process IN escrow', async () => {
@@ -37,6 +37,6 @@ describe('helpers - processEscrowTransfer', () => {
       contractAddress: contractAddress
     } as EscrowData
     await processEscrowTransfer(args)
-    expect(processInEscrowTransfer).toBeCalledWith(args)
+    expect(processInEscrowTransfer).toHaveBeenCalledWith(args)
   })
 })

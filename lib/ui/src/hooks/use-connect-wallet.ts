@@ -47,12 +47,14 @@ export function useConnectWallet(account: AccountResult) {
     key: SWRKeys.profile.nonce.get,
     fetcher: getNonce,
     onSuccess: (response) => {
-      void signNonceTrigger({
-        domain: window.location.origin,
-        uri: window.location.origin,
-        nonce: response.nonce,
-        wallet: wallet!
-      })
+      if (!isNil(wallet)) {
+        void signNonceTrigger({
+          domain: window.location.origin,
+          uri: window.location.origin,
+          nonce: response.nonce,
+          wallet
+        })
+      }
     },
     onError: {
       alert: {
@@ -86,11 +88,13 @@ export function useConnectWallet(account: AccountResult) {
     key: SWRKeys.profile.nonce.sign,
     fetcher: signNonce,
     onSuccess: ({ message, signature }) => {
-      void addWalletTrigger({
-        wallet: wallet!,
-        message,
-        signature
-      })
+      if (!isNil(wallet)) {
+        void addWalletTrigger({
+          wallet,
+          message,
+          signature
+        })
+      }
     },
     onError: {
       alert: {

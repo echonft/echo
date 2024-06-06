@@ -9,6 +9,7 @@ import { getNftStack } from '@echo/ui/helpers/nft/get-nft-stack'
 import { getTokenIdString } from '@echo/ui/helpers/nft/get-token-id-string'
 import { head } from 'ramda'
 import type { FunctionComponent } from 'react'
+import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 
 interface Props {
   listing: Listing
@@ -17,23 +18,29 @@ interface Props {
 
 export const ListingCardSwitch: FunctionComponent<Props> = ({ listing, scaleDisabled }) => {
   const { items } = listing
-  if (items.length > 1) {
-    const stack = getNftStack(items)
+  if (isNonEmptyArray(items)) {
+    if (items.length > 1) {
+      const stack = getNftStack(items)
+      return (
+        <StackLayout>
+          <ListingStackPicture stack={stack} listing={listing} scaleDisabled={scaleDisabled} />
+          <StackFooter
+            title={stack.collection.name}
+            subtitle={getTokenIdString(stack.tokenId, stack.collection.totalSupply)}
+          />
+        </StackLayout>
+      )
+    }
+    const item = head(items)
     return (
-      <StackLayout>
-        <ListingStackPicture stack={stack} listing={listing} scaleDisabled={scaleDisabled} />
-        <StackFooter
-          title={stack.collection.name}
-          subtitle={getTokenIdString(stack.tokenId, stack.collection.totalSupply)}
+      <CardLayout>
+        <ListingCardPicture listing={listing} scaleDisabled={scaleDisabled} />
+        <CardFooter
+          title={item.collection.name}
+          subtitle={getTokenIdString(item.tokenId, item.collection.totalSupply)}
         />
-      </StackLayout>
+      </CardLayout>
     )
   }
-  const item = head(items)!
-  return (
-    <CardLayout>
-      <ListingCardPicture listing={listing} scaleDisabled={scaleDisabled} />
-      <CardFooter title={item.collection.name} subtitle={getTokenIdString(item.tokenId, item.collection.totalSupply)} />
-    </CardLayout>
-  )
+  return null
 }

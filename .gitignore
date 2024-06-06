@@ -37,3 +37,6 @@ storybook-static
 
 # Firebase
 firebase-debug.log*
+
+# Sentry Config File
+.sentryclirc

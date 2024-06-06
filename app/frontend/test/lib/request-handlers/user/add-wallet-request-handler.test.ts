@@ -1,18 +1,17 @@
 import { type AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
+import { getUserDocumentDataMockById } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-id'
+import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
+import { userMockJohnnyId } from '@echo/firestore-mocks/user/user-document-data-mock'
+import { getWalletDocumentDataMockById } from '@echo/firestore-mocks/wallet/get-wallet-document-data-mock-by-id'
 import { getNonceForUser } from '@echo/firestore/crud/nonce/get-nonce-for-user'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { type Nonce } from '@echo/firestore/types/model/nonce/nonce'
-import { getUserDocumentDataMockById } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-id'
-import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
-import { userMockJohnnyId } from '@echo/firestore-mocks/user/user-document-data-mock'
-import { getWalletDocumentDataMockById } from '@echo/firestore-mocks/wallet/get-wallet-document-data-mock-by-id'
+import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { getSiweMessage } from '@echo/frontend/lib/helpers/auth/get-siwe-message'
 import { verifySiweMessage } from '@echo/frontend/lib/helpers/auth/verify-siwe-message'
-import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
 import { addWalletRequestHandler } from '@echo/frontend/lib/request-handlers/profile/add-wallet-request-handler'
-import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
@@ -56,24 +55,14 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
 
   it('throws if the request cannot be parsed', async () => {
     const req = mockRequest<AddWalletRequest>({} as AddWalletRequest)
-    try {
-      await addWalletRequestHandler(user, req)
-      expect(true).toBeFalsy()
-    } catch (e) {
-      expect((e as ApiError).status).toBe(400)
-    }
+    await expect(() => addWalletRequestHandler(user, req)).rejects.toHaveProperty('status', 400)
   })
 
   it('throws if the siwe message cannot be validated', async () => {
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockRejectedValue({})
     const req = mockRequest<AddWalletRequest>(validRequest)
-    try {
-      await addWalletRequestHandler(user, req)
-      expect(true).toBeFalsy()
-    } catch (e) {
-      expect((e as ApiError).status).toBe(400)
-    }
+    await expect(() => addWalletRequestHandler(user, req)).rejects.toHaveProperty('status', 400)
   })
 
   it('throws if the nonce is not the same as the user nonce', async () => {
@@ -82,12 +71,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ nonce: 'nonce' } as SiweMessage)
     const req = mockRequest<AddWalletRequest>(validRequest)
-    try {
-      await addWalletRequestHandler(user, req)
-      expect(true).toBeFalsy()
-    } catch (e) {
-      expect((e as ApiError).status).toBe(403)
-    }
+    await expect(() => addWalletRequestHandler(user, req)).rejects.toHaveProperty('status', 403)
   })
 
   it('throws if the nonce is expired', async () => {
@@ -96,12 +80,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ nonce: 'nonce' } as SiweMessage)
     const req = mockRequest<AddWalletRequest>(validRequest)
-    try {
-      await addWalletRequestHandler(user, req)
-      expect(true).toBeFalsy()
-    } catch (e) {
-      expect((e as ApiError).status).toBe(403)
-    }
+    await expect(() => addWalletRequestHandler(user, req)).rejects.toHaveProperty('status', 403)
   })
 
   it('returns a 200 if the nonce is valid', async () => {

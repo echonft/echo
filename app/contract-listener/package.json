@@ -10,7 +10,7 @@
     "deploy:prod": ".fly/deploy.sh prod",
     "dev": "source .env.keys; dotenvx run --env-file=.env.dev -- tsx watch src/index.ts",
     "env:pull": "dotenvx hub pull",
-    "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
+    "lint": "eslint",
     "machine:restart:dev": ".fly/restart-machine.sh dev",
     "machine:restart:prod": ".fly/restart-machine.sh prod",
     "modules:remove": "rm -rf node_modules",

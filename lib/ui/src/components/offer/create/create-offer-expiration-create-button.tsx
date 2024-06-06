@@ -25,7 +25,9 @@ export const CreateOfferExpirationCreateButton: FunctionComponent<Props> = ({
     <>
       <button
         className={clsx('btn-gradient', 'h-max', 'w-full', 'py-2.5', 'group')}
-        onClick={() => setModalShown(true)}
+        onClick={() => {
+          setModalShown(true)
+        }}
       >
         <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('finalizeBtn')}</span>
       </button>
@@ -34,7 +36,9 @@ export const CreateOfferExpirationCreateButton: FunctionComponent<Props> = ({
         senderItems={senderItems}
         receiverItems={receiverItems}
         expiration={expiration}
-        onClose={() => setModalShown(false)}
+        onClose={() => {
+          setModalShown(false)
+        }}
         onSuccess={onComplete}
       />
     </>

@@ -5,8 +5,7 @@ import { XIconSvg } from '@echo/ui/components/base/svg/x-icon-svg'
 import {
   CALLOUT_SEVERITY_ERROR,
   CALLOUT_SEVERITY_INFO,
-  CALLOUT_SEVERITY_SUCCESS,
-  CALLOUT_SEVERITY_WARNING
+  CALLOUT_SEVERITY_SUCCESS
 } from '@echo/ui/constants/callout-severity'
 import { CALLOUT_VARIANT_SOLID } from '@echo/ui/constants/callout-variant'
 import type { CalloutSeverity } from '@echo/ui/types/callout-severity'
@@ -50,21 +49,18 @@ export const CalloutIcon: FunctionComponent<Props> = ({ severity, variant }) => 
       </div>
     )
   }
-  if (severity === CALLOUT_SEVERITY_WARNING) {
-    return (
-      <div
-        className={clsx(
-          'flex',
-          'justify-center',
-          'items-center',
-          'w-6',
-          'h-6',
-          variant === CALLOUT_VARIANT_SOLID ? 'text-yellow-700' : 'text-yellow-500'
-        )}
-      >
-        <WarningSignIconSvg width={20} height={20} />
-      </div>
-    )
-  }
-  return null
+  return (
+    <div
+      className={clsx(
+        'flex',
+        'justify-center',
+        'items-center',
+        'w-6',
+        'h-6',
+        variant === CALLOUT_VARIANT_SOLID ? 'text-yellow-700' : 'text-yellow-500'
+      )}
+    >
+      <WarningSignIconSvg width={20} height={20} />
+    </div>
+  )
 }

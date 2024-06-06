@@ -11,26 +11,30 @@ import { getCounterpartyOfferItemsFromRole } from '@echo/ui/helpers/offer/get-co
 import { clsx } from 'clsx'
 import { head } from 'ramda'
 import type { FunctionComponent } from 'react'
+import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 
 export const OfferCardSwitch: FunctionComponent<OfferCardProps> = ({ offer, options }) => {
   const nfts = getCounterpartyOfferItemsFromRole(offer)
-  if (nfts.length > 1) {
-    const stack = getNftStack(nfts)
+  if (isNonEmptyArray(nfts)) {
+    if (nfts.length > 1) {
+      const stack = getNftStack(nfts)
+      return (
+        <StackLayout className={clsx(options?.asLink && 'group-hover:border-yellow-500')}>
+          <OfferStackPicture stack={stack} offer={offer} scaleDisabled={options?.scaleDisabled} />
+          <StackFooter
+            title={stack.collection.name}
+            subtitle={getTokenIdString(stack.tokenId, stack.collection.totalSupply)}
+          />
+        </StackLayout>
+      )
+    }
+    const nft = head(nfts)
     return (
-      <StackLayout className={clsx(options?.asLink && 'group-hover:border-yellow-500')}>
-        <OfferStackPicture stack={stack} offer={offer} scaleDisabled={options?.scaleDisabled} />
-        <StackFooter
-          title={stack.collection.name}
-          subtitle={getTokenIdString(stack.tokenId, stack.collection.totalSupply)}
-        />
-      </StackLayout>
+      <CardLayout className={clsx(options?.asLink && 'group-hover:border-yellow-500')}>
+        <OfferCardPicture offer={offer} scaleDisabled={options?.scaleDisabled} />
+        <CardFooter title={nft.collection.name} subtitle={getTokenIdString(nft.tokenId, nft.collection.totalSupply)} />
+      </CardLayout>
     )
   }
-  const nft = head(nfts)!
-  return (
-    <CardLayout className={clsx(options?.asLink && 'group-hover:border-yellow-500')}>
-      <OfferCardPicture offer={offer} scaleDisabled={options?.scaleDisabled} />
-      <CardFooter title={nft.collection.name} subtitle={getTokenIdString(nft.tokenId, nft.collection.totalSupply)} />
-    </CardLayout>
-  )
+  return null
 }

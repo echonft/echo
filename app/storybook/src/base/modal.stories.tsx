@@ -44,7 +44,12 @@ export const Modal: StoryObj<typeof Component> = {
     return (
       <div className={'h-screen'}>
         <div className={'flex flex-row justify-center items-center h-full'}>
-          <button className={'btn-gradient group w-[9.875rem] py-1.5 btn-size'} onClick={() => setIsOpen(true)}>
+          <button
+            className={'btn-gradient group w-[9.875rem] py-1.5 btn-size'}
+            onClick={() => {
+              setIsOpen(true)
+            }}
+          >
             <span className={'prose-label-sm-semi btn-label-gradient'}>Open Modal</span>
           </button>
         </div>
@@ -69,7 +74,12 @@ export const CloseDisabled: StoryObj<typeof Component> = {
     return (
       <div className={'h-screen'}>
         <div className={'flex flex-row justify-center items-center h-full'}>
-          <button onClick={() => setIsOpen(true)} className={'btn-gradient group w-[9.875rem] py-1.5 btn-size'}>
+          <button
+            onClick={() => {
+              setIsOpen(true)
+            }}
+            className={'btn-gradient group w-[9.875rem] py-1.5 btn-size'}
+          >
             <span className={'prose-label-sm-semi btn-label-gradient'}>Open Modal</span>
           </button>
         </div>
@@ -87,7 +97,12 @@ export const CloseAndBackDisabled: StoryObj<typeof Component> = {
     return (
       <div className={'h-screen'}>
         <div className={'flex flex-row justify-center items-center h-full'}>
-          <button onClick={() => setIsOpen(true)} className={'btn-gradient group w-[9.875rem] py-1.5 btn-size'}>
+          <button
+            onClick={() => {
+              setIsOpen(true)
+            }}
+            className={'btn-gradient group w-[9.875rem] py-1.5 btn-size'}
+          >
             <span className={'prose-label-sm-semi btn-label-gradient'}>Open Modal</span>
           </button>
         </div>
@@ -111,7 +126,12 @@ export const BackEnabled: StoryObj<typeof Component> = {
     return (
       <div className={'h-screen'}>
         <div className={'flex flex-row justify-center items-center h-full'}>
-          <button onClick={() => setIsOpen(true)} className={'btn-gradient group w-[9.875rem] py-1.5 btn-size'}>
+          <button
+            onClick={() => {
+              setIsOpen(true)
+            }}
+            className={'btn-gradient group w-[9.875rem] py-1.5 btn-size'}
+          >
             <span className={'prose-label-sm-semi btn-label-gradient'}>Open Modal</span>
           </button>
         </div>

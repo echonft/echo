@@ -92,10 +92,10 @@ export const OfferDetailsContractApprovalModal: FunctionComponent<Props> = ({
           onLoading={() => {
             setIsLoading(true)
           }}
-          onError={() => {
+          onError={(contract) => {
             setIsLoading(false)
             // restart the whole process
-            updateApprovalStatus(contractToApprove!.contract, undefined)
+            updateApprovalStatus(contract, undefined)
           }}
         />
       </div>

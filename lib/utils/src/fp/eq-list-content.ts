@@ -2,8 +2,8 @@ import { eqListContentWith } from '@echo/utils/fp/eq-list-content-with'
 import { equals, isNil } from 'ramda'
 
 function internalFn<T>(listA: T[]): (listB: T[]) => boolean {
-  return function (listB: T[]) {
-    return eqListContentWith(equals)(listA, listB)
+  return function (listB: T[]): boolean {
+    return eqListContentWith<T>(equals)(listA, listB)
   }
 }
 

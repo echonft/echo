@@ -40,7 +40,7 @@ export function useSWRTrigger<TResponse, TArgs>(args: UseSWRTriggerArgs<TRespons
         if (args.options?.debug) {
           pinoLogger.error(`error fetching from ${key}: ${errorMessage(error)}`)
         }
-        return errorCallback(assoc('show', show, onError ?? {}))(error)
+        errorCallback(assoc('show', show, onError ?? {}))(error)
       }
     }
   )

@@ -2,7 +2,6 @@ import { getThreadOnEchoChannel } from '@echo/bot/helpers/get-thread-on-echo-cha
 import { archiveOfferThread } from '@echo/bot/offer/archive-offer-thread'
 import { postEscrowMessageIfNeeded } from '@echo/bot/offer/post-escrow-message-if-needed'
 import { postOfferStateUpdate } from '@echo/bot/offer/post-offer-state-update'
-import { OFFER_UPDATE_KIND_STATE } from '@echo/firestore/constants/offer/offer-update-kinds'
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { getOfferThread } from '@echo/firestore/crud/offer-thread/get-offer-thread'
 import { addOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/add-offer-update-post'
@@ -47,16 +46,17 @@ export async function offerUpdateChangeHandler(
         )
         return
       }
-      if (update.update.kind === OFFER_UPDATE_KIND_STATE) {
-        await postOfferStateUpdate({ offer, offerThread, thread })
-        await addOfferUpdatePost(snapshot.id)
-        pinoLogger.info(`[OFFER ${offerId}] added offer update post to Firestore`)
-        if (offer.readOnly && !isNil(offerThread)) {
-          // Archive thread if both users don't have anything in escrow
-          await postEscrowMessageIfNeeded({ offer, offerThread, thread })
-          await archiveOfferThread({ offerThread, thread })
-        }
+      // we only have state updates for now
+      // if (update.update.kind === OFFER_UPDATE_KIND_STATE) {
+      await postOfferStateUpdate({ offer, offerThread, thread })
+      await addOfferUpdatePost(snapshot.id)
+      pinoLogger.info(`[OFFER ${offerId}] added offer update post to Firestore`)
+      if (offer.readOnly && !isNil(offerThread)) {
+        // Archive thread if both users don't have anything in escrow
+        await postEscrowMessageIfNeeded({ offer, offerThread, thread })
+        await archiveOfferThread({ offerThread, thread })
       }
+      // }
     } else {
       pinoLogger.info(`[OFFER ${offerId}] update post already exists, nothing to do`)
     }

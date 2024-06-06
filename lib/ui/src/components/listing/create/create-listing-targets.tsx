@@ -18,7 +18,7 @@ export const CreateListingTargets: FunctionComponent<Props> = ({
   onSelect
 }) => {
   if (readOnly) {
-    return <ListingDetailsTargetContainer target={target!} />
+    return <ListingDetailsTargetContainer target={target} />
   }
   return (
     <CreateListingTargetsSelection target={target} onQtyChange={onQtyChange} onRemove={onRemove} onSelect={onSelect} />

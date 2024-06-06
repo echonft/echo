@@ -19,7 +19,7 @@ jest.mock('@echo/bot/helpers/send-to-thread')
 describe('offer - postEscrowMessageIfNeeded', () => {
   const offer: Offer = offerMock[offerMockFromJohnnycageId()]!
   const offerThread = { offerId: offerMockFromJohnnycageId(), guild: { threadId: 'test' } } as unknown as OfferThread
-  const thread = {} as unknown as AnyThreadChannel<boolean>
+  const thread = {} as unknown as AnyThreadChannel
   const offerUpdate: OfferUpdate = {
     offerId: offerMockFromJohnnycageId(),
     update: {
@@ -49,32 +49,32 @@ describe('offer - postEscrowMessageIfNeeded', () => {
   it('if no escrow message are to be posted, sendToThread is not called', async () => {
     const openOffer = { ...offer, state: 'OPEN' } as Offer
     await postEscrowMessageIfNeeded({ offerThread, thread, offer: openOffer })
-    expect(sendToThread).not.toBeCalled()
+    expect(sendToThread).not.toHaveBeenCalled()
 
     const acceptedOffer = { ...offer, state: 'ACCEPTED' } as Offer
     await postEscrowMessageIfNeeded({ offerThread, thread, offer: acceptedOffer })
-    expect(sendToThread).not.toBeCalled()
+    expect(sendToThread).not.toHaveBeenCalled()
 
     const cancelledOffer = { ...offer, state: 'CANCELLED' } as Offer
     await postEscrowMessageIfNeeded({ offerThread, thread, offer: cancelledOffer })
-    expect(sendToThread).not.toBeCalled()
+    expect(sendToThread).not.toHaveBeenCalled()
 
     await postEscrowMessageIfNeeded({ offerThread, thread, offer })
-    expect(sendToThread).not.toBeCalled()
+    expect(sendToThread).not.toHaveBeenCalled()
   })
 
   it('if one user is in escrow and offer is rejected, sendToThread is called once and getUserDiscordId once', async () => {
     const rejectedOffer = { ...offer, state: 'REJECTED' } as Offer
     await postEscrowMessageIfNeeded({ offerThread, thread, offer: rejectedOffer })
-    expect(sendToThread).toBeCalledTimes(1)
-    expect(getUserByUsername).toBeCalledTimes(1)
+    expect(sendToThread).toHaveBeenCalledTimes(1)
+    expect(getUserByUsername).toHaveBeenCalledTimes(1)
   })
 
   it('if one user is in escrow and offer is expired, sendToThread is called once and getUserDiscordId once', async () => {
     const expiredOffer = { ...offer, state: 'EXPIRED' } as Offer
     await postEscrowMessageIfNeeded({ offerThread, thread, offer: expiredOffer })
-    expect(sendToThread).toBeCalledTimes(1)
-    expect(getUserByUsername).toBeCalledTimes(1)
+    expect(sendToThread).toHaveBeenCalledTimes(1)
+    expect(getUserByUsername).toHaveBeenCalledTimes(1)
   })
 
   it('if both users are in escrow and offer is expired, sendToThread is called once and getUserDiscordId twice', async () => {
@@ -83,8 +83,8 @@ describe('offer - postEscrowMessageIfNeeded', () => {
       .mocked(getOfferUpdatesByOfferId)
       .mockResolvedValueOnce([offerUpdate, assocPath(['update', 'args', 'state'], 'ACCEPTED', offerUpdate)])
     await postEscrowMessageIfNeeded({ offerThread, thread, offer: expiredOffer })
-    expect(sendToThread).toBeCalledTimes(1)
-    expect(getUserByUsername).toBeCalledTimes(2)
+    expect(sendToThread).toHaveBeenCalledTimes(1)
+    expect(getUserByUsername).toHaveBeenCalledTimes(2)
   })
 
   it('if both users are in escrow and offer is rejected, sendToThread is called once and getUserDiscordId twice', async () => {
@@ -93,7 +93,7 @@ describe('offer - postEscrowMessageIfNeeded', () => {
       .mocked(getOfferUpdatesByOfferId)
       .mockResolvedValueOnce([offerUpdate, assocPath(['update', 'args', 'state'], 'ACCEPTED', offerUpdate)])
     await postEscrowMessageIfNeeded({ offerThread, thread, offer: rejectedOffer })
-    expect(sendToThread).toBeCalledTimes(1)
-    expect(getUserByUsername).toBeCalledTimes(2)
+    expect(sendToThread).toHaveBeenCalledTimes(1)
+    expect(getUserByUsername).toHaveBeenCalledTimes(2)
   })
 })
