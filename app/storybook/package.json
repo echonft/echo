@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "storybook build --test",
-    "clean": "rm -rf .storybook",
+    "clean": "rm -rf storybook-static",
     "dev": "storybook dev -p 6006",
     "lint": "eslint",
     "modules:remove": "rm -rf node_modules",
