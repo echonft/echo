@@ -2,7 +2,7 @@ import { linkProvider } from '@echo/api/routing/link-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { PICTURE_SIZE_XL } from '@echo/ui/constants/picture-size'
 import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
-import { addPictureSizeToUrl } from '@echo/ui/helpers/add-picture-size-to-url'
+import { addPictureSize } from '@echo/ui/helpers/add-picture-size'
 import { themeExtension } from '@echo/ui/helpers/theme/theme'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
@@ -19,7 +19,7 @@ interface Props {
 
 export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, name, swapsCount, size }) => {
   const t = useTranslations('collection')
-  const url = addPictureSizeToUrl(pictureUrl, PICTURE_SIZE_XL)
+  const url = addPictureSize({ src: pictureUrl ?? '', width: PICTURE_SIZE_XL })
   return (
     <InternalLink path={linkProvider.collection.items.get({ slug })}>
       <div

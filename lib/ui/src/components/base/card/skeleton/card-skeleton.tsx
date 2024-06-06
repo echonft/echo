@@ -10,6 +10,8 @@ interface Props {
   variant?: CardVariant
 }
 
+// TODO Probably the skeleton card could be better. It could maybe include a separation for the image
+// and a loading user tag and state tag.
 export const CardSkeleton: FunctionComponent<Props> = ({ variant }) => {
   return (
     <CardLayout loading={true}>

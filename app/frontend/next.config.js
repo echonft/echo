@@ -9,8 +9,7 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**'
       }
-    ],
-    unoptimized: true
+    ]
   },
   swcMinify: true,
   transpilePackages: [

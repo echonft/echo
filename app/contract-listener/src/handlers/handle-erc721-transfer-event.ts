@@ -37,7 +37,7 @@ export async function handleErc721TransferEvent(args: EventLogHandlerArgs<Erc721
     // Process swap
   } else {
     await guardAsyncFn({ fn: processSwapTransfer })(
-      transferData as Omit<TransferData, 'to'> & { to: WalletDocumentData }
+      transferData as Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>
     )
   }
 }

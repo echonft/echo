@@ -2,14 +2,16 @@
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "build": {
-      "dependsOn": ["clean", "^build"]
+      "dependsOn": ["clean", "^build"],
+      "passThroughEnv": ["NODE_ENV"]
     },
     "clean": {
       "cache": false
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "passThroughEnv": ["NODE_ENV"]
     },
     "dev:testnet": {
       "cache": false,
