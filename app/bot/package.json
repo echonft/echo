@@ -11,6 +11,8 @@
     "dev": "source .env.keys; dotenvx run --env-file=.env.dev -- tsx watch src/index.ts",
     "env:pull": "dotenvx hub pull",
     "lint": "eslint -c .eslintrc.js --ext .ts .",
+    "machine:restart:dev": ".fly/restart-machine.sh dev",
+    "machine:restart:prod": ".fly/restart-machine.sh prod",
     "modules:remove": "rm -rf node_modules",
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",

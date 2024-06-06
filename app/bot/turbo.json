@@ -11,6 +11,12 @@
     },
     "deploy:prod": {
       "cache": false
+    },
+    "machine:restart:dev": {
+      "cache": false
+    },
+    "machine:restart:prod": {
+      "cache": false
     }
   }
 }

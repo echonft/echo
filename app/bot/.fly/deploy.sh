@@ -14,4 +14,4 @@ git_sha=$(git rev-parse --short HEAD)
 id="${app}:${git_sha}"
 docker buildx build --platform=linux/amd64 --target=bot -t registry.fly.io/${id} ${dir}/../../../
 docker push registry.fly.io/${id}
-flyctl deploy -i registry.fly.io/${id} --local-only --app=${app} --only-machines=${machine_id} --image-label=${git_sha} --label="version=${git_sha}"
+flyctl deploy -i registry.fly.io/${id} --local-only --app=${app} --only-machines=${machine_id} --image-label=${git_sha}
