@@ -31,9 +31,6 @@ const config: StorybookConfig = {
     name: getAbsolutePath('@storybook/nextjs'),
     options: {
       builder: {},
-      image: {
-        unoptimized: true
-      },
       nextConfigPath: path.resolve(__dirname, '../../frontend/next.config.js')
     }
   },

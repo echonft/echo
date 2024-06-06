@@ -1,10 +1,8 @@
 'use client'
 import { ImagePlaceholder } from '@echo/ui/components/base/image-placeholder'
-import { PICTURE_SIZE_LG } from '@echo/ui/constants/picture-size'
-import { addPictureSizeToUrl } from '@echo/ui/helpers/add-picture-size-to-url'
+import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
-import Image from 'next/image'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
@@ -16,10 +14,9 @@ interface Props {
 export const CardImage: FunctionComponent<Props> = ({ alt, src, scaleDisabled }) => {
   // TODO add error
   const [loaded, setLoaded] = useState(false)
-
   return (
     <div className={clsx('rounded-2xl', 'w-[12.5rem]', 'h-[12.5rem]')}>
-      <Image
+      <SizeableImage
         className={clsx(
           'select-none',
           'rounded-2xl',
@@ -33,9 +30,8 @@ export const CardImage: FunctionComponent<Props> = ({ alt, src, scaleDisabled })
         width={200}
         height={200}
         crossOrigin={'anonymous'}
-        unoptimized={true}
         alt={alt}
-        src={addPictureSizeToUrl(src, PICTURE_SIZE_LG)}
+        src={src}
         onLoad={() => {
           setLoaded(true)
         }}

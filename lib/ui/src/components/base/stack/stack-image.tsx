@@ -1,5 +1,5 @@
+import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
 import { clsx } from 'clsx'
-import Image from 'next/image'
 import type { FunctionComponent } from 'react'
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 export const StackImage: FunctionComponent<Props> = ({ alt, src, scaleDisabled }) => {
   return (
-    <Image
+    <SizeableImage
       className={clsx(
         'select-none',
         'rounded-2xl',
@@ -24,7 +24,6 @@ export const StackImage: FunctionComponent<Props> = ({ alt, src, scaleDisabled }
       width={202}
       height={202}
       crossOrigin={'anonymous'}
-      unoptimized={true}
       alt={alt}
       src={src}
     />
