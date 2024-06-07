@@ -30,8 +30,6 @@
   },
   "devDependencies": {
     "@types/ramda": "0.30.0",
-    "eslint-config-google": "0.14.0",
-    "globals": "15.3.0",
     "tsup": "8.1.0",
     "typescript": "5.4.5"
   }

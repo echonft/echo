@@ -1,5 +1,4 @@
 // @ts-check
-
 import nextIntl from 'next-intl/plugin'
 import { withSentryConfig } from '@sentry/nextjs'
 
