@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getOfferMock } from '@echo/model-mocks/offer/get-offer-mock'
+import { getOfferMock } from '@echo/model/mocks/offer/get-offer-mock'
 import { OfferDetailsContractApprovalModal as Component } from '@echo/ui/components/offer/details/offer-details-contract-approval-modal'
 import type { Meta, StoryObj } from '@storybook/react'
 import { useTranslations } from 'next-intl'

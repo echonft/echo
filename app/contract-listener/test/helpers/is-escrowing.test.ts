@@ -1,5 +1,5 @@
 import { isEscrowing } from '@echo/contract-listener/helpers/is-escrowing'
-import { walletMockJohnnyAddress } from '@echo/model-mocks/wallet/wallet-mock'
+import { walletMockJohnnyAddress } from '@echo/model/mocks/wallet/wallet-mock'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { getEchoAddressByChain } from '@echo/web3/helpers/get-echo-address-by-chain'
 import { describe, expect, it } from '@jest/globals'

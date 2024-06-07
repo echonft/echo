@@ -9,10 +9,7 @@ import type { AnyThreadChannel } from 'discord.js'
 import i18next from 'i18next'
 import { isNil } from 'ramda'
 
-export async function archiveOfferThread(args: {
-  offerThread: OfferThread
-  thread: AnyThreadChannel<boolean> | undefined
-}) {
+export async function archiveOfferThread(args: { offerThread: OfferThread; thread: AnyThreadChannel | undefined }) {
   const { offerThread, thread } = args
   if (!isNil(thread)) {
     await sendToThread(thread, {

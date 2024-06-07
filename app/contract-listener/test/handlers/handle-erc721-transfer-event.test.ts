@@ -5,8 +5,8 @@ import { processOutTransfer } from '@echo/contract-listener/helpers/process-out-
 import { processSwapTransfer } from '@echo/contract-listener/helpers/process-swap-transfer'
 import type { EventLogHandlerArgs } from '@echo/contract-listener/types/event-log-handler-args'
 import { getWalletByAddress } from '@echo/firestore/crud/wallet/get-wallet-by-address'
-import { getWalletDocumentDataMockById } from '@echo/firestore-mocks/wallet/get-wallet-document-data-mock-by-id'
-import { walletMockCrewAddress, walletMockJohnnyAddress } from '@echo/model-mocks/wallet/wallet-mock'
+import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
+import { walletMockCrewAddress, walletMockJohnnyAddress } from '@echo/model/mocks/wallet/wallet-mock'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { getEchoAddressByChain } from '@echo/web3/helpers/get-echo-address-by-chain'
@@ -67,16 +67,16 @@ describe('parsers - handleErc721TransferEvent', () => {
       assocPath(['log', 'args', 'to'], johnnyAddress)
     )(initialArgs)
     await handleErc721TransferEvent(args)
-    expect(processEscrowTransferMock).toBeCalledWith({
+    expect(processEscrowTransferMock).toHaveBeenCalledWith({
       from: getEchoAddressByChain(chain),
       to: johnnyAddress,
       tokenId,
       contractAddress,
       chain
     })
-    expect(processInTransferMock).not.toBeCalled()
-    expect(processOutTransferMock).not.toBeCalled()
-    expect(processSwapTransferMock).not.toBeCalled()
+    expect(processInTransferMock).not.toHaveBeenCalled()
+    expect(processOutTransferMock).not.toHaveBeenCalled()
+    expect(processSwapTransferMock).not.toHaveBeenCalled()
   })
 
   it('should process escrow IN transaction', async () => {
@@ -89,16 +89,16 @@ describe('parsers - handleErc721TransferEvent', () => {
       assocPath(['log', 'args', 'from'], johnnyAddress)
     )(initialArgs)
     await handleErc721TransferEvent(args)
-    expect(processEscrowTransferMock).toBeCalledWith({
+    expect(processEscrowTransferMock).toHaveBeenCalledWith({
       from: johnnyAddress,
       to: getEchoAddressByChain(chain),
       tokenId,
       contractAddress,
       chain
     })
-    expect(processInTransferMock).not.toBeCalled()
-    expect(processOutTransferMock).not.toBeCalled()
-    expect(processSwapTransferMock).not.toBeCalled()
+    expect(processInTransferMock).not.toHaveBeenCalled()
+    expect(processOutTransferMock).not.toHaveBeenCalled()
+    expect(processSwapTransferMock).not.toHaveBeenCalled()
   })
 
   it('should process out transfer if to is nil', async () => {
@@ -111,14 +111,14 @@ describe('parsers - handleErc721TransferEvent', () => {
       assocPath(['log', 'args', 'from'], johnnyAddress)
     )(initialArgs)
     await handleErc721TransferEvent(args)
-    expect(processOutTransferMock).toBeCalledWith({
+    expect(processOutTransferMock).toHaveBeenCalledWith({
       from: getWalletDocumentDataMockById('i28NWtlxElPXCnO0c6BC'),
       to: undefined,
       tokenId,
       contractAddress,
       chain
     })
-    expect(processSwapTransferMock).not.toBeCalled()
+    expect(processSwapTransferMock).not.toHaveBeenCalled()
   })
 
   it('should process in transfer if from is nil', async () => {
@@ -131,14 +131,14 @@ describe('parsers - handleErc721TransferEvent', () => {
       assocPath(['log', 'args', 'to'], johnnyAddress)
     )(initialArgs)
     await handleErc721TransferEvent(args)
-    expect(processInTransferMock).toBeCalledWith({
+    expect(processInTransferMock).toHaveBeenCalledWith({
       from: undefined,
       to: getWalletDocumentDataMockById('i28NWtlxElPXCnO0c6BC'),
       tokenId,
       contractAddress,
       chain
     })
-    expect(processSwapTransferMock).not.toBeCalled()
+    expect(processSwapTransferMock).not.toHaveBeenCalled()
   })
 
   it('should process swap transfer if both addresses are in our db', async () => {
@@ -151,7 +151,7 @@ describe('parsers - handleErc721TransferEvent', () => {
       assocPath(['log', 'args', 'to'], johnnyAddress)
     )(initialArgs)
     await handleErc721TransferEvent(args)
-    expect(processSwapTransferMock).toBeCalledWith({
+    expect(processSwapTransferMock).toHaveBeenCalledWith({
       from: getWalletDocumentDataMockById('h6oTcucifUZtxI2ZbqrS'),
       to: getWalletDocumentDataMockById('i28NWtlxElPXCnO0c6BC'),
       tokenId,
@@ -170,9 +170,9 @@ describe('parsers - handleErc721TransferEvent', () => {
       assocPath(['log', 'args', 'to'], randomAddress)
     )(initialArgs)
     await handleErc721TransferEvent(args)
-    expect(processEscrowTransferMock).not.toBeCalled()
-    expect(processInTransferMock).not.toBeCalled()
-    expect(processOutTransferMock).not.toBeCalled()
-    expect(processSwapTransferMock).not.toBeCalled()
+    expect(processEscrowTransferMock).not.toHaveBeenCalled()
+    expect(processInTransferMock).not.toHaveBeenCalled()
+    expect(processOutTransferMock).not.toHaveBeenCalled()
+    expect(processSwapTransferMock).not.toHaveBeenCalled()
   })
 })

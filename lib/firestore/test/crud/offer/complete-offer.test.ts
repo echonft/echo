@@ -1,22 +1,27 @@
+import { assertCollectionSwapsCounts } from '@echo/firestore/utils/collection-swaps-count/assert-collection-swaps-counts'
+import { getCollectionSwapsCountByCollectionId } from '@echo/firestore/crud/collection-swaps-count/get-collection-swaps-count-by-collection-id'
+import { getCollectionSwapsCountByCollectionSlug } from '@echo/firestore/crud/collection-swaps-count/get-collection-swaps-count-by-collection-slug'
+import { unchecked_updateCollectionSwapCounts } from '@echo/firestore/utils/collection-swaps-count/unchecked_update-collection-swap-counts'
+import { unchecked_updateListing } from '@echo/firestore/utils/listing/unchecked_update-listing'
+import { assertNfts } from '@echo/firestore/utils/nft/assert-nfts'
+import { unchecked_updateNft } from '@echo/firestore/utils/nft/unchecked_update-nft'
+import { deleteOfferUpdate } from '@echo/firestore/crud/offer-update/delete-offer-update'
+import { assertOffers } from '@echo/firestore/utils/offer/assert-offers'
+import { unchecked_updateOffer } from '@echo/firestore/utils/offer/unchecked_update-offer'
+import { assertSwaps } from '@echo/firestore/utils/swap/assert-swaps'
+import { deleteSwap } from '@echo/firestore/crud/swap/delete-swap'
 import { OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } from '@echo/firestore/constants/offer/offer-state-update-trigger-by-system'
 import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
+import { getOfferStateUpdateSnapshot } from '@echo/firestore/crud/offer-update/get-offer-state-update'
 import { completeOffer, type CompleteOfferArgs } from '@echo/firestore/crud/offer/complete-offer'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
-import { getOfferStateUpdateSnapshot } from '@echo/firestore/crud/offer-update/get-offer-state-update'
 import { getSwapSnapshot } from '@echo/firestore/crud/swap/get-swap'
 import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
-import { assertCollectionSwapsCounts } from '@echo/firestore-test/collection-swaps-count/assert-collection-swaps-counts'
-import { getCollectionSwapsCountByCollectionId } from '@echo/firestore-test/collection-swaps-count/get-collection-swaps-count-by-collection-id'
-import { getCollectionSwapsCountByCollectionSlug } from '@echo/firestore-test/collection-swaps-count/get-collection-swaps-count-by-collection-slug'
-import { unchecked_updateCollectionSwapCounts } from '@echo/firestore-test/collection-swaps-count/unchecked_update-collection-swap-counts'
-import { unchecked_updateListing } from '@echo/firestore-test/listing/unchecked_update-listing'
-import { assertNfts } from '@echo/firestore-test/nft/assert-nfts'
-import { unchecked_updateNft } from '@echo/firestore-test/nft/unchecked_update-nft'
-import { assertOffers } from '@echo/firestore-test/offer/assert-offers'
-import { unchecked_updateOffer } from '@echo/firestore-test/offer/unchecked_update-offer'
-import { deleteOfferUpdate } from '@echo/firestore-test/offer-update/delete-offer-update'
-import { assertSwaps } from '@echo/firestore-test/swap/assert-swaps'
-import { deleteSwap } from '@echo/firestore-test/swap/delete-swap'
+import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
+import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
+import { getNftMockByIndex } from '@echo/model/mocks/nft/get-nft-mock-by-index'
+import { getOfferMockBySlug } from '@echo/model/mocks/offer/get-offer-mock-by-slug'
+import { offerMockToJohnnycageId, offerMockToJohnnycageSlug } from '@echo/model/mocks/offer/offer-mock'
 import { LISTING_STATE_PARTIALLY_FULFILLED } from '@echo/model/constants/listing-states'
 import {
   OFFER_STATE_ACCEPTED,
@@ -30,19 +35,14 @@ import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nf
 import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
 import { getOfferItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-items-collection-slugs'
 import type { NftIndex } from '@echo/model/types/nft-index'
-import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
-import { listingMockId } from '@echo/model-mocks/listing/listing-mock'
-import { getNftMockByIndex } from '@echo/model-mocks/nft/get-nft-mock-by-index'
-import { getOfferMockBySlug } from '@echo/model-mocks/offer/get-offer-mock-by-slug'
-import { offerMockToJohnnycageId, offerMockToJohnnycageSlug } from '@echo/model-mocks/offer/offer-mock'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { futureDate } from '@echo/utils/helpers/future-date'
 import { pastDate } from '@echo/utils/helpers/past-date'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import dayjs from 'dayjs'
 import { andThen, assoc, find, isEmpty, isNil, map, pipe, prop, propEq, reject } from 'ramda'
 
 describe('CRUD - offer - completeOffer', () => {
@@ -198,11 +198,13 @@ describe('CRUD - offer - completeOffer', () => {
     expect(stateUpdateSnapshot).toBeDefined()
     // check updated offer
     expect(updatedOffer.state).toEqual(OFFER_STATE_COMPLETED)
-    expectDateNumberIsNow(updatedOffer.updatedAt)
+    expect(dayjs.unix(updatedOffer.updatedAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
+    expect(dayjs.unix(updatedOffer.updatedAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
     // check swap
     expect(swap.offerId).toStrictEqual(offerId)
     expect(swap.transactionId).toStrictEqual(args.transactionId)
-    expectDateNumberIsNow(swap.createdAt)
+    expect(dayjs.unix(swap.createdAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
+    expect(dayjs.unix(swap.createdAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
     // check if the listing state was updated properly
     expect(updatedListing.state).toBe(LISTING_STATE_PARTIALLY_FULFILLED)
     // check the swaps counts

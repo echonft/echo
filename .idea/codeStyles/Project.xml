@@ -1,0 +1,43 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <CssCodeStyleSettings>
+      <option name="BLANK_LINES_BETWEEN_BLOCKS" value="0" />
+      <option name="BLANK_LINES_AROUND_NESTED_SELECTOR" value="0" />
+    </CssCodeStyleSettings>
+    <TypeScriptCodeStyleSettings version="0">
+      <option name="USE_SEMICOLON_AFTER_STATEMENT" value="false" />
+      <option name="USE_DOUBLE_QUOTES" value="false" />
+      <option name="ENFORCE_TRAILING_COMMA" value="Remove" />
+      <option name="SPACES_WITHIN_IMPORTS" value="true" />
+      <option name="BLANK_LINES_AROUND_FUNCTION" value="0" />
+      <option name="IMPORT_SORT_MODULE_NAME" value="true" />
+    </TypeScriptCodeStyleSettings>
+    <codeStyleSettings language="CSS">
+      <option name="KEEP_BLANK_LINES_IN_CODE" value="0" />
+    </codeStyleSettings>
+    <codeStyleSettings language="JavaScript">
+      <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
+      <option name="WRAP_ON_TYPING" value="1" />
+      <indentOptions>
+        <option name="INDENT_SIZE" value="2" />
+        <option name="CONTINUATION_INDENT_SIZE" value="2" />
+        <option name="TAB_SIZE" value="2" />
+        <option name="KEEP_INDENTS_ON_EMPTY_LINES" value="true" />
+      </indentOptions>
+    </codeStyleSettings>
+    <codeStyleSettings language="TypeScript">
+      <option name="BLANK_LINES_AROUND_METHOD" value="0" />
+      <option name="BLANK_LINES_AROUND_METHOD_IN_INTERFACE" value="0" />
+      <option name="ALIGN_MULTILINE_PARAMETERS" value="false" />
+      <option name="ALIGN_MULTILINE_FOR" value="false" />
+      <option name="CALL_PARAMETERS_WRAP" value="1" />
+      <option name="METHOD_PARAMETERS_WRAP" value="1" />
+      <option name="METHOD_CALL_CHAIN_WRAP" value="2" />
+      <indentOptions>
+        <option name="INDENT_SIZE" value="2" />
+        <option name="CONTINUATION_INDENT_SIZE" value="2" />
+        <option name="TAB_SIZE" value="2" />
+      </indentOptions>
+    </codeStyleSettings>
+  </code_scheme>
+</component>

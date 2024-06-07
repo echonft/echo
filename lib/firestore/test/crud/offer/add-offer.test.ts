@@ -1,39 +1,37 @@
-import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
+import { assertListingOffers } from '@echo/firestore/utils/listing-offer/assert-listing-offers'
+import { deleteListingOffer } from '@echo/firestore/crud/listing-offer/delete-listing-offer'
+import { unchecked_updateListing } from '@echo/firestore/utils/listing/unchecked_update-listing'
+import { assertOffers } from '@echo/firestore/utils/offer/assert-offers'
+import { deleteOffer } from '@echo/firestore/crud/offer/delete-offer'
+import { getAllOffers } from '@echo/firestore/crud/offer/get-all-offers'
 import { getListingOfferSnapshot } from '@echo/firestore/crud/listing-offer/get-listing-offer'
 import { getListingOffersByOfferId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-offer-id'
 import { getListingOffersForOffer } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-offer'
+import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
 import { addOffer } from '@echo/firestore/crud/offer/add-offer'
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { assertOfferIsNotADuplicate } from '@echo/firestore/helpers/offer/assert/assert-offer-is-not-a-duplicate'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
-import { unchecked_updateListing } from '@echo/firestore-test/listing/unchecked_update-listing'
-import { assertListingOffers } from '@echo/firestore-test/listing-offer/assert-listing-offers'
-import { deleteListingOffer } from '@echo/firestore-test/listing-offer/delete-listing-offer'
-import { assertOffers } from '@echo/firestore-test/offer/assert-offers'
-import { deleteOffer } from '@echo/firestore-test/offer/delete-offer'
-import { getAllOffers } from '@echo/firestore-test/offer/get-all-offers'
+import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
+import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
+import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
+import { nftMockPxCrewId, nftMockSpiralJohnny2Id, nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
+import { getAllOfferMocks } from '@echo/model/mocks/offer/get-all-offer-mocks'
+import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
+import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
+import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
 import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import type { BaseOffer } from '@echo/model/types/base-offer'
 import type { Nft } from '@echo/model/types/nft'
-import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
-import { listingMockId } from '@echo/model-mocks/listing/listing-mock'
-import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
-import { nftMockPxCrewId, nftMockSpiralJohnny2Id, nftMockSpiralJohnnyId } from '@echo/model-mocks/nft/nft-mock'
-import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
-import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
-import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
+import type { Offer } from '@echo/model/types/offer'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { expectDateNumberIs } from '@echo/utils-test/expect-date-number-is'
-import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
-import { head, isNil, pick, pipe } from 'ramda'
+import { head, isNil, type NonEmptyArray, pick, pipe } from 'ramda'
 
 describe('CRUD - offer - addOffer', () => {
   const listingId = listingMockId()
@@ -109,16 +107,19 @@ describe('CRUD - offer - addOffer', () => {
     }
     const createdOffer = await addOffer(baseOffer, '0xTEST')
     createdOfferId = createdOffer.id
-    const newOffer = (await getOfferById(createdOfferId))!
+    const newOffer: Offer = (await getOfferById(createdOfferId))!
     expect(newOffer.receiver).toStrictEqual(getUserMockByUsername(userMockJohnnyUsername()))
     expect(eqListContent(newOffer.receiverItems, receiverItems)).toBeTruthy()
-    expectDateNumberIsNow(newOffer.createdAt)
+    expect(dayjs.unix(newOffer.createdAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
+    expect(dayjs.unix(newOffer.createdAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
     expect(newOffer.sender).toStrictEqual(getUserMockByUsername(userMockCrewUsername()))
     expect(eqListContent(newOffer.senderItems, senderItems)).toBeTruthy()
     expect(newOffer.state).toBe(OFFER_STATE_OPEN)
     expect(newOffer.idContract).toBe('0xTEST')
-    expectDateNumberIsNow(newOffer.updatedAt)
-    expectDateNumberIs(newOffer.expiresAt)(expiresAt)
+    expect(dayjs.unix(newOffer.updatedAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
+    expect(dayjs.unix(newOffer.updatedAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
+    expect(dayjs.unix(newOffer.expiresAt).isAfter(expiresAt.subtract(1, 'minute'))).toBeTruthy()
+    expect(dayjs.unix(newOffer.expiresAt).isBefore(expiresAt.add(1, 'minute'))).toBeTruthy()
     // check if offer has been added to tied listings
     const listingOffers = await getListingOffersForOffer(newOffer)
     expect(listingOffers.length).toBe(1)

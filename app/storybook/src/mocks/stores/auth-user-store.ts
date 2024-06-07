@@ -1,4 +1,4 @@
-import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
+import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { User } from 'next-auth'
 import { assoc } from 'ramda'

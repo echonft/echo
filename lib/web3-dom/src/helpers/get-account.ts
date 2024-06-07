@@ -17,7 +17,7 @@ export function getAccount(onChange?: (account: AccountResult) => void): Account
   }
   const unsubscribe = watchAccount(wagmiConfig, {
     onChange: (account: GetAccountReturnType, _prevAccount: GetAccountReturnType) => {
-      return pipe(mapGetAccountReturnToAccountResult, onChange)(account)
+      pipe(mapGetAccountReturnToAccountResult, onChange)(account)
     }
   })
   onChange(account)

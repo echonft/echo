@@ -1,8 +1,8 @@
 import { archiveOfferThread } from '@echo/firestore/crud/offer-thread/archive-offer-thread'
 import { getOfferThread } from '@echo/firestore/crud/offer-thread/get-offer-thread'
-import { getOfferThreadMock } from '@echo/firestore-mocks/offer-thread/get-offer-thread-mock'
-import { assertOfferThreads } from '@echo/firestore-test/offer-thread/assert-offer-threads'
-import { unchecked_updateOfferThread } from '@echo/firestore-test/offer-thread/unchecked_update-offer-thread'
+import { getOfferThreadMock } from '@echo/firestore/mocks/offer-thread/get-offer-thread-mock'
+import { assertOfferThreads } from '@echo/firestore/utils/offer-thread/assert-offer-threads'
+import { unchecked_updateOfferThread } from '@echo/firestore/utils/offer-thread/unchecked_update-offer-thread'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { omit } from 'ramda'
 

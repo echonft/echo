@@ -1,7 +1,7 @@
 import { getCompletedOffersForUser } from '@echo/firestore/crud/offer/get-completed-offers-for-user'
-import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { offerMockFromJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
-import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
+import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
+import { offerMockFromJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
+import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - offer - getCompletedOffersForUser', () => {

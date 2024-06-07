@@ -7,22 +7,14 @@
       <sourceFolder url="file://$MODULE_DIR$/lib/api/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/lib/ui/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/lib/web3/test" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/app/bot/test/helpers" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/app/bot/test/listing" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/app/bot/test/offer" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/lib/firestore/test/converters" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/lib/firestore/test/crud" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/lib/firestore/test/helpers" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/lib/firestore/test/mappers" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/lib/model/test/helpers" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/lib/utils/test/fp" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/lib/utils/test/helpers" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/lib/web3-dom/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/lib/opensea/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/app/bot/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/lib/nft-scan/test" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/lib/utils/test/validators" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/app/contract-listener/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/firestore/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/model/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/utils/test" isTestSource="true" />
       <excludePattern pattern=".coverage" />
       <excludePattern pattern=".eslintcache" />
       <excludePattern pattern=".idea" />

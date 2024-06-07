@@ -1,20 +1,19 @@
 import { type CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import { type OfferResponse } from '@echo/api/types/responses/offer-response'
+import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
 import { addOffer } from '@echo/firestore/crud/offer/add-offer'
-import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
-import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
 import { getEscrowedNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-escrowed-nfts-from-indexes'
 import { getNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-nfts-from-indexes'
 import { createOfferRequestHandler } from '@echo/frontend/lib/request-handlers/offer/create-offer-request-handler'
-import { mockRequest } from '@echo/frontend-mocks/mock-request'
+import { mockRequest } from '@echo/frontend/mocks/mock-request'
+import { getNftMockByIndex } from '@echo/model/mocks/nft/get-nft-mock-by-index'
+import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
+import { offerMockFromJohnnycageId, offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
+import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
 import type { Nft } from '@echo/model/types/nft'
 import type { NftIndex } from '@echo/model/types/nft-index'
-import { getNftMockByIndex } from '@echo/model-mocks/nft/get-nft-mock-by-index'
-import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { offerMockFromJohnnycageId, offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
-import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { toPromise } from '@echo/utils/fp/to-promise'
 import { futureDate } from '@echo/utils/helpers/future-date'
 import { generateOfferId } from '@echo/web3/helpers/generate-offer-id'
@@ -44,12 +43,7 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
 
   it('throws if the request cannot be parsed', async () => {
     const req = mockRequest<CreateOfferRequest>({} as CreateOfferRequest)
-    try {
-      await createOfferRequestHandler(user, req)
-      expect(true).toBeFalsy()
-    } catch (e) {
-      expect((e as ApiError).status).toBe(400)
-    }
+    await expect(() => createOfferRequestHandler(user, req)).rejects.toHaveProperty('status', 400)
   })
 
   it('throws if the receiver is not the owner of every items', async () => {
@@ -61,12 +55,7 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
       listingOffers: []
     })
     const req = mockRequest<CreateOfferRequest>(request)
-    try {
-      await createOfferRequestHandler(user, req)
-      expect(true).toBeFalsy()
-    } catch (e) {
-      expect((e as ApiError).status).toBe(403)
-    }
+    await expect(() => createOfferRequestHandler(user, req)).rejects.toHaveProperty('status', 403)
   })
 
   it('throws if the sender is not the owner of every item', async () => {
@@ -81,12 +70,7 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
       listingOffers: []
     })
     const req = mockRequest<CreateOfferRequest>(request)
-    try {
-      await createOfferRequestHandler(user, req)
-      expect(true).toBeFalsy()
-    } catch (e) {
-      expect((e as ApiError).status).toBe(403)
-    }
+    await expect(() => createOfferRequestHandler(user, req)).rejects.toHaveProperty('status', 403)
   })
 
   it('returns a 200 if the user is authenticated and both sender and receiver have a wallet', async () => {

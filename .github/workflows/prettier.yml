@@ -19,30 +19,30 @@ jobs:
           version: latest
           run_install: true
       - name: bot prettier
-        run: pnpm exec turbo run prettier:ci --filter=@echo/bot
+        run: pnpm exec turbo run prettier --filter=@echo/bot -- --log-level=silent
       - name: frontend prettier
-        run: pnpm exec turbo run prettier:ci --filter=@echo/frontend
+        run: pnpm exec turbo run prettier --filter=@echo/frontend -- --log-level=silent
       - name: storybook prettier
-        run: pnpm exec turbo run prettier:ci --filter=@echo/storybook
+        run: pnpm exec turbo run prettier --filter=@echo/storybook -- --log-level=silent
       - name: api prettier
-        run: pnpm exec turbo run prettier:ci --filter=@echo/api
+        run: pnpm exec turbo run prettier --filter=@echo/api -- --log-level=silent
       - name: contract-listener prettier
-        run: pnpm exec turbo run prettier:ci --filter=@echo/contract-listener
+        run: pnpm exec turbo run prettier --filter=@echo/contract-listener -- --log-level=silent
       - name: firestore prettier
-        run: pnpm exec turbo run prettier:ci --filter=@echo/firestore
+        run: pnpm exec turbo run prettier --filter=@echo/firestore -- --log-level=silent
       - name: firestore-functions prettier
-        run: pnpm exec turbo run prettier:ci --filter=@echo/firestore-functions
+        run: pnpm exec turbo run prettier --filter=@echo/firestore-functions -- --log-level=silent
       - name: model prettier
-        run: pnpm exec turbo run prettier:ci --filter=@echo/model
+        run: pnpm exec turbo run prettier --filter=@echo/model -- --log-level=silent
+      - name: nft-scan prettier
+        run: pnpm exec turbo run prettier --filter=@echo/nft-scan -- --log-level=silent
       - name: opensea prettier
-        run: pnpm exec turbo run prettier:ci --filter=@echo/opensea
-      - name: sentry prettier
-        run: pnpm exec turbo run prettier:ci --filter=@echo/sentry
+        run: pnpm exec turbo run prettier --filter=@echo/opensea -- --log-level=silent
       - name: ui prettier
-        run: pnpm exec turbo run prettier:ci --filter=@echo/ui
+        run: pnpm exec turbo run prettier --filter=@echo/ui -- --log-level=silent
       - name: utils prettier
-        run: pnpm exec turbo run prettier:ci --filter=@echo/utils
+        run: pnpm exec turbo run prettier --filter=@echo/utils -- --log-level=silent
       - name: web3 prettier
-        run: pnpm exec turbo run prettier:ci --filter=@echo/web3
+        run: pnpm exec turbo run prettier --filter=@echo/web3 -- --log-level=silent
       - name: web3-dom prettier
-        run: pnpm exec turbo run prettier:ci --filter=@echo/web3-dom
+        run: pnpm exec turbo run prettier --filter=@echo/web3-dom -- --log-level=silent

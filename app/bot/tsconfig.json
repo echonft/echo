@@ -1,13 +1,5 @@
 {
-  "extends": "../../lib/tsconfig/tsconfig.dom.json",
-  "ts-node": {
-    "require": ["tsconfig-paths/register"],
-    "transpileOnly": true,
-    "compilerOptions": {
-      "moduleResolution": "node",
-      "module": "commonjs"
-    }
-  },
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
     "baseUrl": ".",
@@ -15,15 +7,10 @@
       "@echo/api/*": ["../../lib/api/src/*"],
       "@echo/bot/*": ["./src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
-      "@echo/model-mocks/*": ["../../lib/model/test/@mocks/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
-      "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
-      "@echo/sentry/*": ["../../lib/sentry/src/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"]
     },
     "noEmit": false,
-    "sourceMap": true,
-    "inlineSources": true,
     // Set `sourceRoot` to  "/" to strip the build path prefix
     // from generated source code references.
     // This improves issue grouping in Sentry.

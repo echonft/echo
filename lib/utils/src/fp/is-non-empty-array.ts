@@ -1,5 +1,4 @@
-import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
-import { isEmpty } from 'ramda'
+import { isEmpty, type NonEmptyArray } from 'ramda'
 
 /**
  * Function that asserts that an array is not empty

@@ -1,7 +1,7 @@
 import { modifyPropName } from '@echo/utils/fp/modify-prop-name'
 import { describe, expect, it } from '@jest/globals'
 
-describe('', () => {
+describe('fp - modifyPropName', () => {
   it('modifies the prop if the prop is undefined', () => {
     const obj = {
       a: 1,

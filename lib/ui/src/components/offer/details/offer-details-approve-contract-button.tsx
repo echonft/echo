@@ -13,8 +13,8 @@ import type { FunctionComponent } from 'react'
 interface Props {
   contract: Wallet
   onApproved?: (contract: Wallet, approved: boolean) => unknown
-  onError?: EmptyFunction
   onLoading?: EmptyFunction
+  onError?: (contract: Wallet) => void
 }
 
 export const OfferDetailsApproveContractButton: FunctionComponent<Props> = ({
@@ -31,7 +31,11 @@ export const OfferDetailsApproveContractButton: FunctionComponent<Props> = ({
     onSuccess: () => {
       onApproved?.(contract, true)
     },
-    onError: { onError }
+    onError: {
+      onError: () => {
+        onError?.(contract)
+      }
+    }
   })
 
   return (

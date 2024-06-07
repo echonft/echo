@@ -4,4 +4,5 @@ import type { NftIndex } from '@echo/model/types/nft-index'
 export interface CreateListingRequest {
   items: NftIndex[]
   target: ListingTargetRequest
+  expiresAt: number
 }

@@ -142,6 +142,13 @@ export const messages = {
         search: {
           placeHolder: 'Search for collections'
         }
+      },
+      expiration: {
+        title: 'One <yellow>last step</yellow>\n before we create the listing!',
+        subtitle: 'Set the expiration date to:',
+        selector: '{count} {count, plural, =1 { Day} other { Days}}',
+        finalizeBtn: 'Finalize Listing',
+        editBtn: 'Edit'
       }
     },
     details: {

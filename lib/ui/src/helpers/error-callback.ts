@@ -13,7 +13,7 @@ export interface ErrorCallback extends CaptureContext {
   onError?: EmptyFunction
 }
 interface OnErrorArgs extends ErrorCallback {
-  error: Error
+  error: unknown
 }
 function onError(args: OnErrorArgs) {
   const { alert, show, onError, error } = args
@@ -38,7 +38,7 @@ function onError(args: OnErrorArgs) {
 }
 
 export function errorCallback(args?: ErrorCallback) {
-  return function (err: Error) {
+  return function (err: unknown) {
     onError(assoc('error', err, args ?? {}))
   }
 }

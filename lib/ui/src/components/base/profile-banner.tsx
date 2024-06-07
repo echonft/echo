@@ -1,6 +1,6 @@
 import { DEFAULT_BANNER_URL } from '@echo/ui/constants/default-banner-url'
 import { PICTURE_SIZE_XXL } from '@echo/ui/constants/picture-size'
-import { addPictureSizeToUrl } from '@echo/ui/helpers/add-picture-size-to-url'
+import { addPictureSize } from '@echo/ui/helpers/add-picture-size'
 import { themeExtension } from '@echo/ui/helpers/theme/theme'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -13,7 +13,7 @@ export interface ProfileBannerProps {
 }
 
 export const ProfileBanner: FunctionComponent<ProfileBannerProps> = ({ bannerUrl, bannerColor }) => {
-  const url = addPictureSizeToUrl(bannerUrl, PICTURE_SIZE_XXL)
+  const url = addPictureSize({ src: bannerUrl ?? '', width: PICTURE_SIZE_XXL })
   function getStyle() {
     if (isNilOrEmpty(bannerUrl)) {
       if (isNilOrEmpty(bannerColor)) {

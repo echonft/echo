@@ -33,19 +33,16 @@ async function getMessage(offer: Offer) {
     case OFFER_STATE_EXPIRED:
       return i18next.t(`offer.update.${offer.state}`)
     case OFFER_STATE_ACCEPTED:
-    case OFFER_STATE_REJECTED:
+    case OFFER_STATE_REJECTED: {
       const receiverId = await getOfferReceiverId(offer)
       return i18next.t(`offer.update.${offer.state}`, {
         receiver: userMention(receiverId)
       })
+    }
   }
 }
 
-export async function postOfferStateUpdate(args: {
-  offerThread: OfferThread
-  thread: AnyThreadChannel<boolean>
-  offer: Offer
-}) {
+export async function postOfferStateUpdate(args: { offerThread: OfferThread; thread: AnyThreadChannel; offer: Offer }) {
   const { offerThread, thread, offer } = args
   const content = await getMessage(offer)
   await sendToThread(thread, {

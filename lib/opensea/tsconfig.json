@@ -1,14 +1,13 @@
 {
-  "extends": "../tsconfig/tsconfig.base.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": ["dom", "esnext"],
     "paths": {
       "@echo/model/*": ["../model/src/*"],
-      "@echo/model-mocks/*": ["../model/test/@mocks/*"],
       "@echo/opensea/*": ["src/*"],
       "@echo/utils/*": ["../utils/src/*"]
-    }
+    },
+    "lib": ["dom", "esnext"]
   },
   "include": ["src", "test", "../../env.d.ts"],
   "exclude": ["node_modules"]

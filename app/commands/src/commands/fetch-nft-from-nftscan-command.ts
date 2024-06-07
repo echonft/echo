@@ -1,3 +1,4 @@
+import type { Command } from '@echo/commands/types/command'
 import { getNft } from '@echo/nft-scan/services/get-nft'
 import { getChains } from '@echo/utils/helpers/chains/get-chains'
 import { errorMessage } from '@echo/utils/helpers/error-message'
@@ -16,47 +17,49 @@ import { hideBin } from 'yargs/helpers'
  *
  *  Fetch an NFT for a given address + token id from the NFTScan API
  */
-void (async function () {
-  const { a, c, t } = await yargs(hideBin(process.argv))
-    .options({
-      a: {
-        alias: 'address',
-        describe: 'address',
-        type: 'string'
-      }
-    })
-    .options({
-      c: {
-        alias: 'chain',
-        describe: 'chain',
-        type: 'string',
-        choices: getChains(),
-        default: 'ethereum',
-        coerce: (arg) => arg as ChainName
-      }
-    })
-    .options({
-      t: {
-        alias: 'tokenId',
-        describe: 'token id',
-        type: 'string'
-      }
-    })
-    .demandOption('a', 'address is required')
-    .demandOption('t', 'token id is required')
-    .parse()
+export const fetchNftFromNftscanCommand: Command = {
+  name: 'fetch-nft-from-nftscan',
+  execute: async function () {
+    const { a, c, t } = await yargs(hideBin(process.argv))
+      .options({
+        a: {
+          alias: 'address',
+          describe: 'address',
+          type: 'string'
+        }
+      })
+      .options({
+        c: {
+          alias: 'chain',
+          describe: 'chain',
+          type: 'string',
+          choices: getChains(),
+          default: 'ethereum',
+          coerce: (arg) => arg as ChainName
+        }
+      })
+      .options({
+        t: {
+          alias: 'tokenId',
+          describe: 'token id',
+          type: 'string'
+        }
+      })
+      .demandOption('a', 'address is required')
+      .demandOption('t', 'token id is required')
+      .parse()
 
-  try {
-    const address = pipe(formatWalletAddress, toLower<HexString>)({ address: a, chain: c })
     try {
-      const nft = await getNft({ contract: { address, chain: c }, fetch, identifier: t })
-      console.log(`successfuly received NFT: ${JSON.stringify(nft, undefined, 2)}`)
+      const address = pipe(formatWalletAddress, toLower<HexString>)({ address: a, chain: c })
+      try {
+        const nft = await getNft({ contract: { address, chain: c }, fetch, identifier: t })
+        console.log(`successfuly received NFT: ${JSON.stringify(nft, undefined, 2)}`)
+      } catch (e) {
+        console.error(`error fetching NFT #${t} for ${a}: ${errorMessage(e)}`)
+        console.error((e as Error).stack)
+      }
     } catch (e) {
-      console.error(`error fetching NFT #${t} for ${a}: ${errorMessage(e)}`)
-      console.error((e as Error).stack)
+      console.error(`address ${a} is not a valid address`)
     }
-  } catch (e) {
-    console.error(`address ${a} is not a valid address`)
   }
-  process.exit()
-})()
+}

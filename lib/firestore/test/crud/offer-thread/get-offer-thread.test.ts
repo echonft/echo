@@ -1,5 +1,5 @@
 import { getOfferThread } from '@echo/firestore/crud/offer-thread/get-offer-thread'
-import { getOfferThreadMock } from '@echo/firestore-mocks/offer-thread/get-offer-thread-mock'
+import { getOfferThreadMock } from '@echo/firestore/mocks/offer-thread/get-offer-thread-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - offer-thread - getOfferThread', () => {

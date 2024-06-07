@@ -1,5 +1,5 @@
 import { walletDataConverter } from '@echo/firestore/converters/wallet/wallet-data-converter'
-import { getWalletDocumentDataMockById } from '@echo/firestore-mocks/wallet/get-wallet-document-data-mock-by-id'
+import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
 import type { Wallet } from '@echo/model/types/wallet'
 import { describe, expect, it } from '@jest/globals'
 import { DocumentReference, QueryDocumentSnapshot } from 'firebase-admin/firestore'

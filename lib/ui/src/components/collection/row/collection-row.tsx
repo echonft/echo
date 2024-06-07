@@ -28,7 +28,6 @@ export const CollectionRow: FunctionComponent<Props> = ({
               className={clsx('w-[6.25rem]', 'h-[6.25rem]', 'rounded')}
               src={profilePictureUrl ?? DEFAULT_COLLECTION_PROFILE_PICTURE_URL}
               alt={name}
-              unoptimized={true}
               width={100}
               height={100}
             />

@@ -1,3 +1,4 @@
+import { linkProvider } from '@echo/api/routing/link-provider'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
@@ -14,7 +15,7 @@ import { getOfferPageLayoutBackground } from '@echo/ui/helpers/offer/get-offer-p
 import { isOfferRoleUndefined } from '@echo/ui/helpers/offer/is-offer-role-undefined'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { andThen, isNil, pipe, unless } from 'ramda'
 import type { ReactElement } from 'react'
 
@@ -25,9 +26,16 @@ async function render({ params: { slug }, user }: Params) {
     getOffer,
     andThen(unless(isNil, setOfferRoleForUser(user)) as (offer: Nullable<Offer>) => Nullable<OfferWithRole>)
   )(slug)
-  if (isNil(offer) || (offer.state !== OFFER_STATE_COMPLETED && isOfferRoleUndefined(offer))) {
+  if (isNil(offer)) {
     notFound()
   }
+  if (offer.state === OFFER_STATE_COMPLETED) {
+    redirect(linkProvider.swap.details.get({ slug }))
+  }
+  if (isOfferRoleUndefined(offer)) {
+    notFound()
+  }
+  // TODO we should create a SwapDetails view which will be much simpler
   return (
     <PageLayout user={user} background={getOfferPageLayoutBackground(offer)}>
       <PaddedSectionLayout>

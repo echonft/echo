@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
-import { nftMockSpiralJohnnyId } from '@echo/model-mocks/nft/nft-mock'
+import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
+import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import { contractApprovalStore } from '@echo/storybook/mocks/stores/contract-approval-store'
 import { OfferDetailsContractApprovalRow as Component } from '@echo/ui/components/offer/details/offer-details-contract-approval-row'
 import type { Meta, StoryObj } from '@storybook/react'

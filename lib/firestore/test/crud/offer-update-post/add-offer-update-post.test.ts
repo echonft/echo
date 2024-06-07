@@ -1,20 +1,20 @@
+import { deleteOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/delete-offer-update-post'
+import { unchecked_addOfferUpdatePost } from '@echo/firestore/utils/offer-update-post/unchecked_add-offer-update-post'
+import { deleteOfferUpdate } from '@echo/firestore/crud/offer-update/delete-offer-update'
+import { addOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/add-offer-update-post'
+import { getOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/get-offer-update-post'
 import {
   addOfferStateUpdate,
   type AddOfferStateUpdateArgs
 } from '@echo/firestore/crud/offer-update/add-offer-state-update'
-import { addOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/add-offer-update-post'
-import { getOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/get-offer-update-post'
-import { deleteOfferUpdate } from '@echo/firestore-test/offer-update/delete-offer-update'
-import { deleteOfferUpdatePost } from '@echo/firestore-test/offer-update-post/delete-offer-update-post'
-import { unchecked_addOfferUpdatePost } from '@echo/firestore-test/offer-update-post/unchecked_add-offer-update-post'
+import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
+import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
-import { offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
-import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
+import dayjs from 'dayjs'
 import { isNil } from 'ramda'
 
 describe('CRUD - offer-update-post - addOfferUpdatePost', () => {
@@ -65,6 +65,7 @@ describe('CRUD - offer-update-post - addOfferUpdatePost', () => {
     offerUpdatePostId = addedOfferUpdatePost.id
     const newDocument = (await getOfferUpdatePost(offerUpdateId))!
     expect(newDocument.offerUpdateId).toStrictEqual(offerUpdateId)
-    expectDateNumberIsNow(newDocument.postedAt)
+    expect(dayjs.unix(newDocument.postedAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
+    expect(dayjs.unix(newDocument.postedAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
   })
 })

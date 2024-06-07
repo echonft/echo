@@ -82,8 +82,12 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({ offer, onSuccess
   const nftsToCheckForEscrow = isOfferRoleReceiver(offer) ? offer.receiverItems : offer.senderItems
   const areNftsInEscrow = useAreNftsInEscrow(shouldCheckForEscrow ? nftsToCheckForEscrow : undefined)
   const [buttonsDisabled, setButtonsDisabled] = useState(false)
-  const disable = () => setButtonsDisabled(true)
-  const enable = () => setButtonsDisabled(false)
+  const disable = () => {
+    setButtonsDisabled(true)
+  }
+  const enable = () => {
+    setButtonsDisabled(false)
+  }
   const success = (offer: OfferWithRole) => {
     setButtonsDisabled(false)
     onSuccess?.(offer)

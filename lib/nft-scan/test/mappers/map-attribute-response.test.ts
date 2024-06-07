@@ -1,6 +1,6 @@
 import type { NftAttribute } from '@echo/model/types/nft-attribute'
 import { mapAttributeResponse } from '@echo/nft-scan/mappers/map-attribute-response'
-import { attributesResponseMock } from '@echo/nft-scan-mocks/attributes-response-mock'
+import { attributesResponseMock } from '@echo/nft-scan/mocks/attributes-response-mock'
 import { describe, expect, it } from '@jest/globals'
 import { map } from 'ramda'
 

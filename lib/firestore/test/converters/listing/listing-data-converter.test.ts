@@ -1,6 +1,6 @@
 import { listingDataConverter } from '@echo/firestore/converters/listing/listing-data-converter'
-import { listingDocumentDataMock } from '@echo/firestore-mocks/listing/listing-document-data-mock'
-import { listingSnapshotMock } from '@echo/firestore-mocks/listing/listing-snapshot-mock'
+import { listingDocumentDataMock } from '@echo/firestore/mocks/listing/listing-document-data-mock'
+import { listingSnapshotMock } from '@echo/firestore/mocks/listing/listing-snapshot-mock'
 import {
   LISTING_STATE_CANCELLED,
   LISTING_STATE_EXPIRED,
@@ -9,8 +9,8 @@ import {
   LISTING_STATE_OPEN,
   LISTING_STATE_PARTIALLY_FULFILLED
 } from '@echo/model/constants/listing-states'
-import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
-import { listingMockId } from '@echo/model-mocks/listing/listing-mock'
+import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
+import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, pipe } from 'ramda'
 

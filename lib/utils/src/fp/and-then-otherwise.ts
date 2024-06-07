@@ -3,6 +3,6 @@ export function andThenOtherwise<T, OnThen, OnError>(
   onError: (error: Error) => OnError | Promise<OnError>
 ) {
   return async function (promise: Promise<T>) {
-    return promise.then(onThen).catch(onError)
+    return promise.then(onThen).catch((e: unknown) => onError(e as Error))
   }
 }

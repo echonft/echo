@@ -1,9 +1,9 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
-import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
-import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
-import { getUserProfileMockByUsername } from '@echo/model-mocks/user/user-profile-mock'
+import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
+import { getAllNftMocks } from '@echo/model/mocks/nft/get-all-nft-mocks'
+import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
+import { getUserProfileMockByUsername } from '@echo/model/mocks/user/user-profile-mock'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
 import { UserProfile } from '@echo/ui/components/user/profile/user-profile'

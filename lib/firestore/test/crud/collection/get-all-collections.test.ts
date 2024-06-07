@@ -1,5 +1,5 @@
 import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
-import { getAllCollectionMocks } from '@echo/model-mocks/collection/get-all-collection-mocks'
+import { getAllCollectionMocks } from '@echo/model/mocks/collection/get-all-collection-mocks'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import { describe, expect, it } from '@jest/globals'
 

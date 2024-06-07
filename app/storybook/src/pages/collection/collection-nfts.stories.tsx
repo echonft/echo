@@ -1,8 +1,8 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { collectionMockSpiralId, collectionMockSpiralSlug } from '@echo/model-mocks/collection/collection-mock'
-import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
-import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
+import { collectionMockSpiralId, collectionMockSpiralSlug } from '@echo/model/mocks/collection/collection-mock'
+import { getCollectionMockById } from '@echo/model/mocks/collection/get-collection-mock-by-id'
+import { getAllNftMocks } from '@echo/model/mocks/nft/get-all-nft-mocks'
 import { CollectionNfts as Component } from '@echo/ui/pages/collection/nfts/collection-nfts'
 import type { Meta, StoryObj } from '@storybook/react'
 import { filter, pathEq, pipe, prop } from 'ramda'

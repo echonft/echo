@@ -1,9 +1,9 @@
 import type { Collection } from '@echo/model/types/collection'
 import type { Wallet } from '@echo/model/types/wallet'
 import { mapCollectionResponse } from '@echo/nft-scan/mappers/map-collection-response'
+import { collectionResponseMock } from '@echo/nft-scan/mocks/collection-response-mock'
 import type { CollectionResponse } from '@echo/nft-scan/types/response/collection-response'
 import { collectionResponseSchema } from '@echo/nft-scan/validators/collection-response-schema'
-import { collectionResponseMock } from '@echo/nft-scan-mocks/collection-response-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - mapCollectionResponse', () => {

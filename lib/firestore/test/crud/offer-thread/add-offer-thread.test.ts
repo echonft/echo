@@ -1,11 +1,11 @@
+import { assertOfferThreads } from '@echo/firestore/utils/offer-thread/assert-offer-threads'
+import { deleteOfferThread } from '@echo/firestore/crud/offer-thread/delete-offer-thread'
 import { addOfferThread } from '@echo/firestore/crud/offer-thread/add-offer-thread'
 import { getOfferThread } from '@echo/firestore/crud/offer-thread/get-offer-thread'
 import type { OfferThread, OfferThreadDiscordGuild } from '@echo/firestore/types/model/offer-thread/offer-thread'
-import { assertOfferThreads } from '@echo/firestore-test/offer-thread/assert-offer-threads'
-import { deleteOfferThread } from '@echo/firestore-test/offer-thread/delete-offer-thread'
-import { offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
-import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
+import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import dayjs from 'dayjs'
 import { omit } from 'ramda'
 
 describe('CRUD - offer-thread - addOfferThread', () => {
@@ -30,6 +30,7 @@ describe('CRUD - offer-thread - addOfferThread', () => {
     const document = (await getOfferThread(offerId))!
     await deleteOfferThread(offerId)
     expect(omit(['postedAt'], document)).toStrictEqual(offerThread)
-    expectDateNumberIsNow(document.postedAt)
+    expect(dayjs.unix(document.postedAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
+    expect(dayjs.unix(document.postedAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
   })
 })

@@ -14,7 +14,7 @@ async function validateOffersForPage(page: number, logger?: LoggerInterface) {
       await validateOffer(offer, logger)
     })
   if (hasNext) {
-    return await validateOffersForPage(inc(page), logger)
+    return validateOffersForPage(inc(page), logger)
   }
   return
 }

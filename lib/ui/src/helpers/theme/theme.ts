@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-imports */
 import { mergeLeft } from 'ramda'
 import defaultTheme, { fontFamily } from 'tailwindcss/defaultTheme'
 

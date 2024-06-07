@@ -1,18 +1,18 @@
+import { deleteOfferUpdate } from '@echo/firestore/crud/offer-update/delete-offer-update'
 import { OFFER_UPDATE_KIND_STATE } from '@echo/firestore/constants/offer/offer-update-kinds'
 import {
   addOfferStateUpdate,
   type AddOfferStateUpdateArgs
 } from '@echo/firestore/crud/offer-update/add-offer-state-update'
 import { getOfferUpdateById } from '@echo/firestore/crud/offer-update/get-offer-update-by-id'
-import { deleteOfferUpdate } from '@echo/firestore-test/offer-update/delete-offer-update'
+import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
+import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
-import { offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
-import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
+import dayjs from 'dayjs'
 import { assoc, isNil, pipe } from 'ramda'
 
 describe('CRUD - offer-update - addOfferStateUpdate', () => {
@@ -54,6 +54,7 @@ describe('CRUD - offer-update - addOfferStateUpdate', () => {
     expect(newDocument.offerId).toStrictEqual(args.offerId)
     expect(newDocument.update.kind).toStrictEqual(OFFER_UPDATE_KIND_STATE)
     expect(newDocument.update.args).toStrictEqual(args.args)
-    expectDateNumberIsNow(newDocument.createdAt)
+    expect(dayjs.unix(newDocument.createdAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
+    expect(dayjs.unix(newDocument.createdAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
   })
 })

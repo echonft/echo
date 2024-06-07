@@ -1,6 +1,6 @@
-import { getCollectionSwapsCountMockByCollectionId } from '@echo/firestore-mocks/collection-swaps-count/get-collection-swaps-count-mock-by-collection-id'
-import { getCollectionSwapsCountByCollectionId } from '@echo/firestore-test/collection-swaps-count/get-collection-swaps-count-by-collection-id'
-import { collectionMockSpiralId } from '@echo/model-mocks/collection/collection-mock'
+import { getCollectionSwapsCountMockByCollectionId } from '@echo/firestore/mocks/collection-swaps-count/get-collection-swaps-count-mock-by-collection-id'
+import { getCollectionSwapsCountByCollectionId } from '@echo/firestore/crud/collection-swaps-count/get-collection-swaps-count-by-collection-id'
+import { collectionMockSpiralId } from '@echo/model/mocks/collection/collection-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('getCollectionSwapsCountByCollectionId', () => {

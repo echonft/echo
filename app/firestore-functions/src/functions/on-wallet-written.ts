@@ -17,7 +17,7 @@ export const onWalletWritten = onDocumentWritten(
     const logger = new FirestoreFunctionsLogger()
     const change = event.data
     if (!isNil(change)) {
-      if (change.after?.exists) {
+      if (change.after.exists) {
         // wallet was created
         const wallet = getDocumentSnapshotData<WalletDocumentData>(change.after as DocumentSnapshot<WalletDocumentData>)
         if (!isNil(wallet)) {
@@ -43,7 +43,7 @@ export const onWalletWritten = onDocumentWritten(
             logger.error(`error getting user ${wallet.userId}: ${errorMessage(e)}`)
           }
         }
-      } else if (change.before?.exists) {
+      } else if (change.before.exists) {
         // wallet was deleted
         const wallet = getDocumentSnapshotData<WalletDocumentData>(
           change.before as DocumentSnapshot<WalletDocumentData>

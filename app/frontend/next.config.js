@@ -1,13 +1,19 @@
+// @ts-check
+import nextIntl from 'next-intl/plugin'
+import { withSentryConfig } from '@sentry/nextjs'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    typedRoutes: true
+  },
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: '**'
       }
-    ],
-    unoptimized: true
+    ]
   },
   swcMinify: true,
   transpilePackages: [
@@ -15,27 +21,20 @@ const nextConfig = {
     '@echo/firestore',
     '@echo/model',
     '@echo/opensea',
-    '@echo/sentry',
+    '@echo/nft-scan',
     '@echo/ui',
     '@echo/utils',
     '@echo/web3',
     '@echo/web3-dom'
   ],
   webpack: (config) => {
-    // noinspection JSUnresolvedReference
+    // noinspection JSUnresolvedReference,JSValidateTypes
     config.externals.push('pino-pretty', 'lokijs', 'encoding', 'request')
     return config
   }
 }
-
-const withNextIntl = require('next-intl/plugin')()
-module.exports = withNextIntl(nextConfig)
-
-// Injected content via Sentry wizard below
-
-const { withSentryConfig } = require('@sentry/nextjs')
-
-module.exports = withSentryConfig(module.exports, {
+const withNextIntl = nextIntl('./src/i18n.ts')
+export default withSentryConfig(withNextIntl(nextConfig), {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 

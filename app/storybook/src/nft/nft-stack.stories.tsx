@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
+import { getAllNftMocks } from '@echo/model/mocks/nft/get-all-nft-mocks'
 import { NftStack as Component } from '@echo/ui/components/nft/stack/nft-stack'
 import { getNftStack } from '@echo/ui/helpers/nft/get-nft-stack'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'

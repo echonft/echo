@@ -1,15 +1,14 @@
 import { type RemoveWalletRequest } from '@echo/api/types/requests/remove-wallet-request'
+import { getUserDocumentDataMockById } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-id'
+import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
+import { userMockJohnnyId } from '@echo/firestore/mocks/user/user-document-data-mock'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
-import { getUserDocumentDataMockById } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-id'
-import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
-import { userMockJohnnyId } from '@echo/firestore-mocks/user/user-document-data-mock'
-import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
 import { removeWalletRequestHandler } from '@echo/frontend/lib/request-handlers/profile/remove-wallet-request-handler'
-import { mockRequest } from '@echo/frontend-mocks/mock-request'
+import { mockRequest } from '@echo/frontend/mocks/mock-request'
+import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import type { Wallet } from '@echo/model/types/wallet'
-import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { toLower } from 'ramda'
 
 jest.mock('@echo/firestore/crud/user/get-user-by-username')
@@ -32,12 +31,7 @@ describe('request-handlers - user - removeWalletRequestHandler', () => {
 
   it('throws if the request cannot be parsed', async () => {
     const req = mockRequest<RemoveWalletRequest>({} as RemoveWalletRequest)
-    try {
-      await removeWalletRequestHandler(user, req)
-      expect(true).toBeFalsy()
-    } catch (e) {
-      expect((e as ApiError).status).toBe(400)
-    }
+    await expect(() => removeWalletRequestHandler(user, req)).rejects.toHaveProperty('status', 400)
   })
 
   it('returns a 200 if the request is valid', async () => {

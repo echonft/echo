@@ -1,8 +1,8 @@
+import type { Command } from '@echo/commands/types/command'
 import type { Wallet } from '@echo/model/types/wallet'
 import { getCollectionByAddress } from '@echo/nft-scan/services/get-collection-by-address'
 import { getChains } from '@echo/utils/helpers/chains/get-chains'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
@@ -17,42 +17,44 @@ import { hideBin } from 'yargs/helpers'
  *
  *  Fetch an NFT for a given address + token id from the NFTScan API
  */
-void (async function () {
-  const { a, c } = await yargs(hideBin(process.argv))
-    .options({
-      a: {
-        alias: 'address',
-        describe: 'address',
-        type: 'string'
-      }
-    })
-    .options({
-      c: {
-        alias: 'chain',
-        describe: 'chain',
-        type: 'string',
-        choices: getChains(),
-        default: 'ethereum',
-        coerce: (arg) => arg as ChainName
-      }
-    })
-    .demandOption('a', 'address is required')
-    .parse()
+export const fetchCollectionFromNftscanCommand: Command = {
+  name: 'fetch-collection-from-nftscan',
+  execute: async function () {
+    const { a, c } = await yargs(hideBin(process.argv))
+      .options({
+        a: {
+          alias: 'address',
+          describe: 'address',
+          type: 'string'
+        }
+      })
+      .options({
+        c: {
+          alias: 'chain',
+          describe: 'chain',
+          type: 'string',
+          choices: getChains(),
+          default: 'ethereum',
+          coerce: (arg) => arg as ChainName
+        }
+      })
+      .demandOption('a', 'address is required')
+      .parse()
 
-  try {
-    const address = pipe(formatWalletAddress, toLower<HexString>)({ address: a, chain: c })
-    const contract: Wallet = { address, chain: c }
     try {
-      const collection = await getCollectionByAddress({ contract: { address, chain: c }, fetch })
-      pinoLogger.info(`successfuly received collection: ${JSON.stringify(collection, undefined, 2)}`)
+      const address = pipe(formatWalletAddress, toLower<HexString>)({ address: a, chain: c })
+      const contract: Wallet = { address, chain: c }
+      try {
+        const collection = await getCollectionByAddress({ contract: { address, chain: c }, fetch })
+        console.log(`successfuly received collection: ${JSON.stringify(collection, undefined, 2)}`)
+      } catch (e) {
+        console.error(
+          `error fetching collection for contract ${JSON.stringify(contract, undefined, 2)}: ${errorMessage(e)}`
+        )
+        console.error((e as Error).stack)
+      }
     } catch (e) {
-      pinoLogger.error(
-        `error fetching collection for contract ${JSON.stringify(contract, undefined, 2)}: ${errorMessage(e)}`
-      )
-      pinoLogger.error((e as Error).stack)
+      console.error(`address ${a} is not a valid address`)
     }
-  } catch (e) {
-    pinoLogger.error(`address ${a} is not a valid address`)
   }
-  process.exit()
-})()
+}

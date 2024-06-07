@@ -1,6 +1,6 @@
 import { type ListingTarget } from '@echo/model/types/listing-target'
-import { collectionMockPxId, collectionMockPxSlug } from '@echo/model-mocks/collection/collection-mock'
-import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
+import { collectionMockPxId, collectionMockPxSlug } from '@echo/model/mocks/collection/collection-mock'
+import { getCollectionMockById } from '@echo/model/mocks/collection/get-collection-mock-by-id'
 import { mapListingTargetToRequest } from '@echo/ui/mappers/to-api/map-listing-target-to-request'
 import { describe, expect, it } from '@jest/globals'
 

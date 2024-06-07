@@ -1,6 +1,6 @@
 import { mapCollectionToSearchResult } from '@echo/firestore/mappers/collection/map-collection-to-search-result'
 import type { SearchResult } from '@echo/model/types/search-result'
-import { getAllCollectionMocks } from '@echo/model-mocks/collection/get-all-collection-mocks'
+import { getAllCollectionMocks } from '@echo/model/mocks/collection/get-all-collection-mocks'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { toPromise } from '@echo/utils/fp/to-promise'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'

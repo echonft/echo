@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{echo/app/bot/node_modules, echo/app/commands/node_modules, echo/app/contract-listener/node_modules, echo/app/firestore-functions/node_modules, echo/app/frontend/node_modules, echo/app/storybook/node_modules, echo/lib/api/node_modules, echo/lib/firestore/node_modules, echo/lib/model/node_modules, echo/lib/nft-scan/node_modules, echo/lib/opensea/node_modules, echo/lib/sentry/node_modules, echo/lib/ui/node_modules, echo/lib/utils/node_modules, echo/lib/web3-dom/node_modules, echo/lib/web3/node_modules, echo/node_modules}" />
+    <file url="file://$PROJECT_DIR$" libraries="{echo/node_modules}" />
+    <file url="PROJECT" libraries="{echo/node_modules}" />
     <includedPredefinedLibrary name="Node.js Core" />
     <excludedPredefinedLibrary name="HTML" />
-    <excludedPredefinedLibrary name="tsconfig$paths" />
   </component>
 </project>

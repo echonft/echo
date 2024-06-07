@@ -1,5 +1,5 @@
 import { removeWalletSchema } from '@echo/frontend/lib/validators/remove-wallet-schema'
-import { getWalletMock } from '@echo/model-mocks/wallet/wallet-mock'
+import { getWalletMock } from '@echo/model/mocks/wallet/wallet-mock'
 
 describe('validators - removeWalletSchema', () => {
   it('wrong wallet fails validation', () => {

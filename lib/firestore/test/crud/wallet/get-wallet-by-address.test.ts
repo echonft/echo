@@ -1,5 +1,5 @@
 import { getWalletByAddress } from '@echo/firestore/crud/wallet/get-wallet-by-address'
-import { getWalletDocumentDataMockById } from '@echo/firestore-mocks/wallet/get-wallet-document-data-mock-by-id'
+import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
 

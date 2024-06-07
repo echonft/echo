@@ -1,11 +1,10 @@
 'use client'
 import type { Nft } from '@echo/model/types/nft'
 import { ImagePlaceholder } from '@echo/ui/components/base/image-placeholder'
+import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
 import { PICTURE_SIZE_MD } from '@echo/ui/constants/picture-size'
-import { addPictureSizeToUrl } from '@echo/ui/helpers/add-picture-size-to-url'
 import { getTokenIdString } from '@echo/ui/helpers/nft/get-token-id-string'
 import { clsx } from 'clsx'
-import Image from 'next/image'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
@@ -32,7 +31,7 @@ export const SelectableNftThumbnailImage: FunctionComponent<Props> = ({ nft, onL
   }
   return (
     <div className={clsx('h-32', 'w-32', 'rounded-2xl')}>
-      <Image
+      <SizeableImage
         className={clsx(
           'w-auto',
           'h-auto',
@@ -43,12 +42,11 @@ export const SelectableNftThumbnailImage: FunctionComponent<Props> = ({ nft, onL
           'object-contain',
           'group-hover:scale-125'
         )}
-        src={addPictureSizeToUrl(nft.pictureUrl, PICTURE_SIZE_MD) ?? ''}
+        src={nft.pictureUrl}
         alt={nft.tokenId.toString()}
         width={PICTURE_SIZE_MD}
         height={PICTURE_SIZE_MD}
         crossOrigin={'anonymous'}
-        unoptimized={true}
         onLoad={() => {
           setLoaded(true)
           onLoadComplete?.()

@@ -28,7 +28,7 @@ export const UserNfts: FunctionComponent<Props> = ({ isAuthUser, nfts }) => {
   return (
     <SelectableNftsWithFilters
       nfts={nfts}
-      action={isAuthUser ? undefined : NFT_ACTION_OFFER}
+      action={NFT_ACTION_OFFER}
       sortBy={'collection'}
       onSelectionAction={pipe(getNewOfferPath, routerPush)}
     />

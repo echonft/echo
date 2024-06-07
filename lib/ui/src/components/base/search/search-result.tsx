@@ -3,10 +3,10 @@ import {
   SEARCH_RESULT_CATEGORY_USER
 } from '@echo/model/constants/search-result-category'
 import type { SearchResult as SearchResultModel } from '@echo/model/types/search-result'
+import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
 import { PICTURE_SIZE_XS } from '@echo/ui/constants/picture-size'
 import { ComboboxOption } from '@headlessui/react'
 import { clsx } from 'clsx'
-import Image from 'next/image'
 
 export interface SearchResultProps<T> {
   result: SearchResultModel<T>
@@ -39,13 +39,12 @@ export const SearchResult = <T,>({ result, style }: SearchResultProps<T>) => {
       value={result}
       id={`search-result-${result.id}`}
     >
-      <Image
+      <SizeableImage
         className={clsx('w-8', 'h-8', 'rounded')}
         src={pictureUrl}
         alt={label}
         width={PICTURE_SIZE_XS}
         height={PICTURE_SIZE_XS}
-        unoptimized={true}
       />
       <span className={clsx('prose-label-md', 'text-white', 'truncate')}>{label}</span>
     </ComboboxOption>

@@ -4,11 +4,11 @@ import {
   getUserDocumentDataMockById,
   userMockCrewId,
   userMockJohnnyId
-} from '@echo/firestore-mocks/user/user-document-data-mock'
-import { getWalletDocumentDataMockByUserId } from '@echo/firestore-mocks/wallet/get-wallet-document-data-mock-by-user-id'
-import { assertWallets } from '@echo/firestore-test/wallet/assert-wallets'
-import { getWalletById } from '@echo/firestore-test/wallet/get-wallet-by-id'
-import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
+} from '@echo/firestore/mocks/user/user-document-data-mock'
+import { getWalletDocumentDataMockByUserId } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-user-id'
+import { assertWallets } from '@echo/firestore/utils/wallet/assert-wallets'
+import { getWalletById } from '@echo/firestore/crud/wallet/get-wallet-by-id'
+import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'

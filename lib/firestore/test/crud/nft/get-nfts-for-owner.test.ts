@@ -1,6 +1,6 @@
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
-import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
-import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
+import { getAllNftMocks } from '@echo/model/mocks/nft/get-all-nft-mocks'
+import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import { describe, expect, it } from '@jest/globals'
 import { filter, pathEq, pipe } from 'ramda'

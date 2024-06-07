@@ -1,10 +1,9 @@
 {
-  "extends": "../tsconfig/tsconfig.base.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@echo/utils/*": ["src/*"],
-      "@echo/utils-test/*": ["test/@utils/*"]
+      "@echo/utils/*": ["src/*"]
     }
   },
   "include": ["src", "test", "../../env.d.ts"],

@@ -2,7 +2,7 @@ import { processEscrowTransfer } from '@echo/contract-listener/helpers/process-e
 import { processInEscrowTransfer } from '@echo/contract-listener/helpers/process-in-escrow-transfer'
 import { processOutEscrowTransfer } from '@echo/contract-listener/helpers/process-out-escrow-transfer'
 import type { EscrowData } from '@echo/contract-listener/types/escrow-data'
-import { walletMockJohnnyAddress } from '@echo/model-mocks/wallet/wallet-mock'
+import { walletMockJohnnyAddress } from '@echo/model/mocks/wallet/wallet-mock'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { getEchoAddressByChain } from '@echo/web3/helpers/get-echo-address-by-chain'
 import { describe, expect, it, jest } from '@jest/globals'
@@ -25,7 +25,7 @@ describe('helpers - processEscrowTransfer', () => {
       contractAddress: contractAddress
     } as EscrowData
     await processEscrowTransfer(args)
-    expect(processOutEscrowTransfer).toBeCalledWith(args)
+    expect(processOutEscrowTransfer).toHaveBeenCalledWith(args)
   })
 
   it('process IN escrow', async () => {
@@ -37,6 +37,6 @@ describe('helpers - processEscrowTransfer', () => {
       contractAddress: contractAddress
     } as EscrowData
     await processEscrowTransfer(args)
-    expect(processInEscrowTransfer).toBeCalledWith(args)
+    expect(processInEscrowTransfer).toHaveBeenCalledWith(args)
   })
 })

@@ -23,7 +23,7 @@ export const LoginStep: FunctionComponent<Props> = ({ step, user, onNext, onFini
     return <LoginConnectWalletStep onContinue={onNext} onWalletButtonClick={onWalletButtonClick} />
   }
   if (isNil(user)) {
-    throw Error
+    throw Error()
   }
   return <LoginJoinEchoStep username={user.username} onSkip={onFinish} />
 }

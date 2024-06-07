@@ -13,7 +13,7 @@ export async function setNonceForUser(username: string, nonce: string): Promise<
     throw Error(`user with username ${username} not found`)
   }
 
-  const nonceSnapshot = await getNonceSnapshotForUser(userSnapshot.data()!.username)
+  const nonceSnapshot = await getNonceSnapshotForUser(userSnapshot.data().username)
   if (isNil(nonceSnapshot)) {
     const data = {
       userId: userSnapshot.id,

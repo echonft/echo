@@ -44,6 +44,6 @@ export interface Dependencies {
   searchUsers: (query: string) => Promise<SearchResult<string>[]>
   signIn: () => Promise<SignInResponse | undefined>
   signNonce: Fetcher<SignNonceResult, SignNonceArgs>
-  signOut: (options: SignOutParams<true> | undefined) => Promise<undefined>
+  signOut: (options: SignOutParams | undefined) => Promise<undefined>
   switchChain: () => Promise<void>
 }

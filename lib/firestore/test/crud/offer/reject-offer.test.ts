@@ -1,10 +1,13 @@
+import { deleteOfferUpdate } from '@echo/firestore/crud/offer-update/delete-offer-update'
+import { assertOffers } from '@echo/firestore/utils/offer/assert-offers'
+import { unchecked_updateOffer } from '@echo/firestore/utils/offer/unchecked_update-offer'
+import { getOfferStateUpdateSnapshot } from '@echo/firestore/crud/offer-update/get-offer-state-update'
 import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
 import { rejectOffer } from '@echo/firestore/crud/offer/reject-offer'
 import type { UpdateOfferStateArgs } from '@echo/firestore/crud/offer/update-offer-state'
-import { getOfferStateUpdateSnapshot } from '@echo/firestore/crud/offer-update/get-offer-state-update'
-import { assertOffers } from '@echo/firestore-test/offer/assert-offers'
-import { unchecked_updateOffer } from '@echo/firestore-test/offer/unchecked_update-offer'
-import { deleteOfferUpdate } from '@echo/firestore-test/offer-update/delete-offer-update'
+import { getOfferMockBySlug } from '@echo/model/mocks/offer/get-offer-mock-by-slug'
+import { offerMockToJohnnycageSlug } from '@echo/model/mocks/offer/offer-mock'
+import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import {
   OFFER_STATE_ACCEPTED,
   OFFER_STATE_CANCELLED,
@@ -13,16 +16,13 @@ import {
   OFFER_STATE_OPEN,
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
-import { getOfferMockBySlug } from '@echo/model-mocks/offer/get-offer-mock-by-slug'
-import { offerMockToJohnnycageSlug } from '@echo/model-mocks/offer/offer-mock'
-import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { futureDate } from '@echo/utils/helpers/future-date'
 import { pastDate } from '@echo/utils/helpers/past-date'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import dayjs from 'dayjs'
 import { assoc, isNil, pipe } from 'ramda'
 
 describe('CRUD - offer - rejectOffer', () => {
@@ -109,7 +109,8 @@ describe('CRUD - offer - rejectOffer', () => {
     }))!
     createdStateUpdateId = stateUpdateSnapshot.id
     expect(updatedOffer.state).toEqual(OFFER_STATE_REJECTED)
-    expectDateNumberIsNow(updatedOffer.updatedAt)
+    expect(dayjs.unix(updatedOffer.updatedAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
+    expect(dayjs.unix(updatedOffer.updatedAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
     expect(stateUpdateSnapshot).toBeDefined()
   })
 })

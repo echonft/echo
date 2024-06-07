@@ -1,5 +1,5 @@
-import { getAllListings } from '@echo/firestore-test/listing/get-all-listings'
-import { getAllListingMocks } from '@echo/model-mocks/listing/get-all-listing-mocks'
+import { getAllListings } from '@echo/firestore/crud/listing/get-all-listings'
+import { getAllListingMocks } from '@echo/model/mocks/listing/get-all-listing-mocks'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import { describe, expect, it } from '@jest/globals'
 

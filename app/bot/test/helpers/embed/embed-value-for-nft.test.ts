@@ -1,6 +1,6 @@
 import { embedValueForNft } from '@echo/bot/helpers/embed/embed-value-for-nft'
-import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
-import { nftMockSpiralJohnnyId } from '@echo/model-mocks/nft/nft-mock'
+import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
+import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - embed - embedValueForNft', () => {

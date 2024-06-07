@@ -10,6 +10,7 @@ import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { andThen, map, path, pipe } from 'ramda'
 import type { ReactElement } from 'react'
 
+// TODO split between these and swaps
 async function render(params: NextAuthUserParams) {
   const offers = await pipe(
     nonNullableReturn(path(['user', 'username'])),

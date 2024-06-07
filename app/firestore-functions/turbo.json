@@ -1,0 +1,13 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "artifacts:delete": {},
+    "artifacts:delete:dev": {},
+    "artifacts:delete:prod": {},
+    "deploy": {
+      "dependsOn": ["build"]
+    },
+    "use": {}
+  }
+}

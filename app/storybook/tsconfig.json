@@ -1,20 +1,19 @@
 {
-  "extends": "../../lib/tsconfig/tsconfig.dom.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "@echo/api/*": ["../../lib/api/src/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
-      "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
-      "@echo/model-mocks/*": ["../../lib/model/test/@mocks/*"],
       "@echo/storybook/*": ["./src/*"],
       "@echo/ui/*": ["../../lib/ui/src/*"],
       "@echo/ui-css/*": ["../../lib/ui/dist/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"],
       "@echo/web3/*": ["../../lib/web3/src/*"],
       "@echo/web3-dom/*": ["../../lib/web3-dom/src/*"]
-    }
+    },
+    "lib": ["dom", "dom.iterable", "esnext"]
   },
   "include": ["src", ".storybook/main.ts", ".storybook/preview.tsx", "../../env.d.ts"],
   "exclude": ["node_modules", "storybook-static"]

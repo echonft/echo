@@ -4,10 +4,12 @@ import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/crud/que
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import type { Nullable } from '@echo/utils/types/nullable'
-import type { DocumentSnapshot } from 'firebase-admin/firestore'
+import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, pipe } from 'ramda'
 
-export function getUserSnapshotByUsername(username: string): Promise<Nullable<DocumentSnapshot<UserDocumentData>>> {
+export function getUserSnapshotByUsername(
+  username: string
+): Promise<Nullable<QueryDocumentSnapshot<UserDocumentData>>> {
   return pipe(getUsersCollectionReference, queryWhere('username', '==', username), getQueryUniqueDocumentSnapshot)()
 }
 

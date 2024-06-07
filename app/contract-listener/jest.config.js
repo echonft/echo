@@ -1,21 +1,15 @@
+// @ts-check
 /** @type {import('jest').Config} */
-module.exports = {
-  collectCoverage: true,
-  collectCoverageFrom: [
-    '<rootDir>/src/**/*.ts',
-    '!<rootDir>/src/**/*.d.ts',
-    '!<rootDir>/src/constants/**',
-    '!<rootDir>/src/types/**'
-  ],
-  coverageDirectory: '<rootDir>/../../.coverage/app/contract-listener',
+export default {
+  collectCoverage: Boolean(process.env.CI),
+  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+  coverageDirectory: '<rootDir>/test/.coverage',
   coverageReporters: ['json-summary', 'text'],
   moduleNameMapper: {
     '^@echo/contract-listener/(.*)$': '<rootDir>/src/$1',
     '^@echo/firestore/(.*)$': '<rootDir>/../../lib/firestore/src/$1',
-    '^@echo/firestore-mocks/(.*)$': '<rootDir>/../../lib/firestore/test/@mocks/$1',
     '^@echo/nft-scan/(.*)$': '<rootDir>/../../lib/nft-scan/src/$1',
     '^@echo/model/(.*)$': '<rootDir>/../../lib/model/src/$1',
-    '^@echo/model-mocks/(.*)$': '<rootDir>/../../lib/model/test/@mocks/$1',
     '^@echo/opensea/(.*)$': '<rootDir>/../../lib/opensea/src/$1',
     '^@echo/utils/(.*)$': '<rootDir>/../../lib/utils/src/$1',
     '^@echo/web3/(.*)$': '<rootDir>/../../lib/web3/src/$1'
@@ -25,9 +19,8 @@ module.exports = {
     [
       'jest-junit',
       {
-        outputDirectory: '<rootDir>/../../.coverage/app/contract-listener'
+        outputDirectory: '<rootDir>/test/.coverage'
       }
     ]
-  ],
-  testPathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/node_modules/']
+  ]
 }

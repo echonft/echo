@@ -32,7 +32,7 @@ async function removeNftsForWalletForPage<T extends Wallet>(page: number, wallet
       }
     })
   if (hasNext) {
-    return await removeNftsForWalletForPage(inc(page), wallet, logger)
+    return removeNftsForWalletForPage(inc(page), wallet, logger)
   }
 }
 

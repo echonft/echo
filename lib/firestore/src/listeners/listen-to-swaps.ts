@@ -8,7 +8,7 @@ export function listenToSwaps(
 ) {
   getSwapsCollectionReference().onSnapshot((snapshot) => {
     snapshot.docChanges().forEach((change: DocumentChange<Swap, Swap>) => {
-      if (!isNil(change.doc?.id)) {
+      if (!isNil(change.doc.id)) {
         onChange(change.type, change.doc)
       }
     })

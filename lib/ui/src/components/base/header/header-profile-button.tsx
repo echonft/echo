@@ -1,11 +1,9 @@
 import { linkProvider } from '@echo/api/routing/link-provider'
 import type { HeaderLoggedInProps } from '@echo/ui/components/base/header/header-logged-in'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
+import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
 import { ConnectWalletButton } from '@echo/ui/components/wallet/connect-wallet-button'
-import { PICTURE_SIZE_SM } from '@echo/ui/constants/picture-size'
-import { addPictureSizeToUrl } from '@echo/ui/helpers/add-picture-size-to-url'
 import { clsx } from 'clsx'
-import Image from 'next/image'
 import { type FunctionComponent } from 'react'
 
 export const HeaderProfileButton: FunctionComponent<HeaderLoggedInProps> = ({ user, onWalletButtonClick }) => {
@@ -19,7 +17,7 @@ export const HeaderProfileButton: FunctionComponent<HeaderLoggedInProps> = ({ us
         className={clsx('w-12', 'h-12', 'rounded-lg', 'bg-dark-500', 'border', 'border-solid', 'border-white/[0.08]')}
         path={linkProvider.profile.items.get()}
       >
-        <Image
+        <SizeableImage
           className={clsx(
             'hover:opacity-80',
             'w-12',
@@ -29,12 +27,11 @@ export const HeaderProfileButton: FunctionComponent<HeaderLoggedInProps> = ({ us
             'object-center',
             'object-contain'
           )}
-          src={addPictureSizeToUrl(avatarUrl, PICTURE_SIZE_SM)}
+          src={avatarUrl}
           alt={username}
           width={48}
           height={48}
           priority={true}
-          unoptimized={true}
         />
       </InternalLink>
     </div>

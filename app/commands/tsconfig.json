@@ -1,13 +1,5 @@
 {
-  "extends": "../../lib/tsconfig/tsconfig.dom.json",
-  "ts-node": {
-    "require": ["tsconfig-paths/register"],
-    "transpileOnly": true,
-    "compilerOptions": {
-      "moduleResolution": "node",
-      "module": "commonjs"
-    }
-  },
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
     "baseUrl": ".",
@@ -21,9 +13,7 @@
       "@echo/utils/*": ["../../lib/utils/src/*"],
       "@echo/web3/*": ["../../lib/web3/src/*"]
     },
-    "noEmit": false,
-    "sourceMap": true,
-    "inlineSources": true
+    "noEmit": false
   },
   "include": ["src", "../../env.d.ts"],
   "exclude": ["dist", "node_modules"]

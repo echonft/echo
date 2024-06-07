@@ -3,7 +3,7 @@ import { toPromise } from '@echo/utils/fp/to-promise'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import type { SignOutParams } from 'next-auth/react'
 
-export function signOut(_options: SignOutParams<true> | undefined): Promise<undefined> {
+export function signOut(_options: SignOutParams | undefined): Promise<undefined> {
   setTimeout(() => {
     authUserStore.getState().signOut()
   }, 780)
