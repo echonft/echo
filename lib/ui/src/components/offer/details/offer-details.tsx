@@ -1,4 +1,5 @@
 'use client'
+import { OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { NftCards } from '@echo/ui/components/nft/card/layout/nft-cards'
 import { CreatedOfferSwitch } from '@echo/ui/components/offer/created/created-offer-switch'
@@ -43,5 +44,6 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer }) => {
       </OfferDetailsLayout>
     )
   }
-  return <CreatedOfferSwitch offer={updatedOffer} />
+  // FIXME Not the cleanest, but this flow has to change so works for now
+  return <CreatedOfferSwitch offer={updatedOffer} redeemed={offer.state === OFFER_STATE_REJECTED} />
 }

@@ -311,6 +311,18 @@ Don't worry, its safe with us.`
       description: '{count, plural, =1 {Your NFT is now} other {Your NFTs are now}} back in your wallet',
       homepageBtn: 'Back to the homepage'
     },
+    redeemed: {
+      title: 'Redeemed!',
+      subtitle: 'You have <yellow>redeemed</yellow> your {count, plural, =1 {NFT} other {NFTs}}!',
+      description: '{count, plural, =1 {Your NFT is now} other {Your NFTs are now}} back in your wallet',
+      homepageBtn: 'Back to the homepage'
+    },
+    rejected: {
+      title: 'Rejected!',
+      subtitle: 'You <red>rejected</red> the offer!',
+      description: "Don't feel bad, we're sure there are other NFTs for you out there!",
+      homepageBtn: 'Back to the homepage'
+    },
     state: {
       ACCEPTED: 'Accepted',
       CANCELLED: 'Cancelled',
