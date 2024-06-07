@@ -11,7 +11,7 @@ import { ONE_DAY } from '@echo/ui/constants/expiration'
 import type { Expiration } from '@echo/ui/types/expiration'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { head } from 'ramda'
+import { head, type NonEmptyArray } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
@@ -24,8 +24,7 @@ interface Props {
 export const CreateListingExpiration: FunctionComponent<Props> = ({ items, onComplete, onCancel, loading }) => {
   const t = useTranslations('listing.create.expiration')
   const [expiration, setExpiration] = useState<Expiration>(ONE_DAY)
-  // FIXME Shouldn't force unwrap, but items will never be empty here
-  const firstNft = head(items)!
+  const firstNft = head(items as NonEmptyArray<Nft>)
   return (
     <ExpirationLayout>
       <ExpirationImage alt={firstNft.tokenId.toString()} src={firstNft.pictureUrl} />

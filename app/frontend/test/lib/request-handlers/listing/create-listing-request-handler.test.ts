@@ -21,7 +21,7 @@ import { type Nft } from '@echo/model/types/nft'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import { mapListingTargetToRequest } from '@echo/ui/mappers/to-api/map-listing-target-to-request'
 import { toPromise } from '@echo/utils/fp/to-promise'
-import { now } from '@echo/utils/helpers/now'
+import { futureDate } from '@echo/utils/helpers/future-date'
 import { map, modify, pipe, prop } from 'ramda'
 
 jest.mock('@echo/firestore/crud/listing/add-listing')
@@ -51,7 +51,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
     const request: CreateListingRequest = {
       items: [getNftMockById(nftMockSpiralCrewId())],
       target: pipe<[Listing], ListingTarget, ListingTargetRequest>(prop('target'), mapListingTargetToRequest)(listing),
-      expiresAt: now() + 60 * 1000
+      expiresAt: futureDate()
     }
     jest.mocked(addListing).mockResolvedValue({ id: listingMockId(), data: listing, listingOffers: [] })
     const req = mockRequest<CreateListingRequest>(request)
@@ -62,7 +62,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
     const validRequest: CreateListingRequest = {
       items: getListingItemsIndexes(listing),
       target: pipe<[Listing], ListingTarget, ListingTargetRequest>(prop('target'), mapListingTargetToRequest)(listing),
-      expiresAt: now() + 60 * 1000
+      expiresAt: futureDate()
     }
     jest.mocked(addListing).mockResolvedValue({ id: listingMockId(), data: listing, listingOffers: [] })
     const req = mockRequest<CreateListingRequest>(validRequest)

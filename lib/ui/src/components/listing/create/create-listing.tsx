@@ -57,9 +57,11 @@ export const CreateListing: FunctionComponent<Props> = ({
           setSettingExpiration(false)
           setReviewing(false)
         }}
-        onComplete={(expiration) =>
-          onComplete?.(selection.nfts, targetSelection!, dayjs().add(expiration, 'day').unix())
-        }
+        onComplete={(expiration) => {
+          if (!isNil(targetSelection)) {
+            onComplete?.(selection.nfts, targetSelection, dayjs().add(expiration, 'day').unix())
+          }
+        }}
         loading={loading}
       />
     )
