@@ -23,7 +23,7 @@
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
-    "@types/node": "20.14.1",
+    "@types/node": "20.14.2",
     "@types/qs": "6.9.15",
     "@types/ramda": "0.30.0",
     "typescript": "5.4.5"
