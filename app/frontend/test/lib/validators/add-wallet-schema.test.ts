@@ -1,5 +1,5 @@
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
-import { getWalletDocumentDataMockById } from '@echo/firestore-mocks/wallet/get-wallet-document-data-mock-by-id'
+import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
 import { addWalletSchema } from '@echo/frontend/lib/validators/add-wallet-schema'
 import type { Wallet } from '@echo/model/types/wallet'
 import { pick, pipe } from 'ramda'

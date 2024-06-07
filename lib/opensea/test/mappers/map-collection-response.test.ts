@@ -1,6 +1,6 @@
 import type { Wallet } from '@echo/model/types/wallet'
-import { collectionMockSpiralId } from '@echo/model-mocks/collection/collection-mock'
-import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
+import { collectionMockSpiralId } from '@echo/model/mocks/collection/collection-mock'
+import { getCollectionMockById } from '@echo/model/mocks/collection/get-collection-mock-by-id'
 import { mapCollectionResponse } from '@echo/opensea/mappers/map-collection-response'
 import type { CollectionResponse } from '@echo/opensea/types/response/collection-response'
 import { getSupportedChains } from '@echo/utils/helpers/chains/get-supported-chains'

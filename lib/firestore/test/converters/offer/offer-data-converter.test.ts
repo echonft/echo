@@ -1,6 +1,6 @@
 import { offerDataConverter } from '@echo/firestore/converters/offer/offer-data-converter'
-import { offerDocumentDataMock } from '@echo/firestore-mocks/offer/offer-document-data-mock'
-import { offerSnapshotMock } from '@echo/firestore-mocks/offer/offer-snapshot-mock'
+import { offerDocumentDataMock } from '@echo/firestore/mocks/offer/offer-document-data-mock'
+import { offerSnapshotMock } from '@echo/firestore/mocks/offer/offer-snapshot-mock'
 import {
   OFFER_STATE_ACCEPTED,
   OFFER_STATE_CANCELLED,
@@ -9,8 +9,8 @@ import {
   OFFER_STATE_OPEN,
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
-import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
+import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
+import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, pipe } from 'ramda'
 

@@ -1,7 +1,7 @@
 import { assertItems } from '@echo/model/helpers/item/assert/assert-items'
+import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
+import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import type { Nft } from '@echo/model/types/nft'
-import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, assocPath, pipe } from 'ramda'
 

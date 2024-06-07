@@ -4,7 +4,6 @@
     "baseUrl": ".",
     "paths": {
       "@echo/model/*": ["../model/src/*"],
-      "@echo/model-mocks/*": ["../model/test/@mocks/*"],
       "@echo/utils/*": ["../utils/src/*"],
       "@echo/web3/*": ["../web3/src/*"],
       "@echo/web3-dom/*": ["src/*"]

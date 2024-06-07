@@ -1,7 +1,7 @@
 import { getCompletedOffersForCollection } from '@echo/firestore/crud/offer/get-completed-offers-for-collection'
-import { collectionMockPxSlug } from '@echo/model-mocks/collection/collection-mock'
-import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { offerMockFromJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
+import { collectionMockPxSlug } from '@echo/model/mocks/collection/collection-mock'
+import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
+import { offerMockFromJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - offer - getCompletedOffersForCollection', () => {

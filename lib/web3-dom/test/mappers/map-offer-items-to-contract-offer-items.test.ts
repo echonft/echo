@@ -1,5 +1,5 @@
 // map-offer-items-to-contract-offer-items.test.ts
-import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
+import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { mapOfferItemsToContractOfferItems } from '@echo/web3-dom/mappers/map-offer-items-to-contract-offer-items'
 import type { ContractOfferItems } from '@echo/web3-dom/types/contract-offer-items'
 import { describe, expect, it } from '@jest/globals'

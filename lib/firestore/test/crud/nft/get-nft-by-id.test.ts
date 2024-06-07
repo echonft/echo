@@ -1,6 +1,6 @@
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
-import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
-import { nftMockSpiralJohnnyId } from '@echo/model-mocks/nft/nft-mock'
+import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
+import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - nft - getNftById', () => {

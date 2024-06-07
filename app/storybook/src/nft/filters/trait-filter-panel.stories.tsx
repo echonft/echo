@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { eqWithId } from '@echo/model/helpers/eq-with-id'
-import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
+import { getAllNftMocks } from '@echo/model/mocks/nft/get-all-nft-mocks'
 import { TraitFilterPanel as Component } from '@echo/ui/components/nft/filters/by-traits/trait-filter-panel'
 import type { TraitFilter } from '@echo/ui/types/trait-filter'
 import { isInWith } from '@echo/utils/fp/is-in-with'

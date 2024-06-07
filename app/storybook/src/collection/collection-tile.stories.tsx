@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { collectionMockPxId } from '@echo/model-mocks/collection/collection-mock'
-import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
+import { collectionMockPxId } from '@echo/model/mocks/collection/collection-mock'
+import { getCollectionMockById } from '@echo/model/mocks/collection/get-collection-mock-by-id'
 import { CollectionTile as Component } from '@echo/ui/components/collection/tile/collection-tile'
 import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'

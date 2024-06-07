@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getNftMock } from '@echo/model-mocks/nft/get-nft-mock'
+import { getNftMock } from '@echo/model/mocks/nft/get-nft-mock'
 import { NftCard as Component } from '@echo/ui/components/nft/card/nft-card'
 import { CARD_VARIANT_REDUCED } from '@echo/ui/constants/card-variants'
 import { type Meta, type StoryObj } from '@storybook/react'
@@ -12,6 +12,7 @@ interface Args {
   scaleDisabled: boolean
   reduced: boolean
 }
+
 type ComponentType = FunctionComponent<Args>
 
 const metadata: Meta<ComponentType> = {

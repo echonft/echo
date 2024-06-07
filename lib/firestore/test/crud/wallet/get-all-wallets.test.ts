@@ -1,5 +1,5 @@
-import { getAllWalletDocumentDataMocks } from '@echo/firestore-mocks/wallet/get-all-wallet-document-data-mocks'
-import { getAllWallets } from '@echo/firestore-test/wallet/get-all-wallets'
+import { getAllWalletDocumentDataMocks } from '@echo/firestore/mocks/wallet/get-all-wallet-document-data-mocks'
+import { getAllWallets } from '@echo/firestore/crud/wallet/get-all-wallets'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import { describe, expect, it } from '@jest/globals'
 

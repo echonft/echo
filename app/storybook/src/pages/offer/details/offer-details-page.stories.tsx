@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
+import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
 import { OFFER_ROLE_RECEIVER, OFFER_ROLE_SENDER } from '@echo/model/constants/offer-role'
 import {
   OFFER_STATE_EXPIRED,
@@ -11,9 +11,9 @@ import {
 import type { Offer } from '@echo/model/types/offer'
 import type { OfferRole } from '@echo/model/types/offer-role'
 import type { OfferState } from '@echo/model/types/offer-state'
-import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
-import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
+import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
+import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
+import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'

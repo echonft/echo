@@ -6,8 +6,8 @@ import {
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
 import { assertOfferStateTransition } from '@echo/model/helpers/offer/assert/assert-offer-state-transition'
-import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
+import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
+import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { describe, expect, it } from '@jest/globals'
 import { assoc } from 'ramda'
 

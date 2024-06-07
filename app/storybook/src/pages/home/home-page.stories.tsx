@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getAllCollectionMocks } from '@echo/model-mocks/collection/get-all-collection-mocks'
-import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
+import { getAllCollectionMocks } from '@echo/model/mocks/collection/get-all-collection-mocks'
+import { getAllOfferMocks } from '@echo/model/mocks/offer/get-all-offer-mocks'
 import { type Collection } from '@echo/model/types/collection'
 import type { Swap } from '@echo/model/types/swap'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'

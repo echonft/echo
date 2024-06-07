@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
+import { getAllOfferMocks } from '@echo/model/mocks/offer/get-all-offer-mocks'
 import type { Swap } from '@echo/model/types/swap'
 import { RecentSwaps as Component } from '@echo/ui/pages/home/swap/recent-swaps'
 import { type Meta, type StoryObj } from '@storybook/react'

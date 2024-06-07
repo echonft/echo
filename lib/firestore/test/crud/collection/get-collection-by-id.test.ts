@@ -1,6 +1,6 @@
 import { getCollectionById } from '@echo/firestore/crud/collection/get-collection-by-id'
-import { collectionMockPxId } from '@echo/model-mocks/collection/collection-mock'
-import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
+import { collectionMockPxId } from '@echo/model/mocks/collection/collection-mock'
+import { getCollectionMockById } from '@echo/model/mocks/collection/get-collection-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - collection - getCollectionById', () => {

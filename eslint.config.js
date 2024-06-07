@@ -110,7 +110,7 @@ export default tseslint.config(
   },
   {
     name: 'disable type checking on JS files',
-    files: ['app/**/*.js', 'lib/**/*.js', 'eslint.config.js'],
+    files: ['app/**/*.{js,cjs}', 'lib/**/*.{js,cjs}', 'eslint.config.js'],
     ...tseslint.configs.disableTypeChecked
   },
   {
@@ -118,13 +118,7 @@ export default tseslint.config(
     files: ['app/**/*test.ts', 'lib/**/*test.ts'],
     ...jestPlugin.configs['flat/recommended'],
     rules: {
-      ...jestPlugin.configs['flat/recommended'].rules
-    }
-  },
-  {
-    name: 'test files configuration #2 - to remove',
-    files: ['**/*test.ts', '**/test/**/*.ts'],
-    rules: {
+      ...jestPlugin.configs['flat/recommended'].rules,
       '@typescript-eslint/no-non-null-assertion': 'off'
     }
   },

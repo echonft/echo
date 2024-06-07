@@ -1,6 +1,6 @@
 import { getNftsForCollection } from '@echo/firestore/crud/nft/get-nfts-for-collection'
-import { collectionMockSpiralSlug } from '@echo/model-mocks/collection/collection-mock'
-import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
+import { collectionMockSpiralSlug } from '@echo/model/mocks/collection/collection-mock'
+import { getAllNftMocks } from '@echo/model/mocks/nft/get-all-nft-mocks'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import { describe, expect, it } from '@jest/globals'
 import { filter, pathEq, pipe } from 'ramda'

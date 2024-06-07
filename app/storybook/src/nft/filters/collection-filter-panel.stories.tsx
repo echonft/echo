@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { eqWithId } from '@echo/model/helpers/eq-with-id'
-import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
+import { getAllNftMocks } from '@echo/model/mocks/nft/get-all-nft-mocks'
 import { CollectionFilterPanel as Component } from '@echo/ui/components/nft/filters/by-collection/collection-filter-panel'
 import type { CollectionFilter } from '@echo/ui/types/collection-filter'
 import { type Meta, type StoryObj } from '@storybook/react'

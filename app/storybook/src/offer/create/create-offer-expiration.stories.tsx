@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getNftMocksByUsername } from '@echo/model-mocks/nft/get-nft-mocks-by-username'
-import { userMockCrewUsername } from '@echo/model-mocks/user/user-mock'
+import { getNftMocksByUsername } from '@echo/model/mocks/nft/get-nft-mocks-by-username'
+import { userMockCrewUsername } from '@echo/model/mocks/user/user-mock'
 import { CreateOfferExpiration as Component } from '@echo/ui/components/offer/create/create-offer-expiration'
 import type { Meta, StoryObj } from '@storybook/react'
 

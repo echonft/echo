@@ -1,5 +1,5 @@
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
-import { offerMock, offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
+import { offerMock, offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - offer - findOfferById', () => {

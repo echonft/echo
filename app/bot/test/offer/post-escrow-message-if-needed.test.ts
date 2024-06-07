@@ -3,11 +3,12 @@ import { initializeTranslations } from '@echo/bot/messages/initialize-translatio
 import { postEscrowMessageIfNeeded } from '@echo/bot/offer/post-escrow-message-if-needed'
 import { getOfferUpdatesByOfferId } from '@echo/firestore/crud/offer-update/get-offer-updates-by-offer-id'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
+import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
 import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
 import type { OfferUpdate } from '@echo/firestore/types/model/offer-update/offer-update'
-import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
+import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
+import { offerMockFromJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import type { Offer } from '@echo/model/types/offer'
-import { offerMock, offerMockFromJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
 import { afterEach, beforeAll, describe, expect, it, jest } from '@jest/globals'
 import type { AnyThreadChannel } from 'discord.js'
 import { assocPath } from 'ramda'
@@ -17,7 +18,7 @@ jest.mock('@echo/firestore/crud/offer-update/get-offer-updates-by-offer-id')
 jest.mock('@echo/bot/helpers/send-to-thread')
 
 describe('offer - postEscrowMessageIfNeeded', () => {
-  const offer: Offer = offerMock[offerMockFromJohnnycageId()]!
+  const offer: Offer = getOfferMockById(offerMockFromJohnnycageId())
   const offerThread = { offerId: offerMockFromJohnnycageId(), guild: { threadId: 'test' } } as unknown as OfferThread
   const thread = {} as unknown as AnyThreadChannel
   const offerUpdate: OfferUpdate = {

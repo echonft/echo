@@ -7,9 +7,7 @@
       "@echo/api/*": ["../../lib/api/src/*"],
       "@echo/bot/*": ["./src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
-      "@echo/model-mocks/*": ["../../lib/model/test/@mocks/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
-      "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"]
     },
     "noEmit": false,

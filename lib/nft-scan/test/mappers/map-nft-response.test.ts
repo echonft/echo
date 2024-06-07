@@ -1,7 +1,7 @@
 import { mapNftResponse } from '@echo/nft-scan/mappers/map-nft-response'
+import { attributesMock } from '@echo/nft-scan/mocks/attributes-mock'
+import { nftResponseMock } from '@echo/nft-scan/mocks/nft-response-mock'
 import { nftResponseSchema } from '@echo/nft-scan/validators/nft-response-schema'
-import { attributesMock } from '@echo/nft-scan-mocks/attributes-mock'
-import { nftResponseMock } from '@echo/nft-scan-mocks/nft-response-mock'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
 

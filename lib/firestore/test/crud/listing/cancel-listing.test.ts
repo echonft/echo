@@ -1,7 +1,8 @@
+import { assertListings } from '@echo/firestore/utils/listing/assert-listings'
+import { unchecked_updateListing } from '@echo/firestore/utils/listing/unchecked_update-listing'
 import { cancelListing } from '@echo/firestore/crud/listing/cancel-listing'
 import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
-import { assertListings } from '@echo/firestore-test/listing/assert-listings'
-import { unchecked_updateListing } from '@echo/firestore-test/listing/unchecked_update-listing'
+import { listingMockId, listingMockSlug } from '@echo/model/mocks/listing/listing-mock'
 import {
   LISTING_STATE_CANCELLED,
   LISTING_STATE_EXPIRED,
@@ -9,8 +10,6 @@ import {
   LISTING_STATE_OPEN
 } from '@echo/model/constants/listing-states'
 import { type ListingState } from '@echo/model/types/listing-state'
-import { listingMockId, listingMockSlug } from '@echo/model-mocks/listing/listing-mock'
-import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 
@@ -73,6 +72,7 @@ describe('CRUD - listing - cancelListing', () => {
     await cancelListing(listingSlug)
     const updatedListing = (await getListingById(listingId))!
     expect(updatedListing.state).toEqual(LISTING_STATE_CANCELLED)
-    expectDateNumberIsNow(updatedListing.updatedAt)
+    expect(dayjs.unix(updatedListing.updatedAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
+    expect(dayjs.unix(updatedListing.updatedAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
   })
 })

@@ -1,9 +1,9 @@
 import { eqNfts } from '@echo/model/helpers/nft/eq-nfts'
 import type { Wallet } from '@echo/model/types/wallet'
-import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
-import { nftMockSpiralJohnny2Id, nftMockSpiralJohnnyId } from '@echo/model-mocks/nft/nft-mock'
-import { offerMockFromJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
-import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
+import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
+import { nftMockSpiralJohnny2Id, nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
+import { offerMockFromJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
+import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, pipe, toLower } from 'ramda'
 

@@ -1,24 +1,24 @@
-import { addListing } from '@echo/firestore/crud/listing/add-listing'
-import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
+import { assertListingOffers } from '@echo/firestore/utils/listing-offer/assert-listing-offers'
+import { deleteListingOffer } from '@echo/firestore/crud/listing-offer/delete-listing-offer'
+import { assertListings } from '@echo/firestore/utils/listing/assert-listings'
+import { deleteListing } from '@echo/firestore/crud/listing/delete-listing'
+import { getAllListings } from '@echo/firestore/crud/listing/get-all-listings'
 import { getListingOffersByListingId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-listing-id'
 import { getListingOffersForListing } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-listing'
+import { addListing } from '@echo/firestore/crud/listing/add-listing'
+import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
 import { assertListingIsNotADuplicate } from '@echo/firestore/helpers/listing/assert/assert-listing-is-not-a-duplicate'
 import type { ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
 import type { NewDocument } from '@echo/firestore/types/new-document'
-import { assertListings } from '@echo/firestore-test/listing/assert-listings'
-import { deleteListing } from '@echo/firestore-test/listing/delete-listing'
-import { getAllListings } from '@echo/firestore-test/listing/get-all-listings'
-import { assertListingOffers } from '@echo/firestore-test/listing-offer/assert-listing-offers'
-import { deleteListingOffer } from '@echo/firestore-test/listing-offer/delete-listing-offer'
+import { getAllListingMocks } from '@echo/model/mocks/listing/get-all-listing-mocks'
+import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
+import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
 import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
-import { getAllListingMocks } from '@echo/model-mocks/listing/get-all-listing-mocks'
-import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
-import { listingMockId } from '@echo/model-mocks/listing/listing-mock'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import dayjs from 'dayjs'
 import { assoc, find, isNil, map, pick, pipe, prop, propEq } from 'ramda'
 
 describe('CRUD - listing - addListing', () => {
@@ -79,7 +79,8 @@ describe('CRUD - listing - addListing', () => {
     expect(newListing.items).toStrictEqual(items)
     expect(newListing.state).toBe(LISTING_STATE_OFFERS_PENDING)
     expect(newListing.target).toStrictEqual(newTarget)
-    expectDateNumberIsNow(newListing.updatedAt)
+    expect(dayjs.unix(newListing.updatedAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
+    expect(dayjs.unix(newListing.updatedAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
     expect(newListing.expiresAt).toBe(expiresAt)
     // check if listing offers have been created
     const listingOffers = await getListingOffersForListing(newListing)

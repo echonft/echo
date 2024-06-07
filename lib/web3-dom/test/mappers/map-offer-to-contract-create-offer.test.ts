@@ -1,6 +1,6 @@
 import type { BaseOffer } from '@echo/model/types/base-offer' // import required types from respective modules
-import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
-import { getUserMockByUsername } from '@echo/model-mocks/user/user-mock'
+import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
+import { getUserMockByUsername } from '@echo/model/mocks/user/user-mock'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
 import { mapOfferToContractCreateOffer } from '@echo/web3-dom/mappers/map-offer-to-contract-create-offer'
 import type { ContractCreateOffer } from '@echo/web3-dom/types/contract-create-offer'

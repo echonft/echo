@@ -1,8 +1,8 @@
 import type { AddOfferStateUpdateArgs } from '@echo/firestore/crud/offer-update/add-offer-state-update'
 import { getOfferStateUpdate } from '@echo/firestore/crud/offer-update/get-offer-state-update'
 import { getOfferUpdateById } from '@echo/firestore/crud/offer-update/get-offer-update-by-id'
-import { deleteOfferUpdate } from '@echo/firestore-test/offer-update/delete-offer-update'
-import { unchecked_addOfferStateUpdate } from '@echo/firestore-test/offer-update/unchecked_add-offer-state-update'
+import { deleteOfferUpdate } from '@echo/firestore/crud/offer-update/delete-offer-update'
+import { unchecked_addOfferStateUpdate } from '@echo/firestore/utils/offer-update/unchecked_add-offer-state-update'
 import {
   OFFER_STATE_ACCEPTED,
   OFFER_STATE_CANCELLED,
@@ -10,8 +10,8 @@ import {
   OFFER_STATE_OPEN,
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
-import { offerMockToJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
-import { userMockJohnnyUsername } from '@echo/model-mocks/user/user-mock'
+import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
+import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'

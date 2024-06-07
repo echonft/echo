@@ -1,5 +1,5 @@
 import { getListingPost } from '@echo/firestore/crud/listing-post/get-listing-post'
-import { listingMockId } from '@echo/model-mocks/listing/listing-mock'
+import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - listing-post - getListingPost', () => {

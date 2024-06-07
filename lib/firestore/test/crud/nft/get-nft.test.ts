@@ -1,7 +1,7 @@
 import { getNft } from '@echo/firestore/crud/nft/get-nft'
-import { collectionMockSpiralSlug } from '@echo/model-mocks/collection/collection-mock'
-import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
-import { nftMockSpiralJohnnyId } from '@echo/model-mocks/nft/nft-mock'
+import { collectionMockSpiralSlug } from '@echo/model/mocks/collection/collection-mock'
+import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
+import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - nft - getNft', () => {

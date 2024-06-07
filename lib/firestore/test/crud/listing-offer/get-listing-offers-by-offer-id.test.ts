@@ -1,6 +1,6 @@
 import { getListingOffersByOfferId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-offer-id'
-import { getListingOfferMocksByOfferId } from '@echo/firestore-mocks/listing-offer/get-listing-offer-mocks-by-offer-id'
-import { offerMockFromJohnnycageId } from '@echo/model-mocks/offer/offer-mock'
+import { getListingOfferMocksByOfferId } from '@echo/firestore/mocks/listing-offer/get-listing-offer-mocks-by-offer-id'
+import { offerMockFromJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import { describe, expect, it } from '@jest/globals'
 

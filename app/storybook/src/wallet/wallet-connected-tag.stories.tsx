@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getWalletMock } from '@echo/model-mocks/wallet/wallet-mock'
+import { getWalletMock } from '@echo/model/mocks/wallet/wallet-mock'
 import { WalletConnectedTag as Component } from '@echo/ui/components/wallet/wallet-connected-tag'
 import { type Meta, type StoryObj } from '@storybook/react'
 

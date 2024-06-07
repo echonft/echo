@@ -1,4 +1,4 @@
-import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
+import { getAllNftMocks } from '@echo/model/mocks/nft/get-all-nft-mocks'
 import { getTraitFiltersForNfts } from '@echo/ui/helpers/nft/filters/get-trait-filters-for-nfts'
 import { describe, expect, test } from '@jest/globals'
 

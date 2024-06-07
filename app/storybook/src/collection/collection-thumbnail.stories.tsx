@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getCollectionMock } from '@echo/model-mocks/collection/get-collection-mock'
+import { getCollectionMock } from '@echo/model/mocks/collection/get-collection-mock'
 import { CollectionThumbnail as Component } from '@echo/ui/components/collection/thumbnail/collection-thumbnail'
 import { type Meta, type StoryObj } from '@storybook/react'
 

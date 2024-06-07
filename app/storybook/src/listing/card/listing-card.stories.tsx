@@ -4,7 +4,7 @@ import { LISTING_STATE_OPEN, LISTING_STATES } from '@echo/model/constants/listin
 import type { Listing } from '@echo/model/types/listing'
 import type { ListingState } from '@echo/model/types/listing-state'
 import type { Nft } from '@echo/model/types/nft'
-import { getListingMock } from '@echo/model-mocks/listing/get-listing-mock'
+import { getListingMock } from '@echo/model/mocks/listing/get-listing-mock'
 import { ListingCard } from '@echo/ui/components/listing/card/listing-card'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { always, assoc, drop, modify, pipe, unless } from 'ramda'

@@ -5,15 +5,11 @@
     "paths": {
       "@echo/api/*": ["../../lib/api/src/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
-      "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
       "@echo/frontend/*": ["src/*"],
-      "@echo/frontend-mocks/*": ["test/@mocks/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
-      "@echo/model-mocks/*": ["../../lib/model/test/@mocks/*"],
       "@echo/ui/*": ["../../lib/ui/src/*"],
       "@echo/ui-css/*": ["../../lib/ui/dist/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"],
-      "@echo/utils-test/*": ["../../lib/utils/test/@utils/*"],
       "@echo/web3/*": ["../../lib/web3/src/*"],
       "@echo/web3-dom/*": ["../../lib/web3-dom/src/*"]
     },

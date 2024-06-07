@@ -1,5 +1,5 @@
 import { assertListing } from '@echo/frontend/lib/helpers/listing/assert/assert-listing'
-import { getListingMock } from '@echo/model-mocks/listing/get-listing-mock'
+import { getListingMock } from '@echo/model/mocks/listing/get-listing-mock'
 
 describe('helpers - listing - assert - assertListing', () => {
   it('throws if listing is undefined', () => {

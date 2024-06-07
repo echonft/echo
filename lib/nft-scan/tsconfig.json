@@ -4,9 +4,7 @@
     "baseUrl": ".",
     "paths": {
       "@echo/model/*": ["../model/src/*"],
-      "@echo/model-mocks/*": ["../model/test/@mocks/*"],
       "@echo/nft-scan/*": ["src/*"],
-      "@echo/nft-scan-mocks/*": ["test/@mocks/*"],
       "@echo/utils/*": ["../utils/src/*"]
     },
     "lib": ["dom", "esnext"]
