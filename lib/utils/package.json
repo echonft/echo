@@ -1,9 +1,9 @@
 {
   "name": "@echo/utils",
   "version": "1.0.0",
-  "private": true,
-  "sideEffects": false,
   "license": "MIT",
+  "type": "module",
+  "private": true,
   "scripts": {
     "lint": "eslint",
     "modules:remove": "rm -rf node_modules",

@@ -1,8 +1,9 @@
 {
   "name": "@echo/storybook",
   "version": "1.0.0",
-  "private": true,
   "license": "MIT",
+  "type": "module",
+  "private": true,
   "scripts": {
     "build": "storybook build --test",
     "clean": "rm -rf storybook-static",

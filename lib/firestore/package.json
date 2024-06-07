@@ -1,9 +1,9 @@
 {
   "name": "@echo/firestore",
   "version": "1.0.0",
-  "private": true,
-  "sideEffects": false,
   "license": "MIT",
+  "type": "module",
+  "private": true,
   "scripts": {
     "env:pull": "dotenvx hub pull",
     "lint": "eslint",

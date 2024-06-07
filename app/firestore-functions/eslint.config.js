@@ -1,7 +1,7 @@
 // @ts-check
 
 import globals from 'globals'
-import baseConfig from '../../eslint.config.mjs'
+import baseConfig from '../../eslint.config.js'
 import eslintConfigGoogle from 'eslint-config-google'
 
 export default [

@@ -1,19 +1,10 @@
 {
   "name": "echo",
-  "version": "1.0.0",
   "repository": "git@github.com:echonft/echo.git",
+  "version": "1.0.0",
   "license": "MIT",
+  "type": "module",
   "private": true,
-  "description": "A Discord bot that allows NFT swapping",
-  "keywords": [
-    "discord",
-    "bot",
-    "nft"
-  ],
-  "bugs": {
-    "url": "https://github.com/echonft/echo/issues"
-  },
-  "homepage": "https://github.com/echonft/echo#readme",
   "lint-staged": {
     "*.(ts|tsx)": [
       "eslint --quiet --fix",

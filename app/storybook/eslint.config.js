@@ -1,6 +1,6 @@
 // @ts-check
 
-import baseConfig from '../../eslint.config.mjs'
+import baseConfig from '../../eslint.config.js'
 import eslintPluginStorybook from 'eslint-plugin-storybook'
 import eslintPluginReact from 'eslint-plugin-react'
 import eslintPluginReactRecommended from 'eslint-plugin-react/configs/recommended.js'

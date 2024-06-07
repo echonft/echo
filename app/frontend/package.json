@@ -1,10 +1,11 @@
 {
   "name": "@echo/frontend",
   "version": "1.0.0",
-  "private": true,
   "license": "MIT",
+  "type": "module",
+  "private": true,
   "scripts": {
-    "build": "next build",
+    "build": "source .env.keys; dotenvx run -f .env.dev -- next build",
     "clean": "rm -rf .next",
     "dev": "source .env.keys; dotenvx run -f .env.dev -- next dev",
     "env:pull": "dotenvx hub pull",

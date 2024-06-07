@@ -1,8 +1,9 @@
 {
   "name": "@echo/bot",
   "version": "1.0.0",
-  "private": true,
   "license": "MIT",
+  "type": "module",
+  "private": true,
   "scripts": {
     "build": "tsup",
     "clean": "rm -rf dist",
