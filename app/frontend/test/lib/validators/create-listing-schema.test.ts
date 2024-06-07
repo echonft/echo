@@ -1,5 +1,6 @@
 import { type CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
 import { createListingSchema } from '@echo/frontend/lib/validators/create-listing-schema'
+import { now } from '@echo/utils/helpers/now'
 import { assoc, dissoc } from 'ramda'
 
 describe('validators - createListingSchema', () => {
@@ -17,8 +18,13 @@ describe('validators - createListingSchema', () => {
       collection: {
         slug: 'collection-slug'
       }
-    }
+    },
+    expiresAt: now() + 60 * 1000
   }
+  it('throws if expires at is not valid', () => {
+    expect(() => createListingSchema.parse(assoc('expiresAt', now()))).toThrow()
+    expect(() => createListingSchema.parse(assoc('expiresAt', now() - 60 * 1000))).toThrow()
+  })
   it('throws if items are not valid', () => {
     expect(() => createListingSchema.parse(dissoc('items', validRequest))).toThrow()
     expect(() => createListingSchema.parse(assoc('items', [], validRequest))).toThrow()

@@ -10,7 +10,6 @@ import { deleteListing } from '@echo/firestore-test/listing/delete-listing'
 import { getAllListings } from '@echo/firestore-test/listing/get-all-listings'
 import { assertListingOffers } from '@echo/firestore-test/listing-offer/assert-listing-offers'
 import { deleteListingOffer } from '@echo/firestore-test/listing-offer/delete-listing-offer'
-import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
 import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import { getAllListingMocks } from '@echo/model-mocks/listing/get-all-listing-mocks'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
@@ -18,10 +17,8 @@ import { listingMockId } from '@echo/model-mocks/listing/listing-mock'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { expectDateNumberIs } from '@echo/utils-test/expect-date-number-is'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import dayjs from 'dayjs'
 import { assoc, find, isNil, map, pick, pipe, prop, propEq } from 'ramda'
 
 describe('CRUD - listing - addListing', () => {
@@ -63,15 +60,15 @@ describe('CRUD - listing - addListing', () => {
     ).rejects.toBeDefined()
   })
   it('throws if the listing is a duplicate', async () => {
-    const { items, target } = getListingMockById(listingMockId())
-    await expect(addListing({ items, target })).rejects.toBeDefined()
+    const { items, target, expiresAt } = getListingMockById(listingMockId())
+    await expect(addListing({ items, target, expiresAt })).rejects.toBeDefined()
     const listings = await getAllListings()
     expect(eqListContent(listings, getAllListingMocks())).toBeTruthy()
   })
   it('add a listing', async () => {
-    const { creator, items, target } = getListingMockById(listingMockId())
+    const { creator, items, target, expiresAt } = getListingMockById(listingMockId())
     const newTarget = assoc('amount', 1, target)
-    const newDocument = await addListing({ items, target: newTarget })
+    const newDocument = await addListing({ items, target: newTarget, expiresAt })
     createdListingId = newDocument.id
     createdListingOfferIds = pipe(
       prop('listingOffers'),
@@ -83,7 +80,7 @@ describe('CRUD - listing - addListing', () => {
     expect(newListing.state).toBe(LISTING_STATE_OFFERS_PENDING)
     expect(newListing.target).toStrictEqual(newTarget)
     expectDateNumberIsNow(newListing.updatedAt)
-    expectDateNumberIs(newListing.expiresAt)(dayjs().add(DEFAULT_EXPIRATION_TIME, 'day'))
+    expect(newListing.expiresAt).toBe(expiresAt)
     // check if listing offers have been created
     const listingOffers = await getListingOffersForListing(newListing)
     const createdListingOffers = await getListingOffersByListingId(createdListingId)
