@@ -26,7 +26,7 @@ export const addCollectionGuildCommand: Command = {
       })
       .demandOption('i', 'collection id is required')
       .parse()
-    initializeFirebase()
+    await initializeFirebase()
     await addCollectionDefaultDiscordGuild(i)
     await terminateFirestore()
   }

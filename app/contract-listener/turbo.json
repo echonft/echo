@@ -3,14 +3,7 @@
   "extends": ["//"],
   "tasks": {
     "build": {
-      "inputs": ["src/**/*.ts"],
       "outputs": ["dist/**"]
-    },
-    "deploy:dev": {
-      "cache": false
-    },
-    "deploy:prod": {
-      "cache": false
     },
     "machine:restart:dev": {
       "cache": false

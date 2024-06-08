@@ -3,7 +3,6 @@
   "extends": ["//"],
   "tasks": {
     "build": {
-      "inputs": ["src/**/*.ts"],
       "outputs": ["dist/**"]
     },
     "deploy:dev": {

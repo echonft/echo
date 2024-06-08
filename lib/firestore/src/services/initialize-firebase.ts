@@ -1,38 +1,42 @@
+import { firestoreLogger } from '@echo/firestore/constants/firestore-logger'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
-import { cert, getApps, initializeApp } from 'firebase-admin/app'
+import { getProjectId, getSecret } from '@echo/utils/services/secret-manager'
+import { privateKeySchema } from '@echo/utils/validators/private-key-schema'
+import { cert, getApps, initializeApp, type ServiceAccount } from 'firebase-admin/app'
 import {
   type Firestore,
   getFirestore,
   initializeFirestore as firebaseInitializeFirestore
 } from 'firebase-admin/firestore'
-import { head, isEmpty, isNil } from 'ramda'
+import { andThen, assoc, head, ifElse, isNil, pipe } from 'ramda'
 
-export function initializeFirebase(): Firestore {
+async function getCredentials(): Promise<Omit<ServiceAccount, 'projectId'>> {
+  const clientEmail = await getSecret('FIREBASE_CLIENT_EMAIL')
+  const privateKey = await pipe(
+    getSecret,
+    andThen((key) => privateKeySchema.parse(key))
+  )('FIREBASE_PRIVATE_KEY')
+  if (isNil(clientEmail) || isNil(privateKey)) {
+    throw Error(`credentials not found`)
+  }
+  return { clientEmail, privateKey }
+}
+export async function initializeFirebase(credentials?: Omit<ServiceAccount, 'projectId'>): Promise<Firestore> {
   const apps = getApps()
   if (isNonEmptyArray(apps)) {
     return getFirestore(head(apps))
   }
-  const projectId = process.env.FIREBASE_PROJECT_ID
-  if (isNil(projectId) || isEmpty(projectId)) {
-    throw new Error('FIREBASE_PROJECT_ID env var is not defined')
-  }
-  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL
-  if (isNil(clientEmail) || isEmpty(clientEmail)) {
-    throw new Error('FIREBASE_CLIENT_EMAIL env var is not defined')
-  }
-  const privateKey = process.env.FIREBASE_PRIVATE_KEY
-  if (isNil(privateKey) || isEmpty(privateKey)) {
-    throw new Error('FIREBASE_PRIVATE_KEY env var is not defined')
-  }
+  const serviceAccount = await ifElse(
+    isNil,
+    pipe(getCredentials, andThen(assoc('projectId', getProjectId()))),
+    assoc('projectId', getProjectId())
+  )(credentials)
   const firestore = firebaseInitializeFirestore(
     initializeApp({
-      credential: cert({
-        projectId,
-        clientEmail,
-        privateKey: Buffer.from(privateKey, 'base64').toString('ascii')
-      })
+      credential: cert(serviceAccount)
     })
   )
   firestore.settings({ ignoreUndefinedProperties: true })
+  firestoreLogger.info(`initialized Firebase for project ${getProjectId()}`)
   return firestore
 }

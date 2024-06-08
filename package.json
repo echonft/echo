@@ -76,7 +76,7 @@
     "eslint-plugin-react": "7.34.2",
     "eslint-plugin-react-hooks": "4.6.2",
     "eslint-plugin-storybook": "0.8.0",
-    "firebase-tools": "13.11.1",
+    "firebase-tools": "13.11.2",
     "globals": "15.4.0",
     "husky": "9.0.11",
     "lint-staged": "15.2.5",
@@ -86,7 +86,7 @@
     "turbo": "2.0.3",
     "typescript": "5.4.5",
     "typescript-eslint": "7.12.0",
-    "vercel": "34.2.5"
+    "vercel": "34.2.6"
   },
   "packageManager": "pnpm@9.2.0",
   "engines": {

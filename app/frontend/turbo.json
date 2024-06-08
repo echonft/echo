@@ -3,7 +3,6 @@
   "extends": ["//"],
   "tasks": {
     "build": {
-      "inputs": ["src/**/*.tsx", "src/**/*.ts", "../../../lib/**/*.ts", "../../../lib/**/*.tsx"],
       "outputs": [".next/**", "!.next/cache/**"],
       "passThroughEnv": [
         "NEXT_PUBLIC_VERCEL_ENV",

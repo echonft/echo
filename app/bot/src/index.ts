@@ -18,7 +18,7 @@ import { Events } from 'discord.js'
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 client.once(Events.ClientReady, async (_client) => {
-  initializeFirebase()
+  await initializeFirebase()
   initializeSentry()
   await initializeTranslations()
   listenToListings((changeType, snapshot) => guardAsyncFn(listingChangeHandler)(changeType, snapshot))

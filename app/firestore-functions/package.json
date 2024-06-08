@@ -5,9 +5,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "artifacts:delete": "gcloud artifacts repositories delete gcf-artifacts --location=us-central1 -q",
-    "artifacts:delete:dev": "turbo artifacts:delete -- --project=echo-dev-fallback",
-    "artifacts:delete:prod": "turbo artifacts:delete -- --project=echo-prod-b71e2",
+    "artifacts:delete:dev": "scripts/delete-artifacts.sh dev",
+    "artifacts:delete:prod": "scripts/delete-artifacts.sh prod",
     "build": "tsup",
     "deploy": "firebase deploy --only functions",
     "env:pull": "dotenvx hub pull",

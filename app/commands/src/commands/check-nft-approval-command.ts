@@ -26,7 +26,7 @@ export const checkNftApprovalCommand: Command = {
       })
       .demandOption('i', 'NFT id is required')
       .parse()
-    initializeFirebase()
+    await initializeFirebase()
     const nft = await getNftById(i)
     if (isNil(nft)) {
       console.error(`NFT ${i} not found in the database`)

@@ -30,7 +30,7 @@ export const listCollectionsContractCommand: Command = {
         }
       })
       .parse()
-    initializeFirebase()
+    await initializeFirebase()
     const collections = await getAllCollections()
     logOutput(collections, i as FormatType)
     await terminateFirestore()

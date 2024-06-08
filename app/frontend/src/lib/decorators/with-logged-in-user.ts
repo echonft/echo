@@ -8,7 +8,7 @@ export function withLoggedInUser<Args extends Record<'user', User>, Return exten
   fn: (args: Args) => Return
 ) {
   return async function (args: Args): Promise<Return> {
-    initializeFirebase()
+    await initializeFirebase()
     const user = await getAuthUser()
     if (isNil(user)) {
       throw Error('Unauthorized')

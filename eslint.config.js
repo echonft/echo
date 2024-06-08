@@ -75,13 +75,13 @@ export default tseslint.config(
             {
               name: 'clsx/clsx',
               message: 'Not gonna work. Import directly from clsx instead'
-            },
-            {
-              name: 'process',
-              message: 'Do not import from process'
             }
           ],
           patterns: [
+            {
+              group: ['process', 'node:process'],
+              message: 'Do not import from process'
+            },
             {
               group: [
                 '@echo/**/src/*',
@@ -117,6 +117,11 @@ export default tseslint.config(
     name: 'test files configuration',
     files: ['app/**/*test.ts', 'lib/**/*test.ts'],
     ...jestPlugin.configs['flat/recommended'],
+    languageOptions: {
+      globals: {
+        ...globals.jest
+      }
+    },
     rules: {
       ...jestPlugin.configs['flat/recommended'].rules,
       '@typescript-eslint/no-non-null-assertion': 'off'

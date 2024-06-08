@@ -2,12 +2,14 @@
   "$schema": "https://turbo.build/schema.json",
   "extends": ["//"],
   "tasks": {
-    "artifacts:delete": {},
-    "artifacts:delete:dev": {},
-    "artifacts:delete:prod": {},
-    "deploy": {
-      "dependsOn": ["build"]
+    "artifacts:delete:dev": {
+      "cache": false
     },
-    "use": {}
+    "artifacts:delete:prod": {
+      "cache": false
+    },
+    "deploy": {
+      "dependsOn": ["lint", "tsc", "build"]
+    }
   }
 }
