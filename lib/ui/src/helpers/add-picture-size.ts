@@ -1,6 +1,5 @@
 import { PICTURE_SIZE_MD, PICTURE_SIZES } from '@echo/ui/constants/picture-size'
 import type { PictureSize } from '@echo/ui/types/picture-size'
-import { isDev } from '@echo/utils/constants/is-dev'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
@@ -30,11 +29,7 @@ export function addPictureSize({ src, width }: ImageLoaderProps): string {
     return 'https://storage.googleapis.com/echo-dev-public/not-found-nft.png?alt=media'
   }
   try {
-    if (src.startsWith('https://pinata.echonft.xyz/ipfs/')) {
-      if (isDev) {
-        // TODO remove
-        return `${src}?img-width=${size}&pinataGatewayToken=${process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY}`
-      }
+    if (src.startsWith('https://bowl-fence-dance.quicknode-ipfs.com')) {
       return `${src}?img-width=${size}`
     }
 
@@ -45,11 +40,7 @@ export function addPictureSize({ src, width }: ImageLoaderProps): string {
       if (isNil(match)) {
         return src
       }
-      // TODO remove
-      if (isDev) {
-        return `https://pinata.echonft.xyz/ipfs/${match[1]}?img-width=${size}&pinataGatewayToken=${process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY}`
-      }
-      return `https://pinata.echonft.xyz/ipfs/${match[1]}?img-width=${size}`
+      return `https://bowl-fence-dance.quicknode-ipfs.com/${match[1]}?img-width=${size}`
     }
     if (hostname.includes('discordapp.com')) {
       return `${urlObject.href}?size=${size}`

@@ -15,7 +15,7 @@ export async function nftIsApproved(nft: Nft, logger?: LoggerInterface): Promise
     return false
   }
   const echoAddress = getEchoAddressByChain(contract.chain)
-  const client = pipe(prop('chain'), getClientForChain)(contract)
+  const client = await pipe(prop('chain'), getClientForChain)(contract)
   const approved = await client.readContract({
     abi: erc721Abi,
     functionName: 'isApprovedForAll',

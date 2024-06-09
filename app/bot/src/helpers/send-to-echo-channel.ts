@@ -1,4 +1,4 @@
-import { getEchoChannel } from '@echo/bot/get-echo-channel'
+import { getEchoChannel } from '@echo/bot/helpers/get-echo-channel'
 import { sendToChannel } from '@echo/bot/helpers/send-to-channel'
 import type { MessageCreateOptions, MessagePayload } from 'discord.js'
 

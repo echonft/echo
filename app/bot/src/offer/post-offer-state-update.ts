@@ -1,3 +1,4 @@
+import { botLogger } from '@echo/bot/constants/bot-logger'
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
@@ -11,7 +12,6 @@ import {
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
 import { type AnyThreadChannel, userMention } from 'discord.js'
 import i18next from 'i18next'
 import { isNil } from 'ramda'
@@ -49,5 +49,5 @@ export async function postOfferStateUpdate(args: { offerThread: OfferThread; thr
     components: [buildOfferLinkButton(offer.slug)],
     content
   })
-  pinoLogger.info(`[OFFER ${offerThread.offerId}] posted update to thread ${offerThread.guild.threadId}`)
+  botLogger.info({ msg: `[OFFER ${offerThread.offerId}] posted update to thread ${offerThread.guild.threadId}` })
 }

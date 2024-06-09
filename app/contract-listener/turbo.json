@@ -5,11 +5,13 @@
     "build": {
       "outputs": ["dist/**"]
     },
-    "machine:restart:dev": {
-      "cache": false
+    "deploy": {
+      "cache": false,
+      "passThroughEnv": ["ENV"]
     },
-    "machine:restart:prod": {
-      "cache": false
+    "machine:restart": {
+      "cache": false,
+      "passThroughEnv": ["ENV"]
     }
   }
 }

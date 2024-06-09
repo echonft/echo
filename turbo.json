@@ -20,7 +20,7 @@
     "dev": {
       "cache": false,
       "persistent": true,
-      "passThroughEnv": ["NODE_ENV"]
+      "passThroughEnv": ["ENV", "NODE_ENV"]
     },
     "env:pull": {
       "cache": false

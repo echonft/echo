@@ -1,5 +1,5 @@
+import { botLogger } from '@echo/bot/constants/bot-logger'
 import { client } from '@echo/bot/constants/client'
-import { getDiscordClientToken } from '@echo/bot/helpers/get-discord-client-token'
 import { guardAsyncFn } from '@echo/bot/helpers/guard-async-fn'
 import { initializeSentry } from '@echo/bot/helpers/initialize-sentry'
 import { sendToEchoChannel } from '@echo/bot/helpers/send-to-echo-channel'
@@ -13,7 +13,7 @@ import { listenToOfferUpdates } from '@echo/firestore/listeners/listen-to-offer-
 import { listenToOffers } from '@echo/firestore/listeners/listen-to-offers'
 import { listenToSwaps } from '@echo/firestore/listeners/listen-to-swaps'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
+import { getSecret } from '@echo/utils/services/secret-manager'
 import { Events } from 'discord.js'
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -29,7 +29,6 @@ client.once(Events.ClientReady, async (_client) => {
 })
 
 //make sure this line is the last line
-void client.login(getDiscordClientToken()) //login bot using token
-pinoLogger.info(`Bot started`)
-pinoLogger.info(`Guild: ${process.env.ECHO_DISCORD_GUILD_ID}`)
-pinoLogger.info(`Channel: ${process.env.ECHO_DISCORD_GUILD_CHANNEL_ID}`)
+const clientToken = await getSecret('DISCORD_CLIENT_TOKEN')
+void client.login(clientToken) //login bot using token
+botLogger.info({ msg: `Echo bot started` })

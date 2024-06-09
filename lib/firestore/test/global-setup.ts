@@ -10,8 +10,7 @@ import type { Config } from '@jest/types'
 import { andThen, pipe } from 'ramda'
 
 export default async function (_globalConfig: Config.GlobalConfig, _projectConfig: Config.ProjectConfig) {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const clientEmail = (await getSecret('FIREBASE_CLIENT_EMAIL'))!
+  const clientEmail = await getSecret('FIREBASE_CLIENT_EMAIL')
   const privateKey = await pipe(
     getSecret,
     andThen((key) => privateKeySchema.parse(key))

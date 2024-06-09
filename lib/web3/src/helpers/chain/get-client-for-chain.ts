@@ -4,11 +4,12 @@ import { getTransportForChain } from '@echo/web3/helpers/get-transport-for-chain
 import type { ViemClient } from '@echo/web3/types/viem-client'
 import { createPublicClient } from 'viem'
 
-export function getClientForChain(name: ChainName): ViemClient<typeof name> {
+export async function getClientForChain(name: ChainName): Promise<ViemClient<typeof name>> {
   const chain = getViemChainByName(name)
+  const transport = await getTransportForChain(chain)
   return createPublicClient({
     chain,
     name,
-    transport: getTransportForChain(chain)
+    transport
   }) as ViemClient<typeof name>
 }

@@ -4,6 +4,8 @@ import {
   ethereumChainId,
   sepoliaChainId
 } from '@echo/utils/helpers/chains/chain-ids'
+import { getSecret } from '@echo/utils/services/secret-manager'
+import { isNil } from 'ramda'
 import { type Chain, fallback, http, webSocket } from 'viem'
 
 function alchemyChainName(chainId: number) {
@@ -29,23 +31,20 @@ function alchemyChainName(chainId: number) {
   }
 }
 
-function alchemyTransportUrl(chainId: number) {
-  return `${alchemyChainName(chainId)}.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`
+async function alchemyTransportUrl(chainId: number) {
+  const apiKey = await getSecret('ALCHEMY_API_KEY')
+  if (isNil(apiKey)) {
+    throw Error('could not fetch ALCHEMY_API_KEY')
+  }
+  return `${alchemyChainName(chainId)}.g.alchemy.com/v2/${apiKey}`
 }
 
-export const getTransportForChain = (chain: Chain) => {
+export async function getTransportForChain(chain: Chain) {
   const chainId = chain.id
   if (chainId === blastSepoliaChainId() || chainId === blastChainId()) {
-    return fallback(
-      [
-        webSocket(`wss://${process.env.QUICKNODE_BLAST_ENDPOINT}`),
-        http(`https://${process.env.QUICKNODE_BLAST_ENDPOINT}`)
-      ],
-      { rank: true }
-    )
+    const endpoint = await getSecret('QUICKNODE_BLAST_ENDPOINT')
+    return fallback([webSocket(`wss://${endpoint}`), http(`https://${endpoint}`)], { rank: true })
   }
-  return fallback(
-    [webSocket(`wss://${alchemyTransportUrl(chainId)}`), http(`https://${alchemyTransportUrl(chainId)}`)],
-    { rank: true }
-  )
+  const transportUrl = await alchemyTransportUrl(chainId)
+  return fallback([webSocket(`wss://${transportUrl}`), http(`https://${transportUrl}`)], { rank: true })
 }
