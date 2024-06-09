@@ -5,7 +5,6 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "env:pull": "dotenvx hub pull",
     "lint": "eslint",
     "modules:remove": "rm -rf node_modules",
     "modules:update": "ncu -u",

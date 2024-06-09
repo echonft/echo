@@ -28,7 +28,6 @@
     "@babel/core": "7.24.7",
     "@babel/preset-env": "7.24.7",
     "@babel/preset-typescript": "7.24.7",
-    "@dotenvx/dotenvx": "0.44.1",
     "@echo/firestore": "workspace:*",
     "@echo/nft-scan": "workspace:*",
     "@echo/model": "workspace:*",

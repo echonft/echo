@@ -43,8 +43,9 @@
     "firestore:indexes:pull": "firebase firestore:indexes > ../../firestore.indexes.json",
     "firestore:indexes:pull:dev": "turbo //#firestore:indexes:pull",
     "firestore:indexes:pull:prod": "turbo //#firestore:indexes:prod",
+    "frontend:build": "app/frontend/scripts/build.sh",
     "frontend:deploy": "vercel --prod && vercel promote echo-echonft.vercel.app",
-    "frontend:dev": "turbo dev --filter=@echo/frontend --filter=@echo/ui",
+    "frontend:dev": "app/frontend/scripts/dev.sh",
     "lint": "turbo lint",
     "lint-staged": "NODE_OPTIONS='--max_old_space_size=8192' lint-staged",
     "modules:remove": "turbo modules:remove; rm -rf node_modules; rm -rf pnpm-lock.yaml",
@@ -58,7 +59,6 @@
     "tsc": "turbo tsc"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "0.44.1",
     "@eslint/compat": "1.0.3",
     "@eslint/eslintrc": "3.1.0",
     "@eslint/js": "9.4.0",

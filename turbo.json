@@ -17,9 +17,6 @@
       "persistent": true,
       "passThroughEnv": ["ENV", "NEXT_PUBLIC_IS_TESTNET", "NODE_ENV"]
     },
-    "env:pull": {
-      "cache": false
-    },
     "lint": {},
     "modules:remove": {
       "cache": false

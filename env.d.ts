@@ -3,6 +3,9 @@
 declare namespace NodeJS {
   interface Process {
     env: {
+      AUTH_DISCORD_ID: string
+      AUTH_DISCORD_SECRET: string
+      AUTH_SECRET: string
       CI?: number | 'true' | '1'
       ENV?: 'production' | 'staging' | 'testnet' | 'development' | 'test'
       NEXT_PUBLIC_IS_TESTNET?: '1'

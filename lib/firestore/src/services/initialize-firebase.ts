@@ -1,6 +1,7 @@
 import { firestoreLogger } from '@echo/firestore/constants/firestore-logger'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
-import { getProjectId, getSecret } from '@echo/utils/services/secret-manager'
+import { getGCloudProjectId } from '@echo/utils/helpers/get-gcloud-project-id'
+import { getSecret } from '@echo/utils/services/secret-manager'
 import { privateKeySchema } from '@echo/utils/validators/private-key-schema'
 import { cert, getApps, initializeApp, type ServiceAccount } from 'firebase-admin/app'
 import {
@@ -28,8 +29,8 @@ export async function initializeFirebase(credentials?: Omit<ServiceAccount, 'pro
   }
   const serviceAccount = await ifElse(
     isNil,
-    pipe(getCredentials, andThen(assoc('projectId', getProjectId()))),
-    assoc('projectId', getProjectId())
+    pipe(getCredentials, andThen(assoc('projectId', getGCloudProjectId()))),
+    assoc('projectId', getGCloudProjectId())
   )(credentials)
   const firestore = firebaseInitializeFirestore(
     initializeApp({
@@ -37,6 +38,6 @@ export async function initializeFirebase(credentials?: Omit<ServiceAccount, 'pro
     })
   )
   firestore.settings({ ignoreUndefinedProperties: true })
-  firestoreLogger.info(`initialized Firebase for project ${getProjectId()}`)
+  firestoreLogger.info(`initialized Firebase for project ${getGCloudProjectId()}`)
   return firestore
 }

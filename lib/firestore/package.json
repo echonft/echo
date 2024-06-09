@@ -5,13 +5,12 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "env:pull": "dotenvx hub pull",
     "lint": "eslint",
     "modules:remove": "rm -rf node_modules",
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier . -u -c --no-error-on-unmatched-pattern",
-    "test": "dotenvx run --env-file=.env.test -- jest --runInBand",
+    "test": "jest --runInBand",
     "test:coverage:clean": "rm -rf test/.coverage",
     "tsc": "tsc --noEmit"
   },
@@ -24,7 +23,6 @@
     "@babel/core": "7.24.7",
     "@babel/preset-env": "7.24.7",
     "@babel/preset-typescript": "7.24.7",
-    "@dotenvx/dotenvx": "0.44.1",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "@jest/globals": "29.7.0",

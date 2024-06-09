@@ -4,7 +4,6 @@ import { mapUser } from '@echo/frontend/lib/auth/map-user'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { pathIsNil } from '@echo/utils/fp/path-is-nil'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
-import { getSecret } from '@echo/utils/services/secret-manager'
 import { type NextAuthConfig } from 'next-auth'
 import Discord, { type DiscordProfile } from 'next-auth/providers/discord'
 import { assoc, both, complement, dissoc, either, isNil, path, pipe } from 'ramda'
@@ -42,8 +41,6 @@ export const authConfig: NextAuthConfig = {
   providers: [
     Discord({
       authorization: 'https://discord.com/api/oauth2/authorize?scope=identify',
-      clientId: await getSecret('DISCORD_CLIENT_ID'),
-      clientSecret: await getSecret('DISCORD_CLIENT_SECRET'),
       profile: async (profile: DiscordProfile, token) => {
         await fetch(apiUrlProvider.user.update.getUrl(), {
           headers: {
