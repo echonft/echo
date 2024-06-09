@@ -2,25 +2,20 @@
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "build": {
-      "dependsOn": ["clean", "^build"],
-      "passThroughEnv": ["NODE_ENV"]
+      "dependsOn": ["^build"],
+      "passThroughEnv": ["CI", "ENV", "NODE_ENV"]
     },
     "clean": {
       "cache": false
     },
     "deploy": {
-      "cache": false
-    },
-    "deploy:dev": {
-      "cache": false
-    },
-    "deploy:prod": {
-      "cache": false
+      "cache": false,
+      "passThroughEnv": ["ENV", "NEXT_PUBLIC_IS_TESTNET", "NODE_ENV"]
     },
     "dev": {
       "cache": false,
       "persistent": true,
-      "passThroughEnv": ["ENV", "NODE_ENV"]
+      "passThroughEnv": ["ENV", "NEXT_PUBLIC_IS_TESTNET", "NODE_ENV"]
     },
     "env:pull": {
       "cache": false
@@ -39,7 +34,7 @@
     "start": {
       "cache": false,
       "persistent": true,
-      "passThroughEnv": ["NODE_ENV"]
+      "passThroughEnv": ["ENV", "NEXT_PUBLIC_IS_TESTNET", "NODE_ENV"]
     },
     "sentry:sourcemaps:inject": {
       "dependsOn": ["build"]
@@ -51,7 +46,7 @@
       "cache": false
     },
     "test": {
-      "passThroughEnv": ["CI"]
+      "passThroughEnv": ["CI", "ENV"]
     },
     "tsc": {},
     "//#firebase:use:dev": {
@@ -62,14 +57,13 @@
     },
     "//#firestore:functions:deploy:dev": {
       "dependsOn": ["//#firebase:use:dev"],
-      "cache": false
+      "cache": false,
+      "passThroughEnv": ["ENV", "NEXT_PUBLIC_IS_TESTNET"]
     },
     "//#firestore:functions:deploy:prod": {
       "dependsOn": ["//#firebase:use:prod"],
-      "cache": false
-    },
-    "//#firestore:indexes:deploy": {
-      "cache": false
+      "cache": false,
+      "passThroughEnv": ["ENV", "NEXT_PUBLIC_IS_TESTNET"]
     },
     "//#firestore:indexes:deploy:dev": {
       "dependsOn": ["//#firebase:use:dev"],
@@ -77,9 +71,6 @@
     },
     "//#firestore:indexes:deploy:prod": {
       "dependsOn": ["//#firebase:use:prod"],
-      "cache": false
-    },
-    "//#firestore:indexes:pull": {
       "cache": false
     },
     "//#firestore:indexes:pull:dev": {

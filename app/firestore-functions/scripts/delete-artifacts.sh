@@ -1,10 +1,10 @@
 #!/bin/sh
-dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-if [ "$1" == "dev" ]; then
+if [ "${ENV}" == "development" ]; then
   project="echo-dev-fallback"
-elif [ "$1" == "prod" ]; then
+elif [ "${ENV}" == "production" ]; then
   project="echo-prod-b71e2"
 else
+  >&2 echo "ENV not set"
   exit 1
 fi
 

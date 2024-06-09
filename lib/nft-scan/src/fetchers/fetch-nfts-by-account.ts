@@ -21,7 +21,7 @@ export async function fetchNftsByAccount(
     partialRight(stringify, [{ addQueryPrefix: true }])
   )(args)
   const url = `${getBaseUrl(wallet.chain)}/account/own/${wallet.address}${query}`
-  const init = await fetchInit()
+  const init = await fetchInit(args.apiKey)
   const response = await fetch(url, init)
   if (!response.ok) {
     throw Error(

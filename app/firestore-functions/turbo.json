@@ -2,14 +2,14 @@
   "$schema": "https://turbo.build/schema.json",
   "extends": ["//"],
   "tasks": {
-    "artifacts:delete:dev": {
-      "cache": false
-    },
-    "artifacts:delete:prod": {
-      "cache": false
+    "artifacts:delete": {
+      "cache": false,
+      "passThroughEnv": ["ENV"]
     },
     "deploy": {
-      "dependsOn": ["lint", "tsc", "build"]
+      "dependsOn": ["lint", "tsc", "build"],
+      "cache": false,
+      "passThroughEnv": ["ENV", "NEXT_PUBLIC_IS_TESTNET", "NODE_ENV"]
     }
   }
 }

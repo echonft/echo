@@ -8,7 +8,7 @@
     "build": "tsup",
     "clean": "rm -rf dist",
     "deploy": ".fly/deploy.sh",
-    "dev": "NODE_ENV=development ENV=development tsx watch src/index.ts",
+    "dev": "tsx watch src/index.ts",
     "lint": "eslint",
     "machine:restart": ".fly/restart-machine.sh",
     "modules:remove": "rm -rf node_modules",

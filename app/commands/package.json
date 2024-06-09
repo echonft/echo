@@ -11,11 +11,10 @@
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier . -u -c --no-error-on-unmatched-pattern",
-    "start": "source .env.keys;NODE_ENV=development ENV=test dotenvx run -f .env.dev -- tsx src/index.ts",
+    "start": "tsx src/index.ts",
     "tsc": "tsc --noEmit"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "0.44.1",
     "@echo/api": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",

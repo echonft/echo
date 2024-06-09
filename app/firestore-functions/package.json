@@ -5,11 +5,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "artifacts:delete:dev": "scripts/delete-artifacts.sh dev",
-    "artifacts:delete:prod": "scripts/delete-artifacts.sh prod",
+    "artifacts:delete": "scripts/delete-artifacts.sh",
     "build": "tsup",
-    "deploy": "firebase deploy --only functions",
-    "env:pull": "dotenvx hub pull",
+    "deploy": "scripts/deploy.sh",
     "lint": "eslint",
     "modules:remove": "rm -rf node_modules",
     "modules:update": "ncu -u",

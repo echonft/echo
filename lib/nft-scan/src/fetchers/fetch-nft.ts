@@ -15,7 +15,7 @@ export async function fetchNft(args: GetNftRequest): Promise<ReturnType<typeof g
     partialRight(stringify, [{ addQueryPrefix: true }])
   )(args)
   const url = `${getBaseUrl(contract.chain)}/assets/${contract.address}/${identifier}${query}`
-  const init = await fetchInit()
+  const init = await fetchInit(args.apiKey)
   const response = await fetch(url, init)
   if (!response.ok) {
     throw Error(
