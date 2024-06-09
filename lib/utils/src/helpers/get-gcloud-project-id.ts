@@ -5,7 +5,7 @@ export function getGCloudProjectId() {
     case 'production':
       return 'echo-prod-b71e2'
     case 'staging':
-      return ''
+      return 'echo-staging-ba121'
     case 'testnet':
       return 'echo-testnet'
     case 'test':
