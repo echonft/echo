@@ -9,21 +9,13 @@ then
   apt-get update && apt-get install -y curl
 fi
 
-# Install dependencies for Python and SQLite
-apt-get update && apt-get install -y python3 python3-pip python3-venv python3-dev libsqlite3-dev
+# Download and install the Google Cloud SDK
+curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-479.0.0-linux-x86_64.tar.gz
+tar -xf google-cloud-sdk-479.0.0-linux-x86_64.tar.gz
+./google-cloud-sdk/install.sh -q
 
-# Install Python SQLite bindings
-pip3 install --upgrade pip
-pip3 install pysqlite3
-
-# Install the gcloud CLI
-curl -sSL https://sdk.cloud.google.com | bash
-
-# Initialize the gcloud CLI
-source $HOME/.bashrc
-gcloud --quiet components update
-gcloud --quiet components install beta
-gcloud --quiet components install kubectl
+# Initialize the SDK
+source ./google-cloud-sdk/path.bash.inc
 
 # Authenticate with a service account (replace with your actual authentication method)
 if [ "${ENV}" == "development" ]; then
