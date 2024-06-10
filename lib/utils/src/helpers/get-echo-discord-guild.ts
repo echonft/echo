@@ -2,7 +2,7 @@ import { environment } from '@echo/utils/constants/environment'
 import { isNil } from 'ramda'
 
 export function getEchoDiscordGuild() {
-  if (isNil(environment) || environment === 'development') {
+  if (isNil(environment) || environment === 'development' || environment === 'staging') {
     return {
       id: '1002691062374088794',
       channelId: '1175976508662226944'

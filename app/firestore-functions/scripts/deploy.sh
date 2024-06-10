@@ -20,15 +20,17 @@ fi
 
 dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 functions_dir="${dir}/../src/functions"
+if [ "${NEXT_PUBLIC_IS_TESTNET}" == "1" ]; then
+  set_env_vars="--set-env-vars=NEXT_PUBLIC_IS_TESTNET=${NEXT_PUBLIC_IS_TESTNET}"
+else
+  set_env_vars=""
+fi
+
 for function_filename in "${functions_dir}"/*; do
   if [ -f "${function_filename}" ]; then
     function_basename=$(basename "${function_filename}")
     function_name=$(convert_to_camel_case "${function_basename}")
-    if [ "${NEXT_PUBLIC_IS_TESTNET}" == "1" ]; then
-      gcloud functions deploy "${function_name}" --project=${project} --set-env-vars NEXT_PUBLIC_IS_TESTNET="${NEXT_PUBLIC_IS_TESTNET}" --region=us-central1
-    else
-      gcloud functions deploy "${function_name}" --project=${project} --region=us-central1
-    fi
+    gcloud functions deploy "${function_name}" --runtime=nodejs20 --gen2 --project=${project} --region=us-central1 --set-secrets=SECRET_MANAGER_EMAIL=SECRET_MANAGER_EMAIL:latest,SECRET_MANAGER_PRIVATE_KEY=SECRET_MANAGER_PRIVATE_KEY:latest ${set_env_vars}
   fi
 done
 

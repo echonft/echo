@@ -1,24 +1,26 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalPassThroughEnv": ["CI", "ENV", "NODE_ENV", "NEXT_PUBLIC_IS_TESTNET"],
   "ui": "stream",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "passThroughEnv": ["CI", "ENV", "NODE_ENV"]
+      "outputs": ["dist/**"]
     },
     "clean": {
       "cache": false
     },
     "deploy": {
-      "cache": false,
-      "passThroughEnv": ["ENV", "NEXT_PUBLIC_IS_TESTNET", "NODE_ENV"]
+      "cache": false
     },
     "dev": {
       "cache": false,
-      "persistent": true,
-      "passThroughEnv": ["ENV", "NEXT_PUBLIC_IS_TESTNET", "NODE_ENV"]
+      "persistent": true
     },
     "lint": {},
+    "machine:restart": {
+      "cache": false
+    },
     "modules:remove": {
       "cache": false
     },
@@ -31,8 +33,7 @@
     "prettier": {},
     "start": {
       "cache": false,
-      "persistent": true,
-      "passThroughEnv": ["ENV", "NEXT_PUBLIC_IS_TESTNET", "NODE_ENV"]
+      "persistent": true
     },
     "sentry:sourcemaps:inject": {
       "dependsOn": ["build"]
@@ -43,9 +44,7 @@
     "test:coverage:clean": {
       "cache": false
     },
-    "test": {
-      "passThroughEnv": ["CI", "ENV"]
-    },
+    "test": {},
     "tsc": {}
   }
 }
