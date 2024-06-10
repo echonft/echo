@@ -1,0 +1,10 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "test": {
+      "cache": false,
+      "passThroughEnv": ["CI", "ENV", "NODE_ENV", "SECRET_MANAGER_EMAIL", "SECRET_MANAGER_PRIVATE_KEY"]
+    }
+  }
+}
