@@ -15,6 +15,7 @@ const nextConfig = {
       }
     ]
   },
+  productionBrowserSourceMaps: true,
   swcMinify: true,
   transpilePackages: [
     '@echo/api',
