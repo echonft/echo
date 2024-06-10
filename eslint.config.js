@@ -111,7 +111,11 @@ export default tseslint.config(
   {
     name: 'disable type checking on JS files',
     files: ['app/**/*.{js,cjs}', 'lib/**/*.{js,cjs}', 'eslint.config.js'],
-    ...tseslint.configs.disableTypeChecked
+    ...tseslint.configs.disableTypeChecked,
+    rules: {
+      ...tseslint.configs.disableTypeChecked.rules,
+      'turbo/no-undeclared-env-vars': 'off'
+    }
   },
   {
     name: 'test files configuration',

@@ -27,6 +27,7 @@
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
     "@echo/web3-dom": "workspace:*",
+    "@next/bundle-analyzer": "14.2.3",
     "@sentry/browser": "8.8.0",
     "@sentry/nextjs": "8.8.0",
     "@vercel/speed-insights": "1.0.11",
