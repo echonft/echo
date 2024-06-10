@@ -13,7 +13,8 @@
         "NEXT_PUBLIC_IS_TESTNET",
         "NEXT_PUBLIC_VERCEL_URL",
         "SECRET_MANAGER_EMAIL",
-        "SECRET_MANAGER_PRIVATE_KEY"
+        "SECRET_MANAGER_PRIVATE_KEY",
+        "SENTRY_AUTH_TOKEN"
       ]
     },
     "dev": {
