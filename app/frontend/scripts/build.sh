@@ -64,4 +64,4 @@ AUTH_SECRET="${auth_secret}" \
 AUTH_DISCORD_ID="${auth_discord_id}" \
 AUTH_DISCORD_SECRET="${auth_discord_secret}" \
 SENTRY_AUTH_TOKEN="${sentry_auth_token}" \
- pnpm exec turbo sentry:sourcemaps:upload --filter=@echo/frontend
+ pnpm exec turbo build --filter=@echo/frontend
