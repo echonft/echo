@@ -25,19 +25,22 @@ async function getCredentials(): Promise<Omit<ServiceAccount, 'projectId'>> {
 export async function initializeFirebase(credentials?: Omit<ServiceAccount, 'projectId'>): Promise<Firestore> {
   const apps = getApps()
   if (isNonEmptyArray(apps)) {
-    return getFirestore(head(apps))
+    return pipe(head, getFirestore)(apps)
   }
   const serviceAccount = await ifElse(
     isNil,
     pipe(getCredentials, andThen(assoc('projectId', getGCloudProjectId()))),
     assoc('projectId', getGCloudProjectId())
   )(credentials)
-  const firestore = firebaseInitializeFirestore(
-    initializeApp({
+  try {
+    const app = initializeApp({
       credential: cert(serviceAccount)
     })
-  )
-  firestore.settings({ ignoreUndefinedProperties: true })
-  firestoreLogger.info(`initialized Firebase for project ${getGCloudProjectId()}`)
-  return firestore
+    const firestore = firebaseInitializeFirestore(app)
+    firestore.settings({ ignoreUndefinedProperties: true })
+    firestoreLogger.info(`initialized Firebase for project ${getGCloudProjectId()}`)
+    return firestore
+  } catch (e) {
+    return pipe(getApps, head, getFirestore)()
+  }
 }
