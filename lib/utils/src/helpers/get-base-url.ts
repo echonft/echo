@@ -5,5 +5,5 @@ export function getBaseUrl() {
   if (isDev || isTest) {
     return 'http://localhost:3000'
   }
-  return process.env.NEXT_PUBLIC_VERCEL_URL
+  return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
 }

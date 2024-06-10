@@ -36,5 +36,3 @@ botLogger.info({ msg: `Echo bot started` })
 botLogger.info({ msg: `build env: ${process.env.NODE_ENV}` })
 botLogger.info({ msg: `env: ${process.env.ENV}` })
 botLogger.info({ msg: `network: ${equals(process.env.NEXT_PUBLIC_IS_TESTNET, '1') ? 'testnet' : 'mainnet'}` })
-// Keep the process running indefinitely
-process.stdin.resume()

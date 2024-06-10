@@ -12,7 +12,11 @@ export function guardAsyncFn<TArgs extends unknown[], TResult, TFallbackResult =
     } catch (e) {
       botLogger.error({ msg: 'guardAsyncFn error', error: e })
       if (isInitialized()) {
-        captureException(e)
+        captureException(e, {
+          tags: {
+            db_environement: process.env.ENV
+          }
+        })
       }
       if (isNil(fallback)) {
         return Promise.resolve()
