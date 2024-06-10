@@ -3,6 +3,19 @@
 # Fail on any error
 set -e
 
+# Install curl if not present
+if ! command -v curl &> /dev/null
+then
+  apt-get update && apt-get install -y curl
+fi
+
+# Install dependencies for Python and SQLite
+apt-get update && apt-get install -y python3 python3-pip python3-venv python3-dev libsqlite3-dev
+
+# Install Python SQLite bindings
+pip3 install --upgrade pip
+pip3 install pysqlite3
+
 # Install the gcloud CLI
 curl -sSL https://sdk.cloud.google.com | bash
 

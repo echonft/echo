@@ -1,5 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "ui": "stream",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -45,38 +46,6 @@
     "test": {
       "passThroughEnv": ["CI", "ENV"]
     },
-    "tsc": {},
-    "//#firebase:use:dev": {
-      "cache": false
-    },
-    "//#firebase:use:prod": {
-      "cache": false
-    },
-    "//#firestore:functions:deploy:dev": {
-      "dependsOn": ["//#firebase:use:dev"],
-      "cache": false,
-      "passThroughEnv": ["ENV", "NEXT_PUBLIC_IS_TESTNET"]
-    },
-    "//#firestore:functions:deploy:prod": {
-      "dependsOn": ["//#firebase:use:prod"],
-      "cache": false,
-      "passThroughEnv": ["ENV", "NEXT_PUBLIC_IS_TESTNET"]
-    },
-    "//#firestore:indexes:deploy:dev": {
-      "dependsOn": ["//#firebase:use:dev"],
-      "cache": false
-    },
-    "//#firestore:indexes:deploy:prod": {
-      "dependsOn": ["//#firebase:use:prod"],
-      "cache": false
-    },
-    "//#firestore:indexes:pull:dev": {
-      "dependsOn": ["//#firebase:use:dev"],
-      "cache": false
-    },
-    "//#firestore:indexes:pull:prod": {
-      "dependsOn": ["//#firebase:use:prod"],
-      "cache": false
-    }
+    "tsc": {}
   }
 }
