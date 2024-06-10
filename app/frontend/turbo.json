@@ -25,10 +25,8 @@
         "AUTH_DISCORD_ID",
         "AUTH_DISCORD_SECRET",
         "AUTH_SECRET",
-        "CI",
         "ENV",
         "NEXT_PUBLIC_IS_TESTNET",
-        "NEXT_PUBLIC_VERCEL_URL",
         "NODE_ENV",
         "SECRET_MANAGER_EMAIL",
         "SECRET_MANAGER_PRIVATE_KEY"
@@ -43,26 +41,9 @@
         "AUTH_SECRET",
         "ENV",
         "NEXT_PUBLIC_IS_TESTNET",
-        "NEXT_PUBLIC_VERCEL_URL",
         "NODE_ENV",
         "SECRET_MANAGER_EMAIL",
         "SECRET_MANAGER_PRIVATE_KEY"
-      ]
-    },
-    "sentry:sourcemaps:delete": {
-      "dependsOn": ["sentry:sourcemaps:upload"],
-      "passThroughEnv": [
-        "AUTH_DISCORD_ID",
-        "AUTH_DISCORD_SECRET",
-        "AUTH_SECRET",
-        "CI",
-        "ENV",
-        "NEXT_PUBLIC_IS_TESTNET",
-        "NEXT_PUBLIC_VERCEL_URL",
-        "PATH",
-        "SECRET_MANAGER_EMAIL",
-        "SECRET_MANAGER_PRIVATE_KEY",
-        "SENTRY_AUTH_TOKEN"
       ]
     },
     "sentry:sourcemaps:inject": {
@@ -72,13 +53,11 @@
         "AUTH_DISCORD_ID",
         "AUTH_DISCORD_SECRET",
         "AUTH_SECRET",
-        "CI",
         "ENV",
         "NEXT_PUBLIC_IS_TESTNET",
-        "NEXT_PUBLIC_VERCEL_URL",
+        "NODE_ENV",
         "SECRET_MANAGER_EMAIL",
-        "SECRET_MANAGER_PRIVATE_KEY",
-        "SENTRY_AUTH_TOKEN"
+        "SECRET_MANAGER_PRIVATE_KEY"
       ]
     },
     "sentry:sourcemaps:upload": {
@@ -87,14 +66,11 @@
         "AUTH_DISCORD_ID",
         "AUTH_DISCORD_SECRET",
         "AUTH_SECRET",
-        "CI",
         "ENV",
         "NEXT_PUBLIC_IS_TESTNET",
-        "NEXT_PUBLIC_VERCEL_URL",
-        "PATH",
+        "NODE_ENV",
         "SECRET_MANAGER_EMAIL",
-        "SECRET_MANAGER_PRIVATE_KEY",
-        "SENTRY_AUTH_TOKEN"
+        "SECRET_MANAGER_PRIVATE_KEY"
       ]
     }
   }

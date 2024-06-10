@@ -13,7 +13,6 @@
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier . -u -c --no-error-on-unmatched-pattern",
-    "sentry:sourcemaps:delete": "find .next/ -type f -name \"*.map\" -exec rm -f {} +",
     "sentry:sourcemaps:inject": "sentry-cli sourcemaps inject --org=echo-nft --project=frontend .next/",
     "sentry:sourcemaps:upload": "sentry-cli sourcemaps upload --org=echo-nft --project=frontend .next/",
     "start": "next start",
