@@ -1,13 +1,12 @@
-import { getEchoChannel } from '@echo/bot/get-echo-channel'
+import { botLogger } from '@echo/bot/constants/bot-logger'
 import { deleteThread } from '@echo/bot/helpers/delete-thread'
+import { getEchoChannel } from '@echo/bot/helpers/get-echo-channel'
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import type { Offer } from '@echo/model/types/offer'
-import { errorMessage } from '@echo/utils/helpers/error-message'
 import { now } from '@echo/utils/helpers/now'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
 import { ChannelType, ThreadAutoArchiveDuration, userMention } from 'discord.js'
 import i18next from 'i18next'
 
@@ -29,18 +28,18 @@ export async function createOfferThread(args: CreateOfferThreadArgs): Promise<{
     autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
     type: ChannelType.PrivateThread
   })
-  pinoLogger.error(`[OFFER ${offerId}] created thread: ${thread.id}`)
+  botLogger.error({ msg: `[OFFER ${offerId}] created thread: ${thread.id}` })
   try {
     await thread.members.add(receiver.discord.id)
   } catch (err) {
-    pinoLogger.error(`[OFFER ${offerId}] could not add receiver ${receiver.username} to thread: ${errorMessage(err)}`)
+    botLogger.error({ msg: `[OFFER ${offerId}] could not add receiver ${receiver.username} to thread`, error: err })
     await deleteThread(thread)
     return { threadId: thread.id, state: 'ARCHIVED' }
   }
   try {
     await thread.members.add(sender.discord.id)
   } catch (err) {
-    pinoLogger.error(`[OFFER ${offerId}] could not add sender ${sender.username} to thread: ${errorMessage(err)}`)
+    botLogger.error({ msg: `[OFFER ${offerId}] could not add sender ${sender.username} to thread`, error: err })
     await deleteThread(thread)
     return { threadId: thread.id, state: 'ARCHIVED' }
   }

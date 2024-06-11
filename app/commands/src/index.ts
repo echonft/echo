@@ -48,5 +48,4 @@ void (async function () {
     return
   }
   await command.execute()
-  process.exit()
 })()

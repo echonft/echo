@@ -7,13 +7,10 @@
   "scripts": {
     "build": "tsup",
     "clean": "rm -rf dist",
-    "deploy:dev": ".fly/deploy.sh dev",
-    "deploy:prod": ".fly/deploy.sh prod",
-    "dev": "source .env.keys; dotenvx run --env-file=.env.dev -- tsx watch src/index.ts",
-    "env:pull": "dotenvx hub pull",
+    "deploy": ".fly/deploy.sh",
+    "dev": "tsx watch src/index.ts",
     "lint": "eslint",
-    "machine:restart:dev": ".fly/restart-machine.sh dev",
-    "machine:restart:prod": ".fly/restart-machine.sh prod",
+    "machine:restart": ".fly/restart-machine.sh",
     "modules:remove": "rm -rf node_modules",
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",
@@ -31,7 +28,6 @@
     "@babel/core": "7.24.7",
     "@babel/preset-env": "7.24.7",
     "@babel/preset-typescript": "7.24.7",
-    "@dotenvx/dotenvx": "0.44.1",
     "@echo/firestore": "workspace:*",
     "@echo/nft-scan": "workspace:*",
     "@echo/model": "workspace:*",
@@ -45,7 +41,7 @@
     "@types/ws": "8.5.10",
     "jest": "29.7.0",
     "jest-junit": "16.0.0",
-    "tsx": "4.13.1",
+    "tsx": "4.13.2",
     "tsup": "8.1.0",
     "typescript": "5.4.5"
   }

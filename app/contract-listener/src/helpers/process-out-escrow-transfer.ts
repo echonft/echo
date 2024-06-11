@@ -1,3 +1,4 @@
+import { contractListenerLogger } from '@echo/contract-listener/constants/contract-listener-logger'
 import { getCollection } from '@echo/contract-listener/helpers/get-collection'
 import type { EscrowData } from '@echo/contract-listener/types/escrow-data'
 import { deleteEscrowedNft } from '@echo/firestore/crud/escrowed-nft/delete-escrowed-nft'
@@ -8,15 +9,13 @@ import { getWalletByAddress } from '@echo/firestore/crud/wallet/get-wallet-by-ad
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
 import type { NftWithId } from '@echo/firestore/types/model/nft/nft-with-id'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
 import { isNil, toLower } from 'ramda'
 
 export async function processOutEscrowTransfer(args: EscrowData): Promise<void> {
   const { contractAddress, chain, to: toAddress, tokenId } = args
-  pinoLogger.info(
-    `[OUT_ESCROW transfer ${contractAddress}:${tokenId}] to wallet ${JSON.stringify(toAddress)}, processing...`
-  )
+  contractListenerLogger.info({
+    msg: `[OUT_ESCROW transfer ${contractAddress}:${tokenId}] to wallet ${JSON.stringify(toAddress)}, processing...`
+  })
   try {
     // Need to fetch the user data to change ownership
     const to = await getWalletByAddress({ chain, address: toLower(toAddress) })
@@ -28,7 +27,7 @@ export async function processOutEscrowTransfer(args: EscrowData): Promise<void> 
 
     // Should not happen
     if (isNil(nftSnapshot)) {
-      pinoLogger.error(`processOutEscrowTransfer error finding NFT ${contractAddress}:${tokenId}`)
+      contractListenerLogger.error({ msg: `processOutEscrowTransfer error finding NFT ${contractAddress}:${tokenId}` })
       return
     }
     const nftData = nftSnapshot.data()
@@ -44,6 +43,6 @@ export async function processOutEscrowTransfer(args: EscrowData): Promise<void> 
       await deleteEscrowedNft(nftSnapshot.id)
     }
   } catch (err) {
-    pinoLogger.error(`processOutEscrowTransfer error: ${errorMessage(err)}`)
+    contractListenerLogger.error({ msg: `processOutEscrowTransfer error`, error: err })
   }
 }

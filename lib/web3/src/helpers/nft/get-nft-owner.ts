@@ -10,7 +10,7 @@ export async function getNftOwner(nft: Nft): Promise<Wallet> {
     collection: { contract },
     tokenId
   } = nft
-  const client = pipe(prop('chain'), getClientForChain)(contract)
+  const client = await pipe(prop('chain'), getClientForChain)(contract)
   const owner = await client.readContract({
     address: formatWalletAddress(contract),
     abi: erc721Abi,

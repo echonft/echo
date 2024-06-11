@@ -3,6 +3,8 @@ import { defineConfig, type Options } from 'tsup'
 // noinspection JSUnusedGlobalSymbols
 export default defineConfig((options: Options) => ({
   entry: ['src/index.css'],
-  format: ['esm'],
+  minify: false,
+  splitting: false,
+  outDir: 'dist/',
   ...options
 }))

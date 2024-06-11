@@ -31,5 +31,5 @@
     "target": "esnext",
     "verbatimModuleSyntax": true
   },
-  "exclude": ["node_modules", "eslint.config.js"]
+  "exclude": ["node_modules", "eslint.config.js", "prettier.config.js"]
 }

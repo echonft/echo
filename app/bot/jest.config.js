@@ -20,6 +20,5 @@ export default {
         outputDirectory: '<rootDir>/test/.coverage'
       }
     ]
-  ],
-  setupFilesAfterEnv: ['<rootDir>/test/setup-env.ts']
+  ]
 }

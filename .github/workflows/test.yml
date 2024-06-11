@@ -27,9 +27,9 @@ jobs:
         run: pnpm exec turbo run test --filter=@echo/frontend
       - name: firestore tests
         env:
-          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID_TEST }}
-          FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL_TEST }}
-          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY_TEST }}
+          ENV: 'test'
+          SECRET_MANAGER_EMAIL: ${{ secrets.SECRET_MANAGER_EMAIL_TEST }}
+          SECRET_MANAGER_PRIVATE_KEY: ${{ secrets.SECRET_MANAGER_PRIVATE_KEY_TEST }}
         run: pnpm exec turbo run test --filter=@echo/firestore
       - name: model tests
         run: pnpm exec turbo run test --filter=@echo/model

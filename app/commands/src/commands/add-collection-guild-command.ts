@@ -2,7 +2,7 @@ import type { Command } from '@echo/commands/types/command'
 import { addCollectionDiscordGuild } from '@echo/firestore/crud/collection-discord-guild/add-collection-discord-guild'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { getEchoDiscordGuild } from '@echo/utils/helpers/get-echo-discord-guild'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
@@ -26,20 +26,13 @@ export const addCollectionGuildCommand: Command = {
       })
       .demandOption('i', 'collection id is required')
       .parse()
-    initializeFirebase()
+    await initializeFirebase()
     await addCollectionDefaultDiscordGuild(i)
     await terminateFirestore()
   }
 }
 
 async function addCollectionDefaultDiscordGuild(collectionId: string) {
-  const discordId = process.env.ECHO_DISCORD_GUILD_ID
-  if (isNilOrEmpty(discordId)) {
-    throw Error('ECHO_DISCORD_GUILD_ID env var is not defined')
-  }
-  const channelId = process.env.ECHO_DISCORD_GUILD_CHANNEL_ID
-  if (isNilOrEmpty(channelId)) {
-    throw Error('ECHO_DISCORD_GUILD_CHANNEL_ID env var is not defined')
-  }
-  await addCollectionDiscordGuild({ collectionId, guild: { id: discordId, channelId } })
+  const echoGuild = getEchoDiscordGuild()
+  await addCollectionDiscordGuild({ collectionId, guild: echoGuild })
 }

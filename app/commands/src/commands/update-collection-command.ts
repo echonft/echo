@@ -28,7 +28,7 @@ export const updateCollectionCommand: Command = {
       .parse()
     const slug = toLower(s)
     try {
-      initializeFirebase()
+      await initializeFirebase()
       const collection = await pipe(assoc('fetch', fetch), getCollection)({ slug, testnet: isTestnet })
       await updateCollectionInFirestore({ slug, data: collection })
       await terminateFirestore()

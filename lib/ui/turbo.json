@@ -3,8 +3,7 @@
   "extends": ["//"],
   "tasks": {
     "build": {
-      "outputs": ["dist/index.css"],
-      "inputs": ["tailwind.config.cjs", "src/index.css", "src/**/*.tsx", "src/**/*.ts"]
+      "outputs": ["dist/index.css"]
     }
   }
 }

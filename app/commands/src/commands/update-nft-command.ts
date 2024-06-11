@@ -56,7 +56,7 @@ export const updateNftCommand: Command = {
       const address = formatWalletAddress({ address: a, chain: c })
       console.log(`fetching NFT #${t} for contract address ${a}`)
       try {
-        initializeFirebase()
+        await initializeFirebase()
         const nft = await getNft({ contract: address, chain: c, identifier: t, fetch })
         if (isNil(nft)) {
           console.error(`did not get any result`)

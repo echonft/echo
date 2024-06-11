@@ -6,8 +6,8 @@ import type { AuthRequestHandler } from '@echo/frontend/lib/types/request-handle
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { ErrorResponse } from '@echo/utils/types/error-response'
 import { captureException, setUser } from '@sentry/nextjs'
-import { NextResponse } from 'next/server'
 import type { NextAuthRequest } from 'next-auth/lib'
+import { NextResponse } from 'next/server'
 import { isNil, pick } from 'ramda'
 
 export function authRouteHandler<RequestBody, ResponseBody, Params extends object = never>(
@@ -15,7 +15,7 @@ export function authRouteHandler<RequestBody, ResponseBody, Params extends objec
 ) {
   return auth(async function (request: NextAuthRequest, context: { params?: Record<string, string | string[]> }) {
     try {
-      initializeFirebase()
+      await initializeFirebase()
       const session = await auth()
       const user = session?.user
       if (isNil(user)) {

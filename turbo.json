@@ -1,31 +1,37 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalPassThroughEnv": ["CI", "ENV", "NODE_ENV", "NEXT_PUBLIC_IS_TESTNET"],
   "tasks": {
     "build": {
-      "dependsOn": ["clean", "^build"],
-      "passThroughEnv": ["NODE_ENV"]
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
     },
     "clean": {
       "cache": false
     },
-    "dev": {
-      "cache": false,
-      "persistent": true,
-      "passThroughEnv": ["NODE_ENV"]
+    "deploy": {
+      "cache": false
     },
-    "dev:testnet": {
+    "dev": {
       "cache": false,
       "persistent": true
     },
-    "env:pull": {
+    "lint": {},
+    "machine:restart": {
       "cache": false
     },
-    "lint": {},
-    "modules:remove": {},
-    "modules:update": {},
-    "modules:update-minor": {},
+    "modules:remove": {
+      "cache": false
+    },
+    "modules:update": {
+      "cache": false
+    },
+    "modules:update-minor": {
+      "cache": false
+    },
     "prettier": {},
     "start": {
+      "cache": false,
       "persistent": true
     },
     "sentry:sourcemaps:inject": {
@@ -37,31 +43,7 @@
     "test:coverage:clean": {
       "cache": false
     },
-    "test": {
-      "passThroughEnv": ["CI"]
-    },
-    "tsc": {},
-    "//#firebase:use:dev": {},
-    "//#firebase:use:prod": {},
-    "//#firestore:functions:deploy:dev": {
-      "dependsOn": ["//#firebase:use:dev"]
-    },
-    "//#firestore:functions:deploy:prod": {
-      "dependsOn": ["//#firebase:use:prod"]
-    },
-    "//#firestore:indexes:deploy": {},
-    "//#firestore:indexes:deploy:dev": {
-      "dependsOn": ["//#firebase:use:dev"]
-    },
-    "//#firestore:indexes:deploy:prod": {
-      "dependsOn": ["//#firebase:use:prod"]
-    },
-    "//#firestore:indexes:pull": {},
-    "//#firestore:indexes:pull:dev": {
-      "dependsOn": ["//#firebase:use:dev"]
-    },
-    "//#firestore:indexes:pull:prod": {
-      "dependsOn": ["//#firebase:use:prod"]
-    }
+    "test": {},
+    "tsc": {}
   }
 }

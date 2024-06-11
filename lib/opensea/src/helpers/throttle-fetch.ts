@@ -18,7 +18,8 @@ async function tryFetch(args: ThrottleFetchArgs & { retries: number }): Promise<
   if (retries > 0) {
     pinoLogger.warn(`retrying request to ${url}`)
   }
-  const response = await fetch(url, fetchInit)
+  const init = await fetchInit()
+  const response = await fetch(url, init)
   if (!response.ok) {
     if (response.status === 429) {
       pinoLogger.error(`request to ${url} got throttled by Opensea. Retrying in ${WAIT_TIME / 1000} seconds....`)

@@ -1,3 +1,4 @@
+import { botLogger } from '@echo/bot/constants/bot-logger'
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import { getOfferUpdatesByOfferId } from '@echo/firestore/crud/offer-update/get-offer-updates-by-offer-id'
@@ -5,7 +6,6 @@ import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-usernam
 import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
 import { OFFER_STATE_ACCEPTED, OFFER_STATE_EXPIRED, OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
 import { type AnyThreadChannel, userMention } from 'discord.js'
 import i18next from 'i18next'
 import { any, isEmpty, isNil, pathEq } from 'ramda'
@@ -26,7 +26,7 @@ function shouldPostEscrowMessage(offer: Offer) {
 async function areBothPartiesInEscrow(offerId: string) {
   const updates = await getOfferUpdatesByOfferId(offerId)
   if (isEmpty(updates)) {
-    pinoLogger.error(`[OFFER ${offerId}] checked for escrow status but no updates were found`)
+    botLogger.error({ msg: `[OFFER ${offerId}] checked for escrow status but no updates were found` })
     return false
   }
   // If there was an accepted state update, it means both parties are in escrow
@@ -57,6 +57,8 @@ export async function postEscrowMessageIfNeeded(args: {
         content: i18next.t('offer.thread.redeemable.single', { redeemer: userMention(senderId) })
       })
     }
-    pinoLogger.info(`[OFFER ${offerThread.offerId}] posted escrow update to thread ${offerThread.guild.threadId}`)
+    botLogger.info({
+      msg: `[OFFER ${offerThread.offerId}] posted escrow update to thread ${offerThread.guild.threadId}`
+    })
   }
 }

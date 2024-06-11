@@ -14,7 +14,7 @@ function convertIpfsScheme(src: string): string {
   try {
     const urlObject = new URL(removeQueryFromUrl(src))
     if (urlObject.protocol == 'ipfs:') {
-      return `https://pinata.echonft.xyz/ipfs/${urlObject.pathname.slice(2)}`
+      return `https://bowl-fence-dance.quicknode-ipfs.com/${urlObject.pathname.slice(2)}`
     }
     return src
   } catch (e) {

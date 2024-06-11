@@ -7,15 +7,12 @@
   "scripts": {
     "build": "next build",
     "clean": "rm -rf .next",
-    "dev": "source .env.keys; dotenvx run -f .env.dev -- next dev",
-    "env:pull": "dotenvx hub pull",
+    "dev": "next dev",
     "lint": "eslint",
     "modules:remove": "rm -rf node_modules",
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier . -u -c --no-error-on-unmatched-pattern",
-    "sentry:sourcemaps:inject": "sentry-cli sourcemaps inject --org=echo-nft --project=frontend .next/",
-    "sentry:sourcemaps:upload": "sentry-cli sourcemaps upload --org=echo-nft --project=frontend .next/",
     "start": "next start",
     "test": "jest",
     "test:coverage:clean": "rm -rf test/.coverage",
@@ -30,6 +27,7 @@
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
     "@echo/web3-dom": "workspace:*",
+    "@next/bundle-analyzer": "14.2.3",
     "@sentry/browser": "8.8.0",
     "@sentry/nextjs": "8.8.0",
     "@vercel/speed-insights": "1.0.11",
@@ -45,7 +43,6 @@
     "zod": "3.23.8"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "0.44.1",
     "@sentry/cli": "2.32.1",
     "@swc/core": "1.5.25",
     "@swc/jest": "0.2.36",

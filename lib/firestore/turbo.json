@@ -3,7 +3,8 @@
   "extends": ["//"],
   "tasks": {
     "test": {
-      "passThroughEnv": ["FIREBASE_CLIENT_EMAIL", "FIREBASE_PRIVATE_KEY", "FIREBASE_PROJECT_ID"]
+      "cache": false,
+      "passThroughEnv": ["CI", "ENV", "NODE_ENV", "SECRET_MANAGER_EMAIL", "SECRET_MANAGER_PRIVATE_KEY"]
     }
   }
 }

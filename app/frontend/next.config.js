@@ -1,6 +1,7 @@
 // @ts-check
 import nextIntl from 'next-intl/plugin'
 import { withSentryConfig } from '@sentry/nextjs'
+import NextBundleAnalyzer from '@next/bundle-analyzer'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -34,7 +35,7 @@ const nextConfig = {
   }
 }
 const withNextIntl = nextIntl('./src/i18n.ts')
-export default withSentryConfig(withNextIntl(nextConfig), {
+const withSentry = withSentryConfig(withNextIntl(nextConfig), {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
@@ -68,3 +69,10 @@ export default withSentryConfig(withNextIntl(nextConfig), {
   // https://vercel.com/docs/cron-jobs
   // automaticVercelMonitors: true
 })
+
+export default NextBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+  openAnalyzer: false,
+  analyzerMode: 'json',
+  logLevel: process.env.CI ? 'silent' : 'info'
+})(withSentry)

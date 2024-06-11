@@ -17,7 +17,8 @@ export async function fetchCollection(
     partialRight(stringify, [{ addQueryPrefix: true }])
   )(args)
   const url = `${getBaseUrl(contract.chain)}/collections/${contract.address}${query}`
-  const response = await fetch(url, fetchInit)
+  const init = await fetchInit(args.apiKey)
+  const response = await fetch(url, init)
   if (!response.ok) {
     throw Error(
       `error fetching collection ${contract.address}: ${JSON.stringify(

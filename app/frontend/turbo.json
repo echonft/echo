@@ -3,21 +3,54 @@
   "extends": ["//"],
   "tasks": {
     "build": {
-      "inputs": ["src/**/*.tsx", "src/**/*.ts", "../../../lib/**/*.ts", "../../../lib/**/*.tsx"],
       "outputs": [".next/**", "!.next/cache/**"],
       "passThroughEnv": [
-        "NEXT_PUBLIC_VERCEL_ENV",
-        "NEXT_PUBLIC_VERCEL_URL",
-        "NEXT_PUBLIC_PRODUCTION_URL",
-        "FIREBASE_PROJECT_ID",
+        "AUTH_DISCORD_ID",
+        "AUTH_DISCORD_SECRET",
         "AUTH_SECRET",
-        "FIREBASE_CLIENT_EMAIL",
-        "FIREBASE_PRIVATE_KEY",
-        "NEXT_PUBLIC_IS_TESTNET"
+        "CI",
+        "ENV",
+        "NEXT_PUBLIC_IS_TESTNET",
+        "NEXT_PUBLIC_SENTRY_DSN",
+        "NEXT_PUBLIC_VERCEL_URL",
+        "SECRET_MANAGER_EMAIL",
+        "SECRET_MANAGER_PRIVATE_KEY",
+        "SENTRY_AUTH_TOKEN",
+        "SENTRY_PROJECT",
+        "SENTRY_ORG",
+        "VERCEL_GIT_COMMIT_SHA"
       ]
     },
     "dev": {
-      "dependsOn": ["@echo/ui#build"]
+      "dependsOn": ["@echo/ui#build"],
+      "cache": false,
+      "persistent": true,
+      "passThroughEnv": [
+        "AUTH_DISCORD_ID",
+        "AUTH_DISCORD_SECRET",
+        "AUTH_SECRET",
+        "ENV",
+        "NEXT_PUBLIC_IS_TESTNET",
+        "NEXT_PUBLIC_VERCEL_URL",
+        "NODE_ENV",
+        "SECRET_MANAGER_EMAIL",
+        "SECRET_MANAGER_PRIVATE_KEY"
+      ]
+    },
+    "start": {
+      "cache": false,
+      "persistent": true,
+      "passThroughEnv": [
+        "AUTH_DISCORD_ID",
+        "AUTH_DISCORD_SECRET",
+        "AUTH_SECRET",
+        "ENV",
+        "NEXT_PUBLIC_IS_TESTNET",
+        "NEXT_PUBLIC_VERCEL_URL",
+        "NODE_ENV",
+        "SECRET_MANAGER_EMAIL",
+        "SECRET_MANAGER_PRIVATE_KEY"
+      ]
     }
   }
 }

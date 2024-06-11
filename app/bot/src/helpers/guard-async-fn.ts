@@ -1,5 +1,4 @@
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
+import { botLogger } from '@echo/bot/constants/bot-logger'
 import { captureException, isInitialized } from '@sentry/node'
 import { is, isNil } from 'ramda'
 
@@ -11,9 +10,13 @@ export function guardAsyncFn<TArgs extends unknown[], TResult, TFallbackResult =
     try {
       return await fn(...args)
     } catch (e) {
-      pinoLogger.error(errorMessage(e))
+      botLogger.error({ msg: 'guardAsyncFn error', error: e })
       if (isInitialized()) {
-        captureException(e)
+        captureException(e, {
+          tags: {
+            db_environement: process.env.ENV
+          }
+        })
       }
       if (isNil(fallback)) {
         return Promise.resolve()
