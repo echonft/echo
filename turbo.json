@@ -18,6 +18,7 @@
       "cache": false
     },
     "dev": {
+      "passThroughEnv": ["NEXT_PUBLIC_IS_TESTNET"],
       "cache": false,
       "persistent": true
     },

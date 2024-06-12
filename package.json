@@ -34,7 +34,7 @@
     "contract-listener:deploy:prod": "ENV=production turbo deploy --filter=@echo/contract-listener",
     "contract-listener:machine:restart:dev": "ENV=development turbo machine:restart --filter=@echo/contract-listener",
     "contract-listener:machine:restart:prod": "ENV=production turbo machine:restart --filter=@echo/contract-listener",
-    "firestore:functions:deploy:dev": "ENV=development NEXT_PUBLIC_IS_TESTNET=1 turbo deploy --filter=@echo/firestore-functions && ENV=development turbo artifacts:delete --filter=@echo/firestore-functions",
+    "firestore:functions:deploy:dev": "ENV=development turbo deploy --filter=@echo/firestore-functions && ENV=development turbo artifacts:delete --filter=@echo/firestore-functions",
     "firestore:functions:deploy:prod": "ENV=production turbo deploy --filter=@echo/firestore-functions && ENV=production turbo artifacts:delete --filter=@echo/firestore-functions",
     "firestore:functions:deploy:staging": "ENV=staging turbo deploy --filter=@echo/firestore-functions && ENV=staging turbo artifacts:delete --filter=@echo/firestore-functions",
     "firestore:indexes:deploy": "firebase deploy --only firestore:indexes",

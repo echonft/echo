@@ -25,7 +25,6 @@ export async function initializeFirebase(args?: InitializeFirebaseArgs): Promise
   if (isNil(serviceAccount)) {
     throw Error(`missing credentials`)
   }
-  childLogger?.info(JSON.stringify(serviceAccount))
   try {
     const app = initializeApp({
       credential: cert(serviceAccount)
