@@ -1,5 +1,3 @@
-import { always, equals, ifElse, isNil, pipe } from 'ramda'
+import { equals } from 'ramda'
 
-export const isTestnet: boolean = pipe<['1' | undefined], boolean>(ifElse(isNil, always(false), equals('1')))(
-  process.env.NEXT_PUBLIC_IS_TESTNET
-)
+export const isTestnet: boolean = equals('1', process.env.NEXT_PUBLIC_IS_TESTNET)

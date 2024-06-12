@@ -1,8 +1,7 @@
-import { client } from '@echo/bot/constants/client'
-import { TextChannel } from 'discord.js'
+import { type Client, TextChannel } from 'discord.js'
 import { isNil } from 'ramda'
 
-export async function getChannel(channelId: string) {
+export async function getChannel(client: Client, channelId: string) {
   const cachedChannel = client.channels.cache.get(channelId)
   if (isNil(cachedChannel)) {
     const channel = await client.channels.fetch(channelId)

@@ -1,4 +1,4 @@
-import { botLogger } from '@echo/bot/constants/bot-logger'
+import { botLogger } from '@echo/bot/index'
 import { captureException, isInitialized } from '@sentry/node'
 import { is, isNil } from 'ramda'
 
@@ -9,10 +9,10 @@ export function guardAsyncFn<TArgs extends unknown[], TResult, TFallbackResult =
   return async function (...args: TArgs) {
     try {
       return await fn(...args)
-    } catch (e) {
-      botLogger.error({ msg: 'guardAsyncFn error', error: e })
+    } catch (err) {
+      botLogger.error({ err }, 'guardAsyncFn error')
       if (isInitialized()) {
-        captureException(e, {
+        captureException(err, {
           tags: {
             db_environement: process.env.ENV
           }
@@ -22,7 +22,7 @@ export function guardAsyncFn<TArgs extends unknown[], TResult, TFallbackResult =
         return Promise.resolve()
       }
       if (is(Function, fallback)) {
-        return fallback(e, ...args)
+        return fallback(err, ...args)
       }
       return Promise.resolve(fallback)
     }

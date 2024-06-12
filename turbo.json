@@ -6,6 +6,9 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
+    "build:local": {
+      "cache": false
+    },
     "clean": {
       "cache": false
     },
@@ -32,7 +35,14 @@
     "prettier": {},
     "start": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "passThroughEnv": ["SECRET_MANAGER_EMAIL", "SECRET_MANAGER_PRIVATE_KEY"]
+    },
+    "start:local": {
+      "dependsOn": ["build"],
+      "cache": false,
+      "persistent": true,
+      "passThroughEnv": ["SECRET_MANAGER_EMAIL", "SECRET_MANAGER_PRIVATE_KEY"]
     },
     "sentry:sourcemaps:inject": {
       "dependsOn": ["build"]

@@ -5,7 +5,9 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "analyze": "ANALYZE=true pnpm run build:local",
     "build": "next build",
+    "build:local": "scripts/build-local.sh",
     "clean": "rm -rf .next",
     "dev": "next dev",
     "lint": "eslint",
@@ -13,7 +15,7 @@
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier . -u -c --no-error-on-unmatched-pattern",
-    "start": "next start",
+    "start": "scripts/start.sh",
     "test": "jest",
     "test:coverage:clean": "rm -rf test/.coverage",
     "tsc": "tsc --noEmit"

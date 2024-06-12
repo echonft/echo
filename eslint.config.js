@@ -199,7 +199,7 @@ export default tseslint.config(
   },
   {
     name: 'disable console on @echo/commands, @echo/contract-listener, @echo/web3',
-    files: ['app/commands/**/*.{ts,tsx}', 'app/contract-listener/**/*.{ts,tsx}', 'lib/web3/**/*.{ts,tsx}'],
+    files: ['app/commands/**/*.{ts,tsx}', 'lib/web3/**/*.{ts,tsx}'],
     rules: {
       'no-console': 'off'
     }

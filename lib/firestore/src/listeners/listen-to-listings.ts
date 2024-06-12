@@ -1,17 +1,9 @@
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
+import { onSnapshot } from '@echo/firestore/listeners/on-doc-changes'
+import type { ChangeHandler } from '@echo/firestore/types/change-handler'
 import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
 import type { Listing } from '@echo/model/types/listing'
-import type { DocumentChange, DocumentChangeType, QueryDocumentSnapshot } from 'firebase-admin/firestore'
-import { isNil } from 'ramda'
 
-export function listenToListings(
-  onChange: (changeType: DocumentChangeType, snapshot: QueryDocumentSnapshot<Listing>) => unknown
-) {
-  getListingsCollectionReference().onSnapshot((snapshot) => {
-    snapshot.docChanges().forEach((change: DocumentChange<Listing, ListingDocumentData>) => {
-      if (!isNil(change.doc.id)) {
-        onChange(change.type, change.doc)
-      }
-    })
-  })
+export function listenToListings(onChange: ChangeHandler<Listing>) {
+  getListingsCollectionReference().onSnapshot(onSnapshot<Listing, ListingDocumentData>(onChange))
 }

@@ -1,29 +1,32 @@
-import { botLogger } from '@echo/bot/constants/bot-logger'
 import { sendToEchoChannel } from '@echo/bot/helpers/send-to-echo-channel'
+import { botLogger } from '@echo/bot/index'
 import { buildSwapEmbed } from '@echo/bot/swap/build-swap-embed'
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
-import { isNil } from 'ramda'
+import type { Client } from 'discord.js'
+import { assoc, isNil } from 'ramda'
 
-export async function postSwap(offerId: string) {
+export async function postSwap(client: Client, offerId: string) {
+  const fn = 'postSwap'
   const offer = await getOfferById(offerId)
   if (isNil(offer)) {
-    botLogger.error({ msg: `[OFFER ${offerId}] offer not found` })
+    botLogger.error({ offer: { id: offerId }, fn }, 'offer not found')
     return
   }
+  const offerWithId = assoc('id', offerId, offer)
   const { sender, receiver } = offer
-  const creator = await getUserByUsername(sender.username)
-  if (isNil(creator)) {
-    botLogger.error({ msg: `[OFFER ${offerId}] sender ${sender.username} not found` })
+  const foundSender = await getUserByUsername(sender.username)
+  if (isNil(foundSender)) {
+    botLogger.error({ offer: offerWithId, fn }, 'sender not found')
     return
   }
-  const counterparty = await getUserByUsername(receiver.username)
-  if (isNil(counterparty)) {
-    botLogger.error({ msg: `[OFFER ${offerId}] receiver ${receiver.username} not found` })
+  const foundReceiver = await getUserByUsername(receiver.username)
+  if (isNil(foundReceiver)) {
+    botLogger.error({ offer: offerWithId, fn }, 'receiver not found')
     return
   }
-  await sendToEchoChannel({
-    embeds: [buildSwapEmbed(offer, creator, counterparty)]
+  await sendToEchoChannel(client, {
+    embeds: [buildSwapEmbed(offer, foundSender, foundReceiver)]
   })
-  botLogger.info({ msg: `[OFFER ${offerId}] posted swap to echo channel` })
+  botLogger.info({ offer: offerWithId }, 'posted swap to echo channel')
 }

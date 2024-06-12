@@ -1,5 +1,6 @@
 import { getCollection } from '@echo/contract-listener/helpers/get-collection'
 import { updateNft } from '@echo/contract-listener/helpers/update-nft'
+import { loggers } from '@echo/contract-listener/index'
 import type { TransferData } from '@echo/contract-listener/types/transfer-data'
 import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
@@ -18,10 +19,12 @@ export async function processInTransfer(
   args: Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>
 ): Promise<void> {
   const { contractAddress, chain, to, tokenId } = args
-  console.log(`[IN transfer ${contractAddress}:${tokenId}] to wallet ${JSON.stringify(to)}, processing...`)
+  const logger = loggers.get(chain)
+  const fn = 'processInTransfer'
+  logger?.info({ fn, nft_data: { contract: contractAddress, tokenId }, to }, 'processing inbound transfer')
   const userDocumentData = await getUserById(to.userId)
   if (isNil(userDocumentData)) {
-    console.error(`[IN transfer ${contractAddress}:${tokenId}] user ${to.userId} not found`)
+    logger?.error({ fn, to }, 'user not found')
     return
   }
   const user = getUserFromFirestoreData(userDocumentData, to)

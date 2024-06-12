@@ -1,4 +1,4 @@
-import { botLogger } from '@echo/bot/constants/bot-logger'
+import { botLogger } from '@echo/bot/index'
 import { TextChannel } from 'discord.js'
 import { isNil } from 'ramda'
 
@@ -10,7 +10,7 @@ export async function getThread(channel: TextChannel, threadId: string) {
     }
     return thread
   } catch (err) {
-    botLogger.error({ msg: `could not get thread ${threadId} in channel ${channel.id}`, error: err })
+    botLogger.error({ err, channel }, `could not get thread ${threadId}`)
     return undefined
   }
 }

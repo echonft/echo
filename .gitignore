@@ -9,7 +9,7 @@ node_modules
 # debug
 .pnpm-debug.log*
 
-.env.keys
+.env*
 
 # typescript
 *.tsbuildinfo

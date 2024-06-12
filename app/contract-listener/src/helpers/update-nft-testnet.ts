@@ -1,5 +1,5 @@
-import { contractListenerLogger } from '@echo/contract-listener/constants/contract-listener-logger'
 import type { UpdateNftArgs } from '@echo/contract-listener/helpers/update-nft'
+import { loggers } from '@echo/contract-listener/index'
 import { addNft } from '@echo/firestore/crud/nft/add-nft'
 import { getNft } from '@echo/firestore/crud/nft/get-nft'
 import { updateNft as updateNftInFirestore } from '@echo/firestore/crud/nft/update-nft'
@@ -14,17 +14,19 @@ import { andThen, assoc, isNil, pipe, prop, tap } from 'ramda'
  * This method uses OpenSea which doesn't work well on mainnet
  */
 export async function updateNftTestnet(args: UpdateNftArgs) {
+  const logger = loggers.get(args.chain)
+  const fn = 'updateNftTestnet'
   const { nftIndex, owner, chain, collection } = args
   const nft = await getNft(nftIndex)
 
   if (!isNil(nft)) {
-    contractListenerLogger.info({ msg: `NFT ${JSON.stringify(nftIndex)} already in database, updating owner...` })
+    logger?.info({ nft, fn }, 'NFT already in database, updating owner')
     await pipe(assoc('owner', owner), updateNftInFirestore)(nft)
-    contractListenerLogger.info({ msg: `NFT ${JSON.stringify(nftIndex)} owner updated to ${JSON.stringify(owner)}` })
+    logger?.info({ nft, new_owner: owner, fn }, 'NFT owner updated')
     return
   }
 
-  contractListenerLogger.info({ msg: `NFT ${JSON.stringify(nftIndex)} not found, fetching...` })
+  logger?.info({ fn, nft_data: nftIndex }, 'NFT not found, fetching')
   await pipe(
     getNftFromOpensea,
     andThen(
@@ -33,8 +35,8 @@ export async function updateNftTestnet(args: UpdateNftArgs) {
         assoc('owner', owner),
         addNft,
         andThen(
-          tap(({ id }) => {
-            contractListenerLogger.info({ msg: `Added NFT ${id}` })
+          tap(({ id, data }) => {
+            logger?.info({ fn, nft: assoc('id', id, data) }, 'added NFT')
           })
         )
       )

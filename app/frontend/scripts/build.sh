@@ -54,14 +54,30 @@ rm -rf "${temp_key_file}"
 gcloud config set project "${project_id}"
 
 # Get the secrets
-auth_discord_id=$(gcloud secrets versions access 'latest' --secret="DISCORD_CLIENT_ID" --project=echo-dev-fallback)
-auth_discord_secret=$(gcloud secrets versions access 'latest' --secret="DISCORD_CLIENT_SECRET" --project=echo-dev-fallback)
-auth_secret=$(gcloud secrets versions access 'latest' --secret="AUTH_SECRET" --project=echo-dev-fallback)
-sentry_auth_token=$(gcloud secrets versions access 'latest' --secret="SENTRY_AUTH_TOKEN" --project=echo-dev-fallback)
+AUTH_DISCORD_ID=$(gcloud secrets versions access 'latest' --secret="DISCORD_CLIENT_ID" --project=${project_id})
+if [ ! "${AUTH_DISCORD_ID}" ]; then
+  >&2 echo "DISCORD_CLIENT_ID secret not found"
+  exit 1
+fi
+AUTH_DISCORD_SECRET=$(gcloud secrets versions access 'latest' --secret="DISCORD_CLIENT_SECRET" --project=${project_id})
+if [ ! "${AUTH_DISCORD_SECRET}" ]; then
+  >&2 echo "DISCORD_CLIENT_SECRET secret not found"
+  exit 1
+fi
+AUTH_SECRET=$(gcloud secrets versions access 'latest' --secret="AUTH_SECRET" --project=${project_id})
+if [ ! "${AUTH_SECRET}" ]; then
+  >&2 echo "AUTH_SECRET secret not found"
+  exit 1
+fi
+SENTRY_AUTH_TOKEN=$(gcloud secrets versions access 'latest' --secret="SENTRY_AUTH_TOKEN" --project=${project_id})
+if [ ! "${SENTRY_AUTH_TOKEN}" ]; then
+  >&2 echo "SENTRY_AUTH_TOKEN secret not found"
+  exit 1
+fi
 
 # build with the env vars
-AUTH_SECRET="${auth_secret}" \
-AUTH_DISCORD_ID="${auth_discord_id}" \
-AUTH_DISCORD_SECRET="${auth_discord_secret}" \
-SENTRY_AUTH_TOKEN="${sentry_auth_token}" \
+AUTH_SECRET="${AUTH_SECRET}" \
+AUTH_DISCORD_ID="${AUTH_DISCORD_ID}" \
+AUTH_DISCORD_SECRET="${AUTH_DISCORD_SECRET}" \
+SENTRY_AUTH_TOKEN="${SENTRY_AUTH_TOKEN}" \
  pnpm exec turbo build --filter=@echo/frontend

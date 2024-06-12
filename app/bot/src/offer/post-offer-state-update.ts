@@ -1,5 +1,5 @@
-import { botLogger } from '@echo/bot/constants/bot-logger'
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
+import { botLogger } from '@echo/bot/index'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
@@ -49,5 +49,5 @@ export async function postOfferStateUpdate(args: { offerThread: OfferThread; thr
     components: [buildOfferLinkButton(offer.slug)],
     content
   })
-  botLogger.info({ msg: `[OFFER ${offerThread.offerId}] posted update to thread ${offerThread.guild.threadId}` })
+  botLogger.info({ offer, offerThread }, 'posted update to thread')
 }

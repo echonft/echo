@@ -72,7 +72,7 @@ const withSentry = withSentryConfig(withNextIntl(nextConfig), {
 
 export default NextBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
-  openAnalyzer: false,
-  analyzerMode: 'json',
+  openAnalyzer: !process.env.CI,
+  analyzerMode: process.env.CI ? 'json' : 'static',
   logLevel: process.env.CI ? 'silent' : 'info'
 })(withSentry)
