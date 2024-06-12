@@ -13,7 +13,6 @@
       "@echo/web3/*": ["../../lib/web3/src/*"],
       "@echo/web3-dom/*": ["../../lib/web3-dom/src/*"]
     },
-    "lib": ["dom", "dom.iterable", "esnext"],
     "plugins": [
       {
         "name": "next"

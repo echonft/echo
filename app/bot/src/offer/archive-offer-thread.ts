@@ -4,16 +4,14 @@ import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { archiveOfferThread as firestoreArchiveOfferThread } from '@echo/firestore/crud/offer-thread/archive-offer-thread'
 import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
-import type { Logger } from '@echo/utils/types/logger'
-import type { Nullable } from '@echo/utils/types/nullable'
+import type { WithLogger } from '@echo/utils/types/with-logger'
 import type { AnyThreadChannel } from 'discord.js'
 import i18next from 'i18next'
 import { isNil } from 'ramda'
 
-interface ArchiveOfferThreadArgs {
+interface ArchiveOfferThreadArgs extends WithLogger {
   offerThread: OfferThread
   thread: AnyThreadChannel | undefined
-  logger?: Nullable<Logger>
 }
 
 export async function archiveOfferThread(args: ArchiveOfferThreadArgs) {

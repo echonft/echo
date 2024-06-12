@@ -13,15 +13,16 @@ import { getCollection as getCollectionFromOpensea } from '@echo/opensea/service
 import { getNftsByAccount, type GetNftsByAccountArgs } from '@echo/opensea/services/get-nfts-by-account'
 import type { GetCollectionRequest } from '@echo/opensea/types/request/get-collection-request'
 import { andThenOtherwise } from '@echo/utils/fp/and-then-otherwise'
-import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { LoggerInterface } from '@echo/utils/types/logger-interface'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { always, andThen, assoc, equals, isNil, pipe, prop, tap } from 'ramda'
+import { always, andThen, assoc, equals, isNil, pipe, prop } from 'ramda'
 
-type GetCollectionArgs = Omit<GetCollectionRequest, 'fetch'> & {
-  logger?: LoggerInterface
-}
+type GetCollectionArgs = Omit<GetCollectionRequest, 'fetch'>
+// TODO
+//   & {
+//   logger?: LoggerInterface
+// }
 
 async function getCollection(args: GetCollectionArgs): Promise<Nullable<Collection>> {
   const collection = await getCollectionFromFirestore(args.slug)
@@ -33,6 +34,7 @@ async function getCollection(args: GetCollectionArgs): Promise<Nullable<Collecti
       Promise<Collection | undefined>
     >(
       assoc('fetch', fetch),
+      // TODO add logger
       getCollectionFromOpensea,
       andThenOtherwise(
         pipe(
@@ -40,9 +42,10 @@ async function getCollection(args: GetCollectionArgs): Promise<Nullable<Collecti
           addCollection,
           andThen(
             pipe(
-              tap((newDocument) => {
-                args.logger?.info(`added collection ${newDocument.data.slug}`)
-              }),
+              // TODO
+              // tap((newDocument) => {
+              //   args.logger?.info(`added collection ${newDocument.data.slug}`)
+              // }),
               prop('data')
             )
           )
@@ -64,9 +67,10 @@ export async function updateNftsForWalletTestnet(wallet: Wallet, owner: User, lo
       try {
         // check if collection exists, if not add it, else set it in the nft
         const collection = await getCollection({
-          logger,
+          // TODO pass the logger (of interface Logger)
+          // logger,
           slug: nft.collection.slug,
-          testnet: isTestnetChain(wallet.chain)
+          chain: wallet.chain
         })
         if (!isNil(collection)) {
           const existingNft: Nullable<Nft> = await pipe(getNftIndex, getNft)(nft)

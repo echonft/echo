@@ -1,5 +1,4 @@
 import type { UpdateNftArgs } from '@echo/contract-listener/helpers/update-nft'
-import { loggers } from '@echo/contract-listener/index'
 import { addNft } from '@echo/firestore/crud/nft/add-nft'
 import { getNft } from '@echo/firestore/crud/nft/get-nft'
 import { updateNft as updateNftInFirestore } from '@echo/firestore/crud/nft/update-nft'
@@ -7,9 +6,8 @@ import { getNft as getNftFromNftScan } from '@echo/nft-scan/services/get-nft'
 import { andThen, assoc, isNil, pipe, tap } from 'ramda'
 
 export async function updateNftMainnet(args: UpdateNftArgs) {
-  const logger = loggers.get(args.chain)
   const fn = 'updateNftMainnet'
-  const { nftIndex, owner, collection } = args
+  const { nftIndex, owner, collection, logger } = args
   const nft = await getNft(nftIndex)
 
   if (!isNil(nft)) {
@@ -19,7 +17,7 @@ export async function updateNftMainnet(args: UpdateNftArgs) {
     return
   }
 
-  logger?.info({ fn, nft_data: nftIndex }, 'NFT not found, fetching')
+  logger?.info({ fn, nft: nftIndex }, 'NFT not found, fetching')
   await pipe(
     getNftFromNftScan,
     andThen(
@@ -37,6 +35,7 @@ export async function updateNftMainnet(args: UpdateNftArgs) {
   )({
     fetch,
     identifier: nftIndex.tokenId.toString(),
-    contract: collection.contract
+    contract: collection.contract,
+    logger
   })
 }

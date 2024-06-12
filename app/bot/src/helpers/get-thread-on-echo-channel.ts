@@ -1,14 +1,12 @@
 import { getEchoChannel } from '@echo/bot/helpers/get-echo-channel'
 import { getThread } from '@echo/bot/helpers/get-thread'
-import type { Logger } from '@echo/utils/types/logger'
-import type { Nullable } from '@echo/utils/types/nullable'
+import type { WithLogger } from '@echo/utils/types/with-logger'
 import { type Client } from 'discord.js'
 import { isNil } from 'ramda'
 
-interface GetThreadOnEchoChannelArgs {
+interface GetThreadOnEchoChannelArgs extends WithLogger {
   client: Client
   threadId: string
-  logger?: Nullable<Logger>
 }
 
 export async function getThreadOnEchoChannel(args: GetThreadOnEchoChannelArgs) {

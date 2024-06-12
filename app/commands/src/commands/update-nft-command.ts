@@ -29,9 +29,7 @@ export const updateNftCommand: Command = {
           alias: 'address',
           describe: 'address',
           type: 'string'
-        }
-      })
-      .options({
+        },
         c: {
           alias: 'chain',
           describe: 'chain',
@@ -39,9 +37,7 @@ export const updateNftCommand: Command = {
           choices: getChains(),
           default: 'ethereum',
           coerce: (arg) => arg as ChainName
-        }
-      })
-      .options({
+        },
         t: {
           alias: 'token',
           describe: 'token id',
@@ -57,6 +53,7 @@ export const updateNftCommand: Command = {
       console.log(`fetching NFT #${t} for contract address ${a}`)
       try {
         await initializeFirebase()
+        // TODO add logger
         const nft = await getNft({ contract: address, chain: c, identifier: t, fetch })
         if (isNil(nft)) {
           console.error(`did not get any result`)

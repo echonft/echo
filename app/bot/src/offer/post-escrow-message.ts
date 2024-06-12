@@ -5,8 +5,7 @@ import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-usernam
 import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
 import { OFFER_STATE_ACCEPTED, OFFER_STATE_EXPIRED, OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
-import type { Logger } from '@echo/utils/types/logger'
-import type { Nullable } from '@echo/utils/types/nullable'
+import type { WithLogger } from '@echo/utils/types/with-logger'
 import { type AnyThreadChannel, userMention } from 'discord.js'
 import i18next from 'i18next'
 import { any, isEmpty, isNil, pathEq } from 'ramda'
@@ -24,7 +23,12 @@ function shouldPostEscrowMessage(offer: Offer) {
   return offer.state === OFFER_STATE_REJECTED || offer.state === OFFER_STATE_EXPIRED
 }
 
-async function areBothPartiesInEscrow(offerId: string, logger?: Nullable<Logger>) {
+interface AreBothPartiesInEscrowArgs extends WithLogger {
+  offerId: string
+}
+
+async function areBothPartiesInEscrow(args: AreBothPartiesInEscrowArgs) {
+  const { offerId, logger } = args
   const updates = await getOfferUpdatesByOfferId(offerId)
   if (isEmpty(updates)) {
     logger?.error({ offer: { id: offerId } }, 'checked for escrow status but no updates were found')
@@ -34,17 +38,16 @@ async function areBothPartiesInEscrow(offerId: string, logger?: Nullable<Logger>
   return any(pathEq(OFFER_STATE_ACCEPTED, ['update', 'args', 'state']))(updates)
 }
 
-interface PostEscrowMessageArgs {
+interface PostEscrowMessageArgs extends WithLogger {
   offerThread: OfferThread
   thread: AnyThreadChannel
   offer: Offer
-  logger?: Nullable<Logger>
 }
 
 export async function postEscrowMessage(args: PostEscrowMessageArgs) {
   const { offer, offerThread, thread, logger } = args
   if (shouldPostEscrowMessage(offer)) {
-    if (await areBothPartiesInEscrow(offerThread.offerId, logger)) {
+    if (await areBothPartiesInEscrow({ offerId: offerThread.offerId, logger })) {
       const senderId = await getUserDiscordId(offer.sender.username)
       const receiverId = await getUserDiscordId(offer.receiver.username)
       await sendToThread(thread, {

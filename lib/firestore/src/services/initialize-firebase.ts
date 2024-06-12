@@ -1,8 +1,7 @@
 import { getFirebaseServiceAccount } from '@echo/firestore/services/get-firebase-service-account'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { getGCloudProjectId } from '@echo/utils/helpers/get-gcloud-project-id'
-import type { Logger } from '@echo/utils/types/logger'
-import type { Nullable } from '@echo/utils/types/nullable'
+import type { WithLogger } from '@echo/utils/types/with-logger'
 import { cert, getApps, initializeApp, type ServiceAccount } from 'firebase-admin/app'
 import {
   type Firestore,
@@ -11,9 +10,8 @@ import {
 } from 'firebase-admin/firestore'
 import { head, isNil, pipe } from 'ramda'
 
-interface InitializeFirebaseArgs {
+interface InitializeFirebaseArgs extends WithLogger {
   serviceAccount?: ServiceAccount
-  logger?: Nullable<Logger>
 }
 
 export async function initializeFirebase(args?: InitializeFirebaseArgs): Promise<Firestore> {

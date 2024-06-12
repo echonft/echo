@@ -25,9 +25,7 @@ export const fetchNftsFromNftscanCommand: Command = {
           alias: 'address',
           describe: 'address',
           type: 'string'
-        }
-      })
-      .options({
+        },
         c: {
           alias: 'chain',
           describe: 'chain',

@@ -1,3 +1,4 @@
+import { updateNftsForWalletTestnet } from '@echo/firestore-functions/tasks/nft/update-user-nfts-testnet'
 import { addCollection } from '@echo/firestore/crud/collection/add-collection'
 import { getCollectionByAddress as getCollectionFromFirestore } from '@echo/firestore/crud/collection/get-collection-by-address'
 import { addNft } from '@echo/firestore/crud/nft/add-nft'
@@ -7,7 +8,6 @@ import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
-import { updateNftsForWalletTestnet } from '@echo/firestore-functions/tasks/nft/update-user-nfts-testnet'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import type { Collection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
@@ -23,11 +23,13 @@ import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { DeepPartial } from '@echo/utils/types/deep-partial'
 import type { LoggerInterface } from '@echo/utils/types/logger-interface'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { always, andThen, assoc, assocPath, equals, isNil, pick, pipe, prop, tap } from 'ramda'
+import { always, andThen, assoc, assocPath, equals, isNil, pick, pipe, prop } from 'ramda'
 
-type GetCollectionArgs = Omit<GetCollectionRequest, 'fetch'> & {
-  logger?: LoggerInterface
-}
+type GetCollectionArgs = Omit<GetCollectionRequest, 'fetch'>
+// TODO
+//   & {
+//   logger?: LoggerInterface
+// }
 
 async function getCollection(args: GetCollectionArgs): Promise<Nullable<Collection>> {
   const collection = await getCollectionFromFirestore(args.contract)
@@ -46,9 +48,10 @@ async function getCollection(args: GetCollectionArgs): Promise<Nullable<Collecti
           addCollection,
           andThen(
             pipe(
-              tap((newDocument) => {
-                args.logger?.info(`added collection ${newDocument.data.slug}`)
-              }),
+              // TODO
+              // tap((newDocument) => {
+              //   args.logger?.info(`added collection ${newDocument.data.slug}`)
+              // }),
               prop('data')
             )
           )
@@ -66,7 +69,8 @@ export async function updateNftsForWallet(wallet: Wallet, owner: User, logger?: 
     for (const collection of collections) {
       // check if collection exists, if not add it, else set it in the nft
       const firestoreCollection = await getCollection({
-        logger,
+        // TODO pass the logger (of interface Logger)
+        // logger,
         contract: collection.contract
       })
       for (const nft of collection.nfts) {

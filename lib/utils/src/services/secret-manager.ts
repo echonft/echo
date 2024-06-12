@@ -6,6 +6,7 @@ import { promiseAll } from '@echo/utils/fp/promise-all'
 import { getGCloudProjectId } from '@echo/utils/helpers/get-gcloud-project-id'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { Secret } from '@echo/utils/types/secret'
+import type { WithLogger } from '@echo/utils/types/with-logger'
 import { privateKeySchema } from '@echo/utils/validators/private-key-schema'
 import { SecretManagerServiceClient } from '@google-cloud/secret-manager'
 import type { Logger } from 'pino'
@@ -16,11 +17,10 @@ interface Credentials {
   privateKey: string
 }
 
-interface AccessSecretArgs {
+interface AccessSecretArgs extends WithLogger {
   name: Secret
   client: Nullable<SecretManagerServiceClient>
   projectId: string
-  logger?: Nullable<Logger>
 }
 
 function shouldUseCredentials() {
@@ -105,17 +105,24 @@ async function initialize(logger?: Nullable<Logger>) {
   return { client, logger: childLogger, projectId }
 }
 
-export async function getSecret(name: Secret, logger?: Nullable<Logger>): Promise<Nullable<string>> {
+interface GetSecretArgs extends WithLogger {
+  name: Secret
+}
+
+export async function getSecret(args: GetSecretArgs): Promise<Nullable<string>> {
+  const { name, logger } = args
   const params = await initialize(logger)
   const secret = await pipe(assoc('name', name), accessSecret)(params)
   await disconnect(params.client)
   return prop(name, secret)
 }
 
-export async function getSecrets(
-  names: Secret[],
-  logger?: Nullable<Logger>
-): Promise<Record<(typeof names)[number], Nullable<string>>> {
+interface GetSecretsArgs extends WithLogger {
+  names: Secret[]
+}
+
+export async function getSecrets(args: GetSecretsArgs): Promise<Record<(typeof args.names)[number], Nullable<string>>> {
+  const { names, logger } = args
   const params = await initialize(logger)
   const secrets = await pipe(
     map(pipe(assoc('name', __, params), accessSecret)),

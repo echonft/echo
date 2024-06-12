@@ -1,5 +1,4 @@
 import { getCollection } from '@echo/contract-listener/helpers/get-collection'
-import { loggers } from '@echo/contract-listener/index'
 import type { TransferData } from '@echo/contract-listener/types/transfer-data'
 import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
 import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft'
@@ -13,17 +12,19 @@ import { isNil } from 'ramda'
  * @param {TransferData} args
  */
 export async function processOutTransfer(args: TransferData) {
-  const { contractAddress, chain, tokenId } = args
-  const logger = loggers.get(chain)
+  const { contractAddress, chain, tokenId, logger } = args
   const fn = 'processOutTransfer'
-  logger?.info({ fn, nft_data: { contract: contractAddress, tokenId } }, 'processing outbound transfer')
+  logger?.info(
+    { fn, nft: { collection: { contract: { address: contractAddress, chain: args.chain } } } },
+    'processing outbound transfer'
+  )
   const collection = await getCollection({ chain, address: contractAddress })
   const nftIndex = getNftIndex({ collection, tokenId })
   const snapshot = await getNftSnapshot(nftIndex)
   if (isNil(snapshot)) {
-    logger?.error({ fn, nft_data: nftIndex }, 'NFT not found')
+    logger?.error({ fn, nft: nftIndex }, 'NFT not found')
     return
   }
   await deleteNft(snapshot.id)
-  logger?.info({ fn, nft_data: nftIndex }, 'NFT deleted')
+  logger?.info({ fn, nft: nftIndex }, 'NFT deleted')
 }

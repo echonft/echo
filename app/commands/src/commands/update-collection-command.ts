@@ -9,6 +9,7 @@ import { assoc, pipe, toLower } from 'ramda'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
+// TODO add chain
 /**
  * Arguments:
  *  -s  string  collection slug
@@ -29,6 +30,7 @@ export const updateCollectionCommand: Command = {
     const slug = toLower(s)
     try {
       await initializeFirebase()
+      // TODO add logger
       const collection = await pipe(assoc('fetch', fetch), getCollection)({ slug, testnet: isTestnet })
       await updateCollectionInFirestore({ slug, data: collection })
       await terminateFirestore()

@@ -2,15 +2,13 @@ import { sendToEchoChannel } from '@echo/bot/helpers/send-to-echo-channel'
 import { buildSwapEmbed } from '@echo/bot/swap/build-swap-embed'
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
-import type { Logger } from '@echo/utils/types/logger'
-import type { Nullable } from '@echo/utils/types/nullable'
+import type { WithLogger } from '@echo/utils/types/with-logger'
 import type { Client } from 'discord.js'
 import { assoc, isNil } from 'ramda'
 
-interface PostSwapArgs {
+interface PostSwapArgs extends WithLogger {
   client: Client
   offerId: string
-  logger?: Nullable<Logger>
 }
 
 export async function postSwap(args: PostSwapArgs) {

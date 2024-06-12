@@ -8,7 +8,6 @@
       "@echo/model/*": ["../model/src/*"],
       "@echo/utils/*": ["../utils/src/*"]
     },
-    "lib": ["dom", "dom.iterable", "esnext"]
   },
   "include": ["src", "test", "../../env.d.ts"],
   "exclude": ["node_modules"]

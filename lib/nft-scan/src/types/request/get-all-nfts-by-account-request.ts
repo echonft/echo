@@ -1,8 +1,8 @@
 import type { Wallet } from '@echo/model/types/wallet'
-import type { BaseRequest } from '@echo/nft-scan/types/request/base-request'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
+import type { WithLogger } from '@echo/utils/types/with-logger'
 
-export interface GetAllNftsByAccountRequest extends WithFetch, BaseRequest {
+export interface GetAllNftsByAccountRequest extends WithFetch, WithLogger {
   showAttribute?: boolean
   wallet: Wallet
 }

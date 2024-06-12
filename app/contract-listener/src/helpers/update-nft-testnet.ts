@@ -1,5 +1,4 @@
 import type { UpdateNftArgs } from '@echo/contract-listener/helpers/update-nft'
-import { loggers } from '@echo/contract-listener/index'
 import { addNft } from '@echo/firestore/crud/nft/add-nft'
 import { getNft } from '@echo/firestore/crud/nft/get-nft'
 import { updateNft as updateNftInFirestore } from '@echo/firestore/crud/nft/update-nft'
@@ -14,9 +13,8 @@ import { andThen, assoc, isNil, pipe, prop, tap } from 'ramda'
  * This method uses OpenSea which doesn't work well on mainnet
  */
 export async function updateNftTestnet(args: UpdateNftArgs) {
-  const logger = loggers.get(args.chain)
   const fn = 'updateNftTestnet'
-  const { nftIndex, owner, chain, collection } = args
+  const { nftIndex, owner, chain, collection, logger } = args
   const nft = await getNft(nftIndex)
 
   if (!isNil(nft)) {
@@ -26,7 +24,7 @@ export async function updateNftTestnet(args: UpdateNftArgs) {
     return
   }
 
-  logger?.info({ fn, nft_data: nftIndex }, 'NFT not found, fetching')
+  logger?.info({ fn, nft: nftIndex }, 'NFT not found, fetching')
   await pipe(
     getNftFromOpensea,
     andThen(
@@ -45,6 +43,7 @@ export async function updateNftTestnet(args: UpdateNftArgs) {
     chain,
     fetch,
     identifier: nftIndex.tokenId.toString(),
-    contract: pipe<[Collection], Wallet, HexString>(prop('contract'), prop('address'))(collection)
+    contract: pipe<[Collection], Wallet, HexString>(prop('contract'), prop('address'))(collection),
+    logger
   })
 }

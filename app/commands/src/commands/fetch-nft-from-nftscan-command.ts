@@ -36,9 +36,7 @@ export const fetchNftFromNftscanCommand: Command = {
           choices: getChains(),
           default: 'ethereum',
           coerce: (arg) => arg as ChainName
-        }
-      })
-      .options({
+        },
         t: {
           alias: 'tokenId',
           describe: 'token id',

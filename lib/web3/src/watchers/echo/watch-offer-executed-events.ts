@@ -1,6 +1,6 @@
-import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { Awaitable } from '@echo/utils/types/awaitable'
 import type { ChainName } from '@echo/utils/types/chain-name'
+import type { WithLogger } from '@echo/utils/types/with-logger'
 import { echoAbi } from '@echo/web3/constants/echo-abi'
 import type { EchoAbi } from '@echo/web3/types/echo-abi-type'
 import type { EchoOfferExecutedEventLog } from '@echo/web3/types/log/echo-offer-executed-event-log'
@@ -9,18 +9,18 @@ import { offerExecutedEventLogSchema } from '@echo/web3/validators/offer-execute
 import { always, applySpec, identity, isNil, map, pipe, reject, T } from 'ramda'
 import { parseEventLogs, type ParseEventLogsParameters } from 'viem'
 
-interface WatchOfferExecutedEventHandlerArgs<T extends ChainName> {
+interface WatchOfferExecutedEventHandlerArgs<T extends ChainName> extends WithLogger {
   log: EchoOfferExecutedEventLog
   chain: T
 }
 
-interface WatchOfferExecutedEventsArgs<T extends ChainName> {
+interface WatchOfferExecutedEventsArgs<T extends ChainName> extends WithLogger {
   client: ViemClient<T>
   handler: <T extends ChainName>(args: WatchOfferExecutedEventHandlerArgs<T>) => Awaitable<void>
 }
 
 export function watchOfferExecutedEvents<T extends ChainName>(args: WatchOfferExecutedEventsArgs<T>) {
-  const { client, handler } = args
+  const { client, handler, logger } = args
   return client.watchContractEvent({
     abi: echoAbi,
     eventName: 'OfferExecuted',
@@ -36,12 +36,12 @@ export function watchOfferExecutedEvents<T extends ChainName>(args: WatchOfferEx
       map(
         pipe(
           (log) => offerExecutedEventLogSchema.parse(log),
-          (log) => handler({ log, chain: client.name })
+          (log) => handler({ log, chain: client.name, logger })
         )
       )
     ),
-    onError: (error: Error) => {
-      console.error(`error parsing 'OfferExecuted' event log on Echo: ${errorMessage(error)}`)
+    onError: (err: Error) => {
+      logger?.error({ fn: 'watchOfferExecutedEvents', err }, "error parsing 'OfferExecuted' event log on Echo")
     }
   })
 }

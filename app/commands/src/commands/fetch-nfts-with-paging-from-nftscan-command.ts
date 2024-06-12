@@ -25,9 +25,7 @@ export const fetchNftsWithPagingFromNftscanCommand: Command = {
           alias: 'address',
           describe: 'address',
           type: 'string'
-        }
-      })
-      .options({
+        },
         c: {
           alias: 'chain',
           describe: 'chain',
@@ -44,6 +42,7 @@ export const fetchNftsWithPagingFromNftscanCommand: Command = {
       const address = pipe(formatWalletAddress, toLower<HexString>)({ address: a, chain: c })
       console.log(`fetching NFTs for ${a}...`)
       try {
+        // TODO add logger
         const response = await getNftsByAccount({ wallet: { address, chain: c }, fetch })
         console.log(`received ${response.length} NFTs`)
         forEach((nft) => {

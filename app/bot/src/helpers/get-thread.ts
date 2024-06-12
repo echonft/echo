@@ -1,12 +1,10 @@
-import type { Logger } from '@echo/utils/types/logger'
-import type { Nullable } from '@echo/utils/types/nullable'
+import type { WithLogger } from '@echo/utils/types/with-logger'
 import { TextChannel } from 'discord.js'
 import { isNil } from 'ramda'
 
-interface GetThreadArgs {
+interface GetThreadArgs extends WithLogger {
   channel: TextChannel
   threadId: string
-  logger?: Nullable<Logger>
 }
 
 export async function getThread(args: GetThreadArgs) {

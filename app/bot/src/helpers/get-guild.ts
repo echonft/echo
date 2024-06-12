@@ -1,12 +1,10 @@
-import type { Logger } from '@echo/utils/types/logger'
-import type { Nullable } from '@echo/utils/types/nullable'
+import type { WithLogger } from '@echo/utils/types/with-logger'
 import { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
-interface GetGuildArgs {
+interface GetGuildArgs extends WithLogger {
   client: Client
   guildId: string
-  logger?: Nullable<Logger>
 }
 
 export async function getGuild(args: GetGuildArgs) {

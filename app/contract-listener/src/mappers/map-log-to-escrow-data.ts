@@ -9,6 +9,7 @@ export function mapLogToEscrowData(args: EventLogHandlerArgs<Erc721TransferEvent
     to: path(['log', 'args', 'to']),
     tokenId: path(['log', 'args', 'tokenId']),
     contractAddress: path(['log', 'address']),
-    chain: prop('chain')
+    chain: prop('chain'),
+    logger: prop('logger')
   })(args)
 }

@@ -11,8 +11,7 @@ import {
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
-import type { Logger } from '@echo/utils/types/logger'
-import type { Nullable } from '@echo/utils/types/nullable'
+import type { WithLogger } from '@echo/utils/types/with-logger'
 import { type AnyThreadChannel, userMention } from 'discord.js'
 import i18next from 'i18next'
 import { isNil } from 'ramda'
@@ -43,11 +42,10 @@ async function getMessage(offer: Offer) {
   }
 }
 
-interface PostOfferStateUpdateArgs {
+interface PostOfferStateUpdateArgs extends WithLogger {
   offerThread: OfferThread
   thread: AnyThreadChannel
   offer: Offer
-  logger?: Nullable<Logger>
 }
 
 export async function postOfferStateUpdate(args: PostOfferStateUpdateArgs) {

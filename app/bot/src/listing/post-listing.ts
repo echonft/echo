@@ -3,15 +3,13 @@ import { buildListingEmbed } from '@echo/bot/listing/build-listing-embed'
 import { buildListingLinkButton } from '@echo/bot/listing/build-listing-link-button'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import type { Listing } from '@echo/model/types/listing'
-import type { Logger } from '@echo/utils/types/logger'
-import type { Nullable } from '@echo/utils/types/nullable'
+import type { WithLogger } from '@echo/utils/types/with-logger'
 import type { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
-interface PostListingArgs {
+interface PostListingArgs extends WithLogger {
   client: Client
   listing: Listing & Record<'id', string>
-  logger?: Nullable<Logger>
 }
 
 export async function postListing(args: PostListingArgs) {

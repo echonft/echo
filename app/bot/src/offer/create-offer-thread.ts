@@ -6,17 +6,15 @@ import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import type { Offer } from '@echo/model/types/offer'
 import { now } from '@echo/utils/helpers/now'
-import type { Logger } from '@echo/utils/types/logger'
-import type { Nullable } from '@echo/utils/types/nullable'
+import type { WithLogger } from '@echo/utils/types/with-logger'
 import { ChannelType, type Client, ThreadAutoArchiveDuration, userMention } from 'discord.js'
 import i18next from 'i18next'
 
-interface CreateOfferThreadArgs {
+interface CreateOfferThreadArgs extends WithLogger {
   client: Client
   offer: Offer & Record<'id', string>
   sender: UserDocumentData
   receiver: UserDocumentData
-  logger?: Nullable<Logger>
 }
 
 export async function createOfferThread(args: CreateOfferThreadArgs): Promise<{

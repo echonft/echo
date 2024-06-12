@@ -1,12 +1,10 @@
-import type { Logger } from '@echo/utils/types/logger'
-import type { Nullable } from '@echo/utils/types/nullable'
+import type { WithLogger } from '@echo/utils/types/with-logger'
 import { type Client, TextChannel } from 'discord.js'
 import { isNil } from 'ramda'
 
-interface GetChannelArgs {
+interface GetChannelArgs extends WithLogger {
   client: Client
   channelId: string
-  logger?: Nullable<Logger>
 }
 
 export async function getChannel(args: GetChannelArgs): Promise<TextChannel> {
