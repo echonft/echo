@@ -10,7 +10,7 @@ import type { WithLogger } from '@echo/utils/types/with-logger'
 import { privateKeySchema } from '@echo/utils/validators/private-key-schema'
 import { SecretManagerServiceClient } from '@google-cloud/secret-manager'
 import type { Logger } from 'pino'
-import { __, and, andThen, assoc, isNil, map, mergeAll, not, objOf, or, pipe, prop } from 'ramda'
+import { __, andThen, assoc, isNil, map, mergeAll, objOf, pipe, prop } from 'ramda'
 
 interface Credentials {
   clientEmail: string
@@ -23,8 +23,8 @@ interface AccessSecretArgs extends WithLogger {
   projectId: string
 }
 
-function shouldUseCredentials() {
-  return not(or(isDev, and(isTest, not(isCI))))
+function noCredentials() {
+  return isDev || (isTest && !isCI)
 }
 
 function getCredentials(logger?: Nullable<Logger>): Nullable<Credentials> {
@@ -41,10 +41,20 @@ function getCredentials(logger?: Nullable<Logger>): Nullable<Credentials> {
   return { clientEmail, privateKey }
 }
 
-async function connect(logger?: Nullable<Logger>) {
-  const projectId = getGCloudProjectId()
+interface ConnectArgs extends WithLogger {
+  projectId: string
+}
+
+async function connect(args: ConnectArgs) {
+  const { projectId, logger } = args
   try {
-    if (shouldUseCredentials()) {
+    if (noCredentials()) {
+      logger?.info('connecting without credentials')
+      const client = new SecretManagerServiceClient({ projectId })
+      await client.initialize()
+      logger?.info('connected')
+      return client
+    } else {
       const credentials = getCredentials()
       if (!isNil(credentials)) {
         logger?.info('connecting using credentials')
@@ -62,12 +72,6 @@ async function connect(logger?: Nullable<Logger>) {
       }
       logger?.fatal('credentials needed')
       return undefined
-    } else {
-      logger?.info('connecting without credentials')
-      const client = new SecretManagerServiceClient({ projectId })
-      await client.initialize()
-      logger?.info('connected')
-      return client
     }
   } catch (err) {
     logger?.fatal({ err }, 'error initializing secret manager')
@@ -101,7 +105,7 @@ async function accessSecret(args: AccessSecretArgs): Promise<Record<Secret, Null
 async function initialize(logger?: Nullable<Logger>) {
   const projectId = getGCloudProjectId()
   const childLogger = logger?.child({ component: 'secret-manager', project_id: projectId })
-  const client = await connect(childLogger)
+  const client = await connect({ projectId, logger: childLogger })
   return { client, logger: childLogger, projectId }
 }
 

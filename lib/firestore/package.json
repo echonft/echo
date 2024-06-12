@@ -10,7 +10,7 @@
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier . -u -c --no-error-on-unmatched-pattern",
-    "test": "jest --runInBand",
+    "test": "ENV=test jest --runInBand",
     "test:coverage:clean": "rm -rf test/.coverage",
     "tsc": "tsc --noEmit"
   },

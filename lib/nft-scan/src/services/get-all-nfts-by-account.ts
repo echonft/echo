@@ -9,12 +9,17 @@ import type { GetAllNftsByAccountRequest } from '@echo/nft-scan/types/request/ge
 import { always, andThen, applySpec, assoc, pipe, prop } from 'ramda'
 
 export function getAllNftsByAccount(args: GetAllNftsByAccountRequest): Promise<MapGetAllNftsByAccountResponseReturn[]> {
+  const logger = getLogger({ chain: args.wallet.chain, fn: 'getAllNftsByAccount', logger: args.logger })
   return pipe(
-    assoc('logger', getLogger({ chain: args.wallet.chain, fn: 'getAllNftsByAccount', logger: args.logger })),
+    assoc('logger', logger),
     fetchAllNftsByAccount,
     andThen(
       pipe(
-        applySpec<MapGetAllNftsByAccountResponseArgs>({ chain: always(args.wallet.chain), data: prop('data') }),
+        applySpec<MapGetAllNftsByAccountResponseArgs>({
+          chain: always(args.wallet.chain),
+          data: prop('data'),
+          logger: always(logger)
+        }),
         mapGetAllNftsByAccountResponse
       )
     )

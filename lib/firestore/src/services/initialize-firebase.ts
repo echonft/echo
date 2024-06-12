@@ -19,12 +19,13 @@ export async function initializeFirebase(args?: InitializeFirebaseArgs): Promise
   if (isNonEmptyArray(apps)) {
     return pipe(head, getFirestore)(apps)
   }
-  const projectId = getGCloudProjectId()
+  const projectId = args?.serviceAccount?.projectId ?? getGCloudProjectId()
   const childLogger = args?.logger?.child({ component: 'firebase', project_id: projectId })
   const serviceAccount = args?.serviceAccount ?? (await getFirebaseServiceAccount(childLogger))
   if (isNil(serviceAccount)) {
     throw Error(`missing credentials`)
   }
+  childLogger?.info(JSON.stringify(serviceAccount))
   try {
     const app = initializeApp({
       credential: cert(serviceAccount)

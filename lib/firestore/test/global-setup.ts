@@ -12,7 +12,13 @@ export default async function (_globalConfig: Config.GlobalConfig, _projectConfi
   await initializeFirebase({ serviceAccount })
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  global.serviceAccount = serviceAccount
+  global.clientEmail = serviceAccount.clientEmail
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  global.projectId = serviceAccount.projectId
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  global.privateKey = serviceAccount.privateKey
   await clearDb()
   await initializeDb()
   await terminateFirestore()

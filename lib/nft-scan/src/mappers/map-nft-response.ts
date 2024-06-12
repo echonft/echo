@@ -6,12 +6,11 @@ import type { nftResponseSchema } from '@echo/nft-scan/validators/nft-response-s
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { removeNull } from '@echo/utils/fp/remove-null'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { ChainName } from '@echo/utils/types/chain-name'
+import type { WithLogger } from '@echo/utils/types/with-logger'
 import { always, applySpec, ifElse, invoker, isNil, map, pipe, prop } from 'ramda'
 
-export interface MapNftResponseArgs {
+export interface MapNftResponseArgs extends WithLogger {
   response: ReturnType<typeof nftResponseSchema.parse>
   chain: ChainName
 }
@@ -19,7 +18,7 @@ export interface MapNftResponseArgs {
 export function mapNftResponse(
   args: MapNftResponseArgs
 ): Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & Record<'collection', Pick<Collection, 'contract'>> {
-  const { response, chain } = args
+  const { response, chain, logger } = args
   try {
     return applySpec<
       Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & Record<'collection', Pick<Collection, 'contract'>>
@@ -41,7 +40,7 @@ export function mapNftResponse(
       tokenId: prop('token_id')
     })(response)
   } catch (err) {
-    pinoLogger.error(`error parsing fetch NFT response: ${errorMessage(err)}`)
+    logger?.error({ err }, 'error parsing fetch NFT response')
     throw err
   }
 }

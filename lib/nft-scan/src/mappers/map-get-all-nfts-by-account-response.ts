@@ -1,14 +1,13 @@
 import type { Wallet } from '@echo/model/types/wallet'
 import { mapNftResponse, type MapNftResponseArgs } from '@echo/nft-scan/mappers/map-nft-response'
 import { getAllNftsByAccountResponseSchema } from '@echo/nft-scan/validators/get-all-nfts-by-account-response-schema'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { ChainName } from '@echo/utils/types/chain-name'
+import type { WithLogger } from '@echo/utils/types/with-logger'
 import { always, applySpec, identity, map, pipe, prop, propEq, reject, toLower } from 'ramda'
 
 type ResponseData = ReturnType<typeof getAllNftsByAccountResponseSchema.parse>['data']
 
-export interface MapGetAllNftsByAccountResponseArgs {
+export interface MapGetAllNftsByAccountResponseArgs extends WithLogger {
   data: ResponseData
   chain: ChainName
 }
@@ -21,7 +20,7 @@ export interface MapGetAllNftsByAccountResponseReturn {
 export function mapGetAllNftsByAccountResponse(
   args: MapGetAllNftsByAccountResponseArgs
 ): MapGetAllNftsByAccountResponseReturn[] {
-  const { chain, data } = args
+  const { chain, data, logger } = args
   try {
     return pipe<[ResponseData], ResponseData, MapGetAllNftsByAccountResponseReturn[]>(
       reject(propEq(true, 'is_spam')),
@@ -47,7 +46,7 @@ export function mapGetAllNftsByAccountResponse(
       )
     )(data)
   } catch (err) {
-    pinoLogger.error(`error parsing fetch NFT response: ${errorMessage(err)}`)
+    logger?.error({ err }, 'error parsing fetch NFT response')
     throw err
   }
 }

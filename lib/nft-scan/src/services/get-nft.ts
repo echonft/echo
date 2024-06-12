@@ -9,12 +9,17 @@ import { always, andThen, applySpec, assoc, pipe, prop } from 'ramda'
 export async function getNft(
   args: WithLoggerType<GetNftRequest>
 ): Promise<Omit<Nft, 'collection' | 'owner' | 'updatedAt'> | undefined> {
+  const logger = getLogger({ chain: args.contract.chain, fn: 'getNft', logger: args.logger })
   return await pipe(
-    assoc('logger', getLogger({ chain: args.contract.chain, fn: 'getNft', logger: args.logger })),
+    assoc('logger', logger),
     fetchNft,
     andThen(
       pipe(
-        applySpec<MapNftResponseArgs>({ chain: always(args.contract.chain), response: prop('data') }),
+        applySpec<MapNftResponseArgs>({
+          chain: always(args.contract.chain),
+          response: prop('data'),
+          logger: always(logger)
+        }),
         mapNftResponse
       )
     )

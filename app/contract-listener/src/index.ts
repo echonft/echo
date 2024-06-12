@@ -12,7 +12,6 @@ import { watchErc721TransferEvents } from '@echo/web3/watchers/erc721/watch-erc7
 const unsubscribeFns: VoidFunction[] = []
 async function main() {
   const logger = getBaseLogger('Contract Listener', {
-    includeNetwork: true,
     serializers: modelLoggerSerializers
   })
   await initializeFirebase({
