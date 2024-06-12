@@ -1,5 +1,4 @@
 import { getThreadOnEchoChannel } from '@echo/bot/helpers/get-thread-on-echo-channel'
-import { botLogger } from '@echo/bot/index'
 import { archiveOfferThread } from '@echo/bot/offer/archive-offer-thread'
 import { postEscrowMessage } from '@echo/bot/offer/post-escrow-message'
 import { postOfferStateUpdate } from '@echo/bot/offer/post-offer-state-update'
@@ -12,50 +11,47 @@ import type { OfferUpdate } from '@echo/firestore/types/model/offer-update/offer
 import { assoc, isNil } from 'ramda'
 
 export async function offerUpdateChangeHandler(args: ChangeHandler<OfferUpdate>) {
-  const { client, changeType, snapshot } = args
+  const { client, changeType, snapshot, logger } = args
   if (changeType === 'added') {
-    botLogger.info({ offerUpdate: { id: snapshot.id } }, 'offer update was added')
+    logger?.info({ offerUpdate: { id: snapshot.id } }, 'offer update was added')
     const post = await getOfferUpdatePost(snapshot.id)
     const update = snapshot.data()
     const offerId = update.offerId
-    botLogger.info({ offer: { id: offerId } }, 'offer was updated')
+    logger?.info({ offer: { id: offerId } }, 'offer was updated')
     if (isNil(post)) {
-      botLogger.info({ offer: { id: offerId } }, 'update post does not exist, creating...')
+      logger?.info({ offer: { id: offerId } }, 'update post does not exist, creating...')
       const offer = await getOfferById(offerId)
       if (isNil(offer)) {
-        botLogger.error({ offer: { id: offerId } }, 'offer not found')
+        logger?.error({ offer: { id: offerId } }, 'offer not found')
         return
       }
       const offerWithId = assoc('id', offerId, offer)
       const offerThread = await getOfferThread(offerId)
       if (isNil(offerThread)) {
-        botLogger.error({ offer: offerWithId }, 'offer thread not found')
+        logger?.error({ offer: offerWithId }, 'offer thread not found')
         return
       }
-      const thread = await getThreadOnEchoChannel(client, offerThread.guild.threadId)
+      const thread = await getThreadOnEchoChannel({ client, threadId: offerThread.guild.threadId, logger })
       if (isNil(thread)) {
-        botLogger.error(
-          { offer: offerWithId, offerThread },
-          'tried to post update to offer thread but it does not exist'
-        )
+        logger?.error({ offer: offerWithId, offerThread }, 'tried to post update to offer thread but it does not exist')
         return
       }
       // we only have state updates for now
       // if (update.update.kind === OFFER_UPDATE_KIND_STATE) {
-      await postOfferStateUpdate({ offer, offerThread, thread })
+      await postOfferStateUpdate({ offer, offerThread, thread, logger })
       const { id: offerUpdatePostId, data: offerUpdatePostData } = await addOfferUpdatePost(snapshot.id)
-      botLogger.info(
+      logger?.info(
         { offer: offerWithId, getOfferUpdatePost: assoc('id', offerUpdatePostId, offerUpdatePostData), offerThread },
         'added offer update post to Firestore'
       )
       if (offer.readOnly && !isNil(offerThread)) {
         // Archive thread if both users don't have anything in escrow
-        await postEscrowMessage({ offer, offerThread, thread })
-        await archiveOfferThread({ offerThread, thread })
+        await postEscrowMessage({ offer, offerThread, thread, logger })
+        await archiveOfferThread({ offerThread, thread, logger })
       }
       // }
     } else {
-      botLogger.info({ offer: { id: offerId } }, 'update post already exists, nothing to do')
+      logger?.info({ offer: { id: offerId } }, 'update post already exists, nothing to do')
     }
   }
 }

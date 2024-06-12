@@ -1,8 +1,16 @@
-import { botLogger } from '@echo/bot/index'
+import type { Logger } from '@echo/utils/types/logger'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { TextChannel } from 'discord.js'
 import { isNil } from 'ramda'
 
-export async function getThread(channel: TextChannel, threadId: string) {
+interface GetThreadArgs {
+  channel: TextChannel
+  threadId: string
+  logger?: Nullable<Logger>
+}
+
+export async function getThread(args: GetThreadArgs) {
+  const { channel, threadId, logger } = args
   try {
     const thread = await channel.threads.fetch(threadId)
     if (isNil(thread)) {
@@ -10,7 +18,7 @@ export async function getThread(channel: TextChannel, threadId: string) {
     }
     return thread
   } catch (err) {
-    botLogger.error({ err, channel }, `could not get thread ${threadId}`)
+    logger?.error({ err, channel }, `could not get thread ${threadId}`)
     return undefined
   }
 }

@@ -1,5 +1,4 @@
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
-import { botLogger } from '@echo/bot/index'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
@@ -12,6 +11,8 @@ import {
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
+import type { Logger } from '@echo/utils/types/logger'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { type AnyThreadChannel, userMention } from 'discord.js'
 import i18next from 'i18next'
 import { isNil } from 'ramda'
@@ -42,12 +43,19 @@ async function getMessage(offer: Offer) {
   }
 }
 
-export async function postOfferStateUpdate(args: { offerThread: OfferThread; thread: AnyThreadChannel; offer: Offer }) {
-  const { offerThread, thread, offer } = args
+interface PostOfferStateUpdateArgs {
+  offerThread: OfferThread
+  thread: AnyThreadChannel
+  offer: Offer
+  logger?: Nullable<Logger>
+}
+
+export async function postOfferStateUpdate(args: PostOfferStateUpdateArgs) {
+  const { offerThread, thread, offer, logger } = args
   const content = await getMessage(offer)
   await sendToThread(thread, {
     components: [buildOfferLinkButton(offer.slug)],
     content
   })
-  botLogger.info({ offer, offerThread }, 'posted update to thread')
+  logger?.info({ offer, offerThread }, 'posted update to thread')
 }

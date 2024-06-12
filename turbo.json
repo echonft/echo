@@ -1,18 +1,20 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalPassThroughEnv": ["CI", "ENV", "NODE_ENV", "NEXT_PUBLIC_IS_TESTNET"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "passThroughEnv": ["CI", "ENV"]
     },
     "build:local": {
-      "cache": false
+      "cache": false,
+      "passThroughEnv": ["ANALYZE", "ENV"]
     },
     "clean": {
       "cache": false
     },
     "deploy": {
+      "passThroughEnv": ["ENV"],
       "cache": false
     },
     "dev": {
@@ -35,14 +37,13 @@
     "prettier": {},
     "start": {
       "cache": false,
-      "persistent": true,
-      "passThroughEnv": ["SECRET_MANAGER_EMAIL", "SECRET_MANAGER_PRIVATE_KEY"]
+      "persistent": true
     },
     "start:local": {
       "dependsOn": ["build"],
       "cache": false,
       "persistent": true,
-      "passThroughEnv": ["SECRET_MANAGER_EMAIL", "SECRET_MANAGER_PRIVATE_KEY"]
+      "passThroughEnv": ["ENV"]
     },
     "sentry:sourcemaps:inject": {
       "dependsOn": ["build"]

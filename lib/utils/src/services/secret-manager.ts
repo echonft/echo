@@ -100,7 +100,7 @@ async function accessSecret(args: AccessSecretArgs): Promise<Record<Secret, Null
 
 async function initialize(logger?: Nullable<Logger>) {
   const projectId = getGCloudProjectId()
-  const childLogger = logger?.child({ tag: 'secret-manager', project_id: projectId })
+  const childLogger = logger?.child({ component: 'secret-manager', project_id: projectId })
   const client = await connect(childLogger)
   return { client, logger: childLogger, projectId }
 }

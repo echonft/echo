@@ -1,32 +1,44 @@
 import { sendToEchoChannel } from '@echo/bot/helpers/send-to-echo-channel'
-import { botLogger } from '@echo/bot/index'
 import { buildSwapEmbed } from '@echo/bot/swap/build-swap-embed'
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
+import type { Logger } from '@echo/utils/types/logger'
+import type { Nullable } from '@echo/utils/types/nullable'
 import type { Client } from 'discord.js'
 import { assoc, isNil } from 'ramda'
 
-export async function postSwap(client: Client, offerId: string) {
+interface PostSwapArgs {
+  client: Client
+  offerId: string
+  logger?: Nullable<Logger>
+}
+
+export async function postSwap(args: PostSwapArgs) {
+  const { client, offerId, logger } = args
   const fn = 'postSwap'
   const offer = await getOfferById(offerId)
   if (isNil(offer)) {
-    botLogger.error({ offer: { id: offerId }, fn }, 'offer not found')
+    logger?.error({ offer: { id: offerId }, fn }, 'offer not found')
     return
   }
   const offerWithId = assoc('id', offerId, offer)
   const { sender, receiver } = offer
   const foundSender = await getUserByUsername(sender.username)
   if (isNil(foundSender)) {
-    botLogger.error({ offer: offerWithId, fn }, 'sender not found')
+    logger?.error({ offer: offerWithId, fn }, 'sender not found')
     return
   }
   const foundReceiver = await getUserByUsername(receiver.username)
   if (isNil(foundReceiver)) {
-    botLogger.error({ offer: offerWithId, fn }, 'receiver not found')
+    logger?.error({ offer: offerWithId, fn }, 'receiver not found')
     return
   }
-  await sendToEchoChannel(client, {
-    embeds: [buildSwapEmbed(offer, foundSender, foundReceiver)]
+  await sendToEchoChannel({
+    client,
+    payload: {
+      embeds: [buildSwapEmbed(offer, foundSender, foundReceiver)]
+    },
+    logger
   })
-  botLogger.info({ offer: offerWithId }, 'posted swap to echo channel')
+  logger?.info({ offer: offerWithId }, 'posted swap to echo channel')
 }

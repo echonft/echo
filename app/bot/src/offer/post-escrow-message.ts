@@ -1,11 +1,12 @@
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
-import { botLogger } from '@echo/bot/index'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import { getOfferUpdatesByOfferId } from '@echo/firestore/crud/offer-update/get-offer-updates-by-offer-id'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
 import { OFFER_STATE_ACCEPTED, OFFER_STATE_EXPIRED, OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
+import type { Logger } from '@echo/utils/types/logger'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { type AnyThreadChannel, userMention } from 'discord.js'
 import i18next from 'i18next'
 import { any, isEmpty, isNil, pathEq } from 'ramda'
@@ -23,20 +24,27 @@ function shouldPostEscrowMessage(offer: Offer) {
   return offer.state === OFFER_STATE_REJECTED || offer.state === OFFER_STATE_EXPIRED
 }
 
-async function areBothPartiesInEscrow(offerId: string) {
+async function areBothPartiesInEscrow(offerId: string, logger?: Nullable<Logger>) {
   const updates = await getOfferUpdatesByOfferId(offerId)
   if (isEmpty(updates)) {
-    botLogger.error({ offer: { id: offerId } }, 'checked for escrow status but no updates were found')
+    logger?.error({ offer: { id: offerId } }, 'checked for escrow status but no updates were found')
     return false
   }
   // If there was an accepted state update, it means both parties are in escrow
   return any(pathEq(OFFER_STATE_ACCEPTED, ['update', 'args', 'state']))(updates)
 }
 
-export async function postEscrowMessage(args: { offerThread: OfferThread; thread: AnyThreadChannel; offer: Offer }) {
-  const { offer, offerThread, thread } = args
+interface PostEscrowMessageArgs {
+  offerThread: OfferThread
+  thread: AnyThreadChannel
+  offer: Offer
+  logger?: Nullable<Logger>
+}
+
+export async function postEscrowMessage(args: PostEscrowMessageArgs) {
+  const { offer, offerThread, thread, logger } = args
   if (shouldPostEscrowMessage(offer)) {
-    if (await areBothPartiesInEscrow(offerThread.offerId)) {
+    if (await areBothPartiesInEscrow(offerThread.offerId, logger)) {
       const senderId = await getUserDiscordId(offer.sender.username)
       const receiverId = await getUserDiscordId(offer.receiver.username)
       await sendToThread(thread, {
@@ -53,6 +61,6 @@ export async function postEscrowMessage(args: { offerThread: OfferThread; thread
         content: i18next.t('offer.thread.redeemable.single', { redeemer: userMention(senderId) })
       })
     }
-    botLogger.info({ offer, offerThread }, 'posted escrow update to thread')
+    logger?.info({ offer, offerThread }, 'posted escrow update to thread')
   }
 }

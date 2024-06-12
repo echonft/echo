@@ -1,8 +1,15 @@
 import { getChannel } from '@echo/bot/helpers/get-channel'
 import { getEchoDiscordGuild } from '@echo/utils/helpers/get-echo-discord-guild'
-import type { Client } from 'discord.js'
-import { partial, pipe, prop } from 'ramda'
+import type { Logger } from '@echo/utils/types/logger'
+import type { Nullable } from '@echo/utils/types/nullable'
+import type { Client, TextChannel } from 'discord.js'
+import { assoc, pipe } from 'ramda'
 
-export function getEchoChannel(client: Client) {
-  return pipe(getEchoDiscordGuild, prop('channelId'), partial(getChannel, [client]))()
+interface GetEchoChannelArgs {
+  client: Client
+  logger?: Nullable<Logger>
+}
+
+export function getEchoChannel(args: GetEchoChannelArgs): Promise<TextChannel> {
+  return pipe(assoc('channelId', getEchoDiscordGuild().channelId), getChannel)(args)
 }

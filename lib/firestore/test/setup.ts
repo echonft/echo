@@ -7,8 +7,8 @@ import { pick } from 'ramda'
 beforeAll(async () => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const credentials = pick(['clientEmail', 'privateKey'], global) as Omit<ServiceAccount, 'projectId'>
-  await initializeFirebase(credentials)
+  const serviceAccount = pick(['serviceAccount'], global) as ServiceAccount
+  await initializeFirebase({ serviceAccount })
 })
 afterAll(async () => {
   await terminateFirestore()

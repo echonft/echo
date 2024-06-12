@@ -1,34 +1,42 @@
-import { firestoreLogger } from '@echo/firestore/constants/firestore-logger'
-import { getFirebaseCredentials } from '@echo/firestore/services/get-firebase-credentials'
+import { getFirebaseServiceAccount } from '@echo/firestore/services/get-firebase-service-account'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { getGCloudProjectId } from '@echo/utils/helpers/get-gcloud-project-id'
+import type { Logger } from '@echo/utils/types/logger'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { cert, getApps, initializeApp, type ServiceAccount } from 'firebase-admin/app'
 import {
   type Firestore,
   getFirestore,
   initializeFirestore as firebaseInitializeFirestore
 } from 'firebase-admin/firestore'
-import { always, andThen, assoc, head, ifElse, isNil, pipe } from 'ramda'
+import { head, isNil, pipe } from 'ramda'
 
-export async function initializeFirebase(credentials?: Omit<ServiceAccount, 'projectId'>): Promise<Firestore> {
+interface InitializeFirebaseArgs {
+  serviceAccount?: ServiceAccount
+  logger?: Nullable<Logger>
+}
+
+export async function initializeFirebase(args?: InitializeFirebaseArgs): Promise<Firestore> {
   const apps = getApps()
   if (isNonEmptyArray(apps)) {
     return pipe(head, getFirestore)(apps)
   }
-  const serviceAccount = await ifElse(
-    isNil,
-    pipe(always(firestoreLogger), getFirebaseCredentials, andThen(assoc('projectId', getGCloudProjectId()))),
-    assoc('projectId', getGCloudProjectId())
-  )(credentials)
+  const projectId = getGCloudProjectId()
+  const childLogger = args?.logger?.child({ component: 'firebase', project_id: projectId })
+  const serviceAccount = args?.serviceAccount ?? (await getFirebaseServiceAccount(childLogger))
+  if (isNil(serviceAccount)) {
+    throw Error(`missing credentials`)
+  }
   try {
     const app = initializeApp({
       credential: cert(serviceAccount)
     })
     const firestore = firebaseInitializeFirestore(app)
     firestore.settings({ ignoreUndefinedProperties: true })
-    firestoreLogger.info('initialized Firebase')
+    childLogger?.info('initialized Firebase')
     return firestore
-  } catch (e) {
-    return pipe(getApps, head, getFirestore)()
+  } catch (err) {
+    childLogger?.fatal({ err }, 'cannot initialize Firebase')
+    throw Error('cannot initialize Firebase')
   }
 }

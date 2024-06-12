@@ -23,8 +23,5 @@ if [ ! "${SECRET_MANAGER_PRIVATE_KEY}" ]; then
   exit 1
 fi
 
-NEXT_PUBLIC_IS_TESTNET="${NEXT_PUBLIC_IS_TESTNET}" \
-NODE_ENV="production" \
-SECRET_MANAGER_EMAIL="${SECRET_MANAGER_EMAIL}" \
-SECRET_MANAGER_PRIVATE_KEY="${SECRET_MANAGER_PRIVATE_KEY}" \
- pnpm exec turbo start --filter=@echo/bot
+dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+node "${dir}/../dist/index.js"
