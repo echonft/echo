@@ -24,7 +24,7 @@ interface AccessSecretArgs extends WithLogger {
 }
 
 function noCredentials() {
-  return isDev || (isTest && !isCI)
+  return !isCI || isDev || isTest
 }
 
 function getCredentials(logger?: Nullable<Logger>): Nullable<Credentials> {
