@@ -1,8 +1,7 @@
 import { PICTURE_SIZE_MD, PICTURE_SIZES } from '@echo/ui/constants/picture-size'
 import type { PictureSize } from '@echo/ui/types/picture-size'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
+import type { Logger } from '@echo/utils/types/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { ImageLoaderProps } from 'next/image'
 import { __, filter, isNil, lte, reduce } from 'ramda'
@@ -20,7 +19,7 @@ function getSize(width: number): Nullable<PictureSize> {
     lteSizes
   )
 }
-export function addPictureSize({ src, width }: ImageLoaderProps): string {
+export function addPictureSize({ src, width }: ImageLoaderProps, logger?: Nullable<Logger>): string {
   const size = getSize(width)
   if (isNilOrEmpty(src) || isNil(size)) {
     if (!isNil(size) && size < PICTURE_SIZE_MD) {
@@ -56,7 +55,7 @@ export function addPictureSize({ src, width }: ImageLoaderProps): string {
     }
     return src
   } catch (err) {
-    pinoLogger.error(`addPictureSizeToUrl error: ${errorMessage(err)}`)
+    logger?.error({ err, fn: 'addPictureSize' })
     return src
   }
 }

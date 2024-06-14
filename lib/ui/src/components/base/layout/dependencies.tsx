@@ -11,6 +11,7 @@ import { rejectOffer } from '@echo/api/fetchers/reject-offer'
 import { searchCollections } from '@echo/api/fetchers/search-collections'
 import { searchUsers } from '@echo/api/fetchers/search-users'
 import { DependenciesProvider } from '@echo/ui/providers/dependencies-provider'
+import { getBaseLogger } from '@echo/utils/services/pino-logger'
 import { acceptOffer as contractAcceptOffer } from '@echo/web3-dom/helpers/accept-offer'
 import { approveErc721Contract } from '@echo/web3-dom/helpers/approve-erc721-contract'
 import { cancelOffer as contractCancelOffer } from '@echo/web3-dom/helpers/cancel-offer'
@@ -54,7 +55,8 @@ export const Dependencies: FunctionComponent<PropsWithChildren> = ({ children })
         },
         signNonce,
         signOut,
-        switchChain
+        switchChain,
+        logger: getBaseLogger('web', { baseMergeObject: { component: 'client-component' } })
       }}
     >
       {children}

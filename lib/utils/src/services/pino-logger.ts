@@ -28,10 +28,6 @@ function getSerializers(serializers?: LoggerSerializer | LoggerSerializer[]): Lo
   return mergeLeft(baseSerializer, serializers)
 }
 
-export const pinoLogger = pino({
-  level: isCI || isTest ? 'silent' : isProd ? 'info' : 'trace'
-})
-
 export function getBaseLogger(name: string, options?: LoggerOptions) {
   return pino({
     enabled: options?.override?.enabled ?? (!isCI && !isTest),
