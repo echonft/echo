@@ -1,19 +1,17 @@
-import { assertCollectionSwapsCounts } from '@echo/firestore/utils/collection-swaps-count/assert-collection-swaps-counts'
 import { getCollectionSwapsCountByCollectionId } from '@echo/firestore/crud/collection-swaps-count/get-collection-swaps-count-by-collection-id'
 import { getCollectionSwapsCountByCollectionSlug } from '@echo/firestore/crud/collection-swaps-count/get-collection-swaps-count-by-collection-slug'
-import { unchecked_updateCollectionSwapCounts } from '@echo/firestore/utils/collection-swaps-count/unchecked_update-collection-swap-counts'
-import { assertSwaps } from '@echo/firestore/utils/swap/assert-swaps'
+import { addSwap } from '@echo/firestore/crud/swap/add-swap'
 import { deleteSwap } from '@echo/firestore/crud/swap/delete-swap'
 import { getSwapById } from '@echo/firestore/crud/swap/get-swap-by-id'
-import { addSwap } from '@echo/firestore/crud/swap/add-swap'
 import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
 import type { Swap } from '@echo/firestore/types/model/swap/swap'
+import { assertCollectionSwapsCounts } from '@echo/firestore/utils/collection-swaps-count/assert-collection-swaps-counts'
+import { unchecked_updateCollectionSwapCounts } from '@echo/firestore/utils/collection-swaps-count/unchecked_update-collection-swap-counts'
+import { assertSwaps } from '@echo/firestore/utils/swap/assert-swaps'
+import { getOfferItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-items-collection-slugs'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockFromJohnnycageId, offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
-import { getOfferItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-items-collection-slugs'
 import { promiseAll } from '@echo/utils/fp/promise-all'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
@@ -41,21 +39,11 @@ describe('CRUD - swap - addSwap', () => {
   })
   afterEach(async () => {
     if (!isNil(createdSwapId)) {
-      try {
-        await deleteSwap(createdSwapId)
-      } catch (e) {
-        pinoLogger.error(`Error deleting swap with id ${createdSwapId}: ${errorMessage(e)}`)
-      }
+      await deleteSwap(createdSwapId)
     }
     if (!isEmpty(initialSwapsCounts)) {
       for (const swapsCount of initialSwapsCounts) {
-        try {
-          await unchecked_updateCollectionSwapCounts(swapsCount.collectionId, { swapsCount: swapsCount.swapsCount })
-        } catch (e) {
-          pinoLogger.error(
-            `Error resetting swaps count for collection with id ${swapsCount.collectionId}: ${errorMessage(e)}`
-          )
-        }
+        await unchecked_updateCollectionSwapCounts(swapsCount.collectionId, { swapsCount: swapsCount.swapsCount })
       }
     }
   })

@@ -1,15 +1,13 @@
-import { deleteOfferUpdate } from '@echo/firestore/crud/offer-update/delete-offer-update'
 import { OFFER_UPDATE_KIND_STATE } from '@echo/firestore/constants/offer/offer-update-kinds'
 import {
   addOfferStateUpdate,
   type AddOfferStateUpdateArgs
 } from '@echo/firestore/crud/offer-update/add-offer-state-update'
+import { deleteOfferUpdate } from '@echo/firestore/crud/offer-update/delete-offer-update'
 import { getOfferUpdateById } from '@echo/firestore/crud/offer-update/get-offer-update-by-id'
+import { OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
-import { OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
@@ -32,11 +30,7 @@ describe('CRUD - offer-update - addOfferStateUpdate', () => {
   })
   afterEach(async () => {
     if (!isNil(offerUpdateId)) {
-      try {
-        await deleteOfferUpdate(offerUpdateId)
-      } catch (e) {
-        pinoLogger.error(`Error deleting offer update with id ${offerUpdateId}: ${errorMessage(e)}`)
-      }
+      await deleteOfferUpdate(offerUpdateId)
     }
   })
   it('throws if trying to add a state update for an offer that does not exist', async () => {

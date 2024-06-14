@@ -7,12 +7,12 @@ import type { RequestHandlerArgs } from '@echo/frontend/lib/types/request-handle
 import { NextResponse } from 'next/server'
 import { andThen, either, filter, map, pipe, propSatisfies, test, toLower } from 'ramda'
 
-export async function searchCollectionsRequestHandler({ req }: RequestHandlerArgs) {
+export async function searchCollectionsRequestHandler({ req, logger }: RequestHandlerArgs) {
   const query = getSearchParam<string>(req, 'q', true)
   const regex = new RegExp(toLower(query), 'ig')
   const search = pipe(toLower, test(regex))
-  const results = await guardAsyncFn(
-    pipe(
+  const results = await guardAsyncFn({
+    fn: pipe(
       getCollectionsSearchData,
       andThen(
         pipe(
@@ -21,7 +21,8 @@ export async function searchCollectionsRequestHandler({ req }: RequestHandlerArg
         )
       )
     ),
-    ErrorStatus.SERVER_ERROR
-  )()
+    status: ErrorStatus.SERVER_ERROR,
+    logger
+  })()
   return NextResponse.json({ results })
 }

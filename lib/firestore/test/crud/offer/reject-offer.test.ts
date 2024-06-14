@@ -1,13 +1,10 @@
 import { deleteOfferUpdate } from '@echo/firestore/crud/offer-update/delete-offer-update'
-import { assertOffers } from '@echo/firestore/utils/offer/assert-offers'
-import { unchecked_updateOffer } from '@echo/firestore/utils/offer/unchecked_update-offer'
 import { getOfferStateUpdateSnapshot } from '@echo/firestore/crud/offer-update/get-offer-state-update'
 import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
 import { rejectOffer } from '@echo/firestore/crud/offer/reject-offer'
 import type { UpdateOfferStateArgs } from '@echo/firestore/crud/offer/update-offer-state'
-import { getOfferMockBySlug } from '@echo/model/mocks/offer/get-offer-mock-by-slug'
-import { offerMockToJohnnycageSlug } from '@echo/model/mocks/offer/offer-mock'
-import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
+import { assertOffers } from '@echo/firestore/utils/offer/assert-offers'
+import { unchecked_updateOffer } from '@echo/firestore/utils/offer/unchecked_update-offer'
 import {
   OFFER_STATE_ACCEPTED,
   OFFER_STATE_CANCELLED,
@@ -16,10 +13,12 @@ import {
   OFFER_STATE_OPEN,
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
+import { getOfferMockBySlug } from '@echo/model/mocks/offer/get-offer-mock-by-slug'
+import { offerMockToJohnnycageSlug } from '@echo/model/mocks/offer/offer-mock'
+import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { futureDate } from '@echo/utils/helpers/future-date'
 import { pastDate } from '@echo/utils/helpers/past-date'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
@@ -54,11 +53,7 @@ describe('CRUD - offer - rejectOffer', () => {
       throw Error(`error updating offer with slug ${slug} to its original state: ${errorMessage(e)}`)
     }
     if (!isNil(createdStateUpdateId)) {
-      try {
-        await deleteOfferUpdate(createdStateUpdateId)
-      } catch (e) {
-        pinoLogger.error(`Error deleting offer update with id ${createdStateUpdateId}: ${errorMessage(e)}`)
-      }
+      await deleteOfferUpdate(createdStateUpdateId)
     }
   })
 

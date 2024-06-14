@@ -11,32 +11,32 @@ import type { DiscordAuthToken } from '@echo/model/types/discord-auth-token'
 import { NextResponse } from 'next/server'
 import { andThen, invoker, pipe } from 'ramda'
 
-export async function updateUserRequestHandler({ req }: RequestHandlerArgs<DiscordAuthToken>) {
-  const requestBody = await guardAsyncFn(
-    (req: ApiRequest<DiscordAuthToken>) => req.json(),
-    ErrorStatus.BAD_REQUEST
-  )(req)
-  const token = guardFn(
-    (requestBody) => discordAuthTokenSchema.parse(requestBody),
-    ErrorStatus.BAD_REQUEST,
-    'error',
-    'error parsing discord auth token'
-  )(requestBody)
+export async function updateUserRequestHandler({ req, logger }: RequestHandlerArgs<DiscordAuthToken>) {
+  const requestBody = await guardAsyncFn({
+    fn: (req: ApiRequest<DiscordAuthToken>) => req.json(),
+    logger
+  })(req)
+  const token = guardFn({
+    fn: (requestBody) => discordAuthTokenSchema.parse(requestBody),
+    severity: 'error',
+    message: 'error parsing discord auth token',
+    logger
+  })(requestBody)
   const response = await fetch('https://discord.com/api/users/@me', {
     headers: {
       Authorization: `Bearer ${token.access_token}`
     }
   })
   if (response.ok) {
-    const profile = await guardAsyncFn(
-      pipe(
+    const profile = await guardAsyncFn({
+      fn: pipe(
         invoker(0, 'json'),
         andThen((requestBody) => discordProfileSchema.parse(requestBody))
       ),
-      ErrorStatus.BAD_REQUEST,
-      'error',
-      'error parsing discord response'
-    )(response)
+      severity: 'error',
+      message: 'error parsing discord response',
+      logger
+    })(response)
     const user = await pipe(mapDiscordProfile, updateUser)(profile)
     return NextResponse.json({ user })
   }

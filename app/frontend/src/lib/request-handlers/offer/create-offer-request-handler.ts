@@ -16,25 +16,34 @@ import { NextResponse } from 'next/server'
 import type { NonEmptyArray } from 'ramda'
 import { head } from 'ramda'
 
-export async function createOfferRequestHandler({ user, req }: AuthRequestHandlerArgs<CreateOfferRequest>) {
-  const requestBody = await guardAsyncFn(
-    (req: ApiRequest<CreateOfferRequest>) => req.json(),
-    ErrorStatus.BAD_REQUEST
-  )(req)
-  const { receiverItems, senderItems, expiresAt } = guardFn(
-    (requestBody) => createOfferSchema.parse(requestBody),
-    ErrorStatus.BAD_REQUEST
-  )(requestBody)
+export async function createOfferRequestHandler({ user, req, logger }: AuthRequestHandlerArgs<CreateOfferRequest>) {
+  const requestBody = await guardAsyncFn({
+    fn: (req: ApiRequest<CreateOfferRequest>) => req.json(),
+    logger
+  })(req)
+  const { receiverItems, senderItems, expiresAt } = guardFn({
+    fn: (requestBody) => createOfferSchema.parse(requestBody),
+    logger
+  })(requestBody)
 
-  const receiverOfferItems = await guardAsyncFn(getNftsFromIndexes, ErrorStatus.SERVER_ERROR)(receiverItems)
+  const receiverOfferItems = await guardAsyncFn({ fn: getNftsFromIndexes, status: ErrorStatus.SERVER_ERROR, logger })(
+    receiverItems
+  )
   // We fetch the escrowed NFTs from the DB here because this call is done AFTER transaction has completed
   // and NFTs are thus in escrow
-  const senderOfferItems = await guardAsyncFn(getEscrowedNftsFromIndexes, ErrorStatus.SERVER_ERROR)(senderItems)
+  const senderOfferItems = await guardAsyncFn({
+    fn: getEscrowedNftsFromIndexes,
+    status: ErrorStatus.SERVER_ERROR,
+    logger
+  })(senderItems)
   // make sure the sender and receiver are the owners of the items
   assertNftsOwner(senderOfferItems, user.username)
   assertNftsOwner(receiverOfferItems, head(receiverOfferItems as NonEmptyArray<Nft>).owner.username)
   const baseOffer = generateBaseOffer({ senderOfferItems, receiverOfferItems, expiresAt })
   const offerContractId = generateOfferId(baseOffer)
-  const { data } = await guardAsyncFn(addOffer, ErrorStatus.SERVER_ERROR)(baseOffer, offerContractId)
+  const { data } = await guardAsyncFn({ fn: addOffer, status: ErrorStatus.SERVER_ERROR, logger })(
+    baseOffer,
+    offerContractId
+  )
   return NextResponse.json<OfferResponse>({ offer: data })
 }

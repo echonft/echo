@@ -13,17 +13,20 @@ import { OFFER_STATE_ACCEPTED } from '@echo/model/constants/offer-states'
 import type { WithSlug } from '@echo/model/types/with-slug'
 import { NextResponse } from 'next/server'
 
-export async function acceptOfferRequestHandler({ user, params }: AuthRequestHandlerArgsWithParams<WithSlug>) {
+export async function acceptOfferRequestHandler({ user, logger, params }: AuthRequestHandlerArgsWithParams<WithSlug>) {
   const { slug } = params
-  const offer = await guardAsyncFn(getOffer, ErrorStatus.SERVER_ERROR)(slug)
+  const offer = await guardAsyncFn({ fn: getOffer, status: ErrorStatus.SERVER_ERROR, logger })(slug)
   assertOffer(offer)
   assertOfferState(offer, OFFER_STATE_ACCEPTED)
   assertOfferReceiverIs(offer, user.username)
-  const foundUser = await guardAsyncFn(getUserByUsername, ErrorStatus.SERVER_ERROR)(user.username)
+  const foundUser = await guardAsyncFn({ fn: getUserByUsername, status: ErrorStatus.SERVER_ERROR, logger })(
+    user.username
+  )
   assertUserExists(foundUser, user.username)
-  const updatedOffer = await guardAsyncFn(
-    acceptOffer,
-    ErrorStatus.SERVER_ERROR
-  )({ slug, updateArgs: { trigger: { by: user.username } } })
+  const updatedOffer = await guardAsyncFn({
+    fn: acceptOffer,
+    status: ErrorStatus.SERVER_ERROR,
+    logger
+  })({ slug, updateArgs: { trigger: { by: user.username } } })
   return NextResponse.json<OfferResponse>({ offer: updatedOffer })
 }

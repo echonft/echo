@@ -4,8 +4,6 @@ import { getWalletsCollectionReference } from '@echo/firestore/helpers/collectio
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
 import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil, pick, toLower } from 'ramda'
@@ -18,14 +16,10 @@ describe('CRUD - wallet - removeWallet', () => {
   })
   afterEach(async () => {
     if (!isNil(deletedWalletId)) {
-      try {
-        await setReference({
-          collectionReference: getWalletsCollectionReference(),
-          data: getWalletDocumentDataMockById(deletedWalletId)
-        })
-      } catch (e) {
-        pinoLogger.error(`Error adding back wallet with id ${deletedWalletId}: ${errorMessage(e)}`)
-      }
+      await setReference({
+        collectionReference: getWalletsCollectionReference(),
+        data: getWalletDocumentDataMockById(deletedWalletId)
+      })
     }
   })
   it('throws if the wallet does not exists', async () => {

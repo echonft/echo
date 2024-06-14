@@ -1,27 +1,22 @@
-import { assertCollectionSwapsCounts } from '@echo/firestore/utils/collection-swaps-count/assert-collection-swaps-counts'
+import { OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } from '@echo/firestore/constants/offer/offer-state-update-trigger-by-system'
 import { getCollectionSwapsCountByCollectionId } from '@echo/firestore/crud/collection-swaps-count/get-collection-swaps-count-by-collection-id'
 import { getCollectionSwapsCountByCollectionSlug } from '@echo/firestore/crud/collection-swaps-count/get-collection-swaps-count-by-collection-slug'
+import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
+import { deleteOfferUpdate } from '@echo/firestore/crud/offer-update/delete-offer-update'
+import { getOfferStateUpdateSnapshot } from '@echo/firestore/crud/offer-update/get-offer-state-update'
+import { completeOffer, type CompleteOfferArgs } from '@echo/firestore/crud/offer/complete-offer'
+import { getOffer } from '@echo/firestore/crud/offer/get-offer'
+import { deleteSwap } from '@echo/firestore/crud/swap/delete-swap'
+import { getSwapSnapshot } from '@echo/firestore/crud/swap/get-swap'
+import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
+import { assertCollectionSwapsCounts } from '@echo/firestore/utils/collection-swaps-count/assert-collection-swaps-counts'
 import { unchecked_updateCollectionSwapCounts } from '@echo/firestore/utils/collection-swaps-count/unchecked_update-collection-swap-counts'
 import { unchecked_updateListing } from '@echo/firestore/utils/listing/unchecked_update-listing'
 import { assertNfts } from '@echo/firestore/utils/nft/assert-nfts'
 import { unchecked_updateNft } from '@echo/firestore/utils/nft/unchecked_update-nft'
-import { deleteOfferUpdate } from '@echo/firestore/crud/offer-update/delete-offer-update'
 import { assertOffers } from '@echo/firestore/utils/offer/assert-offers'
 import { unchecked_updateOffer } from '@echo/firestore/utils/offer/unchecked_update-offer'
 import { assertSwaps } from '@echo/firestore/utils/swap/assert-swaps'
-import { deleteSwap } from '@echo/firestore/crud/swap/delete-swap'
-import { OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } from '@echo/firestore/constants/offer/offer-state-update-trigger-by-system'
-import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
-import { getOfferStateUpdateSnapshot } from '@echo/firestore/crud/offer-update/get-offer-state-update'
-import { completeOffer, type CompleteOfferArgs } from '@echo/firestore/crud/offer/complete-offer'
-import { getOffer } from '@echo/firestore/crud/offer/get-offer'
-import { getSwapSnapshot } from '@echo/firestore/crud/swap/get-swap'
-import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
-import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
-import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
-import { getNftMockByIndex } from '@echo/model/mocks/nft/get-nft-mock-by-index'
-import { getOfferMockBySlug } from '@echo/model/mocks/offer/get-offer-mock-by-slug'
-import { offerMockToJohnnycageId, offerMockToJohnnycageSlug } from '@echo/model/mocks/offer/offer-mock'
 import { LISTING_STATE_PARTIALLY_FULFILLED } from '@echo/model/constants/listing-states'
 import {
   OFFER_STATE_ACCEPTED,
@@ -34,12 +29,16 @@ import {
 import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
 import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
 import { getOfferItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-items-collection-slugs'
+import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
+import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
+import { getNftMockByIndex } from '@echo/model/mocks/nft/get-nft-mock-by-index'
+import { getOfferMockBySlug } from '@echo/model/mocks/offer/get-offer-mock-by-slug'
+import { offerMockToJohnnycageId, offerMockToJohnnycageSlug } from '@echo/model/mocks/offer/offer-mock'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { futureDate } from '@echo/utils/helpers/future-date'
 import { pastDate } from '@echo/utils/helpers/past-date'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
@@ -92,38 +91,21 @@ describe('CRUD - offer - completeOffer', () => {
       throw Error(`error updating listing ${listingId} to its original state: ${errorMessage(e)}`)
     }
     if (!isNil(createdStateUpdateId)) {
-      try {
-        await deleteOfferUpdate(createdStateUpdateId)
-      } catch (e) {
-        pinoLogger.error(`Error deleting offer update with id ${createdStateUpdateId}: ${errorMessage(e)}`)
-      }
+      await deleteOfferUpdate(createdStateUpdateId)
     }
     if (!isNil(createdSwapId)) {
-      try {
-        await deleteSwap(createdSwapId)
-      } catch (e) {
-        pinoLogger.error(`Error deleting swap with id ${createdSwapId}: ${errorMessage(e)}`)
-      }
+      await deleteSwap(createdSwapId)
+
       // reset the NFTs with their original data
       if (!isEmpty(updatedNftIndexes)) {
         for (const index of updatedNftIndexes) {
-          try {
-            await unchecked_updateNft(index, getNftMockByIndex(index))
-          } catch (e) {
-            pinoLogger.error(`Error resetting nft with index ${JSON.stringify(index)}: ${errorMessage(e)}`)
-          }
+          await unchecked_updateNft(index, getNftMockByIndex(index))
         }
       }
     }
     if (!isEmpty(initialSwapsCounts)) {
       for (const swapsCount of initialSwapsCounts) {
-        try {
-          await unchecked_updateCollectionSwapCounts(swapsCount.collectionId, { swapsCount: swapsCount.swapsCount })
-        } catch (e) {
-          pinoLogger.error(
-            `Error resetting swaps count for collection with id ${swapsCount.collectionId}: ${errorMessage(e)}`
-          )
-        }
+        await unchecked_updateCollectionSwapCounts(swapsCount.collectionId, { swapsCount: swapsCount.swapsCount })
       }
     }
   })

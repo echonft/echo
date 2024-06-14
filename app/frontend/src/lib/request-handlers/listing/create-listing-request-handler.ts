@@ -11,22 +11,27 @@ import type { AuthRequestHandlerArgs } from '@echo/frontend/lib/types/request-ha
 import { createListingSchema } from '@echo/frontend/lib/validators/create-listing-schema'
 import { NextResponse } from 'next/server'
 
-export async function createListingRequestHandler({ user, req }: AuthRequestHandlerArgs<CreateListingRequest>) {
-  const requestBody = await guardAsyncFn(
-    (req: ApiRequest<CreateListingRequest>) => req.json(),
-    ErrorStatus.BAD_REQUEST
-  )(req)
-  const { items, target, expiresAt } = guardFn(
-    (requestBody) => createListingSchema.parse(requestBody),
-    ErrorStatus.BAD_REQUEST
-  )(requestBody)
-  const listingItems = await guardAsyncFn(getNftsFromIndexes, ErrorStatus.SERVER_ERROR)(items)
-  const listingTarget = await guardAsyncFn(getListingTargetFromRequest, ErrorStatus.SERVER_ERROR)(target)
+export async function createListingRequestHandler({ user, req, logger }: AuthRequestHandlerArgs<CreateListingRequest>) {
+  const requestBody = await guardAsyncFn({
+    fn: (req: ApiRequest<CreateListingRequest>) => req.json(),
+    logger
+  })(req)
+  const { items, target, expiresAt } = guardFn({
+    fn: (requestBody) => createListingSchema.parse(requestBody),
+    logger
+  })(requestBody)
+  const listingItems = await guardAsyncFn({ fn: getNftsFromIndexes, status: ErrorStatus.SERVER_ERROR, logger })(items)
+  const listingTarget = await guardAsyncFn({
+    fn: getListingTargetFromRequest,
+    status: ErrorStatus.SERVER_ERROR,
+    logger
+  })(target)
   // make sure the creator is the owner of every item
   assertNftsOwner(listingItems, user.username)
-  const { data } = await guardAsyncFn(
-    addListing,
-    ErrorStatus.SERVER_ERROR
-  )({ items: listingItems, target: listingTarget, expiresAt })
+  const { data } = await guardAsyncFn({
+    fn: addListing,
+    status: ErrorStatus.SERVER_ERROR,
+    logger
+  })({ items: listingItems, target: listingTarget, expiresAt })
   return NextResponse.json<ListingResponse>({ listing: data })
 }

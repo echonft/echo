@@ -1,5 +1,6 @@
 import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
 import { deleteWallet } from '@echo/firestore/crud/wallet/delete-wallet'
+import { getWalletById } from '@echo/firestore/crud/wallet/get-wallet-by-id'
 import {
   getUserDocumentDataMockById,
   userMockCrewId,
@@ -7,10 +8,7 @@ import {
 } from '@echo/firestore/mocks/user/user-document-data-mock'
 import { getWalletDocumentDataMockByUserId } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-user-id'
 import { assertWallets } from '@echo/firestore/utils/wallet/assert-wallets'
-import { getWalletById } from '@echo/firestore/crud/wallet/get-wallet-by-id'
 import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNil, pick, pipe, toLower } from 'ramda'
@@ -29,11 +27,7 @@ describe('CRUD - wallet - addWallet', () => {
   })
   afterEach(async () => {
     if (!isNil(addedWalletId)) {
-      try {
-        await deleteWallet(addedWalletId)
-      } catch (e) {
-        pinoLogger.error(`Error deleting wallet with id ${addedWalletId}: ${errorMessage(e)}`)
-      }
+      await deleteWallet(addedWalletId)
     }
   })
   it('return the wallet with the new chain if an EVM wallet already exists with the same address and user', async () => {

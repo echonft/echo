@@ -11,15 +11,16 @@ import { OFFER_STATE_CANCELLED } from '@echo/model/constants/offer-states'
 import type { WithSlug } from '@echo/model/types/with-slug'
 import { NextResponse } from 'next/server'
 
-export async function cancelOfferRequestHandler({ user, params }: AuthRequestHandlerArgsWithParams<WithSlug>) {
+export async function cancelOfferRequestHandler({ user, logger, params }: AuthRequestHandlerArgsWithParams<WithSlug>) {
   const { slug } = params
-  const offer = await guardAsyncFn(getOffer, ErrorStatus.SERVER_ERROR)(slug)
+  const offer = await guardAsyncFn({ fn: getOffer, status: ErrorStatus.SERVER_ERROR, logger })(slug)
   assertOffer(offer)
   assertOfferState(offer, OFFER_STATE_CANCELLED)
   assertOfferSenderIs(offer, user.username)
-  const updatedOffer = await guardAsyncFn(
-    cancelOffer,
-    ErrorStatus.SERVER_ERROR
-  )({ slug, updateArgs: { trigger: { by: user.username } } })
+  const updatedOffer = await guardAsyncFn({
+    fn: cancelOffer,
+    status: ErrorStatus.SERVER_ERROR,
+    logger
+  })({ slug, updateArgs: { trigger: { by: user.username } } })
   return NextResponse.json<OfferResponse>({ offer: updatedOffer })
 }

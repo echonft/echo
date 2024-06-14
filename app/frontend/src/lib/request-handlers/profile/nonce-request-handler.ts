@@ -8,9 +8,14 @@ import type { AuthRequestHandlerArgs } from '@echo/frontend/lib/types/request-ha
 import { NextResponse } from 'next/server'
 import { generateNonce } from 'siwe'
 
-export async function nonceRequestHandler({ user }: AuthRequestHandlerArgs) {
-  const foundUser = await guardAsyncFn(getUserByUsername, ErrorStatus.SERVER_ERROR)(user.username)
+export async function nonceRequestHandler({ user, logger }: AuthRequestHandlerArgs) {
+  const foundUser = await guardAsyncFn({ fn: getUserByUsername, status: ErrorStatus.SERVER_ERROR, logger })(
+    user.username
+  )
   assertUserExists(foundUser, user.username)
-  const { nonce } = await guardAsyncFn(setNonceForUser, ErrorStatus.SERVER_ERROR)(foundUser.username, generateNonce())
+  const { nonce } = await guardAsyncFn({ fn: setNonceForUser, status: ErrorStatus.SERVER_ERROR, logger })(
+    foundUser.username,
+    generateNonce()
+  )
   return NextResponse.json<NonceResponse>({ nonce })
 }

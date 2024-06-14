@@ -10,14 +10,15 @@ import type { User } from 'next-auth'
 import { NextResponse } from 'next/server'
 import { andThen, map, pipe, prop } from 'ramda'
 
-export async function getWalletsRequestHandler({ user }: AuthRequestHandlerArgs) {
-  const wallets = await guardAsyncFn(
-    pipe<[User], string, Promise<WalletDocumentData[]>, Promise<Wallet[]>>(
+export async function getWalletsRequestHandler({ user, logger }: AuthRequestHandlerArgs) {
+  const wallets = await guardAsyncFn({
+    fn: pipe<[User], string, Promise<WalletDocumentData[]>, Promise<Wallet[]>>(
       prop('username'),
       getWalletsForUser,
       andThen(map(mapWalletDocumentDataToWallet))
     ),
-    ErrorStatus.SERVER_ERROR
-  )(user)
+    status: ErrorStatus.SERVER_ERROR,
+    logger
+  })(user)
   return NextResponse.json<WalletsResponse>({ wallets })
 }

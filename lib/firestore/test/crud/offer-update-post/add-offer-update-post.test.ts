@@ -1,17 +1,15 @@
-import { deleteOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/delete-offer-update-post'
-import { unchecked_addOfferUpdatePost } from '@echo/firestore/utils/offer-update-post/unchecked_add-offer-update-post'
-import { deleteOfferUpdate } from '@echo/firestore/crud/offer-update/delete-offer-update'
 import { addOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/add-offer-update-post'
+import { deleteOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/delete-offer-update-post'
 import { getOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/get-offer-update-post'
 import {
   addOfferStateUpdate,
   type AddOfferStateUpdateArgs
 } from '@echo/firestore/crud/offer-update/add-offer-state-update'
+import { deleteOfferUpdate } from '@echo/firestore/crud/offer-update/delete-offer-update'
+import { unchecked_addOfferUpdatePost } from '@echo/firestore/utils/offer-update-post/unchecked_add-offer-update-post'
+import { OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
-import { OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
@@ -36,18 +34,10 @@ describe('CRUD - offer-update-post - addOfferUpdatePost', () => {
   })
   afterEach(async () => {
     if (!isNil(offerUpdateId)) {
-      try {
-        await deleteOfferUpdate(offerUpdateId)
-      } catch (e) {
-        pinoLogger.error(`Error deleting offer update with id ${offerUpdateId}: ${errorMessage(e)}`)
-      }
+      await deleteOfferUpdate(offerUpdateId)
     }
     if (!isNil(offerUpdatePostId)) {
-      try {
-        await deleteOfferUpdatePost(offerUpdatePostId)
-      } catch (e) {
-        pinoLogger.error(`Error deleting offer update post with id ${offerUpdatePostId}: ${errorMessage(e)}`)
-      }
+      await deleteOfferUpdatePost(offerUpdatePostId)
     }
   })
   it('throws if trying to add an offer update post for an offer update that does not exist', async () => {

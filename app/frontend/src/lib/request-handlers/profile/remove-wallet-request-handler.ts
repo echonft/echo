@@ -16,25 +16,28 @@ import type { User } from 'next-auth'
 import { NextResponse } from 'next/server'
 import { andThen, map, pipe, prop } from 'ramda'
 
-export async function removeWalletRequestHandler({ user, req }: AuthRequestHandlerArgs<RemoveWalletRequest>) {
-  const requestBody = await guardAsyncFn(
-    (req: ApiRequest<RemoveWalletRequest>) => req.json(),
-    ErrorStatus.BAD_REQUEST
-  )(req)
-  const { wallet } = guardFn(
-    (requestBody) => removeWalletSchema.parse(requestBody),
-    ErrorStatus.BAD_REQUEST
-  )(requestBody)
-  const foundUser = await guardAsyncFn(getUserByUsername, ErrorStatus.SERVER_ERROR)(user.username)
+export async function removeWalletRequestHandler({ user, req, logger }: AuthRequestHandlerArgs<RemoveWalletRequest>) {
+  const requestBody = await guardAsyncFn({
+    fn: (req: ApiRequest<RemoveWalletRequest>) => req.json(),
+    logger
+  })(req)
+  const { wallet } = guardFn({
+    fn: (requestBody) => removeWalletSchema.parse(requestBody),
+    logger
+  })(requestBody)
+  const foundUser = await guardAsyncFn({ fn: getUserByUsername, status: ErrorStatus.SERVER_ERROR, logger })(
+    user.username
+  )
   assertUserExists(foundUser, user.username)
-  await guardAsyncFn(removeWallet, ErrorStatus.SERVER_ERROR)(foundUser.username, wallet)
-  const wallets = await guardAsyncFn(
-    pipe<[User], string, Promise<WalletDocumentData[]>, Promise<Wallet[]>>(
+  await guardAsyncFn({ fn: removeWallet, status: ErrorStatus.SERVER_ERROR, logger })(foundUser.username, wallet)
+  const wallets = await guardAsyncFn({
+    fn: pipe<[User], string, Promise<WalletDocumentData[]>, Promise<Wallet[]>>(
       prop('username'),
       getWalletsForUser,
       andThen(map(mapWalletDocumentDataToWallet))
     ),
-    ErrorStatus.SERVER_ERROR
-  )(user)
+    status: ErrorStatus.SERVER_ERROR,
+    logger
+  })(user)
   return NextResponse.json<WalletsResponse>({ wallets })
 }
