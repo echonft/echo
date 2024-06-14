@@ -8,8 +8,8 @@ export default {
   moduleNameMapper: {
     '^@echo/contract-listener/(.*)$': '<rootDir>/src/$1',
     '^@echo/firestore/(.*)$': '<rootDir>/../../lib/firestore/src/$1',
-    '^@echo/nft-scan/(.*)$': '<rootDir>/../../lib/nft-scan/src/$1',
     '^@echo/model/(.*)$': '<rootDir>/../../lib/model/src/$1',
+    '^@echo/nft-scan/(.*)$': '<rootDir>/../../lib/nft-scan/src/$1',
     '^@echo/opensea/(.*)$': '<rootDir>/../../lib/opensea/src/$1',
     '^@echo/utils/(.*)$': '<rootDir>/../../lib/utils/src/$1',
     '^@echo/web3/(.*)$': '<rootDir>/../../lib/web3/src/$1'

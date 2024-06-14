@@ -1,8 +1,7 @@
-import { isEscrowing } from '@echo/contract-listener/helpers/is-escrowing'
+import { isEscrowing } from '@echo/frontend/lib/helpers/webhook/is-escrowing'
 import { walletMockJohnnyAddress } from '@echo/model/mocks/wallet/wallet-mock'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { getEchoAddressByChain } from '@echo/web3/helpers/get-echo-address-by-chain'
-import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - isEscrowing', () => {
   const chain: ChainName = 'blast'
