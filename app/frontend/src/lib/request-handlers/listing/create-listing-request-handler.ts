@@ -7,11 +7,11 @@ import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
 import { getListingTargetFromRequest } from '@echo/frontend/lib/helpers/listing/get-listing-target-from-request'
 import { assertNftsOwner } from '@echo/frontend/lib/helpers/nft/assert/assert-nfts-owner'
 import { getNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-nfts-from-indexes'
+import type { AuthRequestHandlerArgs } from '@echo/frontend/lib/types/request-handlers/auth-request-handler'
 import { createListingSchema } from '@echo/frontend/lib/validators/create-listing-schema'
 import { NextResponse } from 'next/server'
-import type { User } from 'next-auth'
 
-export async function createListingRequestHandler(user: User, req: ApiRequest<CreateListingRequest>) {
+export async function createListingRequestHandler({ user, req }: AuthRequestHandlerArgs<CreateListingRequest>) {
   const requestBody = await guardAsyncFn(
     (req: ApiRequest<CreateListingRequest>) => req.json(),
     ErrorStatus.BAD_REQUEST

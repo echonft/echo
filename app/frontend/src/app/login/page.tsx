@@ -1,20 +1,19 @@
-import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
-import type { NextSearchParams } from '@echo/frontend/lib/types/next-search-params'
-import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
+import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
+import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { LoginPage } from '@echo/ui/pages/login/login-page'
-import { pipe } from 'ramda'
-import type { ReactElement } from 'react'
 
-type Params = NextUserParams<
-  NextSearchParams<{
+function render({
+  searchParams: { callbackUrl },
+  user
+}: PropsWithUser<
+  WithSearchParamsProps<{
     callbackUrl?: string
   }>
->
-function render({ searchParams: { callbackUrl }, user }: Params) {
-  return (
+>) {
+  return Promise.resolve(
     <PageLayout headerVariants={{ logoOnly: true }}>
       <SectionLayout>
         <LoginPage callbackUrl={callbackUrl} user={user} />
@@ -23,4 +22,4 @@ function render({ searchParams: { callbackUrl }, user }: Params) {
   )
 }
 
-export default pipe(withLocale<Params, ReactElement>, withUser)(render)
+export default withUser(render)

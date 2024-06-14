@@ -1,20 +1,16 @@
-import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
-import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
-import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
+import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { PAGE_LAYOUT_BG_COLLECTIONS } from '@echo/ui/constants/page-layout-background'
-import { pipe } from 'ramda'
-import type { ReactElement } from 'react'
+import type { WithChildrenProps } from '@echo/ui/types/props/with-children-props'
 
-type Params = NextUserParams<NextLayoutParams>
-function render({ user, children }: Params) {
-  return (
+function render({ user, children }: PropsWithUser<WithChildrenProps>) {
+  return Promise.resolve(
     <PageLayout user={user} background={PAGE_LAYOUT_BG_COLLECTIONS}>
       <SectionLayout>{children}</SectionLayout>
     </PageLayout>
   )
 }
 
-export default pipe(withLocale<Params, ReactElement>, withUser)(render)
+export default withUser(render)

@@ -1,40 +1,49 @@
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import { auth } from '@echo/frontend/lib/auth/auth'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
-import type { RequestHandler } from '@echo/frontend/lib/types/request-handlers/request-handler'
+import { getLogger } from '@echo/frontend/lib/helpers/get-logger'
+import type {
+  RequestHandler,
+  RequestWithParamsHandler
+} from '@echo/frontend/lib/types/request-handlers/request-handler'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { ErrorResponse } from '@echo/utils/types/error-response'
+import type { Logger } from '@echo/utils/types/logger'
 import { captureException, setUser } from '@sentry/nextjs'
 import type { NextAuthRequest } from 'next-auth/lib'
 import { NextResponse } from 'next/server'
 import { isNil, pick } from 'ramda'
 
-export function routeHandler<RequestBody, ResponseBody, Params extends Record<string, unknown> = never>(
-  requestHandler: RequestHandler<RequestBody, ResponseBody, Params>
+export function routeHandler<ResponseBody, RequestBody = never, Params extends object = never>(
+  requestHandler:
+    | RequestWithParamsHandler<ResponseBody, RequestBody, Params>
+    | RequestHandler<ResponseBody, RequestBody>
 ) {
-  return auth(async function (request: NextAuthRequest, context?: { params?: Record<string, string | string[]> }) {
+  return auth(async function (req: NextAuthRequest, context?: { params?: Record<string, string | string[]> }) {
+    const logger = getLogger().child({ component: 'api' }) as Logger
     try {
-      await initializeFirebase()
+      await initializeFirebase({ logger })
       const session = await auth()
       const user = session?.user
       setUser(isNil(user) ? null : pick(['username'], user))
-      if (isNil(context)) {
-        return await requestHandler(request)
-      }
-      return await requestHandler(request, context.params as Params)
-    } catch (error) {
-      if (error instanceof ApiError) {
-        await error.beforeError()
-        return error.getErrorResponse()
+      return await requestHandler({ req, logger, params: context?.params as Params })
+    } catch (err) {
+      logger.error({ err, fn: 'routeHandler' })
+      if (err instanceof ApiError) {
+        await err.beforeError()
+        return err.getErrorResponse()
       } else {
-        captureException(error)
+        captureException(err)
         return NextResponse.json<ErrorResponse>(
           {
-            error: errorMessage(error)
+            error: errorMessage(err)
           },
           { status: 500 }
         )
       }
+    } finally {
+      await terminateFirestore(logger)
     }
   })
 }

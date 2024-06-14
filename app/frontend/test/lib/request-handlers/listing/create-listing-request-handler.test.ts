@@ -1,12 +1,13 @@
 import { type CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
 import { type ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
 import { type ListingResponse } from '@echo/api/types/responses/listing-response'
-import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
 import { addListing } from '@echo/firestore/crud/listing/add-listing'
+import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
 import { getListingTargetFromRequest } from '@echo/frontend/lib/helpers/listing/get-listing-target-from-request'
 import { getNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-nfts-from-indexes'
 import { createListingRequestHandler } from '@echo/frontend/lib/request-handlers/listing/create-listing-request-handler'
 import { mockRequest } from '@echo/frontend/mocks/mock-request'
+import { getListingItemsIndexes } from '@echo/model/helpers/listing/get-listing-items-indexes'
 import { getCollectionMockBySlug } from '@echo/model/mocks/collection/get-collection-mock-by-slug'
 import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
@@ -14,7 +15,6 @@ import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { getNftMockByIndex } from '@echo/model/mocks/nft/get-nft-mock-by-index'
 import { nftMockSpiralCrewId } from '@echo/model/mocks/nft/nft-mock'
 import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
-import { getListingItemsIndexes } from '@echo/model/helpers/listing/get-listing-items-indexes'
 import type { Listing } from '@echo/model/types/listing'
 import type { ListingTarget } from '@echo/model/types/listing-target'
 import { type Nft } from '@echo/model/types/nft'
@@ -44,7 +44,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
 
   it('throws if the request cannot be parsed', async () => {
     const req = mockRequest<CreateListingRequest>({} as CreateListingRequest)
-    await expect(() => createListingRequestHandler(user, req)).rejects.toHaveProperty('status', 400)
+    await expect(() => createListingRequestHandler({ user, req })).rejects.toHaveProperty('status', 400)
   })
 
   it('throws if the user is not the owner of every item', async () => {
@@ -55,7 +55,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
     }
     jest.mocked(addListing).mockResolvedValue({ id: listingMockId(), data: listing, listingOffers: [] })
     const req = mockRequest<CreateListingRequest>(request)
-    await expect(() => createListingRequestHandler(user, req)).rejects.toHaveProperty('status', 403)
+    await expect(() => createListingRequestHandler({ user, req })).rejects.toHaveProperty('status', 403)
   })
 
   it('returns 200 if the user owns all the items', async () => {
@@ -66,7 +66,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
     }
     jest.mocked(addListing).mockResolvedValue({ id: listingMockId(), data: listing, listingOffers: [] })
     const req = mockRequest<CreateListingRequest>(validRequest)
-    const res = await createListingRequestHandler(user, req)
+    const res = await createListingRequestHandler({ user, req })
     expect(addListing).toHaveBeenCalledTimes(1)
     expect(res.status).toBe(200)
     const responseData = (await res.json()) as ListingResponse

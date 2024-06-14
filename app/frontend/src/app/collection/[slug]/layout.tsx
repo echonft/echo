@@ -1,20 +1,18 @@
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
-import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
-import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
-import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
+import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
 import type { WithSlug } from '@echo/model/types/with-slug'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
 import { CollectionDetails } from '@echo/ui/components/collection/details/collection-details'
 import { notFound } from 'next/navigation'
-import { isNil, pipe } from 'ramda'
-import type { ReactElement } from 'react'
+import { isNil } from 'ramda'
+import type { PropsWithChildren } from 'react'
 
-type Params = NextUserParams<NextLayoutParams<NextParams<WithSlug>>>
+type Props = PropsWithUser<PropsWithChildren<NextParams<WithSlug>>>
 
-async function render({ params: { slug }, user, children }: Params) {
+async function render({ params: { slug }, user, children }: Props) {
   const collection = await getCollection(slug)
   if (isNil(collection)) {
     notFound()
@@ -29,4 +27,4 @@ async function render({ params: { slug }, user, children }: Params) {
   )
 }
 
-export default pipe(withLocale<Params, Promise<ReactElement>>, withUser)(render)
+export default withUser(render)

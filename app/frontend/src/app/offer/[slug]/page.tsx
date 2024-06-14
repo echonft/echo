@@ -1,10 +1,9 @@
 import { linkProvider } from '@echo/api/routing/link-provider'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
-import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import { setOfferRoleForUser } from '@echo/frontend/lib/helpers/offer/set-offer-role-for-user'
-import type { NextAuthUserParams } from '@echo/frontend/lib/types/next-auth-user-params'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
+import type { PropsWithAuthUser } from '@echo/frontend/lib/types/props-with-auth-user'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
 import type { WithSlug } from '@echo/model/types/with-slug'
@@ -17,11 +16,8 @@ import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound, redirect } from 'next/navigation'
 import { andThen, isNil, pipe, unless } from 'ramda'
-import type { ReactElement } from 'react'
 
-type Params = NextAuthUserParams<NextParams<WithSlug>>
-
-async function render({ params: { slug }, user }: Params) {
+async function render({ params: { slug }, user }: PropsWithAuthUser<NextParams<WithSlug>>) {
   const offer = await pipe<[string], Promise<Nullable<Offer>>, Promise<Nullable<OfferWithRole>>>(
     getOffer,
     andThen(unless(isNil, setOfferRoleForUser(user)) as (offer: Nullable<Offer>) => Nullable<OfferWithRole>)
@@ -45,4 +41,4 @@ async function render({ params: { slug }, user }: Params) {
   )
 }
 
-export default pipe(withLocale<Params, Promise<ReactElement>>, withLoggedInUser)(render)
+export default withLoggedInUser(render)

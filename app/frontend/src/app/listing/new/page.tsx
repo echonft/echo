@@ -1,11 +1,10 @@
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
-import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { getNftIndexFromQueryParam } from '@echo/frontend/lib/helpers/nft/get-nft-index-from-query-param'
-import type { NextSearchParams } from '@echo/frontend/lib/types/next-search-params'
-import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
+import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
+import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
 import type { Nft } from '@echo/model/types/nft'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
@@ -32,16 +31,16 @@ import {
   reject,
   unless
 } from 'ramda'
-import type { ReactElement } from 'react'
 
-type Params = NextUserParams<
-  NextSearchParams<{
+async function render({
+  searchParams: { items, target },
+  user
+}: PropsWithUser<
+  WithSearchParamsProps<{
     items?: string[] | string
     target?: string
   }>
->
-
-async function render({ searchParams: { items, target }, user }: Params) {
+>) {
   // Cannot go to that page without previously selected data
   if (isNilOrEmpty(items) && isNilOrEmpty(target)) {
     notFound()
@@ -79,4 +78,4 @@ async function render({ searchParams: { items, target }, user }: Params) {
   )
 }
 
-export default pipe(withLocale<Params, Promise<ReactElement>>, withUser)(render)
+export default withUser(render)

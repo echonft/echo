@@ -1,9 +1,6 @@
 import { linkProvider } from '@echo/api/routing/link-provider'
-import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { redirect } from 'next/navigation'
 
-function render() {
+export default function render() {
   redirect(linkProvider.profile.items.get())
 }
-
-export default withLocale(render)

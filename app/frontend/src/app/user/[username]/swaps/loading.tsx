@@ -1,13 +1,10 @@
-import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { OfferCardsContainerSkeleton } from '@echo/ui/components/offer/card/layout/skeleton/offer-cards-container-skeleton'
 import { UserNavigationLayoutSkeleton } from '@echo/ui/pages/user/navigation/user-navigation-layout-skeleton'
 
-function render() {
+export default function render() {
   return (
     <UserNavigationLayoutSkeleton>
       <OfferCardsContainerSkeleton />
     </UserNavigationLayoutSkeleton>
   )
 }
-
-export default withLocale(render)

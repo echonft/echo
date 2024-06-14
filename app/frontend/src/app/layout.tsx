@@ -1,8 +1,7 @@
 import '@echo/ui-css/index.css'
 import { METADATA_DESCRIPTION, METADATA_IMAGE_URL, METADATA_TITLE } from '@echo/frontend/constants/metadata'
-import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
-import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
 import { messages } from '@echo/ui/messages/en'
+import type { WithChildrenProps } from '@echo/ui/types/props/with-children-props'
 import { getBaseUrl } from '@echo/utils/helpers/get-base-url'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { type Metadata, type Viewport } from 'next'
@@ -86,7 +85,7 @@ export const viewport: Viewport = {
   width: 'device-width'
 }
 
-function render({ children }: NextLayoutParams) {
+export default function render({ children }: WithChildrenProps) {
   const locale = 'en'
   return (
     <html lang={locale} suppressHydrationWarning={true}>
@@ -99,5 +98,3 @@ function render({ children }: NextLayoutParams) {
     </html>
   )
 }
-
-export default withLocale(render)

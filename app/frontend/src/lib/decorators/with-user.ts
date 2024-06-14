@@ -1,16 +1,24 @@
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import { getAuthUser } from '@echo/frontend/lib/auth/get-auth-user'
-import type { NextReturn } from '@echo/frontend/lib/types/next-return'
+import { getLogger } from '@echo/frontend/lib/helpers/get-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { User } from 'next-auth'
-import { assoc } from 'ramda'
+import { assoc, pipe } from 'ramda'
+import type { ReactElement } from 'react'
 
-export function withUser<Args extends Record<'user', Nullable<User>>, Return extends NextReturn>(
-  fn: (args: Args) => Return
-) {
+export function withUser<
+  Args extends Record<'user', Nullable<User>>,
+  Return extends Promise<void> | Promise<ReactElement>
+>(fn: (args: Args) => Return) {
   return async function (args: Args): Promise<Return> {
-    await initializeFirebase()
+    const logger = getLogger().child({ component: 'server-component', fn: 'render' })
+    await initializeFirebase({ logger })
     const user = await getAuthUser()
-    return fn.call(fn, assoc('user', user, args) as Args)
+    const fnArgs = pipe(assoc('user', user), assoc('logger', logger))(args) as Args
+    return fn.call(fn, fnArgs).then(async (result) => {
+      await terminateFirestore(logger)
+      return result
+    }) as Return
   }
 }

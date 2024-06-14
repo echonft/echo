@@ -9,13 +9,14 @@ import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wall
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
 import { assertUserExists } from '@echo/frontend/lib/helpers/user/assert/assert-user-exists'
+import type { AuthRequestHandlerArgs } from '@echo/frontend/lib/types/request-handlers/auth-request-handler'
 import { removeWalletSchema } from '@echo/frontend/lib/validators/remove-wallet-schema'
 import type { Wallet } from '@echo/model/types/wallet'
-import { NextResponse } from 'next/server'
 import type { User } from 'next-auth'
+import { NextResponse } from 'next/server'
 import { andThen, map, pipe, prop } from 'ramda'
 
-export async function removeWalletRequestHandler(user: User, req: ApiRequest<RemoveWalletRequest>) {
+export async function removeWalletRequestHandler({ user, req }: AuthRequestHandlerArgs<RemoveWalletRequest>) {
   const requestBody = await guardAsyncFn(
     (req: ApiRequest<RemoveWalletRequest>) => req.json(),
     ErrorStatus.BAD_REQUEST

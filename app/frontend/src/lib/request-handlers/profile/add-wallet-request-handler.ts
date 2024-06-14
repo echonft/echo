@@ -13,13 +13,14 @@ import { verifySiweMessage } from '@echo/frontend/lib/helpers/auth/verify-siwe-m
 import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
 import { assertNonce } from '@echo/frontend/lib/helpers/user/assert/assert-nonce'
 import { assertUserExists } from '@echo/frontend/lib/helpers/user/assert/assert-user-exists'
+import type { AuthRequestHandlerArgs } from '@echo/frontend/lib/types/request-handlers/auth-request-handler'
 import { addWalletSchema } from '@echo/frontend/lib/validators/add-wallet-schema'
 import type { Wallet } from '@echo/model/types/wallet'
-import { NextResponse } from 'next/server'
 import type { User } from 'next-auth'
+import { NextResponse } from 'next/server'
 import { andThen, map, pipe, prop } from 'ramda'
 
-export async function addWalletRequestHandler(user: User, req: ApiRequest<AddWalletRequest>) {
+export async function addWalletRequestHandler({ user, req }: AuthRequestHandlerArgs<AddWalletRequest>) {
   const requestBody = await guardAsyncFn(
     (req: ApiRequest<AddWalletRequest>) => req.json(),
     ErrorStatus.BAD_REQUEST

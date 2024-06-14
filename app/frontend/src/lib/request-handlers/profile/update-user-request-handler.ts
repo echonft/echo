@@ -4,13 +4,14 @@ import { mapDiscordProfile } from '@echo/frontend/lib/auth/map-discord-profile'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { createError } from '@echo/frontend/lib/helpers/error/create-error'
 import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
+import type { RequestHandlerArgs } from '@echo/frontend/lib/types/request-handlers/request-handler'
 import { discordAuthTokenSchema } from '@echo/frontend/lib/validators/discord-auth-token-schema'
 import { discordProfileSchema } from '@echo/frontend/lib/validators/discord-profile-schema'
 import type { DiscordAuthToken } from '@echo/model/types/discord-auth-token'
 import { NextResponse } from 'next/server'
 import { andThen, invoker, pipe } from 'ramda'
 
-export async function updateUserRequestHandler(req: ApiRequest<DiscordAuthToken>) {
+export async function updateUserRequestHandler({ req }: RequestHandlerArgs<DiscordAuthToken>) {
   const requestBody = await guardAsyncFn(
     (req: ApiRequest<DiscordAuthToken>) => req.json(),
     ErrorStatus.BAD_REQUEST

@@ -1,8 +1,8 @@
 import { linkProvider } from '@echo/api/routing/link-provider'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
-import { withFirebase } from '@echo/frontend/lib/decorators/with-firebase'
-import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
+import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
+import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import type { WithSlug } from '@echo/model/types/with-slug'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
@@ -10,12 +10,9 @@ import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
 import { PAGE_LAYOUT_BG_GREEN_GRADIENT } from '@echo/ui/constants/page-layout-background'
 import { notFound, redirect } from 'next/navigation'
-import { assoc, isNil, pipe } from 'ramda'
-import type { ReactElement } from 'react'
+import { assoc, isNil } from 'ramda'
 
-type Params = NextParams<WithSlug>
-
-async function render({ params: { slug } }: Params) {
+async function render({ params: { slug } }: PropsWithUser<NextParams<WithSlug>>) {
   const offer = await getOffer(slug)
   if (isNil(offer)) {
     notFound()
@@ -33,4 +30,4 @@ async function render({ params: { slug } }: Params) {
   )
 }
 
-export default pipe(withLocale<Params, Promise<ReactElement>>, withFirebase)(render)
+export default withUser(render)
