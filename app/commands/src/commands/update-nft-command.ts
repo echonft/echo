@@ -1,3 +1,4 @@
+import { getLogger } from '@echo/commands/helpers/get-logger'
 import type { Command } from '@echo/commands/types/command'
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { updateNft } from '@echo/firestore/crud/nft/update-nft'
@@ -5,7 +6,6 @@ import { initializeFirebase } from '@echo/firestore/services/initialize-firebase
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import { getNft } from '@echo/opensea/services/get-nft'
 import { getChains } from '@echo/utils/helpers/chains/get-chains'
-import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
 import { isNil } from 'ramda'
@@ -23,6 +23,7 @@ import { hideBin } from 'yargs/helpers'
 export const updateNftCommand: Command = {
   name: 'update-nft',
   execute: async function () {
+    const logger = getLogger().child({ command: 'update-nft' })
     const { a, c, t } = await yargs(hideBin(process.argv))
       .options({
         a: {
@@ -50,27 +51,28 @@ export const updateNftCommand: Command = {
 
     try {
       const address = formatWalletAddress({ address: a, chain: c })
-      console.log(`fetching NFT #${t} for contract address ${a}`)
+      logger.info({ nft: { collection: { contract: { address: a, chain: c } }, tokenId: t } }, 'fetching NFT')
       try {
         await initializeFirebase()
-        // TODO add logger
-        const nft = await getNft({ contract: address, chain: c, identifier: t, fetch })
+        const nft = await getNft({ contract: address, chain: c, identifier: t, fetch, logger })
         if (isNil(nft)) {
-          console.error(`did not get any result`)
+          logger.error('did not get any result')
           return
         }
         const collection = await getCollection(nft.collection.slug)
         if (isNil(collection)) {
-          console.error(`collection ${nft.collection.slug} not in the database`)
+          logger.error({ nft }, 'collection not in the database')
         }
         await updateNft(nft)
-        console.log(`updated NFT #${t} for contract address ${a}`)
-      } catch (e) {
-        console.error(`error updating NFT #${t} for contract address ${a}: ${errorMessage(e)}`)
-        console.error((e as Error).stack)
+        logger.info({ nft }, 'updated NFT')
+      } catch (err) {
+        logger.error(
+          { err, nft: { collection: { contract: { address: a, chain: c } }, tokenId: t } },
+          `error updating NFT`
+        )
       }
-    } catch (e) {
-      console.error(`address ${a} is not a valid address`)
+    } catch (err) {
+      logger.error({ address: a }, 'not a valid address')
     } finally {
       await terminateFirestore()
     }

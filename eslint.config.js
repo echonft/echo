@@ -198,13 +198,6 @@ export default tseslint.config(
     }
   },
   {
-    name: 'disable console on @echo/commands',
-    files: ['app/commands/**/*.{ts,tsx}'],
-    rules: {
-      'no-console': 'off'
-    }
-  },
-  {
     name: '@echo/firestore-functions configuration',
     files: ['app/firestore-functions/**/*.{ts,tsx}'],
     ...eslintConfigGoogle,

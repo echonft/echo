@@ -1,10 +1,11 @@
+import { getLogger } from '@echo/commands/helpers/get-logger'
 import type { Command } from '@echo/commands/types/command'
 import { updateCollection as updateCollectionInFirestore } from '@echo/firestore/crud/collection/update-collection'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import { getCollection } from '@echo/opensea/services/get-collection'
-import { isTestnet } from '@echo/utils/constants/is-testnet'
-import { errorMessage } from '@echo/utils/helpers/error-message'
+import { getChains } from '@echo/utils/helpers/chains/get-chains'
+import type { ChainName } from '@echo/utils/types/chain-name'
 import { assoc, pipe, toLower } from 'ramda'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
@@ -13,12 +14,22 @@ import { hideBin } from 'yargs/helpers'
 /**
  * Arguments:
  *  -s  string  collection slug
+ *  -c  string (optional)   chain name (defaults to 'ethereum')
  */
 export const updateCollectionCommand: Command = {
   name: 'update-collection',
   execute: async function () {
-    const { s } = await yargs(hideBin(process.argv))
+    const logger = getLogger().child({ command: 'update-collection' })
+    const { c, s } = await yargs(hideBin(process.argv))
       .options({
+        c: {
+          alias: 'chain',
+          describe: 'chain',
+          type: 'string',
+          choices: getChains(),
+          default: 'ethereum',
+          coerce: (arg) => arg as ChainName
+        },
         s: {
           alias: 'slug',
           describe: 'collection slug',
@@ -30,12 +41,11 @@ export const updateCollectionCommand: Command = {
     const slug = toLower(s)
     try {
       await initializeFirebase()
-      // TODO add logger
-      const collection = await pipe(assoc('fetch', fetch), getCollection)({ slug, testnet: isTestnet })
+      const collection = await pipe(assoc('fetch', fetch), getCollection)({ slug, chain: c, logger })
       await updateCollectionInFirestore({ slug, data: collection })
       await terminateFirestore()
     } catch (err) {
-      console.error(`error updating collection ${slug}: ${errorMessage(err)}`)
+      logger.error({ err, collection: { slug } }, 'error updating collection')
     }
   }
 }

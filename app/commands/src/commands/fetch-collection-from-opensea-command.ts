@@ -1,7 +1,7 @@
+import { getLogger } from '@echo/commands/helpers/get-logger'
 import type { Command } from '@echo/commands/types/command'
 import { getCollection } from '@echo/opensea/services/get-collection'
 import { getChains } from '@echo/utils/helpers/chains/get-chains'
-import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
@@ -16,6 +16,7 @@ import { hideBin } from 'yargs/helpers'
 export const fetchCollectionFromOpenseaCommand: Command = {
   name: 'fetch-collection-from-opensea',
   execute: async function () {
+    const logger = getLogger().child({ command: 'fetch-collection-from-opensea' })
     const { s, c } = await yargs(hideBin(process.argv))
       .options({
         s: {
@@ -34,14 +35,12 @@ export const fetchCollectionFromOpenseaCommand: Command = {
       })
       .demandOption('s', 'slug is required')
       .parse()
-    console.log(`fetching collection with slug ${s}...`)
+    logger.info({ collection: { slug: s } }, 'fetching collection')
     try {
-      // TODO add logger
-      const collection = await getCollection({ fetch, slug: s, chain: c })
-      console.log(JSON.stringify(collection, undefined, 2))
-    } catch (e) {
-      console.error(`error fetching collection with slug ${s}: ${errorMessage(e)}`)
-      console.error((e as Error).stack)
+      const collection = await getCollection({ fetch, slug: s, chain: c, logger })
+      logger.info({ collection })
+    } catch (err) {
+      logger.error({ err, collection: { slug: s } }, 'error fetching collection')
     }
   }
 }

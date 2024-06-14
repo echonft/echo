@@ -18,7 +18,6 @@
     "bot:deploy:staging": "ENV=staging turbo deploy --filter=@echo/bot",
     "bot:machine:restart:dev": "ENV=development turbo machine:restart --filter=@echo/bot",
     "bot:machine:restart:prod": "ENV=production turbo machine:restart --filter=@echo/bot",
-    "command:list-collection-contracts": "ENV=development turbo start --filter=@echo/commands -- -c=list-collection-contracts",
     "command:check-nft-approval": "ENV=development turbo start --filter=@echo/commands -- -c=check-nft-approval",
     "command:clear-db": "ENV=development turbo start --filter=@echo/commands -- -c=clear-db",
     "command:fetch-collection-from-opensea": "ENV=development turbo start --filter=@echo/commands -- -c=fetch-collection-from-opensea",
