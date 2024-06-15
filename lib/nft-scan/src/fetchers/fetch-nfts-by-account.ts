@@ -3,14 +3,15 @@ import { getBaseUrl } from '@echo/nft-scan/helpers/get-base-url'
 import type { GetNftsByAccountQueryParams } from '@echo/nft-scan/types/query-params/get-nfts-by-account-query-params'
 import type { GetNftsByAccountRequest } from '@echo/nft-scan/types/request/get-nfts-by-account-request'
 import { getNftsByAccountResponseSchema } from '@echo/nft-scan/validators/get-nfts-by-account-response-schema'
+import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { parseResponse } from '@echo/utils/validators/parse-response'
 import { stringify } from 'qs'
-import { always, applySpec, defaultTo, partialRight, pipe, prop } from 'ramda'
+import { always, applySpec, defaultTo, partialRight, pick, pipe, prop } from 'ramda'
 
 export async function fetchNftsByAccount(
-  args: GetNftsByAccountRequest
+  args: WithLoggerType<GetNftsByAccountRequest>
 ): Promise<Promise<ReturnType<typeof getNftsByAccountResponseSchema.parse>>> {
-  const { fetch, wallet } = args
+  const { fetch, wallet, logger } = args
   const query = pipe(
     applySpec<GetNftsByAccountQueryParams>({
       erc_type: always('erc721'),
@@ -21,12 +22,14 @@ export async function fetchNftsByAccount(
     partialRight(stringify, [{ addQueryPrefix: true }])
   )(args)
   const url = `${getBaseUrl(wallet.chain)}/account/own/${wallet.address}${query}`
-  const init = await fetchInit(args.apiKey)
+  const init = await fetchInit(logger)
   const response = await fetch(url, init)
   if (!response.ok) {
-    throw Error(
-      `error fetching NFTs for ${wallet.address}: ${JSON.stringify({ url, status: response.statusText }, undefined, 2)}`
+    logger?.error(
+      { fn: 'fetchNftsByAccount', wallet, url, response: pick(['status'], response) },
+      'error fetching NFTs'
     )
+    throw Error(`error fetching NFTs for ${JSON.stringify(wallet)}`)
   }
   return parseResponse(getNftsByAccountResponseSchema)(response)
 }

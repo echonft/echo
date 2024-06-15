@@ -1,29 +1,42 @@
-import { botLogger } from '@echo/bot/constants/bot-logger'
 import { sendToEchoChannel } from '@echo/bot/helpers/send-to-echo-channel'
 import { buildSwapEmbed } from '@echo/bot/swap/build-swap-embed'
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
-import { isNil } from 'ramda'
+import type { WithLogger } from '@echo/utils/types/with-logger'
+import type { Client } from 'discord.js'
+import { assoc, isNil } from 'ramda'
 
-export async function postSwap(offerId: string) {
+interface PostSwapArgs extends WithLogger {
+  client: Client
+  offerId: string
+}
+
+export async function postSwap(args: PostSwapArgs) {
+  const { client, offerId, logger } = args
+  const fn = 'postSwap'
   const offer = await getOfferById(offerId)
   if (isNil(offer)) {
-    botLogger.error({ msg: `[OFFER ${offerId}] offer not found` })
+    logger?.error({ offer: { id: offerId }, fn }, 'offer not found')
     return
   }
+  const offerWithId = assoc('id', offerId, offer)
   const { sender, receiver } = offer
-  const creator = await getUserByUsername(sender.username)
-  if (isNil(creator)) {
-    botLogger.error({ msg: `[OFFER ${offerId}] sender ${sender.username} not found` })
+  const foundSender = await getUserByUsername(sender.username)
+  if (isNil(foundSender)) {
+    logger?.error({ offer: offerWithId, fn }, 'sender not found')
     return
   }
-  const counterparty = await getUserByUsername(receiver.username)
-  if (isNil(counterparty)) {
-    botLogger.error({ msg: `[OFFER ${offerId}] receiver ${receiver.username} not found` })
+  const foundReceiver = await getUserByUsername(receiver.username)
+  if (isNil(foundReceiver)) {
+    logger?.error({ offer: offerWithId, fn }, 'receiver not found')
     return
   }
   await sendToEchoChannel({
-    embeds: [buildSwapEmbed(offer, creator, counterparty)]
+    client,
+    payload: {
+      embeds: [buildSwapEmbed(offer, foundSender, foundReceiver)]
+    },
+    logger
   })
-  botLogger.info({ msg: `[OFFER ${offerId}] posted swap to echo channel` })
+  logger?.info({ offer: offerWithId }, 'posted swap to echo channel')
 }

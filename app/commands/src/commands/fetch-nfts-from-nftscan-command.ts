@@ -1,7 +1,7 @@
+import { getLogger } from '@echo/commands/helpers/get-logger'
 import type { Command } from '@echo/commands/types/command'
 import { getAllNftsByAccount } from '@echo/nft-scan/services/get-all-nfts-by-account'
 import { getChains } from '@echo/utils/helpers/chains/get-chains'
-import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
@@ -19,15 +19,14 @@ import { hideBin } from 'yargs/helpers'
 export const fetchNftsFromNftscanCommand: Command = {
   name: 'fetch-nfts-from-nftscan',
   execute: async function () {
+    const logger = getLogger().child({ command: 'fetch-nfts-from-nftscan' })
     const { a, c } = await yargs(hideBin(process.argv))
       .options({
         a: {
           alias: 'address',
           describe: 'address',
           type: 'string'
-        }
-      })
-      .options({
+        },
         c: {
           alias: 'chain',
           describe: 'chain',
@@ -42,23 +41,20 @@ export const fetchNftsFromNftscanCommand: Command = {
 
     try {
       const address = pipe(formatWalletAddress, toLower<HexString>)({ address: a, chain: c })
-      console.log(`fetching NFTs for ${a}...`)
+      logger.info({ wallet: { address: a, chain: c } }, 'fetching NFTs')
       try {
-        const response = await getAllNftsByAccount({ wallet: { address, chain: c }, fetch })
-        console.log(`received NFTs from ${response.length} collections`)
+        const response = await getAllNftsByAccount({ wallet: { address, chain: c }, fetch, logger })
+        logger.info(`received NFTs from ${response.length} collections`)
         forEach((collection) => {
-          console.log(`collection contract ${JSON.stringify(collection.contract, undefined, 2)}`)
           forEach((nft) => {
-            console.log(JSON.stringify(nft, undefined, 2))
+            logger.info({ nft })
           }, collection.nfts)
         }, response)
-        console.log(JSON.stringify(response, undefined, 2))
-      } catch (e) {
-        console.error(`error fetching NFTs for ${a}: ${errorMessage(e)}`)
-        console.error((e as Error).stack)
+      } catch (err) {
+        logger.error({ err, wallet: { address: a, chain: c } }, 'error fetching NFTs')
       }
     } catch (e) {
-      console.error(`address ${a} is not a valid address`)
+      logger.error({ address: a }, 'not a valid address')
     }
   }
 }

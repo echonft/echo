@@ -8,9 +8,9 @@ import { fetchNftsFromNftscanCommand } from '@echo/commands/commands/fetch-nfts-
 import { fetchNftsFromOpenseaCommand } from '@echo/commands/commands/fetch-nfts-from-opensea-command'
 import { fetchNftsWithCollectionFromNftscanCommand } from '@echo/commands/commands/fetch-nfts-with-collection-from-nftscan-command'
 import { fetchNftsWithPagingFromNftscanCommand } from '@echo/commands/commands/fetch-nfts-with-paging-from-nftscan-command'
-import { listCollectionsContractCommand } from '@echo/commands/commands/list-collections-contract-command'
 import { updateCollectionCommand } from '@echo/commands/commands/update-collection-command'
 import { updateNftCommand } from '@echo/commands/commands/update-nft-command'
+import { getLogger } from '@echo/commands/helpers/get-logger'
 import { find, isNil, map, prop, propEq } from 'ramda'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
@@ -27,10 +27,10 @@ void (async function () {
     fetchNftsFromOpenseaCommand,
     fetchNftsWithCollectionFromNftscanCommand,
     fetchNftsWithPagingFromNftscanCommand,
-    listCollectionsContractCommand,
     updateCollectionCommand,
     updateNftCommand
   ]
+  const logger = getLogger()
   const { c } = await yargs(hideBin(process.argv))
     .options({
       c: {
@@ -44,7 +44,7 @@ void (async function () {
     .parse()
   const command = find(propEq(c, 'name'), commands)
   if (isNil(command)) {
-    console.error(`command ${c} does not exist`)
+    logger.error(`command ${c} does not exist`)
     return
   }
   await command.execute()

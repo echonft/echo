@@ -1,14 +1,12 @@
+import { deleteUser } from '@echo/firestore/crud/user/delete-user'
 import { getUserSnapshotByDiscordId } from '@echo/firestore/crud/user/get-user-by-discord-id'
 import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { updateUser } from '@echo/firestore/crud/user/update-user'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
 import { assertUsers } from '@echo/firestore/utils/user/assert-users'
-import { deleteUser } from '@echo/firestore/crud/user/delete-user'
 import { unchecked_updateUser } from '@echo/firestore/utils/user/unchecked_update-user'
 import type { DiscordProfile } from '@echo/model/types/discord-profile'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNotNil } from 'ramda'
@@ -29,18 +27,10 @@ describe('CRUD - user - updateUser', () => {
   })
   afterEach(async () => {
     if (isNotNil(updatedUsername)) {
-      try {
-        await unchecked_updateUser(updatedUsername, getUserDocumentDataMockByUsername(updatedUsername))
-      } catch (e) {
-        pinoLogger.error(`Error reverting user with username ${updatedUsername}: ${errorMessage(e)}`)
-      }
+      await unchecked_updateUser(updatedUsername, getUserDocumentDataMockByUsername(updatedUsername))
     }
     if (isNotNil(newUserId)) {
-      try {
-        await deleteUser(newUserId)
-      } catch (e) {
-        pinoLogger.error(`Error deleting user with id ${newUserId}: ${errorMessage(e)}`)
-      }
+      await deleteUser(newUserId)
     }
   })
 

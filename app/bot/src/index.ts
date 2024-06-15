@@ -1,8 +1,5 @@
-import { botLogger } from '@echo/bot/constants/bot-logger'
-import { client } from '@echo/bot/constants/client'
 import { guardAsyncFn } from '@echo/bot/helpers/guard-async-fn'
 import { initializeSentry } from '@echo/bot/helpers/initialize-sentry'
-import { sendToEchoChannel } from '@echo/bot/helpers/send-to-echo-channel'
 import { listingChangeHandler } from '@echo/bot/listing/listing-change-handler'
 import { initializeTranslations } from '@echo/bot/messages/initialize-translations'
 import { offerChangeHandler } from '@echo/bot/offer/offer-change-handler'
@@ -13,26 +10,49 @@ import { listenToOfferUpdates } from '@echo/firestore/listeners/listen-to-offer-
 import { listenToOffers } from '@echo/firestore/listeners/listen-to-offers'
 import { listenToSwaps } from '@echo/firestore/listeners/listen-to-swaps'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { modelLoggerSerializers } from '@echo/model/constants/logger-serializers'
+import { getBaseLogger } from '@echo/utils/services/pino-logger'
 import { getSecret } from '@echo/utils/services/secret-manager'
-import { Events } from 'discord.js'
-import { equals } from 'ramda'
+import type { Logger } from '@echo/utils/types/logger'
+import { Client, Events, GatewayIntentBits } from 'discord.js'
+import { assoc, isNil, pick, pipe } from 'ramda'
 
-await initializeFirebase()
-initializeSentry()
-await initializeTranslations()
-listenToListings((changeType, snapshot) => guardAsyncFn(listingChangeHandler)(changeType, snapshot))
-listenToOffers((changeType, snapshot) => guardAsyncFn(offerChangeHandler)(changeType, snapshot))
-listenToOfferUpdates((changeType, snapshot) => guardAsyncFn(offerUpdateChangeHandler)(changeType, snapshot))
-listenToSwaps((changeType, snapshot) => guardAsyncFn(swapChangeHandler)(changeType, snapshot))
-
-client.once(Events.ClientReady, (_client) => {
-  void guardAsyncFn(sendToEchoChannel)('Echo bot up and running')
+const client = new Client({ intents: [GatewayIntentBits.Guilds] })
+const botLogger: Logger = getBaseLogger('Bot', {
+  serializers: [{ channel: pick(['id']), thread: pick(['id']) }, modelLoggerSerializers]
 })
 
-//make sure this line is the last line
-const clientToken = await getSecret('DISCORD_CLIENT_TOKEN')
-void client.login(clientToken) //login bot using token
-botLogger.info({ msg: `Echo bot started` })
-botLogger.info({ msg: `build env: ${process.env.NODE_ENV}` })
-botLogger.info({ msg: `env: ${process.env.ENV}` })
-botLogger.info({ msg: `network: ${equals(process.env.NEXT_PUBLIC_IS_TESTNET, '1') ? 'testnet' : 'mainnet'}` })
+client.once(Events.ClientReady, (client) => {
+  listenToListings(pipe(assoc('client', client), assoc('logger', botLogger), guardAsyncFn(listingChangeHandler)))
+  listenToOffers(pipe(assoc('client', client), assoc('logger', botLogger), guardAsyncFn(offerChangeHandler)))
+  listenToOfferUpdates(
+    pipe(assoc('client', client), assoc('logger', botLogger), guardAsyncFn(offerUpdateChangeHandler))
+  )
+  listenToSwaps(pipe(assoc('client', client), assoc('logger', botLogger), guardAsyncFn(swapChangeHandler)))
+})
+
+async function main() {
+  await initializeFirebase({ logger: botLogger })
+  botLogger.info('firebase initialized')
+  initializeSentry()
+  await initializeTranslations()
+  const clientToken = await getSecret({ name: 'DISCORD_CLIENT_TOKEN', logger: botLogger })
+  if (isNil(clientToken)) {
+    botLogger.error('DISCORD_CLIENT_TOKEN is not set')
+    process.exit(1)
+  }
+  // Login to Discord with your client's token
+  try {
+    await client.login(clientToken)
+    botLogger.info('logged in')
+  } catch (err) {
+    botLogger.fatal({ err }, 'login failed')
+  }
+}
+
+// Run the main function
+try {
+  await main()
+} catch (err) {
+  botLogger.fatal({ err }, 'error while initializing')
+}

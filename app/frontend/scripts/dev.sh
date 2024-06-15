@@ -1,11 +1,11 @@
 #!/bin/sh
-auth_discord_id=$(gcloud secrets versions access 'latest' --secret="DISCORD_CLIENT_ID" --project=echo-dev-fallback)
-auth_discord_secret=$(gcloud secrets versions access 'latest' --secret="DISCORD_CLIENT_SECRET" --project=echo-dev-fallback)
-auth_secret=$(gcloud secrets versions access 'latest' --secret="AUTH_SECRET" --project=echo-dev-fallback)
+AUTH_DISCORD_ID=$(gcloud secrets versions access 'latest' --secret="DISCORD_CLIENT_ID" --project=echo-dev-fallback)
+AUTH_DISCORD_SECRET=$(gcloud secrets versions access 'latest' --secret="DISCORD_CLIENT_SECRET" --project=echo-dev-fallback)
+AUTH_SECRET=$(gcloud secrets versions access 'latest' --secret="AUTH_SECRET" --project=echo-dev-fallback)
 
 ENV=development \
 NEXT_PUBLIC_IS_TESTNET=1 \
-AUTH_SECRET="${auth_secret}" \
-AUTH_DISCORD_ID="${auth_discord_id}" \
-AUTH_DISCORD_SECRET="${auth_discord_secret}" \
+AUTH_SECRET="${AUTH_SECRET}" \
+AUTH_DISCORD_ID="${AUTH_DISCORD_ID}" \
+AUTH_DISCORD_SECRET="${AUTH_DISCORD_SECRET}" \
  pnpm exec turbo dev --filter=@echo/frontend --filter=@echo/ui

@@ -1,8 +1,5 @@
-import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { PageLayoutSkeleton } from '@echo/ui/components/base/layout/skeleton/page-layout-skeleton'
 
-function render() {
+export default function render() {
   return <PageLayoutSkeleton />
 }
-
-export default withLocale(render)

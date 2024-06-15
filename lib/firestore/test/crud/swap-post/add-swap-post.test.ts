@@ -1,11 +1,9 @@
-import { swapMockId } from '@echo/firestore/mocks/swap/swap-mock'
-import { assertSwapPosts } from '@echo/firestore/utils/swap-post/assert-swap-posts'
+import { addSwapPost } from '@echo/firestore/crud/swap-post/add-swap-post'
 import { deleteSwapPost } from '@echo/firestore/crud/swap-post/delete-swap-post'
 import { getSwapPostById } from '@echo/firestore/crud/swap-post/get-swap-post-by-id'
-import { addSwapPost } from '@echo/firestore/crud/swap-post/add-swap-post'
+import { swapMockId } from '@echo/firestore/mocks/swap/swap-mock'
 import type { SwapPostDiscordGuild } from '@echo/firestore/types/model/swap-post/swap-post'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
+import { assertSwapPosts } from '@echo/firestore/utils/swap-post/assert-swap-posts'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
@@ -25,11 +23,7 @@ describe('CRUD - swap-post - addSwapPost', () => {
   })
   afterEach(async () => {
     if (!isNil(createdSwapPostId)) {
-      try {
-        await deleteSwapPost(createdSwapPostId)
-      } catch (e) {
-        pinoLogger.error(`Error deleting swap post with id ${createdSwapPostId}: ${errorMessage(e)}`)
-      }
+      await deleteSwapPost(createdSwapPostId)
     }
   })
   it('add a swap post', async () => {

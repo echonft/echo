@@ -1,24 +1,35 @@
-import { botLogger } from '@echo/bot/constants/bot-logger'
 import { sendToEchoChannel } from '@echo/bot/helpers/send-to-echo-channel'
 import { buildListingEmbed } from '@echo/bot/listing/build-listing-embed'
 import { buildListingLinkButton } from '@echo/bot/listing/build-listing-link-button'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import type { Listing } from '@echo/model/types/listing'
+import type { WithLogger } from '@echo/utils/types/with-logger'
+import type { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
-export async function postListing(listing: Listing, listingId: string) {
+interface PostListingArgs extends WithLogger {
+  client: Client
+  listing: Listing & Record<'id', string>
+}
+
+export async function postListing(args: PostListingArgs) {
+  const { client, listing, logger } = args
   const {
     slug,
     creator: { username }
   } = listing
   const creator = await getUserByUsername(username)
   if (isNil(creator)) {
-    botLogger.error({ msg: `[LISTING ${listingId}] creator ${username} not found` })
+    logger?.error({ listing }, `creator not found`)
     return
   }
   await sendToEchoChannel({
-    components: [buildListingLinkButton(slug)],
-    embeds: [buildListingEmbed(listing, creator)]
+    client,
+    payload: {
+      components: [buildListingLinkButton(slug)],
+      embeds: [buildListingEmbed(listing, creator)]
+    },
+    logger
   })
-  botLogger.info({ msg: `[LISTING ${listingId}] posted to Discord` })
+  logger?.info({ listing }, 'listing posted to Discord')
 }

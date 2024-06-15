@@ -1,20 +1,17 @@
 import { linkProvider } from '@echo/api/routing/link-provider'
 import { getListingsForCreator } from '@echo/firestore/crud/listing/get-listings-for-creator'
-import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { setListingRole } from '@echo/frontend/lib/helpers/listing/set-listing-role'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
-import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
+import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
 import type { WithUsername } from '@echo/model/types/with-username'
 import { NAVIGATION_LISTINGS } from '@echo/ui/constants/navigation-item'
 import { UserListings } from '@echo/ui/pages/user/listings/user-listings'
 import { UserNavigationLayout } from '@echo/ui/pages/user/navigation/user-navigation-layout'
 import { redirect } from 'next/navigation'
 import { andThen, pipe } from 'ramda'
-import type { ReactElement } from 'react'
 
-type Params = NextUserParams<NextParams<WithUsername>>
-async function render({ params: { username }, user }: Params) {
+async function render({ params: { username }, user }: PropsWithUser<NextParams<WithUsername>>) {
   if (user?.username === username) {
     redirect(linkProvider.profile.listings.get())
   }
@@ -26,4 +23,4 @@ async function render({ params: { username }, user }: Params) {
   )
 }
 
-export default pipe(withLocale<Params, Promise<ReactElement>>, withUser)(render)
+export default withUser(render)

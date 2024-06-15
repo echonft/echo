@@ -3,11 +3,13 @@
   "extends": ["//"],
   "tasks": {
     "artifacts:delete": {
-      "cache": false
+      "cache": false,
+      "passThroughEnv": ["ENV"]
     },
     "deploy": {
       "dependsOn": ["lint", "tsc", "build"],
-      "cache": false
+      "cache": false,
+      "passThroughEnv": ["CI", "ENV"]
     }
   }
 }

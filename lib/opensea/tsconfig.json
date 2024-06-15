@@ -6,8 +6,7 @@
       "@echo/model/*": ["../model/src/*"],
       "@echo/opensea/*": ["src/*"],
       "@echo/utils/*": ["../utils/src/*"]
-    },
-    "lib": ["dom", "esnext"]
+    }
   },
   "include": ["src", "test", "../../env.d.ts"],
   "exclude": ["node_modules"]

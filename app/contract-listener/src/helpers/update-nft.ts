@@ -5,8 +5,9 @@ import type { NftIndex } from '@echo/model/types/nft-index'
 import type { User } from '@echo/model/types/user'
 import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
 import type { ChainName } from '@echo/utils/types/chain-name'
+import type { WithLogger } from '@echo/utils/types/with-logger'
 
-export interface UpdateNftArgs {
+export interface UpdateNftArgs extends WithLogger {
   nftIndex: NftIndex
   owner: User
   chain: ChainName

@@ -14,15 +14,19 @@ import { isNil } from 'ramda'
  * @param {Omit<TransferData, 'to'> & { to: WalletDocumentData }} args
  */
 export async function processSwapTransfer(args: Omit<TransferData, 'to'> & { to: WalletDocumentData }): Promise<void> {
-  const { contractAddress, chain, to, tokenId } = args
-  console.log(`SWAP transfer for ${contractAddress}:${tokenId}, processing...`)
+  const { contractAddress, chain, to, tokenId, logger } = args
+  const fn = 'processSwapTransfer'
+  logger?.info(
+    { fn, nft: { collection: { contract: { address: contractAddress, chain: args.chain } } } },
+    'processing outbound transfer'
+  )
   const userDocumentData = await getUserById(to.userId)
   if (isNil(userDocumentData)) {
-    console.error(`[SWAP transfer ${contractAddress}:${tokenId}] user ${to.userId} not found`)
+    logger?.error({ fn, to }, 'user not found')
     return
   }
   const user = getUserFromFirestoreData(userDocumentData, to)
   const collection = await getCollection({ chain, address: contractAddress })
   const nftIndex = getNftIndex({ collection, tokenId })
-  await updateNft({ nftIndex, owner: user, collection, chain })
+  await updateNft({ nftIndex, owner: user, collection, chain, logger })
 }

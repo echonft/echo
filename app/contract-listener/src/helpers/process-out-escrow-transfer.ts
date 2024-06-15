@@ -1,4 +1,3 @@
-import { contractListenerLogger } from '@echo/contract-listener/constants/contract-listener-logger'
 import { getCollection } from '@echo/contract-listener/helpers/get-collection'
 import type { EscrowData } from '@echo/contract-listener/types/escrow-data'
 import { deleteEscrowedNft } from '@echo/firestore/crud/escrowed-nft/delete-escrowed-nft'
@@ -12,37 +11,38 @@ import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import { isNil, toLower } from 'ramda'
 
 export async function processOutEscrowTransfer(args: EscrowData): Promise<void> {
-  const { contractAddress, chain, to: toAddress, tokenId } = args
-  contractListenerLogger.info({
-    msg: `[OUT_ESCROW transfer ${contractAddress}:${tokenId}] to wallet ${JSON.stringify(toAddress)}, processing...`
-  })
-  try {
-    // Need to fetch the user data to change ownership
-    const to = await getWalletByAddress({ chain, address: toLower(toAddress) })
-    const userDocumentData = to && (await getUserById(to.userId))
-    const user = userDocumentData && getUserFromFirestoreData(userDocumentData, to)
-    const collection = await getCollection({ chain, address: contractAddress })
-    const nftIndex = getNftIndex({ collection, tokenId })
-    const nftSnapshot = await getEscrowedNftSnapshot(nftIndex)
+  const fn = 'processOutEscrowTransfer'
+  const { contractAddress, chain, to: toAddress, tokenId, logger } = args
+  logger?.info(
+    { fn, nft: { collection: { contract: { address: contractAddress, chain: args.chain } } }, toAddress },
+    'outbound escrow transfer processing...'
+  )
+  // Need to fetch the user data to change ownership
+  const to = await getWalletByAddress({ chain, address: toLower(toAddress) })
+  const userDocumentData = to && (await getUserById(to.userId))
+  const user = userDocumentData && getUserFromFirestoreData(userDocumentData, to)
+  const collection = await getCollection({ chain, address: contractAddress })
+  const nftIndex = getNftIndex({ collection, tokenId })
+  const nftSnapshot = await getEscrowedNftSnapshot(nftIndex)
 
-    // Should not happen
-    if (isNil(nftSnapshot)) {
-      contractListenerLogger.error({ msg: `processOutEscrowTransfer error finding NFT ${contractAddress}:${tokenId}` })
-      return
-    }
-    const nftData = nftSnapshot.data()
+  // Should not happen
+  if (isNil(nftSnapshot)) {
+    logger?.error(
+      { fn, nft: { collection: { contract: { address: contractAddress, chain: args.chain } } } },
+      'NFT not found'
+    )
+    return
+  }
+  const nftData = nftSnapshot.data()
 
-    // If the user is not found after the transaction, it means he is not in the Echo database
-    // We simply delete the NFT in that case
-    if (isNil(user)) {
-      await deleteEscrowedNft(nftSnapshot.id)
-    } else {
-      const nft: NftWithId = { ...nftData, id: nftSnapshot.id, owner: user }
-      // We add NFT back in the NFT database and remove the escrowed one
-      await addNftWithId(nft)
-      await deleteEscrowedNft(nftSnapshot.id)
-    }
-  } catch (err) {
-    contractListenerLogger.error({ msg: `processOutEscrowTransfer error`, error: err })
+  // If the user is not found after the transaction, it means he is not in the Echo database
+  // We simply delete the NFT in that case
+  if (isNil(user)) {
+    await deleteEscrowedNft(nftSnapshot.id)
+  } else {
+    const nft: NftWithId = { ...nftData, id: nftSnapshot.id, owner: user }
+    // We add NFT back in the NFT database and remove the escrowed one
+    await addNftWithId(nft)
+    await deleteEscrowedNft(nftSnapshot.id)
   }
 }

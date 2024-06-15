@@ -1,8 +1,6 @@
-import { getOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/get-offer-update-post'
 import { deleteOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/delete-offer-update-post'
+import { getOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/get-offer-update-post'
 import { unchecked_addOfferUpdatePost } from '@echo/firestore/utils/offer-update-post/unchecked_add-offer-update-post'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
@@ -15,12 +13,8 @@ describe('CRUD - offer-update-post - getOfferUpdatePost', () => {
   })
   afterEach(async () => {
     if (!isNil(offerUpdatePostId)) {
-      try {
-        await deleteOfferUpdatePost(offerUpdatePostId)
-        offerUpdatePostId = undefined
-      } catch (e) {
-        pinoLogger.error(`Error deleting offer update post with id ${offerUpdatePostId}: ${errorMessage(e)}`)
-      }
+      await deleteOfferUpdatePost(offerUpdatePostId)
+      offerUpdatePostId = undefined
     }
   })
   it('returns undefined if no document is found', async () => {

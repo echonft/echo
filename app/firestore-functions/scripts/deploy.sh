@@ -9,10 +9,13 @@ convert_to_camel_case() {
 
 if [ "${ENV}" == "development" ]; then
   project="echo-dev-fallback"
+  NEXT_PUBLIC_IS_TESTNET="1"
 elif [ "${ENV}" == "staging" ]; then
   project="echo-staging-ba121"
+  NEXT_PUBLIC_IS_TESTNET="0"
 elif [ "${ENV}" == "production" ]; then
   project="echo-prod-b71e2"
+  NEXT_PUBLIC_IS_TESTNET="0"
 else
   >&2 echo "ENV not set"
   exit 1
@@ -21,7 +24,7 @@ fi
 dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 functions_dir="${dir}/../src/functions"
 if [ "${NEXT_PUBLIC_IS_TESTNET}" == "1" ]; then
-  set_env_vars="--set-env-vars=NEXT_PUBLIC_IS_TESTNET=${NEXT_PUBLIC_IS_TESTNET}"
+  set_env_vars="--set-env-vars=NEXT_PUBLIC_IS_TESTNET=1"
 else
   set_env_vars=""
 fi

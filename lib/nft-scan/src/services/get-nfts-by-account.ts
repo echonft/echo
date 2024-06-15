@@ -1,6 +1,7 @@
 import type { Collection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
 import { fetchNftsByAccount } from '@echo/nft-scan/fetchers/fetch-nfts-by-account'
+import { getLogger } from '@echo/nft-scan/helpers/get-logger'
 import { mapNftResponse, type MapNftResponseArgs } from '@echo/nft-scan/mappers/map-nft-response'
 import type { GetNftsByAccountRequest } from '@echo/nft-scan/types/request/get-nfts-by-account-request'
 import { getNftsByAccountResponseSchema } from '@echo/nft-scan/validators/get-nfts-by-account-response-schema'
@@ -21,11 +22,16 @@ async function handlePaging(args: GetNftsByAccountRequest, accNfts: AccType): Pr
   return handlePaging(assoc('next', next, args), mergedResponse)
 }
 
-export async function getNftsByAccount(
-  args: GetNftsByAccountArgs
-): Promise<(Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & Record<'collection', Pick<Collection, 'contract'>>)[]> {
-  return pipe(
+export function getNftsByAccount(args: GetNftsByAccountArgs) {
+  return pipe<
+    [GetNftsByAccountArgs],
+    GetNftsByAccountRequest,
+    GetNftsByAccountRequest,
+    Promise<AccType>,
+    Promise<(Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & Record<'collection', Pick<Collection, 'contract'>>)[]>
+  >(
     assoc('limit', defaultTo(100, args.limit)),
+    assoc('logger', getLogger({ chain: args.wallet.chain, fn: 'getNftsByAccount', logger: args.logger })),
     partialRight(handlePaging, [[]]),
     andThen(
       map(pipe(applySpec<MapNftResponseArgs>({ chain: always(args.wallet.chain), response: identity }), mapNftResponse))

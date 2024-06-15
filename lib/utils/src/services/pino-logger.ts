@@ -1,34 +1,54 @@
 import { isCI } from '@echo/utils/constants/is-ci'
 import { isProd } from '@echo/utils/constants/is-prod'
 import { isTest } from '@echo/utils/constants/is-test'
+
+import type { LoggerSerializer } from '@echo/utils/types/logger-serializer'
 import pino from 'pino'
-import { applySpec, has, path, pick, prop } from 'ramda'
+import { always, assoc, equals, is, isNil, mergeAll, mergeLeft, pipe, unless } from 'ramda'
 
-export const pinoLogger = pino({
-  level: isCI || isTest ? 'silent' : isProd ? 'info' : 'trace'
-})
+interface LoggerOptions {
+  baseMergeObject?: Record<string, unknown>
+  serializers?: LoggerSerializer | LoggerSerializer[]
+  override?: {
+    enabled?: boolean
+    level?: string
+  }
+}
 
-export function getBaseLogger(name: string) {
+function getSerializers(serializers?: LoggerSerializer | LoggerSerializer[]): LoggerSerializer {
+  const baseSerializer: LoggerSerializer = {
+    err: pino.stdSerializers.err
+  }
+  if (isNil(serializers)) {
+    return baseSerializer
+  }
+  if (is(Array, serializers)) {
+    return mergeAll<LoggerSerializer>([...serializers, baseSerializer])
+  }
+  return mergeLeft(baseSerializer, serializers)
+}
+
+export function getBaseLogger(name: string, options?: LoggerOptions) {
   return pino({
-    level: isCI || isTest ? 'silent' : isProd ? 'info' : 'trace',
+    enabled: options?.override?.enabled ?? (!isCI && !isTest),
+    level: options?.override?.level ?? isProd ? 'info' : 'trace',
     name,
     formatters: {
       level(label, _number) {
         return { level: label }
       }
     },
-    mixin(mergeObject) {
-      if (has('error', mergeObject)) {
-        return applySpec({
-          msg: prop('msg'),
-          error: path(['error', 'message'])
-          // stack: path(['error', 'stack'])
-        })(mergeObject)
-      }
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      return pick(['msg'], mergeObject)
+    mixin(mergeObject: object, _level: number) {
+      return pipe(
+        assoc('env', process.env.ENV),
+        assoc('node_env', process.env.NODE_ENV),
+        assoc('network', equals(process.env.NEXT_PUBLIC_IS_TESTNET, '1') ? 'testnet' : 'mainnet'),
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        unless(always(isNil(options?.baseMergeObject)), mergeLeft(options?.baseMergeObject))
+      )(mergeObject) as object
     },
+    serializers: getSerializers(options?.serializers),
     base: undefined,
     timestamp: false
   })

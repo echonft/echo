@@ -1,10 +1,9 @@
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
-import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { getNftIndexFromQueryParam } from '@echo/frontend/lib/helpers/nft/get-nft-index-from-query-param'
-import type { NextSearchParams } from '@echo/frontend/lib/types/next-search-params'
-import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
+import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
+import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
 import type { Nft } from '@echo/model/types/nft'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import type { User } from '@echo/model/types/user'
@@ -35,15 +34,15 @@ import {
   reject,
   unless
 } from 'ramda'
-import type { ReactElement } from 'react'
 
-type Params = NextUserParams<
-  NextSearchParams<{
+async function render({
+  searchParams: { receiverItems },
+  user
+}: PropsWithUser<
+  WithSearchParamsProps<{
     receiverItems?: string[] | string
   }>
->
-
-async function render({ searchParams: { receiverItems }, user }: Params) {
+>) {
   // Cannot go to that page without previously selected data
   if (isNilOrEmpty(receiverItems)) {
     notFound()
@@ -83,4 +82,4 @@ async function render({ searchParams: { receiverItems }, user }: Params) {
   )
 }
 
-export default pipe(withLocale<Params, Promise<ReactElement>>, withUser)(render)
+export default withUser(render)

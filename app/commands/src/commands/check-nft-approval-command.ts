@@ -1,3 +1,4 @@
+import { getLogger } from '@echo/commands/helpers/get-logger'
 import type { Command } from '@echo/commands/types/command'
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
@@ -16,6 +17,7 @@ import { hideBin } from 'yargs/helpers'
 export const checkNftApprovalCommand: Command = {
   name: 'check-nft-approval',
   execute: async function () {
+    const logger = getLogger().child({ command: 'check-nft-approval' })
     const { i } = await yargs(hideBin(process.argv))
       .options({
         i: {
@@ -29,12 +31,12 @@ export const checkNftApprovalCommand: Command = {
     await initializeFirebase()
     const nft = await getNftById(i)
     if (isNil(nft)) {
-      console.error(`NFT ${i} not found in the database`)
+      logger.error({ nft: { tokenId: i } }, 'NFT not found in the database')
       return
     }
     const approved = await nftIsApproved(nft, console)
     if (approved) {
-      console.log(`NFT ${i} is approved`)
+      logger.info({ nft: { tokenId: i } }, 'NFT is approved')
     }
     await terminateFirestore()
   }

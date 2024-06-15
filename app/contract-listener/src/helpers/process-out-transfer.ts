@@ -12,15 +12,19 @@ import { isNil } from 'ramda'
  * @param {TransferData} args
  */
 export async function processOutTransfer(args: TransferData) {
-  const { contractAddress, chain, tokenId } = args
-  console.log(`[OUT transfer ${contractAddress}:${tokenId}] processing...`)
+  const { contractAddress, chain, tokenId, logger } = args
+  const fn = 'processOutTransfer'
+  logger?.info(
+    { fn, nft: { collection: { contract: { address: contractAddress, chain: args.chain } } } },
+    'processing outbound transfer'
+  )
   const collection = await getCollection({ chain, address: contractAddress })
   const nftIndex = getNftIndex({ collection, tokenId })
   const snapshot = await getNftSnapshot(nftIndex)
   if (isNil(snapshot)) {
-    console.error(`NFT with index ${JSON.stringify(nftIndex)} not found`)
+    logger?.error({ fn, nft: nftIndex }, 'NFT not found')
     return
   }
   await deleteNft(snapshot.id)
-  console.log(`[OUT transfer ${JSON.stringify(nftIndex)}] NFT ${snapshot.id} deleted`)
+  logger?.info({ fn, nft: nftIndex }, 'NFT deleted')
 }

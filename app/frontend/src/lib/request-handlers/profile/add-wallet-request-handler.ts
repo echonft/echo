@@ -13,35 +13,41 @@ import { verifySiweMessage } from '@echo/frontend/lib/helpers/auth/verify-siwe-m
 import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
 import { assertNonce } from '@echo/frontend/lib/helpers/user/assert/assert-nonce'
 import { assertUserExists } from '@echo/frontend/lib/helpers/user/assert/assert-user-exists'
+import type { AuthRequestHandlerArgs } from '@echo/frontend/lib/types/request-handlers/auth-request-handler'
 import { addWalletSchema } from '@echo/frontend/lib/validators/add-wallet-schema'
 import type { Wallet } from '@echo/model/types/wallet'
-import { NextResponse } from 'next/server'
 import type { User } from 'next-auth'
+import { NextResponse } from 'next/server'
 import { andThen, map, pipe, prop } from 'ramda'
 
-export async function addWalletRequestHandler(user: User, req: ApiRequest<AddWalletRequest>) {
-  const requestBody = await guardAsyncFn(
-    (req: ApiRequest<AddWalletRequest>) => req.json(),
-    ErrorStatus.BAD_REQUEST
-  )(req)
-  const { message, wallet, signature } = guardFn(
-    (requestBody) => addWalletSchema.parse(requestBody),
-    ErrorStatus.BAD_REQUEST
-  )(requestBody)
-  const siweMessage = guardFn(getSiweMessage, ErrorStatus.BAD_REQUEST)(message)
-  const verifiedMessage = await guardAsyncFn(verifySiweMessage, ErrorStatus.BAD_REQUEST)(signature, siweMessage)
-  const foundUser = await guardAsyncFn(getUserByUsername, ErrorStatus.SERVER_ERROR)(user.username)
+export async function addWalletRequestHandler({ user, req, logger }: AuthRequestHandlerArgs<AddWalletRequest>) {
+  const requestBody = await guardAsyncFn({
+    fn: (req: ApiRequest<AddWalletRequest>) => req.json(),
+    logger
+  })(req)
+  const { message, wallet, signature } = guardFn({
+    fn: (requestBody) => addWalletSchema.parse(requestBody),
+    logger
+  })(requestBody)
+  const siweMessage = guardFn({ fn: getSiweMessage, logger })(message)
+  const verifiedMessage = await guardAsyncFn({ fn: verifySiweMessage, logger })(signature, siweMessage)
+  const foundUser = await guardAsyncFn({ fn: getUserByUsername, status: ErrorStatus.SERVER_ERROR, logger })(
+    user.username
+  )
   assertUserExists(foundUser, user.username)
-  const nonce = await guardAsyncFn(getNonceForUser, ErrorStatus.SERVER_ERROR)(foundUser.username)
+  const nonce = await guardAsyncFn({ fn: getNonceForUser, status: ErrorStatus.SERVER_ERROR, logger })(
+    foundUser.username
+  )
   assertNonce(nonce, verifiedMessage)
-  await guardAsyncFn(addWallet, ErrorStatus.SERVER_ERROR)(foundUser.username, wallet)
-  const wallets = await guardAsyncFn(
-    pipe<[User], string, Promise<WalletDocumentData[]>, Promise<Wallet[]>>(
+  await guardAsyncFn({ fn: addWallet, status: ErrorStatus.SERVER_ERROR, logger })(foundUser.username, wallet)
+  const wallets = await guardAsyncFn({
+    fn: pipe<[User], string, Promise<WalletDocumentData[]>, Promise<Wallet[]>>(
       prop('username'),
       getWalletsForUser,
       andThen(map(mapWalletDocumentDataToWallet))
     ),
-    ErrorStatus.SERVER_ERROR
-  )(user)
+    status: ErrorStatus.SERVER_ERROR,
+    logger
+  })(user)
   return NextResponse.json<WalletsResponse>({ wallets })
 }

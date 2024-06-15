@@ -7,34 +7,43 @@ import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
 import { assertNftsOwner } from '@echo/frontend/lib/helpers/nft/assert/assert-nfts-owner'
 import { getEscrowedNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-escrowed-nfts-from-indexes'
 import { getNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-nfts-from-indexes'
+import type { AuthRequestHandlerArgs } from '@echo/frontend/lib/types/request-handlers/auth-request-handler'
 import { createOfferSchema } from '@echo/frontend/lib/validators/create-offer-schema'
 import { generateBaseOffer } from '@echo/model/helpers/offer/generate-base-offer'
 import type { Nft } from '@echo/model/types/nft'
 import { generateOfferId } from '@echo/web3/helpers/generate-offer-id'
 import { NextResponse } from 'next/server'
-import type { User } from 'next-auth'
 import type { NonEmptyArray } from 'ramda'
 import { head } from 'ramda'
 
-export async function createOfferRequestHandler(user: User, req: ApiRequest<CreateOfferRequest>) {
-  const requestBody = await guardAsyncFn(
-    (req: ApiRequest<CreateOfferRequest>) => req.json(),
-    ErrorStatus.BAD_REQUEST
-  )(req)
-  const { receiverItems, senderItems, expiresAt } = guardFn(
-    (requestBody) => createOfferSchema.parse(requestBody),
-    ErrorStatus.BAD_REQUEST
-  )(requestBody)
+export async function createOfferRequestHandler({ user, req, logger }: AuthRequestHandlerArgs<CreateOfferRequest>) {
+  const requestBody = await guardAsyncFn({
+    fn: (req: ApiRequest<CreateOfferRequest>) => req.json(),
+    logger
+  })(req)
+  const { receiverItems, senderItems, expiresAt } = guardFn({
+    fn: (requestBody) => createOfferSchema.parse(requestBody),
+    logger
+  })(requestBody)
 
-  const receiverOfferItems = await guardAsyncFn(getNftsFromIndexes, ErrorStatus.SERVER_ERROR)(receiverItems)
+  const receiverOfferItems = await guardAsyncFn({ fn: getNftsFromIndexes, status: ErrorStatus.SERVER_ERROR, logger })(
+    receiverItems
+  )
   // We fetch the escrowed NFTs from the DB here because this call is done AFTER transaction has completed
   // and NFTs are thus in escrow
-  const senderOfferItems = await guardAsyncFn(getEscrowedNftsFromIndexes, ErrorStatus.SERVER_ERROR)(senderItems)
+  const senderOfferItems = await guardAsyncFn({
+    fn: getEscrowedNftsFromIndexes,
+    status: ErrorStatus.SERVER_ERROR,
+    logger
+  })(senderItems)
   // make sure the sender and receiver are the owners of the items
   assertNftsOwner(senderOfferItems, user.username)
   assertNftsOwner(receiverOfferItems, head(receiverOfferItems as NonEmptyArray<Nft>).owner.username)
   const baseOffer = generateBaseOffer({ senderOfferItems, receiverOfferItems, expiresAt })
   const offerContractId = generateOfferId(baseOffer)
-  const { data } = await guardAsyncFn(addOffer, ErrorStatus.SERVER_ERROR)(baseOffer, offerContractId)
+  const { data } = await guardAsyncFn({ fn: addOffer, status: ErrorStatus.SERVER_ERROR, logger })(
+    baseOffer,
+    offerContractId
+  )
   return NextResponse.json<OfferResponse>({ offer: data })
 }

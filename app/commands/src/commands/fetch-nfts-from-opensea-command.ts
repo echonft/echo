@@ -1,7 +1,7 @@
+import { getLogger } from '@echo/commands/helpers/get-logger'
 import type { Command } from '@echo/commands/types/command'
 import { getNftsByAccount } from '@echo/opensea/services/get-nfts-by-account'
 import { getChains } from '@echo/utils/helpers/chains/get-chains'
-import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
 import { forEach } from 'ramda'
@@ -18,15 +18,14 @@ import { hideBin } from 'yargs/helpers'
 export const fetchNftsFromOpenseaCommand: Command = {
   name: 'fetch-nfts-from-opensea',
   execute: async function () {
+    const logger = getLogger().child({ command: 'fetch-nfts-from-opensea' })
     const { a, c } = await yargs(hideBin(process.argv))
       .options({
         a: {
           alias: 'address',
           describe: 'address',
           type: 'string'
-        }
-      })
-      .options({
+        },
         c: {
           alias: 'chain',
           describe: 'chain',
@@ -41,19 +40,18 @@ export const fetchNftsFromOpenseaCommand: Command = {
 
     try {
       const address = formatWalletAddress({ address: a, chain: c })
-      console.log(`fetching NFTs for ${a}...`)
+      logger.info({ wallet: { address: a, chain: c } }, 'fetching NFTs')
       try {
-        const nfts = await getNftsByAccount({ address, chain: c, fetch })
-        console.log(`received ${nfts.length} NFTs`)
+        const nfts = await getNftsByAccount({ address, chain: c, fetch, logger })
+        logger.info(`received ${nfts.length} NFTs`)
         forEach((nft) => {
-          console.log(JSON.stringify(nft, undefined, 2))
+          logger.info({ nft })
         }, nfts)
-      } catch (e) {
-        console.error(`error fetching NFTs for ${a}: ${errorMessage(e)}`)
-        console.error((e as Error).stack)
+      } catch (err) {
+        logger.error({ err, wallet: { address: a, chain: c } }, 'error fetching NFTs')
       }
     } catch (e) {
-      console.error(`address ${a} is not a valid address`)
+      logger.error({ address: a }, 'not a valid address')
     }
   }
 }

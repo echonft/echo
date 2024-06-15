@@ -5,6 +5,7 @@ import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
+import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { isNil } from 'ramda'
 
 /**
@@ -15,17 +16,21 @@ import { isNil } from 'ramda'
  * @param {Omit<TransferData, 'to'> & { to: WalletDocumentData }} args
  */
 export async function processInTransfer(
-  args: Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>
+  args: WithLoggerType<Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>>
 ): Promise<void> {
-  const { contractAddress, chain, to, tokenId } = args
-  console.log(`[IN transfer ${contractAddress}:${tokenId}] to wallet ${JSON.stringify(to)}, processing...`)
+  const { contractAddress, chain, to, tokenId, logger } = args
+  const fn = 'processInTransfer'
+  logger?.info(
+    { fn, nft: { collection: { contract: { address: contractAddress, chain: args.chain } } }, to },
+    'processing inbound transfer'
+  )
   const userDocumentData = await getUserById(to.userId)
   if (isNil(userDocumentData)) {
-    console.error(`[IN transfer ${contractAddress}:${tokenId}] user ${to.userId} not found`)
+    logger?.error({ fn, to }, 'user not found')
     return
   }
   const user = getUserFromFirestoreData(userDocumentData, to)
   const collection = await getCollection({ chain, address: contractAddress })
   const nftIndex = getNftIndex({ collection, tokenId })
-  await updateNft({ nftIndex, owner: user, collection, chain })
+  await updateNft({ nftIndex, owner: user, collection, chain, logger })
 }

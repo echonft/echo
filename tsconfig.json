@@ -12,7 +12,7 @@
     "inlineSources": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "lib": ["esnext"],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
     "moduleResolution": "bundler",
     "noEmit": true,

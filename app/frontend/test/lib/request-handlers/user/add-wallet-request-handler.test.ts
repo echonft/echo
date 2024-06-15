@@ -1,12 +1,12 @@
 import { type AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
-import { getUserDocumentDataMockById } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-id'
-import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
-import { userMockJohnnyId } from '@echo/firestore/mocks/user/user-document-data-mock'
-import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
 import { getNonceForUser } from '@echo/firestore/crud/nonce/get-nonce-for-user'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
+import { getUserDocumentDataMockById } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-id'
+import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
+import { userMockJohnnyId } from '@echo/firestore/mocks/user/user-document-data-mock'
+import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
 import { type Nonce } from '@echo/firestore/types/model/nonce/nonce'
 import { getSiweMessage } from '@echo/frontend/lib/helpers/auth/get-siwe-message'
 import { verifySiweMessage } from '@echo/frontend/lib/helpers/auth/verify-siwe-message'
@@ -55,14 +55,14 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
 
   it('throws if the request cannot be parsed', async () => {
     const req = mockRequest<AddWalletRequest>({} as AddWalletRequest)
-    await expect(() => addWalletRequestHandler(user, req)).rejects.toHaveProperty('status', 400)
+    await expect(() => addWalletRequestHandler({ user, req })).rejects.toHaveProperty('status', 400)
   })
 
   it('throws if the siwe message cannot be validated', async () => {
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockRejectedValue({})
     const req = mockRequest<AddWalletRequest>(validRequest)
-    await expect(() => addWalletRequestHandler(user, req)).rejects.toHaveProperty('status', 400)
+    await expect(() => addWalletRequestHandler({ user, req })).rejects.toHaveProperty('status', 400)
   })
 
   it('throws if the nonce is not the same as the user nonce', async () => {
@@ -71,7 +71,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ nonce: 'nonce' } as SiweMessage)
     const req = mockRequest<AddWalletRequest>(validRequest)
-    await expect(() => addWalletRequestHandler(user, req)).rejects.toHaveProperty('status', 403)
+    await expect(() => addWalletRequestHandler({ user, req })).rejects.toHaveProperty('status', 403)
   })
 
   it('throws if the nonce is expired', async () => {
@@ -80,7 +80,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ nonce: 'nonce' } as SiweMessage)
     const req = mockRequest<AddWalletRequest>(validRequest)
-    await expect(() => addWalletRequestHandler(user, req)).rejects.toHaveProperty('status', 403)
+    await expect(() => addWalletRequestHandler({ user, req })).rejects.toHaveProperty('status', 403)
   })
 
   it('returns a 200 if the nonce is valid', async () => {
@@ -94,7 +94,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
     })
     jest.mocked(getWalletsForUser).mockResolvedValueOnce([])
     const req = mockRequest<AddWalletRequest>(validRequest)
-    const res = await addWalletRequestHandler(user, req)
+    const res = await addWalletRequestHandler({ user, req })
     expect(addWallet).toHaveBeenCalledTimes(1)
     expect(res.status).toBe(200)
   })

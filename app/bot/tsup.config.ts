@@ -2,15 +2,16 @@ import { defineConfig, type Options } from 'tsup'
 
 // noinspection JSUnusedGlobalSymbols
 export default defineConfig((options: Options) => ({
-  bundle: true,
+  // bundle: true,
   clean: true,
   entry: ['src/index.ts'],
   format: 'esm',
   inject: ['src/cjs-shim.ts'],
   minify: true,
+  splitting: true,
   platform: 'node',
   shims: true,
-  skipNodeModulesBundle: false,
+  // skipNodeModulesBundle: false,
   sourcemap: true,
   target: 'esnext',
   ...options

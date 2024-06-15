@@ -2,9 +2,30 @@
   "$schema": "https://turbo.build/schema.json",
   "extends": ["//"],
   "tasks": {
+    "analyze": {
+      "cache": false,
+      "passThroughEnv": [
+        "ANALYZE",
+        "AUTH_DISCORD_ID",
+        "AUTH_DISCORD_SECRET",
+        "AUTH_SECRET",
+        "CI",
+        "ENV",
+        "NEXT_PUBLIC_IS_TESTNET",
+        "NEXT_PUBLIC_SENTRY_DSN",
+        "NEXT_PUBLIC_VERCEL_URL",
+        "SECRET_MANAGER_EMAIL",
+        "SECRET_MANAGER_PRIVATE_KEY",
+        "SENTRY_AUTH_TOKEN",
+        "SENTRY_PROJECT",
+        "SENTRY_ORG",
+        "VERCEL_GIT_COMMIT_SHA"
+      ]
+    },
     "build": {
       "outputs": [".next/**", "!.next/cache/**"],
       "passThroughEnv": [
+        "ANALYZE",
         "AUTH_DISCORD_ID",
         "AUTH_DISCORD_SECRET",
         "AUTH_SECRET",
@@ -38,6 +59,7 @@
       ]
     },
     "start": {
+      "dependsOn": ["build:local"],
       "cache": false,
       "persistent": true,
       "passThroughEnv": [

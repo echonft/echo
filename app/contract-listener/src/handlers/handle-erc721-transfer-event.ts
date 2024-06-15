@@ -1,4 +1,4 @@
-import { guardAsyncFn } from '@echo/contract-listener/helpers/guard'
+import { guardAsyncFn } from '@echo/contract-listener/helpers/guard-async-fn'
 import { isEscrowing } from '@echo/contract-listener/helpers/is-escrowing'
 import { processEscrowTransfer } from '@echo/contract-listener/helpers/process-escrow-transfer'
 import { processInTransfer } from '@echo/contract-listener/helpers/process-in-transfer'
@@ -18,25 +18,26 @@ export async function handleErc721TransferEvent(args: EventLogHandlerArgs<Erc721
     log: {
       args: { from, to }
     },
-    chain
+    chain,
+    logger
   } = args
   // If it's an escrow transaction, process it and return
   if (isEscrowing({ chain, from, to })) {
-    return await guardAsyncFn({ fn: pipe(mapLogToEscrowData, processEscrowTransfer) })(args)
+    return await guardAsyncFn({ fn: pipe(mapLogToEscrowData, processEscrowTransfer), logger })(args)
   }
-  const transferData = await guardAsyncFn({ fn: mapErc721TransferLogToTransferData })(args)
+  const transferData = await guardAsyncFn({ fn: mapErc721TransferLogToTransferData, logger })(args)
   if (isNil(transferData)) {
     return
   }
   // The NFT was transfered out of the Echo ecosystem, delete it from DB
   if (propIsNil('to', transferData)) {
-    await guardAsyncFn({ fn: processOutTransfer })(transferData)
+    await guardAsyncFn({ fn: processOutTransfer, logger })(transferData)
     // The NFT was transfered to an Echo user, add it to DB
   } else if (propIsNil('from', transferData)) {
-    await guardAsyncFn({ fn: processInTransfer })(transferData)
+    await guardAsyncFn({ fn: processInTransfer, logger })(transferData)
     // Process swap
   } else {
-    await guardAsyncFn({ fn: processSwapTransfer })(
+    await guardAsyncFn({ fn: processSwapTransfer, logger })(
       transferData as Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>
     )
   }

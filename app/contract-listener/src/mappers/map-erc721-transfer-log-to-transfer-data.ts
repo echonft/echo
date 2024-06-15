@@ -13,7 +13,8 @@ export async function mapErc721TransferLogToTransferData(
     log: {
       address: contractAddress,
       args: { from, to, tokenId }
-    }
+    },
+    logger
   } = args
   const fromWallet = await getWalletByAddress({ chain, address: from })
   const toWallet = await getWalletByAddress({ chain, address: to })
@@ -26,6 +27,7 @@ export async function mapErc721TransferLogToTransferData(
     contractAddress,
     chain,
     from: fromWallet,
-    to: toWallet
+    to: toWallet,
+    logger
   }
 }

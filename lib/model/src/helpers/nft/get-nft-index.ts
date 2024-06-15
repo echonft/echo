@@ -4,7 +4,7 @@ import type { NftIndex } from '@echo/model/types/nft-index'
 import type { DeepPartial } from '@echo/utils/types/deep-partial'
 import { modify, pick, pipe } from 'ramda'
 
-type PartialNft = DeepPartial<Nft> & Required<NftIndex>
+export type PartialNft = DeepPartial<Nft> & Required<NftIndex>
 type PartialCollection = DeepPartial<Collection> & Required<Pick<Collection, 'slug'>>
 export function getNftIndex(nft: PartialNft): NftIndex {
   return pipe<[PartialNft], Pick<PartialNft, 'collection' | 'tokenId'>, NftIndex>(
