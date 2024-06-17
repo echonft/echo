@@ -9,15 +9,15 @@ export interface QuicknodeSignatureArgs {
   timestamp: string
 }
 
-export async function validateQuicknodeSignature(args: QuicknodeSignatureArgs): Promise<boolean> {
+export async function validateQuicknodeSignature(args: QuicknodeSignatureArgs) {
   const secret = await getSecret({ name: 'QUICKNODE_SECURITY_TOKEN' })
   if (isNil(secret)) {
-    return false
+    throw Error('QUICKNODE_SECURITY_TOKEN secret not found')
   }
   const { signature, nonce, contentHash, timestamp } = args
-
   const hmac = createHmac('sha256', secret)
   hmac.update(nonce + contentHash + timestamp)
-
-  return signature === hmac.digest('base64')
+  if (signature !== hmac.digest('base64')) {
+    throw Error('invalid Quicknode signature')
+  }
 }

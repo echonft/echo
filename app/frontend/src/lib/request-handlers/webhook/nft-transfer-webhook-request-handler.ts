@@ -13,15 +13,11 @@ import { NextResponse } from 'next/server'
 import { andThen, assoc, invoker, map, objOf, pipe } from 'ramda'
 
 export async function nftTransferWebhookRequestHandler({ req, logger }: RequestHandlerArgs<WebhookBlockRequest>) {
-  const signatureValid = await guardAsyncFn({
+  await guardAsyncFn({
     fn: pipe(getSignatureHeadersFromRequest, validateQuicknodeSignature),
     status: ErrorStatus.UNAUTHORIZED,
     logger
   })(req)
-  if (!signatureValid) {
-    // TODO
-    return NextResponse.json({})
-  }
   // FIXME Should come from the request (different routes for different chains)
   const chain = 'blast_sepolia'
   const transfers = await guardAsyncFn({
