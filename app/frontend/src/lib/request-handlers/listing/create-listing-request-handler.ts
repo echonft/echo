@@ -14,6 +14,7 @@ import { NextResponse } from 'next/server'
 export async function createListingRequestHandler({ user, req, logger }: AuthRequestHandlerArgs<CreateListingRequest>) {
   const { items, target, expiresAt } = await guardAsyncFn({
     fn: parseRequest(createListingSchema),
+    status: ErrorStatus.BAD_REQUEST,
     logger
   })(req)
   const listingItems = await guardAsyncFn({ fn: getNftsFromIndexes, status: ErrorStatus.SERVER_ERROR, logger })(items)

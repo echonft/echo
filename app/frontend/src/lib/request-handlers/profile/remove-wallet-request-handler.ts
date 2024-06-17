@@ -19,6 +19,7 @@ import { andThen, map, pipe, prop } from 'ramda'
 export async function removeWalletRequestHandler({ user, req, logger }: AuthRequestHandlerArgs<RemoveWalletRequest>) {
   const { wallet } = await guardAsyncFn({
     fn: parseRequest(removeWalletSchema),
+    status: ErrorStatus.BAD_REQUEST,
     logger
   })(req)
   const foundUser = await guardAsyncFn({ fn: getUserByUsername, status: ErrorStatus.SERVER_ERROR, logger })(

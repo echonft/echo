@@ -23,10 +23,14 @@ import { andThen, map, pipe, prop } from 'ramda'
 export async function addWalletRequestHandler({ user, req, logger }: AuthRequestHandlerArgs<AddWalletRequest>) {
   const { message, wallet, signature } = await guardAsyncFn({
     fn: parseRequest(addWalletSchema),
+    status: ErrorStatus.BAD_REQUEST,
     logger
   })(req)
-  const siweMessage = guardFn({ fn: getSiweMessage, logger })(message)
-  const verifiedMessage = await guardAsyncFn({ fn: verifySiweMessage, logger })(signature, siweMessage)
+  const siweMessage = guardFn({ fn: getSiweMessage, status: ErrorStatus.BAD_REQUEST, logger })(message)
+  const verifiedMessage = await guardAsyncFn({ fn: verifySiweMessage, status: ErrorStatus.BAD_REQUEST, logger })(
+    signature,
+    siweMessage
+  )
   const foundUser = await guardAsyncFn({ fn: getUserByUsername, status: ErrorStatus.SERVER_ERROR, logger })(
     user.username
   )

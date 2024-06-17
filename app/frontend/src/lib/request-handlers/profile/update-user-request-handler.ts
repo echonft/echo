@@ -15,6 +15,7 @@ import { pipe } from 'ramda'
 export async function updateUserRequestHandler({ req, logger }: RequestHandlerArgs<DiscordAuthToken>) {
   const token = await guardAsyncFn({
     fn: parseRequest(discordAuthTokenSchema),
+    status: ErrorStatus.BAD_REQUEST,
     severity: 'error',
     message: 'error parsing discord auth token',
     logger
@@ -27,6 +28,7 @@ export async function updateUserRequestHandler({ req, logger }: RequestHandlerAr
   if (response.ok) {
     const profile = await guardAsyncFn({
       fn: parseResponse(discordProfileSchema),
+      status: ErrorStatus.BAD_REQUEST,
       severity: 'error',
       message: 'error parsing discord response',
       logger

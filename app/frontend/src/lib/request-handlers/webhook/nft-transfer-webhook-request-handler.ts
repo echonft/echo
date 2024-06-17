@@ -29,6 +29,7 @@ export async function nftTransferWebhookRequestHandler({ req, logger }: RequestH
       invoker(0, 'json'),
       andThen(pipe(objOf('data'), assoc('chain', chain), (data) => transferEventLogSchema.parse(data)))
     ),
+    status: ErrorStatus.BAD_REQUEST,
     logger
   })(req)
   await guardAsyncFn({
@@ -43,6 +44,7 @@ export async function nftTransferWebhookRequestHandler({ req, logger }: RequestH
       ),
       promiseAll
     ),
+    status: ErrorStatus.SERVER_ERROR,
     logger
   })(transfers)
   return NextResponse.json({})

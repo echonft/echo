@@ -19,6 +19,7 @@ import { head } from 'ramda'
 export async function createOfferRequestHandler({ user, req, logger }: AuthRequestHandlerArgs<CreateOfferRequest>) {
   const { receiverItems, senderItems, expiresAt } = await guardAsyncFn({
     fn: parseRequest(createOfferSchema),
+    status: ErrorStatus.BAD_REQUEST,
     logger
   })(req)
   const receiverOfferItems = await guardAsyncFn({ fn: getNftsFromIndexes, status: ErrorStatus.SERVER_ERROR, logger })(
