@@ -1,4 +1,3 @@
-import { type ApiRequest } from '@echo/api/types/api-request'
 import { type AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
 import { getNonceForUser } from '@echo/firestore/crud/nonce/get-nonce-for-user'
@@ -15,22 +14,23 @@ import { assertNonce } from '@echo/frontend/lib/helpers/user/assert/assert-nonce
 import { assertUserExists } from '@echo/frontend/lib/helpers/user/assert/assert-user-exists'
 import type { AuthRequestHandlerArgs } from '@echo/frontend/lib/types/request-handlers/auth-request-handler'
 import { addWalletSchema } from '@echo/frontend/lib/validators/add-wallet-schema'
+import { parseRequest } from '@echo/frontend/lib/validators/parse-request'
 import type { Wallet } from '@echo/model/types/wallet'
 import type { User } from 'next-auth'
 import { NextResponse } from 'next/server'
 import { andThen, map, pipe, prop } from 'ramda'
 
 export async function addWalletRequestHandler({ user, req, logger }: AuthRequestHandlerArgs<AddWalletRequest>) {
-  const requestBody = await guardAsyncFn({
-    fn: (req: ApiRequest<AddWalletRequest>) => req.json(),
+  const { message, wallet, signature } = await guardAsyncFn({
+    fn: parseRequest(addWalletSchema),
+    status: ErrorStatus.BAD_REQUEST,
     logger
   })(req)
-  const { message, wallet, signature } = guardFn({
-    fn: (requestBody) => addWalletSchema.parse(requestBody),
-    logger
-  })(requestBody)
-  const siweMessage = guardFn({ fn: getSiweMessage, logger })(message)
-  const verifiedMessage = await guardAsyncFn({ fn: verifySiweMessage, logger })(signature, siweMessage)
+  const siweMessage = guardFn({ fn: getSiweMessage, status: ErrorStatus.BAD_REQUEST, logger })(message)
+  const verifiedMessage = await guardAsyncFn({ fn: verifySiweMessage, status: ErrorStatus.BAD_REQUEST, logger })(
+    signature,
+    siweMessage
+  )
   const foundUser = await guardAsyncFn({ fn: getUserByUsername, status: ErrorStatus.SERVER_ERROR, logger })(
     user.username
   )

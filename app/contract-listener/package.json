@@ -16,7 +16,7 @@
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier . -u -c --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --config ../../prettier.config.js",
     "start": "node dist/index.js",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "test:coverage:clean": "rm -rf test/.coverage",
     "tsc": "tsc --noEmit"
   },

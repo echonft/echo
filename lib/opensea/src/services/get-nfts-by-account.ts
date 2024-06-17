@@ -1,3 +1,5 @@
+import type { EvmAddress } from '@echo/model/types/evm-address'
+import type { Wallet } from '@echo/model/types/wallet'
 import { fetchNft, type FetchNftRequest } from '@echo/opensea/fetchers/fetch-nft'
 import { extendedNftResponseIsSuspicious } from '@echo/opensea/helpers/extended-nft-response-is-suspicious'
 import { getBaseUrl } from '@echo/opensea/helpers/get-base-url'
@@ -10,25 +12,40 @@ import type { GetNftsByAccountResponse } from '@echo/opensea/types/response/get-
 import type { NftExtendedResponse } from '@echo/opensea/types/response/nft-extended-response'
 import type { NftResponse } from '@echo/opensea/types/response/nft-response'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import type { HexString } from '@echo/utils/types/hex-string'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { stringify } from 'qs'
-import { andThen, assoc, concat, filter, map, partialRight, pick, pipe, propEq, reject } from 'ramda'
+import {
+  andThen,
+  assoc,
+  concat,
+  filter,
+  map,
+  modify,
+  objOf,
+  partialRight,
+  pick,
+  pipe,
+  propEq,
+  reject,
+  toLower
+} from 'ramda'
 
 export type GetNftsByAccountArgs = Omit<WithLoggerType<GetNftsByAccountRequest>, 'limit' | 'next'>
 
 async function fetchNftsByAccount(args: WithLoggerType<GetNftsByAccountRequest>): Promise<GetNftsByAccountResponse> {
-  const { address, chain, fetch, logger } = args
+  const { wallet, fetch, logger } = args
   const url = concat(
-    `${getBaseUrl(chain)}/chain/${chain}/account/${address}/nfts`,
+    `${getBaseUrl(wallet.chain)}/chain/${wallet.chain}/account/${wallet.address}/nfts`,
     stringify(pick(['limit', 'next'], args), { addQueryPrefix: true, skipNulls: true })
   )
   const response = await throttleFetch({ fetch, url })
   if (!response.ok) {
     logger?.error(
-      { fn: 'fetchNftsByAccount', wallet: { address, chain }, url, response: pick(['status'], response) },
+      { fn: 'fetchNftsByAccount', wallet, url, response: pick(['status'], response) },
       'error fetching NFTs'
     )
-    throw Error(`error fetching NFTs for wallet ${JSON.stringify({ address, chain })}`)
+    throw Error(`error fetching NFTs for wallet ${JSON.stringify(wallet)}`)
   }
   return parseFetchResponse<GetNftsByAccountResponse>(response)
 }
@@ -42,7 +59,25 @@ async function handlePaging(
   const requests = pipe<[NftResponse[]], NftResponse[], FetchNftRequest[]>(
     // for now we only support ERC721
     filter(propEq('erc721', 'token_standard')),
-    map(pipe(pick(['contract', 'identifier']), assoc('chain', args.chain), assoc('fetch', args.fetch)))
+    map(
+      pipe<
+        [NftResponse],
+        Pick<NftResponse, 'contract' | 'identifier'>,
+        Omit<FetchNftRequest, 'fetch'>,
+        FetchNftRequest
+      >(
+        pick(['contract', 'identifier']),
+        modify<'contract', HexString, Wallet>(
+          'contract',
+          pipe<[HexString], EvmAddress, Pick<Wallet, 'address'>, Wallet>(
+            toLower<HexString>,
+            objOf('address'),
+            assoc('chain', args.wallet.chain)
+          )
+        ),
+        assoc('fetch', args.fetch)
+      )
+    )
   )(nfts)
   const responses: NftExtendedResponse[] = []
   for (const request of requests) {
@@ -65,7 +100,7 @@ export function getNftsByAccount(args: GetNftsByAccountArgs) {
     Promise<NftExtendedResponse[]>,
     Promise<ReturnType<typeof mapExtendedNftResponse>[]>
   >(
-    assoc('logger', getLogger({ chain: args.chain, fn: 'getNftsByAccount', logger: args.logger })),
+    assoc('logger', getLogger({ chain: args.wallet.chain, fn: getNftsByAccount.name, logger: args.logger })),
     assoc('limit', 200),
     partialRight(handlePaging, [[]]),
     andThen(map(mapExtendedNftResponse))

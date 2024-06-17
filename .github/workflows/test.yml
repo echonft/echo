@@ -21,8 +21,6 @@ jobs:
           run_install: true
       - name: bot tests
         run: pnpm exec turbo run test --filter=@echo/bot
-      - name: contract-listener tests
-        run: pnpm exec turbo run test --filter=@echo/contract-listener
       - name: frontend tests
         run: pnpm exec turbo run test --filter=@echo/frontend
       - name: firestore tests
@@ -50,7 +48,6 @@ jobs:
         with:
           multiple-files: |
             app/bot, ./app/bot/test/.coverage/coverage-summary.json
-            app/contract-listener, ./app/contract-listener/test/.coverage/coverage-summary.json
             app/frontend, ./app/frontend/test/.coverage/coverage-summary.json
             lib/firestore, ./lib/firestore/test/.coverage/coverage-summary.json
             lib/model, ./lib/model/test/.coverage/coverage-summary.json
@@ -62,7 +59,6 @@ jobs:
             lib/web3-dom, ./lib/web3-dom/test/.coverage/coverage-summary.json
           multiple-junitxml-files: |
             app/bot, ./app/bot/test/.coverage/junit.xml
-            app/contract-listener, ./app/contract-listener/test/.coverage/junit.xml
             app/frontend, ./app/frontend/test/.coverage/junit.xml
             lib/firestore, ./lib/firestore/test/.coverage/junit.xml
             lib/model, ./lib/model/test/.coverage/junit.xml

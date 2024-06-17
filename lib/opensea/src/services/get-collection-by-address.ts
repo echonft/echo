@@ -12,7 +12,7 @@ import { andThen, assoc, pipe } from 'ramda'
 export async function getCollectionByAddress(
   args: WithLoggerType<GetContractRequest>
 ): Promise<Omit<Collection, 'swapsCount'>> {
-  const logger = getLogger({ chain: args.chain, fn: 'getCollectionByAddress', logger: args.logger })
+  const logger = getLogger({ chain: args.contract.chain, fn: getCollectionByAddress.name, logger: args.logger })
   return await pipe(
     assoc('logger', logger),
     fetchContract,

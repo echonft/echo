@@ -1,4 +1,3 @@
-import { type ApiRequest } from '@echo/api/types/api-request'
 import { type RemoveWalletRequest } from '@echo/api/types/requests/remove-wallet-request'
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
@@ -7,9 +6,10 @@ import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
 import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/wallet/map-wallet-document-data-to-wallet'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
-import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
+import { guardAsyncFn } from '@echo/frontend/lib/helpers/error/guard'
 import { assertUserExists } from '@echo/frontend/lib/helpers/user/assert/assert-user-exists'
 import type { AuthRequestHandlerArgs } from '@echo/frontend/lib/types/request-handlers/auth-request-handler'
+import { parseRequest } from '@echo/frontend/lib/validators/parse-request'
 import { removeWalletSchema } from '@echo/frontend/lib/validators/remove-wallet-schema'
 import type { Wallet } from '@echo/model/types/wallet'
 import type { User } from 'next-auth'
@@ -17,14 +17,11 @@ import { NextResponse } from 'next/server'
 import { andThen, map, pipe, prop } from 'ramda'
 
 export async function removeWalletRequestHandler({ user, req, logger }: AuthRequestHandlerArgs<RemoveWalletRequest>) {
-  const requestBody = await guardAsyncFn({
-    fn: (req: ApiRequest<RemoveWalletRequest>) => req.json(),
+  const { wallet } = await guardAsyncFn({
+    fn: parseRequest(removeWalletSchema),
+    status: ErrorStatus.BAD_REQUEST,
     logger
   })(req)
-  const { wallet } = guardFn({
-    fn: (requestBody) => removeWalletSchema.parse(requestBody),
-    logger
-  })(requestBody)
   const foundUser = await guardAsyncFn({ fn: getUserByUsername, status: ErrorStatus.SERVER_ERROR, logger })(
     user.username
   )

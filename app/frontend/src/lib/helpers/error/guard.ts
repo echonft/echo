@@ -9,7 +9,7 @@ import { captureException } from '@sentry/nextjs'
 type SeverityLevel = 'fatal' | 'error' | 'warning' | 'log' | 'info' | 'debug'
 
 interface BaseGuardArgs {
-  status?: ErrorStatus
+  status: ErrorStatus
   severity?: SeverityLevel
   message?: string
   logger?: Nullable<Logger>
@@ -46,8 +46,8 @@ export function guardFn<TArgs extends unknown[], TResult>(args: GuardFnArgs<TArg
       if (isDev) {
         logger?.error({ err })
       }
-      captureException(err, { level: severity ?? getSeverity(status ?? ErrorStatus.BAD_REQUEST) })
-      throw createError(status ?? ErrorStatus.BAD_REQUEST, message)
+      captureException(err, { level: severity ?? getSeverity(status) })
+      throw createError(status, message)
     }
   }
 }
@@ -62,8 +62,8 @@ export function guardAsyncFn<TArgs extends unknown[], TResult>(args: GuardAsyncF
       if (isDev) {
         logger?.error({ err })
       }
-      captureException(err, { level: severity ?? getSeverity(status ?? ErrorStatus.BAD_REQUEST) })
-      throw createError(status ?? ErrorStatus.BAD_REQUEST, message)
+      captureException(err, { level: severity ?? getSeverity(status) })
+      throw createError(status, message)
     }
   }
 }

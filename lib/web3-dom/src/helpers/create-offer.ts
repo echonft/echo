@@ -5,11 +5,11 @@ import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
-import { echoAbi } from '@echo/web3/constants/echo-abi'
-import { getEchoAddressByChain } from '@echo/web3/helpers/get-echo-address-by-chain'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import { mapOfferToContractCreateOffer } from '@echo/web3-dom/mappers/map-offer-to-contract-create-offer'
 import type { ContractCreateOfferArgs } from '@echo/web3-dom/types/contract-create-offer-args'
+import { echoAbi } from '@echo/web3/constants/echo-abi'
+import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
 import { head, path, pipe, prop } from 'ramda'
 import { simulateContract, waitForTransactionReceipt, writeContract } from 'wagmi/actions'
 
@@ -24,7 +24,7 @@ export async function createOffer(args: ContractCreateOfferArgs): Promise<HexStr
     prop('chain')
   )(offer)
 
-  const address = getEchoAddressByChain(chain)
+  const address = getEchoAddress(chain)
   const chainId = getChainId(chain)
   const { request } = await simulateContract(wagmiConfig, {
     abi: echoAbi,

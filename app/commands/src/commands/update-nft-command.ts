@@ -7,8 +7,9 @@ import { terminateFirestore } from '@echo/firestore/services/terminate-firestore
 import { getNft } from '@echo/opensea/services/get-nft'
 import { getChains } from '@echo/utils/helpers/chains/get-chains'
 import type { ChainName } from '@echo/utils/types/chain-name'
+import type { HexString } from '@echo/utils/types/hex-string'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
-import { isNil } from 'ramda'
+import { isNil, pipe, toLower } from 'ramda'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
@@ -50,11 +51,11 @@ export const updateNftCommand: Command = {
       .parse()
 
     try {
-      const address = formatWalletAddress({ address: a, chain: c })
+      const address = pipe(formatWalletAddress, toLower<HexString>)({ address: a, chain: c })
       logger.info({ nft: { collection: { contract: { address: a, chain: c } }, tokenId: t } }, 'fetching NFT')
       try {
         await initializeFirebase()
-        const nft = await getNft({ contract: address, chain: c, identifier: t, fetch, logger })
+        const nft = await getNft({ contract: { address, chain: c }, identifier: t, fetch, logger })
         if (isNil(nft)) {
           logger.error('did not get any result')
           return

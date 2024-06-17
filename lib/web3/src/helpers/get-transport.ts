@@ -40,7 +40,7 @@ async function alchemyTransportUrl(chainId: number) {
   return `${alchemyChainName(chainId)}.g.alchemy.com/v2/${apiKey}`
 }
 
-export async function getTransportForChain(chain: Chain) {
+export async function getTransport(chain: Chain) {
   const chainId = chain.id
   if (chainId === blastSepoliaChainId() || chainId === blastChainId()) {
     // TODO add logger
