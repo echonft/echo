@@ -1,14 +1,9 @@
-import type { ChainName } from '@echo/utils/types/chain-name'
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { NftTransfer } from '@echo/frontend/lib/types/transfer/nft-transfer'
+import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { isEcho } from '@echo/web3/helpers/is-echo'
 
-interface IsEscrowingArgs {
-  from: HexString
-  to: HexString
-  chain: ChainName
-}
-
-export function isEscrowing(args: IsEscrowingArgs): boolean {
-  const { from, to, chain } = args
-  return isEcho(from, chain) || isEcho(to, chain)
+export function isEscrowing(
+  args: WithLoggerType<Record<'transfer', Partial<NftTransfer> & Required<Pick<NftTransfer, 'from' | 'to'>>>>
+): boolean {
+  return isEcho(args.transfer.from) || isEcho(args.transfer.to)
 }

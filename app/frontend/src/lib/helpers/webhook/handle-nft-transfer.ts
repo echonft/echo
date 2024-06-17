@@ -9,31 +9,33 @@ import { processSwapTransfer } from '@echo/frontend/lib/helpers/webhook/process-
 import { mapNftTransferToTransferData } from '@echo/frontend/lib/mappers/map-nft-transfer-to-transfer-data'
 import type { NftTransfer } from '@echo/frontend/lib/types/transfer/nft-transfer'
 import type { TransferData } from '@echo/frontend/lib/types/transfer/transfer-data'
-import { propIsNil } from '@echo/utils/fp/prop-is-nil'
-import { isNil } from 'ramda'
+import { pathIsNil } from '@echo/utils/fp/path-is-nil'
+import { propIsNotNil } from '@echo/utils/fp/prop-is-not-nil'
+import type { WithLoggerType } from '@echo/utils/types/with-logger'
 
-export async function handleNftTransfer(nftTransfer: NftTransfer) {
-  const { chain, from, to } = nftTransfer
+export async function handleNftTransfer(args: WithLoggerType<Record<'transfer', NftTransfer>>) {
   // If it's an escrow transaction, process it and return
-  if (isEscrowing({ chain, from, to })) {
-    await guardAsyncFn(processEscrowTransfer, ErrorStatus.BAD_REQUEST)(nftTransfer)
+  if (isEscrowing(args)) {
+    await guardAsyncFn({ fn: processEscrowTransfer, status: ErrorStatus.BAD_REQUEST })(args)
     return
   }
-  const transferData = await guardAsyncFn(mapNftTransferToTransferData, ErrorStatus.BAD_REQUEST)(nftTransfer)
-  if (isNil(transferData)) {
-    return
-  }
-  // The NFT was transfered out of the Echo ecosystem, delete it from DB
-  if (propIsNil('to', transferData)) {
-    await guardAsyncFn(processOutTransfer, ErrorStatus.BAD_REQUEST)(transferData)
-    // The NFT was transfered to an Echo user, add it to DB
-  } else if (propIsNil('from', transferData)) {
-    await guardAsyncFn(processInTransfer, ErrorStatus.BAD_REQUEST)(transferData)
-    // Process swap
-  } else {
-    await guardAsyncFn(
-      processSwapTransfer,
-      ErrorStatus.BAD_REQUEST
-    )(transferData as Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>)
+  const transferData = await guardAsyncFn({ fn: mapNftTransferToTransferData, status: ErrorStatus.BAD_REQUEST })(args)
+  if (propIsNotNil('transfer', transferData)) {
+    if (pathIsNil(['transfer', 'to'], transferData)) {
+      await guardAsyncFn({ fn: processOutTransfer, status: ErrorStatus.BAD_REQUEST })(transferData)
+      // The NFT was transfered to an Echo user, add it to DB
+    } else if (pathIsNil(['transfer', 'from'], transferData)) {
+      await guardAsyncFn({ fn: processInTransfer, status: ErrorStatus.BAD_REQUEST })(
+        transferData as WithLoggerType<Record<'transfer', Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>>>
+      )
+      // Process swap
+    } else {
+      await guardAsyncFn({
+        fn: processSwapTransfer,
+        status: ErrorStatus.BAD_REQUEST
+      })(
+        transferData as WithLoggerType<Record<'transfer', Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>>>
+      )
+    }
   }
 }

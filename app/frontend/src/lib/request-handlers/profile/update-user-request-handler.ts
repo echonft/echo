@@ -1,27 +1,24 @@
-import type { ApiRequest } from '@echo/api/types/api-request'
 import { updateUser } from '@echo/firestore/crud/user/update-user'
 import { mapDiscordProfile } from '@echo/frontend/lib/auth/map-discord-profile'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { createError } from '@echo/frontend/lib/helpers/error/create-error'
-import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
+import { guardAsyncFn } from '@echo/frontend/lib/helpers/error/guard'
 import type { RequestHandlerArgs } from '@echo/frontend/lib/types/request-handlers/request-handler'
 import { discordAuthTokenSchema } from '@echo/frontend/lib/validators/discord-auth-token-schema'
 import { discordProfileSchema } from '@echo/frontend/lib/validators/discord-profile-schema'
+import { parseRequest } from '@echo/frontend/lib/validators/parse-request'
 import type { DiscordAuthToken } from '@echo/model/types/discord-auth-token'
+import { parseResponse } from '@echo/utils/validators/parse-response'
 import { NextResponse } from 'next/server'
-import { andThen, invoker, pipe } from 'ramda'
+import { pipe } from 'ramda'
 
 export async function updateUserRequestHandler({ req, logger }: RequestHandlerArgs<DiscordAuthToken>) {
-  const requestBody = await guardAsyncFn({
-    fn: (req: ApiRequest<DiscordAuthToken>) => req.json(),
-    logger
-  })(req)
-  const token = guardFn({
-    fn: (requestBody) => discordAuthTokenSchema.parse(requestBody),
+  const token = await guardAsyncFn({
+    fn: parseRequest(discordAuthTokenSchema),
     severity: 'error',
     message: 'error parsing discord auth token',
     logger
-  })(requestBody)
+  })(req)
   const response = await fetch('https://discord.com/api/users/@me', {
     headers: {
       Authorization: `Bearer ${token.access_token}`
@@ -29,10 +26,7 @@ export async function updateUserRequestHandler({ req, logger }: RequestHandlerAr
   })
   if (response.ok) {
     const profile = await guardAsyncFn({
-      fn: pipe(
-        invoker(0, 'json'),
-        andThen((requestBody) => discordProfileSchema.parse(requestBody))
-      ),
+      fn: parseResponse(discordProfileSchema),
       severity: 'error',
       message: 'error parsing discord response',
       logger

@@ -3,8 +3,9 @@ import type { Command } from '@echo/commands/types/command'
 import { getNftsByAccount } from '@echo/opensea/services/get-nfts-by-account'
 import { getChains } from '@echo/utils/helpers/chains/get-chains'
 import type { ChainName } from '@echo/utils/types/chain-name'
+import type { HexString } from '@echo/utils/types/hex-string'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
-import { forEach } from 'ramda'
+import { forEach, pipe, toLower } from 'ramda'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
@@ -39,10 +40,10 @@ export const fetchNftsFromOpenseaCommand: Command = {
       .parse()
 
     try {
-      const address = formatWalletAddress({ address: a, chain: c })
+      const address = pipe(formatWalletAddress, toLower<HexString>)({ address: a, chain: c })
       logger.info({ wallet: { address: a, chain: c } }, 'fetching NFTs')
       try {
-        const nfts = await getNftsByAccount({ address, chain: c, fetch, logger })
+        const nfts = await getNftsByAccount({ wallet: { address, chain: c }, fetch, logger })
         logger.info(`received ${nfts.length} NFTs`)
         forEach((nft) => {
           logger.info({ nft })

@@ -6,12 +6,12 @@ import type { ContractResponse } from '@echo/opensea/types/response/contract-res
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 
 export async function fetchContract(args: WithLoggerType<GetContractRequest>): Promise<ContractResponse> {
-  const { fetch, address, chain, logger } = args
-  const url = `${getBaseUrl(chain)}/chain/${chain}/contract/${address}`
+  const { fetch, contract, logger } = args
+  const url = `${getBaseUrl(contract.chain)}/chain/${contract.chain}/contract/${contract.address}`
   const response = await throttleFetch({ fetch, url, logger })
   if (!response.ok) {
-    logger?.error({ fn: 'fetchContract', contract: { address }, url }, 'error fetching collection')
-    throw Error(`error fetching contract ${address}`)
+    logger?.error({ fn: 'fetchContract', contract, url }, 'error fetching collection')
+    throw Error(`error fetching contract ${JSON.stringify(contract)}`)
   }
   return parseFetchResponse<ContractResponse>(response)
 }

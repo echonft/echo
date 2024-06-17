@@ -59,10 +59,14 @@ async function getCollection(args: GetCollectionArgs): Promise<Nullable<Collecti
 
 export async function updateNftsForWalletTestnet(wallet: Wallet, owner: User, logger?: LoggerInterface) {
   try {
-    const nfts = await pipe<[Wallet], GetNftsByAccountArgs, ReturnType<typeof getNftsByAccount>>(
+    const nfts = await pipe<
+      [Omit<GetNftsByAccountArgs, 'fetch'>],
+      GetNftsByAccountArgs,
+      ReturnType<typeof getNftsByAccount>
+    >(
       assoc('fetch', fetch),
       getNftsByAccount
-    )(wallet)
+    )({ wallet })
     for (const nft of nfts) {
       try {
         // check if collection exists, if not add it, else set it in the nft

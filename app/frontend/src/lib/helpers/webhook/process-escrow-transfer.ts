@@ -1,11 +1,15 @@
 import { processInEscrowTransfer } from '@echo/frontend/lib/helpers/webhook/process-in-escrow-transfer'
 import { processOutEscrowTransfer } from '@echo/frontend/lib/helpers/webhook/process-out-escrow-transfer'
 import type { NftTransfer } from '@echo/frontend/lib/types/transfer/nft-transfer'
+import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { isEcho } from '@echo/web3/helpers/is-echo'
 
-export async function processEscrowTransfer(args: NftTransfer) {
+export async function processEscrowTransfer(args: WithLoggerType<Record<'transfer', NftTransfer>>) {
+  const {
+    transfer: { from }
+  } = args
   // Moving out of Escrow
-  if (isEcho(args.from, args.chain)) {
+  if (isEcho(from)) {
     await processOutEscrowTransfer(args)
     // Moving in Escrow
   } else {

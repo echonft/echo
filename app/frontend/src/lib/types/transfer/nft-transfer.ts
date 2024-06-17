@@ -1,10 +1,8 @@
-import type { ChainName } from '@echo/utils/types/chain-name'
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { Wallet } from '@echo/model/types/wallet'
 
 export interface NftTransfer {
-  chain: ChainName
-  contractAddress: Lowercase<HexString>
-  from: Lowercase<HexString>
-  to: Lowercase<HexString>
+  contract: Wallet
+  from: Wallet
+  to: Wallet
   tokenId: number
 }
