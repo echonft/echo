@@ -1,1 +1,0 @@
-export const PROMISE_POOL_CONCURRENCY = 3

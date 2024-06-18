@@ -1,15 +1,14 @@
 import { setMaxInstances } from '@echo/firestore-functions/helper/set-max-instances'
-import { removeNftsForWallet } from '@echo/firestore-functions/tasks/nft/remove-nfts-for-wallet'
-import { updateUserNfts } from '@echo/firestore-functions/tasks/nft/update-user-nfts'
 import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
-import { getSupportedChains } from '@echo/utils/helpers/chains/get-supported-chains'
+import { removeNftsForWallet } from '@echo/tasks/remove-nfts-for-wallet'
+import { updateNftsForWallet } from '@echo/tasks/update-nfts-for-wallet'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { DocumentSnapshot } from 'firebase-admin/firestore'
 import { error, info } from 'firebase-functions/logger'
 import { onDocumentWritten } from 'firebase-functions/v2/firestore'
-import { assoc, isNil, map, pipe } from 'ramda'
+import { isNil } from 'ramda'
 
 export const onWalletWritten = onDocumentWritten(
   setMaxInstances({ document: 'wallets/{id}', timeoutSeconds: 540 }),
@@ -25,15 +24,7 @@ export const onWalletWritten = onDocumentWritten(
             const foundUser = await getUserById(wallet.userId)
             if (!isNil(foundUser)) {
               try {
-                if (wallet.isEvm) {
-                  const wallets = pipe(
-                    getSupportedChains,
-                    map((chain) => assoc('chain', chain, wallet))
-                  )()
-                  await updateUserNfts(foundUser, wallets)
-                } else {
-                  await updateUserNfts(foundUser, [wallet])
-                }
+                await updateNftsForWallet({ wallet })
               } catch (e) {
                 error(`error upating user ${wallet.userId} NFTs: ${errorMessage(e)}`)
               }
@@ -50,7 +41,7 @@ export const onWalletWritten = onDocumentWritten(
         if (!isNil(wallet)) {
           info(`wallet ${JSON.stringify(wallet)} was deleted`)
           try {
-            await removeNftsForWallet(wallet)
+            await removeNftsForWallet({ wallet })
           } catch (e) {
             error(`error removing NFTs for wallet ${wallet.address}: ${errorMessage(e)}`)
           }

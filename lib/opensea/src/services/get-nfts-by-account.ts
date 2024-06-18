@@ -103,6 +103,10 @@ export function getNftsByAccount(args: GetNftsByAccountArgs) {
     assoc('logger', getLogger({ chain: args.wallet.chain, fn: getNftsByAccount.name, logger: args.logger })),
     assoc('limit', 200),
     partialRight(handlePaging, [[]]),
-    andThen(map(mapExtendedNftResponse))
+    andThen(
+      map(
+        pipe(objOf('response'), assoc('chain', args.wallet.chain), assoc('logger', args.logger), mapExtendedNftResponse)
+      )
+    )
   )(args)
 }
