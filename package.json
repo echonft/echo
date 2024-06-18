@@ -39,7 +39,6 @@
     "firestore:indexes:deploy": "firebase deploy --only firestore:indexes",
     "firestore:indexes:pull": "firebase firestore:indexes > ../../firestore.indexes.json",
     "firestore:mirror:staging": "gcloud firestore export gs://echo-staging-firestore/default --project=echo-prod-b71e2 && gcloud firestore import gs://echo-staging-firestore/default --project=echo-staging-ba121 && gsutil -m rm -r \"gs://echo-staging-firestore/**\"",
-    "frontend:build": "app/frontend/scripts/build.sh",
     "frontend:deploy": "vercel --prod && vercel promote echo-echonft.vercel.app",
     "frontend:dev": "app/frontend/scripts/dev.sh",
     "lint": "turbo lint",
