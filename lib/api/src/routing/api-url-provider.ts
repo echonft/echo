@@ -9,9 +9,6 @@ interface OfferPathArgs {
 }
 
 export const apiUrlProvider = {
-  admin: {
-    updateUser: new ApiPath({ path: '/admin/user/update', secure: true })
-  },
   collection: {
     search: new ApiPath({ path: '/search/collection' })
   },
