@@ -13,13 +13,13 @@ import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { NextResponse } from 'next/server'
 import { andThen, assoc, invoker, map, objOf, pipe } from 'ramda'
 
-export async function nftTransferWebhookRequestHandler({
+export async function echoWebhookRequestHandler({
   params,
   req,
   logger
 }: RequestHandlerArgsWithParams<{ chain: ChainName }, WebhookBlockRequest>) {
   await guardAsyncFn({
-    fn: pipe(getSignatureHeadersFromRequest, assoc('type', 'nft-transfer'), validateQuicknodeSignature),
+    fn: pipe(getSignatureHeadersFromRequest, assoc('type', 'echo'), validateQuicknodeSignature),
     status: ErrorStatus.UNAUTHORIZED,
     logger
   })(req)

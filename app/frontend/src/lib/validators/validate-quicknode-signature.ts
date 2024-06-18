@@ -1,8 +1,10 @@
-import { getSecret } from '@echo/utils/services/secret-manager'
+import { getQuicknodeSecurityTokenSwitch } from '@echo/frontend/lib/helpers/webhook/get-quicknode-security-token-switch'
+import type { QuicknodeSignatureType } from '@echo/frontend/lib/types/webhook/quicknode-signature-type'
 import { createHmac } from 'crypto'
 import { isNil } from 'ramda'
 
 export interface QuicknodeSignatureArgs {
+  type: QuicknodeSignatureType
   signature: string
   nonce: string
   contentHash: string
@@ -10,7 +12,7 @@ export interface QuicknodeSignatureArgs {
 }
 
 export async function validateQuicknodeSignature(args: QuicknodeSignatureArgs) {
-  const secret = await getSecret({ name: 'QUICKNODE_SECURITY_TOKEN' })
+  const secret = await getQuicknodeSecurityTokenSwitch(args.type)
   if (isNil(secret)) {
     throw Error('QUICKNODE_SECURITY_TOKEN secret not found')
   }
