@@ -180,6 +180,9 @@ importers:
       '@echo/opensea':
         specifier: workspace:*
         version: link:../../lib/opensea
+      '@echo/tasks':
+        specifier: workspace:*
+        version: link:../../lib/tasks
       '@echo/utils':
         specifier: workspace:*
         version: link:../../lib/utils
