@@ -27,7 +27,7 @@
     "command:fetch-nfts-with-collection-from-nftscan": "ENV=development turbo start --filter=@echo/commands -- -c=fetch-nfts-with-collection-from-nftscan",
     "command:update-collection": "ENV=development turbo start --filter=@echo/commands -- -c=update-collection",
     "command:update-nft": "ENV=development turbo start --filter=@echo/commands -- -c=update-nft",
-    "command:update-users-nfts": "ENV=development turbo start --filter=@echo/commands -- -c=update-users-nfts",
+    "command:update-users-nfts": "ENV=development NEXT_PUBLIC_IS_TESTNET=1 turbo start --filter=@echo/commands -- -c=update-users-nfts",
     "contract-listener:dev": "NODE_ENV=development ENV=development NEXT_PUBLIC_IS_TESTNET=1 turbo dev --filter=@echo/contract-listener",
     "contract-listener:deploy:dev": "ENV=development turbo deploy --filter=@echo/contract-listener",
     "contract-listener:deploy:prod": "ENV=production turbo deploy --filter=@echo/contract-listener",
