@@ -1,6 +1,5 @@
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
-import { afterAll, beforeAll } from '@jest/globals'
+import { beforeAll } from '@jest/globals'
 import type { ServiceAccount } from 'firebase-admin/app'
 import { prop } from 'ramda'
 
@@ -16,7 +15,4 @@ beforeAll(async () => {
   const privateKey: string = prop('privateKey', global)
   const serviceAccount = { clientEmail, projectId, privateKey } as ServiceAccount
   await initializeFirebase({ serviceAccount })
-})
-afterAll(async () => {
-  await terminateFirestore()
 })

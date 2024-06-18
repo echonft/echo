@@ -2,7 +2,6 @@ import { getLogger } from '@echo/commands/helpers/get-logger'
 import type { Command } from '@echo/commands/types/command'
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import { nftIsApproved } from '@echo/web3/helpers/nft/nft-is-approved'
 import { isNil } from 'ramda'
 import yargs from 'yargs'
@@ -38,6 +37,5 @@ export const checkNftApprovalCommand: Command = {
     if (approved) {
       logger.info({ nft: { tokenId: i } }, 'NFT is approved')
     }
-    await terminateFirestore()
   }
 }

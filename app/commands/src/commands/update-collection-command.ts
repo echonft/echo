@@ -2,7 +2,6 @@ import { getLogger } from '@echo/commands/helpers/get-logger'
 import type { Command } from '@echo/commands/types/command'
 import { updateCollection as updateCollectionInFirestore } from '@echo/firestore/crud/collection/update-collection'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import { getCollection } from '@echo/opensea/services/get-collection'
 import { getChains } from '@echo/utils/helpers/chains/get-chains'
 import type { ChainName } from '@echo/utils/types/chain-name'
@@ -43,7 +42,6 @@ export const updateCollectionCommand: Command = {
       await initializeFirebase()
       const collection = await pipe(assoc('fetch', fetch), getCollection)({ slug, chain: c, logger })
       await updateCollectionInFirestore({ slug, data: collection })
-      await terminateFirestore()
     } catch (err) {
       logger.error({ err, collection: { slug } }, 'error updating collection')
     }

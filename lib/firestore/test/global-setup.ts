@@ -2,7 +2,6 @@
 import 'tsconfig-paths/register'
 import { getFirebaseServiceAccount } from '@echo/firestore/services/get-firebase-service-account'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import { clearDb } from '@echo/firestore/utils/clear-db'
 import { initializeDb } from '@echo/firestore/utils/initialize-db'
 import type { Config } from '@jest/types'
@@ -21,5 +20,4 @@ export default async function (_globalConfig: Config.GlobalConfig, _projectConfi
   global.privateKey = serviceAccount.privateKey
   await clearDb()
   await initializeDb()
-  await terminateFirestore()
 }

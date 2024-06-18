@@ -17,14 +17,14 @@ interface InitializeFirebaseArgs extends WithLogger {
 export async function initializeFirebase(args?: InitializeFirebaseArgs): Promise<Firestore> {
   const projectId = args?.serviceAccount?.projectId ?? getGCloudProjectId()
   const childLogger = args?.logger?.child({ component: 'firebase', project_id: projectId })
-  childLogger?.info('INITIALIZE')
   const apps = getApps()
   if (isNonEmptyArray(apps)) {
     return pipe(head, getFirestore)(apps)
   }
   const serviceAccount = args?.serviceAccount ?? (await getFirebaseServiceAccount(childLogger))
   if (isNil(serviceAccount)) {
-    throw Error(`missing credentials`)
+    childLogger?.fatal('missing credentials')
+    throw Error('missing credentials')
   }
   try {
     const app = initializeApp({
@@ -35,7 +35,7 @@ export async function initializeFirebase(args?: InitializeFirebaseArgs): Promise
     childLogger?.info('initialized Firebase')
     return firestore
   } catch (err) {
-    childLogger?.fatal({ err }, 'cannot initialize Firebase')
+    childLogger?.fatal({ err }, 'cannot initialize')
     return pipe(head, getFirestore)(apps)
   }
 }

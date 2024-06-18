@@ -3,7 +3,6 @@ import type { Command } from '@echo/commands/types/command'
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { updateNft } from '@echo/firestore/crud/nft/update-nft'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import { getNft } from '@echo/opensea/services/get-nft'
 import { getChains } from '@echo/utils/helpers/chains/get-chains'
 import type { ChainName } from '@echo/utils/types/chain-name'
@@ -74,8 +73,6 @@ export const updateNftCommand: Command = {
       }
     } catch (err) {
       logger.error({ address: a }, 'not a valid address')
-    } finally {
-      await terminateFirestore()
     }
   }
 }

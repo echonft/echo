@@ -1,5 +1,4 @@
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import { auth } from '@echo/frontend/lib/auth/auth'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
 import { getLogger } from '@echo/frontend/lib/helpers/get-logger'
@@ -42,8 +41,6 @@ export function routeHandler<ResponseBody, RequestBody = never, Params extends o
           { status: 500 }
         )
       }
-    } finally {
-      await terminateFirestore(logger)
     }
   })
 }

@@ -1,5 +1,4 @@
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import { auth } from '@echo/frontend/lib/auth/auth'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
@@ -51,8 +50,6 @@ export function authRouteHandler<ResponseBody, RequestBody = never, Params exten
           { status: 500 }
         )
       }
-    } finally {
-      await terminateFirestore(logger)
     }
   })
 }

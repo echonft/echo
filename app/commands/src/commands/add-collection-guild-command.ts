@@ -1,7 +1,6 @@
 import type { Command } from '@echo/commands/types/command'
 import { addCollectionDiscordGuild } from '@echo/firestore/crud/collection-discord-guild/add-collection-discord-guild'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import { getEchoDiscordGuild } from '@echo/utils/helpers/get-echo-discord-guild'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
@@ -28,7 +27,6 @@ export const addCollectionGuildCommand: Command = {
       .parse()
     await initializeFirebase()
     await addCollectionDefaultDiscordGuild(i)
-    await terminateFirestore()
   }
 }
 

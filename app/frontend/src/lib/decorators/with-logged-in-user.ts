@@ -1,5 +1,4 @@
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import { getAuthUser } from '@echo/frontend/lib/auth/get-auth-user'
 import { getLogger } from '@echo/frontend/lib/helpers/get-logger'
 import type { User } from 'next-auth'
@@ -16,13 +15,9 @@ export function withLoggedInUser<
     await initializeFirebase({ logger })
     const user = await getAuthUser()
     if (isNil(user)) {
-      await terminateFirestore(logger)
       return notFound()
     }
     const fnArgs = pipe(assoc('user', user), assoc('logger', logger))(args) as Args
-    return fn.call(fn, fnArgs).then(async (result) => {
-      await terminateFirestore(logger)
-      return result
-    }) as Return
+    return fn.call(fn, fnArgs)
   }
 }
