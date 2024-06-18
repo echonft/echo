@@ -9,6 +9,7 @@ import { fetchNftsWithCollectionFromNftscanCommand } from '@echo/commands/comman
 import { fetchNftsWithPagingFromNftscanCommand } from '@echo/commands/commands/fetch-nfts-with-paging-from-nftscan-command'
 import { updateCollectionCommand } from '@echo/commands/commands/update-collection-command'
 import { updateNftCommand } from '@echo/commands/commands/update-nft-command'
+import { updateUsersNftsCommand } from '@echo/commands/commands/update-users-nfts-command'
 import { getLogger } from '@echo/commands/helpers/get-logger'
 import { find, isNil, map, prop, propEq } from 'ramda'
 import yargs from 'yargs'
@@ -26,6 +27,7 @@ void (async function () {
     fetchNftsWithCollectionFromNftscanCommand,
     fetchNftsWithPagingFromNftscanCommand,
     updateCollectionCommand,
+    updateUsersNftsCommand,
     updateNftCommand
   ]
   const logger = getLogger()
