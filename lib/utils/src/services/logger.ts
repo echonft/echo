@@ -1,10 +1,8 @@
 import { isCI } from '@echo/utils/constants/is-ci'
-import { isDev } from '@echo/utils/constants/is-dev'
 import { isProd } from '@echo/utils/constants/is-prod'
 import { isTest } from '@echo/utils/constants/is-test'
-
 import type { LoggerSerializer } from '@echo/utils/types/logger-serializer'
-import pino, { type LoggerOptions as PinoLoggerOptions } from 'pino'
+import pino from 'pino'
 import { assoc, equals, is, isNil, mergeAll, mergeLeft, pipe } from 'ramda'
 
 interface LoggerOptions {
@@ -30,7 +28,7 @@ function getSerializers(serializers?: LoggerSerializer | LoggerSerializer[]): Lo
 }
 
 export function getBaseLogger(name: string, options?: LoggerOptions) {
-  const pinoOptions: PinoLoggerOptions = {
+  return pino({
     enabled: options?.override?.enabled ?? (!isCI && !isTest),
     level: options?.override?.level ?? isProd ? 'info' : 'trace',
     name,
@@ -53,19 +51,5 @@ export function getBaseLogger(name: string, options?: LoggerOptions) {
     serializers: getSerializers(options?.serializers),
     base: undefined,
     timestamp: false
-  }
-  return pino(
-    isDev
-      ? assoc(
-          'transport',
-          {
-            target: 'pino-pretty',
-            options: {
-              colorize: true
-            }
-          },
-          pinoOptions
-        )
-      : pinoOptions
-  )
+  })
 }
