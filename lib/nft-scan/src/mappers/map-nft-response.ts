@@ -40,7 +40,7 @@ export function mapNftResponse(
       tokenId: prop('token_id')
     })(response)
   } catch (err) {
-    logger?.error({ err }, 'error parsing fetch NFT response')
+    logger?.error({ err, fn: mapNftResponse.name }, 'error mapping NFT response')
     throw err
   }
 }

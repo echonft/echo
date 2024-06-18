@@ -2,9 +2,9 @@ import { addEscrowedNftWithId } from '@echo/firestore/crud/escrowed-nft/add-escr
 import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
 import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft'
 import type { NftWithId } from '@echo/firestore/types/model/nft/nft-with-id'
-import { getCollection } from '@echo/frontend/lib/helpers/webhook/get-collection'
 import type { NftTransfer } from '@echo/frontend/lib/types/transfer/nft-transfer'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
+import { getCollection } from '@echo/tasks/get-collection'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { isNil } from 'ramda'
 

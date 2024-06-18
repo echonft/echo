@@ -1,5 +1,5 @@
 import { modelLoggerSerializers } from '@echo/model/constants/logger-serializers'
-import { getBaseLogger } from '@echo/utils/services/pino-logger'
+import { getBaseLogger } from '@echo/utils/services/logger'
 import type { Logger } from '@echo/utils/types/logger'
 
 export function getLogger(): Logger {

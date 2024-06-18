@@ -1,10 +1,11 @@
 import { isCI } from '@echo/utils/constants/is-ci'
+import { isDev } from '@echo/utils/constants/is-dev'
 import { isProd } from '@echo/utils/constants/is-prod'
 import { isTest } from '@echo/utils/constants/is-test'
 
 import type { LoggerSerializer } from '@echo/utils/types/logger-serializer'
-import pino from 'pino'
-import { always, assoc, equals, is, isNil, mergeAll, mergeLeft, pipe, unless } from 'ramda'
+import pino, { type LoggerOptions as PinoLoggerOptions } from 'pino'
+import { assoc, equals, is, isNil, mergeAll, mergeLeft, pipe } from 'ramda'
 
 interface LoggerOptions {
   baseMergeObject?: Record<string, unknown>
@@ -29,7 +30,7 @@ function getSerializers(serializers?: LoggerSerializer | LoggerSerializer[]): Lo
 }
 
 export function getBaseLogger(name: string, options?: LoggerOptions) {
-  return pino({
+  const pinoOptions: PinoLoggerOptions = {
     enabled: options?.override?.enabled ?? (!isCI && !isTest),
     level: options?.override?.level ?? isProd ? 'info' : 'trace',
     name,
@@ -39,17 +40,32 @@ export function getBaseLogger(name: string, options?: LoggerOptions) {
       }
     },
     mixin(mergeObject: object, _level: number) {
-      return pipe(
+      const baseMergeObject = pipe<[object], object, object, object>(
         assoc('env', process.env.ENV),
         assoc('node_env', process.env.NODE_ENV),
-        assoc('network', equals(process.env.NEXT_PUBLIC_IS_TESTNET, '1') ? 'testnet' : 'mainnet'),
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        unless(always(isNil(options?.baseMergeObject)), mergeLeft(options?.baseMergeObject))
-      )(mergeObject) as object
+        assoc('network', equals(process.env.NEXT_PUBLIC_IS_TESTNET, '1') ? 'testnet' : 'mainnet')
+      )(mergeObject)
+      if (!isNil(options) && !isNil(options.baseMergeObject)) {
+        return mergeLeft(options.baseMergeObject, baseMergeObject)
+      }
+      return baseMergeObject
     },
     serializers: getSerializers(options?.serializers),
     base: undefined,
     timestamp: false
-  })
+  }
+  return pino(
+    isDev
+      ? assoc(
+          'transport',
+          {
+            target: 'pino-pretty',
+            options: {
+              colorize: true
+            }
+          },
+          pinoOptions
+        )
+      : pinoOptions
+  )
 }

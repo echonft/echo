@@ -286,12 +286,6 @@ importers:
 
   app/firestore-functions:
     dependencies:
-      '@supercharge/promise-pool':
-        specifier: 3.2.0
-        version: 3.2.0
-      dayjs:
-        specifier: 1.11.11
-        version: 1.11.11
       firebase-admin:
         specifier: 12.1.1
         version: 12.1.1(encoding@0.1.13)
@@ -769,6 +763,58 @@ importers:
         specifier: 5.4.5
         version: 5.4.5
 
+  lib/tasks:
+    dependencies:
+      ramda:
+        specifier: 0.30.1
+        version: 0.30.1
+    devDependencies:
+      '@babel/core':
+        specifier: 7.24.7
+        version: 7.24.7
+      '@babel/preset-env':
+        specifier: 7.24.7
+        version: 7.24.7(@babel/core@7.24.7)
+      '@babel/preset-typescript':
+        specifier: 7.24.7
+        version: 7.24.7(@babel/core@7.24.7)
+      '@echo/firestore':
+        specifier: workspace:*
+        version: link:../firestore
+      '@echo/model':
+        specifier: workspace:*
+        version: link:../model
+      '@echo/nft-scan':
+        specifier: workspace:*
+        version: link:../nft-scan
+      '@echo/opensea':
+        specifier: workspace:*
+        version: link:../opensea
+      '@echo/utils':
+        specifier: workspace:*
+        version: link:../utils
+      '@jest/globals':
+        specifier: 29.7.0
+        version: 29.7.0
+      '@jest/types':
+        specifier: 29.6.3
+        version: 29.6.3
+      '@types/node':
+        specifier: 20.14.2
+        version: 20.14.2
+      '@types/ramda':
+        specifier: 0.30.0
+        version: 0.30.0
+      jest:
+        specifier: 29.7.0
+        version: 29.7.0(@types/node@20.14.2)(ts-node@10.9.1(@swc/core@1.5.25)(@types/node@20.14.2)(typescript@5.4.5))
+      jest-junit:
+        specifier: 16.0.0
+        version: 16.0.0
+      typescript:
+        specifier: 5.4.5
+        version: 5.4.5
+
   lib/ui:
     dependencies:
       '@headlessui/react':
@@ -931,6 +977,9 @@ importers:
       pino:
         specifier: 9.1.0
         version: 9.1.0
+      pino-pretty:
+        specifier: 11.2.1
+        version: 11.2.1
       ramda:
         specifier: 0.30.1
         version: 0.30.1
@@ -4174,10 +4223,6 @@ packages:
   '@storybook/types@8.1.6':
     resolution: {integrity: sha512-cWpS9+x1pxCO39spR8QmumMK2ub2p5cvMtrRvWaIjBFPbCwm2CvjBXFWIra2veBCZTxUKJ9VWxvi7pzRHjN/nw==}
 
-  '@supercharge/promise-pool@3.2.0':
-    resolution: {integrity: sha512-pj0cAALblTZBPtMltWOlZTQSLT07jIaFNeM8TWoJD1cQMgDB9mcMlVMoetiB35OzNJpqQ2b+QEtwiR9f20mADg==}
-    engines: {node: '>=8'}
-
   '@swc/core-darwin-arm64@1.5.25':
     resolution: {integrity: sha512-YbD0SBgVJS2DM0vwJTU5m7+wOyCjHPBDMf3nCBJQzFZzOLzK11eRW7SzU2jhJHr9HI9sKcNFfN4lIC2Sj+4inA==}
     engines: {node: '>=10'}
@@ -6378,6 +6423,9 @@ packages:
     resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
     engines: {node: '>=0.11'}
 
+  dateformat@4.6.3:
+    resolution: {integrity: sha512-2P0p0pFGzHS5EMnhdxQi7aJN+iMheud0UhG4dlE1DLAlvL8JHjJJTX/CSm4JXwV0Ka5nGk3zC5mcb5bUQUxxMA==}
+
   dayjs@1.11.11:
     resolution: {integrity: sha512-okzr3f11N6WuqYtZSvm+F776mB41wRZMhKP+hc34YdW+KmtYYK9iqvHSwo2k9FEH3fhGXvOPV6yz2IcSrfRUDg==}
 
@@ -7319,6 +7367,9 @@ packages:
     resolution: {integrity: sha512-XUizHanzlr/v7suBr/o85HSakOoWh6HKXZjFYl5C2+Gj0f0rkw+XTUZzrd9odDsgI9G5tRUcF4wSbKaX04T0DQ==}
     engines: {node: '>=10'}
 
+  fast-copy@3.0.2:
+    resolution: {integrity: sha512-dl0O9Vhju8IrcLndv2eU4ldt1ftXMqqfgN4H1cpmGV7P6jeB9FwpN9a2c8DPGE1Ys88rNUJVYDHq73CGAGOPfQ==}
+
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
 
@@ -7909,6 +7960,9 @@ packages:
   heap-js@2.5.0:
     resolution: {integrity: sha512-kUGoI3p7u6B41z/dp33G6OaL7J4DRqRYwVmeIlwLClx7yaaAy7hoDExnuejTKtuDwfcatGmddHDEOjf6EyIxtQ==}
     engines: {node: '>=10.0.0'}
+
+  help-me@5.0.0:
+    resolution: {integrity: sha512-7xgomUX6ADmcYzFik0HzAxh/73YlKR9bmFzf51CZwR+b6YtzU2m0u49hQCqV6SvlqIqsaxovfwdvbnsw3b/zpg==}
 
   hermes-estree@0.19.1:
     resolution: {integrity: sha512-daLGV3Q2MKk8w4evNMKwS8zBE/rcpA800nu1Q5kM08IKijoSnPe9Uo1iIxzPKRkn95IxxsgBMPeYHt3VG4ej2g==}
@@ -10328,6 +10382,10 @@ packages:
   pino-abstract-transport@1.2.0:
     resolution: {integrity: sha512-Guhh8EZfPCfH+PMXAb6rKOjGQEoy0xlAIn+irODG5kgfYV+BQ0rGYYWTIel3P5mmyXqkYkPmdIkywsn6QKUR1Q==}
 
+  pino-pretty@11.2.1:
+    resolution: {integrity: sha512-O05NuD9tkRasFRWVaF/uHLOvoRDFD7tb5VMertr78rbsYFjYp48Vg3477EshVAF5eZaEw+OpDl/tu+B0R5o+7g==}
+    hasBin: true
+
   pino-std-serializers@4.0.0:
     resolution: {integrity: sha512-cK0pekc1Kjy5w9V2/n+8MkZwusa6EyyxfeQCB799CQRhRt/CqYKiWs5adeu8Shve2ZNffvfC/7J64A2PJo1W/Q==}
 
@@ -11468,6 +11526,9 @@ packages:
   secp256k1@5.0.0:
     resolution: {integrity: sha512-TKWX8xvoGHrxVdqbYeZM9w+izTF4b9z3NhSaDkdn81btvuh+ivbIMGT/zQvDtTFWhRlThpoz6LEYTr7n8A5GcA==}
     engines: {node: '>=14.0.0'}
+
+  secure-json-parse@2.7.0:
+    resolution: {integrity: sha512-6aU+Rwsezw7VR8/nyvKTx8QpWH9FrcYiXXlqC4z5d5XQBDRqtbfsRjnwGyqbi3gddNtWHuEk9OANUotL26qKUw==}
 
   selfsigned@2.4.1:
     resolution: {integrity: sha512-th5B4L2U+eGLq1TVh7zNRGBapioSORUeymIydxgFpwww9d2qyKvtuPU2jJuHvYAwwqi2Y596QBL3eEqcPEYL8Q==}
@@ -17687,8 +17748,6 @@ snapshots:
       '@types/express': 4.17.21
       file-system-cache: 2.3.0
 
-  '@supercharge/promise-pool@3.2.0': {}
-
   '@swc/core-darwin-arm64@1.5.25':
     optional: true
 
@@ -20599,6 +20658,8 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.24.7
 
+  dateformat@4.6.3: {}
+
   dayjs@1.11.11: {}
 
   debounce@1.2.1: {}
@@ -21741,7 +21802,7 @@ snapshots:
 
   extension-port-stream@3.0.0:
     dependencies:
-      readable-stream: 3.6.2
+      readable-stream: 4.5.2
       webextension-polyfill: 0.10.0
 
   external-editor@3.1.0:
@@ -21754,6 +21815,8 @@ snapshots:
     dependencies:
       node-addon-api: 5.1.0
       prebuild-install: 7.1.2
+
+  fast-copy@3.0.2: {}
 
   fast-deep-equal@3.1.3: {}
 
@@ -22553,6 +22616,8 @@ snapshots:
   he@1.2.0: {}
 
   heap-js@2.5.0: {}
+
+  help-me@5.0.0: {}
 
   hermes-estree@0.19.1: {}
 
@@ -25717,6 +25782,23 @@ snapshots:
       readable-stream: 4.5.2
       split2: 4.2.0
 
+  pino-pretty@11.2.1:
+    dependencies:
+      colorette: 2.0.20
+      dateformat: 4.6.3
+      fast-copy: 3.0.2
+      fast-safe-stringify: 2.1.1
+      help-me: 5.0.0
+      joycon: 3.1.1
+      minimist: 1.2.8
+      on-exit-leak-free: 2.1.2
+      pino-abstract-transport: 1.2.0
+      pump: 3.0.0
+      readable-stream: 4.5.2
+      secure-json-parse: 2.7.0
+      sonic-boom: 4.0.1
+      strip-json-comments: 3.1.1
+
   pino-std-serializers@4.0.0: {}
 
   pino-std-serializers@7.0.0: {}
@@ -27144,6 +27226,8 @@ snapshots:
       elliptic: 6.5.5
       node-addon-api: 5.1.0
       node-gyp-build: 4.8.1
+
+  secure-json-parse@2.7.0: {}
 
   selfsigned@2.4.1:
     dependencies:

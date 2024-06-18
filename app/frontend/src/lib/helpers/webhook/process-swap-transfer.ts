@@ -1,10 +1,10 @@
 import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
-import { getCollection } from '@echo/frontend/lib/helpers/webhook/get-collection'
-import { updateNft } from '@echo/frontend/lib/helpers/webhook/update-nft'
 import type { TransferData } from '@echo/frontend/lib/types/transfer/transfer-data'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
+import { getCollection } from '@echo/tasks/get-collection'
+import { updateNft } from '@echo/tasks/update-nft'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { isNil } from 'ramda'
 

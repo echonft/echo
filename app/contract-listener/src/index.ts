@@ -3,7 +3,7 @@ import { guardAsyncFn } from '@echo/contract-listener/helpers/guard-async-fn'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { modelLoggerSerializers } from '@echo/model/constants/logger-serializers'
 import { getSupportedChains } from '@echo/utils/helpers/chains/get-supported-chains'
-import { getBaseLogger } from '@echo/utils/services/pino-logger'
+import { getBaseLogger } from '@echo/utils/services/logger'
 import { getClientForChain } from '@echo/web3/helpers/chain/get-client-for-chain'
 import { watchOfferExecutedEvents } from '@echo/web3/watchers/echo/watch-offer-executed-events'
 

@@ -1,5 +1,4 @@
 import { addCollectionGuildCommand } from '@echo/commands/commands/add-collection-guild-command'
-import { checkNftApprovalCommand } from '@echo/commands/commands/check-nft-approval-command'
 import { clearDbCommand } from '@echo/commands/commands/clear-db-command'
 import { fetchCollectionFromNftscanCommand } from '@echo/commands/commands/fetch-collection-from-nftscan-command'
 import { fetchCollectionFromOpenseaCommand } from '@echo/commands/commands/fetch-collection-from-opensea-command'
@@ -18,7 +17,6 @@ import { hideBin } from 'yargs/helpers'
 void (async function () {
   const commands = [
     addCollectionGuildCommand,
-    checkNftApprovalCommand,
     clearDbCommand,
     fetchCollectionFromNftscanCommand,
     fetchCollectionFromOpenseaCommand,

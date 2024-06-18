@@ -1,10 +1,12 @@
 import { collectionMockSpiralSlug } from '@echo/model/mocks/collection/collection-mock'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
+import type { Collection } from '@echo/model/types/collection'
+import type { Nft } from '@echo/model/types/nft'
 import { mapExtendedNftResponse } from '@echo/opensea/mappers/map-extended-nft-response'
 import type { NftExtendedResponse } from '@echo/opensea/types/response/nft-extended-response'
 import { describe, expect, it } from '@jest/globals'
-import { assoc, omit, pipe } from 'ramda'
+import { assoc, modify, omit, pick, pipe } from 'ramda'
 
 describe('mappers - mapExtendedNftResponse', () => {
   const nftMock = getNftMockById(nftMockSpiralJohnnyId())
@@ -38,11 +40,11 @@ describe('mappers - mapExtendedNftResponse', () => {
       ],
       owners: [{ address: '0xwhatever', quantity: 1 }]
     }
-    const nft: ReturnType<typeof mapExtendedNftResponse> = pipe(
-      omit(['collection', 'owner', 'updatedAt']),
-      assoc('collection', { slug: nftMock.collection.slug })
+    const nft = pipe<[Nft], Omit<Nft, 'owner' | 'updatedAt'>, ReturnType<typeof mapExtendedNftResponse>>(
+      omit(['owner', 'updatedAt']),
+      modify<'collection', Collection, Pick<Collection, 'contract' | 'slug'>>('collection', pick(['contract', 'slug']))
     )(nftMock)
-    expect(mapExtendedNftResponse(response)).toStrictEqual(nft)
+    expect(mapExtendedNftResponse({ response, chain: nftMock.collection.contract.chain })).toStrictEqual(nft)
   })
 
   it('with undefined values', () => {
@@ -74,13 +76,20 @@ describe('mappers - mapExtendedNftResponse', () => {
       ],
       owners: [{ address: '0xwhatever', quantity: 1 }]
     }
-    const nft: ReturnType<typeof mapExtendedNftResponse> = pipe(
-      omit(['collection', 'owner', 'updatedAt']),
-      assoc('collection', { slug: nftMock.collection.slug }),
+    const nft: ReturnType<typeof mapExtendedNftResponse> = pipe<
+      [Nft],
+      Omit<Nft, 'owner' | 'updatedAt'>,
+      ReturnType<typeof mapExtendedNftResponse>,
+      ReturnType<typeof mapExtendedNftResponse>,
+      ReturnType<typeof mapExtendedNftResponse>,
+      ReturnType<typeof mapExtendedNftResponse>
+    >(
+      omit(['owner', 'updatedAt']),
+      modify<'collection', Collection, Pick<Collection, 'contract' | 'slug'>>('collection', pick(['contract', 'slug'])),
       assoc('animationUrl', undefined),
       assoc('metadataUrl', undefined),
       assoc('pictureUrl', undefined)
     )(nftMock)
-    expect(mapExtendedNftResponse(response)).toStrictEqual(nft)
+    expect(mapExtendedNftResponse({ response, chain: nftMock.collection.contract.chain })).toStrictEqual(nft)
   })
 })
