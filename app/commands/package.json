@@ -19,6 +19,7 @@
     "@echo/model": "workspace:*",
     "@echo/nft-scan": "workspace:*",
     "@echo/opensea": "workspace:*",
+    "@echo/tasks": "workspace:*",
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
     "@types/node": "20.14.2",

@@ -10,6 +10,7 @@
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
       "@echo/nft-scan/*": ["../../lib/nft-scan/src/*"],
       "@echo/opensea/*": ["../../lib/opensea/src/*"],
+      "@echo/tasks/*": ["../../lib/tasks/src/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"],
       "@echo/web3/*": ["../../lib/web3/src/*"]
     },
