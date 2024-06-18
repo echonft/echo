@@ -7,7 +7,7 @@ import type {
   AuthRequestWithParamsHandler
 } from '@echo/frontend/lib/types/request-handlers/auth-request-handler'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { getBaseLogger } from '@echo/utils/services/pino-logger'
+import { getBaseLogger } from '@echo/utils/services/logger'
 import type { ErrorResponse } from '@echo/utils/types/error-response'
 import { captureException, setUser } from '@sentry/nextjs'
 import type { NextAuthRequest } from 'next-auth/lib'

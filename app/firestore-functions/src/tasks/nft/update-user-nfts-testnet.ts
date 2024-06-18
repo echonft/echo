@@ -19,10 +19,6 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { always, andThen, assoc, equals, isNil, pipe, prop } from 'ramda'
 
 type GetCollectionArgs = Omit<GetCollectionRequest, 'fetch'>
-// TODO
-//   & {
-//   logger?: LoggerInterface
-// }
 
 async function getCollection(args: GetCollectionArgs): Promise<Nullable<Collection>> {
   const collection = await getCollectionFromFirestore(args.slug)

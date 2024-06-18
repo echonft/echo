@@ -21,15 +21,11 @@ import { andThenOtherwise } from '@echo/utils/fp/and-then-otherwise'
 import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { DeepPartial } from '@echo/utils/types/deep-partial'
-import type { LoggerInterface } from '@echo/utils/types/logger-interface'
 import type { Nullable } from '@echo/utils/types/nullable'
+import { error, info, warn } from 'firebase-functions/logger'
 import { always, andThen, assoc, assocPath, equals, isNil, pick, pipe, prop } from 'ramda'
 
 type GetCollectionArgs = Omit<GetCollectionRequest, 'fetch'>
-// TODO
-//   & {
-//   logger?: LoggerInterface
-// }
 
 async function getCollection(args: GetCollectionArgs): Promise<Nullable<Collection>> {
   const collection = await getCollectionFromFirestore(args.contract)
@@ -50,7 +46,7 @@ async function getCollection(args: GetCollectionArgs): Promise<Nullable<Collecti
             pipe(
               // TODO
               // tap((newDocument) => {
-              //   args.logger?.info(`added collection ${newDocument.data.slug}`)
+              //   args.info(`added collection ${newDocument.data.slug}`)
               // }),
               prop('data')
             )
@@ -63,7 +59,7 @@ async function getCollection(args: GetCollectionArgs): Promise<Nullable<Collecti
   return collection
 }
 
-export async function updateNftsForWallet(wallet: Wallet, owner: User, logger?: LoggerInterface) {
+export async function updateNftsForWallet(wallet: Wallet, owner: User) {
   try {
     const collections = await pipe(assoc('fetch', fetch), getAllNftsByAccount)({ wallet })
     for (const collection of collections) {
@@ -83,7 +79,7 @@ export async function updateNftsForWallet(wallet: Wallet, owner: User, logger?: 
             ) as DeepPartial<Nft> & Required<NftIndex>
             const existingNft: Nullable<Nft> = await pipe(getNftIndex, getNft)(nftWithCollectionSlug)
             if (isNil(existingNft)) {
-              logger?.info(
+              info(
                 `nft #${nft.tokenId} for collection with contract ${JSON.stringify(
                   nft.collection.contract,
                   undefined,
@@ -104,7 +100,7 @@ export async function updateNftsForWallet(wallet: Wallet, owner: User, logger?: 
                   addNft
                 )(nft)
               } catch (e) {
-                logger?.error(
+                error(
                   `error adding nft #${nft.tokenId} for collection with contract ${JSON.stringify(
                     nft.collection.contract,
                     undefined,
@@ -112,25 +108,25 @@ export async function updateNftsForWallet(wallet: Wallet, owner: User, logger?: 
                   )}: ${errorMessage(e)}`
                 )
               }
-              logger?.info(`added nft ${firestoreCollection.slug} #${nft.tokenId}`)
+              info(`added nft ${firestoreCollection.slug} #${nft.tokenId}`)
             } else if (!equals(existingNft.owner.wallet, owner.wallet)) {
-              logger?.warn(
+              warn(
                 `nft ${existingNft.collection.slug} #${existingNft.tokenId} is not owned by ${existingNft.owner.wallet.address} anymore, updating owner...`
               )
               try {
                 await pipe(assoc('owner', owner), updateNft)(existingNft)
-                logger?.info(
+                info(
                   `updated owner of nft ${existingNft.collection.slug} #${existingNft.tokenId} to ${owner.wallet.address}`
                 )
               } catch (e) {
-                logger?.error(
+                error(
                   `error setting new owner of nft ${existingNft.collection.slug} #${nft.tokenId}: ${errorMessage(e)}`
                 )
               }
             }
           }
         } catch (e) {
-          logger?.error(
+          error(
             `error getting NFT #${nft.tokenId}} for collection with contract ${JSON.stringify(
               nft.collection.contract,
               undefined,
@@ -141,18 +137,19 @@ export async function updateNftsForWallet(wallet: Wallet, owner: User, logger?: 
       }
     }
   } catch (e) {
-    logger?.error(`error fetching NFTs for wallet ${JSON.stringify(wallet)}: ${errorMessage(e)}`)
+    error(`error fetching NFTs for wallet ${JSON.stringify(wallet)}: ${errorMessage(e)}`)
   }
 }
 
-export async function updateUserNfts(user: UserDocumentData, wallets: WalletDocumentData[], logger?: LoggerInterface) {
+export async function updateUserNfts(user: UserDocumentData, wallets: WalletDocumentData[]) {
   for (const wallet of wallets) {
+    info(`updating NFTs for wallet ${JSON.stringify(wallet)}`)
     const owner: User = getUserFromFirestoreData(user, wallet)
     if (isTestnetChain(wallet.chain)) {
-      await updateNftsForWalletTestnet(pick(['address', 'chain'], wallet), owner, logger)
+      await updateNftsForWalletTestnet(pick(['address', 'chain'], wallet), owner)
     } else {
-      await updateNftsForWallet(pick(['address', 'chain'], wallet), owner, logger)
+      await updateNftsForWallet(pick(['address', 'chain'], wallet), owner)
     }
-    logger?.info(`done updating NFTs for wallet ${JSON.stringify(wallet)}`)
+    info(`done updating NFTs for wallet ${JSON.stringify(wallet)}`)
   }
 }
