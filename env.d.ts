@@ -7,7 +7,7 @@ declare namespace NodeJS {
       AUTH_DISCORD_ID: string
       AUTH_DISCORD_SECRET: string
       AUTH_SECRET: string
-      CI?: number | 'true' | '1'
+      CI?: 'true' | '1'
       ENV?: 'production' | 'staging' | 'testnet' | 'development' | 'test'
       NEXT_PUBLIC_IS_TESTNET?: '1'
       NEXT_PUBLIC_VERCEL_ENV: 'production' | 'preview' | 'development'
