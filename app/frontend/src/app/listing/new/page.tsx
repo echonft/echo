@@ -15,22 +15,7 @@ import { promiseAll } from '@echo/utils/fp/promise-all'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound } from 'next/navigation'
-import {
-  andThen,
-  equals,
-  filter,
-  identity,
-  is,
-  isEmpty,
-  isNil,
-  juxt,
-  map,
-  pathSatisfies,
-  pipe,
-  prop,
-  reject,
-  unless
-} from 'ramda'
+import { andThen, identity, is, isEmpty, isNil, juxt, map, pipe, prop, reject, unless } from 'ramda'
 
 async function render({
   searchParams: { items, target },
@@ -56,15 +41,11 @@ async function render({
     )
   )(items)
   const listingTarget = await unlessNil(getCollection)(target)
-  if (isNil(listingTarget)) {
+  if (isNil(listingItems) && isNil(listingTarget)) {
     notFound()
   }
 
-  const creatorNfts: Nft[] = await pipe(
-    prop('username'),
-    getNftsForOwner as (username: string) => Promise<Nft[]>,
-    andThen(filter(pathSatisfies(equals(listingTarget.contract.chain), ['collection', 'contract', 'chain'])))
-  )(user)
+  const creatorNfts: Nft[] = await pipe(prop('username'), getNftsForOwner as (username: string) => Promise<Nft[]>)(user)
   if (isEmpty(listingItems) && isEmpty(creatorNfts)) {
     notFound()
   }
