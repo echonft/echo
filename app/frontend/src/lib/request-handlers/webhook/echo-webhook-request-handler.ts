@@ -11,7 +11,7 @@ import { echoEventLogSchema } from '@echo/frontend/lib/validators/echo-event-log
 import { validateQuicknodeSignature } from '@echo/frontend/lib/validators/validate-quicknode-signature'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { NextResponse } from 'next/server'
-import { andThen, assoc, invoker, isNil, objOf, pipe } from 'ramda'
+import { andThen, assoc, invoker, isNil, pipe } from 'ramda'
 
 export async function echoWebhookRequestHandler({
   req,
@@ -28,7 +28,11 @@ export async function echoWebhookRequestHandler({
   })(req)
   // TODO Right now we only take the executed events
   const offerExecutedEvents = await guardAsyncFn({
-    fn: pipe(invoker(0, 'json'), andThen(pipe(objOf('data'), (data) => echoEventLogSchema.parse(data)))),
+    // TODO Should use parseRequest
+    fn: pipe(
+      invoker(0, 'json'),
+      andThen((data) => echoEventLogSchema.parse(data))
+    ),
     status: ErrorStatus.BAD_REQUEST,
     logger
   })(req)

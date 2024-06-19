@@ -7,30 +7,30 @@ import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { trim } from '@echo/web3/helpers/utils'
 import { applySpec, filter, flatten, map, path, pathEq, pipe, prop, toLower } from 'ramda'
-import { array, object } from 'zod'
+import { array } from 'zod'
 
 // TODO Right now this only take the offer executed event, should add more later
-export const echoEventLogSchema = object({
-  data: array(blockDataSchema).nonempty()
-}).transform((args) =>
-  pipe<[typeof args.data], OfferExecutedEvent[][], OfferExecutedEvent[]>(
-    map(
-      pipe(
-        prop('logs'),
-        // Remove the data where topic is not OfferExecutedEventHash
-        filter(pathEq(OfferExecutedEventHash, ['topics', 0])),
-        map(
-          applySpec({
-            transactionHash: prop('transactionHash'),
-            offerId: pipe<[Log], HexString, HexString, EvmAddress>(
-              nonNullableReturn(path(['topics', 1])),
-              trim<HexString>,
-              toLower<HexString>
-            )
-          })
+export const echoEventLogSchema = array(blockDataSchema)
+  .nonempty()
+  .transform((args) =>
+    pipe<[typeof args], OfferExecutedEvent[][], OfferExecutedEvent[]>(
+      map(
+        pipe(
+          prop('logs'),
+          // Remove the data where topic is not OfferExecutedEventHash
+          filter<Log>(pathEq(OfferExecutedEventHash, ['topics', 0])),
+          map(
+            applySpec({
+              transactionHash: prop('transactionHash'),
+              offerId: pipe<[Log], HexString, HexString, EvmAddress>(
+                nonNullableReturn(path(['topics', 1])),
+                trim<HexString>,
+                toLower<HexString>
+              )
+            })
+          )
         )
-      )
-    ),
-    flatten
-  )(args.data)
-)
+      ),
+      flatten
+    )(args)
+  )
