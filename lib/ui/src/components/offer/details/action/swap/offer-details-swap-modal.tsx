@@ -28,7 +28,7 @@ interface Props {
   onClose?: EmptyFunction
 }
 
-// TODO
+// TODO add polling on execute
 export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ open, offer, onClose, onSuccess }) => {
   const t = useTranslations('offer.details.swapModal')
   const tError = useTranslations('error.offer')

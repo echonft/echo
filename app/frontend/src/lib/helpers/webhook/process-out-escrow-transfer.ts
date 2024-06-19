@@ -9,7 +9,7 @@ import type { NftTransfer } from '@echo/frontend/lib/types/transfer/nft-transfer
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import { getCollection } from '@echo/tasks/get-collection'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { applySpec, assoc, chain, invoker, isNil, pipe, prop } from 'ramda'
+import { chain, isNil } from 'ramda'
 
 export async function processOutEscrowTransfer(args: WithLoggerType<Record<'transfer', NftTransfer>>): Promise<void> {
   const {
@@ -41,13 +41,7 @@ export async function processOutEscrowTransfer(args: WithLoggerType<Record<'tran
   }
   const user = getUserFromFirestoreData(userDocumentData, to)
   // We add NFT back in the NFT database and remove the escrowed one
-  const nft = pipe(
-    applySpec<Omit<NftWithId, 'owner'>>({
-      data: invoker(0, 'data'),
-      id: prop('id')
-    }),
-    assoc('owner', user)
-  )(nftSnapshot)
+  const nft: NftWithId = { ...nftSnapshot.data(), id: nftSnapshot.id, owner: user }
   await addNftWithId(nft)
   logger?.info({ fn: processOutEscrowTransfer.name, nft }, 'added NFT')
   await deleteEscrowedNft(nftSnapshot.id)
