@@ -6,7 +6,8 @@ export async function getQuicknodeSecurityTokenSwitch(type: QuicknodeSignatureTy
     case 'nft-transfer':
       return await getSecret({ name: 'NFT_TRANSFER_QUICKNODE_SECURITY_TOKEN' })
     case 'echo':
-      return await getSecret({ name: 'ECHO_QUICKNODE_SECURITY_TOKEN' })
+      return 'qnsec_Cg5ULEPbQrGuNE-wxxEBJA=='
+    // return await getSecret({ name: 'ECHO_QUICKNODE_SECURITY_TOKEN' })
     default:
       throw Error('invalid Quicknode type')
   }
