@@ -16,17 +16,17 @@ import { ListingDetailsOffersContainer } from '@echo/ui/components/listing/detai
 import { ListingDetailsState } from '@echo/ui/components/listing/details/listing-details-state'
 import { ListingDetailsTargetContainer } from '@echo/ui/components/listing/details/listing-details-target-container'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
-import { getNewListingPathFromTarget } from '@echo/ui/helpers/listing/get-new-listing-path-from-target'
 import { isListingRoleCreator } from '@echo/ui/helpers/listing/is-listing-role-creator'
+import { getNewOfferPath } from '@echo/ui/helpers/offer/get-new-offer-path'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
-import { useRouter } from 'next/navigation'
 import type { User } from 'next-auth'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import { assoc, isEmpty } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
 
@@ -88,7 +88,8 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, offers }) =>
           void trigger({ slug: listing.slug })
         }}
         onFill={() => {
-          router.push(getNewListingPathFromTarget(listing.target.collection.slug))
+          // FIXME We should also pass the collection slug here to only display NFTs from that collection (DEV-322)
+          router.push(getNewOfferPath(listing.items))
         }}
       />
     </ListingDetailsLayout>
