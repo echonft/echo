@@ -1,4 +1,5 @@
 'use client'
+import { apiUrlProvider } from '@echo/api/routing/api-url-provider'
 import { addPictureSize } from '@echo/ui/helpers/add-picture-size'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
@@ -15,7 +16,7 @@ function convertIpfsScheme(src: string): string {
   try {
     const urlObject = new URL(removeQueryFromUrl(src))
     if (urlObject.protocol == 'ipfs:') {
-      return `https://bowl-fence-dance.quicknode-ipfs.com/${urlObject.pathname.slice(2)}`
+      return apiUrlProvider.ipfs.proxy.getUrl({ path: urlObject.pathname.slice(2) })
     }
     return src
   } catch (e) {
