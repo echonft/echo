@@ -5,6 +5,7 @@ import { getSignatureHeadersFromRequest } from '@echo/frontend/lib/helpers/webho
 import { handleNftTransfer } from '@echo/frontend/lib/helpers/webhook/handle-nft-transfer'
 import type { RequestHandlerArgsWithParams } from '@echo/frontend/lib/types/request-handlers/request-handler'
 import type { NftTransfer } from '@echo/frontend/lib/types/transfer/nft-transfer'
+import type { QuicknodeSignatureType } from '@echo/frontend/lib/types/webhook/quicknode-signature-type'
 import { transferEventLogSchema } from '@echo/frontend/lib/validators/transfer-event-log-schema'
 import { validateQuicknodeSignature } from '@echo/frontend/lib/validators/validate-quicknode-signature'
 import { promiseAll } from '@echo/utils/fp/promise-all'
@@ -19,7 +20,11 @@ export async function nftTransferWebhookRequestHandler({
   logger
 }: RequestHandlerArgsWithParams<{ chain: ChainName }, WebhookBlockRequest>) {
   await guardAsyncFn({
-    fn: pipe(getSignatureHeadersFromRequest, validateQuicknodeSignature),
+    fn: pipe(
+      getSignatureHeadersFromRequest,
+      assoc('type', 'nft-transfer' as QuicknodeSignatureType),
+      validateQuicknodeSignature
+    ),
     status: ErrorStatus.UNAUTHORIZED,
     logger
   })(req)

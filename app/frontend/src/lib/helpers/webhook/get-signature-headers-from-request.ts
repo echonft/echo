@@ -4,7 +4,9 @@ import { UnauthorizedError } from '@echo/frontend/lib/helpers/error/unauthorized
 import type { QuicknodeSignatureArgs } from '@echo/frontend/lib/validators/validate-quicknode-signature'
 import { isNil } from 'ramda'
 
-export function getSignatureHeadersFromRequest(req: ApiRequest<WebhookBlockRequest>): QuicknodeSignatureArgs {
+export function getSignatureHeadersFromRequest(
+  req: ApiRequest<WebhookBlockRequest>
+): Omit<QuicknodeSignatureArgs, 'type'> {
   const signature = req.headers.get('x-qn-signature')
   const nonce = req.headers.get('x-qn-nonce')
   const contentHash = req.headers.get('x-qn-content-hash')

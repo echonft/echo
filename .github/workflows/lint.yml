@@ -35,10 +35,6 @@ jobs:
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint --filter=@echo/api -- --quiet
-      - name: contract-listener lint
-        env:
-          NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint --filter=@echo/contract-listener -- --quiet
       - name: firestore lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
