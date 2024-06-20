@@ -2,7 +2,6 @@
 import nextIntl from 'next-intl/plugin'
 import { withSentryConfig } from '@sentry/nextjs'
 import NextBundleAnalyzer from '@next/bundle-analyzer'
-import { environment } from '@echo/utils/src/constants/environment.js'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -53,7 +52,7 @@ const withSentry = withSentryConfig(withNextIntl(nextConfig), {
   // Automatically tree-shake Sentry logger statements to reduce bundle size
   disableLogger: true,
   deploy: {
-    env: environment
+    env: process.env.ENV
   }
 })
 
