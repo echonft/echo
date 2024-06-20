@@ -7,7 +7,7 @@ import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
 import { pipe } from 'ramda'
 import { readContract } from 'viem/actions'
 
-interface GetEchoTradingFeesArgs {
+export interface GetEchoTradingFeesArgs {
   chain: ChainName
 }
 

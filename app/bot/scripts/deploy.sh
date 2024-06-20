@@ -16,7 +16,7 @@ fi
 dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 git_sha=$(git rev-parse --short HEAD)
 id="${app}:${git_sha}"
-docker buildx build --no-cache --platform=linux/amd64 --target=bot -t registry.fly.io/"${id}" "${dir}"/../../../
+docker buildx build --no-cache --platform=linux/amd64 -t registry.fly.io/"${id}" "${dir}"/../../../
 docker push registry.fly.io/"${id}"
 flyctl deploy -i registry.fly.io/"${id}" --local-only --app=${app} --only-machines=${machine_id} --image-label="${git_sha}"
 sleep 240

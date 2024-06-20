@@ -39,7 +39,7 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.create.modal')
   const tError = useTranslations('error.offer')
-  const { createOffer, contractCreateOffer } = useDependencies()
+  const { createOffer, contractCreateOffer, logger } = useDependencies()
   const baseOffer = useMemo(
     () =>
       generateBaseOffer({
@@ -57,7 +57,9 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
       onSuccess?.(response.offer)
     },
     onError: {
-      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('new') }
+      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('new') },
+      logger,
+      loggerContext: { component: CreateOfferModal.name, fn: createOffer.name, offer: baseOffer }
     }
   })
 
@@ -75,10 +77,9 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
       })
     },
     onError: {
-      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('new') }
-    },
-    options: {
-      debug: true
+      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('new') },
+      logger,
+      loggerContext: { component: CreateOfferModal.name, fn: contractCreateOffer.name, offer: baseOffer }
     }
   })
 

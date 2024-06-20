@@ -1,6 +1,5 @@
 'use client'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
-import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Nft } from '@echo/model/types/nft'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalDescription } from '@echo/ui/components/base/modal/modal-description'
@@ -32,7 +31,7 @@ interface Props {
 export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ open, offer, onClose, onSuccess }) => {
   const t = useTranslations('offer.details.swapModal')
   const tError = useTranslations('error.offer')
-  const { contractExecuteOffer } = useDependencies()
+  const { contractExecuteOffer, logger } = useDependencies()
   const chain = pipe<[OfferWithRole], Nft[], Nft, ChainName>(
     prop('receiverItems'),
     head,
@@ -51,10 +50,15 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ open, offer, o
       )
     },
     onError: {
-      contexts: offerContext(offer),
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('swap') },
       onError: () => {
         onClose?.()
+      },
+      logger,
+      loggerContext: {
+        component: OfferDetailsSwapModal.name,
+        fn: contractExecuteOffer.name,
+        offer
       }
     }
   })

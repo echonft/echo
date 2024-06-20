@@ -9,7 +9,7 @@ import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
 import { all, any, equals, F, head, ifElse, isNil, map, path, pipe, prop, toLower } from 'ramda'
 import { multicall } from 'viem/actions'
 
-interface AreNftsInEscrowArgs {
+export interface AreNftsInEscrowArgs {
   nfts: Nft[]
 }
 

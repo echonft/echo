@@ -1,17 +1,23 @@
 import type { Nft } from '@echo/model/types/nft'
+import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
+import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { areNftsInEscrow } from '@echo/web3-dom/helpers/are-nfts-in-escrow'
 import useSWR from 'swr'
 
 export function useAreNftsInEscrow(nfts: Nft[] | undefined): boolean | undefined {
+  const { areNftsInEscrow, logger } = useDependencies()
   const { data } = useSWR<boolean, Error>(
     isNilOrEmpty(nfts) ? undefined : { name: SWRKeys.contract.areNftsInEscrow(nfts), nfts },
     areNftsInEscrow,
     {
       shouldRetryOnError: true,
       errorRetryCount: 3,
-      errorRetryInterval: 500
+      errorRetryInterval: 500,
+      onError: errorCallback({
+        logger,
+        loggerContext: { component: useAreNftsInEscrow.name, fn: areNftsInEscrow.name }
+      })
     }
   )
   return data

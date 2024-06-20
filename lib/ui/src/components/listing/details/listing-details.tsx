@@ -1,7 +1,6 @@
 'use client'
 import type { CancelListingArgs } from '@echo/api/types/fetchers/cancel-listing-args'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
-import { listingContext } from '@echo/model/sentry/contexts/listing-context'
 import type { Offer } from '@echo/model/types/offer'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { ListingDetailsItemsContainerLayout } from '@echo/ui/components/listing/details/layout/listing-details-items-container-layout'
@@ -39,7 +38,7 @@ interface Props {
 export const ListingDetails: FunctionComponent<Props> = ({ listing, offers }) => {
   const t = useTranslations('error.listing')
   const router = useRouter()
-  const { cancelListing } = useDependencies()
+  const { cancelListing, logger } = useDependencies()
   const [updatedListing, setUpdatedListing] = useState(listing)
   const { creator, items, target } = updatedListing
   const isCreator = isListingRoleCreator(updatedListing)
@@ -51,8 +50,9 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, offers }) =>
       setUpdatedListing(assoc('role', listing.role, response.listing))
     },
     onError: {
-      contexts: listingContext(updatedListing),
-      alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('cancel') }
+      alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('cancel') },
+      logger,
+      loggerContext: { component: ListingDetails.name, fn: cancelListing.name, listing: updatedListing }
     }
   })
   // update listing if the prop changes

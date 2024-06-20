@@ -26,7 +26,7 @@ export const OfferDetailsContractApprovalRow: FunctionComponent<Props> = ({
   approved,
   onSuccess
 }) => {
-  const { getErc721ContractApproval } = useDependencies()
+  const { getErc721ContractApproval, logger } = useDependencies()
   useSWR<boolean, Error, (GetErc721ContractApprovalArgs & Record<'name', string>) | undefined>(
     isNil(approved) ? { name: SWRKeys.contract.getErc721approval(contract), contract, owner } : undefined,
     getErc721ContractApproval,
@@ -37,11 +37,13 @@ export const OfferDetailsContractApprovalRow: FunctionComponent<Props> = ({
       onError: errorCallback({
         onError: () => {
           onSuccess?.(contract, false)
-        }
+        },
+        logger,
+        loggerContext: { component: OfferDetailsContractApprovalRow.name, fn: getErc721ContractApproval.name }
       }),
-      shouldRetryOnError: true,
       errorRetryCount: 3,
-      errorRetryInterval: 500
+      errorRetryInterval: 500,
+      shouldRetryOnError: true
     }
   )
   return (

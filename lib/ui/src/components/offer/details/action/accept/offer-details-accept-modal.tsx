@@ -1,13 +1,11 @@
 'use client'
 import type { AcceptOfferArgs } from '@echo/api/types/fetchers/accept-offer-args'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
-import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Nft } from '@echo/model/types/nft'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalDescription } from '@echo/ui/components/base/modal/modal-description'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
-import type { ErrorCallback } from '@echo/ui/helpers/error-callback'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useEchoTradingFees } from '@echo/ui/hooks/use-echo-trading-fees'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
@@ -33,19 +31,13 @@ interface Props {
 export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open, onSuccess, onClose }) => {
   const t = useTranslations('offer.details.acceptModal')
   const tError = useTranslations('error.offer')
-  const { acceptOffer, contractAcceptOffer } = useDependencies()
+  const { acceptOffer, contractAcceptOffer, logger } = useDependencies()
   const chain = pipe<[OfferWithRole], Nft[], Nft, ChainName>(
     prop('receiverItems'),
     head,
     nonNullableReturn(path(['collection', 'contract', 'chain']))
   )(offer)
   const fees = useEchoTradingFees(chain)
-  const onError: Omit<ErrorCallback, 'show'> = {
-    contexts: offerContext(offer),
-    alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('accept') },
-    onError: onClose
-  }
-
   const { trigger: triggerContractAccept, isMutating: isContractAcceptMutating } = useSWRTrigger<
     HexString,
     ContractUpdateOfferArgs
@@ -55,7 +47,16 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open,
     onSuccess: () => {
       void triggerAccept({ slug: offer.slug })
     },
-    onError
+    onError: {
+      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('accept') },
+      onError: onClose,
+      logger,
+      loggerContext: {
+        component: OfferDetailsAcceptModal.name,
+        fn: contractAcceptOffer.name,
+        offer
+      }
+    }
   })
 
   const { trigger: triggerAccept, isMutating: isAcceptMutating } = useSWRTrigger<OfferResponse, AcceptOfferArgs>({
@@ -64,7 +65,16 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open,
     onSuccess: (response) => {
       onSuccess?.(assoc('role', offer.role, response.offer))
     },
-    onError
+    onError: {
+      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('accept') },
+      onError: onClose,
+      logger,
+      loggerContext: {
+        component: OfferDetailsAcceptModal.name,
+        fn: acceptOffer.name,
+        offer
+      }
+    }
   })
 
   const isMutating = isAcceptMutating || isContractAcceptMutating || isNil(fees)

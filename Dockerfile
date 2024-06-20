@@ -14,15 +14,15 @@ COPY --link . ./
 RUN pnpm install --frozen-lockfile --silent
 
 
-FROM dependencies AS buildBot
+FROM dependencies AS build
 RUN pnpm exec turbo sentry:sourcemaps:upload --filter=@echo/bot
 RUN pnpm prune --prod --silent
 
 
-FROM base AS bot
-COPY --from=buildBot /app/node_modules ./node_modules
-COPY --from=buildBot /app/app/bot/node_modules ./app/bot/node_modules
-COPY --from=buildBot /app/app/bot/package.json ./app/bot/package.json
-COPY --from=buildBot /app/app/bot/dist ./app/bot/dist
+FROM base
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/app/bot/node_modules ./app/bot/node_modules
+COPY --from=build /app/app/bot/package.json ./app/bot/package.json
+COPY --from=build /app/app/bot/dist ./app/bot/dist
 WORKDIR /app/app/bot/
 CMD [ "pnpm", "start" ]
