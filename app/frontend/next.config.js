@@ -2,6 +2,7 @@
 import nextIntl from 'next-intl/plugin'
 import { withSentryConfig } from '@sentry/nextjs'
 import NextBundleAnalyzer from '@next/bundle-analyzer'
+import { environment } from '@echo/utils/src/constants/environment.js'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -35,6 +36,7 @@ const withSentry = withSentryConfig(withNextIntl(nextConfig), {
   // https://github.com/getsentry/sentry-webpack-plugin#options
   org: 'echo-nft',
   project: 'frontend',
+  autoInstrumentMiddleware: false,
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
   // For all available options, see:
@@ -49,12 +51,10 @@ const withSentry = withSentryConfig(withNextIntl(nextConfig), {
   // Hides source maps from generated client bundles
   hideSourceMaps: true,
   // Automatically tree-shake Sentry logger statements to reduce bundle size
-  disableLogger: true
-  // Enables automatic instrumentation of Vercel Cron Monitors. (Does not yet work with App Router route handlers.)
-  // See the following for more information:
-  // https://docs.sentry.io/product/crons/
-  // https://vercel.com/docs/cron-jobs
-  // automaticVercelMonitors: true
+  disableLogger: true,
+  deploy: {
+    env: environment
+  }
 })
 
 export default NextBundleAnalyzer({

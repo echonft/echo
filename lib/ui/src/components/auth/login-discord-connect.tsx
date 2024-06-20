@@ -18,7 +18,7 @@ interface Props {
 
 export const LoginDiscordConnect: FunctionComponent<Props> = ({ user }) => {
   const t = useTranslations('auth.step0')
-  const { signIn } = useDependencies()
+  const { logger, signIn } = useDependencies()
   if (isNil(user)) {
     return (
       <LoginDiscordButton
@@ -27,7 +27,7 @@ export const LoginDiscordConnect: FunctionComponent<Props> = ({ user }) => {
             .then(() => {
               void mutate(SWRKeys.profile.wallet.get, undefined, {})
             })
-            .catch(errorCallback({ tags: { action: 'signIn' } }))
+            .catch(errorCallback({ logger, loggerContext: { component: LoginDiscordConnect.name, fn: signIn.name } }))
         }}
       >
         {t('loginBtn')}

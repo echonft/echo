@@ -1,7 +1,6 @@
 'use client'
 import type { CancelOfferArgs } from '@echo/api/types/fetchers/cancel-offer-args'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
-import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Nft } from '@echo/model/types/nft'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
@@ -37,7 +36,7 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.details.cancelBtn')
   const tError = useTranslations('error.offer')
-  const { cancelOffer, contractCancelOffer } = useDependencies()
+  const { cancelOffer, contractCancelOffer, logger } = useDependencies()
   const chain = pipe<[OfferWithRole], Nft[], Nft, ChainName>(
     prop('receiverItems'),
     head,
@@ -50,9 +49,14 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
       onSuccess?.(assoc('role', offer.role, response.offer))
     },
     onError: {
-      contexts: offerContext(offer),
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('cancel') },
-      onError
+      onError,
+      logger,
+      loggerContext: {
+        component: OfferDetailsCancelButton.name,
+        fn: cancelOffer.name,
+        offer
+      }
     }
   })
 
@@ -63,9 +67,14 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
       void triggerCancel({ slug: offer.slug })
     },
     onError: {
-      contexts: offerContext(offer),
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('cancel') },
-      onError
+      onError,
+      logger,
+      loggerContext: {
+        component: OfferDetailsCancelButton.name,
+        fn: contractCancelOffer.name,
+        offer
+      }
     }
   })
 

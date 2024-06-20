@@ -2,7 +2,6 @@
 
 import type { RejectOfferArgs } from '@echo/api/types/fetchers/reject-offer-args'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
-import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
@@ -33,7 +32,7 @@ export const OfferDetailsRejectButton: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.details.rejectBtn')
   const tError = useTranslations('error.offer')
-  const { rejectOffer } = useDependencies()
+  const { rejectOffer, logger } = useDependencies()
   const { trigger } = useSWRTrigger<OfferResponse, RejectOfferArgs>({
     key: SWRKeys.offer.reject(offer),
     fetcher: rejectOffer,
@@ -41,9 +40,14 @@ export const OfferDetailsRejectButton: FunctionComponent<Props> = ({
       onSuccess?.(assoc('role', offer.role, response.offer))
     },
     onError: {
-      contexts: offerContext(offer),
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('reject') },
-      onError
+      onError,
+      logger,
+      loggerContext: {
+        component: OfferDetailsRejectButton.name,
+        fn: rejectOffer.name,
+        offer
+      }
     }
   })
 

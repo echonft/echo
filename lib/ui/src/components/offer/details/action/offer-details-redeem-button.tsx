@@ -1,6 +1,5 @@
 'use client'
 import { OFFER_STATE_EXPIRED } from '@echo/model/constants/offer-states'
-import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Nft } from '@echo/model/types/nft'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { isOfferRoleReceiver } from '@echo/ui/helpers/offer/is-offer-role-receiver'
@@ -38,7 +37,7 @@ export const OfferDetailsRedeemButton: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.details')
   const tError = useTranslations('error.offer')
-  const { contractCancelOffer, contractRedeemOffer } = useDependencies()
+  const { contractCancelOffer, contractRedeemOffer, logger } = useDependencies()
   const chain = pipe<[OfferWithRole], Nft[], Nft, ChainName>(
     prop('receiverItems'),
     head,
@@ -55,14 +54,19 @@ export const OfferDetailsRedeemButton: FunctionComponent<Props> = ({
       onSuccess?.(offer)
     },
     onError: {
-      contexts: offerContext(offer),
       alert: {
         severity: CALLOUT_SEVERITY_ERROR,
         message: tError('cancel', {
           count
         })
       },
-      onError
+      onError,
+      logger,
+      loggerContext: {
+        component: OfferDetailsRedeemButton.name,
+        fn: contractCancelOffer.name,
+        offer
+      }
     }
   })
   const { trigger: triggerContractRedeem } = useSWRTrigger<HexString, ContractUpdateOfferArgs>({
@@ -72,14 +76,19 @@ export const OfferDetailsRedeemButton: FunctionComponent<Props> = ({
       onSuccess?.(offer)
     },
     onError: {
-      contexts: offerContext(offer),
       alert: {
         severity: CALLOUT_SEVERITY_ERROR,
         message: tError('cancel', {
           count
         })
       },
-      onError
+      onError,
+      logger,
+      loggerContext: {
+        component: OfferDetailsRedeemButton.name,
+        fn: contractRedeemOffer.name,
+        offer
+      }
     }
   })
   if (show) {

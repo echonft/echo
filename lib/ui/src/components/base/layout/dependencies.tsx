@@ -14,11 +14,13 @@ import { DependenciesProvider } from '@echo/ui/providers/dependencies-provider'
 import { getBaseLogger } from '@echo/utils/services/logger'
 import { acceptOffer as contractAcceptOffer } from '@echo/web3-dom/helpers/accept-offer'
 import { approveErc721Contract } from '@echo/web3-dom/helpers/approve-erc721-contract'
+import { areNftsInEscrow } from '@echo/web3-dom/helpers/are-nfts-in-escrow'
 import { cancelOffer as contractCancelOffer } from '@echo/web3-dom/helpers/cancel-offer'
 import { createOffer as contractCreateOffer } from '@echo/web3-dom/helpers/create-offer'
 import { disconnectWallet } from '@echo/web3-dom/helpers/disconnect-wallet'
 import { executeOffer as contractExecuteOffer } from '@echo/web3-dom/helpers/execute-offer'
 import { getAccount } from '@echo/web3-dom/helpers/get-account'
+import { getEchoTradingFees } from '@echo/web3-dom/helpers/get-echo-trading-fees'
 import { getErc721ContractApproval } from '@echo/web3-dom/helpers/get-erc721-contract-approval'
 import { redeemOffer as contractRedeemOffer } from '@echo/web3-dom/helpers/redeem-offer'
 import { signNonce } from '@echo/web3-dom/helpers/sign-nonce'
@@ -33,6 +35,7 @@ export const Dependencies: FunctionComponent<PropsWithChildren> = ({ children })
         acceptOffer,
         addWallet,
         approveErc721Contract,
+        areNftsInEscrow,
         cancelListing,
         cancelOffer,
         contractAcceptOffer,
@@ -44,6 +47,7 @@ export const Dependencies: FunctionComponent<PropsWithChildren> = ({ children })
         createOffer,
         disconnectWallet,
         getAccount,
+        getEchoTradingFees,
         getErc721ContractApproval,
         getNonce,
         getWallets,

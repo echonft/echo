@@ -14,6 +14,8 @@ import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { Logger } from '@echo/utils/types/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
+import { type AreNftsInEscrowArgs } from '@echo/web3-dom/helpers/are-nfts-in-escrow'
+import type { GetEchoTradingFeesArgs } from '@echo/web3-dom/helpers/get-echo-trading-fees'
 import type { AccountProvider } from '@echo/web3-dom/types/account-provider'
 import type { ApproveErc721ContractArgs } from '@echo/web3-dom/types/approve-erc-721-contract-args'
 import type { ContractCreateOfferArgs } from '@echo/web3-dom/types/contract-create-offer-args'
@@ -27,6 +29,7 @@ export interface Dependencies {
   acceptOffer: Fetcher<OfferResponse, AcceptOfferArgs>
   addWallet: Fetcher<WalletsResponse, AddWalletRequest>
   approveErc721Contract: Fetcher<HexString, ApproveErc721ContractArgs>
+  areNftsInEscrow: (args: AreNftsInEscrowArgs) => Promise<boolean>
   cancelListing: Fetcher<ListingResponse, CancelListingArgs>
   cancelOffer: Fetcher<OfferResponse, CancelOfferArgs>
   contractAcceptOffer: Fetcher<HexString, ContractUpdateOfferArgs>
@@ -38,6 +41,7 @@ export interface Dependencies {
   createOffer: Fetcher<OfferResponse, CreateOfferRequest>
   disconnectWallet: () => Promise<void>
   getAccount: AccountProvider
+  getEchoTradingFees: (args: GetEchoTradingFeesArgs) => Promise<bigint>
   getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
   getNonce: Fetcher<NonceResponse, never>
   getWallets: Fetcher<WalletsResponse, never>

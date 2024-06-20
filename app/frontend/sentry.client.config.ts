@@ -3,12 +3,12 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 import { isCI } from '@echo/utils/constants/is-ci'
-import { isProd } from '@echo/utils/constants/is-prod'
 import { extraErrorDataIntegration } from '@sentry/browser'
 import * as Sentry from '@sentry/nextjs'
+import { equals } from 'ramda'
 
 Sentry.init({
-  enabled: !isCI && isProd,
+  enabled: !isCI && equals(process.env.VERCEL_ENV, 'production'),
   dsn: 'https://90f90a5ace372a2805407eeeb7d7fc15@o4506149604098048.ingest.us.sentry.io/4506149609472000',
   // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: 1,

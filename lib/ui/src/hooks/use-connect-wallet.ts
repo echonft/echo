@@ -24,7 +24,7 @@ function walletsInclude(wallets: Wallet[], wallet: Wallet) {
 
 export function useConnectWallet(account: AccountResult) {
   const t = useTranslations('error.profile')
-  const { addWallet, disconnectWallet, getNonce, getWallets, signNonce, switchChain } = useDependencies()
+  const { addWallet, disconnectWallet, getNonce, getWallets, signNonce, switchChain, logger } = useDependencies()
   const { status, wallet } = account
   const [connected, setConnected] = useState(false)
   const { data: walletsResponse } = useSWR(
@@ -39,6 +39,13 @@ export function useConnectWallet(account: AccountResult) {
       revalidateOnMount: true,
       onError: (_error) => {
         void disconnectWallet()
+        logger?.warn(
+          {
+            hook: useConnectWallet.name,
+            fn: getWallets.name
+          },
+          'useSWR handled error'
+        )
       }
     }
   )
@@ -63,6 +70,11 @@ export function useConnectWallet(account: AccountResult) {
       },
       onError: () => {
         void disconnectWallet()
+      },
+      logger,
+      loggerContext: {
+        hook: useConnectWallet.name,
+        fn: getNonce.name
       }
     }
   })
@@ -81,6 +93,11 @@ export function useConnectWallet(account: AccountResult) {
       },
       onError: () => {
         void disconnectWallet()
+      },
+      logger,
+      loggerContext: {
+        hook: useConnectWallet.name,
+        fn: addWallet.name
       }
     }
   })
@@ -103,6 +120,11 @@ export function useConnectWallet(account: AccountResult) {
       },
       onError: () => {
         void disconnectWallet()
+      },
+      logger,
+      loggerContext: {
+        hook: useConnectWallet.name,
+        fn: signNonce.name
       }
     }
   })

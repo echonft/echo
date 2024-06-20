@@ -1,36 +1,29 @@
 import type { Alert } from '@echo/ui/types/alert'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import { captureException, getCurrentScope, withScope } from '@sentry/nextjs'
-import { assoc, isNil, mapObjIndexed } from 'ramda'
+import type { Logger } from '@echo/utils/types/logger'
+import type { Nullable } from '@echo/utils/types/nullable'
+import { getCurrentScope } from '@sentry/nextjs'
+import { assoc, isNil, pipe } from 'ramda'
 
-interface CaptureContext {
-  contexts?: Record<string, Record<string, unknown> | null>
-  tags?: Record<string, number | string | boolean | bigint | symbol | null | undefined>
-}
-export interface ErrorCallback extends CaptureContext {
+export interface ErrorCallback {
   alert?: Alert
+  logger?: Nullable<Logger>
+  loggerContext?: Record<string, unknown>
   show?: (alert: Alert) => unknown
   onError?: EmptyFunction
 }
+
 interface OnErrorArgs extends ErrorCallback {
   error: unknown
 }
+
 function onError(args: OnErrorArgs) {
-  const { alert, show, onError, error } = args
+  const { alert, show, onError, logger, loggerContext, error } = args
   const user = getCurrentScope().getUser()
-  withScope((scope) => {
-    scope.setUser(isNil(user) ? null : user)
-    const { tags, contexts } = args
-    if (!isNil(tags)) {
-      scope.setTags(tags)
-    }
-    if (!isNil(contexts)) {
-      mapObjIndexed((context, name) => {
-        scope.setContext(name, context)
-      }, contexts)
-    }
-    captureException(error)
-  })
+  const loggerObject = isNil(loggerContext)
+    ? { err: error, user }
+    : pipe(assoc('err', error), assoc('user', user))(loggerContext)
+  logger?.warn(loggerObject, 'handled error')
   if (!isNil(show) && !isNil(alert)) {
     show(alert)
   }

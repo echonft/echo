@@ -13,8 +13,8 @@ import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { mapListingTargetToRequest } from '@echo/ui/mappers/to-api/map-listing-target-to-request'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import type { FunctionComponent } from 'react'
 
 interface Props {
@@ -26,7 +26,7 @@ interface Props {
 export const CreateListingManager: FunctionComponent<Props> = ({ creatorNfts, items, target }) => {
   const t = useTranslations('error.listing')
   const router = useRouter()
-  const { createListing } = useDependencies()
+  const { createListing, logger } = useDependencies()
   const { trigger, isMutating } = useSWRTrigger<ListingResponse, CreateListingRequest>({
     key: SWRKeys.listing.create,
     fetcher: createListing,
@@ -34,7 +34,9 @@ export const CreateListingManager: FunctionComponent<Props> = ({ creatorNfts, it
       router.replace(linkProvider.listing.details.get({ slug: response.listing.slug }))
     },
     onError: {
-      alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('new') }
+      alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('new') },
+      logger,
+      loggerContext: { component: CreateListingManager.name, fn: createListing.name }
     }
   })
 
