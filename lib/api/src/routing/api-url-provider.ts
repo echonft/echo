@@ -12,6 +12,9 @@ export const apiUrlProvider = {
   collection: {
     search: new ApiPath({ path: '/search/collection' })
   },
+  ipfs: {
+    proxy: new ApiPath<{ path: string }>({ path: '/ipfs/:path' })
+  },
   listing: {
     cancel: new ApiPath<ListingPathArgs>({ path: '/listing/:slug/cancel', secure: true }),
     create: new ApiPath({ path: '/listing', secure: true })
