@@ -24,6 +24,8 @@ jobs:
         run: pnpm exec turbo run tsc --filter=@echo/frontend
       - name: storybook tsc
         run: pnpm exec turbo run tsc --filter=@echo/storybook
+      - name: auth tsc
+        run: pnpm exec turbo run tsc --filter=@echo/auth
       - name: api tsc
         run: pnpm exec turbo run tsc --filter=@echo/api
       - name: firestore tsc
