@@ -22,15 +22,15 @@
     "@echo/tasks": "workspace:*",
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
-    "@types/node": "20.14.2",
+    "@types/node": "20.14.7",
     "@types/qs": "6.9.15",
     "@types/ramda": "0.30.0",
     "@types/yargs": "17.0.32",
     "axios": "1.7.2",
     "qs": "6.12.1",
     "ramda": "0.30.1",
-    "tsx": "4.13.2",
-    "typescript": "5.4.5",
+    "tsx": "4.15.7",
+    "typescript": "5.5.2",
     "yargs": "17.7.2"
   }
 }

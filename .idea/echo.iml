@@ -15,6 +15,7 @@
       <sourceFolder url="file://$MODULE_DIR$/lib/firestore/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/lib/model/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/lib/utils/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/auth/test" isTestSource="true" />
       <excludePattern pattern=".coverage" />
       <excludePattern pattern=".eslintcache" />
       <excludePattern pattern=".idea" />

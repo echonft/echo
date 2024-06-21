@@ -1,5 +1,5 @@
+import { mapDiscordProfile } from '@echo/auth/map-discord-profile'
 import { updateUser } from '@echo/firestore/crud/user/update-user'
-import { mapDiscordProfile } from '@echo/frontend/lib/auth/map-discord-profile'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { createError } from '@echo/frontend/lib/helpers/error/create-error'
 import { guardAsyncFn } from '@echo/frontend/lib/helpers/error/guard'

@@ -29,7 +29,6 @@ export const CardImage: FunctionComponent<Props> = ({ alt, src, scaleDisabled })
         )}
         width={200}
         height={200}
-        crossOrigin={'anonymous'}
         alt={alt}
         src={src}
         onLoad={() => {

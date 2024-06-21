@@ -1,8 +1,8 @@
+import type { User } from '@echo/auth/types/user'
 import { HeaderLoggedIn, type HeaderLoggedInProps } from '@echo/ui/components/base/header/header-logged-in'
 import { HeaderLoggedOut } from '@echo/ui/components/base/header/header-logged-out'
 import { HeaderLogoOnly } from '@echo/ui/components/base/header/header-logo-only'
 import type { Nullable } from '@echo/utils/types/nullable'
-import type { User } from 'next-auth'
 import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
@@ -11,7 +11,7 @@ interface Props extends Omit<HeaderLoggedInProps, 'user'> {
   user?: Nullable<User>
 }
 
-export const HeaderSwitch: FunctionComponent<Props> = ({ logoOnly, user, ...rest }) => {
+export const Header: FunctionComponent<Props> = ({ logoOnly, user, ...rest }) => {
   if (logoOnly) {
     return <HeaderLogoOnly />
   }

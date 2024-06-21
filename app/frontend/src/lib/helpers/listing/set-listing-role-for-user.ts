@@ -1,3 +1,4 @@
+import type { User } from '@echo/auth/types/user'
 import { setListingRoleCreator } from '@echo/frontend/lib/helpers/listing/set-listing-role-creator'
 import { setListingRoleTarget } from '@echo/frontend/lib/helpers/listing/set-listing-role-target'
 import { setListingRoleUndefined } from '@echo/frontend/lib/helpers/listing/set-listing-role-undefined'
@@ -6,7 +7,6 @@ import type { Listing } from '@echo/model/types/listing'
 import type { Nft } from '@echo/model/types/nft'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { Nullable } from '@echo/utils/types/nullable'
-import type { User } from 'next-auth'
 import { any, equals, isNil, pipe } from 'ramda'
 
 export function setListingRoleForUser(user: Nullable<User>, nfts: Nft[]) {

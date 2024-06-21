@@ -1,7 +1,5 @@
-import { authConfig } from '@echo/frontend/lib/auth/auth-config'
-import NextAuth from 'next-auth'
-
-export const { auth: middleware } = NextAuth(authConfig)
+// noinspection JSUnusedGlobalSymbols
+export { auth as middleware } from '@echo/auth/auth'
 
 // Optionally, don't invoke Middleware on some paths
 // Read more: https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher

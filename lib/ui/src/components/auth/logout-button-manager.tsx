@@ -1,5 +1,4 @@
 'use client'
-import { linkProvider } from '@echo/api/routing/link-provider'
 import { LogoutButton } from '@echo/ui/components/auth/logout-button'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import { type FunctionComponent, useState } from 'react'
@@ -11,7 +10,7 @@ export const LogoutButtonManager: FunctionComponent = () => {
     <LogoutButton
       onClick={() => {
         setLoggingOut(true)
-        void signOut({ callbackUrl: linkProvider.base.home.getUrl() })
+        void signOut()
       }}
       loading={loggingOut}
     />

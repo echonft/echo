@@ -1,14 +1,20 @@
 import { apiUrlProvider } from '@echo/api/routing/api-url-provider'
 import { isPathSecure } from '@echo/api/routing/is-path-secure'
-import { mapUser } from '@echo/frontend/lib/auth/map-user'
+import { linkProvider } from '@echo/api/routing/link-provider'
+import { mapUser } from '@echo/auth/map-user'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { pathIsNil } from '@echo/utils/fp/path-is-nil'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
-import { type NextAuthConfig } from 'next-auth'
+import NextAuth, { type NextAuthResult } from 'next-auth'
 import Discord, { type DiscordProfile } from 'next-auth/providers/discord'
 import { assoc, both, complement, dissoc, either, isNil, path, pipe } from 'ramda'
 
-export const authConfig: NextAuthConfig = {
+const {
+  handlers: { GET, POST },
+  auth,
+  signIn,
+  signOut
+}: NextAuthResult = NextAuth({
   callbacks: {
     authorized: function (params) {
       return complement(
@@ -53,4 +59,14 @@ export const authConfig: NextAuthConfig = {
       }
     })
   ]
+})
+export { GET, POST }
+export { auth }
+async function login() {
+  await signIn('discord')
 }
+export { login as signIn }
+async function logout() {
+  await signOut({ redirectTo: linkProvider.base.home.getUrl() })
+}
+export { logout as signOut }

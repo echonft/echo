@@ -1,8 +1,8 @@
+import { getAuthUser } from '@echo/auth/get-auth-user'
+import type { User } from '@echo/auth/types/user'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { getAuthUser } from '@echo/frontend/lib/auth/get-auth-user'
 import { getLogger } from '@echo/frontend/lib/helpers/get-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
-import type { User } from 'next-auth'
 import { assoc, pipe } from 'ramda'
 import type { ReactElement } from 'react'
 

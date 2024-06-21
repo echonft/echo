@@ -1,5 +1,6 @@
 import { type AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
+import type { User } from '@echo/auth/types/user'
 import { getNonceForUser } from '@echo/firestore/crud/nonce/get-nonce-for-user'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
@@ -16,7 +17,6 @@ import type { AuthRequestHandlerArgs } from '@echo/frontend/lib/types/request-ha
 import { addWalletSchema } from '@echo/frontend/lib/validators/add-wallet-schema'
 import { parseRequest } from '@echo/frontend/lib/validators/parse-request'
 import type { Wallet } from '@echo/model/types/wallet'
-import type { User } from 'next-auth'
 import { NextResponse } from 'next/server'
 import { andThen, map, pipe, prop } from 'ramda'
 

@@ -23,7 +23,6 @@ import type { ContractUpdateOfferArgs } from '@echo/web3-dom/types/contract-upda
 import type { GetErc721ContractApprovalArgs } from '@echo/web3-dom/types/get-erc-721-contract-approval-args'
 import type { SignNonceArgs } from '@echo/web3-dom/types/sign-nonce-args'
 import type { SignNonceResult } from '@echo/web3-dom/types/sign-nonce-result'
-import type { SignInResponse, SignOutParams } from 'next-auth/react'
 
 export interface Dependencies {
   acceptOffer: Fetcher<OfferResponse, AcceptOfferArgs>
@@ -48,9 +47,9 @@ export interface Dependencies {
   rejectOffer: Fetcher<OfferResponse, RejectOfferArgs>
   searchCollections: (query: string) => Promise<SearchResult<string>[]>
   searchUsers: (query: string) => Promise<SearchResult<string>[]>
-  signIn: () => Promise<SignInResponse | undefined>
+  signIn: () => Promise<void>
   signNonce: Fetcher<SignNonceResult, SignNonceArgs>
-  signOut: (options: SignOutParams | undefined) => Promise<undefined>
+  signOut: () => Promise<void>
   switchChain: () => Promise<void>
   logger?: Nullable<Logger>
 }

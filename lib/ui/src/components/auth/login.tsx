@@ -1,9 +1,9 @@
 'use client'
+import type { User } from '@echo/auth/types/user'
 import { LoginStep } from '@echo/ui/components/auth/login-step'
 import { LoginStepIndicator, type LoginStepIndicatorProps } from '@echo/ui/components/auth/login-step-indicator'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
-import type { User } from 'next-auth'
 import { inc, isNil } from 'ramda'
 import { type FunctionComponent, type MouseEventHandler, useEffect, useRef, useState } from 'react'
 

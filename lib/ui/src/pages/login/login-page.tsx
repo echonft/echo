@@ -1,11 +1,11 @@
 'use client'
 import { linkProvider } from '@echo/api/routing/link-provider'
+import type { User } from '@echo/auth/types/user'
 import { Login } from '@echo/ui/components/auth/login'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/navigation'
-import type { User } from 'next-auth'
 import { type FunctionComponent } from 'react'
 
 interface Props {

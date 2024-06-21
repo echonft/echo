@@ -1,9 +1,9 @@
+import type { User } from '@echo/auth/types/user'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/wallet/map-wallet-document-data-to-wallet'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { UserProfile } from '@echo/model/types/user-profile'
 import type { Wallet } from '@echo/model/types/wallet'
-import type { User } from 'next-auth'
 import { andThen, assoc, map, modify, omit, pick, pipe, prop } from 'ramda'
 
 export async function getUserProfile(user: User): Promise<UserProfile> {

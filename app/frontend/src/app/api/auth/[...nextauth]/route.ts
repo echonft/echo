@@ -1,2 +1,2 @@
-export { GET, POST } from '@echo/frontend/lib/auth/auth'
+export { GET, POST } from '@echo/auth/auth'
 export const runtime = 'edge'

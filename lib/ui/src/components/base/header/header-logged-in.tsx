@@ -1,10 +1,10 @@
 'use client'
+import type { User } from '@echo/auth/types/user'
 import { HeaderLayout } from '@echo/ui/components/base/header/header-layout'
 import { HeaderProfileButton } from '@echo/ui/components/base/header/header-profile-button'
 import { HeaderSearch } from '@echo/ui/components/base/header/header-search'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { EchoLogoSvg } from '@echo/ui/components/base/svg/echo-logo-svg'
-import type { User } from 'next-auth'
 import { type FunctionComponent, type MouseEventHandler } from 'react'
 
 export interface HeaderLoggedInProps {

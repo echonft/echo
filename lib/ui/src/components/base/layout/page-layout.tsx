@@ -1,6 +1,7 @@
 'use client'
+import type { User } from '@echo/auth/types/user'
 import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
-import { HeaderSwitch } from '@echo/ui/components/base/header/header-switch'
+import { Header } from '@echo/ui/components/base/header/header'
 import { Dependencies } from '@echo/ui/components/base/layout/dependencies'
 import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
 import { Web3Provider } from '@echo/ui/components/base/web3-provider'
@@ -15,7 +16,6 @@ import {
 import type { PageLayoutBackground } from '@echo/ui/types/page-layout-background'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
-import type { User } from 'next-auth'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
@@ -46,7 +46,7 @@ const PageLayoutInner: FunctionComponent<PropsWithChildren<Exclude<Props, 'exclu
         background === PAGE_LAYOUT_BG_RED_GRADIENT && ['bg-gradientRed', 'bg-no-repeat']
       )}
     >
-      <HeaderSwitch logoOnly={Boolean(headerVariants?.logoOnly)} user={user} />
+      <Header logoOnly={Boolean(headerVariants?.logoOnly)} user={user} />
       <MainSectionLayout>
         {children}
         <CalloutManager />

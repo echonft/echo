@@ -1,9 +1,9 @@
 'use client'
+import type { User } from '@echo/auth/types/user'
 import { LoginConnectWalletStep } from '@echo/ui/components/auth/login-connect-wallet-step'
 import { LoginDiscordStep } from '@echo/ui/components/auth/login-discord-step'
 import { LoginJoinEchoStep } from '@echo/ui/components/auth/login-join-echo-step'
 import type { Nullable } from '@echo/utils/types/nullable'
-import type { User } from 'next-auth'
 import { isNil } from 'ramda'
 import { type FunctionComponent, type MouseEventHandler } from 'react'
 

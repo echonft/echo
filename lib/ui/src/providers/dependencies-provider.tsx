@@ -1,3 +1,4 @@
+'use client'
 import type { Dependencies } from '@echo/ui/types/dependencies'
 import { isNil } from 'ramda'
 import React, { type PropsWithChildren } from 'react'

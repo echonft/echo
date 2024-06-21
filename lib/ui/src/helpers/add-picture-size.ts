@@ -3,10 +3,10 @@ import { PICTURE_SIZE_MD, PICTURE_SIZES } from '@echo/ui/constants/picture-size'
 import type { PictureSize } from '@echo/ui/types/picture-size'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { getBaseUrl } from '@echo/utils/helpers/get-base-url'
-import type { Logger } from '@echo/utils/types/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
-import type { ImageLoaderProps } from 'next/image'
-import { __, filter, isNil, length, lte, reduce } from 'ramda'
+import type { WithLoggerType } from '@echo/utils/types/with-logger'
+import type { ImageProps } from 'next/image'
+import { __, filter, isEmpty, isNil, length, lte, reduce } from 'ramda'
 
 function getSize(width: number): Nullable<PictureSize> {
   const lteSizes: PictureSize[] = filter(lte(__, width), PICTURE_SIZES as unknown as PictureSize[])
@@ -21,19 +21,43 @@ function getSize(width: number): Nullable<PictureSize> {
     lteSizes
   )
 }
-export function addPictureSize({ src, width }: ImageLoaderProps, logger?: Nullable<Logger>): string {
-  const size = getSize(width)
-  if (isNilOrEmpty(src) || isNil(size)) {
+
+// TODO update db instead
+function convertIpfsScheme(src: string): string {
+  if (isEmpty(src)) {
+    return src
+  }
+  try {
+    if (src.startsWith('ipfs://')) {
+      return apiUrlProvider.ipfs.proxy.getUrl({ path: src.slice(7) })
+    }
+    return src
+  } catch (e) {
+    return src
+  }
+}
+export function addPictureSize(
+  args: WithLoggerType<
+    Partial<Omit<ImageProps, 'loader' | 'unoptimized' | 'src' | 'overrideSrc' | 'width'>> &
+      Record<'src', Nullable<string>> &
+      Record<'width', number>
+  >
+): string {
+  if (isNil(args.src)) {
+    return ''
+  }
+  const size = getSize(args.width)
+  if (isNilOrEmpty(args.src) || isNil(size)) {
     if (!isNil(size) && size < PICTURE_SIZE_MD) {
       return 'https://storage.googleapis.com/echo-dev-public/not-found-nft-small.png?alt=media'
     }
     return 'https://storage.googleapis.com/echo-dev-public/not-found-nft.png?alt=media'
   }
   try {
+    const src = convertIpfsScheme(args.src)
     if (src.startsWith(`${getBaseUrl()}/api/ipfs`)) {
       return `${src}?img-width=${size}`
     }
-
     const urlObject = new URL(src)
     const hostname = urlObject.hostname
     if (hostname.includes('ipfs.io')) {
@@ -58,7 +82,7 @@ export function addPictureSize({ src, width }: ImageLoaderProps, logger?: Nullab
     }
     return src
   } catch (err) {
-    logger?.error({ err, fn: 'addPictureSize' })
-    return src
+    args.logger?.error({ err, fn: 'addPictureSize' })
+    return args.src
   }
 }

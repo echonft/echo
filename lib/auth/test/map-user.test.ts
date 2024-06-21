@@ -1,9 +1,10 @@
-import { mapDiscordProfile } from '@echo/frontend/lib/auth/map-discord-profile'
-import { mapUser } from '@echo/frontend/lib/auth/map-user'
+import { mapDiscordProfile } from '@echo/auth/map-discord-profile'
+import { mapUser } from '@echo/auth/map-user'
+import { describe, expect, test } from '@jest/globals'
 import type { User } from 'next-auth'
 import type { DiscordProfile as ProviderDiscordProfile } from 'next-auth/providers/discord'
 
-describe('auth - mapUser', () => {
+describe('mapUser', () => {
   const providerProfile: ProviderDiscordProfile = {
     id: 'id',
     username: 'UseRnAme',

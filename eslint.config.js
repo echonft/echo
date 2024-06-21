@@ -65,6 +65,7 @@ export default tseslint.config(
           destructuredArrayIgnorePattern: '^_'
         }
       ],
+      '@typescript-eslint/no-invalid-void-type': 'off',
       '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
       'no-console': 'error',
       'turbo/no-undeclared-env-vars': 'off',

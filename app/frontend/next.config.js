@@ -13,12 +13,18 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: '**'
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost'
       }
-    ]
+    ],
+    unoptimized: true
   },
   swcMinify: true,
   transpilePackages: [
     '@echo/api',
+    '@echo/auth',
     '@echo/firestore',
     '@echo/model',
     '@echo/opensea',

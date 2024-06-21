@@ -1,5 +1,6 @@
 import { type RemoveWalletRequest } from '@echo/api/types/requests/remove-wallet-request'
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
+import type { User } from '@echo/auth/types/user'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
@@ -12,7 +13,6 @@ import type { AuthRequestHandlerArgs } from '@echo/frontend/lib/types/request-ha
 import { parseRequest } from '@echo/frontend/lib/validators/parse-request'
 import { removeWalletSchema } from '@echo/frontend/lib/validators/remove-wallet-schema'
 import type { Wallet } from '@echo/model/types/wallet'
-import type { User } from 'next-auth'
 import { NextResponse } from 'next/server'
 import { andThen, map, pipe, prop } from 'ramda'
 

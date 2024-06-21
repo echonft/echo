@@ -1,5 +1,8 @@
+import { auth } from '@echo/auth/auth'
+import { getAuthUser } from '@echo/auth/get-auth-user'
+import type { AppRouteHandlerFnContext } from '@echo/auth/types/app-route-handler-fn-context'
+import type { NextAuthRequest } from '@echo/auth/types/next-auth-request'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { auth } from '@echo/frontend/lib/auth/auth'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
 import { getLogger } from '@echo/frontend/lib/helpers/get-logger'
 import type {
@@ -9,23 +12,20 @@ import type {
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { ErrorResponse } from '@echo/utils/types/error-response'
 import type { Logger } from '@echo/utils/types/logger'
-import { captureException, setUser } from '@sentry/nextjs'
-import type { NextAuthRequest } from 'next-auth/lib'
-import { NextResponse } from 'next/server'
-import { isNil, pick } from 'ramda'
+import { captureException, setUser, type User } from '@sentry/nextjs'
+import { type NextRequest, NextResponse } from 'next/server'
 
 export function routeHandler<ResponseBody, RequestBody = never, Params extends object = never>(
   requestHandler:
     | RequestWithParamsHandler<ResponseBody, RequestBody, Params>
     | RequestHandler<ResponseBody, RequestBody>
-) {
+): (req: NextRequest, ctx: AppRouteHandlerFnContext) => void | Response | Promise<void | Response> {
   return auth(async function (req: NextAuthRequest, context?: { params?: Record<string, string | string[]> }) {
     const logger = getLogger().child({ component: 'api' }) as Logger
     try {
       await initializeFirebase({ logger })
-      const session = await auth()
-      const user = session?.user
-      setUser(isNil(user) ? null : pick(['username'], user))
+      const user = await getAuthUser()
+      setUser(user as User)
       return await requestHandler({ req, logger, params: context?.params as Params })
     } catch (err) {
       logger.error({ err, fn: 'routeHandler' })
