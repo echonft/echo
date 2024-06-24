@@ -7,13 +7,12 @@ import { pathIsNil } from '@echo/utils/fp/path-is-nil'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import NextAuth, { type NextAuthResult } from 'next-auth'
 import Discord, { type DiscordProfile } from 'next-auth/providers/discord'
+import { signIn, signOut } from 'next-auth/react'
 import { assoc, both, complement, dissoc, either, isNil, path, pipe } from 'ramda'
 
 const {
   handlers: { GET, POST },
-  auth,
-  signIn,
-  signOut
+  auth
 }: NextAuthResult = NextAuth({
   callbacks: {
     authorized: function (params) {
@@ -48,13 +47,18 @@ const {
     Discord({
       authorization: 'https://discord.com/api/oauth2/authorize?scope=identify',
       profile: async (profile: DiscordProfile, token) => {
-        await fetch(apiUrlProvider.user.update.getUrl(), {
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          method: 'POST',
-          body: JSON.stringify(token)
-        })
+        // TODO switch runtime to nodejs and call the db directly here
+        try {
+          await fetch(apiUrlProvider.user.update.getUrl(), {
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(token)
+          })
+        } catch (err) {
+          // nothing to do
+        }
         return mapUser(profile)
       }
     })
@@ -67,6 +71,6 @@ async function login() {
 }
 export { login as signIn }
 async function logout() {
-  await signOut({ redirectTo: linkProvider.base.home.getUrl() })
+  await signOut({ callbackUrl: linkProvider.base.home.getUrl() })
 }
 export { logout as signOut }
