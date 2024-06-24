@@ -12,14 +12,15 @@ import { parseResponse } from '@echo/utils/validators/parse-response'
 import { NextResponse } from 'next/server'
 import { pipe } from 'ramda'
 
-export async function updateUserRequestHandler({ req, logger }: RequestHandlerArgs<DiscordAuthToken>) {
+export async function updateUserRequestHandler(args: RequestHandlerArgs<DiscordAuthToken>) {
+  const logger = args.logger?.child({ fn: updateUserRequestHandler.name })
   const token = await guardAsyncFn({
     fn: parseRequest(discordAuthTokenSchema),
     status: ErrorStatus.BAD_REQUEST,
     severity: 'error',
     message: 'error parsing discord auth token',
     logger
-  })(req)
+  })(args.req)
   const response = await fetch('https://discord.com/api/users/@me', {
     headers: {
       Authorization: `Bearer ${token.access_token}`
@@ -34,7 +35,9 @@ export async function updateUserRequestHandler({ req, logger }: RequestHandlerAr
       logger
     })(response)
     const user = await pipe(mapDiscordProfile, updateUser)(profile)
+    logger?.info({ user }, 'updated user')
     return NextResponse.json({ user })
   }
+  logger?.error({ token }, 'request to Discord failed')
   throw createError(ErrorStatus.BAD_REQUEST, 'request to Discord failed')
 }
