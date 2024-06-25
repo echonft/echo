@@ -12,7 +12,7 @@ fi
 
 
 firebase use "${ENV}"
-firebase deploy --only functions
+firebase deploy --only firestore:functions
 sleep 10
 gcloud artifacts repositories delete gcf-artifacts --location=us-central1 --project=${project} -q
 
