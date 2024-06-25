@@ -11,11 +11,11 @@ ENV=$(whiptail --default-item=staging --nocancel --notags --menu "Pick an enviro
 
 if [ "$ENV" == "staging" ]; then
   vercel link -p staging -y
-  vercel --prod
 elif [ "$ENV" == "production" ]; then
   vercel link -p echo -y
-  vercel --prod
 else
   >&2 echo "ENV not set"
   exit 1
 fi
+
+vercel --prod

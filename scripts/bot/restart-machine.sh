@@ -10,5 +10,4 @@ ENV=$(whiptail --default-item=development --nocancel --notags --menu "Pick an en
 "staging" "Staging" \
 "production" "Production" 3>&1 1>&2 2>&3)
 
-ENV=${ENV} "${dir}"/../../app/bot/scripts/deploy.sh
-
+ENV=${ENV} "${dir}"/../../app/bot/scripts/restart-machine.sh

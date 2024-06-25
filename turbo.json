@@ -6,10 +6,6 @@
       "outputs": ["dist/**"],
       "passThroughEnv": ["CI", "ENV"]
     },
-    "build:local": {
-      "cache": false,
-      "passThroughEnv": ["ANALYZE", "ENV"]
-    },
     "clean": {
       "cache": false
     },
@@ -18,14 +14,11 @@
       "cache": false
     },
     "dev": {
-      "passThroughEnv": ["NEXT_PUBLIC_IS_TESTNET"],
+      "passThroughEnv": ["ENV", "NODE_ENV", "NEXT_PUBLIC_IS_TESTNET"],
       "cache": false,
       "persistent": true
     },
     "lint": {},
-    "machine:restart": {
-      "cache": false
-    },
     "modules:remove": {
       "cache": false
     },
@@ -39,18 +32,6 @@
     "start": {
       "cache": false,
       "persistent": true
-    },
-    "start:local": {
-      "dependsOn": ["build"],
-      "cache": false,
-      "persistent": true,
-      "passThroughEnv": ["ENV"]
-    },
-    "sentry:sourcemaps:inject": {
-      "dependsOn": ["build"]
-    },
-    "sentry:sourcemaps:upload": {
-      "dependsOn": ["sentry:sourcemaps:inject"]
     },
     "test:coverage:clean": {
       "cache": false

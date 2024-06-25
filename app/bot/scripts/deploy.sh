@@ -19,5 +19,5 @@ id="${app}:${git_sha}"
 docker buildx build --no-cache --platform=linux/amd64 -t registry.fly.io/"${id}" "${dir}"/../../../
 docker push registry.fly.io/"${id}"
 flyctl deploy -i registry.fly.io/"${id}" --local-only --app=${app} --only-machines=${machine_id} --image-label="${git_sha}"
-sleep 240
+sleep 30
 flyctl machine restart ${machine_id} --app=${app}
