@@ -4,8 +4,8 @@
   "license": "MIT",
   "type": "module",
   "private": true,
+  "main": "dist/index.js",
   "scripts": {
-    "artifacts:delete": "scripts/delete-artifacts.sh",
     "build": "tsup",
     "deploy": "scripts/deploy.sh",
     "lint": "eslint",
@@ -15,7 +15,6 @@
     "prettier": "prettier . -u -c --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --config ../../prettier.config.js",
     "tsc": "tsc --noEmit"
   },
-  "main": "dist/index.js",
   "dependencies": {
     "firebase-admin": "12.2.0",
     "firebase-functions": "5.0.1",

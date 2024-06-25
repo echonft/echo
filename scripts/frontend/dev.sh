@@ -18,5 +18,6 @@ if [ "$ENV" == "development" ]; then
 elif [ "$ENV" == "staging" ] || [ "$ENV" == "production" ]; then
   ENV=${ENV} NEXT_PUBLIC_IS_TESTNET=0 "${dir}"/../../app/frontend/scripts/dev.sh
 else
+  >&2 echo "ENV not set"
   exit 1
 fi

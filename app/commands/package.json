@@ -10,7 +10,7 @@
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier . -u -c --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --config ../../prettier.config.js",
-    "start": "ENV=staging tsx src/index.ts -c=update-users-nfts | pino-pretty -c",
+    "start": "ENV=production tsx src/index.ts -c=update-users-nfts | pino-pretty -c",
     "tsc": "tsc --noEmit"
   },
   "devDependencies": {

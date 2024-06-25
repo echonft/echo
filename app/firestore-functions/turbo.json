@@ -2,10 +2,6 @@
   "$schema": "https://turbo.build/schema.json",
   "extends": ["//"],
   "tasks": {
-    "artifacts:delete": {
-      "cache": false,
-      "passThroughEnv": ["ENV"]
-    },
     "deploy": {
       "dependsOn": ["lint", "tsc", "build"],
       "cache": false,

@@ -2,7 +2,6 @@ import { getLogger } from '@echo/commands/helpers/get-logger'
 import type { Command, CommandName } from '@echo/commands/types/command'
 import { getAllUsers } from '@echo/firestore/crud/user/get-all-users'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { deleteCollections } from '@echo/firestore/utils/delete-collections'
 import { updateNftsForUser } from '@echo/tasks/update-nfts-for-user'
 
 const name: CommandName = 'update-users-nfts'
@@ -19,7 +18,6 @@ export const updateUsersNftsCommand: Command = {
     }).child({ command: name })
     try {
       await initializeFirebase()
-      await deleteCollections()
       const users = await getAllUsers()
       for (const user of users) {
         try {

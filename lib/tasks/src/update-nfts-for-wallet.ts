@@ -105,7 +105,7 @@ export async function updateNftsForWallet(args: WithLoggerType<Record<'wallet', 
           }
         }
         // we then check for any NFTs that are owned by the wallet in the database, but not according to the API
-        // TODO add back later
+        // FIXME add back later - does not seem to work
         // const ownedNfts = await getNftsForWalletAndCollection({ collection, wallet })
         // for (const ownedNft of ownedNfts) {
         //   logger?.info({ nft: ownedNft }, 'checking if NFT is in response')
