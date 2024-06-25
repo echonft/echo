@@ -9,10 +9,6 @@
     "clean": {
       "cache": false
     },
-    "deploy": {
-      "passThroughEnv": ["ENV"],
-      "cache": false
-    },
     "dev": {
       "passThroughEnv": ["ENV", "NODE_ENV", "NEXT_PUBLIC_IS_TESTNET"],
       "cache": false,
@@ -29,10 +25,6 @@
       "cache": false
     },
     "prettier": {},
-    "start": {
-      "cache": false,
-      "persistent": true
-    },
     "test:coverage:clean": {
       "cache": false
     },

@@ -25,7 +25,6 @@
     "dev:storybook": "turbo dev --filter=@echo/storybook --filter=@echo/ui",
     "firestore": "scripts/firestore/action.sh",
     "frontend": "scripts/frontend/action.sh",
-    "frontend:deploy": "scripts/frontend/deploy.sh",
     "lint": "turbo lint",
     "lint-staged": "NODE_OPTIONS='--max_old_space_size=8192' lint-staged",
     "modules:remove": "turbo modules:remove; rm -rf node_modules; rm -rf pnpm-lock.yaml",

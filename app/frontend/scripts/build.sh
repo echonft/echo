@@ -2,13 +2,10 @@
 
 if [ "${ENV}" == "development" ]; then
   project_id="echo-dev-fallback"
-  NEXT_PUBLIC_IS_TESTNET="1"
 elif [ "${ENV}" == "staging" ]; then
   project_id="echo-staging-ba121"
-  NEXT_PUBLIC_IS_TESTNET="0"
 elif [ "${ENV}" == "production" ]; then
   project_id="echo-prod-b71e2"
-  NEXT_PUBLIC_IS_TESTNET="0"
 else
   >&2 echo "ENV not set"
   exit 1
@@ -50,5 +47,6 @@ SECRET_MANAGER_EMAIL="${SECRET_MANAGER_EMAIL}" \
 SECRET_MANAGER_PRIVATE_KEY="${SECRET_MANAGER_PRIVATE_KEY}" \
 NEXT_PUBLIC_IS_TESTNET="${NEXT_PUBLIC_IS_TESTNET}" \
 NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL="localhost:3000" \
-CI="1" \
+NODE_ENV="production" \
+CI=${CI} \
  pnpm exec turbo build --filter=@echo/frontend
