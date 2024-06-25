@@ -30,7 +30,7 @@ export const collectionResponseSchema = object({
   opensea_floor_price: number().nullable(),
   opensea_slug: string().nullable(),
   opensea_verified: boolean(),
-  owner: evmAddressSchema,
+  owner: evmAddressSchema.nullable(),
   owners_total: number(),
   price_symbol: string(),
   royalty: number().nullable(),

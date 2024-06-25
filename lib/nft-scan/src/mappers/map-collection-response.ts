@@ -5,6 +5,7 @@ import { getCollectionResponseSchema } from '@echo/nft-scan/validators/get-colle
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
+import { removeSpecialCharacters } from '@echo/utils/fp/remove-special-characters'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { always, applySpec, ifElse, pipe, prop, replace, toLower } from 'ramda'
 
@@ -31,7 +32,12 @@ export function mapCollectionResponse(args: MapCollectionResponseArgs): Omit<Col
     profilePictureUrl: pipe(prop('logo_url'), removeNullOrEmptyString),
     slug: ifElse<[CollectionResponse], string, string>(
       propIsNil('opensea_slug'),
-      pipe<[CollectionResponse], string, string, string>(prop('name'), replace(/\s+/g, '-'), toLower),
+      pipe<[CollectionResponse], string, string, string, string>(
+        prop('name'),
+        toLower,
+        replace(/\s+/g, '-'),
+        removeSpecialCharacters
+      ),
       nonNullableReturn(prop('opensea_slug'))
     ),
     twitterUsername: pipe(prop('twitter'), removeNullOrEmptyString),

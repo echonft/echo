@@ -15,7 +15,7 @@ export const CardImage: FunctionComponent<Props> = ({ alt, src, scaleDisabled })
   // TODO add error
   const [loaded, setLoaded] = useState(false)
   return (
-    <div className={clsx('rounded-2xl', 'w-[12.5rem]', 'h-[12.5rem]')}>
+    <div className={clsx('rounded-2xl', 'w-[12.5rem]', 'h-[12.5rem]', 'flex', 'justify-center', 'items-center')}>
       <SizeableImage
         className={clsx(
           'select-none',

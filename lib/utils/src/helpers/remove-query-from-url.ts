@@ -1,5 +1,9 @@
-import { head, pipe, split } from 'ramda'
+import type { Nullable } from '@echo/utils/types/nullable'
+import { isNil } from 'ramda'
 
-export function removeQueryFromUrl(url: string): string {
-  return pipe<[string], string[], string, string[], string>(split('?'), head, split('='), head)(url)
+export function removeQueryFromUrl(url: Nullable<string>): Nullable<string> {
+  if (isNil(url)) {
+    return url
+  }
+  return url.replace(/\?.*$/, '')
 }

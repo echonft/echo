@@ -1,26 +1,27 @@
 import { getLogger } from '@echo/commands/helpers/get-logger'
-import type { Command } from '@echo/commands/types/command'
-import type { Wallet } from '@echo/model/types/wallet'
-import { getCollectionByAddress } from '@echo/nft-scan/services/get-collection-by-address'
+import type { Command, CommandName } from '@echo/commands/types/command'
+import { getWalletByAddress } from '@echo/firestore/crud/wallet/get-wallet-by-address'
+import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { updateNftsForWallet } from '@echo/tasks/update-nfts-for-wallet'
 import { getChains } from '@echo/utils/helpers/chains/get-chains'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
-import { pipe, toLower } from 'ramda'
+import { isNil, pipe, toLower } from 'ramda'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
+const name: CommandName = 'update-wallet-nfts'
 /**
  * Arguments:
  *  -a  string              address
  *  -c  string (optional)   chain name (defaults to 'ethereum')
- *
- *  Fetch an NFT for a given address + token id from the NFTScan API
+ *  Updates all the NFTs of a given wallet
  */
-export const fetchCollectionFromNftscanCommand: Command = {
-  name: 'fetch-collection-from-nftscan',
+export const updateWalletNftsCommand: Command = {
+  name,
   execute: async function () {
-    const logger = getLogger().child({ command: 'fetch-collection-from-nftscan' })
+    const logger = getLogger().child({ command: name })
     const { a, c } = await yargs(hideBin(process.argv))
       .options({
         a: {
@@ -41,22 +42,22 @@ export const fetchCollectionFromNftscanCommand: Command = {
       .parse()
 
     try {
+      await initializeFirebase()
       const address = pipe(formatWalletAddress, toLower<HexString>)({ address: a, chain: c })
-      const contract: Wallet = { address, chain: c }
-      try {
-        const collection = await getCollectionByAddress({ contract: { address, chain: c }, fetch, logger })
-        logger.info({ collection }, 'successfuly received collection')
-      } catch (err) {
-        logger.error(
-          {
-            contract,
-            err
-          },
-          'error fetching collection'
-        )
+      const wallet = await getWalletByAddress({ address, chain: c })
+      if (isNil(wallet)) {
+        logger.error({ wallet: { address, chain: c } }, 'wallet not found')
+        return
       }
-    } catch (e) {
-      logger.error({ address: a }, 'not a valid address')
+      logger.info({ wallet }, 'Updating wallet NFTs')
+      try {
+        await updateNftsForWallet({ wallet, logger })
+        logger.info({ wallet }, 'Done updating wallet NFTs')
+      } catch (err) {
+        logger.error({ err, wallet: { address, chain: c } }, 'error updating wallet NFT')
+      }
+    } catch (err) {
+      logger.error({ err, address: a }, 'not a valid address')
     }
   }
 }

@@ -6,7 +6,6 @@ import { CollectionProfileVerifiedIcon } from '@echo/ui/components/collection/pr
 import { CollectionProfileDetailsLayout } from '@echo/ui/components/collection/profile/layout/collection-profile-details-layout'
 import { CollectionProfileSupplyAndLinksLayout } from '@echo/ui/components/collection/profile/layout/collection-profile-supply-and-links-layout'
 import { CollectionProfileTitleLayout } from '@echo/ui/components/collection/profile/layout/collection-profile-title-layout'
-import { DEFAULT_COLLECTION_PROFILE_PICTURE_URL } from '@echo/ui/constants/default-collection-profile-picture-url'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
@@ -25,10 +24,7 @@ export const CollectionProfile: FunctionComponent<CollectionProfileProps> = ({
   verified
 }) => {
   return (
-    <Profile
-      banner={{ bannerUrl }}
-      picture={{ pictureUrl: profilePictureUrl ?? DEFAULT_COLLECTION_PROFILE_PICTURE_URL, alt: name }}
-    >
+    <Profile banner={{ bannerUrl }} picture={{ pictureUrl: profilePictureUrl, alt: name }}>
       <CollectionProfileDetailsLayout>
         <CollectionProfileTitleLayout>
           <h1 className={clsx('text-white', 'prose-display-lg-bold', 'uppercase', 'truncate')}>{name}</h1>

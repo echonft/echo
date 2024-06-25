@@ -1,5 +1,5 @@
-import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { addCollectionSwapsCount } from '@echo/firestore/crud/collection-swaps-count/add-collection-swaps-count'
+import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { getCollectionsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collections-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { generateUniqueCollectionSlug } from '@echo/firestore/helpers/generate-unique-collection-slug'
@@ -25,5 +25,5 @@ export async function addCollection(data: Collection): Promise<
   })
   // add swaps count (to 0) in the database
   const swapsCount = await addCollectionSwapsCount(collectionId)
-  return { id: collectionId, data, swapsCount }
+  return { id: collectionId, data: newData, swapsCount }
 }

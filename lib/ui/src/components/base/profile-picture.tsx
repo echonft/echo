@@ -3,11 +3,12 @@ import { SIZE_LG, SIZE_MD, SIZE_SM } from '@echo/ui/constants/size'
 import { getProfilePictureHeightInPx } from '@echo/ui/helpers/get-profile-picture-height-in-px'
 import { getProfilePictureWidthInPx } from '@echo/ui/helpers/get-profile-picture-width-in-px'
 import type { ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 export interface ProfilePictureProps {
-  pictureUrl: string
+  pictureUrl: Nullable<string>
   alt: string
   size?: ProfilePictureSize
   border?: boolean

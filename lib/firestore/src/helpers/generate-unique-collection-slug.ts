@@ -1,15 +1,27 @@
 import { getCollectionSnapshot } from '@echo/firestore/crud/collection/get-collection'
-import { concat, equals } from 'ramda'
+import { concat, converge, ifElse, inc, isNil, modify, pipe, prop, propEq } from 'ramda'
 
-async function recursiveFindUniqueCollectionSlug(slug: string, index = 0) {
-  const uniqueSLug = equals(0, index) ? slug : concat(slug, `${-index}`)
-  const snapshot = await getCollectionSnapshot(uniqueSLug)
-  if (snapshot?.exists) {
-    return await recursiveFindUniqueCollectionSlug(slug, index++)
+interface RecursiveFnArgs {
+  slug: string
+  index: number
+}
+
+async function rescursiveFn(args: RecursiveFnArgs): Promise<string> {
+  const slug = ifElse<[RecursiveFnArgs], string, string>(
+    propEq(0, 'index'),
+    prop('slug'),
+    converge<string, [(args: RecursiveFnArgs) => string, (args: RecursiveFnArgs) => string]>(concat<string, string>, [
+      prop('slug'),
+      pipe(prop('index'), (index: number) => `-${index}`)
+    ])
+  )(args)
+  const snapshot = await getCollectionSnapshot(slug)
+  if (isNil(snapshot)) {
+    return slug
   }
-  return slug
+  return pipe<[RecursiveFnArgs], RecursiveFnArgs, Promise<string>>(modify('index', inc), rescursiveFn)(args)
 }
 
 export async function generateUniqueCollectionSlug(slug: string) {
-  return await recursiveFindUniqueCollectionSlug(slug)
+  return await rescursiveFn({ slug, index: 0 })
 }

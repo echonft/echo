@@ -1,5 +1,5 @@
 import { getLogger } from '@echo/commands/helpers/get-logger'
-import type { Command } from '@echo/commands/types/command'
+import type { Command, CommandName } from '@echo/commands/types/command'
 import { getNftsByAccount } from '@echo/opensea/services/get-nfts-by-account'
 import { getChains } from '@echo/utils/helpers/chains/get-chains'
 import type { ChainName } from '@echo/utils/types/chain-name'
@@ -9,6 +9,7 @@ import { forEach, pipe, toLower } from 'ramda'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
+const name: CommandName = 'fetch-nfts'
 /**
  * Arguments:
  *  -a  string              address
@@ -16,10 +17,10 @@ import { hideBin } from 'yargs/helpers'
  *
  *  Fetch the NFTs for a given address from the OpenSea API
  */
-export const fetchNftsFromOpenseaCommand: Command = {
-  name: 'fetch-nfts-from-opensea',
+export const fetchNftsCommand: Command = {
+  name,
   execute: async function () {
-    const logger = getLogger().child({ command: 'fetch-nfts-from-opensea' })
+    const logger = getLogger().child({ command: name })
     const { a, c } = await yargs(hideBin(process.argv))
       .options({
         a: {

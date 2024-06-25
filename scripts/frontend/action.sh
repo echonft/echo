@@ -1,0 +1,18 @@
+#!/bin/sh
+
+dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+if ! sh "${dir}"/../base/check-newt.sh; then
+    exit 1
+fi
+
+ACTION=$(whiptail --default-item=dev --nocancel --notags --menu "Wat do?" 10 30 2 \
+"dev" "dev" \
+"deploy" "deploy" 3>&1 1>&2 2>&3)
+
+if [ "$ACTION" == "dev" ]; then
+  sh "${dir}"/dev.sh
+elif [ "$ACTION" == "deploy" ]; then
+  sh "${dir}"/deploy.sh
+else
+  exit 1
+fi

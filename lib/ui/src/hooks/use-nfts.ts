@@ -49,7 +49,7 @@ interface InitializeArgs {
 }
 
 interface NftsStore {
-  source: Nft[]
+  source: Nft[] | undefined
   initialize: (args: InitializeArgs) => void
   nfts: Nft[] // sorted NFTs without selected ones, unfiltered
   filteredByNfts: {
@@ -82,7 +82,8 @@ function selectNft(nft: Nft): (args: NftsStore) => NftsStore {
 
 function unselectNft(nft: Nft): (args: NftsStore) => NftsStore {
   return function (args: NftsStore): NftsStore {
-    const sourceNft = find(eqNft(nft), args.source)
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const sourceNft = find(eqNft(nft), args.source!)
     const addNft = isNil(sourceNft) ? identity : append(sourceNft)
     return pipe<[NftsStore], NftsStore, NftsStore, NftsStore>(
       modify<'nfts', Nft[], Nft[]>('nfts', addNft),
@@ -187,7 +188,9 @@ const useNftsStore = create<NftsStore>((set, get) => ({
   initialize: (args) => {
     const { initialSelection, nfts, sortBy } = args
     const sortFn = sortBy === 'collection' ? sortNftsByCollection : sortNftsByOwner
-    if (isEmpty(get().source) || !eqListContentWith(eqNft)(get().source, nfts)) {
+    const source = get().source
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    if (isNil(get().source) || !eqListContentWith(eqNft)(source!, nfts)) {
       const sortedNfts = sortFn(nfts)
       set(
         pipe(

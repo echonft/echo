@@ -5,12 +5,12 @@ import type { NextAuthRequest } from '@echo/auth/types/next-auth-request'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
+import { getLogger } from '@echo/frontend/lib/helpers/get-logger'
 import type {
   AuthRequestHandler,
   AuthRequestWithParamsHandler
 } from '@echo/frontend/lib/types/request-handlers/auth-request-handler'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { getBaseLogger } from '@echo/utils/services/logger'
 import type { ErrorResponse } from '@echo/utils/types/error-response'
 import { captureException, setUser, type User } from '@sentry/nextjs'
 import { type NextRequest, NextResponse } from 'next/server'
@@ -23,7 +23,7 @@ export function authRouteHandler<ResponseBody, RequestBody = never, Params exten
     | AuthRequestWithParamsHandler<ResponseBody, RequestBody, Params>
 ): (req: NextRequest, ctx: AppRouteHandlerFnContext) => void | Response | Promise<void | Response> {
   return auth(async function (req: NextAuthRequest, context: { params?: Record<string, string | string[]> }) {
-    const logger = getBaseLogger('auth-route-handler')
+    const logger = getLogger().child({ fn: authRouteHandler.name })
     try {
       await initializeFirebase({ logger })
       const user = await getAuthUser()
