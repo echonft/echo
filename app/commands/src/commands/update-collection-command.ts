@@ -1,26 +1,32 @@
 import { getLogger } from '@echo/commands/helpers/get-logger'
-import type { Command } from '@echo/commands/types/command'
-import { updateCollection as updateCollectionInFirestore } from '@echo/firestore/crud/collection/update-collection'
+import type { Command, CommandName } from '@echo/commands/types/command'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { getCollection } from '@echo/opensea/services/get-collection'
+import { updateCollection } from '@echo/tasks/update-collection'
 import { getChains } from '@echo/utils/helpers/chains/get-chains'
 import type { ChainName } from '@echo/utils/types/chain-name'
-import { assoc, pipe, toLower } from 'ramda'
+import type { HexString } from '@echo/utils/types/hex-string'
+import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
+import { pipe, toLower } from 'ramda'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
-// TODO add chain
+const name: CommandName = 'update-collection'
 /**
  * Arguments:
- *  -s  string  collection slug
+ *  -a  string              address
  *  -c  string (optional)   chain name (defaults to 'ethereum')
  */
 export const updateCollectionCommand: Command = {
-  name: 'update-collection',
+  name,
   execute: async function () {
-    const logger = getLogger().child({ command: 'update-collection' })
-    const { c, s } = await yargs(hideBin(process.argv))
+    const logger = getLogger().child({ command: name })
+    const { a, c } = await yargs(hideBin(process.argv))
       .options({
+        a: {
+          alias: 'address',
+          describe: 'address',
+          type: 'string'
+        },
         c: {
           alias: 'chain',
           describe: 'chain',
@@ -28,22 +34,21 @@ export const updateCollectionCommand: Command = {
           choices: getChains(),
           default: 'ethereum',
           coerce: (arg) => arg as ChainName
-        },
-        s: {
-          alias: 'slug',
-          describe: 'collection slug',
-          type: 'string'
         }
       })
-      .demandOption('s', 'collection slug is required')
+      .demandOption('a', 'address is required')
       .parse()
-    const slug = toLower(s)
+
     try {
-      await initializeFirebase()
-      const collection = await pipe(assoc('fetch', fetch), getCollection)({ slug, chain: c, logger })
-      await updateCollectionInFirestore({ slug, data: collection })
+      const address = pipe(formatWalletAddress, toLower<HexString>)({ address: a, chain: c })
+      try {
+        await initializeFirebase()
+        await updateCollection({ contract: { address, chain: c }, logger })
+      } catch (err) {
+        logger.error({ err, collection: { contract: { address, chain: c } } }, 'error updating collection')
+      }
     } catch (err) {
-      logger.error({ err, collection: { slug } }, 'error updating collection')
+      logger.error({ address: a }, 'not a valid address')
     }
   }
 }

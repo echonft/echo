@@ -1,17 +1,21 @@
 import { getLogger } from '@echo/commands/helpers/get-logger'
-import type { Command } from '@echo/commands/types/command'
+import type { Command, CommandName } from '@echo/commands/types/command'
 import { getAllUsers } from '@echo/firestore/crud/user/get-all-users'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { updateNftsForUser } from '@echo/tasks/update-nfts-for-user'
 
+const name: CommandName = 'update-users-nfts'
 /**
- *  Fetch all the NFTs for all users in the DB.
+ *  Updates all the NFTs for every users in the DB
  */
 export const updateUsersNftsCommand: Command = {
-  name: 'update-users-nfts',
+  name,
   execute: async function () {
-    const logger = getLogger().child({ command: 'update-users-nfts' })
-    logger.info('Updating all users NFTs')
+    const logger = getLogger({
+      override: {
+        level: 'error'
+      }
+    }).child({ command: name })
     try {
       await initializeFirebase()
       const users = await getAllUsers()
@@ -23,7 +27,7 @@ export const updateUsersNftsCommand: Command = {
         }
       }
     } catch (err) {
-      logger.error('error updating users NFT')
+      logger.error({ err }, 'error updating users NFT')
     }
   }
 }

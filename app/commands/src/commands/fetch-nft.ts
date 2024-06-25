@@ -1,32 +1,36 @@
 import { getLogger } from '@echo/commands/helpers/get-logger'
-import type { Command } from '@echo/commands/types/command'
-import { getNftsByAccount } from '@echo/nft-scan/services/get-nfts-by-account'
+import type { Command, CommandName } from '@echo/commands/types/command'
+import { getNft } from '@echo/nft-scan/services/get-nft'
 import { getChains } from '@echo/utils/helpers/chains/get-chains'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
-import { forEach, pipe, toLower } from 'ramda'
+import { pipe, toLower } from 'ramda'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
+const name: CommandName = 'fetch-nft'
 /**
  * Arguments:
  *  -a  string              address
  *  -c  string (optional)   chain name (defaults to 'ethereum')
+ *  -t  string              tokenId
  *
- *  Fetch the NFTs for a given address from the NFTScan API
+ *  Fetch an NFT for a given address + token id from the NFTScan API
  */
-export const fetchNftsWithPagingFromNftscanCommand: Command = {
-  name: 'fetch-nfts-with-paging-from-nftscan',
+export const fetchNft: Command = {
+  name,
   execute: async function () {
-    const logger = getLogger().child({ command: 'fetch-nfts-with-paging-from-nftscan' })
-    const { a, c } = await yargs(hideBin(process.argv))
+    const logger = getLogger().child({ command: name })
+    const { a, c, t } = await yargs(hideBin(process.argv))
       .options({
         a: {
           alias: 'address',
           describe: 'address',
           type: 'string'
-        },
+        }
+      })
+      .options({
         c: {
           alias: 'chain',
           describe: 'chain',
@@ -34,22 +38,27 @@ export const fetchNftsWithPagingFromNftscanCommand: Command = {
           choices: getChains(),
           default: 'ethereum',
           coerce: (arg) => arg as ChainName
+        },
+        t: {
+          alias: 'tokenId',
+          describe: 'token id',
+          type: 'string'
         }
       })
       .demandOption('a', 'address is required')
+      .demandOption('t', 'token id is required')
       .parse()
 
     try {
       const address = pipe(formatWalletAddress, toLower<HexString>)({ address: a, chain: c })
-      logger.info({ wallet: { address: a, chain: c } }, 'fetching NFTs')
       try {
-        const response = await getNftsByAccount({ wallet: { address, chain: c }, fetch, logger })
-        logger.info(`received ${response.length} NFTs`)
-        forEach((nft) => {
-          logger.info({ nft })
-        }, response)
+        const nft = await getNft({ contract: { address, chain: c }, fetch, identifier: t, logger })
+        logger.info({ nft }, 'successfuly received NFT')
       } catch (err) {
-        logger.error({ err, wallet: { address: a, chain: c } }, 'error fetching NFTs')
+        logger.error(
+          { err, nft: { tokenId: t, collection: { contract: { address: a, chain: c } } } },
+          'error fetching NFT'
+        )
       }
     } catch (e) {
       logger.error({ address: a }, 'not a valid address')

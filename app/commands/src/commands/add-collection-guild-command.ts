@@ -1,10 +1,11 @@
-import type { Command } from '@echo/commands/types/command'
+import type { Command, CommandName } from '@echo/commands/types/command'
 import { addCollectionDiscordGuild } from '@echo/firestore/crud/collection-discord-guild/add-collection-discord-guild'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { getEchoDiscordGuild } from '@echo/utils/helpers/get-echo-discord-guild'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
+const name: CommandName = 'add-collection-guild'
 /**
  * Arguments:
  *  -i  string  collection id
@@ -13,7 +14,7 @@ import { hideBin } from 'yargs/helpers'
  *  but it cases where collections were added without the command, it can be useful.
  */
 export const addCollectionGuildCommand: Command = {
-  name: 'add-collection-guild',
+  name,
   execute: async function () {
     const { i } = await yargs(hideBin(process.argv))
       .options({

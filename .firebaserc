@@ -1,8 +1,8 @@
 {
   "projects": {
     "default": "echo-dev-fallback",
-    "dev": "echo-dev-fallback",
-    "prod": "echo-prod-b71e2",
+    "development": "echo-dev-fallback",
+    "production": "echo-prod-b71e2",
     "staging": "echo-staging-ba121",
     "test": "echo-test-7787f",
     "testnet": "echo-testnet"

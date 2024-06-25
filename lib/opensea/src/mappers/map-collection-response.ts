@@ -3,10 +3,11 @@ import { mapCollectionContractResponse } from '@echo/opensea/mappers/map-collect
 import type { CollectionContractResponse } from '@echo/opensea/types/response/collection-contract-response'
 import type { CollectionResponse } from '@echo/opensea/types/response/collection-response'
 import { isIn } from '@echo/utils/fp/is-in'
+import { removeSpecialCharacters } from '@echo/utils/fp/remove-special-characters'
 import { throwError } from '@echo/utils/fp/throw-error'
 import { getSupportedChains } from '@echo/utils/helpers/chains/get-supported-chains'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
-import { always, applySpec, find, ifElse, isNil, pipe, prop, propSatisfies, unless } from 'ramda'
+import { always, applySpec, find, ifElse, isNil, pipe, prop, propSatisfies, toLower, unless } from 'ramda'
 
 export function mapCollectionResponse(
   response: CollectionResponse,
@@ -28,7 +29,7 @@ export function mapCollectionResponse(
     discordUrl: prop('discord_url'),
     name: prop('name'),
     profilePictureUrl: pipe(prop('image_url'), removeQueryFromUrl),
-    slug: prop('collection'),
+    slug: pipe(prop('collection'), toLower, removeSpecialCharacters),
     totalSupply: prop('total_supply'),
     verified: always(false)
   })(response)

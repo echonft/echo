@@ -1,6 +1,5 @@
 import { getLogger } from '@echo/commands/helpers/get-logger'
-import type { Command } from '@echo/commands/types/command'
-import { getCollection } from '@echo/firestore/crud/collection/get-collection'
+import type { Command, CommandName } from '@echo/commands/types/command'
 import { updateNft } from '@echo/firestore/crud/nft/update-nft'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { getNft } from '@echo/opensea/services/get-nft'
@@ -12,6 +11,7 @@ import { isNil, pipe, toLower } from 'ramda'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
+const name: CommandName = 'update-nft'
 /**
  * Arguments:
  *  -a  string              address
@@ -21,9 +21,9 @@ import { hideBin } from 'yargs/helpers'
  *  Fetch the NFT for a given contract address and a tokenId from the OpenSea API and update it in the db
  */
 export const updateNftCommand: Command = {
-  name: 'update-nft',
+  name,
   execute: async function () {
-    const logger = getLogger().child({ command: 'update-nft' })
+    const logger = getLogger().child({ command: name })
     const { a, c, t } = await yargs(hideBin(process.argv))
       .options({
         a: {
@@ -51,7 +51,7 @@ export const updateNftCommand: Command = {
 
     try {
       const address = pipe(formatWalletAddress, toLower<HexString>)({ address: a, chain: c })
-      logger.info({ nft: { collection: { contract: { address: a, chain: c } }, tokenId: t } }, 'fetching NFT')
+      logger.info({ nft: { collection: { contract: { address, chain: c } }, tokenId: t } }, 'fetching NFT')
       try {
         await initializeFirebase()
         const nft = await getNft({ contract: { address, chain: c }, identifier: t, fetch, logger })
@@ -59,15 +59,11 @@ export const updateNftCommand: Command = {
           logger.error('did not get any result')
           return
         }
-        const collection = await getCollection(nft.collection.slug)
-        if (isNil(collection)) {
-          logger.error({ nft }, 'collection not in the database')
-        }
         await updateNft(nft)
         logger.info({ nft }, 'updated NFT')
       } catch (err) {
         logger.error(
-          { err, nft: { collection: { contract: { address: a, chain: c } }, tokenId: t } },
+          { err, nft: { collection: { contract: { address, chain: c } }, tokenId: t } },
           `error updating NFT`
         )
       }

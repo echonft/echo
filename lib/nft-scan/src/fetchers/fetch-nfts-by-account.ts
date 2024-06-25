@@ -6,7 +6,7 @@ import { getNftsByAccountResponseSchema } from '@echo/nft-scan/validators/get-nf
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { parseResponse } from '@echo/utils/validators/parse-response'
 import { stringify } from 'qs'
-import { always, applySpec, defaultTo, partialRight, pick, pipe, prop } from 'ramda'
+import { always, applySpec, defaultTo, filter, modifyPath, partialRight, pick, pipe, prop, propEq } from 'ramda'
 
 export async function fetchNftsByAccount(
   args: WithLoggerType<GetNftsByAccountRequest>
@@ -26,10 +26,20 @@ export async function fetchNftsByAccount(
   const response = await fetch(url, init)
   if (!response.ok) {
     logger?.error(
-      { fn: 'fetchNftsByAccount', wallet, url, response: pick(['status'], response) },
+      {
+        fn: fetchNftsByAccount.name,
+        wallet,
+        url,
+        response: pick(['status'], response)
+      },
       'error fetching NFTs'
     )
     throw Error(`error fetching NFTs for ${JSON.stringify(wallet)}`)
   }
-  return parseResponse(getNftsByAccountResponseSchema)(response)
+  const parsedResponse = await parseResponse(getNftsByAccountResponseSchema)(response)
+  return modifyPath<Promise<Promise<ReturnType<typeof getNftsByAccountResponseSchema.parse>>>>(
+    ['data', 'content'],
+    filter(propEq('erc721', 'erc_type')),
+    parsedResponse
+  )
 }

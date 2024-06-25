@@ -204,6 +204,12 @@ importers:
       axios:
         specifier: 1.7.2
         version: 1.7.2
+      pino:
+        specifier: 9.2.0
+        version: 9.2.0
+      pino-pretty:
+        specifier: 11.2.1
+        version: 11.2.1
       qs:
         specifier: 6.12.1
         version: 6.12.1
@@ -677,6 +683,9 @@ importers:
       '@babel/preset-typescript':
         specifier: 7.24.7
         version: 7.24.7(@babel/core@7.24.7)
+      '@echo/api':
+        specifier: workspace:*
+        version: link:../api
       '@echo/model':
         specifier: workspace:*
         version: link:../model
@@ -787,6 +796,9 @@ importers:
       '@echo/utils':
         specifier: workspace:*
         version: link:../utils
+      '@echo/web3':
+        specifier: workspace:*
+        version: link:../web3
       '@jest/globals':
         specifier: 29.7.0
         version: 29.7.0

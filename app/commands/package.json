@@ -10,7 +10,7 @@
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier . -u -c --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --config ../../prettier.config.js",
-    "start": "tsx src/index.ts",
+    "start": "ENV=production tsx src/index.ts -c=update-users-nfts | pino-pretty -c",
     "tsc": "tsc --noEmit"
   },
   "devDependencies": {
@@ -27,6 +27,8 @@
     "@types/ramda": "0.30.0",
     "@types/yargs": "17.0.32",
     "axios": "1.7.2",
+    "pino": "9.2.0",
+    "pino-pretty": "11.2.1",
     "qs": "6.12.1",
     "ramda": "0.30.1",
     "tsx": "4.15.7",

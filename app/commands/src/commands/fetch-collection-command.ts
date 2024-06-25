@@ -1,25 +1,28 @@
 import { getLogger } from '@echo/commands/helpers/get-logger'
-import type { Command } from '@echo/commands/types/command'
-import { getAllNftsByAccount } from '@echo/nft-scan/services/get-all-nfts-by-account'
+import type { Command, CommandName } from '@echo/commands/types/command'
+import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import type { Wallet } from '@echo/model/types/wallet'
+import { fetchCollection } from '@echo/tasks/fetch-collection'
 import { getChains } from '@echo/utils/helpers/chains/get-chains'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
-import { forEach, pipe, toLower } from 'ramda'
+import { pipe, toLower } from 'ramda'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
+const name: CommandName = 'fetch-collection'
 /**
  * Arguments:
  *  -a  string              address
  *  -c  string (optional)   chain name (defaults to 'ethereum')
  *
- *  Fetch the NFTs for a given address from the NFTScan API
+ *  Fetch an NFT for a given address + token id from the NFTScan API
  */
-export const fetchNftsFromNftscanCommand: Command = {
-  name: 'fetch-nfts-from-nftscan',
+export const fetchCollectionCommand: Command = {
+  name,
   execute: async function () {
-    const logger = getLogger().child({ command: 'fetch-nfts-from-nftscan' })
+    const logger = getLogger().child({ command: name })
     const { a, c } = await yargs(hideBin(process.argv))
       .options({
         a: {
@@ -41,17 +44,19 @@ export const fetchNftsFromNftscanCommand: Command = {
 
     try {
       const address = pipe(formatWalletAddress, toLower<HexString>)({ address: a, chain: c })
-      logger.info({ wallet: { address: a, chain: c } }, 'fetching NFTs')
+      const contract: Wallet = { address, chain: c }
       try {
-        const response = await getAllNftsByAccount({ wallet: { address, chain: c }, fetch, logger })
-        logger.info(`received NFTs from ${response.length} collections`)
-        forEach((collection) => {
-          forEach((nft) => {
-            logger.info({ nft })
-          }, collection.nfts)
-        }, response)
+        await initializeFirebase()
+        const collection = await fetchCollection({ contract: { address, chain: c }, logger })
+        logger.info({ collection }, 'successfuly received collection')
       } catch (err) {
-        logger.error({ err, wallet: { address: a, chain: c } }, 'error fetching NFTs')
+        logger.error(
+          {
+            contract,
+            err
+          },
+          'error fetching collection'
+        )
       }
     } catch (e) {
       logger.error({ address: a }, 'not a valid address')

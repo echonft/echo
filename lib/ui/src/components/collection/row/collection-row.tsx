@@ -1,14 +1,13 @@
 import { linkProvider } from '@echo/api/routing/link-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
+import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
 import { CollectionRowLabel } from '@echo/ui/components/collection/row/collection-row-label'
 import { CollectionRowRank } from '@echo/ui/components/collection/row/collection-row-rank'
 import { CollectionRowLayout } from '@echo/ui/components/collection/row/layout/collection-row-layout'
 import { CollectionRowNameRankPictureLayout } from '@echo/ui/components/collection/row/layout/collection-row-name-rank-picture-layout'
 import { CollectionRowRankPictureLayout } from '@echo/ui/components/collection/row/layout/collection-row-rank-picture-layout'
-import { DEFAULT_COLLECTION_PROFILE_PICTURE_URL } from '@echo/ui/constants/default-collection-profile-picture-url'
 import type { CollectionWithRank } from '@echo/ui/types/collection-with-rank'
 import { clsx } from 'clsx'
-import Image from 'next/image'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -24,9 +23,9 @@ export const CollectionRow: FunctionComponent<Props> = ({
         <CollectionRowNameRankPictureLayout>
           <CollectionRowRankPictureLayout>
             <CollectionRowRank>{rank}</CollectionRowRank>
-            <Image
+            <SizeableImage
               className={clsx('w-[6.25rem]', 'h-[6.25rem]', 'rounded')}
-              src={profilePictureUrl ?? DEFAULT_COLLECTION_PROFILE_PICTURE_URL}
+              src={profilePictureUrl}
               alt={name}
               width={100}
               height={100}

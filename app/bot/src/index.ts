@@ -11,6 +11,7 @@ import { listenToOffers } from '@echo/firestore/listeners/listen-to-offers'
 import { listenToSwaps } from '@echo/firestore/listeners/listen-to-swaps'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { modelLoggerSerializers } from '@echo/model/constants/logger-serializers'
+import { getEchoDiscordGuild } from '@echo/utils/helpers/get-echo-discord-guild'
 import { getBaseLogger } from '@echo/utils/services/logger'
 import { getSecret } from '@echo/utils/services/secret-manager'
 import type { Logger } from '@echo/utils/types/logger'
@@ -44,7 +45,7 @@ async function main() {
   // Login to Discord with your client's token
   try {
     await client.login(clientToken)
-    botLogger.info('logged in')
+    botLogger.info({ guild: getEchoDiscordGuild() }, 'logged in')
   } catch (err) {
     botLogger.fatal({ err }, 'login failed')
   }

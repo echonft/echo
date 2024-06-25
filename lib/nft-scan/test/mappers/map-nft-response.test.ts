@@ -16,10 +16,9 @@ describe('mappers - mapNftResponse', () => {
       }
     },
     tokenId: 2944,
-    pictureUrl: 'ipfs://bafybeibfviw32fzcimiobx2shiukbwis5cyufmenvddajvzbr3u4uwco3a/2944.png',
+    pictureUrl: 'http://localhost:3000/api/ipfs/bafybeibfviw32fzcimiobx2shiukbwis5cyufmenvddajvzbr3u4uwco3a%2F2944.png',
     name: 'Blast Penguins #2944',
     attributes: attributesMock()['1'],
-    animationUrl: undefined,
     metadataUrl: 'https://dweb.link/ipfs/bafybeier5k54xnsw26fhttl673vc57jmbddvkkjn4skiel26t5yawsi3x4/2944.json'
   }
   it('maps correctly with ipfs image uri', () => {
@@ -38,7 +37,8 @@ describe('mappers - mapNftResponse', () => {
     }
     const ipfsUriResult = {
       ...expectedResult,
-      metadataUrl: 'ipfs://bafybeier5k54xnsw26fhttl673vc57jmbddvkkjn4skiel26t5yawsi3x4/2944.json'
+      metadataUrl:
+        'http://localhost:3000/api/ipfs/bafybeier5k54xnsw26fhttl673vc57jmbddvkkjn4skiel26t5yawsi3x4%2F2944.json'
     }
     expect(mapNftResponse({ chain, response: nftResponseSchema.parse(ipfsUriResponse) })).toEqual(ipfsUriResult)
   })

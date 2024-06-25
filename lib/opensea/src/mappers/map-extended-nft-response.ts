@@ -2,7 +2,6 @@ import type { Collection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
 import { mapTraitResponse } from '@echo/opensea/mappers/map-trait-response'
 import type { NftExtendedResponse } from '@echo/opensea/types/response/nft-extended-response'
-import { unlessNil } from '@echo/utils/fp/unless-nil'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
@@ -38,7 +37,7 @@ export function mapExtendedNftResponse(args: MapExtendedNftResponseArgs): Omit<
       }),
       name: prop('name'),
       metadataUrl: prop('metadata_url'),
-      pictureUrl: pipe(prop('image_url'), unlessNil(removeQueryFromUrl)),
+      pictureUrl: pipe(prop('image_url'), removeQueryFromUrl),
       tokenId: pipe(prop('identifier'), partialRight(parseInt, [10]))
     })(response)
   } catch (err) {

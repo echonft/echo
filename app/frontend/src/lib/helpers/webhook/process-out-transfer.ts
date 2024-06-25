@@ -2,7 +2,7 @@ import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
 import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft'
 import type { TransferData } from '@echo/frontend/lib/types/transfer/transfer-data'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
-import { getCollection } from '@echo/tasks/get-collection'
+import { updateCollection } from '@echo/tasks/update-collection'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { assoc, isNil } from 'ramda'
 
@@ -15,12 +15,14 @@ export async function processOutTransfer(args: WithLoggerType<Record<'transfer',
     transfer: { contract, tokenId },
     logger
   } = args
-  const collection = await getCollection({ contract, logger })
-  const nftIndex = getNftIndex({ collection, tokenId })
-  const snapshot = await getNftSnapshot(nftIndex)
-  if (isNil(snapshot)) {
-    return
+  const collection = await updateCollection({ contract, logger })
+  if (!isNil(collection)) {
+    const nftIndex = getNftIndex({ collection, tokenId })
+    const snapshot = await getNftSnapshot(nftIndex)
+    if (isNil(snapshot)) {
+      return
+    }
+    await deleteNft(snapshot.id)
+    logger?.info({ fn: processOutTransfer.name, nft: assoc('id', snapshot.id, nftIndex) }, 'deleted NFT')
   }
-  await deleteNft(snapshot.id)
-  logger?.info({ fn: processOutTransfer.name, nft: assoc('id', snapshot.id, nftIndex) }, 'deleted NFT')
 }

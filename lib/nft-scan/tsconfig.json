@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@echo/api/*": ["../api/src/*"],
       "@echo/model/*": ["../model/src/*"],
       "@echo/nft-scan/*": ["src/*"],
       "@echo/utils/*": ["../utils/src/*"]
