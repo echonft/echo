@@ -17,7 +17,6 @@ export async function updateUserRequestHandler(args: RequestHandlerArgs<DiscordA
   const token = await guardAsyncFn({
     fn: parseRequest(discordAuthTokenSchema),
     status: ErrorStatus.BAD_REQUEST,
-    severity: 'error',
     message: 'error parsing discord auth token',
     logger
   })(args.req)
@@ -30,7 +29,6 @@ export async function updateUserRequestHandler(args: RequestHandlerArgs<DiscordA
     const profile = await guardAsyncFn({
       fn: parseResponse(discordProfileSchema),
       status: ErrorStatus.BAD_REQUEST,
-      severity: 'error',
       message: 'error parsing discord response',
       logger
     })(response)
