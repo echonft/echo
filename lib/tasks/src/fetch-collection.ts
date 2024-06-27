@@ -12,13 +12,12 @@ import { assoc, pipe } from 'ramda'
  * We use OpenSea API on testnet and NFTScan on mainnet
  * Adds the collection if it does not exist already.
  */
-export async function fetchCollection(
+export function fetchCollection(
   args: WithLoggerType<Record<'contract', Wallet>>
 ): Promise<Nullable<Omit<Collection, 'swapsCount'>>> {
   const fetcher = isTestnetChain(args.contract.chain)
     ? getCollectionByAddressFromOpenSea
     : getCollectionByAddressFromNftScan
-
   args.logger?.info({ collection: { contract: args.contract }, fn: fetchCollection.name }, 'fetching collection')
-  return await pipe(assoc('fetch', fetch), fetcher)(args)
+  return pipe(assoc('fetch', fetch), fetcher)(args)
 }

@@ -6,7 +6,7 @@ if ! sh "${dir}"/../base/check-newt.sh; then
 fi
 
 ACTION=$(whiptail --default-item=dev --notags --menu "Wat do?" 15 30 8 \
-"fetch-collection" "Fetch collection" \
+"fetch-collection" "Fetch a collection" \
 "fetch-nft" "Fetch an NFT" \
 "fetch-nfts-for-wallet" "Fetch NFTs for wallet" \
 "update-collection" "Update a collection" \

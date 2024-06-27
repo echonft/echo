@@ -6,5 +6,5 @@ export function isTestnetChain(chain: Nullable<ChainName>): boolean {
   if (isNil(chain)) {
     return false
   }
-  return equals(chain, 'blast_sepolia')
+  return equals(chain, 'blast_sepolia') || equals(chain, 'sepolia')
 }

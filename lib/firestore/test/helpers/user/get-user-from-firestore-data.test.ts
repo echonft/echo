@@ -11,7 +11,7 @@ describe('helpers - user - getUserFromFirestoreData', () => {
   it('returns the user', () => {
     const user = getUserDocumentDataMockByUsername(userMockJohnnyUsername())
     const wallet = getWalletDocumentDataMockByUserId(userMockJohnnyId())
-    expect(getUserFromFirestoreData(user, wallet)).toStrictEqual({
+    expect(getUserFromFirestoreData({ user, wallet })).toStrictEqual({
       discord: {
         avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
         username: userMockJohnnyUsername(),

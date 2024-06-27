@@ -25,10 +25,12 @@ export async function fetchNft(args: WithLoggerType<FetchNftRequest>) {
       { fn: 'fetchNft', nft: { collection: { contract }, tokenId: identifier }, url },
       'error fetching collection'
     )
-    throw Error(
-      `error fetching NFT #${identifier} for contract ${JSON.stringify(
-        contract
-      )}: {url: ${url}\nstatus:${response.statusText}}`
+    return Promise.reject(
+      Error(
+        `error fetching NFT #${identifier} for contract ${JSON.stringify(
+          contract
+        )}: {url: ${url}\nstatus:${response.statusText}}`
+      )
     )
   }
   return pipe(parseFetchResponse<GetNftResponse>, andThen(prop('nft')))(response)

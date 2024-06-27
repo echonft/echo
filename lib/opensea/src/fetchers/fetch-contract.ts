@@ -11,7 +11,7 @@ export async function fetchContract(args: WithLoggerType<GetContractRequest>): P
   const response = await throttleFetch({ fetch, url, logger })
   if (!response.ok) {
     logger?.error({ fn: 'fetchContract', contract, url }, 'error fetching collection')
-    throw Error(`error fetching contract ${JSON.stringify(contract)}`)
+    return Promise.reject(Error(`error fetching contract ${JSON.stringify(contract)}`))
   }
   return parseFetchResponse<ContractResponse>(response)
 }

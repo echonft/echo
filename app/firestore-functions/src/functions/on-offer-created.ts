@@ -1,15 +1,15 @@
 import { getFirestoreEventData } from '@echo/firestore-functions/helper/get-firestore-event-data'
 import { getFunctionUrl } from '@echo/firestore-functions/helper/get-function-url'
+import { getLogger } from '@echo/firestore-functions/helper/get-logger'
 import { setMaxInstances } from '@echo/firestore-functions/helper/set-max-instances'
 import type { Offer } from '@echo/model/types/offer'
-import { errorMessage } from '@echo/utils/helpers/error-message'
 import { getFunctions } from 'firebase-admin/functions'
-import { error } from 'firebase-functions/logger'
 import { onDocumentCreated } from 'firebase-functions/v2/firestore'
 import { isNil } from 'ramda'
 
 export const onOfferCreated = onDocumentCreated(setMaxInstances({ document: 'offers/{id}' }), async (event) => {
   const functionName = 'expireOffer'
+  const logger = getLogger().child({ fn: functionName })
   const offer = getFirestoreEventData<Offer>(event)
   if (!isNil(offer)) {
     const queue = getFunctions().taskQueue(functionName)
@@ -23,8 +23,8 @@ export const onOfferCreated = onDocumentCreated(setMaxInstances({ document: 'off
             uri
           }
         )
-      } catch (e) {
-        error(`error queuing offerExpire task: ${errorMessage(e)}`)
+      } catch (err) {
+        logger.error({ err }, 'error queuing offerExpire task')
       }
     }
   }

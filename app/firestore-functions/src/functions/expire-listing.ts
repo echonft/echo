@@ -1,9 +1,8 @@
-import { updateListingState } from '@echo/firestore/crud/listing/update-listing-state'
+import { getLogger } from '@echo/firestore-functions/helper/get-logger'
 import { setMaxInstances } from '@echo/firestore-functions/helper/set-max-instances'
+import { updateListingState } from '@echo/firestore/crud/listing/update-listing-state'
 import { LISTING_STATE_EXPIRED } from '@echo/model/constants/listing-states'
-import { errorMessage } from '@echo/utils/helpers/error-message'
 import { slugSchema } from '@echo/utils/validators/slug-schema'
-import { error } from 'firebase-functions/logger'
 import { onTaskDispatched } from 'firebase-functions/v2/tasks'
 
 export const expireListing = onTaskDispatched(
@@ -17,15 +16,16 @@ export const expireListing = onTaskDispatched(
     }
   }),
   async (req) => {
+    const logger = getLogger().child({ fn: 'expireListing' })
     try {
       const { slug } = slugSchema.parse(req.data)
       try {
         await updateListingState(slug, LISTING_STATE_EXPIRED)
       } catch (err) {
-        error(`Error setting listing ${slug} state to expired: ${errorMessage(err)}`)
+        logger.error({ err, listing: { slug } }, 'error setting listing state to expired')
       }
     } catch (err) {
-      error(`Error parsing expireListing body: ${errorMessage(err)}`)
+      logger.error({ err }, 'error parsing expireListing body')
     }
   }
 )

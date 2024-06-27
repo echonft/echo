@@ -15,7 +15,7 @@ export async function updateUserNftsCommand(username: string) {
       return
     }
     try {
-      await updateNftsForUser({ user, logger })
+      await updateNftsForUser({ user, fetch, logger })
     } catch (err) {
       logger.error({ err, user }, 'error upating user NFTs')
     }

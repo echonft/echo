@@ -16,7 +16,7 @@ export async function updateWalletNftsCommand(wallet: Wallet) {
   }
   logger.info({ wallet: walletDocumentData }, 'Updating wallet NFTs')
   try {
-    await updateNftsForWallet({ wallet: walletDocumentData, logger })
+    await updateNftsForWallet({ wallet: walletDocumentData, fetch, logger })
     logger.info({ wallet: walletDocumentData }, 'Done updating wallet NFTs')
   } catch (err) {
     logger.error({ err, wallet }, 'error updating wallet NFT')

@@ -6,12 +6,13 @@ import { getCollection } from '@echo/opensea/services/get-collection'
 import type { GetCollectionRequest } from '@echo/opensea/types/request/get-collection-request'
 import type { GetContractRequest } from '@echo/opensea/types/request/get-contract-request'
 import type { ContractResponse } from '@echo/opensea/types/response/contract-response'
+import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { andThen, assoc, pipe } from 'ramda'
+import { always, andThen, assoc, otherwise, pipe } from 'ramda'
 
 export async function getCollectionByAddress(
   args: WithLoggerType<GetContractRequest>
-): Promise<Omit<Collection, 'swapsCount'>> {
+): Promise<Nullable<Omit<Collection, 'swapsCount'>>> {
   const logger = getLogger({ chain: args.contract.chain, fn: getCollectionByAddress.name, logger: args.logger })
   return await pipe(
     assoc('logger', logger),
@@ -22,8 +23,9 @@ export async function getCollectionByAddress(
         Omit<GetCollectionRequest, 'fetch'>,
         GetCollectionRequest,
         WithLoggerType<GetCollectionRequest>,
-        Promise<Omit<Collection, 'swapsCount'>>
+        Promise<Nullable<Omit<Collection, 'swapsCount'>>>
       >(mapContractResponseToCollectionRequest, assoc('fetch', args.fetch), assoc('logger', logger), getCollection)
-    )
+    ),
+    otherwise(always(undefined))
   )(args)
 }

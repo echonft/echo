@@ -4,10 +4,10 @@ import { getLogger } from '@echo/opensea/helpers/get-logger'
 import { mapCollectionResponse } from '@echo/opensea/mappers/map-collection-response'
 import type { GetCollectionRequest } from '@echo/opensea/types/request/get-collection-request'
 import type { CollectionResponse } from '@echo/opensea/types/response/collection-response'
-import { andThenOtherwise } from '@echo/utils/fp/and-then-otherwise'
 import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
+import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { always, andThen, assoc, isNil, partialRight, pipe } from 'ramda'
+import { always, andThen, assoc, isNil, objOf, otherwise, pipe } from 'ramda'
 
 async function fetchMainnetCollection(args: WithLoggerType<GetCollectionRequest>) {
   const { logger } = args
@@ -21,11 +21,13 @@ async function fetchMainnetCollection(args: WithLoggerType<GetCollectionRequest>
       [WithLoggerType<GetCollectionRequest>],
       WithLoggerType<GetCollectionRequest>,
       Promise<CollectionResponse>,
+      Promise<ReturnType<typeof mapCollectionResponse> | undefined>,
       Promise<ReturnType<typeof mapCollectionResponse> | undefined>
     >(
       assoc('slug', mainnetSlug),
       fetchCollection,
-      andThenOtherwise(partialRight(mapCollectionResponse, [true]), always(undefined))
+      andThen(pipe(objOf('response'), assoc('skipContractCheck', true), mapCollectionResponse)),
+      otherwise(always(undefined))
     )(args)
   } else {
     return undefined
@@ -34,13 +36,14 @@ async function fetchMainnetCollection(args: WithLoggerType<GetCollectionRequest>
 
 export async function getCollection(
   args: WithLoggerType<GetCollectionRequest>
-): Promise<Omit<Collection, 'swapsCount'>> {
+): Promise<Nullable<Omit<Collection, 'swapsCount'>>> {
   const collection = await pipe(
     assoc('logger', getLogger({ chain: args.chain, fn: 'getCollection', logger: args.logger })),
     fetchCollection,
-    andThen(mapCollectionResponse)
+    andThen(pipe(objOf('response'), mapCollectionResponse)),
+    otherwise(always(undefined))
   )(args)
-  if (isTestnetChain(args.chain)) {
+  if (!isNil(collection) && isTestnetChain(args.chain)) {
     // chain does not matter here, but it has to be on mainnet
     const mainnetCollection = await fetchMainnetCollection(assoc('chain', 'blast', args))
     if (!isNil(mainnetCollection)) {

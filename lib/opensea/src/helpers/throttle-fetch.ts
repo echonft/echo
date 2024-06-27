@@ -9,8 +9,13 @@ interface ThrottleFetchArgs extends WithFetch, WithLogger {
   url: string
 }
 
-async function tryFetch(args: ThrottleFetchArgs & { retries: number }): Promise<Response> {
-  const { fetch, url, retries } = args
+interface TryFetchArgs extends ThrottleFetchArgs {
+  init: RequestInit
+  retries: number
+}
+
+async function tryFetch(args: TryFetchArgs): Promise<Response> {
+  const { fetch, url, init, retries } = args
   const logger = args.logger?.child({ fn: 'tryFetch', url, retries })
   if (retries === MAX_RETRIES) {
     logger?.error('throttling max retries reached. Returning error :(')
@@ -19,7 +24,6 @@ async function tryFetch(args: ThrottleFetchArgs & { retries: number }): Promise<
   if (retries > 0) {
     logger?.warn('retrying request')
   }
-  const init = await fetchInit(logger)
   const response = await fetch(url, init)
   if (!response.ok) {
     if (response.status === 429) {
@@ -31,6 +35,7 @@ async function tryFetch(args: ThrottleFetchArgs & { retries: number }): Promise<
       )(args)
     } else {
       logger?.error({ response: pick(['status'], response) }, 'error fetching request')
+      return response
     }
   }
   if (retries > 0) {
@@ -41,5 +46,6 @@ async function tryFetch(args: ThrottleFetchArgs & { retries: number }): Promise<
 
 export async function throttleFetch(args: ThrottleFetchArgs) {
   args.logger?.info(`fetching request to ${args.url}`)
-  return await tryFetch(pipe(assoc('retries', 0))(args))
+  const init = await fetchInit(args.logger)
+  return await tryFetch(pipe(assoc('retries', 0), assoc('init', init))(args))
 }

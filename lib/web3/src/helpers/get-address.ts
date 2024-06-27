@@ -1,1 +1,1 @@
-export { getAddress } from 'viem'
+export { isAddress } from 'viem'

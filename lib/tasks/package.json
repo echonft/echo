@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf dist",
-    "command": "tsx src/commands/index.ts",
+    "command": "NODE_ENV=development ENV=development tsx src/commands/index.ts",
     "lint": "eslint",
     "modules:remove": "rm -rf node_modules",
     "modules:update": "ncu -u",

@@ -39,13 +39,13 @@ async function fetchNftsByAccount(args: WithLoggerType<GetNftsByAccountRequest>)
     `${getBaseUrl(wallet.chain)}/chain/${wallet.chain}/account/${wallet.address}/nfts`,
     stringify(pick(['limit', 'next'], args), { addQueryPrefix: true, skipNulls: true })
   )
-  const response = await throttleFetch({ fetch, url })
+  const response = await throttleFetch({ fetch, url, logger })
   if (!response.ok) {
     logger?.error(
       { fn: 'fetchNftsByAccount', wallet, url, response: pick(['status'], response) },
       'error fetching NFTs'
     )
-    throw Error(`error fetching NFTs for wallet ${JSON.stringify(wallet)}`)
+    return Promise.reject(Error(`error fetching NFTs for wallet ${JSON.stringify(wallet)}`))
   }
   return parseFetchResponse<GetNftsByAccountResponse>(response)
 }
@@ -81,8 +81,12 @@ async function handlePaging(
   )(nfts)
   const responses: NftExtendedResponse[] = []
   for (const request of requests) {
-    const nftResponse = await fetchNft(request)
-    responses.push(nftResponse)
+    try {
+      const nftResponse = await fetchNft(request)
+      responses.push(nftResponse)
+    } catch (err) {
+      // we just don't push anything
+    }
   }
   // reject suspicious NFTs
   const mergedResponse = concat(reject(extendedNftResponseIsSuspicious, responses), accNfts)

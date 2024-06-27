@@ -24,7 +24,7 @@ export const onWalletWritten = onDocumentWritten(
             const foundUser = await getUserById(wallet.userId)
             if (!isNil(foundUser)) {
               try {
-                await updateNftsForWallet({ wallet, logger })
+                await updateNftsForWallet({ wallet, fetch, logger })
               } catch (err) {
                 logger.error({ err, wallet }, 'error updating NFTs for wallet')
               }
