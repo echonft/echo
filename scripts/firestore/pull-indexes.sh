@@ -10,5 +10,5 @@ ENV=$(whiptail --default-item=development --notags --menu "Pick an environment" 
 "staging" "Staging" \
 "production" "Production" 3>&1 1>&2 2>&3)
 
-ENV=${ENV} "${dir}"/../../app/bot/scripts/deploy.sh
-
+firebase use "${ENV}"
+firebase firestore:indexes > "${dir}"/../../firestore.indexes.json

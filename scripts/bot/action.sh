@@ -5,10 +5,10 @@ if ! sh "${dir}"/../base/check-newt.sh; then
     exit 1
 fi
 
-ACTION=$(whiptail --default-item=dev --notags --menu "Wat do?" 15 30 4 \
-"analyze" "analyze" \
+ACTION=$(whiptail --default-item=dev --notags --menu "Wat do?" 10 30 4 \
 "dev" "dev" \
 "deploy" "deploy" \
+"restart-machine" "restart machine" \
 "start" "start local build" 3>&1 1>&2 2>&3)
 
 sh "${dir}"/"${ACTION}".sh

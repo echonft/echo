@@ -1,0 +1,17 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "sentry:sourcemaps:inject": {
+      "dependsOn": ["build"]
+    },
+    "sentry:sourcemaps:upload": {
+      "dependsOn": ["sentry:sourcemaps:inject"]
+    },
+    "start": {
+      "passThroughEnv": ["ENV"],
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

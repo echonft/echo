@@ -1,0 +1,11 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "command": {
+      "cache": false,
+      "persistent": true,
+      "passThroughEnv": ["ENV"]
+    }
+  }
+}

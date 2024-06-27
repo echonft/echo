@@ -20,6 +20,7 @@ import { assoc, isNil, pick, pipe } from 'ramda'
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 const botLogger: Logger = getBaseLogger('Bot', {
+  hideNetwork: true,
   serializers: [{ channel: pick(['id']), thread: pick(['id']) }, modelLoggerSerializers]
 })
 
