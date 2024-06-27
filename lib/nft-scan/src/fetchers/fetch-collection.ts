@@ -27,7 +27,7 @@ export async function fetchCollection(
       { fn: fetchCollection.name, collection: { contract }, url, response: pick(['status'], response) },
       'error fetching collection'
     )
-    throw Error(`error fetching collection ${JSON.stringify(contract)}`)
+    return Promise.reject(Error(`error fetching collection ${JSON.stringify(contract)}`))
   }
   return pipe(
     parseResponse(getCollectionResponseSchema),

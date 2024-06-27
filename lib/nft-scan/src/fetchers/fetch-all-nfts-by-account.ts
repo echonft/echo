@@ -27,7 +27,7 @@ export async function fetchAllNftsByAccount(
       { fn: 'fetchAllNftsByAccount', wallet, url, response: pick(['status'], response) },
       'error fetching NFTs'
     )
-    throw Error(`error fetching all NFTs for ${wallet.address}`)
+    return Promise.reject(Error(`error fetching all NFTs for ${wallet.address}`))
   }
   return parseResponse(getAllNftsByAccountResponseSchema)(response)
 }

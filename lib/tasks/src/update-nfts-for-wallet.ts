@@ -5,18 +5,16 @@ import { eqWallet } from '@echo/model/helpers/wallet/eq-wallet'
 import type { Collection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
 import type { Wallet } from '@echo/model/types/wallet'
-import { getNftsByAccount as getNftsFromNftScan } from '@echo/nft-scan/services/get-nfts-by-account'
-import { getNftsByAccount as getNftsFromOpensea } from '@echo/opensea/services/get-nfts-by-account'
 import { addCollection } from '@echo/tasks/add-collection'
 import { addNft } from '@echo/tasks/add-nft'
 import { assessNftOwnershipForWallet } from '@echo/tasks/assess-nft-ownership-for-wallet'
 import { changeNftOwnership } from '@echo/tasks/change-nft-ownership'
+import { fetchNftsForWallet } from '@echo/tasks/fetch-nfts-for-wallet'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
-import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { always, andThen, applySpec, assoc, collectBy, head, isNil, map, otherwise, path, pipe, prop } from 'ramda'
+import { assoc, head, isNil, map, path, pipe } from 'ramda'
 
 type PartialNft = Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & {
   collection: Pick<Collection, 'contract'>
@@ -24,42 +22,6 @@ type PartialNft = Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & {
 
 interface UpdateNftsForWalletArgs extends WithFetch {
   wallet: WalletDocumentData
-}
-
-function getNftGroups(args: WithLoggerType<UpdateNftsForWalletArgs>) {
-  const { wallet, logger } = args
-  try {
-    const fetcher = isTestnetChain(wallet.chain) ? getNftsFromOpensea : getNftsFromNftScan
-    return pipe(
-      fetcher,
-      andThen(collectBy(nonNullableReturn<[PartialNft], string>(path(['collection', 'contract', 'address'])))),
-      otherwise(always(undefined))
-    )(args)
-  } catch (err) {
-    logger?.error({ err, wallet }, 'error fetching NFTs')
-    return undefined
-  }
-}
-
-function getCollection(args: WithLoggerType<Record<'nfts', PartialNft[]>>) {
-  try {
-    return pipe<
-      [WithLoggerType<Record<'nfts', PartialNft[]>>],
-      WithLoggerType<Record<'contract', Wallet>>,
-      Promise<Nullable<Omit<Collection, 'swapsCount'>>>,
-      Promise<Nullable<Omit<Collection, 'swapsCount'>>>
-    >(
-      applySpec<WithLoggerType<Record<'contract', Wallet>>>({
-        contract: pipe(prop('nfts'), head, path(['collection', 'contract'])),
-        logger: prop('logger')
-      }),
-      addCollection,
-      otherwise(always(undefined))
-    )(args)
-  } catch (err) {
-    args.logger?.error({ err }, 'error fetching collection')
-    return undefined
-  }
 }
 
 /**
@@ -77,10 +39,14 @@ function getCollection(args: WithLoggerType<Record<'nfts', PartialNft[]>>) {
 export async function updateNftsForWallet(args: WithLoggerType<UpdateNftsForWalletArgs>) {
   const { wallet, logger } = args
   logger?.info({ wallet }, 'started updating NFTs for wallet')
-  const nftGroups = await getNftGroups(args)
+  const nftGroups = await fetchNftsForWallet(args)
   if (!isNil(nftGroups)) {
     for (const nftGroup of nftGroups) {
-      const collection = await getCollection({ nfts: nftGroup, logger })
+      const contract = pipe<[PartialNft[]], PartialNft, Wallet>(
+        head,
+        nonNullableReturn(path(['collection', 'contract']))
+      )(nftGroup)
+      const collection = await addCollection({ contract, logger })
       if (!isNil(collection)) {
         const nftGroupWithCollection = map(assoc('collection', collection), nftGroup)
         for (const nft of nftGroupWithCollection) {

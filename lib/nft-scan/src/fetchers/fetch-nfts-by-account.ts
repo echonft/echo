@@ -16,7 +16,7 @@ export async function fetchNftsByAccount(
     applySpec<GetNftsByAccountQueryParams>({
       erc_type: always('erc721'),
       cursor: prop('next'),
-      limit: prop('limit'),
+      limit: pipe(prop('limit'), defaultTo(100)),
       show_attribute: pipe(prop('showAttribute'), defaultTo(true))
     }),
     partialRight(stringify, [{ addQueryPrefix: true }])
@@ -34,7 +34,7 @@ export async function fetchNftsByAccount(
       },
       'error fetching NFTs'
     )
-    throw Error(`error fetching NFTs for ${JSON.stringify(wallet)}`)
+    return Promise.reject(Error(`error fetching NFTs for ${JSON.stringify(wallet)}`))
   }
   const parsedResponse = await parseResponse(getNftsByAccountResponseSchema)(response)
   return modifyPath<Promise<Promise<ReturnType<typeof getNftsByAccountResponseSchema.parse>>>>(

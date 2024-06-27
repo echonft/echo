@@ -7,7 +7,7 @@ import { removeSpecialCharacters } from '@echo/utils/fp/remove-special-character
 import { getSupportedChains } from '@echo/utils/helpers/chains/get-supported-chains'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { always, applySpec, assoc, find, isNil, pipe, prop, propSatisfies, toLower } from 'ramda'
+import { applySpec, assoc, F, find, isNil, pipe, prop, propSatisfies, toLower } from 'ramda'
 
 interface MapCollectionResponseArgs {
   response: CollectionResponse
@@ -32,6 +32,6 @@ export function mapCollectionResponse(args: MapCollectionResponseArgs): Nullable
     profilePictureUrl: pipe(prop('image_url'), removeQueryFromUrl),
     slug: pipe(prop('collection'), toLower, removeSpecialCharacters),
     totalSupply: prop('total_supply'),
-    verified: always(false)
+    verified: F
   })(assoc('contract', contract, response))
 }

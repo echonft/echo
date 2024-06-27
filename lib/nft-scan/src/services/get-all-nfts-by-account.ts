@@ -6,7 +6,7 @@ import {
   type MapGetAllNftsByAccountResponseReturn
 } from '@echo/nft-scan/mappers/map-get-all-nfts-by-account-response'
 import type { GetAllNftsByAccountRequest } from '@echo/nft-scan/types/request/get-all-nfts-by-account-request'
-import { always, andThen, applySpec, assoc, pipe, prop } from 'ramda'
+import { always, andThen, applySpec, assoc, otherwise, pipe, prop } from 'ramda'
 
 export function getAllNftsByAccount(args: GetAllNftsByAccountRequest): Promise<MapGetAllNftsByAccountResponseReturn[]> {
   const logger = getLogger({ chain: args.wallet.chain, fn: 'getAllNftsByAccount', logger: args.logger })
@@ -22,6 +22,7 @@ export function getAllNftsByAccount(args: GetAllNftsByAccountRequest): Promise<M
         }),
         mapGetAllNftsByAccountResponse
       )
-    )
+    ),
+    otherwise(always([]))
   )(args)
 }

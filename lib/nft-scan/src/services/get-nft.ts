@@ -5,7 +5,7 @@ import { mapNftResponse, type MapNftResponseArgs } from '@echo/nft-scan/mappers/
 import type { GetNftRequest } from '@echo/nft-scan/types/request/get-nft-request'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { always, andThen, applySpec, assoc, pipe, prop } from 'ramda'
+import { always, andThen, applySpec, assoc, otherwise, pipe, prop } from 'ramda'
 
 export async function getNft(
   args: WithLoggerType<GetNftRequest>
@@ -23,6 +23,7 @@ export async function getNft(
         }),
         mapNftResponse
       )
-    )
+    ),
+    otherwise(always(undefined))
   )(args)
 }
