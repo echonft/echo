@@ -1,10 +1,10 @@
-import type { BaseOffer } from '@echo/model/types/base-offer' // import required types from respective modules
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { getUserMockByUsername } from '@echo/model/mocks/user/user-mock'
+import type { BaseOffer } from '@echo/model/types/base-offer' // import required types from respective modules
+import { mapOfferToContractOffer } from '@echo/web3-dom/mappers/map-offer-to-contract-offer'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
-import { mapOfferToContractCreateOffer } from '@echo/web3-dom/mappers/map-offer-to-contract-create-offer'
-import type { ContractCreateOffer } from '@echo/web3-dom/types/contract-create-offer'
-import { ContractOfferState } from '@echo/web3-dom/types/contract-offer-state'
+import type { ContractOffer } from '@echo/web3/types/contract-offer'
+import { ContractOfferState } from '@echo/web3/types/contract-offer-state'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - mapOfferToContractCreateOffer', () => {
@@ -17,7 +17,7 @@ describe('mappers - mapOfferToContractCreateOffer', () => {
   }
 
   it('correctly maps a BaseOffer to ContractCreateOffer', () => {
-    const result: ContractCreateOffer = mapOfferToContractCreateOffer(testOffer)
+    const result: ContractOffer = mapOfferToContractOffer(testOffer)
     expect(result).toBeDefined()
     expect(result.sender).toBe(formatWalletAddress(testOffer.sender.wallet))
     expect(result.receiver).toBe(formatWalletAddress(testOffer.receiver.wallet))

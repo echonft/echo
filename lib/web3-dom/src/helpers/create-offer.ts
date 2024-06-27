@@ -6,7 +6,7 @@ import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
-import { mapOfferToContractCreateOffer } from '@echo/web3-dom/mappers/map-offer-to-contract-create-offer'
+import { mapOfferToContractOffer } from '@echo/web3-dom/mappers/map-offer-to-contract-offer'
 import type { ContractCreateOfferArgs } from '@echo/web3-dom/types/contract-create-offer-args'
 import { echoAbi } from '@echo/web3/constants/echo-abi'
 import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
@@ -31,7 +31,7 @@ export async function createOffer(args: ContractCreateOfferArgs): Promise<HexStr
     functionName: 'createOffer',
     address,
     chainId,
-    args: [mapOfferToContractCreateOffer(offer) as never]
+    args: [mapOfferToContractOffer(offer) as never]
   })
   const hash = await writeContract(wagmiConfig, request)
   await waitForTransactionReceipt(wagmiConfig, { hash })
