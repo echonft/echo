@@ -15,7 +15,7 @@ export async function processOutTransfer(args: WithLoggerType<Record<'transfer',
     transfer: { contract, tokenId },
     logger
   } = args
-  const collection = await addCollection({ contract, logger })
+  const collection = await addCollection({ contract, fetch, logger })
   if (!isNil(collection)) {
     const nftIndex = getNftIndex({ collection, tokenId })
     const snapshot = await getNftSnapshotForIndex(nftIndex)

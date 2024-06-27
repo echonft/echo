@@ -13,11 +13,11 @@ type PartialNft = Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & {
   collection: Pick<Collection, 'contract'>
 }
 
-interface FetchNftsForWalletArgs<T extends Wallet> extends WithFetch {
+interface FetchNftsArgs<T extends Wallet> extends WithFetch {
   wallet: T
 }
 
-export async function fetchNftsForWallet<T extends Wallet>(args: WithLoggerType<FetchNftsForWalletArgs<T>>) {
+export async function fetchNfts<T extends Wallet>(args: WithLoggerType<FetchNftsArgs<T>>) {
   const { wallet, logger } = args
   try {
     const fetcher = isTestnetChain(wallet.chain) ? getNftsFromOpensea : getNftsFromNftScan

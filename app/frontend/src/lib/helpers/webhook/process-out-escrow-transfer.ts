@@ -16,7 +16,7 @@ export async function processOutEscrowTransfer(args: WithLoggerType<Record<'tran
     transfer: { contract, to: toWallet, tokenId },
     logger
   } = args
-  const collection = await addCollection({ contract, logger })
+  const collection = await addCollection({ contract, fetch, logger })
   if (!isNil(collection)) {
     const nftIndex = getNftIndex({ collection, tokenId })
     const nftSnapshot = await getEscrowedNftSnapshot(nftIndex)

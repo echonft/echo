@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import type { Wallet } from '@echo/model/types/wallet'
 import { fetchCollectionCommand } from '@echo/tasks/commands/fetch-collection-command'
-import { fetchNftCommand } from '@echo/tasks/commands/fetch-nft'
+import { fetchNftCommand } from '@echo/tasks/commands/fetch-nft-command'
 import { fetchNftsForWalletCommand } from '@echo/tasks/commands/fetch-nfts-for-wallet-command'
 import { updateCollectionCommand } from '@echo/tasks/commands/update-collection-command'
 import { updateNftCommand } from '@echo/tasks/commands/update-nft-command'

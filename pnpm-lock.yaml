@@ -169,69 +169,6 @@ importers:
         specifier: 5.5.2
         version: 5.5.2
 
-  app/commands:
-    devDependencies:
-      '@echo/api':
-        specifier: workspace:*
-        version: link:../../lib/api
-      '@echo/firestore':
-        specifier: workspace:*
-        version: link:../../lib/firestore
-      '@echo/model':
-        specifier: workspace:*
-        version: link:../../lib/model
-      '@echo/nft-scan':
-        specifier: workspace:*
-        version: link:../../lib/nft-scan
-      '@echo/opensea':
-        specifier: workspace:*
-        version: link:../../lib/opensea
-      '@echo/tasks':
-        specifier: workspace:*
-        version: link:../../lib/tasks
-      '@echo/utils':
-        specifier: workspace:*
-        version: link:../../lib/utils
-      '@echo/web3':
-        specifier: workspace:*
-        version: link:../../lib/web3
-      '@types/node':
-        specifier: 20.14.7
-        version: 20.14.7
-      '@types/qs':
-        specifier: 6.9.15
-        version: 6.9.15
-      '@types/ramda':
-        specifier: 0.30.0
-        version: 0.30.0
-      '@types/yargs':
-        specifier: 17.0.32
-        version: 17.0.32
-      axios:
-        specifier: 1.7.2
-        version: 1.7.2
-      pino:
-        specifier: 9.2.0
-        version: 9.2.0
-      pino-pretty:
-        specifier: 11.2.1
-        version: 11.2.1
-      qs:
-        specifier: 6.12.1
-        version: 6.12.1
-      ramda:
-        specifier: 0.30.1
-        version: 0.30.1
-      tsx:
-        specifier: 4.15.7
-        version: 4.15.7
-      typescript:
-        specifier: 5.5.2
-        version: 5.5.2
-      yargs:
-        specifier: 17.7.2
-        version: 17.7.2
-
   app/firestore-functions:
     dependencies:
       firebase-admin:
@@ -832,6 +769,9 @@ importers:
       jest-junit:
         specifier: 16.0.0
         version: 16.0.0
+      pino-pretty:
+        specifier: 11.2.1
+        version: 11.2.1
       tsx:
         specifier: 4.15.7
         version: 4.15.7

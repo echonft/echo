@@ -24,7 +24,7 @@ export async function processSwapTransfer(
     return
   }
   const user = getUserFromFirestoreData({ user: userDocumentData, wallet: to })
-  const collection = await addCollection({ contract, logger })
+  const collection = await addCollection({ contract, fetch, logger })
   if (!isNil(collection)) {
     const nftIndex = getNftIndex({ collection, tokenId })
     await updateNft({ nftIndex, owner: user, collection })

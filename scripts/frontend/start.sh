@@ -9,7 +9,7 @@ ENV=$(whiptail --default-item=development --notags --menu "Pick an environment" 
 "production" "Production (be careful!)" 3>&1 1>&2 2>&3)
 
 if [ "$ENV" == "development" ]; then
-  NEXT_PUBLIC_IS_TESTNET=$(whiptail --default-item=1 --nocancel --notags --menu "Pick an network" 10 30 2 \
+  NEXT_PUBLIC_IS_TESTNET=$(whiptail --default-item=1 --notags --menu "Pick an network" 10 30 2 \
   "0" "mainnet" \
   "1" "testnet" 3>&1 1>&2 2>&3)
 elif [ "$ENV" == "staging" ] || [ "$ENV" == "production" ]; then

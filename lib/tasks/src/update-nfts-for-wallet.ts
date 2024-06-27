@@ -9,7 +9,7 @@ import { addCollection } from '@echo/tasks/add-collection'
 import { addNft } from '@echo/tasks/add-nft'
 import { assessNftOwnershipForWallet } from '@echo/tasks/assess-nft-ownership-for-wallet'
 import { changeNftOwnership } from '@echo/tasks/change-nft-ownership'
-import { fetchNftsForWallet } from '@echo/tasks/fetch-nfts-for-wallet'
+import { fetchNfts } from '@echo/tasks/fetch-nfts'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
@@ -39,14 +39,14 @@ interface UpdateNftsForWalletArgs extends WithFetch {
 export async function updateNftsForWallet(args: WithLoggerType<UpdateNftsForWalletArgs>) {
   const { wallet, logger } = args
   logger?.info({ wallet }, 'started updating NFTs for wallet')
-  const nftGroups = await fetchNftsForWallet(args)
+  const nftGroups = await fetchNfts(args)
   if (!isNil(nftGroups)) {
     for (const nftGroup of nftGroups) {
       const contract = pipe<[PartialNft[]], PartialNft, Wallet>(
         head,
         nonNullableReturn(path(['collection', 'contract']))
       )(nftGroup)
-      const collection = await addCollection({ contract, logger })
+      const collection = await addCollection({ contract, fetch: args.fetch, logger })
       if (!isNil(collection)) {
         const nftGroupWithCollection = map(assoc('collection', collection), nftGroup)
         for (const nft of nftGroupWithCollection) {

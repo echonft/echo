@@ -5,7 +5,7 @@ if ! sh "${dir}"/../base/check-newt.sh; then
     exit 1
 fi
 
-ACTION=$(whiptail --default-item=dev --notags --menu "Wat do?" 15 30 8 \
+ACTION=$(whiptail --notags --menu "Wat do?" 15 30 8 \
 "fetch-collection" "Fetch a collection" \
 "fetch-nft" "Fetch an NFT" \
 "fetch-nfts-for-wallet" "Fetch NFTs for wallet" \
@@ -15,5 +15,13 @@ ACTION=$(whiptail --default-item=dev --notags --menu "Wat do?" 15 30 8 \
 "update-wallet-nfts" "Update a wallet's NFTs" \
 "update-users-nfts" "Update every users' NFTs" 3>&1 1>&2 2>&3)
 
-pnpm exec turbo command --filter=@echo/tasks -- "${ACTION}"
+if [ "$ACTION" == "fetch-collection" ] || [ "$ACTION" == "fetch-nft" ] || [ "$ACTION" == "fetch-nfts-for-wallet" ]; then
+  ENV=development pnpm exec turbo command --filter=@echo/tasks -- "${ACTION}"
+else
+  ENV=$(whiptail --default-item=development --notags --menu "Pick an environment" 10 30 3 \
+  "development" "Development" \
+  "staging" "Staging" \
+  "production" "Production (be careful!)" 3>&1 1>&2 2>&3)
+  ENV=${ENV} pnpm exec turbo command --filter=@echo/tasks -- "${ACTION}"
+fi
 

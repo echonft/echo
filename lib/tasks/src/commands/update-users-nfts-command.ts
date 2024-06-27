@@ -1,22 +1,22 @@
 import { getAllUsers } from '@echo/firestore/crud/user/get-all-users'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { modelLoggerSerializers } from '@echo/model/constants/logger-serializers'
+import { getLogger } from '@echo/tasks/commands/get-logger'
 import { updateNftsForUser } from '@echo/tasks/update-nfts-for-user'
-import { getBaseLogger } from '@echo/utils/services/logger'
+import { andThen, otherwise, pipe } from 'ramda'
 
 export async function updateUsersNftsCommand() {
-  const logger = getBaseLogger('UpdateUsersNftsCommand', { serializers: modelLoggerSerializers })
-  try {
-    await initializeFirebase()
-    const users = await getAllUsers()
-    for (const user of users) {
-      try {
-        await updateNftsForUser({ user, fetch, logger })
-      } catch (err) {
-        logger.error({ err, user }, 'error upating user NFTs')
-      }
-    }
-  } catch (err) {
-    logger.error({ err }, 'error updating users NFT')
+  const logger = getLogger(updateUsersNftsCommand.name)
+  await initializeFirebase()
+  const users = await getAllUsers()
+  for (const user of users) {
+    await pipe(
+      updateNftsForUser,
+      andThen(() => {
+        logger.info({ user }, 'updated NFTs for user')
+      }),
+      otherwise((err) => {
+        logger.error({ err, user }, 'could not update NFTs')
+      })
+    )({ user, fetch, logger })
   }
 }
