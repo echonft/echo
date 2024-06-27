@@ -2,13 +2,9 @@
   "$schema": "https://turbo.build/schema.json",
   "extends": ["//"],
   "tasks": {
-    "build": {
-      "dependsOn": ["lint", "tsc"],
-      "cache": false
-    },
-    "deploy": {
-      "dependsOn": ["build"],
+    "command": {
       "cache": false,
+      "persistent": true,
       "passThroughEnv": ["ENV"]
     }
   }

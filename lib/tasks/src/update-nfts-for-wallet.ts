@@ -40,10 +40,9 @@ export async function updateNftsForWallet(args: WithLoggerType<Record<'wallet', 
   try {
     const fetcher = isTestnetChain(wallet.chain) ? getNftsFromOpensea : getNftsFromNftScan
     const groupedNfts = await pipe(
-      assoc('fetch', fetch),
       fetcher,
       andThen(collectBy(nonNullableReturn<[PartialNft], string>(path(['collection', 'contract', 'address']))))
-    )({ wallet })
+    )({ wallet, logger, fetch })
     for (const nftGroup of groupedNfts) {
       const collection = await pipe<
         [PartialNft[]],

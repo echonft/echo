@@ -1,6 +1,1 @@
-import { either, equals, isNil } from 'ramda'
-
-export const isDev: boolean = either(
-  isNil<string | undefined>,
-  equals<string | undefined>('development')
-)(process.env.NODE_ENV)
+export const isDev: boolean = process.env.NODE_ENV === 'development'
