@@ -9,7 +9,7 @@ import { echoEventLogSchema } from '@echo/frontend/lib/validators/echo-event-log
 import { validateQuicknodeSignature } from '@echo/frontend/lib/validators/validate-quicknode-signature'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { NextResponse } from 'next/server'
-import { andThen, assoc, invoker, objOf, pipe } from 'ramda'
+import { andThen, assoc, invoker, pipe } from 'ramda'
 
 export async function echoWebhookRequestHandler({
   params,
@@ -30,7 +30,7 @@ export async function echoWebhookRequestHandler({
     // TODO Should use parseRequest
     fn: pipe(
       invoker(0, 'json'),
-      andThen(pipe(objOf('data'), assoc('chain', chain), (data) => echoEventLogSchema.parse(data)))
+      andThen((data) => echoEventLogSchema.parse(data))
     ),
     status: ErrorStatus.BAD_REQUEST,
     logger

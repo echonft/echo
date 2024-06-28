@@ -3,6 +3,7 @@ import type { HexString } from '@echo/utils/types/hex-string'
 import { echoAbi } from '@echo/web3/constants/echo-abi'
 import { getClientForChain } from '@echo/web3/helpers/chain/get-client-for-chain'
 import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
+import { mapReadContractOfferToContractOffer } from '@echo/web3/mappers/map-read-contract-offer-to-contract-offer'
 import { readContract } from 'viem/actions'
 
 export interface GetEchoOfferArgs {
@@ -19,5 +20,6 @@ export async function getEchoOffer(args: GetEchoOfferArgs) {
     functionName: 'offers',
     address: echoAddress,
     args: [offerId]
-  })
+    // FIXME Typing
+  }).then((offer) => mapReadContractOfferToContractOffer(offer))
 }
