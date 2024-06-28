@@ -1,12 +1,16 @@
-import type { CollectionContractResponse } from '@echo/opensea/types/response/collection-contract-response'
+import { collectionContractSchema } from '@echo/opensea/validators/collection-response-schema'
+import type { ChainName } from '@echo/utils/types/chain-name'
+import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
+
+export type CollectionContract = ReturnType<typeof collectionContractSchema.parse>
 
 export interface CollectionResponse {
   banner_image_url: Nullable<string>
   category: string
   collection: string
   collection_offers_enabled: boolean
-  contracts: CollectionContractResponse[]
+  contracts: { address: HexString; contract: ChainName }[]
   created_date: string
   description: Nullable<string>
   discord_url: Nullable<string>

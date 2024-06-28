@@ -19,6 +19,7 @@ import {
   map,
   modify,
   objOf,
+  otherwise,
   partialRight,
   pick,
   pipe,
@@ -76,18 +77,24 @@ async function handlePaging(
 }
 
 export function getNftsByAccount(args: GetNftsByAccountArgs) {
+  const logger = getLogger({ chain: args.wallet.chain, fn: getNftsByAccount.name, logger: args.logger })
   return pipe<
     [GetNftsByAccountArgs],
     WithLoggerType<GetNftsByAccountRequest>,
     Promise<NftExtendedResponse[]>,
+    Promise<ReturnType<typeof mapExtendedNftResponse>[]>,
     Promise<ReturnType<typeof mapExtendedNftResponse>[]>
   >(
-    assoc('logger', getLogger({ chain: args.wallet.chain, fn: getNftsByAccount.name, logger: args.logger })),
+    assoc('logger', logger),
     partialRight(handlePaging, [[]]),
     andThen(
       map(
         pipe(objOf('response'), assoc('chain', args.wallet.chain), assoc('logger', args.logger), mapExtendedNftResponse)
       )
-    )
+    ),
+    otherwise((err) => {
+      args.logger?.error({ err, wallet: args.wallet }, 'could not fetch NFTs for wallet')
+      return []
+    })
   )(args)
 }

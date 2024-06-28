@@ -22,6 +22,7 @@ import {
   prop,
   propEq,
   toLower,
+  tryCatch,
   when
 } from 'ramda'
 import type { GetAccountReturnType } from 'wagmi/actions'
@@ -33,7 +34,7 @@ function getWallet(args: ReturnType<typeof setStatus>): Nullable<Wallet> {
       propIsNil('address'),
       pipe<[ReturnType<typeof setStatus>], Nullable<number>, boolean>(
         prop('chainId'),
-        ifElse(isNil, always(true), pipe(getChain, complement(isSupportedChain)))
+        ifElse(isNil, always(true), pipe(tryCatch(getChain, always(undefined)), complement(isSupportedChain)))
       )
     ]),
     always(undefined),

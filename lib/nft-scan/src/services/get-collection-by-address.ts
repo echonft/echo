@@ -10,7 +10,7 @@ import { always, andThen, applySpec, assoc, otherwise, pipe, prop } from 'ramda'
 
 export async function getCollectionByAddress(
   args: WithLoggerType<GetCollectionRequest>
-): Promise<Nullable<Omit<Collection, 'swapsCount'>>> {
+): Promise<Nullable<Collection>> {
   return await pipe(
     assoc('logger', getLogger({ chain: args.contract.chain, fn: getCollectionByAddress.name, logger: args.logger })),
     fetchCollection,

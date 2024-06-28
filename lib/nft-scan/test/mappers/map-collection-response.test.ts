@@ -7,7 +7,7 @@ import { collectionResponseSchema } from '@echo/nft-scan/validators/collection-r
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - mapCollectionResponse', () => {
-  const expectedResult: Omit<Collection, 'swapsCount'> = {
+  const expectedResult: Collection = {
     contract: {
       address: '0xcfc4c2b14af5b1f8ed97e1717b009dca461d8461'.toLowerCase(),
       chain: 'blast'

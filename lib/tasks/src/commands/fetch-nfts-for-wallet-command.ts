@@ -1,19 +1,34 @@
+import type { Collection } from '@echo/model/types/collection'
+import type { Nft } from '@echo/model/types/nft'
 import type { Wallet } from '@echo/model/types/wallet'
 import { getLogger } from '@echo/tasks/commands/get-logger'
+import { fetchCollection } from '@echo/tasks/fetch-collection'
 import { fetchNfts } from '@echo/tasks/fetch-nfts'
-import { forEach, isNil } from 'ramda'
+import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import { assoc, head, isNil, path, pipe } from 'ramda'
+
+type PartialNft = Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & {
+  collection: Pick<Collection, 'contract'>
+}
 
 export async function fetchNftsForWalletCommand(wallet: Wallet) {
   const logger = getLogger(fetchNftsForWalletCommand.name)
-  const nfts = await fetchNfts({ wallet, fetch, logger })
-  if (isNil(nfts)) {
+  const groups = await fetchNfts({ wallet, fetch, logger })
+  if (isNil(groups)) {
     logger.error({ wallet }, 'could not fetch NFTs')
     return
   }
-  forEach(
-    forEach((nft) => {
-      logger.info({ wallet, nft }, 'fetched NFT')
-    }),
-    nfts
-  )
+  for (const group of groups) {
+    const contract = pipe<[PartialNft[]], PartialNft, Wallet>(
+      head,
+      nonNullableReturn(path(['collection', 'contract']))
+    )(group)
+    const collection = await fetchCollection({ contract, fetch, logger })
+    if (isNil(collection)) {
+      logger.error({ collection: { contract } }, 'could not fetch collection')
+    }
+    for (const nft of group) {
+      logger.info({ wallet, nft: assoc('collection', collection, nft) }, 'fetched NFT')
+    }
+  }
 }

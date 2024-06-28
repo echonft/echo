@@ -1,8 +1,3 @@
-import type { CollectionContractResponse } from '@echo/opensea/types/response/collection-contract-response'
+import type { contractResponseSchema } from '@echo/opensea/validators/contract-response-schema'
 
-export interface ContractResponse extends CollectionContractResponse {
-  collection: string
-  contract_standard: 'ERC721' | 'ERC1155'
-  name: string
-  total_supply: number
-}
+export type ContractResponse = ReturnType<typeof contractResponseSchema.parse>

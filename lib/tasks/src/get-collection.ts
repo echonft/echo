@@ -27,13 +27,12 @@ export async function getCollection<T extends Wallet>(
       fetchCollection,
       andThen(
         ifElse(
-          isNil<Nullable<Omit<Collection, 'swapsCount'>>>,
+          isNil<Nullable<Collection>>,
           always<GetCollectionReturn>({
             collection: undefined,
             source: 'api'
           }),
-          pipe<[Omit<Collection, 'swapsCount'>], Collection, Omit<GetCollectionReturn, 'source'>, GetCollectionReturn>(
-            assoc('swapsCount', 0),
+          pipe<[Collection], Omit<GetCollectionReturn, 'source'>, GetCollectionReturn>(
             objOf('collection'),
             assoc('source', 'api')
           )

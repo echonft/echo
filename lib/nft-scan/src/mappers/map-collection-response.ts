@@ -21,9 +21,9 @@ export function removeNullOrEmptyString(value: string | null): string | undefine
   return value
 }
 
-export function mapCollectionResponse(args: MapCollectionResponseArgs): Omit<Collection, 'swapsCount'> {
+export function mapCollectionResponse(args: MapCollectionResponseArgs): Collection {
   const { chain, data } = args
-  return applySpec<Omit<Collection, 'swapsCount'>>({
+  return applySpec<Collection>({
     bannerUrl: pipe(prop('banner_url'), removeNullOrEmptyString),
     contract: applySpec<Wallet>({ address: prop('contract_address'), chain: always(chain) }),
     description: pipe(prop('description'), removeNullOrEmptyString),
