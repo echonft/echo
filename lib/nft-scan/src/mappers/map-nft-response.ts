@@ -1,6 +1,5 @@
-import type { Collection } from '@echo/model/types/collection'
-import type { Nft } from '@echo/model/types/nft'
 import { mapAttributeResponse } from '@echo/nft-scan/mappers/map-attribute-response'
+import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import type { NftResponse } from '@echo/nft-scan/types/response/nft-response'
 import type { nftResponseSchema } from '@echo/nft-scan/validators/nft-response-schema'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
@@ -15,14 +14,10 @@ export interface MapNftResponseArgs extends WithLogger {
   chain: ChainName
 }
 
-export function mapNftResponse(
-  args: MapNftResponseArgs
-): Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & Record<'collection', Pick<Collection, 'contract'>> {
+export function mapNftResponse(args: MapNftResponseArgs): PartialNft {
   const { response, chain, logger } = args
   try {
-    return applySpec<
-      Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & Record<'collection', Pick<Collection, 'contract'>>
-    >({
+    return applySpec<PartialNft>({
       attributes: pipe(prop('attributes'), ifElse(isNil, always([]), map(mapAttributeResponse))),
       collection: applySpec({
         contract: {

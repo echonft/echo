@@ -1,6 +1,5 @@
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
-import type { Nft } from '@echo/model/types/nft'
-import type { NftIndex } from '@echo/model/types/nft-index'
+import type { Nft, NftIndex } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
 import { complement, dissoc, equals, isEmpty, length, map, type NonEmptyArray, pipe, prop, uniq } from 'ramda'
 

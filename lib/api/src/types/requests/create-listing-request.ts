@@ -1,5 +1,5 @@
 import { type ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
-import type { NftIndex } from '@echo/model/types/nft-index'
+import type { NftIndex } from '@echo/model/types/nft'
 
 export interface CreateListingRequest {
   items: NftIndex[]

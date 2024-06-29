@@ -5,7 +5,7 @@ import { getLogger } from '@echo/tasks/commands/get-logger'
 import { fetchCollection } from '@echo/tasks/fetch-collection'
 import { fetchNfts } from '@echo/tasks/fetch-nfts'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
-import { assoc, head, isNil, path, pipe } from 'ramda'
+import { assoc, head, isEmpty, isNil, path, pipe } from 'ramda'
 
 type PartialNft = Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & {
   collection: Pick<Collection, 'contract'>
@@ -14,8 +14,8 @@ type PartialNft = Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & {
 export async function fetchNftsForWalletCommand(wallet: Wallet) {
   const logger = getLogger(fetchNftsForWalletCommand.name)
   const groups = await fetchNfts({ wallet, fetch, logger })
-  if (isNil(groups)) {
-    logger.error({ wallet }, 'could not fetch NFTs')
+  if (isEmpty(groups)) {
+    logger.info({ wallet }, 'this wallet does not own any NFTs')
     return
   }
   for (const group of groups) {

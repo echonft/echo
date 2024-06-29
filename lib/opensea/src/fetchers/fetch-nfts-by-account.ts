@@ -1,9 +1,10 @@
 import { getBaseUrl } from '@echo/opensea/helpers/get-base-url'
-import { parseFetchResponse } from '@echo/opensea/helpers/parse-fetch-response'
 import { throttleFetch } from '@echo/opensea/helpers/throttle-fetch'
 import type { GetNftsByAccountRequest } from '@echo/opensea/types/request/get-nfts-by-account-request'
 import type { GetNftsByAccountResponse } from '@echo/opensea/types/response/get-nfts-by-account-response'
+import { getNftsByAccountResponseSchema } from '@echo/opensea/validators/get-nfts-by-account-response-schema'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
+import { parseResponse } from '@echo/utils/validators/parse-response'
 import { stringify } from 'qs'
 import { applySpec, concat, defaultTo, pick, pipe, prop } from 'ramda'
 
@@ -27,5 +28,5 @@ export async function fetchNftsByAccount(
     )
     return Promise.reject(Error(`error fetching NFTs for wallet ${JSON.stringify(wallet)}`))
   }
-  return parseFetchResponse<GetNftsByAccountResponse>(response)
+  return parseResponse(getNftsByAccountResponseSchema)(response)
 }

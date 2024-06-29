@@ -2,8 +2,7 @@ import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listin
 import { getListingItemsIndexes } from '@echo/model/helpers/listing/get-listing-items-indexes'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import type { Listing } from '@echo/model/types/listing'
-import type { Nft } from '@echo/model/types/nft'
-import type { NftIndex } from '@echo/model/types/nft-index'
+import type { Nft, NftIndex } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { intersection, length, map, pipe, prop } from 'ramda'
 

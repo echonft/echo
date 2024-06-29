@@ -1,14 +1,13 @@
 import { getNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-nfts-collection-reference'
 import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import type { Collection } from '@echo/model/types/collection'
+import type { PartialCollection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
 import type { Wallet } from '@echo/model/types/wallet'
-import type { DeepPartial } from '@echo/utils/types/deep-partial'
 import { pipe } from 'ramda'
 
 interface GetNftsForWalletAndCollectionArgs<T extends Wallet> {
-  collection: DeepPartial<Collection> & Required<Pick<Collection, 'slug'>>
+  collection: PartialCollection
   wallet: Partial<T> & Required<Pick<Wallet, 'address' | 'chain'>>
 }
 

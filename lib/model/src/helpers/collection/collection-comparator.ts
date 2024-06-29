@@ -1,9 +1,6 @@
-import type { Collection } from '@echo/model/types/collection'
+import type { PartialCollection } from '@echo/model/types/collection'
 import { stringComparator } from '@echo/utils/comparators/string-comparator'
 
-export function collectionComparator<T extends Partial<Collection> & Required<Pick<Collection, 'slug'>>>(
-  collectionA: T,
-  collectionB: T
-): number {
+export function collectionComparator(collectionA: PartialCollection, collectionB: PartialCollection): number {
   return stringComparator(collectionA.slug, collectionB.slug)
 }

@@ -1,18 +1,19 @@
 import type { Wallet } from '@echo/model/types/wallet'
 import { getBaseUrl } from '@echo/opensea/helpers/get-base-url'
-import { parseFetchResponse } from '@echo/opensea/helpers/parse-fetch-response'
 import { throttleFetch } from '@echo/opensea/helpers/throttle-fetch'
-import type { GetNftResponse } from '@echo/opensea/types/response/get-nft-response'
+import type { PartialNft } from '@echo/opensea/types/partial-nft'
+import { getNftResponseSchema } from '@echo/opensea/validators/get-nft-response-schema'
+import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { andThen, pipe, prop } from 'ramda'
+import { parseResponse } from '@echo/utils/validators/parse-response'
 
 export interface FetchNftRequest extends WithFetch {
   contract: Wallet
   identifier: string
 }
 
-export async function fetchNft(args: WithLoggerType<FetchNftRequest>) {
+export async function fetchNft(args: WithLoggerType<FetchNftRequest>): Promise<Nullable<PartialNft>> {
   const { contract, fetch, identifier, logger } = args
   const url = `${getBaseUrl(contract.chain)}/chain/${contract.chain}/contract/${contract.address}/nfts/${identifier}`
   const response = await throttleFetch({
@@ -33,5 +34,5 @@ export async function fetchNft(args: WithLoggerType<FetchNftRequest>) {
       )
     )
   }
-  return pipe(parseFetchResponse<GetNftResponse>, andThen(prop('nft')))(response)
+  return parseResponse(getNftResponseSchema(contract.chain))(response)
 }
