@@ -26,7 +26,7 @@ export async function getFirebaseServiceAccount(logger?: Nullable<Logger>): Prom
   )({ names: ['FIREBASE_CLIENT_EMAIL', 'FIREBASE_PRIVATE_KEY'], logger })
   if (isNil(serviceAccount.clientEmail) || isNil(serviceAccount.privateKey) || isNil(serviceAccount.projectId)) {
     logger?.error('service account not found')
-    throw Error('service account not found')
+    return Promise.reject(Error('service account not found'))
   }
   return serviceAccount
 }

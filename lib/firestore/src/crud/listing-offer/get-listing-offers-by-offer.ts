@@ -6,7 +6,7 @@ import { isNil } from 'ramda'
 export async function getListingOffersByOffer(slug: string): Promise<ListingOffer[]> {
   const snapshot = await getOfferSnapshot(slug)
   if (isNil(snapshot)) {
-    throw Error(`offer with slug ${slug} does not exist`)
+    return Promise.reject(Error(`offer with slug ${slug} does not exist`))
   }
   return getListingOffersByOfferId(snapshot.id)
 }

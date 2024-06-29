@@ -1,5 +1,5 @@
-import { getCollectionById } from '@echo/firestore/crud/collection/get-collection-by-id'
 import { getCollectionDiscordGuildsByCollection } from '@echo/firestore/crud/collection-discord-guild/get-collection-discord-guilds-by-collection'
+import { getCollectionById } from '@echo/firestore/crud/collection/get-collection-by-id'
 import { getCollectionDiscordGuildsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collection-discord-guilds-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import {
@@ -15,14 +15,18 @@ export async function addCollectionDiscordGuild(
   const { collectionId, guild } = collectionGuild
   const discordGuilds = await getCollectionDiscordGuildsByCollection(collectionId)
   if (pipe(map<CollectionDiscordGuild, CollectionDiscordGuildData>(prop('guild')), includes(guild))(discordGuilds)) {
-    throw Error(
-      `trying to add discord guild with discordId ${guild.id} and channelId ${guild.channelId} for collection with id ${collectionId} while it already exists`
+    return Promise.reject(
+      Error(
+        `trying to add discord guild with discordId ${guild.id} and channelId ${guild.channelId} for collection with id ${collectionId} while it already exists`
+      )
     )
   }
   const collection = await getCollectionById(collectionId)
   if (isNil(collection)) {
-    throw Error(
-      `trying to add discord guild with discordId ${guild.id} and channelId ${guild.channelId} for collection with id ${collectionId} but this collection does not exist`
+    return Promise.reject(
+      Error(
+        `trying to add discord guild with discordId ${guild.id} and channelId ${guild.channelId} for collection with id ${collectionId} but this collection does not exist`
+      )
     )
   }
   const id = await setReference<CollectionDiscordGuild>({

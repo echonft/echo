@@ -8,7 +8,7 @@ import { isNil } from 'ramda'
 export async function unchecked_updateNft(index: NftIndex, data: DeepPartial<Nft>): Promise<Nft> {
   const snapshot = await getNftSnapshot(index)
   if (isNil(snapshot)) {
-    throw Error(`NFT with index ${JSON.stringify(index)} does not exist`)
+    return Promise.reject(Error(`NFT with index ${JSON.stringify(index)} does not exist`))
   }
   return updateReference<Nft>({
     collectionReference: getNftsCollectionReference(),
