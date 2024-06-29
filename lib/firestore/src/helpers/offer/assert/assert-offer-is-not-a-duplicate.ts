@@ -29,16 +29,12 @@ export async function assertOfferIsNotADuplicate(args: { receiverItems: Nft[]; s
     )
   )()
   // compare the items with each potential duplicate
-  let isDuplicate = false
   for (const potentialDuplicate of potentialDuplicates) {
     if (
       eqNfts(receiverItems, potentialDuplicate.receiverItems, true) &&
       eqNfts(senderItems, potentialDuplicate.senderItems, true)
     ) {
-      isDuplicate = true
+      return Promise.reject(Error('offer is a duplicate'))
     }
-  }
-  if (isDuplicate) {
-    return Promise.reject(Error('offer is a duplicate'))
   }
 }
