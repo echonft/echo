@@ -1,4 +1,4 @@
-import type { Wallet } from '@echo/model/types/wallet'
+import type { PartialWallet } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { getNftsByAccount as getNftsFromNftScan } from '@echo/nft-scan/services/get-nfts-by-account'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import { getNftsByAccount as getNftsFromOpensea } from '@echo/opensea/services/get-nfts-by-account'
@@ -8,11 +8,11 @@ import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { andThen, collectBy, otherwise, path, pipe } from 'ramda'
 
-interface FetchNftsArgs<T extends Wallet> extends WithFetch {
-  wallet: T
+interface FetchNftsArgs extends WithFetch {
+  wallet: PartialWallet
 }
 
-export function fetchNfts<T extends Wallet>(args: WithLoggerType<FetchNftsArgs<T>>): Promise<PartialNft[][]> {
+export function fetchNfts(args: WithLoggerType<FetchNftsArgs>): Promise<PartialNft[][]> {
   const { wallet, logger } = args
   const fetcher = isTestnetChain(wallet.chain) ? getNftsFromOpensea : getNftsFromNftScan
   return pipe(

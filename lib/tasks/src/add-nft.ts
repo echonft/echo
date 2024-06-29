@@ -1,18 +1,18 @@
 import { addNft as addNftToFirestore } from '@echo/firestore/crud/nft/add-nft'
 import { getWalletOwner } from '@echo/firestore/crud/wallet/get-wallet-owner'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
+import type { PartialWallet } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import type { Nft } from '@echo/model/types/nft'
-import type { Wallet } from '@echo/model/types/wallet'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { always, andThen, assoc, isNil, otherwise, pipe } from 'ramda'
 
-interface AddNftArgs<T extends Wallet> {
+interface AddNftArgs {
   nft: Omit<Nft, 'owner' | 'updatedAt'>
-  wallet: T
+  wallet: PartialWallet
 }
 
-export async function addNft<T extends Wallet>(args: WithLoggerType<AddNftArgs<T>>) {
+export async function addNft(args: WithLoggerType<AddNftArgs>) {
   const { logger, nft, wallet } = args
   const user = await pipe(getWalletOwner, otherwise(always(undefined)))(wallet)
   if (isNil(user)) {
