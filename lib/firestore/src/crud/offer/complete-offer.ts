@@ -1,7 +1,7 @@
-import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
-import { updateListingState } from '@echo/firestore/crud/listing/update-listing-state'
 import { getListingOffersByOfferId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-offer-id'
 import { getListingOffersForListing } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-listing'
+import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
+import { updateListingState } from '@echo/firestore/crud/listing/update-listing-state'
 import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { updateOfferState, type UpdateOfferStateArgs } from '@echo/firestore/crud/offer/update-offer-state'
@@ -26,7 +26,7 @@ export interface CompleteOfferArgs extends Omit<UpdateOfferStateArgs, 'state'> {
 export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
   const snapshot = await getOfferSnapshot(args.slug)
   if (isNil(snapshot)) {
-    throw Error(`offer with slug ${args.slug} does not exist`)
+    return Promise.reject(Error(`offer with slug ${args.slug} does not exist`))
   }
   const offer = await pipe<
     [CompleteOfferArgs],

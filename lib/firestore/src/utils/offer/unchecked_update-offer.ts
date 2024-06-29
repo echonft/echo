@@ -8,7 +8,7 @@ import { isNil } from 'ramda'
 export async function unchecked_updateOffer(slug: string, data: DeepPartial<Offer>): Promise<Offer> {
   const snapshot = await getOfferSnapshot(slug)
   if (isNil(snapshot)) {
-    throw Error(`offer with slug ${slug} does not exist`)
+    return Promise.reject(Error(`offer with slug ${slug} does not exist`))
   }
   return updateReference<Offer>({
     collectionReference: getOffersCollectionReference(),

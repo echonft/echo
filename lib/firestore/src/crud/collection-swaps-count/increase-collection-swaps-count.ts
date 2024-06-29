@@ -10,7 +10,9 @@ import { inc, isNil, pipe } from 'ramda'
 export async function increaseCollectionSwapsCount(slug: string): Promise<CollectionSwapsCount> {
   const collectionSnapshot = await getCollectionSnapshot(slug)
   if (isNil(collectionSnapshot)) {
-    throw Error(`trying to increase swaps count for collection ${slug} but this collection does not exist`)
+    return Promise.reject(
+      Error(`trying to increase swaps count for collection ${slug} but this collection does not exist`)
+    )
   }
   const existingSwapsCount = await pipe(
     getCollectionSwapsCountCollectionReference,

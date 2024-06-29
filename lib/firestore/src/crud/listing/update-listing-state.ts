@@ -10,7 +10,7 @@ import { isNil } from 'ramda'
 export async function updateListingState(slug: string, state: ListingState): Promise<Listing> {
   const snapshot = await getListingSnapshot(slug)
   if (isNil(snapshot)) {
-    throw Error(`listing with slug ${slug} does not exist`)
+    return Promise.reject(Error(`listing with slug ${slug} does not exist`))
   }
   assertListingStateTransition(snapshot.data(), state)
   return updateReference<Listing>({

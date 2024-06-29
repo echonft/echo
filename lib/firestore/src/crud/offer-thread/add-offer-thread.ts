@@ -9,7 +9,9 @@ import { assoc, isNil } from 'ramda'
 export async function addOfferThread(thread: Omit<OfferThread, 'postedAt'>): Promise<NewDocument<OfferThread>> {
   const offer = await getOfferById(thread.offerId)
   if (isNil(offer)) {
-    throw Error(`trying to add thread for offer with id ${thread.offerId} but this offer does not exist`)
+    return Promise.reject(
+      Error(`trying to add thread for offer with id ${thread.offerId} but this offer does not exist`)
+    )
   }
   const data: OfferThread = assoc('postedAt', now(), thread)
   const id = await setReference<OfferThread>({

@@ -12,17 +12,17 @@ export async function addWallet(username: string, wallet: Wallet): Promise<NewDo
   const walletSnapshot = await getWalletSnapshotByAddress(wallet)
   const userSnapshot = await getUserSnapshotByUsername(username)
   if (isNil(userSnapshot)) {
-    throw Error(`user with username ${username} not found`)
+    return Promise.reject(Error(`user with username ${username} not found`))
   }
   if (!isNil(walletSnapshot)) {
     const existingWallet = walletSnapshot.data()
     if (existingWallet.isEvm) {
       if (existingWallet.userId !== userSnapshot.id) {
-        throw Error(`wallet already associated with another user`)
+        return Promise.reject(Error(`wallet already associated with another user`))
       }
       return { id: walletSnapshot.id, data: assoc('chain', wallet.chain, existingWallet) }
     }
-    throw Error(`wallet ${JSON.stringify(wallet)} already exists`)
+    return Promise.reject(Error(`wallet ${JSON.stringify(wallet)} already exists`))
   }
   const data = pipe(assoc('userId', userSnapshot.id), assoc('isEvm', isEvmChain(wallet.chain)))(wallet)
   const id = await setReference<WalletDocumentData>({

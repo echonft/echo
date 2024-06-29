@@ -16,7 +16,7 @@ export async function addCollection(data: Collection): Promise<
   const uniqueSlug = await generateUniqueCollectionSlug(data.slug)
   const collectionBySlug = await getCollection(uniqueSlug)
   if (!isNil(collectionBySlug)) {
-    throw Error(`a collection with slug ${uniqueSlug} already exists`)
+    return Promise.reject(Error(`a collection with slug ${uniqueSlug} already exists`))
   }
   const newData = assoc('slug', uniqueSlug, data)
   const collectionId = await setReference<Collection>({

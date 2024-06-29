@@ -13,11 +13,13 @@ export async function addSwap(args: Omit<Swap, 'createdAt'>): Promise<NewDocumen
   const { offerId } = args
   const offer = await getOfferById(offerId)
   if (isNil(offer)) {
-    throw Error(`trying to add swap for offer with id ${offerId} but this offer does not exist`)
+    return Promise.reject(Error(`trying to add swap for offer with id ${offerId} but this offer does not exist`))
   }
   const foundSwap = await getSwapByOfferId(offerId)
   if (!isNil(foundSwap)) {
-    throw Error(`trying to add swap for offer with id ${offerId} but a swap already exists for this offer`)
+    return Promise.reject(
+      Error(`trying to add swap for offer with id ${offerId} but a swap already exists for this offer`)
+    )
   }
   const data = assoc('createdAt', now(), args)
   const id = await setReference<Swap>({
