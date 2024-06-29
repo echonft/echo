@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf dist",
-    "command": "tsx src/commands/index.ts",
+    "command": "NODE_ENV=development tsx src/commands/index.ts",
     "lint": "eslint",
     "modules:remove": "rm -rf node_modules",
     "modules:update": "ncu -u",
@@ -38,6 +38,7 @@
     "@types/yargs": "17.0.32",
     "jest": "29.7.0",
     "jest-junit": "16.0.0",
+    "pino-pretty": "11.2.1",
     "tsx": "4.15.7",
     "typescript": "5.5.2",
     "yargs": "17.7.2"

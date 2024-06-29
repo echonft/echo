@@ -31,8 +31,7 @@ export const Web3Provider: FunctionComponent<PropsWithChildren> = ({ children })
             hideQuestionMarkCTA: true,
             hideNoWalletCTA: true,
             overlayBlur: 8,
-            // for some reason even on the right chain it keeps asking to switch network and the user is stuck...
-            enforceSupportedChains: false
+            enforceSupportedChains: true
           }}
           theme="midnight"
         >

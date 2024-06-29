@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import type { Wallet } from '@echo/model/types/wallet'
 import { fetchCollectionCommand } from '@echo/tasks/commands/fetch-collection-command'
-import { fetchNftCommand } from '@echo/tasks/commands/fetch-nft'
+import { fetchNftCommand } from '@echo/tasks/commands/fetch-nft-command'
 import { fetchNftsForWalletCommand } from '@echo/tasks/commands/fetch-nfts-for-wallet-command'
 import { updateCollectionCommand } from '@echo/tasks/commands/update-collection-command'
 import { updateNftCommand } from '@echo/tasks/commands/update-nft-command'
@@ -12,7 +12,7 @@ import { stringComparator } from '@echo/utils/comparators/string-comparator'
 import { getChains } from '@echo/utils/helpers/chains/get-chains'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
-import { getAddress } from '@echo/web3/helpers/get-address'
+import { isAddress } from '@echo/web3/helpers/get-address'
 import input from '@inquirer/input'
 import select from '@inquirer/select'
 import { applySpec, map, objOf, pipe, prop, sort, toLower } from 'ramda'
@@ -28,12 +28,10 @@ await yargs(hideBin(process.argv))
       const address = await input({
         message: 'Address:',
         validate: (input: string) => {
-          try {
-            getAddress(input)
-            return true
-          } catch (err) {
+          if (!isAddress(input, { strict: false })) {
             return 'invalid address'
           }
+          return true
         }
       })
       const chain = await select({
@@ -57,12 +55,10 @@ await yargs(hideBin(process.argv))
       const address = await input({
         message: 'Collection address:',
         validate: (input: string) => {
-          try {
-            getAddress(input)
-            return true
-          } catch (err) {
+          if (!isAddress(input, { strict: false })) {
             return 'invalid address'
           }
+          return true
         }
       })
       const chain = await select({
@@ -71,15 +67,7 @@ await yargs(hideBin(process.argv))
         default: 'ethereum'
       })
       const tokenId = await input({
-        message: 'Token ID:',
-        validate: (input: string) => {
-          try {
-            getAddress(input)
-            return true
-          } catch (err) {
-            return 'invalid address'
-          }
-        }
+        message: 'Token ID:'
       })
       const contract: Wallet = applySpec<Wallet>({
         address: pipe(formatWalletAddress, toLower<HexString>),
@@ -97,12 +85,10 @@ await yargs(hideBin(process.argv))
       const address = await input({
         message: 'Address:',
         validate: (input: string) => {
-          try {
-            getAddress(input)
-            return true
-          } catch (err) {
+          if (!isAddress(input, { strict: false })) {
             return 'invalid address'
           }
+          return true
         }
       })
       const chain = await select({
@@ -126,12 +112,10 @@ await yargs(hideBin(process.argv))
       const address = await input({
         message: 'Address:',
         validate: (input: string) => {
-          try {
-            getAddress(input)
-            return true
-          } catch (err) {
+          if (!isAddress(input, { strict: false })) {
             return 'invalid address'
           }
+          return true
         }
       })
       const chain = await select({
@@ -155,12 +139,10 @@ await yargs(hideBin(process.argv))
       const address = await input({
         message: 'Collection address:',
         validate: (input: string) => {
-          try {
-            getAddress(input)
-            return true
-          } catch (err) {
+          if (!isAddress(input, { strict: false })) {
             return 'invalid address'
           }
+          return true
         }
       })
       const chain = await select({
@@ -169,15 +151,7 @@ await yargs(hideBin(process.argv))
         default: 'ethereum'
       })
       const tokenId = await input({
-        message: 'Token ID:',
-        validate: (input: string) => {
-          try {
-            getAddress(input)
-            return true
-          } catch (err) {
-            return 'invalid address'
-          }
-        }
+        message: 'Token ID:'
       })
       const contract: Wallet = applySpec<Wallet>({
         address: pipe(formatWalletAddress, toLower<HexString>),
@@ -207,12 +181,10 @@ await yargs(hideBin(process.argv))
       const address = await input({
         message: 'Wallet address:',
         validate: (input: string) => {
-          try {
-            getAddress(input)
-            return true
-          } catch (err) {
+          if (!isAddress(input, { strict: false })) {
             return 'invalid address'
           }
+          return true
         }
       })
       const chain = await select({

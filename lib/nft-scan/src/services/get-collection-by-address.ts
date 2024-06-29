@@ -6,11 +6,11 @@ import type { GetCollectionRequest } from '@echo/nft-scan/types/request/get-coll
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { always, andThen, applySpec, assoc, pipe, prop } from 'ramda'
+import { always, andThen, applySpec, assoc, otherwise, pipe, prop } from 'ramda'
 
 export async function getCollectionByAddress(
   args: WithLoggerType<GetCollectionRequest>
-): Promise<Nullable<Omit<Collection, 'swapsCount'>>> {
+): Promise<Nullable<Collection>> {
   return await pipe(
     assoc('logger', getLogger({ chain: args.contract.chain, fn: getCollectionByAddress.name, logger: args.logger })),
     fetchCollection,
@@ -21,6 +21,7 @@ export async function getCollectionByAddress(
           mapCollectionResponse
         )
       )
-    )
+    ),
+    otherwise(always(undefined))
   )(args)
 }

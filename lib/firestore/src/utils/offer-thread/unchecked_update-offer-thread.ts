@@ -7,7 +7,7 @@ import { isNil } from 'ramda'
 export async function unchecked_updateOfferThread(data: OfferThread) {
   const snapshot = await getOfferThreadSnapshot(data.offerId)
   if (isNil(snapshot)) {
-    throw Error(`offer thread for offer ${data.offerId} does not exist`)
+    return Promise.reject(Error(`offer thread for offer ${data.offerId} does not exist`))
   }
   return updateReference<OfferThread>({
     collectionReference: getOfferThreadsCollectionReference(),

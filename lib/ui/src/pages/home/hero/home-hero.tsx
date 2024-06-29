@@ -1,4 +1,4 @@
-import { type Collection } from '@echo/model/types/collection'
+import type { CollectionWithSwapsCount } from '@echo/model/types/collection-with-swaps-count'
 import { CollectionTile } from '@echo/ui/components/collection/tile/collection-tile'
 import { SIZE_LG } from '@echo/ui/constants/size'
 import { HomeHeroLayout } from '@echo/ui/pages/home/hero/home-hero-layout'
@@ -8,7 +8,7 @@ import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  collection: Nullable<Collection>
+  collection: Nullable<CollectionWithSwapsCount>
 }
 
 export const HomeHero: FunctionComponent<Props> = ({ collection }) => {

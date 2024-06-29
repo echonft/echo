@@ -2,13 +2,11 @@ import { addNft } from '@echo/firestore/crud/nft/add-nft'
 import { getNft } from '@echo/firestore/crud/nft/get-nft'
 import { updateNft as updateNftInFirestore } from '@echo/firestore/crud/nft/update-nft'
 import type { Collection } from '@echo/model/types/collection'
-import type { NftIndex } from '@echo/model/types/nft-index'
+import type { NftIndex } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
-import { getNft as getNftFromNftScan } from '@echo/nft-scan/services/get-nft'
-import { getNft as getNftFromOpensea } from '@echo/opensea/services/get-nft'
-import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
+import { fetchNft } from '@echo/tasks/fetch-nft'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { andThen, assoc, ifElse, isNil, pipe, prop, tap } from 'ramda'
+import { always, andThen, assoc, ifElse, isNil, otherwise, pipe, tap } from 'ramda'
 
 export interface UpdateNftArgs {
   nftIndex: NftIndex
@@ -21,17 +19,17 @@ export interface UpdateNftArgs {
  * Will decide where to fetch the data based on chain. We use OpenSea API on testnet and NFTScan on mainnet
  */
 export async function updateNft(args: WithLoggerType<UpdateNftArgs>) {
-  const { nftIndex, owner, collection, logger } = args
-  const nftFetcher = isTestnetChain(collection.contract.chain) ? getNftFromNftScan : getNftFromOpensea
-  const nft = await getNft(nftIndex)
+  const { nftIndex, owner, collection } = args
+  const logger = args.logger?.child({ fn: updateNft.name })
+  const nft = await pipe(getNft, otherwise(always(undefined)))(nftIndex)
   if (isNil(nft)) {
     await pipe(
-      nftFetcher,
+      fetchNft,
       andThen(
         ifElse(
           isNil,
           tap(() => {
-            logger?.error({ fn: updateNft.name, nft: nftIndex }, 'NFT not found in API')
+            logger?.error({ nft: nftIndex }, 'NFT not found in API')
           }),
           pipe(
             assoc('collection', collection),
@@ -39,16 +37,19 @@ export async function updateNft(args: WithLoggerType<UpdateNftArgs>) {
             addNft,
             andThen(
               tap(({ id, data }) => {
-                logger?.info({ fn: updateNft.name, nft: assoc('id', id, data) }, 'added NFT')
+                logger?.info({ nft: assoc('id', id, data) }, 'added NFT')
               })
             )
           )
         )
-      )
+      ),
+      otherwise((err) => {
+        logger?.error({ err, nft: nftIndex }, 'could not fetch NFT')
+      })
     )({
       fetch,
       identifier: nftIndex.tokenId.toString(),
-      contract: prop('contract', collection)
+      contract: collection.contract
     })
     return
   }
@@ -57,8 +58,11 @@ export async function updateNft(args: WithLoggerType<UpdateNftArgs>) {
     updateNftInFirestore,
     andThen(
       tap((nft) => {
-        logger?.info({ fn: updateNft.name, nft }, 'updated NFT')
+        logger?.info({ nft }, 'updated NFT')
       })
-    )
+    ),
+    otherwise((err) => {
+      logger?.error({ err, nft }, 'could not update NFT')
+    })
   )(nft)
 }

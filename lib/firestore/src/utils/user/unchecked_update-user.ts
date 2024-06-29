@@ -7,7 +7,7 @@ import { isNil } from 'ramda'
 export async function unchecked_updateUser(username: string, data: UserDocumentData): Promise<UserDocumentData> {
   const snapshot = await getUserSnapshotByUsername(username)
   if (isNil(snapshot)) {
-    throw Error(`user with username ${username} does not exist`)
+    return Promise.reject(Error(`user with username ${username} does not exist`))
   }
   return updateReference<UserDocumentData>({
     collectionReference: getUsersCollectionReference(),

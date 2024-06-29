@@ -11,7 +11,7 @@ import { andThen, isNil, pipe } from 'ramda'
 export async function getNonceSnapshotForUser(username: string): Promise<Nullable<QueryDocumentSnapshot<Nonce>>> {
   const snapshot = await getUserSnapshotByUsername(username)
   if (isNil(snapshot)) {
-    throw Error(`user with username ${username} not found`)
+    return Promise.reject(Error(`user with username ${username} not found`))
   }
   return pipe(
     getNoncesCollectionReference,

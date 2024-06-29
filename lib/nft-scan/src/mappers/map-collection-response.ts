@@ -7,7 +7,7 @@ import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { removeSpecialCharacters } from '@echo/utils/fp/remove-special-characters'
 import type { ChainName } from '@echo/utils/types/chain-name'
-import { always, applySpec, ifElse, pipe, prop, replace, toLower } from 'ramda'
+import { always, applySpec, F, ifElse, pipe, prop, replace, toLower } from 'ramda'
 
 export interface MapCollectionResponseArgs {
   chain: ChainName
@@ -21,9 +21,9 @@ export function removeNullOrEmptyString(value: string | null): string | undefine
   return value
 }
 
-export function mapCollectionResponse(args: MapCollectionResponseArgs): Omit<Collection, 'swapsCount'> {
+export function mapCollectionResponse(args: MapCollectionResponseArgs): Collection {
   const { chain, data } = args
-  return applySpec<Omit<Collection, 'swapsCount'>>({
+  return applySpec<Collection>({
     bannerUrl: pipe(prop('banner_url'), removeNullOrEmptyString),
     contract: applySpec<Wallet>({ address: prop('contract_address'), chain: always(chain) }),
     description: pipe(prop('description'), removeNullOrEmptyString),
@@ -43,6 +43,6 @@ export function mapCollectionResponse(args: MapCollectionResponseArgs): Omit<Col
     twitterUsername: pipe(prop('twitter'), removeNullOrEmptyString),
     totalSupply: prop('items_total'),
     websiteUrl: pipe(prop('website'), removeNullOrEmptyString),
-    verified: prop('verified')
+    verified: F
   })(data)
 }

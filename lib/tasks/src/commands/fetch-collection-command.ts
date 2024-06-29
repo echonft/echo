@@ -1,22 +1,16 @@
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { modelLoggerSerializers } from '@echo/model/constants/logger-serializers'
 import type { Wallet } from '@echo/model/types/wallet'
+import { getLogger } from '@echo/tasks/commands/get-logger'
 import { fetchCollection } from '@echo/tasks/fetch-collection'
-import { getBaseLogger } from '@echo/utils/services/logger'
+import { isNil } from 'ramda'
 
 export async function fetchCollectionCommand(contract: Wallet) {
-  const logger = getBaseLogger('FetchCollectionCommand', { serializers: modelLoggerSerializers })
-  try {
-    await initializeFirebase()
-    const collection = await fetchCollection({ contract, logger })
-    logger.info({ collection }, 'successfuly received collection')
-  } catch (err) {
-    logger.error(
-      {
-        contract,
-        err
-      },
-      'error fetching collection'
-    )
+  const logger = getLogger(fetchCollectionCommand.name)
+  await initializeFirebase()
+  const collection = await fetchCollection({ contract, fetch, logger })
+  if (isNil(collection)) {
+    logger.error({ contract }, 'could not fetch collection')
+    return
   }
+  logger.info({ collection }, 'fetched collection')
 }

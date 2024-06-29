@@ -1,7 +1,8 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { type Collection } from '@echo/model/types/collection'
 import { getCollectionMock } from '@echo/model/mocks/collection/get-collection-mock'
+import { type Collection } from '@echo/model/types/collection'
+import type { CollectionWithSwapsCount } from '@echo/model/types/collection-with-swaps-count'
 import { CollectionRowSkeleton as Component } from '@echo/ui/components/collection/row/skeleton/collection-row-skeleton'
 import type { CollectionWithRank } from '@echo/ui/types/collection-with-rank'
 import { type Meta, type StoryObj } from '@storybook/react'
@@ -21,6 +22,10 @@ export default metadata
 
 export const Skeleton: StoryObj<typeof Component> = {
   args: {
-    collection: pipe<[], Collection, CollectionWithRank>(getCollectionMock, assoc('rank', 1))()
+    collection: pipe<[], Collection, CollectionWithSwapsCount, CollectionWithRank>(
+      getCollectionMock,
+      assoc('swapsCount', 1),
+      assoc('rank', 1)
+    )()
   }
 }

@@ -7,7 +7,7 @@ import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-
 import type { NftWithId } from '@echo/firestore/types/model/nft/nft-with-id'
 import type { NftTransfer } from '@echo/frontend/lib/types/transfer/nft-transfer'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
-import { updateCollection } from '@echo/tasks/update-collection'
+import { addCollection } from '@echo/tasks/add-collection'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { chain, isNil } from 'ramda'
 
@@ -16,7 +16,7 @@ export async function processOutEscrowTransfer(args: WithLoggerType<Record<'tran
     transfer: { contract, to: toWallet, tokenId },
     logger
   } = args
-  const collection = await updateCollection({ contract, logger })
+  const collection = await addCollection({ contract, fetch, logger })
   if (!isNil(collection)) {
     const nftIndex = getNftIndex({ collection, tokenId })
     const nftSnapshot = await getEscrowedNftSnapshot(nftIndex)
@@ -40,7 +40,7 @@ export async function processOutEscrowTransfer(args: WithLoggerType<Record<'tran
       logger?.error({ fn: processOutEscrowTransfer.name, user: { id: to.userId } }, 'user not found')
       return
     }
-    const user = getUserFromFirestoreData(userDocumentData, to)
+    const user = getUserFromFirestoreData({ user: userDocumentData, wallet: to })
     // We add NFT back in the NFT database and remove the escrowed one
     const nft: NftWithId = { ...nftSnapshot.data(), id: nftSnapshot.id, owner: user }
     await addNftWithId(nft)

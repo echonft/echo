@@ -3,7 +3,7 @@ import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { TransferData } from '@echo/frontend/lib/types/transfer/transfer-data'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
-import { updateCollection } from '@echo/tasks/update-collection'
+import { addCollection } from '@echo/tasks/add-collection'
 import { updateNft } from '@echo/tasks/update-nft'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { isNil } from 'ramda'
@@ -23,8 +23,8 @@ export async function processSwapTransfer(
   if (isNil(userDocumentData)) {
     return
   }
-  const user = getUserFromFirestoreData(userDocumentData, to)
-  const collection = await updateCollection({ contract, logger })
+  const user = getUserFromFirestoreData({ user: userDocumentData, wallet: to })
+  const collection = await addCollection({ contract, fetch, logger })
   if (!isNil(collection)) {
     const nftIndex = getNftIndex({ collection, tokenId })
     await updateNft({ nftIndex, owner: user, collection })

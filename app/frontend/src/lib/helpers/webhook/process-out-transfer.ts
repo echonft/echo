@@ -1,8 +1,8 @@
 import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
-import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft'
+import { getNftSnapshotForIndex } from '@echo/firestore/crud/nft/get-nft'
 import type { TransferData } from '@echo/frontend/lib/types/transfer/transfer-data'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
-import { updateCollection } from '@echo/tasks/update-collection'
+import { addCollection } from '@echo/tasks/add-collection'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { assoc, isNil } from 'ramda'
 
@@ -15,10 +15,10 @@ export async function processOutTransfer(args: WithLoggerType<Record<'transfer',
     transfer: { contract, tokenId },
     logger
   } = args
-  const collection = await updateCollection({ contract, logger })
+  const collection = await addCollection({ contract, fetch, logger })
   if (!isNil(collection)) {
     const nftIndex = getNftIndex({ collection, tokenId })
-    const snapshot = await getNftSnapshot(nftIndex)
+    const snapshot = await getNftSnapshotForIndex(nftIndex)
     if (isNil(snapshot)) {
       return
     }

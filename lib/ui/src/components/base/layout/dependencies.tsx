@@ -12,6 +12,7 @@ import { searchCollections } from '@echo/api/fetchers/search-collections'
 import { searchUsers } from '@echo/api/fetchers/search-users'
 import { signIn, signOut } from '@echo/auth/auth'
 import { DependenciesProvider } from '@echo/ui/providers/dependencies-provider'
+import { isDev } from '@echo/utils/constants/is-dev'
 import { getBaseLogger } from '@echo/utils/services/logger'
 import { acceptOffer as contractAcceptOffer } from '@echo/web3-dom/helpers/accept-offer'
 import { approveErc721Contract } from '@echo/web3-dom/helpers/approve-erc721-contract'
@@ -58,7 +59,10 @@ export const Dependencies: FunctionComponent<PropsWithChildren> = ({ children })
         signNonce,
         signOut,
         switchChain,
-        logger: getBaseLogger('web', { baseMergeObject: { component: 'client-component' } })
+        logger: getBaseLogger('web', {
+          baseMergeObject: { component: 'client-component' },
+          override: { enabled: isDev }
+        })
       }}
     >
       {children}

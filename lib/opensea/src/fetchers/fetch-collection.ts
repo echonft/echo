@@ -10,8 +10,8 @@ export async function fetchCollection(args: WithLoggerType<GetCollectionRequest>
   const url = `${getBaseUrl(chain)}/collections/${slug}`
   const response = await throttleFetch({ fetch, url, logger })
   if (!response.ok) {
-    logger?.error({ fn: 'fetchCollection', slug, url }, 'error fetching collection')
-    throw Error(`error fetching collection ${slug}`)
+    logger?.error({ fn: fetchCollection.name, slug, url }, 'error fetching collection')
+    return Promise.reject(Error(`error fetching collection ${slug}`))
   }
   return parseFetchResponse<CollectionResponse>(response)
 }

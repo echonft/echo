@@ -34,7 +34,7 @@ export async function assertOfferIsNotADuplicate(args: { receiverItems: Nft[]; s
       eqNfts(receiverItems, potentialDuplicate.receiverItems, true) &&
       eqNfts(senderItems, potentialDuplicate.senderItems, true)
     ) {
-      throw Error('offer is a duplicate')
+      return Promise.reject(Error('offer is a duplicate'))
     }
   }
 }
