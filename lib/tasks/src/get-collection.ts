@@ -1,6 +1,6 @@
 import { getCollectionByAddress as getCollectionByAddressFromFirestore } from '@echo/firestore/crud/collection/get-collection-by-address'
+import type { PartialWallet } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { Collection } from '@echo/model/types/collection'
-import type { Wallet } from '@echo/model/types/wallet'
 import { fetchCollection } from '@echo/tasks/fetch-collection'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
@@ -12,13 +12,11 @@ interface GetCollectionReturn {
   source: 'firestore' | 'api'
 }
 
-interface GetCollectionArgs<T extends Wallet> extends WithFetch {
-  contract: T
+interface GetCollectionArgs extends WithFetch {
+  contract: PartialWallet
 }
 
-export async function getCollection<T extends Wallet>(
-  args: WithLoggerType<GetCollectionArgs<T>>
-): Promise<GetCollectionReturn> {
+export async function getCollection(args: WithLoggerType<GetCollectionArgs>): Promise<GetCollectionReturn> {
   const logger = args.logger?.child({ fn: getCollection.name })
   logger?.info({ collection: { contract: args.contract } }, 'getting collection')
   const collection = await pipe(getCollectionByAddressFromFirestore, otherwise(always(undefined)))(args.contract)

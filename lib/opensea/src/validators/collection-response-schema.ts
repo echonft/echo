@@ -1,4 +1,5 @@
 import type { Collection } from '@echo/model/types/collection'
+import { emptyStringToUndefined } from '@echo/opensea/helpers/empty-string-to-undefined'
 import type { CollectionContract } from '@echo/opensea/types/response/collection-response'
 import { removeSpecialCharacters } from '@echo/utils/fp/remove-special-characters'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
@@ -19,17 +20,11 @@ export const collectionContractSchema = object({
   chain: string()
 })
 export function collectionResponseSchema(args?: CollectionResponseSchemaArgs) {
-  function emptyStringToUndefined(str: Nullable<string>) {
-    if (isEmpty(str)) {
-      return undefined
-    }
-    return str
-  }
   // uncomment fields if needed
   const schema = object({
     collection: string().toLowerCase().transform(removeSpecialCharacters),
     name: string(),
-    description: string().nullable().optional(),
+    description: string().nullable().optional().transform(emptyStringToUndefined),
     image_url: string()
       .or(string().url())
       .nullable()
@@ -95,7 +90,6 @@ export function collectionResponseSchema(args?: CollectionResponseSchemaArgs) {
 
   function transform(args?: CollectionResponseSchemaArgs) {
     return function (response: typeof schema._output) {
-      //
       const contract =
         isNil(args) || isNil(args.chain)
           ? undefined

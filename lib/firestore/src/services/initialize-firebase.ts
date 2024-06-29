@@ -20,7 +20,7 @@ export async function initializeFirebase(args?: InitializeFirebaseArgs) {
   const serviceAccount = args?.serviceAccount ?? (await getFirebaseServiceAccount(childLogger))
   if (isNil(serviceAccount)) {
     childLogger?.fatal('missing credentials')
-    throw Error('missing credentials')
+    return Promise.reject(Error('missing credentials'))
   }
   try {
     const app = initializeApp({

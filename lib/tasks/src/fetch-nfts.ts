@@ -1,33 +1,26 @@
-import type { Collection } from '@echo/model/types/collection'
-import type { Nft } from '@echo/model/types/nft'
-import type { Wallet } from '@echo/model/types/wallet'
+import type { PartialWallet } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { getNftsByAccount as getNftsFromNftScan } from '@echo/nft-scan/services/get-nfts-by-account'
+import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import { getNftsByAccount as getNftsFromOpensea } from '@echo/opensea/services/get-nfts-by-account'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { always, andThen, collectBy, otherwise, path, pipe } from 'ramda'
+import { andThen, collectBy, otherwise, path, pipe } from 'ramda'
 
-type PartialNft = Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & {
-  collection: Pick<Collection, 'contract'>
+interface FetchNftsArgs extends WithFetch {
+  wallet: PartialWallet
 }
 
-interface FetchNftsArgs<T extends Wallet> extends WithFetch {
-  wallet: T
-}
-
-export async function fetchNfts<T extends Wallet>(args: WithLoggerType<FetchNftsArgs<T>>) {
+export function fetchNfts(args: WithLoggerType<FetchNftsArgs>): Promise<PartialNft[][]> {
   const { wallet, logger } = args
-  try {
-    const fetcher = isTestnetChain(wallet.chain) ? getNftsFromOpensea : getNftsFromNftScan
-    return pipe(
-      fetcher,
-      andThen(collectBy(nonNullableReturn<[PartialNft], string>(path(['collection', 'contract', 'address'])))),
-      otherwise(always(undefined))
-    )(args)
-  } catch (err) {
-    logger?.error({ err, wallet }, 'error fetching NFTs')
-    return undefined
-  }
+  const fetcher = isTestnetChain(wallet.chain) ? getNftsFromOpensea : getNftsFromNftScan
+  return pipe(
+    fetcher,
+    andThen(collectBy(nonNullableReturn<[PartialNft], string>(path(['collection', 'contract', 'address'])))),
+    otherwise((err) => {
+      logger?.error({ err, wallet }, 'error fetching NFTs')
+      return []
+    })
+  )(args)
 }

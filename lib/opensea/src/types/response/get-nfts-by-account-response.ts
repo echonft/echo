@@ -1,6 +1,3 @@
-import type { NftResponse } from '@echo/opensea/types/response/nft-response'
+import { getNftsByAccountResponseSchema } from '@echo/opensea/validators/get-nfts-by-account-response-schema'
 
-export interface GetNftsByAccountResponse {
-  nfts: NftResponse[]
-  next?: string
-}
+export type GetNftsByAccountResponse = ReturnType<typeof getNftsByAccountResponseSchema.parse>

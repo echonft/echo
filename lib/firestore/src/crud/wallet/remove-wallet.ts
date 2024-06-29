@@ -7,14 +7,14 @@ import { isNil } from 'ramda'
 export async function removeWallet(username: string, wallet: Wallet): Promise<void> {
   const walletSnapshot = await getWalletSnapshotByAddress(wallet)
   if (isNil(walletSnapshot)) {
-    throw Error(`wallet with address ${wallet.address} for chain ${wallet.chain} not found`)
+    return Promise.reject(Error(`wallet with address ${wallet.address} for chain ${wallet.chain} not found`))
   }
   const userSnapshot = await getUserSnapshotByUsername(username)
   if (isNil(userSnapshot)) {
-    throw Error(`user with username ${username} not found`)
+    return Promise.reject(Error(`user with username ${username} not found`))
   }
   if (walletSnapshot.data().userId !== userSnapshot.id) {
-    throw Error(`wallet not associated with userId ${userSnapshot.id}`)
+    return Promise.reject(Error(`wallet not associated with userId ${userSnapshot.id}`))
   }
   await deleteWallet(walletSnapshot.id)
 }

@@ -1,4 +1,4 @@
-import type { NftIndex } from '@echo/model/types/nft-index'
+import type { NftIndex } from '@echo/model/types/nft'
 import { throwError } from '@echo/utils/fp/throw-error'
 import { applySpec, complement, equals, head, last, length, partialRight, pipe, split, when } from 'ramda'
 

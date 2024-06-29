@@ -8,7 +8,7 @@ import { isNil } from 'ramda'
 export async function archiveOfferThread(offerId: string): Promise<Nullable<OfferThread>> {
   const snapshot = await getOfferThreadSnapshot(offerId)
   if (isNil(snapshot)) {
-    throw Error(`offer thread for offer ${offerId} does not exist`)
+    return Promise.reject(Error(`offer thread for offer ${offerId} does not exist`))
   }
   return updateReference<OfferThread>({
     collectionReference: getOfferThreadsCollectionReference(),

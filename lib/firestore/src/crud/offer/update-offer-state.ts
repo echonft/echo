@@ -1,5 +1,5 @@
-import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
 import { addOfferStateUpdate } from '@echo/firestore/crud/offer-update/add-offer-state-update'
+import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import { assertOfferStateUpdateArgs } from '@echo/firestore/helpers/offer/assert/assert-offer-state-update-args'
@@ -20,7 +20,7 @@ export async function updateOfferState(args: UpdateOfferStateArgs): Promise<Offe
   const { slug, state, updateArgs } = args
   const snapshot = await getOfferSnapshot(slug)
   if (isNil(snapshot)) {
-    throw Error(`offer with slug ${slug} does not exist`)
+    return Promise.reject(Error(`offer with slug ${slug} does not exist`))
   }
   const offer = snapshot.data()
   assertOfferStateTransition(offer, state)

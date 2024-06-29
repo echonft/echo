@@ -16,7 +16,7 @@ import { always, andThen, applySpec, invoker, isNil, juxt, map, pipe, prop, prop
 export async function getListingOffersForOffer(offer: Offer): Promise<ListingOffer[]> {
   const offerSnapshot = await getOfferSnapshot(offer.slug)
   if (isNil(offerSnapshot)) {
-    throw Error(`offer with slug ${offer.slug} does not exist`)
+    return Promise.reject(Error(`offer with slug ${offer.slug} does not exist`))
   }
   // get pending listings for which targets intersect the offer sender items and items intersect the offer receiver items
   // then filter out the ones for which the offer does not fill the listing

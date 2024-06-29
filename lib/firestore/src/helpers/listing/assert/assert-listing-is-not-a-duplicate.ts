@@ -26,7 +26,7 @@ export async function assertListingIsNotADuplicate(args: { items: Nft[]; target:
   // compare the items with each potential duplicate
   for (const potentialDuplicate of potentialDuplicates) {
     if (eqNfts(items, potentialDuplicate.items, true)) {
-      throw Error('listing is a duplicate')
+      return Promise.reject(Error('listing is a duplicate'))
     }
   }
 }

@@ -2,9 +2,9 @@ import { getNft } from '@echo/firestore/crud/nft/get-nft'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import { eqWallet } from '@echo/model/helpers/wallet/eq-wallet'
-import type { Collection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
 import type { Wallet } from '@echo/model/types/wallet'
+import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import { addCollection } from '@echo/tasks/add-collection'
 import { addNft } from '@echo/tasks/add-nft'
 import { assessNftOwnershipForWallet } from '@echo/tasks/assess-nft-ownership-for-wallet'
@@ -15,10 +15,6 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { assoc, head, isNil, map, path, pipe } from 'ramda'
-
-type PartialNft = Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & {
-  collection: Pick<Collection, 'contract'>
-}
 
 interface UpdateNftsForWalletArgs extends WithFetch {
   wallet: WalletDocumentData
