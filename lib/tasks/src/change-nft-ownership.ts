@@ -41,6 +41,8 @@ export async function changeNftOwnership(args: WithLoggerType<ChangeNftOwnership
     )(nft)
   } else {
     // TODO check if any offers or listings are tied to this NFT and, if so, cancel them
+    // see https://linear.app/echobot/issue/DEV-299/check-if-there-is-any-tied-offers-when-switching-ownership-of-an-nft
+    // and https://linear.app/echobot/issue/DEV-301/check-if-there-is-any-tied-listings-when-switching-ownership-of-an-nft
     await pipe(
       assoc('owner', getUserFromFirestoreData({ user, wallet })),
       updateNft,
