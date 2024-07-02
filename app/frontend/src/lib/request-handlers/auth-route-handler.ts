@@ -41,7 +41,6 @@ export function authRouteHandler<ResponseBody, RequestBody = never, Params exten
     } catch (err) {
       logger.error({ err, fn: 'routeHandler' })
       if (err instanceof ApiError) {
-        await err.beforeError()
         return err.getErrorResponse()
       } else {
         captureException(err)

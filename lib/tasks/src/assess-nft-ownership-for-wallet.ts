@@ -5,7 +5,9 @@ import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { getNftOwner } from '@echo/web3/helpers/nft/get-nft-owner'
 import { dissoc, equals, isNil, otherwise, pipe } from 'ramda'
 
-export async function assessNftOwnershipForWallet(args: WithLoggerType<Record<'wallet', PartialWallet>>) {
+export async function assessNftOwnershipForWallet(
+  args: WithLoggerType<Record<'wallet', PartialWallet>>
+): Promise<void> {
   const logger = args.logger?.child({ fn: assessNftOwnershipForWallet.name })
   const nfts = await pipe(
     getNftsForWallet,
@@ -15,7 +17,13 @@ export async function assessNftOwnershipForWallet(args: WithLoggerType<Record<'w
     })
   )(dissoc('logger', args))
   for (const nft of nfts) {
-    const wallet = await getNftOwner(nft)
+    const wallet = await pipe(
+      getNftOwner,
+      otherwise((err) => {
+        logger?.error({ err, nft }, 'could not get NFT owner')
+        return undefined
+      })
+    )(nft)
     if (isNil(wallet)) {
       logger?.error({ nft, owner: wallet }, 'cannot get owner')
     } else {

@@ -6,6 +6,7 @@ import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
+import { assoc } from 'ramda'
 
 interface FetchNftArgs extends WithFetch {
   contract: Wallet
@@ -13,10 +14,11 @@ interface FetchNftArgs extends WithFetch {
 }
 
 export async function fetchNft(args: WithLoggerType<FetchNftArgs>): Promise<Nullable<PartialNft>> {
+  const logger = args.logger?.child({ fn: fetchNft.name })
   const fetcher = isTestnetChain(args.contract.chain) ? getNftFromOpenSea : getNftFromNftScan
-  args.logger?.info(
+  logger?.info(
     { nft: { collection: { contract: args.contract }, tokenId: args.identifier }, fn: fetchNft.name },
     'fetching NFT'
   )
-  return fetcher(args)
+  return fetcher(assoc('logger', logger, args))
 }

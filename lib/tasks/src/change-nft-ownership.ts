@@ -6,6 +6,7 @@ import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-
 import type { Nft } from '@echo/model/types/nft'
 import type { Wallet } from '@echo/model/types/wallet'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
+import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { andThen, assoc, isNil, otherwise, pipe, prop } from 'ramda'
 
@@ -14,14 +15,21 @@ interface ChangeNftOwnershipArgs {
   wallet: Wallet
 }
 
-export async function changeNftOwnership(args: WithLoggerType<ChangeNftOwnershipArgs>) {
-  const { logger, nft, wallet } = args
-  const user = await getWalletOwner(wallet)
+export async function changeNftOwnership(args: WithLoggerType<ChangeNftOwnershipArgs>): Promise<Nullable<Nft>> {
+  const logger = args.logger?.child({ fn: changeNftOwnership.name })
+  const { nft, wallet } = args
+  const user = await pipe(
+    getWalletOwner,
+    otherwise((err) => {
+      logger?.error({ err, wallet }, 'could not get wallet owner')
+      return undefined
+    })
+  )(wallet)
   if (isNil(user)) {
-    await pipe(
+    return await pipe(
       getNftSnapshot,
       otherwise((err) => {
-        args.logger?.error({ err, nft }, 'could not get NFT snapshot')
+        logger?.error({ err, nft }, 'could not get NFT snapshot')
         return undefined
       }),
       andThen(
@@ -30,10 +38,12 @@ export async function changeNftOwnership(args: WithLoggerType<ChangeNftOwnership
             prop('id'),
             deleteNft,
             otherwise((err) => {
-              args.logger?.error({ err, nft }, 'could not delete NFT')
+              logger?.error({ err, nft }, 'could not delete NFT')
+              return undefined
             }),
             andThen(() => {
               logger?.info({ nft, wallet }, 'deleted NFT since the new owner is not in the database')
+              return undefined
             })
           )
         )
@@ -43,14 +53,16 @@ export async function changeNftOwnership(args: WithLoggerType<ChangeNftOwnership
     // TODO check if any offers or listings are tied to this NFT and, if so, cancel them
     // see https://linear.app/echobot/issue/DEV-299/check-if-there-is-any-tied-offers-when-switching-ownership-of-an-nft
     // and https://linear.app/echobot/issue/DEV-301/check-if-there-is-any-tied-listings-when-switching-ownership-of-an-nft
-    await pipe(
+    return await pipe(
       assoc('owner', getUserFromFirestoreData({ user, wallet })),
       updateNft,
       otherwise((err) => {
         logger?.error({ err, nft }, 'could not update NFT ownership')
+        return undefined
       }),
       andThen((updatedNft) => {
         logger?.info({ nft: updatedNft }, 'updated NFT ownership')
+        return updatedNft
       })
     )(nft)
   }

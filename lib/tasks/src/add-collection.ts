@@ -16,15 +16,24 @@ interface AddCollectionArgs extends WithFetch {
  */
 export async function addCollection(args: WithLoggerType<AddCollectionArgs>): Promise<Nullable<Collection>> {
   const logger = args.logger?.child({ fn: addCollection.name })
-  const { collection, source } = await getCollection(assoc('logger', logger, args))
+  const { collection, source } = await pipe(
+    getCollection,
+    otherwise((err) => {
+      logger?.error({ err, collection: { contract: args.contract } }, 'could not get collection')
+      return undefined
+    })
+  )(assoc('logger', logger, args))
   if (source === 'api' && !isNil(collection)) {
     await pipe(
       addCollectionToFirestore,
       andThen(({ id, data }) => {
-        args.logger?.info({ collection: assoc('id', id, data) }, 'added collection')
+        const newCollection = assoc('id', id, data)
+        logger?.info({ collection: newCollection }, 'added collection')
+        return newCollection
       }),
       otherwise((err) => {
         logger?.error({ err, collection: { contract: args.contract } }, 'could not add collection')
+        return undefined
       })
     )(collection)
   }

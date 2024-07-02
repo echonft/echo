@@ -18,8 +18,15 @@ interface GetCollectionArgs extends WithFetch {
 
 export async function getCollection(args: WithLoggerType<GetCollectionArgs>): Promise<GetCollectionReturn> {
   const logger = args.logger?.child({ fn: getCollection.name })
-  logger?.info({ collection: { contract: args.contract } }, 'getting collection')
-  const collection = await pipe(getCollectionByAddressFromFirestore, otherwise(always(undefined)))(args.contract)
+  const { contract } = args
+  logger?.info({ collection: { contract } }, 'getting collection')
+  const collection = await pipe(
+    getCollectionByAddressFromFirestore,
+    otherwise((err) => {
+      logger?.error({ err, collection: { contract } }, 'could not get collection from Firestore')
+      return undefined
+    })
+  )(contract)
   if (isNil(collection)) {
     return pipe(
       fetchCollection,
@@ -36,13 +43,14 @@ export async function getCollection(args: WithLoggerType<GetCollectionArgs>): Pr
           )
         )
       ),
-      otherwise(
-        always({
+      otherwise((err) => {
+        logger?.error({ err, collection: { contract } }, 'could not fetch collection')
+        return {
           collection: undefined,
           source: 'api'
-        })
-      )
-    )(args)
+        }
+      })
+    )(assoc('logger', logger, args))
   }
   return { collection, source: 'firestore' }
 }
