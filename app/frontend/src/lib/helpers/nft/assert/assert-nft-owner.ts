@@ -4,8 +4,6 @@ import { isNil } from 'ramda'
 
 export function assertNftOwner(nft: Nft, username: string) {
   if (isNil(nft.owner) || nft.owner.username !== username) {
-    throw new ForbiddenError(
-      `user with username ${username} is not the owner of NFT #${nft.tokenId} from ${nft.collection.slug}`
-    )
+    throw new ForbiddenError()
   }
 }

@@ -5,6 +5,6 @@ import { isNil } from 'ramda'
 
 export function assertListing(listing: Nullable<Listing>): asserts listing is NonNullable<Listing> {
   if (isNil(listing)) {
-    throw new BadRequestError('listing is nil')
+    throw new BadRequestError()
   }
 }

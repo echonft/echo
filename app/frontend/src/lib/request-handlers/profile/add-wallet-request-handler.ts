@@ -34,7 +34,7 @@ export async function addWalletRequestHandler({ user, req, logger }: AuthRequest
   const foundUser = await guardAsyncFn({ fn: getUserByUsername, status: ErrorStatus.SERVER_ERROR, logger })(
     user.username
   )
-  assertUserExists(foundUser, user.username)
+  assertUserExists(foundUser)
   const nonce = await guardAsyncFn({ fn: getNonceForUser, status: ErrorStatus.SERVER_ERROR, logger })(
     foundUser.username
   )

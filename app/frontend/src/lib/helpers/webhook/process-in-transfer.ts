@@ -6,7 +6,7 @@ import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import { addCollection } from '@echo/tasks/add-collection'
 import { updateNft } from '@echo/tasks/update-nft'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { isNil } from 'ramda'
+import { assoc, isNil, otherwise, pipe } from 'ramda'
 
 /**
  * Processes the transfer of an NFT from a foreign user to a user in our database.
@@ -16,18 +16,34 @@ import { isNil } from 'ramda'
 export async function processInTransfer(
   args: WithLoggerType<Record<'transfer', Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>>>
 ): Promise<void> {
+  const logger = args.logger?.child({ fn: processInTransfer.name })
   const {
-    transfer: { contract, to, tokenId },
-    logger
+    transfer: { contract, to, tokenId }
   } = args
-  const userDocumentData = await getUserById(to.userId)
-  if (isNil(userDocumentData)) {
-    return
-  }
-  const user = getUserFromFirestoreData({ user: userDocumentData, wallet: to })
-  const collection = await addCollection({ contract, fetch, logger })
-  if (!isNil(collection)) {
-    const nftIndex = getNftIndex({ collection, tokenId })
-    await updateNft({ nftIndex, owner: user, collection })
+  const userDocumentData = await pipe(
+    getUserById,
+    otherwise((err) => {
+      logger?.error({ err, user: { id: to.userId } }, 'could not get user from Firestore')
+      return undefined
+    })
+  )(to.userId)
+  if (!isNil(userDocumentData)) {
+    const user = getUserFromFirestoreData({ user: userDocumentData, wallet: to })
+    const collection = await pipe(
+      addCollection,
+      otherwise((err) => {
+        logger?.error({ err, collection: { contract } }, 'could not add collection')
+        return undefined
+      })
+    )({ contract, fetch, logger })
+    if (!isNil(collection)) {
+      const nftIndex = getNftIndex({ collection, tokenId })
+      await pipe(
+        updateNft,
+        otherwise((err) => {
+          logger?.error({ err, nft: assoc('owner', user, nftIndex) }, 'could not update NFT')
+        })
+      )({ nftIndex, owner: user, collection })
+    }
   }
 }

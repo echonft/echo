@@ -37,12 +37,13 @@ export async function updateNftsForWallet(args: WithLoggerType<UpdateNftsForWall
   const { wallet } = args
   logger?.info({ wallet }, 'started updating NFTs for wallet')
   const nftGroups = await pipe(
+    assoc('logger', logger),
     fetchNfts,
     otherwise((err) => {
       logger?.error({ err, wallet }, 'could not fetch NFTs for wallet')
       return []
     })
-  )(assoc('logger', logger, args))
+  )(args)
   for (const nftGroup of nftGroups) {
     const contract = pipe<[PartialNft[]], PartialNft, Wallet>(
       head,

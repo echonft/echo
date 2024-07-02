@@ -1,13 +1,13 @@
 import type { WebhookBlockRequest } from '@echo/api/types/requests/webhook-block-request'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
-import { guardAsyncFn } from '@echo/frontend/lib/helpers/error/guard'
-import { getSignatureHeadersFromRequest } from '@echo/frontend/lib/helpers/webhook/get-signature-headers-from-request'
+import { createError } from '@echo/frontend/lib/helpers/error/create-error'
+import { assertQuicknodeSignature } from '@echo/frontend/lib/helpers/webhook/assert/assert-quicknode-signature'
 import { processEchoEvent } from '@echo/frontend/lib/helpers/webhook/process-echo-event'
 import type { RequestHandlerArgsWithParams } from '@echo/frontend/lib/types/request-handlers/request-handler'
-import type { QuicknodeSignatureType } from '@echo/frontend/lib/types/webhook/quicknode-signature-type'
 import { echoEventLogSchema } from '@echo/frontend/lib/validators/echo-event-log-schema'
-import { validateQuicknodeSignature } from '@echo/frontend/lib/validators/validate-quicknode-signature'
+import { parseRequest } from '@echo/frontend/lib/validators/parse-request'
 import type { ChainName } from '@echo/utils/types/chain-name'
+import { captureException } from '@sentry/nextjs'
 import { NextResponse } from 'next/server'
 import { andThen, assoc, invoker, pipe } from 'ramda'
 
@@ -16,25 +16,18 @@ export async function echoWebhookRequestHandler({
   req,
   logger
 }: RequestHandlerArgsWithParams<{ chain: ChainName }, WebhookBlockRequest>) {
-  await guardAsyncFn({
-    fn: pipe(
-      getSignatureHeadersFromRequest,
-      assoc('type', 'echo' as QuicknodeSignatureType),
-      validateQuicknodeSignature
-    ),
-    status: ErrorStatus.UNAUTHORIZED,
-    logger
-  })(req)
-  const { chain } = params
-  const echoEvents = await guardAsyncFn({
-    // TODO Should use parseRequest
-    fn: pipe(
-      invoker(0, 'json'),
-      andThen((data) => echoEventLogSchema.parse(data))
-    ),
-    status: ErrorStatus.BAD_REQUEST,
-    logger
-  })(req)
+  await pipe(
+    assertQuicknodeSignature,
+    otherwise((err) => {
+      throw createError(ErrorStatus.UNAUTHORIZED, err)
+    })
+  )({ req, type: 'echo' })
+  const echoEvents = await pipe(
+    parseRequest(echoEventLogSchema),
+    otherwise((err) => {
+      throw createError(ErrorStatus.BAD_REQUEST, err)
+    })
+  )(req)
   for (const event of echoEvents) {
     await processEchoEvent({ event, logger, chain })
   }

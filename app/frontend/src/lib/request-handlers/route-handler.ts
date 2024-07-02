@@ -11,9 +11,9 @@ import type {
 } from '@echo/frontend/lib/types/request-handlers/request-handler'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { ErrorResponse } from '@echo/utils/types/error-response'
-import type { Logger } from '@echo/utils/types/logger'
-import { captureException, setUser, type User } from '@sentry/nextjs'
+import { captureException, setUser } from '@sentry/nextjs'
 import { type NextRequest, NextResponse } from 'next/server'
+import { andThen, pipe } from 'ramda'
 
 export function routeHandler<ResponseBody, RequestBody = never, Params extends object = never>(
   requestHandler:
@@ -21,14 +21,13 @@ export function routeHandler<ResponseBody, RequestBody = never, Params extends o
     | RequestHandler<ResponseBody, RequestBody>
 ): (req: NextRequest, ctx: AppRouteHandlerFnContext) => void | Response | Promise<void | Response> {
   return auth(async function (req: NextAuthRequest, context?: { params?: Record<string, string | string[]> }) {
-    const logger = getLogger().child({ component: 'api' }) as Logger
+    const logger = getLogger().child({ component: 'api', fn: 'routeHandler' })
     try {
       await initializeFirebase({ logger })
-      const user = await getAuthUser()
-      setUser(user as User)
+      await pipe(getAuthUser, andThen(setUser))()
       return await requestHandler({ req, logger, params: context?.params as Params })
     } catch (err) {
-      logger.error({ err, fn: 'routeHandler' })
+      logger.error({ err })
       if (err instanceof ApiError) {
         return err.getErrorResponse()
       } else {

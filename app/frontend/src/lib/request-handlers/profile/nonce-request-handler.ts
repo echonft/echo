@@ -12,7 +12,7 @@ export async function nonceRequestHandler({ user, logger }: AuthRequestHandlerAr
   const foundUser = await guardAsyncFn({ fn: getUserByUsername, status: ErrorStatus.SERVER_ERROR, logger })(
     user.username
   )
-  assertUserExists(foundUser, user.username)
+  assertUserExists(foundUser)
   const { nonce } = await guardAsyncFn({ fn: setNonceForUser, status: ErrorStatus.SERVER_ERROR, logger })(
     foundUser.username,
     generateNonce()

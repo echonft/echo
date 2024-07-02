@@ -17,11 +17,12 @@ export function fetchNfts(args: WithLoggerType<FetchNftsArgs>): Promise<PartialN
   const logger = args.logger?.child({ fn: fetchNfts.name })
   const fetcher = isTestnetChain(wallet.chain) ? getNftsFromOpensea : getNftsFromNftScan
   return pipe(
+    assoc('logger', logger),
     fetcher,
     andThen(collectBy(nonNullableReturn<[PartialNft], string>(path(['collection', 'contract', 'address'])))),
     otherwise((err) => {
-      logger?.error({ err, wallet }, 'error fetching NFTs')
+      logger?.error({ err, wallet }, 'could not fetch NFTs from API')
       return []
     })
-  )(assoc('logger', logger, args))
+  )(args)
 }

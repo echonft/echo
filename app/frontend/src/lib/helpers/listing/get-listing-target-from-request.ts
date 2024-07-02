@@ -10,7 +10,7 @@ export async function getListingTargetFromRequest(request: ListingTargetRequest)
   } = request
   const collection = await getCollection(slug)
   if (isNil(collection)) {
-    throw new BadRequestError(`collection ${slug} does not exist`)
+    throw new BadRequestError()
   }
   return assoc('collection', collection, request)
 }

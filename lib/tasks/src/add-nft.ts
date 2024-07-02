@@ -6,7 +6,7 @@ import type { NewDocument } from '@echo/firestore/types/new-document'
 import type { Nft } from '@echo/model/types/nft'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { always, andThen, assoc, isNil, otherwise, pipe } from 'ramda'
+import { andThen, assoc, isNil, otherwise, pipe } from 'ramda'
 
 interface AddNftArgs {
   nft: Omit<Nft, 'owner' | 'updatedAt'>
@@ -14,10 +14,16 @@ interface AddNftArgs {
 }
 
 export async function addNft(args: WithLoggerType<AddNftArgs>) {
-  const { logger, nft, wallet } = args
-  const user = await pipe(getWalletOwner, otherwise(always(undefined)))(wallet)
+  const logger = args.logger?.child({ fn: addNft.name })
+  const { nft, wallet } = args
+  const user = await pipe(
+    getWalletOwner,
+    otherwise((err) => {
+      logger?.error({ err, wallet }, 'could not get wallet owner from Firestore')
+      return undefined
+    })
+  )(wallet)
   if (isNil(user)) {
-    logger?.error({ nft, wallet }, 'cannot add NFT because no owner found for the wallet')
     return undefined
   } else {
     return pipe<

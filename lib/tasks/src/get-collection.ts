@@ -29,6 +29,7 @@ export async function getCollection(args: WithLoggerType<GetCollectionArgs>): Pr
   )(contract)
   if (isNil(collection)) {
     return pipe(
+      assoc('logger', logger),
       fetchCollection,
       andThen(
         ifElse(
@@ -50,7 +51,7 @@ export async function getCollection(args: WithLoggerType<GetCollectionArgs>): Pr
           source: 'api'
         }
       })
-    )(assoc('logger', logger, args))
+    )(args)
   }
   return { collection, source: 'firestore' }
 }

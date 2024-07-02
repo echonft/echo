@@ -6,7 +6,7 @@ import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { assoc } from 'ramda'
+import { assoc, otherwise, pipe } from 'ramda'
 
 interface FetchCollectionArgs extends WithFetch {
   contract: PartialWallet
@@ -21,5 +21,12 @@ export function fetchCollection(args: WithLoggerType<FetchCollectionArgs>): Prom
   const logger = args.logger?.child({ fn: fetchCollection.name })
   const fetcher = isTestnetChain(args.contract.chain) ? getCollectionFromOpenSea : getCollectionFromNftScan
   logger?.info({ collection: { contract: args.contract }, fn: fetchCollection.name }, 'fetching collection')
-  return fetcher(assoc('logger', logger, args))
+  return pipe(
+    assoc('logger', logger),
+    fetcher,
+    otherwise((err) => {
+      logger?.error({ err, collection: { contract: args.contract } }, 'could not fetch collection from API')
+      return undefined
+    })
+  )(args)
 }

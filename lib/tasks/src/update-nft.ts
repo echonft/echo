@@ -60,6 +60,7 @@ export async function updateNft(args: WithLoggerType<UpdateNftArgs>): Promise<Nu
         return undefined
       })
     )({
+      logger,
       fetch,
       identifier: nftIndex.tokenId.toString(),
       contract: collection.contract

@@ -24,14 +24,17 @@ export async function assessNftOwnershipForWallet(
         return undefined
       })
     )(nft)
-    if (isNil(wallet)) {
-      logger?.error({ nft, owner: wallet }, 'cannot get owner')
-    } else {
+    if (!isNil(wallet)) {
       if (equals(wallet, nft.owner.wallet)) {
         logger?.info({ nft, owner: wallet }, 'valid owner')
       } else {
         logger?.warn({ nft, owner: wallet }, 'invalid owner')
-        await changeNftOwnership({ nft, wallet, logger })
+        await pipe(
+          changeNftOwnership,
+          otherwise((err) => {
+            logger?.error({ err, nft, owner: wallet }, 'could not update NFT ownership')
+          })
+        )({ nft, wallet, logger })
       }
     }
   }

@@ -12,21 +12,78 @@ import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { isNil } from 'ramda'
 
 export async function processOutEscrowTransfer(args: WithLoggerType<Record<'nft', Nft>>): Promise<void> {
+  const logger = args.logger?.child({ fn: processOutEscrowTransfer.name })
   const {
     nft: {
       tokenId,
       collection: { contract },
       owner: { wallet }
-    },
-    logger
+    }
   } = args
-  const collection = await addCollection({ contract, fetch, logger })
+  const collection = await pipe(
+    addCollection,
+    otherwise((err) => {
+      logger?.error({ err, collection: { contract } }, 'could not add collection')
+      return undefined
+    })
+  )({ contract, fetch, logger })
   if (!isNil(collection)) {
     const nftIndex = getNftIndex({ collection, tokenId })
-    const nftSnapshot = await getEscrowedNftSnapshot(nftIndex)
-    if (isNil(nftSnapshot)) {
-      logger?.error({ fn: processOutEscrowTransfer.name, nft: nftIndex }, 'NFT not found')
-      return
+    const nftSnapshot = await pipe(
+      getEscrowedNftSnapshot,
+      otherwise((err) => {
+        logger?.error({ err, nft: nftIndex }, 'could not get escrowed NFT snapshot')
+        return undefined
+      })
+    )(nftIndex)
+    if (!isNil(nftSnapshot)) {
+      const to = await pipe(
+        getWalletByAddress,
+        otherwise((err) => {
+          logger?.error({ err, wallet: toWallet }, 'could not get wallet from Firestore')
+          return undefined
+        })
+      )(toWallet)
+      // wallet is not in the database, we simply delete the NFT in that case
+      if (isNil(to)) {
+        logger?.warn({ wallet: toWallet }, 'target wallet not found in the database')
+        await pipe(
+          deleteEscrowedNft,
+          otherwise((err) => {
+            logger?.error({ err, nft: nftIndex }, 'chould not delete escrowed NFT')
+          })
+        )(nftSnapshot.id)
+        logger?.warn({ nft: nftIndex }, 'deleted escrowed NFT')
+        return
+      }
+      const userDocumentData = await pipe(
+        getUserById,
+        otherwise((err) => {
+          logger?.error({ err, user: { id: to.userId } }, 'could not get user from Firestore')
+          return undefined
+        })
+      )(to.userId)
+      if (!isNil(userDocumentData)) {
+        const user = getUserFromFirestoreData({ user: userDocumentData, wallet: to })
+        // We add NFT back in the NFT database and remove the escrowed one
+        const nft: NftWithId = { ...nftSnapshot.data(), id: nftSnapshot.id, owner: user }
+        await pipe(
+          addNftWithId,
+          otherwise((err) => {
+            logger?.error({ err, nft }, 'could not add NFT')
+            return undefined
+          })
+        )(nft)
+        logger?.info({ nft }, 'added NFT')
+        await pipe(
+          deleteEscrowedNft,
+          otherwise((err) => {
+            logger?.error({ err, nft: { id: nftSnapshot.id } }, 'could not deleted escrowed NFT')
+            return undefined
+          })
+        )(nftSnapshot.id)
+        logger?.info({ nft: { id: nftSnapshot.id } }, 'deleted escrowed NFT')
+      }
     }
     const to = await getWalletByAddress(wallet)
     // wallet is not in the database, we simply delete the NFT in that case

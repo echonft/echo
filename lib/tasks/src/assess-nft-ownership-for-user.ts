@@ -15,6 +15,11 @@ export async function assessNftOwnershipForUser(args: WithLoggerType<Record<'use
     })
   )(user.username)
   for (const wallet of wallets) {
-    await assessNftOwnershipForWallet({ wallet, logger })
+    await pipe(
+      assessNftOwnershipForWallet,
+      otherwise((err) => {
+        logger?.error({ err, wallet }, 'could not assess NFT ownership for wallet')
+      })
+    )({ wallet, logger })
   }
 }

@@ -1,5 +1,5 @@
 import { transferEventLogSchema } from '@echo/frontend/lib/validators/transfer-event-log-schema'
-import { assoc, dissoc } from 'ramda'
+import { assoc } from 'ramda'
 
 describe('validators - transferEventLogSchema', () => {
   const validRequest = {
@@ -72,18 +72,13 @@ describe('validators - transferEventLogSchema', () => {
         transactionIndex: '0x1',
         type: '0x0'
       }
-    ],
-    chain: 'blast_sepolia'
+    ]
   }
-  it('throws if chain is not valid', () => {
-    expect(() => transferEventLogSchema.parse(dissoc('chain', validRequest))).toThrow()
-    expect(() => transferEventLogSchema.parse(assoc('chain', 'test', validRequest))).toThrow()
-  })
   it('throws if data is not valid', () => {
-    expect(() => transferEventLogSchema.parse(dissoc('data', validRequest))).toThrow()
+    expect(() => transferEventLogSchema('blast_sepolia').parse(assoc('data', undefined, validRequest))).toThrow()
   })
   it('valid', () => {
-    expect(transferEventLogSchema.parse(validRequest)).toStrictEqual([
+    expect(transferEventLogSchema('blast_sepolia').parse(validRequest)).toStrictEqual([
       {
         contract: {
           address: '0x43be93945e168a205d708f1a41a124fa302e1f76',

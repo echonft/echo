@@ -25,7 +25,7 @@ export async function removeWalletRequestHandler({ user, req, logger }: AuthRequ
   const foundUser = await guardAsyncFn({ fn: getUserByUsername, status: ErrorStatus.SERVER_ERROR, logger })(
     user.username
   )
-  assertUserExists(foundUser, user.username)
+  assertUserExists(foundUser)
   await guardAsyncFn({ fn: removeWallet, status: ErrorStatus.SERVER_ERROR, logger })(foundUser.username, wallet)
   const wallets = await guardAsyncFn({
     fn: pipe<[User], string, Promise<WalletDocumentData[]>, Promise<Wallet[]>>(

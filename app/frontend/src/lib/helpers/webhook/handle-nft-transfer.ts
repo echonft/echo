@@ -1,6 +1,4 @@
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
-import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
-import { guardAsyncFn } from '@echo/frontend/lib/helpers/error/guard'
 import { isEscrowing } from '@echo/frontend/lib/helpers/webhook/is-escrowing'
 import { processInTransfer } from '@echo/frontend/lib/helpers/webhook/process-in-transfer'
 import { processOutTransfer } from '@echo/frontend/lib/helpers/webhook/process-out-transfer'
@@ -11,29 +9,43 @@ import type { TransferData } from '@echo/frontend/lib/types/transfer/transfer-da
 import { pathIsNil } from '@echo/utils/fp/path-is-nil'
 import { propIsNotNil } from '@echo/utils/fp/prop-is-not-nil'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
+import { assoc, otherwise, pipe } from 'ramda'
 
-export async function handleNftTransfer(args: WithLoggerType<Record<'transfer', NftTransfer>>) {
+export async function handleNftTransfer(args: WithLoggerType<Record<'transfer', NftTransfer>>): Promise<void> {
+  const logger = args.logger?.child({ fn: handleNftTransfer.name })
   // If it's an escrow transaction simply return, we don't manage this anymore (echo events handler does)
   if (isEscrowing(args)) {
-    return
+    return pipe(
+      assoc('logger', logger),
+      processEscrowTransfer,
+      otherwise((err) => {
+        logger?.error({ err, transfer: args.transfer }, 'could not process escrow transfer')
+      })
+    )(args)
   }
-  const transferData = await guardAsyncFn({ fn: mapNftTransferToTransferData, status: ErrorStatus.BAD_REQUEST })(args)
+  const transferData = await mapNftTransferToTransferData(assoc('logger', logger, args))
   if (propIsNotNil('transfer', transferData)) {
     if (pathIsNil(['transfer', 'to'], transferData)) {
-      await guardAsyncFn({ fn: processOutTransfer, status: ErrorStatus.BAD_REQUEST })(transferData)
-      // The NFT was transfered to an Echo user, add it to DB
+      await pipe(
+        processOutTransfer,
+        otherwise((err) => {
+          logger?.error({ err, transfer: transferData }, 'could not process out transfer')
+        })
+      )(transferData)
     } else if (pathIsNil(['transfer', 'from'], transferData)) {
-      await guardAsyncFn({ fn: processInTransfer, status: ErrorStatus.BAD_REQUEST })(
-        transferData as WithLoggerType<Record<'transfer', Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>>>
-      )
-      // Process swap
+      await pipe(
+        processInTransfer,
+        otherwise((err) => {
+          logger?.error({ err, transfer: transferData }, 'could not process in transfer')
+        })
+      )(transferData as WithLoggerType<Record<'transfer', Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>>>)
     } else {
-      await guardAsyncFn({
-        fn: processSwapTransfer,
-        status: ErrorStatus.BAD_REQUEST
-      })(
-        transferData as WithLoggerType<Record<'transfer', Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>>>
-      )
+      await pipe(
+        processSwapTransfer,
+        otherwise((err) => {
+          logger?.error({ err, transfer: transferData }, 'could not process swap transfer')
+        })
+      )(transferData as WithLoggerType<Record<'transfer', Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>>>)
     }
   }
 }
