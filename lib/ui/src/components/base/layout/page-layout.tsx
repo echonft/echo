@@ -11,8 +11,10 @@ import {
   PAGE_LAYOUT_BG_GREEN_GRADIENT,
   PAGE_LAYOUT_BG_HOME,
   PAGE_LAYOUT_BG_RED_GRADIENT,
+  PAGE_LAYOUT_BG_SUCCESS,
   PAGE_LAYOUT_BG_YELLOW_GRADIENT
 } from '@echo/ui/constants/page-layout-background'
+import { themeExtension } from '@echo/ui/helpers/theme/theme'
 import type { PageLayoutBackground } from '@echo/ui/types/page-layout-background'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
@@ -45,6 +47,13 @@ const PageLayoutInner: FunctionComponent<PropsWithChildren<Exclude<Props, 'exclu
         background === PAGE_LAYOUT_BG_YELLOW_GRADIENT && ['bg-gradientYellow', 'bg-no-repeat'],
         background === PAGE_LAYOUT_BG_RED_GRADIENT && ['bg-gradientRed', 'bg-no-repeat']
       )}
+      style={
+        background === PAGE_LAYOUT_BG_SUCCESS
+          ? {
+              background: `url('https://storage.googleapis.com/echo-dev-public/success-banner-left.png?alt=media') 0 1.5rem no-repeat, url('https://storage.googleapis.com/echo-dev-public/success-banner-right.png?alt=media') 100% 1.5rem no-repeat, ${themeExtension.colors.dark['500']}`
+            }
+          : undefined
+      }
     >
       <Header logoOnly={Boolean(headerVariants?.logoOnly)} user={user} />
       <MainSectionLayout>
