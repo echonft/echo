@@ -8,13 +8,13 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, pipe } from 'ramda'
 
-export function getOfferSnapshotByContractId(idContract: HexString): Promise<Nullable<QueryDocumentSnapshot<Offer>>> {
+export function getOfferSnapshotByIdContract(idContract: HexString): Promise<Nullable<QueryDocumentSnapshot<Offer>>> {
   return pipe(
     getOffersCollectionReference,
     queryWhere<Offer>('idContract', '==', idContract),
     getQueryUniqueDocumentSnapshot
   )()
 }
-export function getOfferByContractId(idContract: HexString): Promise<Nullable<Offer>> {
-  return pipe(getOfferSnapshotByContractId, andThen(getDocumentSnapshotData))(idContract)
+export function getOfferByIdContract(idContract: HexString): Promise<Nullable<Offer>> {
+  return pipe(getOfferSnapshotByIdContract, andThen(getDocumentSnapshotData))(idContract)
 }
