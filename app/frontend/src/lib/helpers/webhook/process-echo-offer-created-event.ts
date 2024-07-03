@@ -1,4 +1,3 @@
-import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { addOffer } from '@echo/firestore/crud/offer/add-offer'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { guardAsyncFn } from '@echo/frontend/lib/helpers/error/guard'
@@ -9,19 +8,24 @@ import type { Nft } from '@echo/model/types/nft'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { getEchoOffer } from '@echo/web3/helpers/get-echo-offer'
-import { NextResponse } from 'next/server'
 import { assoc, map, objOf, pipe } from 'ramda'
 
 export async function processEchoOfferCreatedEvent(args: WithLoggerType<ProcessEchoEventArgs>) {
   const { logger, event, chain } = args
   const { offerId } = event
-  const contractOffer = await getEchoOffer({ chain, offerId })
-  const baseOffer = await mapContractOfferToBaseOffer({ logger, contractOffer })
+  const contractOffer = await guardAsyncFn({ fn: getEchoOffer, status: ErrorStatus.SERVER_ERROR, logger })({
+    chain,
+    offerId
+  })
+  const baseOffer = await guardAsyncFn({ fn: mapContractOfferToBaseOffer, status: ErrorStatus.SERVER_ERROR, logger })({
+    logger,
+    contractOffer
+  })
   // Move all sender items to escrow
   await pipe<[Nft[]], Promise<void>[], Promise<void[]>>(
     map(pipe(objOf('nft'), assoc('logger', logger), processInEscrowTransfer)),
     promiseAll
   )(baseOffer.senderItems)
-  const { data } = await guardAsyncFn({ fn: addOffer, status: ErrorStatus.SERVER_ERROR, logger })(baseOffer, offerId)
-  return NextResponse.json<OfferResponse>({ offer: data })
+  const offer = await guardAsyncFn({ fn: addOffer, status: ErrorStatus.SERVER_ERROR, logger })(baseOffer, offerId)
+  logger?.info({ offer }, 'created offer')
 }

@@ -8,7 +8,7 @@ import { isIn } from '@echo/utils/fp/is-in'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { trim } from '@echo/web3/helpers/utils'
-import { applySpec, filter, flatten, map, path, pipe, prop, toLower } from 'ramda'
+import { applySpec, filter, flatten, isNil, map, path, pipe, prop, toLower, unless } from 'ramda'
 import { array } from 'zod'
 
 export const echoEventLogSchema = array(blockDataSchema)
@@ -27,7 +27,10 @@ export const echoEventLogSchema = array(blockDataSchema)
                 trim<HexString>,
                 toLower<HexString>
               ),
-              type: pipe(nonNullableReturn(path(['topics', 0])), echoEventTypeFromTopic)
+              type: pipe(nonNullableReturn(path(['topics', 0])), echoEventTypeFromTopic),
+              // In the case of a redeemed event, we need to check who's redeeming which is last part of the topic
+              // It's unused otherwise
+              from: unless(isNil, pipe(trim<HexString>, toLower<HexString>))(path(['topics', 2]))
             })
           )
         )
