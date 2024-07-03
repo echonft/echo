@@ -12,8 +12,6 @@ export const CollapsibleManager = <T extends WithCollapsibleProps>({ initialColl
   return cloneElement<T>(children, {
     ...children.props,
     collapsed,
-    onToggleCollapsed: (collapsed) => {
-      setCollapsed(collapsed)
-    }
+    onToggleCollapsed: setCollapsed
   })
 }

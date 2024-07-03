@@ -3,8 +3,8 @@ import { OfferCreationSubLayout } from '@echo/ui/components/offer/created/layout
 import { OfferCreationSuccessLayout } from '@echo/ui/components/offer/created/layout/offer-creation-success-layout'
 import { OfferCreationTextLayout } from '@echo/ui/components/offer/created/layout/offer-creation-text-layout'
 import { clsx } from 'clsx'
-import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import type { FunctionComponent } from 'react'
 
 interface Props {
@@ -17,7 +17,7 @@ export const CreatedOfferCreated: FunctionComponent<Props> = ({ count, slug }) =
   const router = useRouter()
 
   const onClick = () => {
-    router.replace(linkProvider.offer.details.get({ slug: slug }))
+    router.replace(linkProvider.offer.details.get({ slug }))
   }
   return (
     <OfferCreationSuccessLayout>

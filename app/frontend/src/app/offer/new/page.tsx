@@ -6,8 +6,7 @@ import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
 import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
 import type { Nft, NftIndex } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
-import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
-import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
+import { PageLayoutBackgroundPicker } from '@echo/ui/components/base/layout/page-layout-background-picker'
 import { CreateOfferManager } from '@echo/ui/components/offer/create/create-offer-manager'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
@@ -73,11 +72,9 @@ async function render({
   }
 
   return (
-    <PageLayout user={user}>
-      <PaddedSectionLayout>
-        <CreateOfferManager receiverItems={receiverNfts} receiver={receiver} senderNfts={senderNfts} />
-      </PaddedSectionLayout>
-    </PageLayout>
+    <PageLayoutBackgroundPicker user={user} layout={'padded'}>
+      <CreateOfferManager receiverItems={receiverNfts} receiver={receiver} senderNfts={senderNfts} />
+    </PageLayoutBackgroundPicker>
   )
 }
 

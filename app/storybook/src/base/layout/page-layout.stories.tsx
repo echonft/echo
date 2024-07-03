@@ -18,7 +18,7 @@ const metadata: Meta<ComponentType> = {
   argTypes: {
     background: {
       options: PAGE_LAYOUT_BACKGROUNDS,
-      control: { type: 'radio' }
+      control: { type: 'select' }
     }
   }
 }

@@ -20,7 +20,7 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
-interface Props {
+export interface PageLayoutProps {
   background?: PageLayoutBackground
   excludeProviders?: boolean
   headerVariants?: {
@@ -29,7 +29,7 @@ interface Props {
   user?: Nullable<User>
 }
 
-const PageLayoutInner: FunctionComponent<PropsWithChildren<Exclude<Props, 'excludeProviders'>>> = ({
+const PageLayoutInner: FunctionComponent<PropsWithChildren<Exclude<PageLayoutProps, 'excludeProviders'>>> = ({
   background = PAGE_LAYOUT_BG_DEFAULT,
   headerVariants,
   user,
@@ -64,7 +64,7 @@ const PageLayoutInner: FunctionComponent<PropsWithChildren<Exclude<Props, 'exclu
   )
 }
 
-export const PageLayout: FunctionComponent<PropsWithChildren<Props>> = ({ excludeProviders, ...rest }) => {
+export const PageLayout: FunctionComponent<PropsWithChildren<PageLayoutProps>> = ({ excludeProviders, ...rest }) => {
   if (excludeProviders) {
     return <PageLayoutInner {...rest} />
   }

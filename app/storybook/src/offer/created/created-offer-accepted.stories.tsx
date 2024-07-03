@@ -25,5 +25,5 @@ const metadata: Meta<ComponentType> = {
 export default metadata
 
 export const Accepted: StoryObj<ComponentType> = {
-  render: ({ nfts }) => <CreatedOfferAccepted count={nfts === 'One' ? 1 : 2} slug={'slug'} />
+  render: ({ nfts }) => <CreatedOfferAccepted count={nfts === 'One' ? 1 : 2} />
 }

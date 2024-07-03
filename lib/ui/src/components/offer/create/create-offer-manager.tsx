@@ -5,17 +5,23 @@ import type { Offer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
 import { CreateOffer } from '@echo/ui/components/offer/create/create-offer'
 import { CreatedOfferSwitch } from '@echo/ui/components/offer/created/created-offer-switch'
+import type { PageLayoutBackgroundPickerProps } from '@echo/ui/types/props/page-layout-background-picker-props'
 import { useRouter } from 'next/navigation'
 import { assoc, isNil } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
-interface Props {
+interface Props extends PageLayoutBackgroundPickerProps {
   receiver: User
   receiverItems: Nft[]
   senderNfts: Nft[]
 }
 
-export const CreateOfferManager: FunctionComponent<Props> = ({ receiver, receiverItems, senderNfts }) => {
+export const CreateOfferManager: FunctionComponent<Props> = ({
+  receiver,
+  receiverItems,
+  senderNfts,
+  onPageBackgroundUpdate
+}) => {
   const router = useRouter()
   const [createdOffer, setCreatedOffer] = useState<Offer>()
 
@@ -32,5 +38,11 @@ export const CreateOfferManager: FunctionComponent<Props> = ({ receiver, receive
       />
     )
   }
-  return <CreatedOfferSwitch offer={assoc('role', OFFER_ROLE_SENDER, createdOffer)} />
+
+  return (
+    <CreatedOfferSwitch
+      offer={assoc('role', OFFER_ROLE_SENDER, createdOffer)}
+      onPageBackgroundUpdate={onPageBackgroundUpdate}
+    />
+  )
 }

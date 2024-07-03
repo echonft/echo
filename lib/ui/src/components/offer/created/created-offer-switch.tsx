@@ -13,16 +13,32 @@ import { CreatedOfferExecuted } from '@echo/ui/components/offer/created/created-
 import { CreatedOfferExpired } from '@echo/ui/components/offer/created/created-offer-expired'
 import { CreatedOfferRedeemed } from '@echo/ui/components/offer/created/created-offer-redeemed'
 import { CreatedOfferRejected } from '@echo/ui/components/offer/created/created-offer-rejected'
+import { PAGE_LAYOUT_BG_SUCCESS } from '@echo/ui/constants/page-layout-background'
 import { isOfferRoleReceiver } from '@echo/ui/helpers/offer/is-offer-role-receiver'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import type { FunctionComponent } from 'react'
+import type { PageLayoutBackgroundPickerProps } from '@echo/ui/types/props/page-layout-background-picker-props'
+import { type FunctionComponent, useEffect } from 'react'
 
-interface Props {
+interface Props extends PageLayoutBackgroundPickerProps {
   offer: OfferWithRole
   redeemed?: boolean
 }
 
-export const CreatedOfferSwitch: FunctionComponent<Props> = ({ offer, redeemed }) => {
+export const CreatedOfferSwitch: FunctionComponent<Props> = ({ offer, redeemed, onPageBackgroundUpdate }) => {
+  // set the right background according to redeemed and offer state
+  useEffect(() => {
+    if (
+      Boolean(redeemed) ||
+      offer.state === OFFER_STATE_EXPIRED ||
+      offer.state === OFFER_STATE_REJECTED ||
+      offer.state === OFFER_STATE_CANCELLED
+    ) {
+      onPageBackgroundUpdate?.(undefined)
+    } else {
+      onPageBackgroundUpdate?.(PAGE_LAYOUT_BG_SUCCESS)
+    }
+  }, [onPageBackgroundUpdate, offer, redeemed])
+
   if (redeemed) {
     return (
       <CreatedOfferRedeemed
@@ -34,7 +50,7 @@ export const CreatedOfferSwitch: FunctionComponent<Props> = ({ offer, redeemed }
     case OFFER_STATE_OPEN:
       return <CreatedOfferCreated count={offer.senderItems.length} slug={offer.slug} />
     case OFFER_STATE_ACCEPTED:
-      return <CreatedOfferAccepted count={offer.receiverItems.length} slug={offer.slug} />
+      return <CreatedOfferAccepted count={offer.receiverItems.length} />
     case OFFER_STATE_EXPIRED:
       return (
         <CreatedOfferExpired
