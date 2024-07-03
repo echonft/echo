@@ -1,12 +1,12 @@
 import { apiUrlProvider } from '@echo/api/routing/api-url-provider'
-import type { CancelOfferArgs } from '@echo/api/types/fetchers/cancel-offer-args'
+import type { GetOfferByIdContractParams } from '@echo/api/types/params/get-offer-by-id-contract-params'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import axios from 'axios'
 import { prop } from 'ramda'
 
-export function cancelOffer(args: CancelOfferArgs) {
+export function getOfferByIdContract(args: GetOfferByIdContractParams) {
   return axios
-    .post<OfferResponse>(apiUrlProvider.offer.cancel.getUrl(args), undefined, {
+    .get<OfferResponse>(apiUrlProvider.offer.getByIdContract.getUrl(args), {
       withCredentials: true
     })
     .then(prop('data'))

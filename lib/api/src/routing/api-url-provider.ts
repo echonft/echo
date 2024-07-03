@@ -1,4 +1,5 @@
 import { ApiPath } from '@echo/api/routing/api-path'
+import type { HexString } from '@echo/utils/types/hex-string'
 
 interface ListingPathArgs {
   slug: string
@@ -6,6 +7,10 @@ interface ListingPathArgs {
 
 interface OfferPathArgs {
   slug: string
+}
+
+interface OfferByIdContractArgs {
+  idContract: HexString
 }
 
 export const apiUrlProvider = {
@@ -20,9 +25,7 @@ export const apiUrlProvider = {
     create: new ApiPath({ path: '/listing', secure: true })
   },
   offer: {
-    accept: new ApiPath<OfferPathArgs>({ path: '/offer/:slug/accept', secure: true }),
-    cancel: new ApiPath<OfferPathArgs>({ path: '/offer/:slug/cancel', secure: true }),
-    create: new ApiPath({ path: '/offer', secure: true }),
+    getByIdContract: new ApiPath<OfferByIdContractArgs>({ path: '/offer/contract/:idContract', secure: true }),
     reject: new ApiPath<OfferPathArgs>({ path: '/offer/:slug/reject', secure: true })
   },
   profile: {

@@ -1,5 +1,5 @@
 'use client'
-import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
+import type { GetOfferByIdContractParams } from '@echo/api/types/params/get-offer-by-id-contract-params'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { generateBaseOffer } from '@echo/model/helpers/offer/generate-base-offer'
 import type { Nft } from '@echo/model/types/nft'
@@ -8,6 +8,7 @@ import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalDescription } from '@echo/ui/components/base/modal/modal-description'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
+import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
@@ -15,10 +16,12 @@ import type { Expiration } from '@echo/ui/types/expiration'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { ContractCreateOfferArgs } from '@echo/web3-dom/types/contract-create-offer-args'
+import { generateOfferId } from '@echo/web3/helpers/generate-offer-id'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
 import { useTranslations } from 'next-intl'
-import { type FunctionComponent, useMemo } from 'react'
+import { type FunctionComponent, useMemo, useState } from 'react'
+import useSWR from 'swr'
 
 interface Props {
   senderItems: Nft[]
@@ -39,7 +42,7 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.create.modal')
   const tError = useTranslations('error.offer')
-  const { createOffer, contractCreateOffer, logger } = useDependencies()
+  const { getOfferByIdContract, contractCreateOffer, logger } = useDependencies()
   const baseOffer = useMemo(
     () =>
       generateBaseOffer({
@@ -49,19 +52,29 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
       }),
     [expiration, receiverItems, senderItems]
   )
+  const [contractExecuted, setContractExecuted] = useState<boolean>(false)
+  const idContract = useMemo(() => generateOfferId(baseOffer), [baseOffer])
 
-  const { trigger: triggerCreate, isMutating: isCreateMutating } = useSWRTrigger<OfferResponse, CreateOfferRequest>({
-    key: SWRKeys.offer.create,
-    fetcher: createOffer,
-    onSuccess: (response) => {
-      onSuccess?.(response.offer)
-    },
-    onError: {
-      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('new') },
-      logger,
-      loggerContext: { component: CreateOfferModal.name, fn: createOffer.name, offer: baseOffer }
+  const { isLoading: isGetOfferMutating } = useSWR<
+    OfferResponse,
+    Error,
+    (GetOfferByIdContractParams & Record<'name', string>) | undefined
+  >(
+    contractExecuted ? { name: SWRKeys.offer.getByIdContract(idContract), idContract } : undefined,
+    getOfferByIdContract,
+    {
+      shouldRetryOnError: true,
+      errorRetryCount: 5,
+      errorRetryInterval: 500,
+      onSuccess: (response) => {
+        onSuccess?.(response.offer)
+      },
+      onError: errorCallback({
+        logger,
+        loggerContext: { component: CreateOfferModal.name, fn: getOfferByIdContract.name, offer: baseOffer }
+      })
     }
-  })
+  )
 
   const { trigger: triggerContractCreate, isMutating: isContractCreateMutating } = useSWRTrigger<
     HexString,
@@ -70,11 +83,7 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
     key: SWRKeys.offer.contractCreate,
     fetcher: contractCreateOffer,
     onSuccess: () => {
-      void triggerCreate({
-        senderItems: baseOffer.senderItems,
-        receiverItems: baseOffer.receiverItems,
-        expiresAt: baseOffer.expiresAt
-      })
+      setContractExecuted(true)
     },
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('new') },
@@ -83,7 +92,7 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
     }
   })
 
-  const isMutating = isCreateMutating || isContractCreateMutating
+  const isMutating = isGetOfferMutating || isContractCreateMutating
 
   return (
     <Modal open={open} onClose={isMutating ? undefined : onClose}>

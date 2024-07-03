@@ -143,7 +143,8 @@ describe('validators - echoEventLogSchema', () => {
       {
         transactionHash: '0x2cc171c068f47030a90fb440c416109d5aef8e623d1f86d679c7dfe3679a33d3',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_EXECUTED
+        type: OFFER_EXECUTED,
+        from: undefined
       }
     ])
   })
@@ -153,7 +154,8 @@ describe('validators - echoEventLogSchema', () => {
       {
         transactionHash: '0x2cc171c068f47030a90fb440c416109d5aef8e623d1f86d679c7dfe3679a33d3',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_CREATED
+        type: OFFER_CREATED,
+        from: undefined
       }
     ])
   })
@@ -163,12 +165,14 @@ describe('validators - echoEventLogSchema', () => {
       {
         transactionHash: '0xae96c756448ee582e7132d8e93663be3571d17c2ead77c38e8a85454066aba78',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_EXECUTED
+        type: OFFER_EXECUTED,
+        from: undefined
       },
       {
         transactionHash: '0x2cc171c068f47030a90fb440c416109d5aef8e623d1f86d679c7dfe3679a33d3',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_CREATED
+        type: OFFER_CREATED,
+        from: undefined
       }
     ])
   })

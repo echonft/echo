@@ -1,10 +1,8 @@
-import type { AcceptOfferArgs } from '@echo/api/types/fetchers/accept-offer-args'
 import type { CancelListingArgs } from '@echo/api/types/fetchers/cancel-listing-args'
-import type { CancelOfferArgs } from '@echo/api/types/fetchers/cancel-offer-args'
 import type { RejectOfferArgs } from '@echo/api/types/fetchers/reject-offer-args'
+import type { GetOfferByIdContractParams } from '@echo/api/types/params/get-offer-by-id-contract-params'
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
-import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
@@ -25,24 +23,22 @@ import type { SignNonceArgs } from '@echo/web3-dom/types/sign-nonce-args'
 import type { SignNonceResult } from '@echo/web3-dom/types/sign-nonce-result'
 
 export interface Dependencies {
-  acceptOffer: Fetcher<OfferResponse, AcceptOfferArgs>
   addWallet: Fetcher<WalletsResponse, AddWalletRequest>
   approveErc721Contract: Fetcher<HexString, ApproveErc721ContractArgs>
   areNftsInEscrow: (args: AreNftsInEscrowArgs) => Promise<boolean>
   cancelListing: Fetcher<ListingResponse, CancelListingArgs>
-  cancelOffer: Fetcher<OfferResponse, CancelOfferArgs>
   contractAcceptOffer: Fetcher<HexString, ContractUpdateOfferArgs>
   contractCancelOffer: Fetcher<HexString, ContractUpdateOfferArgs>
   contractCreateOffer: Fetcher<HexString, ContractCreateOfferArgs>
   contractExecuteOffer: Fetcher<HexString, ContractUpdateOfferArgs>
   contractRedeemOffer: Fetcher<HexString, ContractUpdateOfferArgs>
   createListing: Fetcher<ListingResponse, CreateListingRequest>
-  createOffer: Fetcher<OfferResponse, CreateOfferRequest>
   disconnectWallet: () => Promise<void>
   getAccount: AccountProvider
   getEchoTradingFees: (args: GetEchoTradingFeesArgs) => Promise<bigint>
   getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
   getNonce: Fetcher<NonceResponse, never>
+  getOfferByIdContract: Fetcher<OfferResponse, GetOfferByIdContractParams>
   getWallets: Fetcher<WalletsResponse, never>
   rejectOffer: Fetcher<OfferResponse, RejectOfferArgs>
   searchCollections: (query: string) => Promise<SearchResult<string>[]>
