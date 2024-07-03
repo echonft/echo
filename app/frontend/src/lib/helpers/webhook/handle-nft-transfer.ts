@@ -13,9 +13,8 @@ import { propIsNotNil } from '@echo/utils/fp/prop-is-not-nil'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 
 export async function handleNftTransfer(args: WithLoggerType<Record<'transfer', NftTransfer>>) {
-  // If it's an escrow transaction simply return, we dont manage this anymore (echo events handler does)
+  // If it's an escrow transaction simply return, we don't manage this anymore (echo events handler does)
   if (isEscrowing(args)) {
-    // await guardAsyncFn({ fn: processEscrowTransfer, status: ErrorStatus.BAD_REQUEST })(args)
     return
   }
   const transferData = await guardAsyncFn({ fn: mapNftTransferToTransferData, status: ErrorStatus.BAD_REQUEST })(args)
