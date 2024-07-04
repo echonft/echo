@@ -40,7 +40,7 @@ export const CreateListing: FunctionComponent<Props> = ({
   const { nfts, selection, selectNft, unselectNft } = useNfts({
     nfts: creatorNfts,
     sortBy: 'collection',
-    initialSelection: { nfts: items }
+    selection: { nfts: items }
   })
   const [targetSelection, setTargetSelection] = useState<Nullable<ListingTarget>>(
     isNil(target) ? undefined : { collection: target, amount: 1 }
