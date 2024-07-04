@@ -4,6 +4,9 @@ import { echoAbi } from '@echo/web3/constants/echo-abi'
 import { getClientForChain } from '@echo/web3/helpers/chain/get-client-for-chain'
 import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
 import { mapReadContractOfferToContractOffer } from '@echo/web3/mappers/map-read-contract-offer-to-contract-offer'
+import type { ContractOffer } from '@echo/web3/types/contract-offer'
+import type { ReadContractOffer } from '@echo/web3/types/read-contract-offer'
+import { andThen, pipe } from 'ramda'
 import { readContract } from 'viem/actions'
 
 export interface GetEchoOfferArgs {
@@ -15,11 +18,14 @@ export async function getEchoOffer(args: GetEchoOfferArgs) {
   const { chain, offerId } = args
   const echoAddress = getEchoAddress(chain)
   const client = await getClientForChain(chain)
-  return await readContract(client, {
+  const parameters = {
     abi: echoAbi,
-    functionName: 'offers',
+    functionName: 'offers' as const,
     address: echoAddress,
-    args: [offerId]
-    // FIXME Typing
-  }).then((offer) => mapReadContractOfferToContractOffer(offer))
+    args: [offerId] as readonly [HexString]
+  }
+  return pipe<[typeof client, typeof parameters], Promise<Readonly<ReadContractOffer>>, Promise<ContractOffer>>(
+    readContract,
+    andThen(mapReadContractOfferToContractOffer)
+  )(client, parameters)
 }

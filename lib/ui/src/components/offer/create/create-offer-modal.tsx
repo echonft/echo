@@ -8,7 +8,6 @@ import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalDescription } from '@echo/ui/components/base/modal/modal-description'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
-import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
@@ -20,8 +19,7 @@ import { generateOfferId } from '@echo/web3/helpers/generate-offer-id'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
 import { useTranslations } from 'next-intl'
-import { type FunctionComponent, useMemo, useState } from 'react'
-import useSWR from 'swr'
+import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
   senderItems: Nft[]
@@ -52,30 +50,22 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
       }),
     [expiration, receiverItems, senderItems]
   )
-  const [contractExecuted, setContractExecuted] = useState<boolean>(false)
   const idContract = useMemo(() => generateOfferId(baseOffer), [baseOffer])
-
-  const { isLoading: isGetOfferMutating } = useSWR<
+  const { trigger: getOfferTrigger, isMutating: isGetOfferMutating } = useSWRTrigger<
     OfferResponse,
-    Error,
-    (GetOfferByIdContractParams & Record<'name', string>) | undefined
-  >(
-    contractExecuted ? { name: SWRKeys.offer.getByIdContract(idContract), idContract } : undefined,
-    getOfferByIdContract,
-    {
-      shouldRetryOnError: true,
-      errorRetryCount: 5,
-      errorRetryInterval: 500,
-      onSuccess: (response) => {
-        onSuccess?.(response.offer)
-      },
-      onError: errorCallback({
-        logger,
-        loggerContext: { component: CreateOfferModal.name, fn: getOfferByIdContract.name, offer: baseOffer }
-      })
+    GetOfferByIdContractParams
+  >({
+    key: SWRKeys.offer.getByIdContract(idContract),
+    fetcher: getOfferByIdContract,
+    onSuccess: (response) => {
+      onSuccess?.(response.offer)
+    },
+    // TODO better error handling?
+    onError: {
+      logger,
+      loggerContext: { component: CreateOfferModal.name, fn: getOfferByIdContract.name, offer: baseOffer }
     }
-  )
-
+  })
   const { trigger: triggerContractCreate, isMutating: isContractCreateMutating } = useSWRTrigger<
     HexString,
     ContractCreateOfferArgs
@@ -83,7 +73,7 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
     key: SWRKeys.offer.contractCreate,
     fetcher: contractCreateOffer,
     onSuccess: () => {
-      setContractExecuted(true)
+      void getOfferTrigger({ idContract })
     },
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('new') },

@@ -1,4 +1,3 @@
-import { OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } from '@echo/firestore/constants/offer/offer-state-update-trigger-by-system'
 import { acceptOffer } from '@echo/firestore/crud/offer/accept-offer'
 import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
@@ -25,6 +24,6 @@ export async function processEchoOfferAcceptedEvent(args: WithLoggerType<Process
     fn: acceptOffer,
     status: ErrorStatus.SERVER_ERROR,
     logger
-  })({ slug: offer.slug, updateArgs: { trigger: { by: OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } } })
+  })({ slug: offer.slug })
   logger?.info({ offer }, 'accepted offer')
 }

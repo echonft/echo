@@ -1,4 +1,4 @@
-import { METADATA_DESCRIPTION, METADATA_TITLE } from '@echo/frontend/constants/metadata'
+import { METADATA_DESCRIPTION, METADATA_TITLE } from '@echo/frontend/lib/constants/metadata'
 import { type MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {

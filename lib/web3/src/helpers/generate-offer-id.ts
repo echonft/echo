@@ -5,10 +5,9 @@ import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
-import { parseOfferAbiParameters } from '@echo/web3/helpers/abi/parse-offer-abi-parameters'
 import { hashNfts } from '@echo/web3/helpers/hash-nfts'
 import { applySpec, head, path, pipe, prop } from 'ramda'
-import { encodeAbiParameters, keccak256 } from 'viem'
+import { encodeAbiParameters, keccak256, parseAbiParameters } from 'viem'
 
 interface OfferAbiParameters {
   sender: HexString
@@ -27,8 +26,12 @@ interface OfferAbiParameters {
  * @param offer The offer to generate the id from
  */
 export function generateOfferId(offer: BaseOffer): HexString {
+  const params = parseAbiParameters([
+    'struct Offer { address sender; address receiver; uint256 senderItemsChainId; bytes32 senderItems; uint256 receiverItemsChainId; bytes32 receiverItems; uint256 expiration; }',
+    'Offer'
+  ])
   return keccak256(
-    encodeAbiParameters(parseOfferAbiParameters(), [
+    encodeAbiParameters(params, [
       applySpec<OfferAbiParameters>({
         sender: nonNullableReturn(path(['sender', 'wallet', 'address'])),
         receiver: nonNullableReturn(path(['receiver', 'wallet', 'address'])),

@@ -36,7 +36,7 @@ export const messages = {
     },
     update: {
       ACCEPTED: '@here {{- receiver}} accepted the offer! You can now execute the swap.',
-      CANCELLED: '@here The offer was cancelled.',
+      CANCELLED: '@here The offer was canceled.',
       EXPIRED: '@here The offer expired.',
       REDEEMED: '@here ',
       REJECTED: '@here {{- receiver}} rejected the offer.',

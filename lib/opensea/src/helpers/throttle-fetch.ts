@@ -3,7 +3,7 @@ import { MAX_RETRIES, WAIT_TIME } from '@echo/opensea/constants/fetch-params'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLogger } from '@echo/utils/types/with-logger'
-import { always, assoc, converge, identity, inc, pick, pipe, prop } from 'ramda'
+import { assoc, inc, modify, pick, pipe } from 'ramda'
 
 interface ThrottleFetchArgs extends WithFetch, WithLogger {
   url: string
@@ -30,7 +30,7 @@ async function tryFetch(args: TryFetchArgs): Promise<Response> {
       logger?.warn(`request throttled by Opensea. Retrying in ${WAIT_TIME / 1000} seconds....`)
       // Opensea throttled the request, wait 1 minute and retry
       return await delayPromise(
-        pipe(converge(assoc, [always('retries'), pipe(prop('retries'), inc), identity]), tryFetch),
+        pipe<[TryFetchArgs], TryFetchArgs, Promise<Response>>(modify('retries', inc), tryFetch),
         WAIT_TIME
       )(args)
     } else {

@@ -1,5 +1,5 @@
 import '@echo/ui-css/index.css'
-import { METADATA_DESCRIPTION, METADATA_IMAGE_URL, METADATA_TITLE } from '@echo/frontend/constants/metadata'
+import { METADATA_DESCRIPTION, METADATA_IMAGE_URL, METADATA_TITLE } from '@echo/frontend/lib/constants/metadata'
 import { messages } from '@echo/ui/messages/en'
 import type { WithChildrenProps } from '@echo/ui/types/props/with-children-props'
 import { getBaseUrl } from '@echo/utils/helpers/get-base-url'

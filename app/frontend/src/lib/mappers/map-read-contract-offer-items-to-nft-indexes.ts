@@ -7,13 +7,16 @@ import type { ContractOfferItems } from '@echo/web3/types/contract-offer-items'
 import { isNil } from 'ramda'
 
 interface MapReadContractsOfferItemsArgs {
-  offerItems: ContractOfferItems
+  items: ContractOfferItems
 }
+
 export async function mapReadContractOfferItemsToNftIndexes(
   args: WithLoggerType<MapReadContractsOfferItemsArgs>
 ): Promise<NftIndex[]> {
-  const { logger, offerItems } = args
-  const { chainId, items } = offerItems
+  const {
+    logger,
+    items: { chainId, items }
+  } = args
   const chain = getChain(chainId)
   // TODO Beurk, can be done cleaner with FP
   const indexes = []

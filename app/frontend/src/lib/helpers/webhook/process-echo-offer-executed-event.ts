@@ -1,4 +1,3 @@
-import { OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } from '@echo/firestore/constants/offer/offer-state-update-trigger-by-system'
 import { completeOffer } from '@echo/firestore/crud/offer/complete-offer'
 import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
@@ -34,8 +33,7 @@ export async function processEchoOfferExecutedEvent(args: WithLoggerType<Process
     logger
   })({
     slug: offer.slug,
-    transactionId: transactionHash,
-    updateArgs: { trigger: { by: OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } }
+    transactionId: transactionHash
   })
   logger?.info({ offer }, 'completed offer')
 }
