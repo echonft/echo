@@ -9,5 +9,5 @@ const chains: Record<ChainName, Chain> = {
   sepolia: sepolia
 } as const
 export type ViemClient<T extends ChainName> = Omit<PublicClient<Transport, (typeof chains)[T]>, 'name'> & {
-  name: ChainName
+  readonly name: ChainName
 }

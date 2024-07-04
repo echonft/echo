@@ -1,17 +1,15 @@
-import { formatAddress } from '@echo/web3/helpers/format-address'
 import { mapReadContractOfferItemsToContractOfferItems } from '@echo/web3/mappers/map-read-contract-offer-items-to-contract-offer-items'
 import type { ContractOffer } from '@echo/web3/types/contract-offer'
 import type { ReadContractOffer } from '@echo/web3/types/read-contract-offer'
-import { applySpec, nth, pipe } from 'ramda'
+import { applySpec, head, pipe, prop, toLower } from 'ramda'
 
-export function mapReadContractOfferToContractOffer(readOffer: ReadContractOffer): ContractOffer {
-  // FIXME Typing
-  return applySpec({
-    sender: pipe(nth(0), formatAddress),
-    receiver: pipe(nth(1), formatAddress),
-    senderItems: pipe(nth(2), mapReadContractOfferItemsToContractOfferItems),
-    receiverItems: pipe(nth(3), mapReadContractOfferItemsToContractOfferItems),
-    expiration: pipe(nth(4), Number),
-    state: nth(5)
+export function mapReadContractOfferToContractOffer(readOffer: Readonly<ReadContractOffer>): ContractOffer {
+  return applySpec<ContractOffer>({
+    sender: pipe(head, toLower),
+    receiver: pipe(prop(1), toLower),
+    senderItems: pipe(prop(2), mapReadContractOfferItemsToContractOfferItems),
+    receiverItems: pipe(prop(3), mapReadContractOfferItemsToContractOfferItems),
+    expiration: pipe(prop(4), Number),
+    state: prop(5)
   })(readOffer)
 }

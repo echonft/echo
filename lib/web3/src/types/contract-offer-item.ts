@@ -1,6 +1,6 @@
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { EvmAddress } from '@echo/model/types/evm-address'
 
 export interface ContractOfferItem {
-  tokenAddress: Lowercase<HexString>
-  tokenId: number
+  readonly tokenAddress: EvmAddress
+  readonly tokenId: number
 }

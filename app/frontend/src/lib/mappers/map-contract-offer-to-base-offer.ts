@@ -19,7 +19,7 @@ export async function mapContractOfferToBaseOffer(
     fn: mapReadContractOfferItemsToNftIndexes,
     status: ErrorStatus.SERVER_ERROR,
     logger
-  })({ logger, offerItems: contractSenderItems })
+  })({ logger, items: contractSenderItems })
   const senderItems = await guardAsyncFn({
     fn: getNftsFromIndexes,
     status: ErrorStatus.SERVER_ERROR,
@@ -31,7 +31,7 @@ export async function mapContractOfferToBaseOffer(
     fn: mapReadContractOfferItemsToNftIndexes,
     status: ErrorStatus.SERVER_ERROR,
     logger
-  })({ logger, offerItems: contractReceiverItems })
+  })({ logger, items: contractReceiverItems })
   const receiverItems = await guardAsyncFn({ fn: getNftsFromIndexes, status: ErrorStatus.SERVER_ERROR, logger })(
     receiverOfferItemIndexes
   )

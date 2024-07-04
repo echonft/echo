@@ -1,6 +1,6 @@
 import type { ContractOfferItem } from '@echo/web3/types/contract-offer-item'
 
 export interface ContractOfferItems {
-  chainId: number
-  items: ContractOfferItem[]
+  readonly chainId: number
+  readonly items: Readonly<ContractOfferItem[]>
 }
