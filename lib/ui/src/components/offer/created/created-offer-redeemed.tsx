@@ -1,5 +1,5 @@
 import { linkProvider } from '@echo/api/routing/link-provider'
-import { OfferCreatedRocketSvg } from '@echo/ui/components/base/svg/offer-created-rocket-svg'
+import { CreatedOfferSuccessImg } from '@echo/ui/components/offer/created/created-offer-success-img'
 import { OfferCreationLayout } from '@echo/ui/components/offer/created/layout/offer-creation-layout'
 import { OfferCreationSubLayout } from '@echo/ui/components/offer/created/layout/offer-creation-sub-layout'
 import { OfferCreationTextLayout } from '@echo/ui/components/offer/created/layout/offer-creation-text-layout'
@@ -21,9 +21,7 @@ export const CreatedOfferRedeemed: FunctionComponent<Props> = ({ count }) => {
   }
   return (
     <OfferCreationLayout>
-      <span>
-        <OfferCreatedRocketSvg />
-      </span>
+      <CreatedOfferSuccessImg />
       <OfferCreationSubLayout>
         <span className={clsx('font-inter', 'text-8xl', 'font-bold', 'text-white', 'px-8')}>{t('title')}</span>
         <OfferCreationTextLayout>

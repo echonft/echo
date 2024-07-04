@@ -3,6 +3,6 @@ import { nftByTokenIdComparator } from '@echo/model/helpers/nft/nft-by-token-id-
 import type { Nft } from '@echo/model/types/nft'
 import { sortWith } from 'ramda'
 
-export function sortNftsByOwner(nfts: Nft[]) {
+export function sortNftsByOwner(nfts: Nft[]): Nft[] {
   return sortWith([nftByOwnerDiscordUsernameComparator, nftByTokenIdComparator], nfts)
 }

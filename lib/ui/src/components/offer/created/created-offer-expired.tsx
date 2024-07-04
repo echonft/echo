@@ -1,11 +1,11 @@
 import { linkProvider } from '@echo/api/routing/link-provider'
-import { OfferExpiredIconSvg } from '@echo/ui/components/base/svg/offer-expired-icon-svg'
+import { CreatedOfferExpiredImg } from '@echo/ui/components/offer/created/created-offer-expired-img'
 import { OfferCreationLayout } from '@echo/ui/components/offer/created/layout/offer-creation-layout'
 import { OfferCreationSubLayout } from '@echo/ui/components/offer/created/layout/offer-creation-sub-layout'
 import { OfferCreationTextLayout } from '@echo/ui/components/offer/created/layout/offer-creation-text-layout'
 import { clsx } from 'clsx'
-import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import type { FunctionComponent } from 'react'
 
 interface Props {
@@ -21,9 +21,7 @@ export const CreatedOfferExpired: FunctionComponent<Props> = ({ count }) => {
   }
   return (
     <OfferCreationLayout>
-      <span>
-        <OfferExpiredIconSvg />
-      </span>
+      <CreatedOfferExpiredImg />
       <OfferCreationSubLayout>
         <span className={clsx('font-inter', 'text-8xl', 'font-bold', 'text-white', 'px-8')}>{t('title')}</span>
         <OfferCreationTextLayout>

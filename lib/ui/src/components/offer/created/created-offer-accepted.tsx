@@ -2,13 +2,12 @@ import { OfferCreationSubLayout } from '@echo/ui/components/offer/created/layout
 import { OfferCreationSuccessLayout } from '@echo/ui/components/offer/created/layout/offer-creation-success-layout'
 import { OfferCreationTextLayout } from '@echo/ui/components/offer/created/layout/offer-creation-text-layout'
 import { clsx } from 'clsx'
-import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import type { FunctionComponent } from 'react'
 
 interface Props {
   count: number
-  slug: string
 }
 
 export const CreatedOfferAccepted: FunctionComponent<Props> = ({ count }) => {
