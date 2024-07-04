@@ -1,4 +1,3 @@
-import { OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } from '@echo/firestore/constants/offer/offer-state-update-trigger-by-system'
 import { getCollectionSwapsCountByCollectionId } from '@echo/firestore/crud/collection-swaps-count/get-collection-swaps-count-by-collection-id'
 import { getCollectionSwapsCountByCollectionSlug } from '@echo/firestore/crud/collection-swaps-count/get-collection-swaps-count-by-collection-slug'
 import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
@@ -54,12 +53,7 @@ describe('CRUD - offer - completeOffer', () => {
   let updatedNftIndexes: NftIndex[]
   const args: CompleteOfferArgs = {
     slug,
-    transactionId: 'swap-transaction-id',
-    updateArgs: {
-      trigger: {
-        by: OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM
-      }
-    }
+    transactionId: 'swap-transaction-id'
   }
   beforeAll(async () => {
     await assertNfts()
@@ -132,19 +126,6 @@ describe('CRUD - offer - completeOffer', () => {
   it('throws if the offer is open', async () => {
     await unchecked_updateOffer(slug, { state: OFFER_STATE_OPEN, expiresAt: futureDate() })
     await expect(completeOffer(args)).rejects.toBeDefined()
-  })
-  it('throws if the state update by trigger is not valid', async () => {
-    await unchecked_updateOffer(slug, { state: OFFER_STATE_OPEN, expiresAt: futureDate() })
-    await expect(
-      pipe(
-        assoc('updateArgs', {
-          trigger: {
-            by: 'not-system'
-          }
-        }),
-        completeOffer
-      )(args)
-    ).rejects.toBeDefined()
   })
   it('complete offer', async () => {
     const offer = (await getOffer(slug))!

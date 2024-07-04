@@ -1,6 +1,5 @@
 import { getLogger } from '@echo/firestore-functions/helper/get-logger'
 import { setMaxInstances } from '@echo/firestore-functions/helper/set-max-instances'
-import { OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } from '@echo/firestore/constants/offer/offer-state-update-trigger-by-system'
 import { updateOfferState } from '@echo/firestore/crud/offer/update-offer-state'
 import { slugSchema } from '@echo/utils/validators/slug-schema'
 import { onTaskDispatched } from 'firebase-functions/v2/tasks'
@@ -22,8 +21,7 @@ export const expireOffer = onTaskDispatched(
       try {
         await updateOfferState({
           slug,
-          state: 'EXPIRED',
-          updateArgs: { trigger: { by: OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } }
+          state: 'EXPIRED'
         })
       } catch (err) {
         logger.error({ err, offer: { slug } }, 'error setting offer state to expired')

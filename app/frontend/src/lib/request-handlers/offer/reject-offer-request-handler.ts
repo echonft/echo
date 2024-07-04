@@ -21,6 +21,6 @@ export async function rejectOfferRequestHandler({ user, logger, params }: AuthRe
     fn: rejectOffer,
     status: ErrorStatus.SERVER_ERROR,
     logger
-  })({ slug, updateArgs: { trigger: { by: user.username } } })
+  })({ slug })
   return NextResponse.json<OfferResponse>({ offer: updatedOffer })
 }
