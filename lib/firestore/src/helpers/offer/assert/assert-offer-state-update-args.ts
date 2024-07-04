@@ -8,28 +8,25 @@ import {
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
 import { type Offer } from '@echo/model/types/offer'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 
 export function assertOfferStateUpdateArgs(id: string, offer: Offer, args: OfferStateUpdateArgs) {
-  const { receiver, sender } = offer
+  const { receiver } = offer
   const {
     state,
-    trigger: { by, reason }
+    trigger: { by }
   } = args
   switch (state) {
     case OFFER_STATE_OPEN:
       throw Error(`invalid offer state update: there is no update for OPEN state`)
     case OFFER_STATE_CANCELLED:
-      if (by !== receiver.username && by !== sender.username && by !== OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM) {
-        throw Error(
-          `offer ${id} state update to CANCELLED not allowed: ${by} is neither the sender, the receiver, nor the system`
-        )
+      if (by !== OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM) {
+        throw Error(`offer ${id} state update to CANCELLED not allowed: ${by} is not the system`)
       }
-      if (by === OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM && isNilOrEmpty(reason)) {
-        throw Error(
-          `offer ${id} state update to CANCELLED not allowed: trigger reason is needed when trigger is system`
-        )
-      }
+      // if (by === OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM && isNilOrEmpty(reason)) {
+      //   throw Error(
+      //     `offer ${id} state update to CANCELLED not allowed: trigger reason is needed when trigger is system`
+      //   )
+      // }
       break
     case OFFER_STATE_COMPLETED:
       if (by !== OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM) {
@@ -37,6 +34,10 @@ export function assertOfferStateUpdateArgs(id: string, offer: Offer, args: Offer
       }
       break
     case OFFER_STATE_ACCEPTED:
+      if (by !== OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM) {
+        throw Error(`offer ${id} state update to ACCEPTED not allowed: ${by} is not the system`)
+      }
+      break
     case OFFER_STATE_REJECTED:
       if (by !== receiver.username) {
         throw Error(`offer ${id} state update to ${state} not allowed: ${by} is not the receiver`)

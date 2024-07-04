@@ -6,6 +6,7 @@ import { guardAsyncFn } from '@echo/frontend/lib/helpers/error/guard'
 import { assertOffer } from '@echo/frontend/lib/helpers/offer/assert/assert-offer'
 import type { ProcessEchoEventArgs } from '@echo/frontend/lib/helpers/webhook/process-echo-event'
 import { processOutEscrowTransfer } from '@echo/frontend/lib/helpers/webhook/process-out-escrow-transfer'
+import { OFFER_STATE_CANCELLED } from '@echo/model/constants/offer-states'
 import type { Nft } from '@echo/model/types/nft'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
@@ -21,10 +22,15 @@ export async function processEchoOfferCancelledEvent(args: WithLoggerType<Proces
     map(pipe(objOf('nft'), assoc('logger', logger), processOutEscrowTransfer)),
     promiseAll
   )(offer.senderItems)
-  await guardAsyncFn({
-    fn: cancelOffer,
-    status: ErrorStatus.SERVER_ERROR,
-    logger
-  })({ slug: offer.slug, updateArgs: { trigger: { by: OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } } })
-  logger?.info({ offer }, 'cancelled offer')
+  // We need to check the state here because in case the offer was rejected
+  // it is CANCELLED in our db so we don't need to cancel again.
+  // In case the sender cancels it, we need to cancel it.
+  if (offer.state !== OFFER_STATE_CANCELLED) {
+    await guardAsyncFn({
+      fn: cancelOffer,
+      status: ErrorStatus.SERVER_ERROR,
+      logger
+    })({ slug: offer.slug, updateArgs: { trigger: { by: OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } } })
+    logger?.info({ offer }, 'cancelled offer')
+  }
 }

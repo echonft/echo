@@ -6,6 +6,7 @@ import { getWalletByAddress } from '@echo/firestore/crud/wallet/get-wallet-by-ad
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
 import type { NftWithId } from '@echo/firestore/types/model/nft/nft-with-id'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
+import type { Nft } from '@echo/model/types/nft'
 import { addCollection } from '@echo/tasks/add-collection'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { isNil } from 'ramda'

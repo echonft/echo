@@ -8,7 +8,7 @@ import type { Nft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import type { ContractOffer } from '@echo/web3/types/contract-offer'
-import { applySpec, head, pipe, prop } from 'ramda'
+import { head, pipe, prop } from 'ramda'
 
 export async function mapContractOfferToBaseOffer(
   args: WithLoggerType<Record<'contractOffer', ContractOffer>>
@@ -37,11 +37,11 @@ export async function mapContractOfferToBaseOffer(
   )
   assertOfferItems(receiverItems)
 
-  return applySpec<BaseOffer>({
+  return {
     expiresAt: expiration,
-    receiver: pipe<[Nft[]], Nft, User>(head, prop('owner'))(senderItems),
+    receiver: pipe<[Nft[]], Nft, User>(head, prop('owner'))(receiverItems),
     receiverItems,
-    sender: pipe<[Nft[]], Nft, User>(head, prop('owner'))(receiverItems),
+    sender: pipe<[Nft[]], Nft, User>(head, prop('owner'))(senderItems),
     senderItems
-  })()
+  }
 }
