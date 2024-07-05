@@ -7,12 +7,11 @@ import type { RequestHandlerArgsWithParams } from '@echo/frontend/lib/types/requ
 import { echoEventLogSchema } from '@echo/frontend/lib/validators/echo-event-log-schema'
 import { parseRequest } from '@echo/frontend/lib/validators/parse-request'
 import type { ChainName } from '@echo/utils/types/chain-name'
-import { captureException } from '@sentry/nextjs'
 import { NextResponse } from 'next/server'
-import { andThen, assoc, invoker, pipe } from 'ramda'
+import { otherwise, pipe } from 'ramda'
 
 export async function echoWebhookRequestHandler({
-  params,
+  params: { chain },
   req,
   logger
 }: RequestHandlerArgsWithParams<{ chain: ChainName }, WebhookBlockRequest>) {

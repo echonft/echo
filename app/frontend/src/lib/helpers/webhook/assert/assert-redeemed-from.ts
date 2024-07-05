@@ -4,6 +4,6 @@ import { isNil } from 'ramda'
 
 export function assertRedeemedFrom(from: HexString | undefined): asserts from is NonNullable<HexString> {
   if (isNil(from)) {
-    throw new BadRequestError('from is nil')
+    throw new BadRequestError()
   }
 }

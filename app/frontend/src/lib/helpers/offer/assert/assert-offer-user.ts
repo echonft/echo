@@ -3,8 +3,6 @@ import type { Offer } from '@echo/model/types/offer'
 
 export function assertOfferUser(offer: Offer, username: string) {
   if (offer.sender.username !== username && offer.receiver.username !== username) {
-    throw new ForbiddenError(
-      `current user with username ${username} is not the sender nor the receiver of offer ${offer.slug}`
-    )
+    throw new ForbiddenError()
   }
 }

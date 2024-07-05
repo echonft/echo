@@ -14,38 +14,39 @@ import { assoc, otherwise, pipe } from 'ramda'
 export async function handleNftTransfer(args: WithLoggerType<Record<'transfer', NftTransfer>>): Promise<void> {
   const logger = args.logger?.child({ fn: handleNftTransfer.name })
   // If it's an escrow transaction simply return, we don't manage this anymore (echo events handler does)
-  if (isEscrowing(args)) {
-    return pipe(
-      assoc('logger', logger),
-      processEscrowTransfer,
-      otherwise((err) => {
-        logger?.error({ err, transfer: args.transfer }, 'could not process escrow transfer')
-      })
-    )(args)
-  }
-  const transferData = await mapNftTransferToTransferData(assoc('logger', logger, args))
-  if (propIsNotNil('transfer', transferData)) {
-    if (pathIsNil(['transfer', 'to'], transferData)) {
-      await pipe(
-        processOutTransfer,
-        otherwise((err) => {
-          logger?.error({ err, transfer: transferData }, 'could not process out transfer')
-        })
-      )(transferData)
-    } else if (pathIsNil(['transfer', 'from'], transferData)) {
-      await pipe(
-        processInTransfer,
-        otherwise((err) => {
-          logger?.error({ err, transfer: transferData }, 'could not process in transfer')
-        })
-      )(transferData as WithLoggerType<Record<'transfer', Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>>>)
-    } else {
-      await pipe(
-        processSwapTransfer,
-        otherwise((err) => {
-          logger?.error({ err, transfer: transferData }, 'could not process swap transfer')
-        })
-      )(transferData as WithLoggerType<Record<'transfer', Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>>>)
+  if (!isEscrowing(args)) {
+    const transferData = await mapNftTransferToTransferData(assoc('logger', logger, args))
+    if (propIsNotNil('transfer', transferData)) {
+      if (pathIsNil(['transfer', 'to'], transferData)) {
+        await pipe(
+          processOutTransfer,
+          otherwise((err) => {
+            logger?.error({ err, transfer: transferData }, 'could not process out transfer')
+          })
+        )(transferData)
+      } else if (pathIsNil(['transfer', 'from'], transferData)) {
+        await pipe(
+          processInTransfer,
+          otherwise((err) => {
+            logger?.error({ err, transfer: transferData }, 'could not process in transfer')
+          })
+        )(
+          transferData as WithLoggerType<
+            Record<'transfer', Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>>
+          >
+        )
+      } else {
+        await pipe(
+          processSwapTransfer,
+          otherwise((err) => {
+            logger?.error({ err, transfer: transferData }, 'could not process swap transfer')
+          })
+        )(
+          transferData as WithLoggerType<
+            Record<'transfer', Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>>
+          >
+        )
+      }
     }
   }
 }

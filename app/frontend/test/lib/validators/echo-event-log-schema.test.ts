@@ -4,7 +4,7 @@ import {
   OFFER_CREATED,
   OFFER_EXECUTED,
   OFFER_REDEEMED
-} from '@echo/frontend/lib/types/echo-event/echo-event-types'
+} from '@echo/frontend/lib/constants/echo-event-types'
 import { echoEventLogSchema } from '@echo/frontend/lib/validators/echo-event-log-schema'
 import { flatten } from 'ramda'
 

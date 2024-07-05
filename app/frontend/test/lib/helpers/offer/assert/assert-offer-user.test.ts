@@ -16,13 +16,11 @@ describe('helpers - offer - assert - assertOfferUser', () => {
   })
 
   it('should throw an error if the username is not the same as the sender or receiver username', () => {
-    const expectedErrorMsg =
-      'current user with username otherUser is not the sender nor the receiver of offer mockOffer'
     expect(() => {
       assertOfferUser(
         { receiver: { username: 'receiver' }, sender: { username: 'sender' }, slug: 'mockOffer' } as Offer,
         'otherUser'
       )
-    }).toThrow(new ForbiddenError(expectedErrorMsg))
+    }).toThrow(new ForbiddenError())
   })
 })

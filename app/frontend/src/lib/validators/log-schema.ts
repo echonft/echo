@@ -5,7 +5,6 @@ export const logSchema = object({
   address: hexStringSchema,
   blockHash: hexStringSchema,
   blockNumber: hexStringSchema,
-  // Note we use string here because it seems like it's sometimes empty. We don't use it anyway
   data: string(),
   logIndex: hexStringSchema,
   removed: boolean(),

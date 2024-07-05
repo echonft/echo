@@ -6,6 +6,6 @@ import { type NonEmptyArray } from 'ramda'
 
 export function assertOfferItems(offerItems: Nullable<Nft[]>): asserts offerItems is NonEmptyArray<Nft> {
   if (isNilOrEmpty(offerItems)) {
-    throw new BadRequestError('offer items are nil or empty')
+    throw new BadRequestError()
   }
 }

@@ -14,8 +14,7 @@ export async function processInEscrowTransfer(args: WithLoggerType<Record<'nft',
     nft: {
       tokenId,
       collection: { contract }
-    },
-    logger
+    }
   } = args
   const collection = await pipe(
     addCollection,
