@@ -2,35 +2,29 @@ import { addOfferStateUpdate } from '@echo/firestore/crud/offer-update/add-offer
 import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
-import { assertOfferStateUpdateArgs } from '@echo/firestore/helpers/offer/assert/assert-offer-state-update-args'
 import type { OfferStateUpdateArgs } from '@echo/firestore/types/model/offer-update/offer-state-update-args'
 import { assertOfferStateTransition } from '@echo/model/helpers/offer/assert/assert-offer-state-transition'
 import type { Offer } from '@echo/model/types/offer'
-import { type OfferState } from '@echo/model/types/offer-state'
 import { now } from '@echo/utils/helpers/now'
-import { assoc, isNil } from 'ramda'
+import { dissoc, isNil } from 'ramda'
 
-export interface UpdateOfferStateArgs {
+export interface UpdateOfferStateArgs extends OfferStateUpdateArgs {
   slug: string
-  state: OfferState
-  updateArgs: Omit<OfferStateUpdateArgs, 'state'>
 }
 
 export async function updateOfferState(args: UpdateOfferStateArgs): Promise<Offer> {
-  const { slug, state, updateArgs } = args
+  const { slug, state } = args
   const snapshot = await getOfferSnapshot(slug)
   if (isNil(snapshot)) {
     return Promise.reject(Error(`offer with slug ${slug} does not exist`))
   }
   const offer = snapshot.data()
   assertOfferStateTransition(offer, state)
-  const completeUpdateArgs: OfferStateUpdateArgs = assoc('state', state, updateArgs)
-  assertOfferStateUpdateArgs(snapshot.id, offer, completeUpdateArgs)
   const updatedOffer = await updateReference<Offer>({
     collectionReference: getOffersCollectionReference(),
     id: snapshot.id,
     data: { state, updatedAt: now() }
   })
-  await addOfferStateUpdate({ offerId: snapshot.id, args: completeUpdateArgs })
+  await addOfferStateUpdate({ offerId: snapshot.id, args: dissoc('slug', args) })
   return updatedOffer
 }

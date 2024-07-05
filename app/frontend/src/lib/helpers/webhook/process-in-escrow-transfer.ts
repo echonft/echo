@@ -2,15 +2,18 @@ import { addEscrowedNftWithId } from '@echo/firestore/crud/escrowed-nft/add-escr
 import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
 import { getNftSnapshotForIndex } from '@echo/firestore/crud/nft/get-nft'
 import type { NftWithId } from '@echo/firestore/types/model/nft/nft-with-id'
-import type { NftTransfer } from '@echo/frontend/lib/types/transfer/nft-transfer'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
+import type { Nft } from '@echo/model/types/nft'
 import { addCollection } from '@echo/tasks/add-collection'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { isNil } from 'ramda'
 
-export async function processInEscrowTransfer(args: WithLoggerType<Record<'transfer', NftTransfer>>): Promise<void> {
+export async function processInEscrowTransfer(args: WithLoggerType<Record<'nft', Nft>>): Promise<void> {
   const {
-    transfer: { contract, tokenId },
+    nft: {
+      tokenId,
+      collection: { contract }
+    },
     logger
   } = args
   const collection = await addCollection({ contract, fetch, logger })

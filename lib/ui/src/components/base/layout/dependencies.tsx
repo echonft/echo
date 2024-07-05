@@ -1,11 +1,9 @@
 'use client'
-import { acceptOffer } from '@echo/api/fetchers/accept-offer'
 import { addWallet } from '@echo/api/fetchers/add-wallet'
 import { cancelListing } from '@echo/api/fetchers/cancel-listing'
-import { cancelOffer } from '@echo/api/fetchers/cancel-offer'
 import { createListing } from '@echo/api/fetchers/create-listing'
-import { createOffer } from '@echo/api/fetchers/create-offer'
 import { getNonce } from '@echo/api/fetchers/get-nonce'
+import { getOfferByIdContract } from '@echo/api/fetchers/get-offer-by-id-contract'
 import { getWallets } from '@echo/api/fetchers/get-wallets'
 import { rejectOffer } from '@echo/api/fetchers/reject-offer'
 import { searchCollections } from '@echo/api/fetchers/search-collections'
@@ -33,24 +31,22 @@ export const Dependencies: FunctionComponent<PropsWithChildren> = ({ children })
   return (
     <DependenciesProvider
       dependencies={{
-        acceptOffer,
         addWallet,
         approveErc721Contract,
         areNftsInEscrow,
         cancelListing,
-        cancelOffer,
         contractAcceptOffer,
         contractCancelOffer,
         contractCreateOffer,
         contractExecuteOffer,
         contractRedeemOffer,
         createListing,
-        createOffer,
         disconnectWallet,
         getAccount,
         getEchoTradingFees,
         getErc721ContractApproval,
         getNonce,
+        getOfferByIdContract,
         getWallets,
         rejectOffer,
         searchCollections,

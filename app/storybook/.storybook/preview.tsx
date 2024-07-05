@@ -1,24 +1,22 @@
 // noinspection JSUnusedGlobalSymbols
 
 import '@echo/ui-css/index.css'
-import { acceptOffer } from '@echo/storybook/mocks/accept-offer'
 import { addWallet } from '@echo/storybook/mocks/add-wallet'
 import { approveErc721Contract } from '@echo/storybook/mocks/approve-erc-721-contract'
 import { areNftsInEscrow } from '@echo/storybook/mocks/are-nfts-in-escrow'
 import { cancelListing } from '@echo/storybook/mocks/cancel-listing'
-import { cancelOffer } from '@echo/storybook/mocks/cancel-offer'
 import { contractAcceptOffer } from '@echo/storybook/mocks/contract-accept-offer'
 import { contractCancelOffer } from '@echo/storybook/mocks/contract-cancel-offer'
 import { contractCreateOffer } from '@echo/storybook/mocks/contract-create-offer'
 import { contractExecuteOffer } from '@echo/storybook/mocks/contract-execute-offer'
 import { contractRedeemOffer } from '@echo/storybook/mocks/contract-redeem-offer'
 import { createListing } from '@echo/storybook/mocks/create-listing'
-import { createOffer } from '@echo/storybook/mocks/create-offer'
 import { disconnectWallet } from '@echo/storybook/mocks/disconnect-wallet'
 import { getAccount } from '@echo/storybook/mocks/get-account'
 import { getEchoTradingFees } from '@echo/storybook/mocks/get-echo-trading-fees'
 import { getErc721ContractApproval } from '@echo/storybook/mocks/get-erc-721-contract-approval'
 import { getNonce } from '@echo/storybook/mocks/get-nonce'
+import { getOfferByIdContract } from '@echo/storybook/mocks/get-offer-by-id-contract'
 import { getWallets } from '@echo/storybook/mocks/get-wallets'
 import { rejectOffer } from '@echo/storybook/mocks/reject-offer'
 import { searchCollections } from '@echo/storybook/mocks/search-collections'
@@ -46,24 +44,22 @@ const preview: Preview = {
           <Web3Provider>
             <DependenciesProvider
               dependencies={{
-                acceptOffer,
                 addWallet,
                 approveErc721Contract,
                 areNftsInEscrow,
                 cancelListing,
-                cancelOffer,
                 contractAcceptOffer,
                 contractCancelOffer,
                 contractCreateOffer,
                 contractExecuteOffer,
                 contractRedeemOffer,
                 createListing,
-                createOffer,
                 disconnectWallet,
                 getAccount,
                 getEchoTradingFees,
                 getErc721ContractApproval,
                 getNonce,
+                getOfferByIdContract,
                 getWallets,
                 rejectOffer,
                 searchCollections,

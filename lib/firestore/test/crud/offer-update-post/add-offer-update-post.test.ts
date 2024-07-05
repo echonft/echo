@@ -9,7 +9,6 @@ import { deleteOfferUpdate } from '@echo/firestore/crud/offer-update/delete-offe
 import { unchecked_addOfferUpdatePost } from '@echo/firestore/utils/offer-update-post/unchecked_add-offer-update-post'
 import { OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
-import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
@@ -19,10 +18,7 @@ describe('CRUD - offer-update-post - addOfferUpdatePost', () => {
   const addOfferStateUpdateArgs: AddOfferStateUpdateArgs = {
     offerId: offerMockToJohnnycageId(),
     args: {
-      state: OFFER_STATE_REJECTED,
-      trigger: {
-        by: userMockJohnnyUsername()
-      }
+      state: OFFER_STATE_REJECTED
     }
   }
   let offerUpdateId: Nullable<string>

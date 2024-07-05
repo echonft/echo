@@ -15,7 +15,6 @@ import {
 } from '@echo/model/constants/offer-states'
 import { getOfferMockBySlug } from '@echo/model/mocks/offer/get-offer-mock-by-slug'
 import { offerMockToJohnnycageSlug } from '@echo/model/mocks/offer/offer-mock'
-import { userMockCrewUsername } from '@echo/model/mocks/user/user-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { futureDate } from '@echo/utils/helpers/future-date'
 import { pastDate } from '@echo/utils/helpers/past-date'
@@ -28,12 +27,7 @@ describe('CRUD - offer - cancelOffer', () => {
   const slug = offerMockToJohnnycageSlug()
   let createdStateUpdateId: Nullable<string>
   const args: Omit<UpdateOfferStateArgs, 'state'> = {
-    slug,
-    updateArgs: {
-      trigger: {
-        by: userMockCrewUsername()
-      }
-    }
+    slug
   }
   beforeAll(async () => {
     await assertOffers()
@@ -77,19 +71,6 @@ describe('CRUD - offer - cancelOffer', () => {
   it('throws if the offer is accepted', async () => {
     await unchecked_updateOffer(slug, { state: OFFER_STATE_ACCEPTED, expiresAt: futureDate() })
     await expect(cancelOffer(args)).rejects.toBeDefined()
-  })
-  it('throws if the state update by trigger is not valid', async () => {
-    await unchecked_updateOffer(slug, { state: OFFER_STATE_OPEN, expiresAt: futureDate() })
-    await expect(
-      pipe(
-        assoc('updateArgs', {
-          trigger: {
-            by: 'not-receiver-nor-sender-nor-system'
-          }
-        }),
-        cancelOffer
-      )(args)
-    ).rejects.toBeDefined()
   })
   it('cancel offer', async () => {
     await unchecked_updateOffer(slug, { state: OFFER_STATE_OPEN, expiresAt: futureDate() })

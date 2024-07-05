@@ -23,15 +23,12 @@ export const SWRKeys = {
     create: 'create-listing'
   },
   offer: {
-    accept: pipe<[Offer], string, string>(prop('slug'), concat('accept-offer-')),
-    cancel: pipe<[Offer], string, string>(prop('slug'), concat('cancel-offer-')),
     contractAccept: pipe<[Offer], string, string>(prop('slug'), concat('contract-accept-offer-')),
     contractCancel: pipe<[Offer], string, string>(prop('slug'), concat('contract-cancel-offer-')),
     contractCreate: 'contract-create-offer',
     contractRedeem: pipe<[Offer], string, string>(prop('slug'), concat('contract-redeem-offer-')),
-    create: 'create-offer',
+    getByIdContract: concat('get-offer-by-id-contract-'),
     get: pipe<[Offer], string, string>(prop('slug'), concat('get-offer-')),
-    getSignature: pipe<[Offer], string, string>(prop('slug'), concat('get-offer-signature-')),
     reject: pipe<[Offer], string, string>(prop('slug'), concat('reject-offer-')),
     sign: pipe<[Offer], string, string>(prop('slug'), concat('sign-offer-')),
     validate: pipe<[Offer], string, string>(prop('slug'), concat('validate-offer-'))

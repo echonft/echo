@@ -1,6 +1,5 @@
 'use client'
-import type { CancelOfferArgs } from '@echo/api/types/fetchers/cancel-offer-args'
-import type { OfferResponse } from '@echo/api/types/responses/offer-response'
+import { OFFER_STATE_CANCELLED } from '@echo/model/constants/offer-states'
 import type { Nft } from '@echo/model/types/nft'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
@@ -36,35 +35,23 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.details.cancelBtn')
   const tError = useTranslations('error.offer')
-  const { cancelOffer, contractCancelOffer, logger } = useDependencies()
+  const { contractCancelOffer, logger } = useDependencies()
   const chain = pipe<[OfferWithRole], Nft[], Nft, ChainName>(
     prop('receiverItems'),
     head,
     nonNullableReturn(path(['collection', 'contract', 'chain']))
   )(offer)
-  const { trigger: triggerCancel } = useSWRTrigger<OfferResponse, CancelOfferArgs>({
-    key: SWRKeys.offer.cancel(offer),
-    fetcher: cancelOffer,
-    onSuccess: (response) => {
-      onSuccess?.(assoc('role', offer.role, response.offer))
-    },
-    onError: {
-      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('cancel') },
-      onError,
-      logger,
-      loggerContext: {
-        component: OfferDetailsCancelButton.name,
-        fn: cancelOffer.name,
-        offer
-      }
-    }
-  })
 
   const { trigger: triggerContractCancel } = useSWRTrigger<HexString, ContractUpdateOfferArgs>({
     key: SWRKeys.offer.contractCancel(offer),
     fetcher: contractCancelOffer,
     onSuccess: (_response) => {
-      void triggerCancel({ slug: offer.slug })
+      onSuccess?.(
+        pipe<[OfferWithRole], OfferWithRole, OfferWithRole>(
+          assoc('state', OFFER_STATE_CANCELLED),
+          assoc('readOnly', true)
+        )(offer)
+      )
     },
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('cancel') },

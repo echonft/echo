@@ -5,15 +5,19 @@ import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { getWalletByAddress } from '@echo/firestore/crud/wallet/get-wallet-by-address'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
 import type { NftWithId } from '@echo/firestore/types/model/nft/nft-with-id'
-import type { NftTransfer } from '@echo/frontend/lib/types/transfer/nft-transfer'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
+import type { Nft } from '@echo/model/types/nft'
 import { addCollection } from '@echo/tasks/add-collection'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { chain, isNil } from 'ramda'
+import { isNil } from 'ramda'
 
-export async function processOutEscrowTransfer(args: WithLoggerType<Record<'transfer', NftTransfer>>): Promise<void> {
+export async function processOutEscrowTransfer(args: WithLoggerType<Record<'nft', Nft>>): Promise<void> {
   const {
-    transfer: { contract, to: toWallet, tokenId },
+    nft: {
+      tokenId,
+      collection: { contract },
+      owner: { wallet }
+    },
     logger
   } = args
   const collection = await addCollection({ contract, fetch, logger })
@@ -24,13 +28,10 @@ export async function processOutEscrowTransfer(args: WithLoggerType<Record<'tran
       logger?.error({ fn: processOutEscrowTransfer.name, nft: nftIndex }, 'NFT not found')
       return
     }
-    const to = await getWalletByAddress(toWallet)
+    const to = await getWalletByAddress(wallet)
     // wallet is not in the database, we simply delete the NFT in that case
     if (isNil(to)) {
-      logger?.warn(
-        { fn: processOutEscrowTransfer.name, wallet: { address: toWallet, chain } },
-        'target wallet not found in the database'
-      )
+      logger?.warn({ fn: processOutEscrowTransfer.name, wallet }, 'target wallet not found in the database')
       await deleteEscrowedNft(nftSnapshot.id)
       logger?.warn({ fn: processOutEscrowTransfer.name, nft: nftIndex }, 'deleted escrowed NFT')
       return

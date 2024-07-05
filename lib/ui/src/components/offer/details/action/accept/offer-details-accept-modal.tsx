@@ -1,6 +1,5 @@
 'use client'
-import type { AcceptOfferArgs } from '@echo/api/types/fetchers/accept-offer-args'
-import type { OfferResponse } from '@echo/api/types/responses/offer-response'
+import { OFFER_STATE_ACCEPTED } from '@echo/model/constants/offer-states'
 import type { Nft } from '@echo/model/types/nft'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalDescription } from '@echo/ui/components/base/modal/modal-description'
@@ -31,7 +30,7 @@ interface Props {
 export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open, onSuccess, onClose }) => {
   const t = useTranslations('offer.details.acceptModal')
   const tError = useTranslations('error.offer')
-  const { acceptOffer, contractAcceptOffer, logger } = useDependencies()
+  const { contractAcceptOffer, logger } = useDependencies()
   const chain = pipe<[OfferWithRole], Nft[], Nft, ChainName>(
     prop('receiverItems'),
     head,
@@ -45,7 +44,7 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open,
     key: SWRKeys.offer.contractAccept(offer),
     fetcher: contractAcceptOffer,
     onSuccess: () => {
-      void triggerAccept({ slug: offer.slug })
+      onSuccess?.(assoc('state', OFFER_STATE_ACCEPTED, offer))
     },
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('accept') },
@@ -59,25 +58,7 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open,
     }
   })
 
-  const { trigger: triggerAccept, isMutating: isAcceptMutating } = useSWRTrigger<OfferResponse, AcceptOfferArgs>({
-    key: SWRKeys.offer.accept(offer),
-    fetcher: acceptOffer,
-    onSuccess: (response) => {
-      onSuccess?.(assoc('role', offer.role, response.offer))
-    },
-    onError: {
-      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('accept') },
-      onError: onClose,
-      logger,
-      loggerContext: {
-        component: OfferDetailsAcceptModal.name,
-        fn: acceptOffer.name,
-        offer
-      }
-    }
-  })
-
-  const isMutating = isAcceptMutating || isContractAcceptMutating || isNil(fees)
+  const isMutating = isContractAcceptMutating || isNil(fees)
 
   return (
     <Modal open={open} onClose={isMutating ? undefined : onClose} title={t('title')}>
