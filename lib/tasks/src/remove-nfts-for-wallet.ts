@@ -7,9 +7,12 @@ import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { andThen, dissoc, otherwise, pipe, prop } from 'ramda'
 
-// TODO remove for all EVM chains
+/**
+ * Removes the NFTs associated to a given wallet
+ * TODO remove for all EVM chains
+ * @param args
+ */
 export async function removeNftsForWallet(args: WithLoggerType<Record<'wallet', PartialWallet>>): Promise<void> {
-  const logger = args.logger?.child({ fn: removeNftsForWallet.name })
   const nfts = await pipe<
     [WithLoggerType<Record<'wallet', PartialWallet>>],
     Record<'wallet', PartialWallet>,
@@ -19,7 +22,7 @@ export async function removeNftsForWallet(args: WithLoggerType<Record<'wallet', 
     dissoc('logger'),
     getNftsForWallet,
     otherwise((err: unknown) => {
-      logger?.error({ err, wallet: args.wallet }, 'could not get NFTs for wallet')
+      args.logger?.error({ err, wallet: args.wallet }, 'could not get NFTs for wallet')
       return []
     })
   )(args)
@@ -27,7 +30,7 @@ export async function removeNftsForWallet(args: WithLoggerType<Record<'wallet', 
     await pipe(
       getNftSnapshot,
       otherwise((err: unknown) => {
-        logger?.error({ err, nft }, 'could not get NFT snapshot')
+        args.logger?.error({ err, nft }, 'could not get NFT snapshot')
       }),
       andThen(
         unlessNil(
@@ -35,10 +38,10 @@ export async function removeNftsForWallet(args: WithLoggerType<Record<'wallet', 
             prop('id'),
             deleteNft,
             otherwise((err: unknown) => {
-              logger?.error({ err, nft }, 'could not delete NFT')
+              args.logger?.error({ err, nft }, 'could not delete NFT')
             }),
             andThen(() => {
-              logger?.info({ nft }, 'deleted NFT')
+              args.logger?.info({ nft }, 'deleted NFT')
             })
           )
         )

@@ -1,12 +1,13 @@
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { echoAbi } from '@echo/web3/constants/echo-abi'
 import { getClientForChain } from '@echo/web3/helpers/chain/get-client-for-chain'
 import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
 import { mapReadContractOfferToContractOffer } from '@echo/web3/mappers/map-read-contract-offer-to-contract-offer'
 import type { ContractOffer } from '@echo/web3/types/contract-offer'
 import type { ReadContractOffer } from '@echo/web3/types/read-contract-offer'
-import { andThen, pipe } from 'ramda'
+import { always, andThen, otherwise, pipe } from 'ramda'
 import { readContract } from 'viem/actions'
 
 export interface GetEchoOfferArgs {
@@ -24,8 +25,14 @@ export async function getEchoOffer(args: GetEchoOfferArgs) {
     address: echoAddress,
     args: [offerId] as readonly [HexString]
   }
-  return pipe<[typeof client, typeof parameters], Promise<Readonly<ReadContractOffer>>, Promise<ContractOffer>>(
+  return pipe<
+    [typeof client, typeof parameters],
+    Promise<Readonly<ReadContractOffer>>,
+    Promise<Nullable<ContractOffer>>,
+    Promise<Nullable<ContractOffer>>
+  >(
     readContract,
-    andThen(mapReadContractOfferToContractOffer)
+    andThen(mapReadContractOfferToContractOffer),
+    otherwise(always(undefined))
   )(client, parameters)
 }

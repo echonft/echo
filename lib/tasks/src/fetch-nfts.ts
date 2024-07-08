@@ -6,22 +6,25 @@ import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { andThen, assoc, collectBy, otherwise, path, pipe } from 'ramda'
+import { andThen, collectBy, otherwise, path, pipe } from 'ramda'
 
 interface FetchNftsArgs extends WithFetch {
   wallet: PartialWallet
 }
 
+/**
+ * Fetches NFTs from the API and groups them by collection
+ * We use OpenSea API on testnet and NFTScan on mainnet
+ * @param args
+ */
 export function fetchNfts(args: WithLoggerType<FetchNftsArgs>): Promise<PartialNft[][]> {
   const { wallet } = args
-  const logger = args.logger?.child({ fn: fetchNfts.name })
   const fetcher = isTestnetChain(wallet.chain) ? getNftsFromOpensea : getNftsFromNftScan
   return pipe(
-    assoc('logger', logger),
     fetcher,
     andThen(collectBy(nonNullableReturn<[PartialNft], string>(path(['collection', 'contract', 'address'])))),
     otherwise((err) => {
-      logger?.error({ err, wallet }, 'could not fetch NFTs from API')
+      args.logger?.error({ err, wallet }, 'could not fetch NFTs from API')
       return []
     })
   )(args)

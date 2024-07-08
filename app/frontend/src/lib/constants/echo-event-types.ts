@@ -1,8 +1,3 @@
-export const OFFER_CREATED = ''
-export const OFFER_EXECUTED = ''
-export const OFFER_CANCELLED = ''
-export const OFFER_ACCEPTED = ''
-export const OFFER_REDEEMED = ''
 export const ECHO_EVENT_TYPES = {
   '0x395be2bdef7155640f1587948c5cf433c6fe9b88ad5669088d8bc1a9c61df3ee': 'OFFER_CREATED',
   '0x29b4fc7c563e5c9b23b0f5bef771f3129ee53ebecccd9ac7fda41aa2151960b3': 'OFFER_EXECUTED',

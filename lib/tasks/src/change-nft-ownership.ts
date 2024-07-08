@@ -4,7 +4,7 @@ import { updateNft } from '@echo/firestore/crud/nft/update-nft'
 import { getWalletOwner } from '@echo/firestore/crud/wallet/get-wallet-owner'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
 import type { Nft } from '@echo/model/types/nft'
-import type { Wallet } from '@echo/model/types/wallet'
+import type { User } from '@echo/model/types/user'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
@@ -12,12 +12,20 @@ import { andThen, assoc, isNil, otherwise, pipe, prop } from 'ramda'
 
 interface ChangeNftOwnershipArgs {
   nft: Nft
-  wallet: Wallet
+  owner: Pick<User, 'wallet'>
 }
 
+/**
+ * Updates the NFT owner in Firestore
+ * @param args
+ * @throws Error returns a rejected promise if the NFT owner could not have been updated
+ */
 export async function changeNftOwnership(args: WithLoggerType<ChangeNftOwnershipArgs>): Promise<Nullable<Nft>> {
-  const logger = args.logger?.child({ fn: changeNftOwnership.name })
-  const { nft, wallet } = args
+  const {
+    nft,
+    owner: { wallet },
+    logger
+  } = args
   const user = await pipe(
     getWalletOwner,
     otherwise((err) => {
@@ -37,10 +45,6 @@ export async function changeNftOwnership(args: WithLoggerType<ChangeNftOwnership
           pipe(
             prop('id'),
             deleteNft,
-            otherwise((err) => {
-              logger?.error({ err, nft }, 'could not delete NFT')
-              return undefined
-            }),
             andThen(() => {
               logger?.info({ nft, wallet }, 'deleted NFT since the new owner is not in the database')
               return undefined
@@ -56,10 +60,6 @@ export async function changeNftOwnership(args: WithLoggerType<ChangeNftOwnership
     return await pipe(
       assoc('owner', getUserFromFirestoreData({ user, wallet })),
       updateNft,
-      otherwise((err) => {
-        logger?.error({ err, nft }, 'could not update NFT ownership')
-        return undefined
-      }),
       andThen((updatedNft) => {
         logger?.info({ nft: updatedNft }, 'updated NFT ownership')
         return updatedNft

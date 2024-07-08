@@ -10,9 +10,12 @@ interface UpdateNftsForUserArgs extends WithFetch {
   user: UserDocumentData
 }
 
+/**
+ * Updates all the NFTs of a user
+ * @param args
+ */
 export async function updateNftsForUser(args: WithLoggerType<UpdateNftsForUserArgs>): Promise<void> {
-  const logger = args.logger?.child({ fn: updateNftsForUser.name })
-  const { user, fetch } = args
+  const { user, fetch, logger } = args
   logger?.info({ user }, 'updating NFTs for user')
   const wallets = await pipe(
     getWalletsForUser,

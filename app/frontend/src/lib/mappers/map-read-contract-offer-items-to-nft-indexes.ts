@@ -1,31 +1,26 @@
-import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
+import { mapReadContractOfferItemToNftIndex } from '@echo/frontend/lib/mappers/map-read-contract-offer-item-to-nft-index'
 import type { NftIndex } from '@echo/model/types/nft'
-import { addCollection } from '@echo/tasks/add-collection'
+import { promiseAll } from '@echo/utils/fp/promise-all'
 import { getChain } from '@echo/utils/helpers/chains/get-chain'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
+import type { ContractOfferItem } from '@echo/web3/types/contract-offer-item'
 import type { ContractOfferItems } from '@echo/web3/types/contract-offer-items'
-import { isNil } from 'ramda'
+import { assoc, map, objOf, pipe, prop } from 'ramda'
 
-interface MapReadContractsOfferItemsArgs {
-  items: ContractOfferItems
-}
-
-export async function mapReadContractOfferItemsToNftIndexes(
-  args: WithLoggerType<MapReadContractsOfferItemsArgs>
+/**
+ * Maps {@link ContractOfferItems} to {@link NftIndex}
+ * @param args
+ * @throws Error returns a rejected promise if the collection could not have been added for any of the items
+ */
+export function mapReadContractOfferItemsToNftIndexes(
+  args: WithLoggerType<Record<'items', ContractOfferItems>>
 ): Promise<NftIndex[]> {
-  const {
-    logger,
-    items: { chainId, items }
-  } = args
-  const chain = getChain(chainId)
-  // TODO Beurk, can be done cleaner with FP
-  const indexes = []
-  for (const item of items) {
-    const collection = await addCollection({ contract: { address: item.tokenAddress, chain }, fetch, logger })
-    if (isNil(collection)) {
-      throw new Error()
-    }
-    indexes.push(getNftIndex({ collection, tokenId: item.tokenId }))
-  }
-  return indexes
+  const chain = getChain(args.items.chainId)
+  return pipe(
+    prop('items'),
+    map<ContractOfferItem, Promise<NftIndex>>(
+      pipe(objOf('item'), assoc('chain', chain), assoc('logger', args.logger), mapReadContractOfferItemToNftIndex)
+    ),
+    promiseAll
+  )(args)
 }

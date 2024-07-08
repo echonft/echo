@@ -6,26 +6,24 @@ import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { assoc, otherwise, pipe } from 'ramda'
+import { otherwise, pipe } from 'ramda'
 
 interface FetchCollectionArgs extends WithFetch {
   contract: PartialWallet
 }
 
 /**
- * Returns the collection for a given NFT. Will decide where to fetch the data based on chain
+ * Fetches a collection from the API
  * We use OpenSea API on testnet and NFTScan on mainnet
- * Adds the collection if it does not exist already.
+ * @param args
  */
 export function fetchCollection(args: WithLoggerType<FetchCollectionArgs>): Promise<Nullable<Collection>> {
-  const logger = args.logger?.child({ fn: fetchCollection.name })
   const fetcher = isTestnetChain(args.contract.chain) ? getCollectionFromOpenSea : getCollectionFromNftScan
-  logger?.info({ collection: { contract: args.contract }, fn: fetchCollection.name }, 'fetching collection')
+  args.logger?.info({ collection: { contract: args.contract }, fn: fetchCollection.name }, 'fetching collection')
   return pipe(
-    assoc('logger', logger),
     fetcher,
     otherwise((err) => {
-      logger?.error({ err, collection: { contract: args.contract } }, 'could not fetch collection from API')
+      args.logger?.error({ err, collection: { contract: args.contract } }, 'could not fetch collection from API')
       return undefined
     })
   )(args)

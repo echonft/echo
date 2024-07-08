@@ -2,53 +2,45 @@ import { addEscrowedNftWithId } from '@echo/firestore/crud/escrowed-nft/add-escr
 import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
 import { getNftSnapshotForIndex } from '@echo/firestore/crud/nft/get-nft'
 import type { NftWithId } from '@echo/firestore/types/model/nft/nft-with-id'
+import { NotFoundError } from '@echo/frontend/lib/helpers/error/not-found-error'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import type { Nft } from '@echo/model/types/nft'
 import { addCollection } from '@echo/tasks/add-collection'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { isNil, otherwise, pipe } from 'ramda'
+import { andThen, assoc, isNil, otherwise, pipe } from 'ramda'
 
 export async function processInEscrowTransfer(args: WithLoggerType<Record<'nft', Nft>>): Promise<void> {
-  const logger = args.logger?.child({ fn: processInEscrowTransfer.name })
   const {
     nft: {
       tokenId,
       collection: { contract }
-    }
+    },
+    logger
   } = args
-  const collection = await pipe(
-    addCollection,
+  const collection = await addCollection({ contract, fetch, logger })
+  const nftIndex = getNftIndex({ collection, tokenId })
+  const nftSnapshot = await pipe(
+    getNftSnapshotForIndex,
     otherwise((err) => {
-      logger?.error({ err, collection: { contract } }, 'could not add collection')
+      logger?.error({ err, nft: nftIndex }, 'could get NFT snapshot')
       return undefined
     })
-  )({ contract, fetch, logger })
-  if (!isNil(collection)) {
-    const nftIndex = getNftIndex({ collection, tokenId })
-    const nftSnapshot = await pipe(
-      getNftSnapshotForIndex,
-      otherwise((err) => {
-        logger?.error({ err, nft: nftIndex }, 'could get NFT snapshot')
-      })
-    )(nftIndex)
-    if (!isNil(nftSnapshot)) {
-      const nftData = nftSnapshot.data()
-      const nft: NftWithId = { ...nftData, id: nftSnapshot.id }
-      // We add the escrowed NFT with NFT data and remove it from the NFT database
-      await pipe(
-        addEscrowedNftWithId,
-        otherwise((err) => {
-          logger?.error({ err, nft }, 'could not add escrowed NFT')
-        })
-      )(nft)
-      logger?.info({ nft }, 'added escrowed NFT')
-      await pipe(
-        deleteNft,
-        otherwise((err) => {
-          logger?.error({ err, nft: nftIndex }, 'could not delete NFT')
-        })
-      )(nftSnapshot.id)
-      logger?.info({ nft: nftIndex }, 'deleted NFT')
-    }
+  )(nftIndex)
+  if (isNil(nftSnapshot)) {
+    return Promise.reject(new NotFoundError({ message: 'NFT snapshot not found', severity: 'warning' }))
   }
+  const nft: NftWithId = { ...nftSnapshot.data(), id: nftSnapshot.id }
+  // We add the escrowed NFT with NFT data and remove it from the NFT database
+  await pipe(
+    addEscrowedNftWithId,
+    andThen(({ id, data }) => {
+      logger?.info({ nft: assoc('id', id, data) }, 'added escrowed NFT')
+    })
+  )(nft)
+  await pipe(
+    deleteNft,
+    andThen((id) => {
+      logger?.info({ nft: { id } }, 'deleted NFT')
+    })
+  )(nftSnapshot.id)
 }

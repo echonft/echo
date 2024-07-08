@@ -15,5 +15,5 @@
     }
   },
   "include": ["src", "test", "tailwind.config.ts", "tsup.config.ts", "../../env.d.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }

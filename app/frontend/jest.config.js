@@ -2,7 +2,12 @@
 /** @type {import('jest').Config} */
 export default {
   collectCoverage: Boolean(process.env.CI),
-  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+  collectCoverageFrom: [
+    '<rootDir>/src/**/*.ts',
+    '!<rootDir>/src/app/api/**/*.ts',
+    '!<rootDir>/src/lib/constants/**/*.ts',
+    '!<rootDir>/src/mocks/**/*.ts'
+  ],
   coverageDirectory: '<rootDir>/test/.coverage',
   coverageReporters: ['json-summary', 'text'],
   moduleNameMapper: {

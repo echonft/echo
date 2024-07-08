@@ -1,21 +1,22 @@
 import type { GetOfferByIdContractParams } from '@echo/api/types/params/get-offer-by-id-contract-params'
-import { type OfferResponse } from '@echo/api/types/responses/offer-response'
 import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
-import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
-import { guardAsyncFn } from '@echo/frontend/lib/helpers/error/guard'
-import { assertOffer } from '@echo/frontend/lib/helpers/offer/assert/assert-offer'
-import { assertOfferUser } from '@echo/frontend/lib/helpers/offer/assert/assert-offer-user'
+import { ForbiddenError } from '@echo/frontend/lib/helpers/error/forbidden-error'
+import { NotFoundError } from '@echo/frontend/lib/helpers/error/not-found-error'
+import { toNextReponse } from '@echo/frontend/lib/request-handlers/to-next-reponse'
 import type { AuthRequestHandlerArgsWithParams } from '@echo/frontend/lib/types/request-handlers/auth-request-handler'
-import { NextResponse } from 'next/server'
+import { isNil } from 'ramda'
 
 export async function getOfferByIdContractRequestHandler({
-  user,
-  logger,
+  user: { username },
   params
 }: AuthRequestHandlerArgsWithParams<GetOfferByIdContractParams>) {
   const { idContract } = params
-  const offer = await guardAsyncFn({ fn: getOfferByIdContract, status: ErrorStatus.NOT_FOUND, logger })(idContract)
-  assertOffer(offer)
-  assertOfferUser(offer, user.username)
-  return NextResponse.json<OfferResponse>({ offer: offer })
+  const offer = await getOfferByIdContract(idContract)
+  if (isNil(offer)) {
+    return Promise.reject(new NotFoundError())
+  }
+  if (offer.sender.username !== username && offer.receiver.username !== username) {
+    return Promise.reject(new ForbiddenError())
+  }
+  return toNextReponse({ offer })
 }

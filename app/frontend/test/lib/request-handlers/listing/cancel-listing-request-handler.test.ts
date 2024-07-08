@@ -2,6 +2,8 @@ import type { ListingResponse } from '@echo/api/types/responses/listing-response
 import { cancelListing } from '@echo/firestore/crud/listing/cancel-listing'
 import { getListing } from '@echo/firestore/crud/listing/get-listing'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
+import { ForbiddenError } from '@echo/frontend/lib/helpers/error/forbidden-error'
+import { NotFoundError } from '@echo/frontend/lib/helpers/error/not-found-error'
 import { cancelListingRequestHandler } from '@echo/frontend/lib/request-handlers/listing/cancel-listing-request-handler'
 import { mockRequest } from '@echo/frontend/mocks/mock-request'
 import { LISTING_STATE_CANCELLED } from '@echo/model/constants/listing-states'
@@ -29,15 +31,14 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
     const req = mockRequest<never>()
     await expect(() =>
       cancelListingRequestHandler({ user, req, params: { slug: 'not-found' } })
-    ).rejects.toHaveProperty('status', 400)
+    ).rejects.toBeInstanceOf(NotFoundError)
   })
 
   it('throws if the listing state is read only', async () => {
     jest.mocked(getListing).mockResolvedValueOnce(assoc('readOnly', true, listing))
     const req = mockRequest<never>()
-    await expect(() => cancelListingRequestHandler({ user, req, params: { slug } })).rejects.toHaveProperty(
-      'status',
-      400
+    await expect(() => cancelListingRequestHandler({ user, req, params: { slug } })).rejects.toBeInstanceOf(
+      ForbiddenError
     )
   })
 
@@ -46,9 +47,8 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
       .mocked(getListing)
       .mockResolvedValueOnce(modify<Listing, 'creator', User>('creator', assoc('username', 'another-user'), listing))
     const req = mockRequest<never>()
-    await expect(() => cancelListingRequestHandler({ user, req, params: { slug } })).rejects.toHaveProperty(
-      'status',
-      403
+    await expect(() => cancelListingRequestHandler({ user, req, params: { slug } })).rejects.toBeInstanceOf(
+      ForbiddenError
     )
   })
 

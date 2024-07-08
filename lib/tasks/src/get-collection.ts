@@ -16,9 +16,12 @@ interface GetCollectionArgs extends WithFetch {
   contract: PartialWallet
 }
 
+/**
+ * Get a collection from Firestore, and if it doesn't exist, from the API
+ * @param args
+ */
 export async function getCollection(args: WithLoggerType<GetCollectionArgs>): Promise<GetCollectionReturn> {
-  const logger = args.logger?.child({ fn: getCollection.name })
-  const { contract } = args
+  const { contract, logger } = args
   logger?.info({ collection: { contract } }, 'getting collection')
   const collection = await pipe(
     getCollectionByAddressFromFirestore,

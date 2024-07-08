@@ -17,5 +17,5 @@
     "sourceRoot": "/"
   },
   "include": ["src", "test", "tsup.config.ts", "../../env.d.ts"],
-  "exclude": ["dist", "node_modules"]
+  "exclude": ["node_modules", "dist"]
 }

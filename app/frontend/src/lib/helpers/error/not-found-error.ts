@@ -1,8 +1,21 @@
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
-import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
+import { ApiError, type ApiErrorArgs } from '@echo/frontend/lib/helpers/error/api-error'
+import type { OptionalRecord } from '@echo/utils/types/optional-record'
+import { assoc, isNil, pipe, propOr } from 'ramda'
 
 export class NotFoundError extends ApiError {
-  constructor(error?: Error) {
-    super(ErrorStatus.NOT_FOUND, 'Not Found', error)
+  constructor(args?: Omit<ApiErrorArgs, 'status' | 'message'> & OptionalRecord<'message', string>) {
+    const status = ErrorStatus.NOT_FOUND
+    const defaultMessage = 'Not Found'
+    if (isNil(args)) {
+      super({ status, message: defaultMessage })
+    } else {
+      const message = propOr<
+        string,
+        Omit<ApiErrorArgs, 'status' | 'message'> & OptionalRecord<'message', string>,
+        string
+      >(defaultMessage, 'message', args)
+      super(pipe(assoc('status', status), assoc('message', message))(args))
+    }
   }
 }

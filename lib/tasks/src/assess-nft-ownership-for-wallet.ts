@@ -5,14 +5,18 @@ import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { getNftOwner } from '@echo/web3/helpers/nft/get-nft-owner'
 import { dissoc, equals, isNil, otherwise, pipe } from 'ramda'
 
+/**
+ * Assesses the ownership of the NFTs associated with a given wallet in Firestore
+ * Updates the ownership if necessary
+ * @param args
+ */
 export async function assessNftOwnershipForWallet(
   args: WithLoggerType<Record<'wallet', PartialWallet>>
 ): Promise<void> {
-  const logger = args.logger?.child({ fn: assessNftOwnershipForWallet.name })
   const nfts = await pipe(
     getNftsForWallet,
     otherwise((err) => {
-      logger?.error({ err, wallet: args.wallet }, 'could not NFTs for wallet')
+      args.logger?.error({ err, wallet: args.wallet }, 'could not NFTs for wallet')
       return []
     })
   )(dissoc('logger', args))
@@ -20,21 +24,21 @@ export async function assessNftOwnershipForWallet(
     const wallet = await pipe(
       getNftOwner,
       otherwise((err) => {
-        logger?.error({ err, nft }, 'could not get NFT owner')
+        args.logger?.error({ err, nft }, 'could not get NFT owner')
         return undefined
       })
     )(nft)
     if (!isNil(wallet)) {
       if (equals(wallet, nft.owner.wallet)) {
-        logger?.info({ nft, owner: wallet }, 'valid owner')
+        args.logger?.info({ nft, owner: wallet }, 'valid owner')
       } else {
-        logger?.warn({ nft, owner: wallet }, 'invalid owner')
+        args.logger?.warn({ nft, owner: wallet }, 'invalid owner')
         await pipe(
           changeNftOwnership,
           otherwise((err) => {
-            logger?.error({ err, nft, owner: wallet }, 'could not update NFT ownership')
+            args.logger?.error({ err, nft, owner: wallet }, 'could not update NFT ownership')
           })
-        )({ nft, wallet, logger })
+        )({ nft, owner: { wallet }, logger: args.logger })
       }
     }
   }

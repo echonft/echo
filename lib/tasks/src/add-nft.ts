@@ -4,46 +4,33 @@ import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-
 import type { PartialWallet } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import type { Nft } from '@echo/model/types/nft'
-import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { andThen, assoc, isNil, otherwise, pipe } from 'ramda'
+import { andThen, assoc, isNil, pipe } from 'ramda'
 
 interface AddNftArgs {
   nft: Omit<Nft, 'owner' | 'updatedAt'>
   wallet: PartialWallet
 }
 
+/**
+ * Adds an NFT to firestore
+ * @param args
+ * @throws Error returns a rejected promise if the wallet is not associated with any user in Firestore
+ * @throws Error returns a rejected promise if the NFT could not have been added to Firestore
+ */
 export async function addNft(args: WithLoggerType<AddNftArgs>) {
-  const logger = args.logger?.child({ fn: addNft.name })
-  const { nft, wallet } = args
-  const user = await pipe(
-    getWalletOwner,
-    otherwise((err) => {
-      logger?.error({ err, wallet }, 'could not get wallet owner from Firestore')
-      return undefined
-    })
-  )(wallet)
+  const { nft, wallet, logger } = args
+  const user = await getWalletOwner(wallet)
   if (isNil(user)) {
-    return undefined
-  } else {
-    return pipe<
-      [Omit<Nft, 'owner' | 'updatedAt'>],
-      Omit<Nft, 'updatedAt'>,
-      Promise<NewDocument<Nft>>,
-      Promise<Nullable<Nft>>,
-      Promise<Nullable<Nft>>
-    >(
-      assoc('owner', getUserFromFirestoreData({ user, wallet })),
-      addNftToFirestore,
-      andThen(({ id, data }) => {
-        const newNft = assoc('id', id, data)
-        logger?.info({ nft: newNft }, 'added NFT to the database')
-        return newNft
-      }),
-      otherwise<void>((err) => {
-        logger?.error({ err, nft }, 'could not add NFT to the database')
-        return undefined
-      })
-    )(nft)
+    return Promise.reject(Error('user not found'))
   }
+  return pipe<[Omit<Nft, 'owner' | 'updatedAt'>], Omit<Nft, 'updatedAt'>, Promise<NewDocument<Nft>>, Promise<Nft>>(
+    assoc('owner', getUserFromFirestoreData({ user, wallet })),
+    addNftToFirestore,
+    andThen(({ id, data }) => {
+      const newNft = assoc('id', id, data)
+      logger?.info({ nft: newNft }, 'added NFT to the database')
+      return newNft
+    })
+  )(nft)
 }

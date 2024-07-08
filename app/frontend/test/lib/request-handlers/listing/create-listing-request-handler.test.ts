@@ -3,6 +3,8 @@ import { type ListingTargetRequest } from '@echo/api/types/requests/listing-targ
 import { type ListingResponse } from '@echo/api/types/responses/listing-response'
 import { addListing } from '@echo/firestore/crud/listing/add-listing'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
+import { BadRequestError } from '@echo/frontend/lib/helpers/error/bad-request-error'
+import { ForbiddenError } from '@echo/frontend/lib/helpers/error/forbidden-error'
 import { getListingTargetFromRequest } from '@echo/frontend/lib/helpers/listing/get-listing-target-from-request'
 import { getNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-nfts-from-indexes'
 import { createListingRequestHandler } from '@echo/frontend/lib/request-handlers/listing/create-listing-request-handler'
@@ -43,7 +45,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
 
   it('throws if the request cannot be parsed', async () => {
     const req = mockRequest<CreateListingRequest>({} as CreateListingRequest)
-    await expect(() => createListingRequestHandler({ user, req })).rejects.toHaveProperty('status', 400)
+    await expect(() => createListingRequestHandler({ user, req })).rejects.toBeInstanceOf(BadRequestError)
   })
 
   it('throws if the user is not the owner of every item', async () => {
@@ -54,7 +56,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
     }
     jest.mocked(addListing).mockResolvedValue({ id: listingMockId(), data: listing, listingOffers: [] })
     const req = mockRequest<CreateListingRequest>(request)
-    await expect(() => createListingRequestHandler({ user, req })).rejects.toHaveProperty('status', 403)
+    await expect(() => createListingRequestHandler({ user, req })).rejects.toBeInstanceOf(ForbiddenError)
   })
 
   it('returns 200 if the user owns all the items', async () => {
