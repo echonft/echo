@@ -1,4 +1,4 @@
-import { guardAsyncFn } from '@echo/bot/helpers/guard-async-fn'
+import { captureAndLogException } from '@echo/bot/helpers/capture-and-log-exception'
 import { initializeSentry } from '@echo/bot/helpers/initialize-sentry'
 import { listingChangeHandler } from '@echo/bot/listing/listing-change-handler'
 import { initializeTranslations } from '@echo/bot/messages/initialize-translations'
@@ -16,7 +16,7 @@ import { getBaseLogger } from '@echo/utils/services/logger'
 import { getSecret } from '@echo/utils/services/secret-manager'
 import type { Logger } from '@echo/utils/types/logger'
 import { Client, Events, GatewayIntentBits } from 'discord.js'
-import { assoc, isNil, pick, pipe } from 'ramda'
+import { assoc, isNil, otherwise, pick, pipe } from 'ramda'
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 const botLogger: Logger = getBaseLogger('Bot', {
@@ -25,12 +25,38 @@ const botLogger: Logger = getBaseLogger('Bot', {
 })
 
 client.once(Events.ClientReady, (client) => {
-  listenToListings(pipe(assoc('client', client), assoc('logger', botLogger), guardAsyncFn(listingChangeHandler)))
-  listenToOffers(pipe(assoc('client', client), assoc('logger', botLogger), guardAsyncFn(offerChangeHandler)))
-  listenToOfferUpdates(
-    pipe(assoc('client', client), assoc('logger', botLogger), guardAsyncFn(offerUpdateChangeHandler))
+  listenToListings(
+    pipe(
+      assoc('client', client),
+      assoc('logger', botLogger),
+      listingChangeHandler,
+      otherwise(captureAndLogException(botLogger))
+    )
   )
-  listenToSwaps(pipe(assoc('client', client), assoc('logger', botLogger), guardAsyncFn(swapChangeHandler)))
+  listenToOffers(
+    pipe(
+      assoc('client', client),
+      assoc('logger', botLogger),
+      offerChangeHandler,
+      otherwise(captureAndLogException(botLogger))
+    )
+  )
+  listenToOfferUpdates(
+    pipe(
+      assoc('client', client),
+      assoc('logger', botLogger),
+      offerUpdateChangeHandler,
+      otherwise(captureAndLogException(botLogger))
+    )
+  )
+  listenToSwaps(
+    pipe(
+      assoc('client', client),
+      assoc('logger', botLogger),
+      swapChangeHandler,
+      otherwise(captureAndLogException(botLogger))
+    )
+  )
 })
 
 async function main() {
