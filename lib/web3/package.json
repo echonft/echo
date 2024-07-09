@@ -11,7 +11,7 @@
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier . -u -c --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --config ../../prettier.config.js",
     "test": "jest",
-    "test:ci": "JEST_JUNIT_OUTPUT_DIR=test/.coverage jest --ci --collectCoverage --reporters=default --reporters=jest-junit",
+    "test:ci": "jest --ci --collectCoverage --reporters=default --reporters=jest-junit",
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
