@@ -4,7 +4,7 @@ import { assessNftOwnershipForWallet } from '@echo/tasks/assess-nft-ownership-fo
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { otherwise, pipe } from 'ramda'
 
-export async function assessNftOwnershipForUser(args: WithLoggerType<Record<'user', UserDocumentData>>) {
+export async function assessNftOwnershipForUser(args: WithLoggerType<Record<'user', UserDocumentData>>): Promise<void> {
   const { user } = args
   const logger = args.logger?.child({ fn: assessNftOwnershipForUser.name })
   const wallets = await pipe(
@@ -15,6 +15,11 @@ export async function assessNftOwnershipForUser(args: WithLoggerType<Record<'use
     })
   )(user.username)
   for (const wallet of wallets) {
-    await assessNftOwnershipForWallet({ wallet, logger })
+    await pipe(
+      assessNftOwnershipForWallet,
+      otherwise((err) => {
+        logger?.error({ err, wallet }, 'could not assess NFT ownership for wallet')
+      })
+    )({ wallet, logger })
   }
 }

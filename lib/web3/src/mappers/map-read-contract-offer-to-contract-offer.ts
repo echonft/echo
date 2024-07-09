@@ -1,9 +1,15 @@
+import type { Nullable } from '@echo/utils/types/nullable'
 import { mapReadContractOfferItemsToContractOfferItems } from '@echo/web3/mappers/map-read-contract-offer-items-to-contract-offer-items'
 import type { ContractOffer } from '@echo/web3/types/contract-offer'
 import type { ReadContractOffer } from '@echo/web3/types/read-contract-offer'
-import { applySpec, head, pipe, prop, toLower } from 'ramda'
+import { applySpec, head, isNil, pipe, prop, toLower } from 'ramda'
 
-export function mapReadContractOfferToContractOffer(readOffer: Readonly<ReadContractOffer>): ContractOffer {
+export function mapReadContractOfferToContractOffer(
+  readOffer: Nullable<Readonly<ReadContractOffer>>
+): Nullable<ContractOffer> {
+  if (isNil(readOffer)) {
+    return undefined
+  }
   return applySpec<ContractOffer>({
     sender: pipe(head, toLower),
     receiver: pipe(prop(1), toLower),

@@ -2,10 +2,9 @@ import { addCollection as addCollectionToFirestore } from '@echo/firestore/crud/
 import type { PartialWallet } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { Collection } from '@echo/model/types/collection'
 import { getCollection } from '@echo/tasks/get-collection'
-import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { andThen, assoc, isNil, otherwise, pipe } from 'ramda'
+import { andThen, assoc, isNil, pipe } from 'ramda'
 
 interface AddCollectionArgs extends WithFetch {
   contract: PartialWallet
@@ -13,18 +12,22 @@ interface AddCollectionArgs extends WithFetch {
 
 /**
  * Adds the collection associated to a given contract if it does not exist already
+ * @param args
+ * @throws Error returns a rejected promise if the collection is not found
+ * @throws Error returns a rejected promise if the collection could not have been added to Firestore
  */
-export async function addCollection(args: WithLoggerType<AddCollectionArgs>): Promise<Nullable<Collection>> {
-  const logger = args.logger?.child({ fn: addCollection.name })
-  const { collection, source } = await getCollection(assoc('logger', logger, args))
-  if (source === 'api' && !isNil(collection)) {
-    await pipe(
+export async function addCollection(args: WithLoggerType<AddCollectionArgs>): Promise<Collection> {
+  const { collection, source } = await getCollection(args)
+  if (isNil(collection)) {
+    return Promise.reject(Error('collection not found'))
+  }
+  if (source === 'api') {
+    return await pipe(
       addCollectionToFirestore,
       andThen(({ id, data }) => {
-        args.logger?.info({ collection: assoc('id', id, data) }, 'added collection')
-      }),
-      otherwise((err) => {
-        logger?.error({ err, collection: { contract: args.contract } }, 'could not add collection')
+        const newCollection = assoc('id', id, data)
+        args.logger?.info({ collection: newCollection }, 'added collection')
+        return newCollection
       })
     )(collection)
   }

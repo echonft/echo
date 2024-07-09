@@ -16,6 +16,8 @@
       <sourceFolder url="file://$MODULE_DIR$/lib/model/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/lib/utils/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/lib/auth/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/tasks/test" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/ui/dist" />
       <excludePattern pattern=".coverage" />
       <excludePattern pattern=".eslintcache" />
       <excludePattern pattern=".idea" />

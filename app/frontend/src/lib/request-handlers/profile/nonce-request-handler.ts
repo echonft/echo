@@ -1,21 +1,15 @@
-import { type NonceResponse } from '@echo/api/types/responses/nonce-response'
 import { setNonceForUser } from '@echo/firestore/crud/nonce/set-nonce-for-user'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
-import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
-import { guardAsyncFn } from '@echo/frontend/lib/helpers/error/guard'
-import { assertUserExists } from '@echo/frontend/lib/helpers/user/assert/assert-user-exists'
+import { NotFoundError } from '@echo/frontend/lib/helpers/error/not-found-error'
+import { toNextReponse } from '@echo/frontend/lib/request-handlers/to-next-reponse'
 import type { AuthRequestHandlerArgs } from '@echo/frontend/lib/types/request-handlers/auth-request-handler'
-import { NextResponse } from 'next/server'
+import { andThen, isNil, pick, pipe } from 'ramda'
 import { generateNonce } from 'siwe'
 
-export async function nonceRequestHandler({ user, logger }: AuthRequestHandlerArgs) {
-  const foundUser = await guardAsyncFn({ fn: getUserByUsername, status: ErrorStatus.SERVER_ERROR, logger })(
-    user.username
-  )
-  assertUserExists(foundUser, user.username)
-  const { nonce } = await guardAsyncFn({ fn: setNonceForUser, status: ErrorStatus.SERVER_ERROR, logger })(
-    foundUser.username,
-    generateNonce()
-  )
-  return NextResponse.json<NonceResponse>({ nonce })
+export async function nonceRequestHandler({ user: { username } }: AuthRequestHandlerArgs) {
+  const foundUser = await getUserByUsername(username)
+  if (isNil(foundUser)) {
+    return Promise.reject(new NotFoundError())
+  }
+  return pipe(setNonceForUser, andThen(pipe(pick(['nonce']), toNextReponse)))(foundUser.username, generateNonce())
 }

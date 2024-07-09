@@ -1,68 +1,75 @@
 import { addNft } from '@echo/firestore/crud/nft/add-nft'
 import { getNft } from '@echo/firestore/crud/nft/get-nft'
-import { updateNft as updateNftInFirestore } from '@echo/firestore/crud/nft/update-nft'
+import { getWalletOwner } from '@echo/firestore/crud/wallet/get-wallet-owner'
+import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
 import type { Collection } from '@echo/model/types/collection'
-import type { NftIndex } from '@echo/model/types/nft'
+import type { Nft, PartialNft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
+import { changeNftOwnership } from '@echo/tasks/change-nft-ownership'
 import { fetchNft } from '@echo/tasks/fetch-nft'
+import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { always, andThen, assoc, ifElse, isNil, otherwise, pipe, tap } from 'ramda'
+import { andThen, assoc, ifElse, isNil, otherwise, pipe } from 'ramda'
 
 export interface UpdateNftArgs {
-  nftIndex: NftIndex
-  owner: User
   collection: Collection
+  nft: PartialNft
+  owner: Pick<User, 'wallet'>
 }
 
 /**
- * Adds an NFT to the DB if it doesn't exist, else it updates the ownership.
- * Will decide where to fetch the data based on chain. We use OpenSea API on testnet and NFTScan on mainnet
+ * Updates the ownership of an NFT, or adds it to Firestore if it does not exist
+ * @param args
+ * @throws Error returns a rejected promise if the NFT does not exist in Firestore and no user is associated to the wallet
+ * @throws Error returns a rejected promise if the NFT is not found in the API
+ * @throws Error returns a rejected promise if the NFT could not have been fetched from the API
+ * @throws Error returns a rejected promise if the NFT could not have been added or updated in Firestore
  */
-export async function updateNft(args: WithLoggerType<UpdateNftArgs>) {
-  const { nftIndex, owner, collection } = args
-  const logger = args.logger?.child({ fn: updateNft.name })
-  const nft = await pipe(getNft, otherwise(always(undefined)))(nftIndex)
+export async function updateNft(args: WithLoggerType<UpdateNftArgs>): Promise<Nullable<Nft>> {
+  const { owner, collection } = args
+  const nft = await pipe(
+    getNft,
+    otherwise((err) => {
+      args.logger?.error({ err, nft: nft }, 'could not get NFT from Firestore')
+      return undefined
+    })
+  )(args.nft)
   if (isNil(nft)) {
-    await pipe(
+    const user = await getWalletOwner(owner.wallet)
+    if (isNil(user)) {
+      return Promise.reject(Error('no user found for wallet'))
+    }
+    return await pipe(
       fetchNft,
       andThen(
         ifElse(
           isNil,
-          tap(() => {
-            logger?.error({ nft: nftIndex }, 'NFT not found in API')
-          }),
+          () => {
+            args.logger?.error({ nft: nft }, 'NFT not found in API')
+            return Promise.reject(Error('NFT not found'))
+          },
           pipe(
             assoc('collection', collection),
-            assoc('owner', owner),
+            assoc('owner', getUserFromFirestoreData({ user, wallet: owner.wallet })),
             addNft,
-            andThen(
-              tap(({ id, data }) => {
-                logger?.info({ nft: assoc('id', id, data) }, 'added NFT')
-              })
-            )
+            andThen(({ id, data }) => {
+              const newNft = assoc('id', id, data)
+              args.logger?.info({ nft: newNft }, 'added NFT')
+              return newNft
+            })
           )
         )
       ),
       otherwise((err) => {
-        logger?.error({ err, nft: nftIndex }, 'could not fetch NFT')
+        args.logger?.error({ err, nft: nft }, 'could not fetch NFT')
+        return Promise.reject(Error('could not fetch NFT'))
       })
     )({
+      logger: args.logger,
       fetch,
-      identifier: nftIndex.tokenId.toString(),
+      identifier: args.nft.tokenId.toString(),
       contract: collection.contract
     })
-    return
   }
-  await pipe(
-    assoc('owner', owner),
-    updateNftInFirestore,
-    andThen(
-      tap((nft) => {
-        logger?.info({ nft }, 'updated NFT')
-      })
-    ),
-    otherwise((err) => {
-      logger?.error({ err, nft }, 'could not update NFT')
-    })
-  )(nft)
+  return changeNftOwnership({ nft, owner, logger: args.logger })
 }

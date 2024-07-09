@@ -1,25 +1,21 @@
-import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
+import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { addWalletSchema } from '@echo/frontend/lib/validators/add-wallet-schema'
 import type { Wallet } from '@echo/model/types/wallet'
 import { pick, pipe } from 'ramda'
-import { SiweMessage } from 'siwe'
 
 describe('validators - addWalletSchema', () => {
   const wallet = pipe<[string], WalletDocumentData, Wallet>(
     getWalletDocumentDataMockById,
     pick(['address', 'chain'])
   )('i28NWtlxElPXCnO0c6BC')
-  const signature = '0x0000'
-  const message: string = new SiweMessage({
-    domain: 'domain',
-    address: '0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8',
-    statement: 'test',
-    uri: 'https://bleh.com',
-    version: '1',
-    chainId: 1,
-    nonce: 'nonce1234567'
-  }).prepareMessage()
+  const signature =
+    '0x89eb5dc2993d982fe4d261b06d8433dcdacb9fe22aac1623fe9d444668bb7d3509ee29b54a01278b325c71438849f9d052f2ead93e3614d8e19449a9376e74351c'
+  const message = Buffer.from(
+    'aHR0cHM6Ly90ZXN0LmVjaG9uZnQueHl6IHdhbnRzIHlvdSB0byBzaWduIGluIHdpdGggeW91ciBFdGhlcmV1bSBhY2NvdW50OgoweDFFMzkxOGRENDRGNDI3RjA1NmJlNkM4RTEzMmNGMWI1RjQyZGU1OUUKClNpZ24gdGhpcyBtZXNzYWdlIHRvIGFkZCB5b3VyIHdhbGxldCB0byBFY2hvCgpVUkk6IGh0dHBzOi8vdGVzdC5lY2hvbmZ0Lnh5egpWZXJzaW9uOiAxCkNoYWluIElEOiAxNjg1ODc3NzMKTm9uY2U6IG5vbmNlbm9uY2Vub25jZQpJc3N1ZWQgQXQ6IDIwMjQtMDctMDhUMjA6MTI6MzguNzA0Wg==',
+    'base64'
+  ).toString('ascii')
+  const nonce = 'noncenoncenonce'
 
   it('wrong wallet fails validation', () => {
     expect(() => addWalletSchema.parse({ wallet: { address: undefined, chainId: 1 }, signature, message })).toThrow()
@@ -50,7 +46,10 @@ describe('validators - addWalletSchema', () => {
     expect(() => addWalletSchema.parse({ wallet, signature, message: undefined })).toThrow()
   })
 
-  it('valid request pass', () => {
-    expect(addWalletSchema.parse({ wallet, signature, message })).toEqual({ wallet, signature, message })
+  it('valid request pass', async () => {
+    await expect(addWalletSchema.parseAsync({ wallet, signature, message })).resolves.toEqual({
+      wallet,
+      nonce
+    })
   })
 })

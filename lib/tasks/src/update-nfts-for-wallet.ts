@@ -1,20 +1,14 @@
-import { getNft } from '@echo/firestore/crud/nft/get-nft'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
-import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
-import { eqWallet } from '@echo/model/helpers/wallet/eq-wallet'
-import type { Nft } from '@echo/model/types/nft'
 import type { Wallet } from '@echo/model/types/wallet'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import { addCollection } from '@echo/tasks/add-collection'
-import { addNft } from '@echo/tasks/add-nft'
 import { assessNftOwnershipForWallet } from '@echo/tasks/assess-nft-ownership-for-wallet'
-import { changeNftOwnership } from '@echo/tasks/change-nft-ownership'
 import { fetchNfts } from '@echo/tasks/fetch-nfts'
+import { updateNft } from '@echo/tasks/update-nft'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
-import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { assoc, head, isNil, map, path, pipe } from 'ramda'
+import { assoc, head, isNil, map, otherwise, path, pipe } from 'ramda'
 
 interface UpdateNftsForWalletArgs extends WithFetch {
   wallet: WalletDocumentData
@@ -32,39 +26,39 @@ interface UpdateNftsForWalletArgs extends WithFetch {
  *    => we delete the NFT from the database
  * @param args
  */
-export async function updateNftsForWallet(args: WithLoggerType<UpdateNftsForWalletArgs>) {
+export async function updateNftsForWallet(args: WithLoggerType<UpdateNftsForWalletArgs>): Promise<void> {
   const { wallet, logger } = args
   logger?.info({ wallet }, 'started updating NFTs for wallet')
   const nftGroups = await fetchNfts(args)
-  if (!isNil(nftGroups)) {
-    for (const nftGroup of nftGroups) {
-      const contract = pipe<[PartialNft[]], PartialNft, Wallet>(
-        head,
-        nonNullableReturn(path(['collection', 'contract']))
-      )(nftGroup)
-      const collection = await addCollection({ contract, fetch: args.fetch, logger })
-      if (!isNil(collection)) {
-        const nftGroupWithCollection = map(assoc('collection', collection), nftGroup)
-        for (const nft of nftGroupWithCollection) {
-          try {
-            logger?.info({ nft, wallet }, 'wallet owns NFT')
-            const existingNft: Nullable<Nft> = await pipe(getNftIndex, getNft)(nft)
-            if (isNil(existingNft)) {
-              logger?.warn({ nft, wallet }, 'NFT is not in the database')
-              await addNft({ nft, wallet, logger })
-            } else if (!eqWallet(existingNft.owner.wallet, wallet)) {
-              logger?.warn({ nft, wallet }, 'NFT ownership changed')
-              await changeNftOwnership({ nft: existingNft, wallet, logger })
-            } else {
-              logger?.info({ nft, wallet }, 'NFT is in the database with the right owner')
-            }
-          } catch (err) {
-            logger?.error({ err, nft }, 'error getting NFT from database')
-          }
-        }
+  for (const nftGroup of nftGroups) {
+    const contract = pipe<[PartialNft[]], PartialNft, Wallet>(
+      head,
+      nonNullableReturn(path(['collection', 'contract']))
+    )(nftGroup)
+    const collection = await pipe(
+      addCollection,
+      otherwise((err) => {
+        logger?.error({ err, collection: { contract } }, 'could not add collection')
+        return undefined
+      })
+    )({ contract, fetch: args.fetch, logger })
+    if (!isNil(collection)) {
+      const nftGroupWithCollection = map(assoc('collection', collection), nftGroup)
+      for (const nft of nftGroupWithCollection) {
+        await pipe(
+          updateNft,
+          otherwise((err) => {
+            logger?.error({ err, collection, nft, wallet }, 'could not update NFT')
+          })
+        )({ nft, collection, owner: { wallet } })
       }
     }
   }
-  await assessNftOwnershipForWallet({ wallet, logger })
+  await pipe(
+    assessNftOwnershipForWallet,
+    otherwise((err) => {
+      logger?.error({ err, wallet }, 'could not assess NFT ownership for wallet')
+    })
+  )({ wallet, logger })
   logger?.info({ wallet }, 'done updating NFTs for wallet')
 }

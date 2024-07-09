@@ -1,26 +1,32 @@
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
-import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { ErrorResponse } from '@echo/utils/types/error-response'
+import type { Nullable } from '@echo/utils/types/nullable'
+import type { SeverityLevel } from '@sentry/nextjs'
 import { NextResponse } from 'next/server'
 
-export abstract class ApiError<T = ErrorResponse> extends Error {
+export interface ApiErrorArgs {
   status: ErrorStatus
+  message: string
+  err?: unknown
+  severity?: SeverityLevel
+}
 
-  protected constructor(status: ErrorStatus, message: string) {
-    super(message)
-    this.status = status
+export abstract class ApiError extends Error {
+  status: ErrorStatus
+  error: unknown
+  severity: Nullable<SeverityLevel>
+
+  protected constructor(args: ApiErrorArgs) {
+    super(args.message)
+    this.status = args.status
+    this.error = args.err
+    this.severity = args.severity
   }
-
-  async beforeError(): Promise<void> {
-    // this will be called before returning the error response
-    // add code to subclasses when needed
-  }
-
-  getErrorResponse(): NextResponse<T> {
-    return NextResponse.json<T>(
+  getErrorResponse(): NextResponse<ErrorResponse> {
+    return NextResponse.json<ErrorResponse>(
       {
-        error: errorMessage(this.message)
-      } as T,
+        error: this.message
+      },
       { status: this.status }
     )
   }

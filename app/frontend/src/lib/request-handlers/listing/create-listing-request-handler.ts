@@ -1,34 +1,25 @@
 import { type CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
-import { type ListingResponse } from '@echo/api/types/responses/listing-response'
 import { addListing } from '@echo/firestore/crud/listing/add-listing'
-import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
-import { guardAsyncFn } from '@echo/frontend/lib/helpers/error/guard'
+import { ForbiddenError } from '@echo/frontend/lib/helpers/error/forbidden-error'
 import { getListingTargetFromRequest } from '@echo/frontend/lib/helpers/listing/get-listing-target-from-request'
-import { assertNftsOwner } from '@echo/frontend/lib/helpers/nft/assert/assert-nfts-owner'
 import { getNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-nfts-from-indexes'
+import { toNextReponse } from '@echo/frontend/lib/request-handlers/to-next-reponse'
 import type { AuthRequestHandlerArgs } from '@echo/frontend/lib/types/request-handlers/auth-request-handler'
 import { createListingSchema } from '@echo/frontend/lib/validators/create-listing-schema'
 import { parseRequest } from '@echo/frontend/lib/validators/parse-request'
-import { NextResponse } from 'next/server'
+import { andThen, objOf, pipe, prop } from 'ramda'
 
-export async function createListingRequestHandler({ user, req, logger }: AuthRequestHandlerArgs<CreateListingRequest>) {
-  const { items, target, expiresAt } = await guardAsyncFn({
-    fn: parseRequest(createListingSchema),
-    status: ErrorStatus.BAD_REQUEST,
-    logger
-  })(req)
-  const listingItems = await guardAsyncFn({ fn: getNftsFromIndexes, status: ErrorStatus.SERVER_ERROR, logger })(items)
-  const listingTarget = await guardAsyncFn({
-    fn: getListingTargetFromRequest,
-    status: ErrorStatus.SERVER_ERROR,
-    logger
-  })(target)
-  // make sure the creator is the owner of every item
-  assertNftsOwner(listingItems, user.username)
-  const { data } = await guardAsyncFn({
-    fn: addListing,
-    status: ErrorStatus.SERVER_ERROR,
-    logger
-  })({ items: listingItems, target: listingTarget, expiresAt })
-  return NextResponse.json<ListingResponse>({ listing: data })
+export async function createListingRequestHandler({
+  user: { username },
+  req
+}: AuthRequestHandlerArgs<CreateListingRequest>) {
+  const { items: requestItems, target: requestTarget, expiresAt } = await parseRequest(createListingSchema)(req)
+  const items = await getNftsFromIndexes(requestItems)
+  const target = await getListingTargetFromRequest(requestTarget)
+  for (const item of items) {
+    if (item.owner.username !== username) {
+      return Promise.reject(new ForbiddenError())
+    }
+  }
+  return pipe(addListing, andThen(pipe(prop('data'), objOf('listing'), toNextReponse)))({ items, target, expiresAt })
 }

@@ -5,34 +5,32 @@ import type { PartialWallet } from '@echo/firestore/types/model/wallet/wallet-do
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import type { Nft } from '@echo/model/types/nft'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { always, andThen, assoc, isNil, otherwise, pipe } from 'ramda'
+import { andThen, assoc, isNil, pipe } from 'ramda'
 
 interface AddNftArgs {
   nft: Omit<Nft, 'owner' | 'updatedAt'>
   wallet: PartialWallet
 }
 
+/**
+ * Adds an NFT to firestore
+ * @param args
+ * @throws Error returns a rejected promise if the wallet is not associated with any user in Firestore
+ * @throws Error returns a rejected promise if the NFT could not have been added to Firestore
+ */
 export async function addNft(args: WithLoggerType<AddNftArgs>) {
-  const { logger, nft, wallet } = args
-  const user = await pipe(getWalletOwner, otherwise(always(undefined)))(wallet)
+  const { nft, wallet, logger } = args
+  const user = await getWalletOwner(wallet)
   if (isNil(user)) {
-    logger?.error({ nft, wallet }, 'cannot add NFT because no owner found for the wallet')
-  } else {
-    return pipe<
-      [Omit<Nft, 'owner' | 'updatedAt'>],
-      Omit<Nft, 'updatedAt'>,
-      Promise<NewDocument<Nft>>,
-      Promise<void>,
-      Promise<void>
-    >(
-      assoc('owner', getUserFromFirestoreData({ user, wallet })),
-      addNftToFirestore,
-      andThen(({ id, data }) => {
-        logger?.info({ nft: assoc('id', id, data) }, 'added NFT to the database')
-      }),
-      otherwise<void>((err) => {
-        logger?.error({ err, nft }, 'could not add NFT to the database')
-      })
-    )(nft)
+    return Promise.reject(Error('user not found'))
   }
+  return pipe<[Omit<Nft, 'owner' | 'updatedAt'>], Omit<Nft, 'updatedAt'>, Promise<NewDocument<Nft>>, Promise<Nft>>(
+    assoc('owner', getUserFromFirestoreData({ user, wallet })),
+    addNftToFirestore,
+    andThen(({ id, data }) => {
+      const newNft = assoc('id', id, data)
+      logger?.info({ nft: newNft }, 'added NFT to the database')
+      return newNft
+    })
+  )(nft)
 }

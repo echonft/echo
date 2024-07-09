@@ -1,10 +1,3 @@
-import {
-  OFFER_ACCEPTED,
-  OFFER_CANCELLED,
-  OFFER_CREATED,
-  OFFER_EXECUTED,
-  OFFER_REDEEMED
-} from '@echo/frontend/lib/types/echo-event/echo-event-types'
 import { echoEventLogSchema } from '@echo/frontend/lib/validators/echo-event-log-schema'
 import { flatten } from 'ramda'
 
@@ -162,7 +155,7 @@ describe('validators - echoEventLogSchema', () => {
       {
         transactionHash: '0x2cc171c068f47030a90fb440c416109d5aef8e623d1f86d679c7dfe3679a33d3',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_EXECUTED,
+        type: 'OFFER_EXECUTED',
         from: undefined
       }
     ])
@@ -173,7 +166,7 @@ describe('validators - echoEventLogSchema', () => {
       {
         transactionHash: '0x65ae321e2a53dedb323928269dbb034b57dda9bb2fe5c0b122285f020885eb39',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_CREATED,
+        type: 'OFFER_CREATED',
         from: undefined
       }
     ])
@@ -184,7 +177,7 @@ describe('validators - echoEventLogSchema', () => {
       {
         transactionHash: '0x4664390b4c801c31ffe4429b8a8047e5f352af0abbb7ad8476c677cc215c3ae8',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_CANCELLED,
+        type: 'OFFER_CANCELLED',
         from: undefined
       }
     ])
@@ -195,7 +188,7 @@ describe('validators - echoEventLogSchema', () => {
       {
         transactionHash: '0x881b42173bf4152af3d15d79a66da1e1bc6a3f4147ce3e10a8ae79d301e59d3d',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_REDEEMED,
+        type: 'OFFER_REDEEMED',
         from: '0x1e3918dd44f427f056be6c8e132cf1b5f42de59e'
       }
     ])
@@ -206,7 +199,7 @@ describe('validators - echoEventLogSchema', () => {
       {
         transactionHash: '0x662fa2d727ac148663df8534a8200270f995e4f1a278687e8764fd1be8e52057',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_ACCEPTED,
+        type: 'OFFER_ACCEPTED',
         from: undefined
       }
     ])
@@ -217,31 +210,31 @@ describe('validators - echoEventLogSchema', () => {
       {
         transactionHash: '0x2cc171c068f47030a90fb440c416109d5aef8e623d1f86d679c7dfe3679a33d3',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_EXECUTED,
+        type: 'OFFER_EXECUTED',
         from: undefined
       },
       {
         transactionHash: '0x65ae321e2a53dedb323928269dbb034b57dda9bb2fe5c0b122285f020885eb39',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_CREATED,
+        type: 'OFFER_CREATED',
         from: undefined
       },
       {
         transactionHash: '0x4664390b4c801c31ffe4429b8a8047e5f352af0abbb7ad8476c677cc215c3ae8',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_CANCELLED,
+        type: 'OFFER_CANCELLED',
         from: undefined
       },
       {
         transactionHash: '0x881b42173bf4152af3d15d79a66da1e1bc6a3f4147ce3e10a8ae79d301e59d3d',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_REDEEMED,
+        type: 'OFFER_REDEEMED',
         from: '0x1e3918dd44f427f056be6c8e132cf1b5f42de59e'
       },
       {
         transactionHash: '0x662fa2d727ac148663df8534a8200270f995e4f1a278687e8764fd1be8e52057',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_ACCEPTED,
+        type: 'OFFER_ACCEPTED',
         from: undefined
       }
     ])
@@ -252,13 +245,13 @@ describe('validators - echoEventLogSchema', () => {
       {
         transactionHash: '0x2921f7cdaec9455be87841e32afb7d0b10f249d6bfda169788cf9a596ac2b159',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_ACCEPTED,
+        type: 'OFFER_ACCEPTED',
         from: undefined
       },
       {
         transactionHash: '0xf980299c11f10a47db3719305ab9d2a9c1332d4fa4b1404e6f1e3176c2b120e2',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_REDEEMED,
+        type: 'OFFER_REDEEMED',
         from: '0x1e3918dd44f427f056be6c8e132cf1b5f42de59e'
       }
     ])
@@ -269,43 +262,43 @@ describe('validators - echoEventLogSchema', () => {
       {
         transactionHash: '0x2cc171c068f47030a90fb440c416109d5aef8e623d1f86d679c7dfe3679a33d3',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_EXECUTED,
+        type: 'OFFER_EXECUTED',
         from: undefined
       },
       {
         transactionHash: '0x65ae321e2a53dedb323928269dbb034b57dda9bb2fe5c0b122285f020885eb39',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_CREATED,
+        type: 'OFFER_CREATED',
         from: undefined
       },
       {
         transactionHash: '0x4664390b4c801c31ffe4429b8a8047e5f352af0abbb7ad8476c677cc215c3ae8',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_CANCELLED,
+        type: 'OFFER_CANCELLED',
         from: undefined
       },
       {
         transactionHash: '0x881b42173bf4152af3d15d79a66da1e1bc6a3f4147ce3e10a8ae79d301e59d3d',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_REDEEMED,
+        type: 'OFFER_REDEEMED',
         from: '0x1e3918dd44f427f056be6c8e132cf1b5f42de59e'
       },
       {
         transactionHash: '0x662fa2d727ac148663df8534a8200270f995e4f1a278687e8764fd1be8e52057',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_ACCEPTED,
+        type: 'OFFER_ACCEPTED',
         from: undefined
       },
       {
         transactionHash: '0x2921f7cdaec9455be87841e32afb7d0b10f249d6bfda169788cf9a596ac2b159',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_ACCEPTED,
+        type: 'OFFER_ACCEPTED',
         from: undefined
       },
       {
         transactionHash: '0xf980299c11f10a47db3719305ab9d2a9c1332d4fa4b1404e6f1e3176c2b120e2',
         offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
-        type: OFFER_REDEEMED,
+        type: 'OFFER_REDEEMED',
         from: '0x1e3918dd44f427f056be6c8e132cf1b5f42de59e'
       }
     ])

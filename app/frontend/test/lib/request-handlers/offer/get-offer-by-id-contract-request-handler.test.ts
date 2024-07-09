@@ -1,6 +1,8 @@
 import { type OfferResponse } from '@echo/api/types/responses/offer-response'
 import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
+import { ForbiddenError } from '@echo/frontend/lib/helpers/error/forbidden-error'
+import { NotFoundError } from '@echo/frontend/lib/helpers/error/not-found-error'
 import { getOfferByIdContractRequestHandler } from '@echo/frontend/lib/request-handlers/offer/get-offer-by-id-contract-request-handler'
 import { mockRequest } from '@echo/frontend/mocks/mock-request'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
@@ -23,19 +25,12 @@ describe('request-handlers - offer - getOfferByIdContractRequestHandler', () => 
     jest.clearAllMocks()
   })
 
-  it('throws if the offer is not found', async () => {
-    const req = mockRequest<never>()
-    await expect(() =>
-      getOfferByIdContractRequestHandler({ user: sender, req, params: { idContract: '0x' } })
-    ).rejects.toHaveProperty('status', 404)
-  })
-
   it('throws if the offer is undefined', async () => {
     jest.mocked(getOfferByIdContract).mockResolvedValueOnce(undefined)
     const req = mockRequest<never>()
     await expect(() =>
       getOfferByIdContractRequestHandler({ user: sender, req, params: { idContract: '0x' } })
-    ).rejects.toHaveProperty('status', 400)
+    ).rejects.toBeInstanceOf(NotFoundError)
   })
 
   it('throws if the user is not the sender nor the receiver', async () => {
@@ -47,7 +42,7 @@ describe('request-handlers - offer - getOfferByIdContractRequestHandler', () => 
     const req = mockRequest<never>()
     await expect(() =>
       getOfferByIdContractRequestHandler({ user: sender, req, params: { idContract: '0xTEST' } })
-    ).rejects.toHaveProperty('status', 403)
+    ).rejects.toBeInstanceOf(ForbiddenError)
   })
 
   it('returns a 200 if the user is authenticated and user is sender', async () => {

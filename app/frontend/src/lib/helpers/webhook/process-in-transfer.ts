@@ -1,12 +1,13 @@
 import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
+import { NotFoundError } from '@echo/frontend/lib/helpers/error/not-found-error'
 import type { TransferData } from '@echo/frontend/lib/types/transfer/transfer-data'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import { addCollection } from '@echo/tasks/add-collection'
 import { updateNft } from '@echo/tasks/update-nft'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { isNil } from 'ramda'
+import { isNil, otherwise, pipe } from 'ramda'
 
 /**
  * Processes the transfer of an NFT from a foreign user to a user in our database.
@@ -20,14 +21,18 @@ export async function processInTransfer(
     transfer: { contract, to, tokenId },
     logger
   } = args
-  const userDocumentData = await getUserById(to.userId)
+  const userDocumentData = await pipe(
+    getUserById,
+    otherwise((err) => {
+      logger?.error({ err, user: { id: to.userId } }, 'could not get user from Firestore')
+      return undefined
+    })
+  )(to.userId)
   if (isNil(userDocumentData)) {
-    return
+    return Promise.reject(new NotFoundError({ message: 'user not found', severity: 'warning' }))
   }
   const user = getUserFromFirestoreData({ user: userDocumentData, wallet: to })
   const collection = await addCollection({ contract, fetch, logger })
-  if (!isNil(collection)) {
-    const nftIndex = getNftIndex({ collection, tokenId })
-    await updateNft({ nftIndex, owner: user, collection })
-  }
+  const nftIndex = getNftIndex({ collection, tokenId })
+  await updateNft({ nft: nftIndex, owner: user, collection })
 }

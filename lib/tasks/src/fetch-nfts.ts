@@ -12,14 +12,19 @@ interface FetchNftsArgs extends WithFetch {
   wallet: PartialWallet
 }
 
+/**
+ * Fetches NFTs from the API and groups them by collection
+ * We use OpenSea API on testnet and NFTScan on mainnet
+ * @param args
+ */
 export function fetchNfts(args: WithLoggerType<FetchNftsArgs>): Promise<PartialNft[][]> {
-  const { wallet, logger } = args
+  const { wallet } = args
   const fetcher = isTestnetChain(wallet.chain) ? getNftsFromOpensea : getNftsFromNftScan
   return pipe(
     fetcher,
     andThen(collectBy(nonNullableReturn<[PartialNft], string>(path(['collection', 'contract', 'address'])))),
     otherwise((err) => {
-      logger?.error({ err, wallet }, 'error fetching NFTs')
+      args.logger?.error({ err, wallet }, 'could not fetch NFTs from API')
       return []
     })
   )(args)

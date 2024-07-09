@@ -2,6 +2,8 @@ import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { rejectOffer } from '@echo/firestore/crud/offer/reject-offer'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
+import { ForbiddenError } from '@echo/frontend/lib/helpers/error/forbidden-error'
+import { NotFoundError } from '@echo/frontend/lib/helpers/error/not-found-error'
 import { rejectOfferRequestHandler } from '@echo/frontend/lib/request-handlers/offer/reject-offer-request-handler'
 import { mockRequest } from '@echo/frontend/mocks/mock-request'
 import { OFFER_STATE_ACCEPTED, OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
@@ -27,19 +29,23 @@ describe('request-handlers - offer - rejectOfferRequestHandler', () => {
   it('throws if the offer does not exist', async () => {
     jest.mocked(getOffer).mockResolvedValueOnce(undefined)
     const req = mockRequest<never>()
-    await expect(() => rejectOfferRequestHandler({ user, req, params: { slug } })).rejects.toHaveProperty('status', 400)
+    await expect(() => rejectOfferRequestHandler({ user, req, params: { slug } })).rejects.toBeInstanceOf(NotFoundError)
   })
 
   it('throws if the offer state is read only', async () => {
     jest.mocked(getOffer).mockResolvedValueOnce(assoc('readOnly', true, offer))
     const req = mockRequest<never>()
-    await expect(() => rejectOfferRequestHandler({ user, req, params: { slug } })).rejects.toHaveProperty('status', 400)
+    await expect(() => rejectOfferRequestHandler({ user, req, params: { slug } })).rejects.toBeInstanceOf(
+      ForbiddenError
+    )
   })
 
   it('throws if the offer state is not OPEN', async () => {
     jest.mocked(getOffer).mockResolvedValueOnce(assoc('state', OFFER_STATE_ACCEPTED, offer))
     const req = mockRequest<never>()
-    await expect(() => rejectOfferRequestHandler({ user, req, params: { slug } })).rejects.toHaveProperty('status', 400)
+    await expect(() => rejectOfferRequestHandler({ user, req, params: { slug } })).rejects.toBeInstanceOf(
+      ForbiddenError
+    )
   })
 
   it('throws if the user is not the offer receiver', async () => {
@@ -47,7 +53,9 @@ describe('request-handlers - offer - rejectOfferRequestHandler', () => {
       .mocked(getOffer)
       .mockResolvedValueOnce(modify<Offer, 'receiver', User>('receiver', assoc('username', 'another-user'), offer))
     const req = mockRequest<never>()
-    await expect(() => rejectOfferRequestHandler({ user, req, params: { slug } })).rejects.toHaveProperty('status', 403)
+    await expect(() => rejectOfferRequestHandler({ user, req, params: { slug } })).rejects.toBeInstanceOf(
+      ForbiddenError
+    )
   })
 
   it('returns a 200', async () => {

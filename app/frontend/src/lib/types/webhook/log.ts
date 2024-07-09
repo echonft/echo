@@ -1,6 +1,3 @@
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { logSchema } from '@echo/frontend/lib/validators/log-schema'
 
-export interface Log {
-  address: HexString
-  topics: HexString[]
-}
+export type Log = ReturnType<typeof logSchema.parse>
