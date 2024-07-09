@@ -10,6 +10,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      JEST_JUNIT_OUTPUT_DIR: './test/.coverage'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,31 +20,31 @@ jobs:
         with:
           run_install: true
       - name: bot tests
-        run: pnpm exec turbo run test --filter=@echo/bot
+        run: pnpm exec turbo run test:ci --filter=@echo/bot
       - name: frontend tests
-        run: pnpm exec turbo run test --filter=@echo/frontend
+        run: pnpm exec turbo run test:ci --filter=@echo/frontend
       - name: auth tests
-        run: pnpm exec turbo run test --filter=@echo/auth
+        run: pnpm exec turbo run test:ci --filter=@echo/auth
       - name: firestore tests
         env:
           ENV: 'test'
           SECRET_MANAGER_EMAIL: ${{ secrets.SECRET_MANAGER_EMAIL_TEST }}
           SECRET_MANAGER_PRIVATE_KEY: ${{ secrets.SECRET_MANAGER_PRIVATE_KEY_TEST }}
-        run: pnpm exec turbo run test --filter=@echo/firestore
+        run: pnpm exec turbo run test:ci --filter=@echo/firestore
       - name: model tests
-        run: pnpm exec turbo run test --filter=@echo/model
+        run: pnpm exec turbo run test:ci --filter=@echo/model
       - name: nft-scan tests
-        run: pnpm exec turbo run test --filter=@echo/nft-scan
+        run: pnpm exec turbo run test:ci --filter=@echo/nft-scan
       - name: opensea tests
-        run: pnpm exec turbo run test --filter=@echo/opensea
+        run: pnpm exec turbo run test:ci --filter=@echo/opensea
       - name: ui tests
-        run: pnpm exec turbo run test --filter=@echo/ui
+        run: pnpm exec turbo run test:ci --filter=@echo/ui
       - name: utils tests
-        run: pnpm exec turbo run test --filter=@echo/utils
+        run: pnpm exec turbo run test:ci --filter=@echo/utils
       - name: web3 tests
-        run: pnpm exec turbo run test --filter=@echo/web3
+        run: pnpm exec turbo run test:ci --filter=@echo/web3
       - name: web3-dom tests
-        run: pnpm exec turbo run test --filter=@echo/web3-dom
+        run: pnpm exec turbo run test:ci --filter=@echo/web3-dom
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
         with:

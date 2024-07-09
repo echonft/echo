@@ -1,13 +1,10 @@
-declare module 'tsconfig-paths/register'
+/* eslint-disable no-var */
+// noinspection ES6ConvertVarToLetConst
 
 declare global {
-  let clientEmail: string
-  let privateKey: string
-  let projectId: string
+  var clientEmail: string
+  var projectId: string
+  var privateKey: string
 }
 
-declare namespace globalThis {
-  let clientEmail: string
-  let privateKey: string
-  let projectId: string
-}
+export {}

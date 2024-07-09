@@ -14,7 +14,9 @@
       "cache": false,
       "persistent": true
     },
-    "lint": {},
+    "lint": {
+      "cache": false
+    },
     "modules:remove": {
       "cache": false
     },
@@ -24,11 +26,17 @@
     "modules:update-minor": {
       "cache": false
     },
-    "prettier": {},
-    "test:coverage:clean": {
+    "prettier": {
       "cache": false
     },
-    "test": {},
-    "tsc": {}
+    "test": {
+      "cache": false
+    },
+    "test:ci": {
+      "cache": false
+    },
+    "tsc": {
+      "cache": false
+    }
   }
 }

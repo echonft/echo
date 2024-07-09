@@ -21,12 +21,11 @@
     "frontend": "scripts/frontend/action.sh",
     "lint": "turbo lint",
     "lint-staged": "NODE_OPTIONS='--max_old_space_size=8192' lint-staged",
-    "modules:remove": "turbo modules:remove; rm -rf node_modules; rm -rf pnpm-lock.yaml",
+    "modules:remove": "turbo modules:remove; rimraf node_modules pnpm-lock.yaml",
     "modules:update": "ncu -u --deep; turbo modules:update",
     "modules:update-minor": "ncu -u --deep --target=minor; turbo modules:update-minor",
     "prettier": "turbo prettier",
     "test": "turbo test",
-    "test:coverage:clean": "turbo test:coverage:clean",
     "tsc": "turbo tsc"
   },
   "devDependencies": {
@@ -56,14 +55,15 @@
     "pino": "9.2.0",
     "pino-pretty": "11.2.1",
     "prettier": "3.3.2",
+    "rimraf": "6.0.0",
     "turbo": "2.0.6",
     "typescript": "5.5.2",
     "typescript-eslint": "7.13.1",
     "vercel": "34.2.7"
   },
-  "packageManager": "pnpm@9.4.0",
+  "packageManager": "pnpm@9.5.0",
   "engines": {
-    "node": "20.x"
+    "node": "20.15.1"
   },
   "nextBundleAnalysis": {
     "budget": 358400,

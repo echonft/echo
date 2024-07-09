@@ -7,7 +7,7 @@ import { privateKeySchema } from '@echo/utils/validators/private-key-schema'
 import type { ServiceAccount } from 'firebase-admin/app'
 import { always, andThen, applySpec, isNil, modify, pipe, prop, unless } from 'ramda'
 
-export async function getFirebaseServiceAccount(logger?: Nullable<Logger>): Promise<ServiceAccount> {
+export async function getFirebaseServiceAccount(logger?: Nullable<Logger>): Promise<Required<ServiceAccount>> {
   const serviceAccount = await pipe(
     getSecrets,
     andThen(
@@ -16,7 +16,7 @@ export async function getFirebaseServiceAccount(logger?: Nullable<Logger>): Prom
           propIsNil('FIREBASE_PRIVATE_KEY'),
           modify('FIREBASE_PRIVATE_KEY', (key) => privateKeySchema.parse(key))
         ),
-        applySpec<ServiceAccount>({
+        applySpec<Required<ServiceAccount>>({
           clientEmail: prop('FIREBASE_CLIENT_EMAIL'),
           privateKey: prop('FIREBASE_PRIVATE_KEY'),
           projectId: always(getGCloudProjectId())
