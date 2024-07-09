@@ -6,7 +6,7 @@ import { isNil } from 'ramda'
 export async function getNftFromIndex(index: NftIndex): Promise<Nft> {
   const nft = await getNft(index)
   if (isNil(nft)) {
-    throw new BadRequestError()
+    return Promise.reject(new BadRequestError())
   }
   return nft
 }

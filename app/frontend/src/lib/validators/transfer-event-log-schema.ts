@@ -8,16 +8,13 @@ import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { hexToNumber, trim } from '@echo/web3/helpers/utils'
 import { always, applySpec, equals, F, filter, flatten, ifElse, length, map, path, pipe, prop, toLower } from 'ramda'
-import { array, object } from 'zod'
+import { array } from 'zod'
 
 export function transferEventLogSchema(chain: ChainName) {
-  const schema = object({
-    data: array(blockDataSchema).nonempty()
-  })
+  const schema = array(blockDataSchema).nonempty()
   function transform(chain: ChainName) {
     return function (response: typeof schema._output) {
-      return pipe<[typeof schema._output], (typeof schema._output)['data'], NftTransfer[][], NftTransfer[]>(
-        prop('data'),
+      return pipe<[typeof schema._output], NftTransfer[][], NftTransfer[]>(
         map(
           pipe(
             prop('logs'),

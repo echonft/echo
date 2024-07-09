@@ -10,15 +10,11 @@ export function parseRequest<Request, Output = unknown, Def extends ZodTypeDef =
   return function (request: ApiRequest<Request>) {
     return pipe(
       invoker(0, 'json'),
-      otherwise(() => {
-        throw new BadRequestError({ message: 'could not get request JSON body' })
-      }),
+      otherwise((err) => Promise.reject(new BadRequestError({ err, message: 'could not get request JSON body' }))),
       andThen(
         pipe(
           (body) => schema.parseAsync(body),
-          otherwise(() => {
-            throw new BadRequestError()
-          })
+          otherwise((err) => Promise.reject(new BadRequestError({ err })))
         )
       )
     )(request)
