@@ -38,6 +38,10 @@ const PageLayoutInner: FunctionComponent<PropsWithChildren<Exclude<PageLayoutPro
   return (
     <div
       className={clsx(
+        'flex',
+        'flex-col',
+        'self-stretch',
+        'grow',
         'w-full',
         'h-full',
         background === PAGE_LAYOUT_BG_DEFAULT && 'bg-dark-500',

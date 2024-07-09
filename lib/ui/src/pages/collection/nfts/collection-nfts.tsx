@@ -32,9 +32,9 @@ export const CollectionNfts: FunctionComponent<Props> = ({ nfts, slug }) => {
 
   const onCreateOffer = (nft?: Nft) => {
     if (isNil(nft)) {
-      router.push(getNewOfferPath(selection.nfts))
+      router.push(getNewOfferPath({ items: selection.nfts }))
     } else {
-      router.push(getNewOfferPath(nft))
+      router.push(getNewOfferPath({ items: nft }))
     }
   }
 

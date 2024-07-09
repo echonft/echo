@@ -1,6 +1,7 @@
 import { linkProvider } from '@echo/api/routing/link-provider'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
+import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import { setOfferRoleForUser } from '@echo/frontend/lib/helpers/offer/set-offer-role-for-user'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import type { PropsWithAuthUser } from '@echo/frontend/lib/types/props-with-auth-user'
@@ -15,12 +16,18 @@ import { isOfferRoleUndefined } from '@echo/ui/helpers/offer/is-offer-role-undef
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound, redirect } from 'next/navigation'
-import { andThen, isNil, pipe, unless } from 'ramda'
+import { always, andThen, isNil, otherwise, pipe, unless } from 'ramda'
 
 async function render({ params: { slug }, user }: PropsWithAuthUser<NextParams<WithSlug>>) {
-  const offer = await pipe<[string], Promise<Nullable<Offer>>, Promise<Nullable<OfferWithRole>>>(
+  const offer = await pipe<
+    [string],
+    Promise<Nullable<Offer>>,
+    Promise<Nullable<OfferWithRole>>,
+    Promise<Nullable<OfferWithRole>>
+  >(
     getOffer,
-    andThen(unless(isNil, setOfferRoleForUser(user)) as (offer: Nullable<Offer>) => Nullable<OfferWithRole>)
+    andThen(unless(isNil, setOfferRoleForUser(user)) as (offer: Nullable<Offer>) => Nullable<OfferWithRole>),
+    otherwise(pipe(captureAndLogError, always(undefined)))
   )(slug)
   if (isNil(offer)) {
     notFound()

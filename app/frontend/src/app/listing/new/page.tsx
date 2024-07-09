@@ -2,6 +2,7 @@ import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
+import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import { getNftIndexFromQueryParam } from '@echo/frontend/lib/helpers/nft/get-nft-index-from-query-param'
 import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
 import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
@@ -29,7 +30,6 @@ async function render({
   if (isNilOrEmpty(items) && isNilOrEmpty(target)) {
     notFound()
   }
-
   const listingItems = await unlessNil(
     pipe(
       unless(is(Array), juxt([identity])),
@@ -37,15 +37,20 @@ async function render({
       map(getNftByIndex),
       promiseAll,
       andThen<Nullable<Nft>[], Nft[]>(reject(isNil)),
-      otherwise(always([]))
+      otherwise(pipe(captureAndLogError, always([])))
     )
   )(items)
-  const listingTarget = await unlessNil(pipe(getCollection, otherwise(always(undefined))))(target)
+  const listingTarget = await unlessNil(pipe(getCollection, otherwise(pipe(captureAndLogError, always(undefined)))))(
+    target
+  )
   if (isNil(listingItems) && isNil(listingTarget)) {
     notFound()
   }
-
-  const creatorNfts = await pipe(prop('username'), getNftsForOwner, otherwise(always([])))(user)
+  const creatorNfts = await pipe(
+    prop('username'),
+    getNftsForOwner,
+    otherwise(pipe(captureAndLogError, always([])))
+  )(user)
   if (isEmpty(listingItems) && isEmpty(creatorNfts)) {
     notFound()
   }

@@ -5,13 +5,10 @@
 @tailwind utilities;
 @layer base {
   html {
-    @apply w-screen h-screen;
+    @apply w-screen min-h-screen;
   }
   body {
-    @apply w-screen min-h-screen bg-dark-500 text-transparent font-normal text-[0rem] leading-[0rem] tracking-[0rem] overflow-x-hidden;
-  }
-  #headlessui-portal-root {
-    @apply fixed top-0 right-0;
+    @apply w-screen min-h-screen flex flex-col bg-dark-500 text-transparent font-normal text-[0rem] leading-[0rem] tracking-[0rem] overflow-x-hidden;
   }
 }
 @layer components {

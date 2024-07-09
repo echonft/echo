@@ -6,7 +6,7 @@ import { NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
 import { getNewOfferPath } from '@echo/ui/helpers/offer/get-new-offer-path'
 import { UserNftsEmpty } from '@echo/ui/pages/user/nfts/user-nfts-empty'
 import { useRouter } from 'next/navigation'
-import { bind, isEmpty, pipe } from 'ramda'
+import { bind, isEmpty, objOf, pipe } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
@@ -30,7 +30,7 @@ export const UserNfts: FunctionComponent<Props> = ({ isAuthUser, nfts }) => {
       nfts={nfts}
       action={NFT_ACTION_OFFER}
       sortBy={'collection'}
-      onSelectionAction={pipe(getNewOfferPath, routerPush)}
+      onSelectionAction={pipe(objOf('items'), getNewOfferPath, routerPush)}
     />
   )
 }
