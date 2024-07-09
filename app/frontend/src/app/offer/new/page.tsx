@@ -12,7 +12,6 @@ import { CreateOfferManager } from '@echo/ui/components/offer/create/create-offe
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { promiseAll } from '@echo/utils/fp/promise-all'
-import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound } from 'next/navigation'
@@ -37,27 +36,26 @@ import {
 } from 'ramda'
 
 async function render({
-  searchParams: { receiverItems },
+  searchParams: { items, target },
   user
 }: PropsWithUser<
   WithSearchParamsProps<{
-    receiverItems?: string[] | string
+    items?: string[] | string
+    target?: string
   }>
 >) {
   // Cannot go to that page without previously selected data
-  if (isNilOrEmpty(receiverItems)) {
+  if (isNilOrEmpty(items)) {
     notFound()
   }
-  const receiverNfts = await unlessNil(
-    pipe(
-      unless(is(Array), juxt([identity])),
-      map(getNftIndexFromQueryParam),
-      map(getNftByIndex),
-      promiseAll,
-      andThen<Nullable<Nft>[], Nft[]>(reject(isNil)),
-      otherwise(pipe(captureAndLogError, always([])))
-    )
-  )(receiverItems)
+  const receiverNfts = await pipe(
+    unless(is(Array), juxt([identity])),
+    map(getNftIndexFromQueryParam),
+    map(getNftByIndex),
+    promiseAll,
+    andThen<Nullable<Nft>[], Nft[]>(reject(isNil)),
+    otherwise(pipe(captureAndLogError, always([])))
+  )(items)
   if (isNilOrEmpty(receiverNfts)) {
     notFound()
   }
@@ -69,7 +67,12 @@ async function render({
   const senderNfts: Nft[] = await pipe(
     prop('username'),
     getNftsForOwner as (username: string) => Promise<Nft[]>,
-    andThen(filter(pathSatisfies(equals(receiverChain), ['collection', 'contract', 'chain']))),
+    andThen(
+      pipe(
+        filter(pathSatisfies(equals(receiverChain), ['collection', 'contract', 'chain'])),
+        unless<Nft[], Nft[]>(always(isNil(target)), filter(pathSatisfies(equals(target), ['collection', 'slug'])))
+      )
+    ),
     otherwise(pipe(captureAndLogError, always([])))
   )(user)
   if (isNilOrEmpty(senderNfts)) {

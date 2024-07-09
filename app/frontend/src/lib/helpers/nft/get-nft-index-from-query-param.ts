@@ -4,7 +4,7 @@ import { applySpec, complement, equals, head, last, length, partialRight, pipe, 
 
 export function getNftIndexFromQueryParam(param: string): NftIndex {
   return pipe(
-    split('|'),
+    split('.'),
     when(pipe(length, complement(equals(2))), throwError('invalid NFT parameter')),
     applySpec<NftIndex>({
       collection: {

@@ -1,21 +1,5 @@
 import { Path } from '@echo/api/routing/path'
 
-interface CollectionPathArgs {
-  slug: string
-}
-
-interface ListingPathArgs {
-  slug: string
-}
-
-interface OfferPathArgs {
-  slug: string
-}
-
-interface UserPathArgs {
-  username: string
-}
-
 export const linkProvider = {
   auth: {
     signIn: new Path({ path: '/login' })
@@ -25,16 +9,16 @@ export const linkProvider = {
   },
   collection: {
     all: new Path({ path: '/collections' }),
-    items: new Path<CollectionPathArgs>({ path: '/collection/:slug/items' }),
-    listings: new Path<CollectionPathArgs>({ path: '/collection/:slug/listings' }),
-    swaps: new Path<CollectionPathArgs>({ path: '/collection/:slug/swaps' })
+    items: new Path<Record<'slug', string>>({ path: '/collection/:slug/items' }),
+    listings: new Path<Record<'slug', string>>({ path: '/collection/:slug/listings' }),
+    swaps: new Path<Record<'slug', string>>({ path: '/collection/:slug/swaps' })
   },
   listing: {
-    details: new Path<ListingPathArgs>({ path: '/listing/:slug' }),
+    details: new Path<Record<'slug', string>>({ path: '/listing/:slug' }),
     new: new Path({ path: '/listing/new', secure: true })
   },
   offer: {
-    details: new Path<OfferPathArgs>({ path: '/offer/:slug', secure: true }),
+    details: new Path<Record<'slug', string>>({ path: '/offer/:slug', secure: true }),
     new: new Path({ path: '/offer/new', secure: true })
   },
   profile: {
@@ -46,12 +30,12 @@ export const linkProvider = {
     pendingOffers: new Path({ path: '/me/offers/pending', secure: true })
   },
   user: {
-    default: new Path<UserPathArgs>({ path: '/user/:username' }),
-    items: new Path<UserPathArgs>({ path: '/user/:username/items' }),
-    listings: new Path<UserPathArgs>({ path: '/user/:username/listings' }),
-    swaps: new Path<UserPathArgs>({ path: '/user/:username/swaps' })
+    default: new Path<Record<'username', string>>({ path: '/user/:username' }),
+    items: new Path<Record<'username', string>>({ path: '/user/:username/items' }),
+    listings: new Path<Record<'username', string>>({ path: '/user/:username/listings' }),
+    swaps: new Path<Record<'username', string>>({ path: '/user/:username/swaps' })
   },
   swap: {
-    details: new Path<OfferPathArgs>({ path: '/swap/:slug' })
+    details: new Path<Record<'slug', string>>({ path: '/swap/:slug' })
   }
 }

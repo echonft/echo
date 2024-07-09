@@ -88,8 +88,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, offers }) =>
           void trigger({ slug: listing.slug })
         }}
         onFill={() => {
-          // FIXME We should also pass the collection slug here to only display NFTs from that collection (DEV-322)
-          router.push(getNewOfferPath(listing.items))
+          router.push(getNewOfferPath({ items: listing.items, target: listing.target.collection.slug }))
         }}
       />
     </ListingDetailsLayout>
