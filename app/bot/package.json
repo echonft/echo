@@ -17,7 +17,7 @@
     "sentry:sourcemaps:upload": "sentry-cli sourcemaps upload --org=echo-nft --project=bot dist/",
     "start": "node dist/index.js",
     "test": "jest",
-    "test:coverage:clean": "rimraf test/.coverage",
+    "test:ci": "JEST_JUNIT_OUTPUT_DIR=test/.coverage jest --ci --collectCoverage --reporters=default --reporters=jest-junit",
     "tsc": "tsc --noEmit"
   },
   "dependencies": {

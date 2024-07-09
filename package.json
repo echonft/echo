@@ -26,7 +26,6 @@
     "modules:update-minor": "ncu -u --deep --target=minor; turbo modules:update-minor",
     "prettier": "turbo prettier",
     "test": "turbo test",
-    "test:coverage:clean": "turbo test:coverage:clean",
     "tsc": "turbo tsc"
   },
   "devDependencies": {
