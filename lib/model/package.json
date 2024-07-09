@@ -6,12 +6,12 @@
   "private": true,
   "scripts": {
     "lint": "eslint",
-    "modules:remove": "rm -rf node_modules",
+    "modules:remove": "rimraf node_modules",
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier . -u -c --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --config ../../prettier.config.js",
     "test": "jest",
-    "test:coverage:clean": "rm -rf test/.coverage",
+    "test:ci": "jest --ci --collectCoverage --reporters=default --reporters=jest-junit",
     "tsc": "tsc --noEmit"
   },
   "dependencies": {

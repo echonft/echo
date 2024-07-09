@@ -1,7 +1,6 @@
 // @ts-check
 /** @type {import('jest').Config} */
 export default {
-  collectCoverage: Boolean(process.env.CI),
   collectCoverageFrom: [
     '<rootDir>/src/**/*.ts',
     '!<rootDir>/src/app/api/**/*.ts',
@@ -23,15 +22,6 @@ export default {
     '^@echo/utils/(.*)$': '<rootDir>/../../lib/utils/src/$1',
     '^@echo/web3/(.*)$': '<rootDir>/../../lib/web3/src/$1'
   },
-  reporters: [
-    'default',
-    [
-      'jest-junit',
-      {
-        outputDirectory: '<rootDir>/test/.coverage'
-      }
-    ]
-  ],
   setupFilesAfterEnv: ['<rootDir>/test/setup-env.ts'],
   transform: {
     '^.+\\.(t|j)sx?$': '@swc/jest'
