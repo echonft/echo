@@ -2,7 +2,7 @@
 import type { Collection } from '@echo/model/types/collection'
 import type { ListingTarget } from '@echo/model/types/listing-target'
 import { QuantityPicker } from '@echo/ui/components/base/quantity-picker'
-import { SearchBoxManager } from '@echo/ui/components/base/search/search-box-manager'
+import { SearchBox } from '@echo/ui/components/base/search/search-box'
 import { SelectableCollectionThumbnail } from '@echo/ui/components/collection/thumbnail/selectable-collection-thumbnail'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -29,7 +29,7 @@ export const CreateListingTargetsSelection: FunctionComponent<CreateListingTarge
   if (isNil(target)) {
     return (
       <div className={clsx('flex', 'flex-col', 'w-full', 'h-max', 'gap-6')}>
-        <SearchBoxManager
+        <SearchBox
           resultsProvider={searchCollections}
           style={{ placeHolder: t('targets.search.placeHolder') }}
           onSelect={pipe(

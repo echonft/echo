@@ -4,12 +4,11 @@ import type { SearchResult as SearchResultModel } from '@echo/model/types/search
 import type { SearchResultCategory } from '@echo/model/types/search-result-category'
 import { SearchResults } from '@echo/ui/components/base/search/search-results'
 import { SearchResultsCategories } from '@echo/ui/components/base/search/search-results-categories'
-import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { motion } from 'framer-motion'
 import { isNil, pipe, sort } from 'ramda'
-import { useCallback, useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 interface Props<T> {
   results: Nullable<SearchResultModel<T>[]>
@@ -18,43 +17,40 @@ interface Props<T> {
       show?: boolean
     }
   }>
+  onSelect?: (selection: SearchResultModel<T>) => unknown
 }
 
-export const SearchResultsContainer = <T,>({ results, style }: Props<T>) => {
-  const [filteredResults, setFilteredResults] = useState<Nullable<SearchResultModel<T>[]>>()
-  const filterResults = useCallback(
-    (category: Nullable<SearchResultCategory>) => {
-      if (!isNil(results)) {
-        if (isNil(category)) {
-          pipe(sort(compareSearchResults), setFilteredResults)(results)
-        } else {
-          pipe(filterSearchResultsByCategory<T>(category), sort(compareSearchResults), setFilteredResults)(results)
-        }
-      }
-    },
-    [results]
-  )
+export const SearchResultsContainer = <T,>({ results, style, onSelect }: Props<T>) => {
+  // const [filteredResults, setFilteredResults] = useState<Nullable<SearchResultModel<T>[]>>()
+  const [category, setCategory] = useState<Nullable<SearchResultCategory>>()
+  const filteredResults = useMemo(() => {
+    if (isNil(results)) {
+      return undefined
+    }
+    if (isNil(category)) {
+      return sort(compareSearchResults, results)
+    }
+    return pipe(filterSearchResultsByCategory<T>(category), sort(compareSearchResults))(results)
+  }, [category, results])
 
   // update filtered results when underlying results change
-  useEffect(() => {
-    setFilteredResults(unlessNil(sort(compareSearchResults))(results))
-  }, [results])
+  // useEffect(() => {
+  //   setFilteredResults(unlessNil(sort(compareSearchResults))(results))
+  // }, [results])
 
-  if (isNil(results)) {
+  if (isNil(filteredResults)) {
     return null
   }
   return (
     <motion.div
-      className={clsx('h-max', 'rounded-lg', 'absolute', 'top-14', 'inset-x-0', 'z-10')}
+      className={clsx('h-max', 'w-full', 'rounded-lg', 'absolute', 'top-14', 'inset-x-0', 'bg-dark-450', 'z-10')}
       transition={{ ease: 'easeOut', duration: 0.2 }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <div className={clsx('h-max', 'w-full', 'rounded-lg', 'bg-dark-450')}>
-        <SearchResultsCategories show={style?.categories?.show} results={results} onChange={filterResults} />
-        <SearchResults results={filteredResults} style={style} />
-      </div>
+      <SearchResultsCategories show={style?.categories?.show} results={results} onChange={setCategory} />
+      <SearchResults results={filteredResults} style={style} onSelect={onSelect} />
     </motion.div>
   )
 }

@@ -2,84 +2,75 @@
 import type { SearchResult } from '@echo/model/types/search-result'
 import { SearchInput } from '@echo/ui/components/base/search/search-input'
 import { SearchResultsContainer } from '@echo/ui/components/base/search/search-results-container'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { Combobox } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { AnimatePresence } from 'framer-motion'
-import { isEmpty, isNil, pick } from 'ramda'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { pick } from 'ramda'
+import { useState } from 'react'
+import { useDetectClickOutside } from 'react-detect-click-outside'
+import { debounce } from 'throttle-debounce'
 
-interface Props<T> {
-  results: SearchResult<T>[] | undefined
-  searching: boolean
+export interface SearchBoxProps<T> {
+  resultsProvider: (query: string) => Promise<SearchResult<T>[]>
   style?: {
     categories?: {
       show?: boolean
     }
     placeHolder?: string
   }
-  onSearch?: (searchQuery: string) => unknown
-  onSearchClear?: EmptyFunction
-  onSelect?: (selection: SearchResult<T>) => void
+  onSelect?: (result: SearchResult<T>) => void
 }
 
-export const SearchBox = <T,>({ results, searching, style, onSearch, onSearchClear, onSelect }: Props<T>) => {
+export const SearchBox = <T,>({ resultsProvider, style, onSelect }: SearchBoxProps<T>) => {
+  const ref = useDetectClickOutside({
+    onTriggered: () => {
+      setSearching(false)
+      setQuery(undefined)
+      setResults(undefined)
+    }
+  })
   const [query, setQuery] = useState<Nullable<string>>()
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>()
-
-  const onChange = useCallback(
-    (query: Nullable<string>) => {
-      setQuery(query)
-      if (isEmpty(query)) {
-        onSearchClear?.()
-      }
-    },
-    [setQuery, onSearchClear]
-  )
-
-  // clear the timeout if needed
-  useEffect(
-    () => () => {
-      if (!isNil(timeoutRef.current)) {
-        clearTimeout(timeoutRef.current)
-      }
-    },
-    [timeoutRef]
-  )
+  const [searching, setSearching] = useState(false)
+  const [results, setResults] = useState<SearchResult<T>[] | undefined>(undefined)
+  const search = debounce(800, async (query: string) => {
+    setSearching(true)
+    try {
+      const response = await resultsProvider(query)
+      setResults(response)
+    } finally {
+      setSearching(false)
+    }
+  })
 
   return (
-    <div className={clsx('h-max', 'w-full', 'relative')}>
-      <Combobox
-        onChange={(selection: SearchResult<T>) => {
-          if (!isNil(selection)) {
-            onSelect?.(selection)
+    <div className={clsx('h-max', 'w-full', 'relative')} ref={ref}>
+      <SearchInput
+        query={query}
+        searching={searching}
+        onChange={(query) => {
+          setQuery(query)
+          if (isNilOrEmpty(query)) {
+            setSearching(false)
+            setResults(undefined)
+          } else {
+            search(query)
           }
         }}
-        onClose={() => {
-          setQuery(null)
-          onSearchClear?.()
-        }}
-      >
-        <SearchInput
-          query={query}
-          searching={searching}
-          onSearch={onSearch}
-          onChange={onChange}
-          style={unlessNil<NonNullable<typeof style>, Pick<NonNullable<typeof style>, 'placeHolder'>>(
-            pick(['placeHolder'])
+        style={unlessNil<NonNullable<typeof style>, Pick<NonNullable<typeof style>, 'placeHolder'>>(
+          pick(['placeHolder'])
+        )(style)}
+      />
+      <AnimatePresence>
+        <SearchResultsContainer
+          results={results}
+          style={unlessNil<NonNullable<typeof style>, Pick<NonNullable<typeof style>, 'categories'>>(
+            pick(['categories'])
           )(style)}
+          onSelect={onSelect}
         />
-        <AnimatePresence>
-          <SearchResultsContainer
-            results={results}
-            style={unlessNil<NonNullable<typeof style>, Pick<NonNullable<typeof style>, 'categories'>>(
-              pick(['categories'])
-            )(style)}
-          />
-        </AnimatePresence>
-      </Combobox>
+      </AnimatePresence>
     </div>
   )
 }
