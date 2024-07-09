@@ -16,7 +16,7 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@headlessui/react": "2.0.4",
+    "@headlessui/react": "2.1.2",
     "@sentry/nextjs": "8.10.0",
     "@storybook/nextjs": "8.1.11",
     "dayjs": "1.11.11",
