@@ -23,7 +23,7 @@ export function routeHandler<ResponseBody, RequestBody = never, Params extends o
     try {
       await initializeFirebase({ logger })
       await pipe(getAuthUser, andThen(setUser))()
-      return requestHandler({ req, logger, params: context?.params as Params })
+      return await requestHandler({ req, logger, params: context?.params as Params })
     } catch (err) {
       return routeHandlerErrorHandler({ err, logger })
     }

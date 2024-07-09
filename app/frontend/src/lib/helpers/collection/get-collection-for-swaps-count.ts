@@ -6,7 +6,7 @@ import { assoc, isNil } from 'ramda'
 export async function getCollectionForSwapsCount(swapsCount: CollectionSwapsCount): Promise<CollectionWithSwapsCount> {
   const collection = await getCollectionById(swapsCount.collectionId)
   if (isNil(collection)) {
-    throw Error('collection not found')
+    return Promise.reject(Error('collection not found'))
   }
   return assoc('swapsCount', swapsCount.swapsCount, collection)
 }
