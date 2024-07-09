@@ -6,3 +6,5 @@ import type { UserDocumentData } from '@echo/firestore/types/model/user/user-doc
 declare module 'next-auth' {
   interface User extends UserDocumentData {}
 }
+
+export {}

@@ -14,67 +14,59 @@ import { modelLoggerSerializers } from '@echo/model/constants/logger-serializers
 import { getEchoDiscordGuild } from '@echo/utils/helpers/get-echo-discord-guild'
 import { getBaseLogger } from '@echo/utils/services/logger'
 import { getSecret } from '@echo/utils/services/secret-manager'
-import type { Logger } from '@echo/utils/types/logger'
 import { Client, Events, GatewayIntentBits } from 'discord.js'
 import { assoc, isNil, otherwise, pick, pipe } from 'ramda'
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] })
-const botLogger: Logger = getBaseLogger('Bot', {
+global.client = new Client({ intents: [GatewayIntentBits.Guilds] })
+global.logger = getBaseLogger('Bot', {
   hideNetwork: true,
   serializers: [{ channel: pick(['id']), thread: pick(['id']) }, modelLoggerSerializers]
 })
+global.keepAliveTimer = setInterval(() => {
+  global.logger.info('bot is still alive')
+}, 60000)
 
 client.once(Events.ClientReady, (client) => {
   listenToListings(
     pipe(
       assoc('client', client),
-      assoc('logger', botLogger),
+      assoc('logger', global.logger),
       listingChangeHandler,
-      otherwise(captureAndLogException(botLogger))
+      otherwise(captureAndLogException)
     )
   )
   listenToOffers(
-    pipe(
-      assoc('client', client),
-      assoc('logger', botLogger),
-      offerChangeHandler,
-      otherwise(captureAndLogException(botLogger))
-    )
+    pipe(assoc('client', client), assoc('logger', global.logger), offerChangeHandler, otherwise(captureAndLogException))
   )
   listenToOfferUpdates(
     pipe(
       assoc('client', client),
-      assoc('logger', botLogger),
+      assoc('logger', global.logger),
       offerUpdateChangeHandler,
-      otherwise(captureAndLogException(botLogger))
+      otherwise(captureAndLogException)
     )
   )
   listenToSwaps(
-    pipe(
-      assoc('client', client),
-      assoc('logger', botLogger),
-      swapChangeHandler,
-      otherwise(captureAndLogException(botLogger))
-    )
+    pipe(assoc('client', client), assoc('logger', global.logger), swapChangeHandler, otherwise(captureAndLogException))
   )
 })
 
 async function main() {
-  await initializeFirebase({ logger: botLogger })
-  botLogger.info('firebase initialized')
+  await initializeFirebase({ logger: global.logger })
+  global.logger.info('firebase initialized')
   initializeSentry()
   await initializeTranslations()
-  const clientToken = await getSecret({ name: 'DISCORD_CLIENT_TOKEN', logger: botLogger })
+  const clientToken = await getSecret({ name: 'DISCORD_CLIENT_TOKEN', logger: global.logger })
   if (isNil(clientToken)) {
-    botLogger.error('DISCORD_CLIENT_TOKEN is not set')
+    global.logger.error('DISCORD_CLIENT_TOKEN is not set')
     process.exit(1)
   }
   // Login to Discord with your client's token
   try {
     await client.login(clientToken)
-    botLogger.info({ guild: getEchoDiscordGuild() }, 'logged in')
+    global.logger.info({ guild: getEchoDiscordGuild() }, 'logged in')
   } catch (err) {
-    botLogger.fatal({ err }, 'login failed')
+    global.logger.fatal({ err }, 'login failed')
   }
 }
 
@@ -82,5 +74,5 @@ async function main() {
 try {
   await main()
 } catch (err) {
-  botLogger.fatal({ err }, 'error while initializing')
+  global.logger.fatal({ err }, 'error while initializing')
 }

@@ -1,6 +1,9 @@
-// noinspection JSUnusedGlobalSymbols
+/* eslint-disable no-var */
+// noinspection JSUnusedGlobalSymbols,ES6ConvertVarToLetConst
 
 import { messages } from '@echo/bot/messages/en'
+import type { Logger } from '@echo/utils/types/logger'
+import type { Client } from 'discord.js'
 
 declare module 'i18next' {
   // Extend CustomTypeOptions
@@ -10,4 +13,10 @@ declare module 'i18next' {
       translation: typeof messages
     }
   }
+}
+
+declare global {
+  var client: Readonly<Client>
+  var logger: Readonly<Logger>
+  var keepAliveTimer: Readonly<ReturnType<typeof setInterval>>
 }

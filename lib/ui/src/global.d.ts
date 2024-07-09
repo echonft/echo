@@ -7,3 +7,5 @@ declare global {
   // get typings on translation keys
   interface IntlMessages extends MessagesType {}
 }
+
+export {}
