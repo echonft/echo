@@ -1,6 +1,7 @@
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
+import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import { getNftIndexFromQueryParam } from '@echo/frontend/lib/helpers/nft/get-nft-index-from-query-param'
 import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
 import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
@@ -54,7 +55,7 @@ async function render({
       map(getNftByIndex),
       promiseAll,
       andThen<Nullable<Nft>[], Nft[]>(reject(isNil)),
-      otherwise(always([]))
+      otherwise(pipe(captureAndLogError, always([])))
     )
   )(receiverItems)
   if (isNilOrEmpty(receiverNfts)) {
@@ -69,7 +70,7 @@ async function render({
     prop('username'),
     getNftsForOwner as (username: string) => Promise<Nft[]>,
     andThen(filter(pathSatisfies(equals(receiverChain), ['collection', 'contract', 'chain']))),
-    otherwise(always([]))
+    otherwise(pipe(captureAndLogError, always([])))
   )(user)
   if (isNilOrEmpty(senderNfts)) {
     notFound()

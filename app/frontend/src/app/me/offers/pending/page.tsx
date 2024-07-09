@@ -1,18 +1,20 @@
 import { getPendingOffersForReceiver } from '@echo/firestore/crud/offer/get-pending-offers-for-receiver'
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
+import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import { setOfferRoleReceiver } from '@echo/frontend/lib/helpers/offer/set-offer-role-receiver'
 import type { WithAuthUserProps } from '@echo/frontend/lib/types/with-auth-user-props'
 import { NAVIGATION_PENDING_OFFERS } from '@echo/ui/constants/navigation-item'
 import { ProfileNavigationLayout } from '@echo/ui/pages/profile/navigation/profile-navigation-layout'
 import { ProfilePendingOffers } from '@echo/ui/pages/profile/offers/pending/profile-pending-offers'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
-import { andThen, map, path, pipe } from 'ramda'
+import { always, andThen, map, otherwise, path, pipe } from 'ramda'
 
 async function render(params: WithAuthUserProps) {
   const offers = await pipe(
     nonNullableReturn(path(['user', 'username'])),
     getPendingOffersForReceiver,
-    andThen(map(setOfferRoleReceiver))
+    andThen(map(setOfferRoleReceiver)),
+    otherwise(pipe(captureAndLogError, always([])))
   )(params)
   return (
     <ProfileNavigationLayout activeNavigationItem={NAVIGATION_PENDING_OFFERS}>
