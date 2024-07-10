@@ -2,6 +2,7 @@ import { addEscrowedNftWithId } from '@echo/firestore/crud/escrowed-nft/add-escr
 import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
 import { getNftSnapshotForIndex } from '@echo/firestore/crud/nft/get-nft'
 import type { NftWithId } from '@echo/firestore/types/model/nft/nft-with-id'
+import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import { NotFoundError } from '@echo/frontend/lib/helpers/error/not-found-error'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import type { Nft } from '@echo/model/types/nft'
@@ -22,7 +23,7 @@ export async function processInEscrowTransfer(args: WithLoggerType<Record<'nft',
   const nftSnapshot = await pipe(
     getNftSnapshotForIndex,
     otherwise((err) => {
-      logger?.error({ err, nft: nftIndex }, 'could get NFT snapshot')
+      captureAndLogError(err, { logObject: { nft: nftIndex }, message: 'could get NFT snapshot' })
       return undefined
     })
   )(nftIndex)

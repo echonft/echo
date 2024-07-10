@@ -22,8 +22,8 @@ function getSerializers(serializers?: LoggerSerializer | LoggerSerializer[]): Lo
 export function getBaseLogger(name: string, options?: LoggerOptions, stream?: DestinationStream | undefined) {
   return pino(
     {
-      enabled: options?.override?.enabled ?? (!isCI && !isTest),
-      level: options?.override?.level ?? (isProd ? 'info' : 'trace'),
+      enabled: !isCI && !isTest,
+      level: process.env.LOG_LEVEL ?? (isProd ? 'info' : 'trace'),
       name,
       formatters: {
         level(label, _number) {

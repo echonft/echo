@@ -21,7 +21,7 @@ if [ ! "${SECRET_MANAGER_PRIVATE_KEY}" ]; then
   exit 1
 fi
 
-dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+dir=$(cd "$(dirname "$BASH_SOURCE")" && pwd)
 SECRET_MANAGER_EMAIL=${SECRET_MANAGER_EMAIL} \
 SECRET_MANAGER_PRIVATE_KEY=${SECRET_MANAGER_PRIVATE_KEY} \
 NODE_ENV=production \

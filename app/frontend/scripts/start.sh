@@ -1,12 +1,12 @@
-#!/bin/bash
+#!/bin/sh
 
-if [ "${ENV}" == "development" ]; then
+if [ "${ENV}" = "development" ]; then
   project_id="echo-dev-fallback"
   NEXT_PUBLIC_IS_TESTNET="1"
-elif [ "${ENV}" == "staging" ]; then
+elif [ "${ENV}" = "staging" ]; then
   project_id="echo-staging-ba121"
   NEXT_PUBLIC_IS_TESTNET="0"
-elif [ "${ENV}" == "production" ]; then
+elif [ "${ENV}" = "production" ]; then
   project_id="echo-prod-b71e2"
   NEXT_PUBLIC_IS_TESTNET="0"
 else
