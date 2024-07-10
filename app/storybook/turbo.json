@@ -6,7 +6,10 @@
       "outputs": ["storybook-static/**"]
     },
     "dev": {
-      "dependsOn": ["@echo/ui#build"]
+      "dependsOn": ["@echo/ui#build"],
+      "passThroughEnv": ["ENV", "LOG_LEVEL", "NODE_ENV", "NEXT_PUBLIC_IS_TESTNET"],
+      "cache": false,
+      "persistent": true
     }
   }
 }

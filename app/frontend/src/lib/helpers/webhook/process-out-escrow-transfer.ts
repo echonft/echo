@@ -5,6 +5,7 @@ import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { getWalletByAddress } from '@echo/firestore/crud/wallet/get-wallet-by-address'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
 import type { NftWithId } from '@echo/firestore/types/model/nft/nft-with-id'
+import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import { NotFoundError } from '@echo/frontend/lib/helpers/error/not-found-error'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import type { Nft } from '@echo/model/types/nft'
@@ -26,7 +27,7 @@ export async function processOutEscrowTransfer(args: WithLoggerType<Record<'nft'
   const nftSnapshot = await pipe(
     getEscrowedNftSnapshot,
     otherwise((err) => {
-      logger?.error({ err, nft: nftIndex }, 'could not get escrowed NFT snapshot')
+      captureAndLogError(err, { logObject: { nft: nftIndex }, message: 'could not get escrowed NFT snapshot' })
       return undefined
     })
   )(nftIndex)
@@ -36,7 +37,7 @@ export async function processOutEscrowTransfer(args: WithLoggerType<Record<'nft'
   const to = await pipe(
     getWalletByAddress,
     otherwise((err) => {
-      logger?.error({ err, wallet }, 'could not get wallet from Firestore')
+      captureAndLogError(err, { logObject: { wallet }, message: 'could not get wallet from Firestore' })
       return undefined
     })
   )(wallet)
@@ -49,7 +50,10 @@ export async function processOutEscrowTransfer(args: WithLoggerType<Record<'nft'
     const userDocumentData = await pipe(
       getUserById,
       otherwise((err) => {
-        logger?.error({ err, user: { id: to.userId } }, 'could not get user from Firestore')
+        captureAndLogError(err, {
+          logObject: { user: { id: to.userId } },
+          message: 'could not get user from Firestore'
+        })
         return undefined
       })
     )(to.userId)

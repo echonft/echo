@@ -1,6 +1,7 @@
 import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
+import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import { NotFoundError } from '@echo/frontend/lib/helpers/error/not-found-error'
 import type { TransferData } from '@echo/frontend/lib/types/transfer/transfer-data'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
@@ -24,7 +25,7 @@ export async function processInTransfer(
   const userDocumentData = await pipe(
     getUserById,
     otherwise((err) => {
-      logger?.error({ err, user: { id: to.userId } }, 'could not get user from Firestore')
+      captureAndLogError(err, { logObject: { user: { id: to.userId } }, message: 'could not get user from Firestore' })
       return undefined
     })
   )(to.userId)

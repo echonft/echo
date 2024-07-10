@@ -1,6 +1,8 @@
 #!/bin/sh
 
-dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+# shellcheck disable=SC3028
+# shellcheck disable=SC2128
+dir=$(cd "$(dirname "$BASH_SOURCE")" && pwd)
 if ! sh "${dir}"/../base/check-newt.sh; then
     exit 1
 fi
@@ -10,5 +12,9 @@ ENV=$(whiptail --default-item=development --notags --menu "Pick an environment" 
 "staging" "Staging" \
 "production" "Production" 3>&1 1>&2 2>&3)
 
-pnpm exec turbo build --filter=@echo/bot
-ENV=${ENV} "${dir}"/../../app/bot/scripts/start.sh
+if [ "$ENV" = "development" ] || [ "$ENV" = "staging" ] || [ "$ENV" = "production" ]; then
+  pnpm exec turbo build --filter=@echo/bot
+  ENV=${ENV} "${dir}"/../../app/bot/scripts/start.sh
+else
+  exit 1
+fi

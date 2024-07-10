@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 
-if [ "${ENV}" == "development" ]; then
+if [ "${ENV}" = "development" ]; then
   project_id="echo-dev-fallback"
-elif [ "${ENV}" == "staging" ]; then
+elif [ "${ENV}" = "staging" ]; then
   project_id="echo-staging-ba121"
-elif [ "${ENV}" == "production" ]; then
+elif [ "${ENV}" = "production" ]; then
   project_id="echo-prod-b71e2"
 else
   >&2 echo "ENV not set"

@@ -10,7 +10,7 @@
       "cache": false
     },
     "dev": {
-      "passThroughEnv": ["ENV", "NODE_ENV", "NEXT_PUBLIC_IS_TESTNET"],
+      "passThroughEnv": ["ENV", "LOG_LEVEL", "NODE_ENV", "NEXT_PUBLIC_IS_TESTNET"],
       "cache": false,
       "persistent": true
     },

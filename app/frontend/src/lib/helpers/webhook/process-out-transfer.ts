@@ -1,5 +1,6 @@
 import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
 import { getNftSnapshotForIndex } from '@echo/firestore/crud/nft/get-nft'
+import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import type { TransferData } from '@echo/frontend/lib/types/transfer/transfer-data'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import { addCollection } from '@echo/tasks/add-collection'
@@ -21,7 +22,7 @@ export async function processOutTransfer(args: WithLoggerType<Record<'transfer',
   await pipe(
     getNftSnapshotForIndex,
     otherwise((err) => {
-      logger?.error({ err, nft: nftIndex }, 'could get NFT snapshot')
+      captureAndLogError(err, { logObject: { nft: nftIndex }, message: 'could get NFT snapshot' })
       return undefined
     }),
     andThen(unlessNil(pipe(prop('id'), deleteNft)))
