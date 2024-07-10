@@ -8,7 +8,7 @@ export const logSchema = object({
   // data: string(),
   // logIndex: hexStringSchema,
   // removed: boolean(),
-  topics: array(hexStringSchema).nonempty()
-  // transactionHash: hexStringSchema,
+  topics: array(hexStringSchema).nonempty(),
+  transactionHash: hexStringSchema
   // transactionIndex: hexStringSchema
 })
