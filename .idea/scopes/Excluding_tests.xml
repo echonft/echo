@@ -1,3 +1,0 @@
-<component name="DependencyValidationManager">
-  <scope name="Excluding tests" pattern="file:env.d.ts||file[echo]:**//src//*" />
-</component>

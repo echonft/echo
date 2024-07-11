@@ -1,14 +1,13 @@
+import { deleteCollectionSwapsCount } from '@echo/firestore/crud/collection-swaps-count/delete-collection-swaps-count'
+import { getCollectionSwapsCountByCollectionId } from '@echo/firestore/crud/collection-swaps-count/get-collection-swaps-count-by-collection-id'
 import { addCollection } from '@echo/firestore/crud/collection/add-collection'
 import { deleteCollection } from '@echo/firestore/crud/collection/delete-collection'
 import { getCollectionById } from '@echo/firestore/crud/collection/get-collection-by-id'
-import { assertCollections } from '@echo/firestore/utils/collection/assert-collections'
 import { assertCollectionSwapsCounts } from '@echo/firestore/utils/collection-swaps-count/assert-collection-swaps-counts'
-import { deleteCollectionSwapsCount } from '@echo/firestore/crud/collection-swaps-count/delete-collection-swaps-count'
-import { getCollectionSwapsCountByCollectionId } from '@echo/firestore/crud/collection-swaps-count/get-collection-swaps-count-by-collection-id'
-import type { Collection } from '@echo/model/types/collection'
+import { assertCollections } from '@echo/firestore/utils/collection/assert-collections'
 import { collectionMockPxId } from '@echo/model/mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model/mocks/collection/get-collection-mock-by-id'
-import { errorMessage } from '@echo/utils/helpers/error-message'
+import type { Collection } from '@echo/model/types/collection'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, assocPath, isNil, pipe } from 'ramda'
@@ -30,18 +29,10 @@ describe('CRUD - collection - addCollection', () => {
   })
   afterEach(async () => {
     if (!isNil(collectionId)) {
-      try {
-        await deleteCollection(collectionId)
-      } catch (err) {
-        throw Error(`error deleting collection ${collectionId}: ${errorMessage(err)}`)
-      }
+      await deleteCollection(collectionId)
     }
     if (!isNil(swapsCountId)) {
-      try {
-        await deleteCollectionSwapsCount(swapsCountId)
-      } catch (err) {
-        throw Error(`error deleting collection swaps count ${swapsCountId}: ${errorMessage(err)}`)
-      }
+      await deleteCollectionSwapsCount(swapsCountId)
     }
   })
 

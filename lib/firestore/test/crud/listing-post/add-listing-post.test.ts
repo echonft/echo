@@ -1,10 +1,9 @@
-import { assertListingPosts } from '@echo/firestore/utils/listing-post/assert-listing-posts'
-import { deleteListingPost } from '@echo/firestore/crud/listing-post/delete-listing-post'
 import { addListingPost } from '@echo/firestore/crud/listing-post/add-listing-post'
+import { deleteListingPost } from '@echo/firestore/crud/listing-post/delete-listing-post'
 import { getListingPost } from '@echo/firestore/crud/listing-post/get-listing-post'
 import type { ListingPostDiscordGuild } from '@echo/firestore/types/model/listing-post/listing-post'
+import { assertListingPosts } from '@echo/firestore/utils/listing-post/assert-listing-posts'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
-import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
@@ -24,11 +23,7 @@ describe('CRUD - listing-post - addListingPost', () => {
   })
   afterEach(async () => {
     if (!isNil(listingPostId)) {
-      try {
-        await deleteListingPost(listingPostId)
-      } catch (e) {
-        throw Error(`error deleting listing post with id ${listingPostId}: ${errorMessage(e)}`)
-      }
+      await deleteListingPost(listingPostId)
     }
   })
 

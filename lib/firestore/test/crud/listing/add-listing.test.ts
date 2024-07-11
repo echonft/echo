@@ -1,21 +1,20 @@
-import { assertListingOffers } from '@echo/firestore/utils/listing-offer/assert-listing-offers'
 import { deleteListingOffer } from '@echo/firestore/crud/listing-offer/delete-listing-offer'
-import { assertListings } from '@echo/firestore/utils/listing/assert-listings'
-import { deleteListing } from '@echo/firestore/crud/listing/delete-listing'
-import { getAllListings } from '@echo/firestore/crud/listing/get-all-listings'
 import { getListingOffersByListingId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-listing-id'
 import { getListingOffersForListing } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-listing'
 import { addListing } from '@echo/firestore/crud/listing/add-listing'
+import { deleteListing } from '@echo/firestore/crud/listing/delete-listing'
+import { getAllListings } from '@echo/firestore/crud/listing/get-all-listings'
 import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
 import { assertListingIsNotADuplicate } from '@echo/firestore/helpers/listing/assert/assert-listing-is-not-a-duplicate'
 import type { ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
 import type { NewDocument } from '@echo/firestore/types/new-document'
+import { assertListingOffers } from '@echo/firestore/utils/listing-offer/assert-listing-offers'
+import { assertListings } from '@echo/firestore/utils/listing/assert-listings'
+import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import { getAllListingMocks } from '@echo/model/mocks/listing/get-all-listing-mocks'
 import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
-import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
-import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
@@ -38,19 +37,10 @@ describe('CRUD - listing - addListing', () => {
   })
   afterEach(async () => {
     if (!isNil(createdListingId)) {
-      try {
-        await deleteListing(createdListingId)
-      } catch (e) {
-        throw Error(`error deleting listing with id ${createdListingId}: ${errorMessage(e)}`)
-      }
+      await deleteListing(createdListingId)
     }
-    try {
-      // remove listing offers
-      for (const createdListingOfferId of createdListingOfferIds) {
-        await deleteListingOffer(createdListingOfferId)
-      }
-    } catch (e) {
-      throw Error(`error deleting listing offers ${JSON.stringify(createdListingOfferIds)}: ${errorMessage(e)}`)
+    for (const createdListingOfferId of createdListingOfferIds) {
+      await deleteListingOffer(createdListingOfferId)
     }
   })
 

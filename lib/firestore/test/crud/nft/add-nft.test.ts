@@ -3,10 +3,9 @@ import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { assertNfts } from '@echo/firestore/utils/nft/assert-nfts'
-import type { Nft } from '@echo/model/types/nft'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
-import { errorMessage } from '@echo/utils/helpers/error-message'
+import type { Nft } from '@echo/model/types/nft'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil, omit, pipe, prop } from 'ramda'
@@ -24,11 +23,7 @@ describe('CRUD - nft - addNft', () => {
   })
   afterEach(async () => {
     if (!isNil(nftId)) {
-      try {
-        await deleteNft(nftId)
-      } catch (err) {
-        throw Error(`error deleting nft ${nftId}: ${errorMessage(err)}`)
-      }
+      await deleteNft(nftId)
     }
   })
   it('addNft', async () => {

@@ -15,7 +15,6 @@ import {
 } from '@echo/model/constants/offer-states'
 import { getOfferMockBySlug } from '@echo/model/mocks/offer/get-offer-mock-by-slug'
 import { offerMockToJohnnycageSlug } from '@echo/model/mocks/offer/offer-mock'
-import { errorMessage } from '@echo/utils/helpers/error-message'
 import { futureDate } from '@echo/utils/helpers/future-date'
 import { pastDate } from '@echo/utils/helpers/past-date'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -39,11 +38,7 @@ describe('CRUD - offer - cancelOffer', () => {
     createdStateUpdateId = undefined
   })
   afterEach(async () => {
-    try {
-      await unchecked_updateOffer(slug, getOfferMockBySlug(slug))
-    } catch (e) {
-      throw Error(`error updating offer with slug ${slug} to its original state: ${errorMessage(e)}`)
-    }
+    await unchecked_updateOffer(slug, getOfferMockBySlug(slug))
     if (!isNil(createdStateUpdateId)) {
       await deleteOfferUpdate(createdStateUpdateId)
     }

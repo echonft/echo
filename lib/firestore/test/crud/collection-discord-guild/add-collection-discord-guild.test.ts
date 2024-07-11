@@ -1,9 +1,8 @@
 import { addCollectionDiscordGuild } from '@echo/firestore/crud/collection-discord-guild/add-collection-discord-guild'
-import { assertCollectionDiscordGuilds } from '@echo/firestore/utils/collection-discord-guild/assert-collection-discord-guilds'
 import { deleteCollectionDiscordGuild } from '@echo/firestore/crud/collection-discord-guild/delete-collection-discord-guild'
 import { getCollectionDiscordGuildById } from '@echo/firestore/crud/collection-discord-guild/get-collection-discord-guild-by-id'
+import { assertCollectionDiscordGuilds } from '@echo/firestore/utils/collection-discord-guild/assert-collection-discord-guilds'
 import { collectionMockPxId } from '@echo/model/mocks/collection/collection-mock'
-import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
@@ -21,11 +20,7 @@ describe('CRUD - collection-discord-guild - addCollectionDiscordGuild', () => {
   })
   afterEach(async () => {
     if (!isNil(collectionDiscordGuildId)) {
-      try {
-        await deleteCollectionDiscordGuild(collectionDiscordGuildId)
-      } catch (err) {
-        throw Error(`error deleting collection discord guild ${collectionDiscordGuildId}: ${errorMessage(err)}`)
-      }
+      await deleteCollectionDiscordGuild(collectionDiscordGuildId)
     }
   })
   it('throws if trying to add a guild for a collection that does not exist', async () => {
