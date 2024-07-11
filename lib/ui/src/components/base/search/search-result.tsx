@@ -5,7 +5,6 @@ import {
 import type { SearchResult as SearchResultModel } from '@echo/model/types/search-result'
 import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
 import { PICTURE_SIZE_XS } from '@echo/ui/constants/picture-size'
-import { ComboboxOption } from '@headlessui/react'
 import { clsx } from 'clsx'
 
 export interface SearchResultProps<T> {
@@ -13,13 +12,13 @@ export interface SearchResultProps<T> {
   style?: {
     rounded?: 'top' | 'bottom'
   }
+  onSelect?: (selection: SearchResultModel<T>) => unknown
 }
 
-export const SearchResult = <T,>({ result, style }: SearchResultProps<T>) => {
+export const SearchResult = <T,>({ result, style, onSelect }: SearchResultProps<T>) => {
   const { label, pictureUrl } = result
   return (
-    <ComboboxOption
-      as={'button'}
+    <button
       className={clsx(
         'flex',
         'flex-row',
@@ -36,8 +35,9 @@ export const SearchResult = <T,>({ result, style }: SearchResultProps<T>) => {
         style?.rounded === 'top' && 'rounded-t-lg',
         style?.rounded === 'bottom' && 'rounded-b-lg'
       )}
-      value={result}
-      id={`search-result-${result.id}`}
+      onClick={() => {
+        onSelect?.(result)
+      }}
     >
       <SizeableImage
         className={clsx('w-8', 'h-8', 'rounded')}
@@ -47,6 +47,6 @@ export const SearchResult = <T,>({ result, style }: SearchResultProps<T>) => {
         height={PICTURE_SIZE_XS}
       />
       <span className={clsx('prose-label-md', 'text-white', 'truncate')}>{label}</span>
-    </ComboboxOption>
+    </button>
   )
 }

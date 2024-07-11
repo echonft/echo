@@ -26,7 +26,8 @@
     "modules:update-minor": "ncu -u --deep --target=minor; turbo modules:update-minor",
     "prettier": "turbo prettier",
     "test": "turbo test",
-    "tsc": "turbo tsc"
+    "tsc": "turbo tsc",
+    "vercel:actions": "scripts/vercel/action.sh"
   },
   "devDependencies": {
     "@eslint/compat": "1.1.0",

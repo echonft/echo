@@ -1,6 +1,8 @@
 #!/bin/sh
 
-dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+# shellcheck disable=SC3028
+# shellcheck disable=SC2128
+dir=$(cd "$(dirname "$BASH_SOURCE")" && pwd)
 if ! sh "${dir}"/../base/check-newt.sh; then
     exit 1
 fi

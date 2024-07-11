@@ -1,13 +1,14 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { search } from '@echo/storybook/mocks/search'
-import { SearchBoxManager, type SearchBoxManagerProps } from '@echo/ui/components/base/search/search-box-manager'
+import { SearchBox, type SearchBoxProps } from '@echo/ui/components/base/search/search-box'
 import type { Meta, StoryObj } from '@storybook/react'
 import { type FunctionComponent } from 'react'
 
-interface Props extends Pick<SearchBoxManagerProps<string>, 'onSelect'> {
+interface Props extends Pick<SearchBoxProps<string>, 'onSelect'> {
   showCategories: boolean
 }
+
 type ComponentType = FunctionComponent<Props>
 
 const metadata: Meta<ComponentType> = {
@@ -36,9 +37,13 @@ const metadata: Meta<ComponentType> = {
 }
 export default metadata
 export const Box: StoryObj<ComponentType> = {
+  args: {
+    showCategories: true
+  },
+
   render: ({ showCategories, onSelect }) => {
     return (
-      <SearchBoxManager
+      <SearchBox
         resultsProvider={search}
         onSelect={onSelect}
         style={{ categories: { show: showCategories }, placeHolder: 'Search' }}

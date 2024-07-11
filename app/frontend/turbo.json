@@ -32,6 +32,7 @@
         "AUTH_DISCORD_SECRET",
         "AUTH_SECRET",
         "ENV",
+        "LOG_LEVEL",
         "NEXT_PUBLIC_IS_TESTNET",
         "NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL",
         "NODE_ENV",

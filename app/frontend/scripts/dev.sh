@@ -1,9 +1,10 @@
 #!/bin/sh
-if [ "${ENV}" == "development" ]; then
+
+if [ "${ENV}" = "development" ]; then
   project_id="echo-dev-fallback"
-elif [ "${ENV}" == "staging" ]; then
+elif [ "${ENV}" = "staging" ]; then
   project_id="echo-staging-ba121"
-elif [ "${ENV}" == "production" ]; then
+elif [ "${ENV}" = "production" ]; then
   project_id="echo-prod-b71e2"
 else
   >&2 echo "ENV not set"
@@ -14,7 +15,7 @@ AUTH_DISCORD_ID=$(gcloud secrets versions access 'latest' --secret="DISCORD_CLIE
 AUTH_DISCORD_SECRET=$(gcloud secrets versions access 'latest' --secret="DISCORD_CLIENT_SECRET" --project=${project_id})
 AUTH_SECRET=$(gcloud secrets versions access 'latest' --secret="AUTH_SECRET" --project=${project_id})
 
-if [ "$NEXT_PUBLIC_IS_TESTNET" == "1" ]; then
+if [ "$NEXT_PUBLIC_IS_TESTNET" = "1" ]; then
   network="testnet"
 else
   network="mainnet"

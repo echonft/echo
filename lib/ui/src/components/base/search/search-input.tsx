@@ -1,13 +1,15 @@
 'use client'
+import { SearchInputClearButton } from '@echo/ui/components/base/search/search-input-clear-button'
 import { SearchIconSvg } from '@echo/ui/components/base/svg/search-icon-svg'
 import { theme } from '@echo/ui/helpers/theme/theme'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { ComboboxInput } from '@headlessui/react'
+import { Input } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { always, identity, ifElse, isEmpty, isNil } from 'ramda'
-import { type FunctionComponent, useMemo } from 'react'
+import { AnimatePresence } from 'framer-motion'
+import { defaultTo, isEmpty } from 'ramda'
+import { type FunctionComponent } from 'react'
 import { RotatingLines } from 'react-loader-spinner'
-import { debounce } from 'throttle-debounce'
 
 interface Props {
   query: Nullable<string>
@@ -16,25 +18,9 @@ interface Props {
     placeHolder?: string
   }>
   onChange?: (query: Nullable<string>) => void
-  onSearch?: (searchQuery: string) => unknown
 }
 
-// FIXME fix clear button
-export const SearchInput: FunctionComponent<Props> = ({ query, searching, style, onChange, onSearch }) => {
-  const search = useMemo(
-    () =>
-      debounce(
-        800,
-        (searchQuery: string) => {
-          if (!isEmpty(searchQuery)) {
-            onSearch?.(searchQuery)
-          }
-        },
-        { atBegin: false }
-      ),
-    [onSearch]
-  )
-
+export const SearchInput: FunctionComponent<Props> = ({ query, searching, style, onChange }) => {
   return (
     <div className={clsx('items-center', 'bg-dark-400', 'rounded-lg', 'w-full')}>
       <span className={clsx('text-yellow-500', 'absolute', 'left-3', 'top-3')}>
@@ -50,15 +36,15 @@ export const SearchInput: FunctionComponent<Props> = ({ query, searching, style,
           <SearchIconSvg width={24} height={24} />
         )}
       </span>
-      {/*<AnimatePresence>*/}
-      {/*  <SearchInputClearButton*/}
-      {/*    show={!isNilOrEmpty(query)}*/}
-      {/*    onClick={() => {*/}
-      {/*      onChange?.(undefined)*/}
-      {/*    }}*/}
-      {/*  />*/}
-      {/*</AnimatePresence>*/}
-      <ComboboxInput
+      <AnimatePresence>
+        <SearchInputClearButton
+          show={!isNilOrEmpty(query)}
+          onClick={() => {
+            onChange?.(undefined)
+          }}
+        />
+      </AnimatePresence>
+      <Input
         className={clsx(
           'h-12',
           'px-14',
@@ -69,12 +55,15 @@ export const SearchInput: FunctionComponent<Props> = ({ query, searching, style,
           'bg-transparent',
           'outline-none'
         )}
-        value={ifElse(isNil, always(''), identity)(query)}
+        value={defaultTo('', query)}
         placeholder={style?.placeHolder}
         onChange={(event) => {
-          const value = event.target.value
-          onChange?.(value)
-          search(value)
+          onChange?.(event.target.value)
+        }}
+        onKeyDown={(event) => {
+          if (isEmpty(query) && event.key === 'Backspace') {
+            onChange?.(undefined)
+          }
         }}
       />
     </div>
