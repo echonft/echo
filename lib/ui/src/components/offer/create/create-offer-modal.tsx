@@ -40,7 +40,7 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.create.modal')
   const tError = useTranslations('error.offer')
-  const { getOfferByIdContract, contractCreateOffer, logger } = useDependencies()
+  const { getOfferByIdContract, contractCreateOffer } = useDependencies()
   const baseOffer = useMemo(
     () =>
       generateBaseOffer({
@@ -62,8 +62,7 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
     },
     // TODO better error handling?
     onError: {
-      logger,
-      loggerContext: { component: CreateOfferModal.name, fn: getOfferByIdContract.name, offer: baseOffer }
+      loggerContext: { component: CreateOfferModal.name, fetcher: getOfferByIdContract.name, offer: baseOffer }
     }
   })
   const { trigger: triggerContractCreate, isMutating: isContractCreateMutating } = useSWRTrigger<
@@ -77,8 +76,7 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
     },
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('new') },
-      logger,
-      loggerContext: { component: CreateOfferModal.name, fn: contractCreateOffer.name, offer: baseOffer }
+      loggerContext: { component: CreateOfferModal.name, fetcher: contractCreateOffer.name, offer: baseOffer }
     }
   })
 

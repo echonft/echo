@@ -24,7 +24,7 @@ export const OfferDetailsApproveContractButton: FunctionComponent<Props> = ({
   onLoading
 }) => {
   const t = useTranslations('offer.details.approveModal')
-  const { approveErc721Contract, logger } = useDependencies()
+  const { approveErc721Contract } = useDependencies()
   const { trigger, isMutating } = useSWRTrigger<HexString, ApproveErc721ContractArgs>({
     key: SWRKeys.contract.approveErc721(contract),
     fetcher: approveErc721Contract,
@@ -35,10 +35,9 @@ export const OfferDetailsApproveContractButton: FunctionComponent<Props> = ({
       onError: () => {
         onError?.(contract)
       },
-      logger,
       loggerContext: {
         component: OfferDetailsApproveContractButton.name,
-        fn: approveErc721Contract.name,
+        fetcher: approveErc721Contract.name,
         contract
       }
     }

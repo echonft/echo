@@ -15,7 +15,7 @@ export const expireOffer = onTaskDispatched(
     }
   }),
   async (req) => {
-    const logger = getLogger().child({ fn: 'expireOffer' })
+    const logger = getLogger().child({ function: 'expireOffer' })
     try {
       const { slug } = slugSchema.parse(req.data)
       try {

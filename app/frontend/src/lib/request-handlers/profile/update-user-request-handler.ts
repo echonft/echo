@@ -6,9 +6,17 @@ import type { RequestHandlerArgs } from '@echo/frontend/lib/types/request-handle
 import { discordAuthTokenSchema } from '@echo/frontend/lib/validators/discord-auth-token-schema'
 import { discordProfileSchema } from '@echo/frontend/lib/validators/discord-profile-schema'
 import { parseRequest } from '@echo/frontend/lib/validators/parse-request'
-import type { DiscordAuthToken } from '@echo/model/types/discord-auth-token'
 import { parseResponse } from '@echo/utils/validators/parse-response'
 import { andThen, objOf, pipe } from 'ramda'
+
+interface DiscordAuthToken {
+  readonly tokenType: string
+  readonly accessToken: string
+  readonly expiresIn: number
+  readonly refreshToken: string
+  readonly scope: string
+  readonly expiresAt: number
+}
 
 export async function updateUserRequestHandler(args: RequestHandlerArgs<DiscordAuthToken>) {
   const token = await parseRequest(discordAuthTokenSchema)(args.req)

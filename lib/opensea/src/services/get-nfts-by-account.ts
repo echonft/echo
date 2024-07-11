@@ -64,7 +64,9 @@ async function handlePaging(
 }
 
 export function getNftsByAccount(args: GetNftsByAccountArgs) {
-  const logger = getLogger({ chain: args.wallet.chain, fn: getNftsByAccount.name, logger: args.logger })
+  const logger = getLogger({ chain: args.wallet.chain, logger: args.logger })?.child({
+    fetcher: getNftsByAccount.name
+  })
   return pipe<[GetNftsByAccountArgs], WithLoggerType<GetNftsByAccountRequest>, Promise<PartialNft[]>>(
     assoc('logger', logger),
     partialRight(handlePaging, [[]])

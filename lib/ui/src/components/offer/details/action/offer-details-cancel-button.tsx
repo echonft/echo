@@ -35,7 +35,7 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.details.cancelBtn')
   const tError = useTranslations('error.offer')
-  const { contractCancelOffer, logger } = useDependencies()
+  const { contractCancelOffer } = useDependencies()
   const chain = pipe<[OfferWithRole], Nft[], Nft, ChainName>(
     prop('receiverItems'),
     head,
@@ -56,10 +56,9 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('cancel') },
       onError,
-      logger,
       loggerContext: {
         component: OfferDetailsCancelButton.name,
-        fn: contractCancelOffer.name,
+        fetcher: contractCancelOffer.name,
         offer
       }
     }

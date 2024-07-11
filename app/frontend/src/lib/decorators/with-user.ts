@@ -10,7 +10,7 @@ export function withUser<Args extends Record<'user', Nullable<User>>, Return ext
   fn: (args: Args) => Return
 ) {
   return async function (args: Args): Promise<Return> {
-    const logger = getLogger().child({ component: 'server-component', fn: 'render' })
+    const logger = getLogger().child({ component: 'server-component', decorator: withUser.name })
     await initializeFirebase({ logger })
     const user = await getAuthUser()
     const fnArgs = pipe(assoc('user', user), assoc('logger', logger))(args) as Args

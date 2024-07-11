@@ -108,7 +108,7 @@ export function addPictureSize(
     }
     return src
   } catch (err) {
-    args.logger?.error({ err, fn: addPictureSize.name })
+    args.logger?.error({ err })
     return args.src
   }
 }

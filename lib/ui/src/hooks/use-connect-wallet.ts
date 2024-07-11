@@ -3,6 +3,7 @@ import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
 import type { Wallet } from '@echo/model/types/wallet'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
+import { captureAndLogError } from '@echo/ui/helpers/capture-and-log-error'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
@@ -37,15 +38,16 @@ export function useConnectWallet(account: AccountResult) {
       errorRetryCount: 3,
       errorRetryInterval: 500,
       revalidateOnMount: true,
-      onError: (_error) => {
+      onError: (err) => {
         void disconnectWallet()
-        logger?.warn(
-          {
+        captureAndLogError(err, {
+          logger,
+          logObject: {
             hook: useConnectWallet.name,
-            fn: getWallets.name
+            fetcher: getWallets.name
           },
-          'useSWR handled error'
-        )
+          severity: 'warning'
+        })
       }
     }
   )
@@ -71,10 +73,9 @@ export function useConnectWallet(account: AccountResult) {
       onError: () => {
         void disconnectWallet()
       },
-      logger,
       loggerContext: {
         hook: useConnectWallet.name,
-        fn: getNonce.name
+        fetcher: getNonce.name
       }
     }
   })
@@ -94,10 +95,9 @@ export function useConnectWallet(account: AccountResult) {
       onError: () => {
         void disconnectWallet()
       },
-      logger,
       loggerContext: {
         hook: useConnectWallet.name,
-        fn: addWallet.name
+        fetcher: addWallet.name
       }
     }
   })
@@ -121,10 +121,9 @@ export function useConnectWallet(account: AccountResult) {
       onError: () => {
         void disconnectWallet()
       },
-      logger,
       loggerContext: {
         hook: useConnectWallet.name,
-        fn: signNonce.name
+        fetcher: signNonce.name
       }
     }
   })

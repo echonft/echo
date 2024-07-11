@@ -11,8 +11,11 @@ import { always, andThen, applySpec, assoc, otherwise, pipe, prop } from 'ramda'
 export async function getCollectionByAddress(
   args: WithLoggerType<GetCollectionRequest>
 ): Promise<Nullable<Collection>> {
+  const logger = getLogger({ chain: args.contract.chain, logger: args.logger })?.child({
+    fetcher: getCollectionByAddress.name
+  })
   return await pipe(
-    assoc('logger', getLogger({ chain: args.contract.chain, fn: getCollectionByAddress.name, logger: args.logger })),
+    assoc('logger', logger),
     fetchCollection,
     andThen(
       unlessNil(

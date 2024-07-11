@@ -27,7 +27,6 @@ export async function fetchNftsByAccount(
   if (!response.ok) {
     logger?.error(
       {
-        fn: fetchNftsByAccount.name,
         wallet,
         url,
         response: pick(['status'], response)

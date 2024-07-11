@@ -10,7 +10,9 @@ import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { andThen, applySpec, assoc, otherwise, pipe, prop } from 'ramda'
 
 export async function getCollectionByAddress(args: WithLoggerType<GetContractRequest>): Promise<Nullable<Collection>> {
-  const logger = getLogger({ chain: args.contract.chain, fn: getCollectionByAddress.name, logger: args.logger })
+  const logger = getLogger({ chain: args.contract.chain, logger: args.logger })?.child({
+    fetcher: getCollectionByAddress.name
+  })
   return await pipe(
     assoc('logger', logger),
     fetchContract,

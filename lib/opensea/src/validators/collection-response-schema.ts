@@ -98,7 +98,7 @@ export function collectionResponseSchema(args?: CollectionResponseSchemaArgs) {
               ifElse(isEmpty, always(undefined), find<CollectionContract>(propEq(args.chain as string, 'chain')))
             )(response)
       if (!isNil(args?.chain) && isNil(contract)) {
-        args.logger?.info({ fn: collectionResponseSchema.name, response, chain }, 'no contract found for chain')
+        args.logger?.info({ schema: collectionResponseSchema.name, response, chain }, 'no contract found for chain')
         return undefined
       }
       return applySpec<Collection>({

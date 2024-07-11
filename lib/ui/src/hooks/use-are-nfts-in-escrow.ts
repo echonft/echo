@@ -16,7 +16,7 @@ export function useAreNftsInEscrow(nfts: Nft[] | undefined): boolean | undefined
       errorRetryInterval: 500,
       onError: errorCallback({
         logger,
-        loggerContext: { component: useAreNftsInEscrow.name, fn: areNftsInEscrow.name }
+        loggerContext: { component: useAreNftsInEscrow.name, fetcher: areNftsInEscrow.name }
       })
     }
   )

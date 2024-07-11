@@ -32,7 +32,7 @@ export const OfferDetailsRejectButton: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.details.rejectBtn')
   const tError = useTranslations('error.offer')
-  const { rejectOffer, logger } = useDependencies()
+  const { rejectOffer } = useDependencies()
   const { trigger } = useSWRTrigger<OfferResponse, RejectOfferArgs>({
     key: SWRKeys.offer.reject(offer),
     fetcher: rejectOffer,
@@ -42,10 +42,9 @@ export const OfferDetailsRejectButton: FunctionComponent<Props> = ({
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('reject') },
       onError,
-      logger,
       loggerContext: {
         component: OfferDetailsRejectButton.name,
-        fn: rejectOffer.name,
+        fetcher: rejectOffer.name,
         offer
       }
     }

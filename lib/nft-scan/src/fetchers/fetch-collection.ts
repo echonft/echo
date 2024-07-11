@@ -20,13 +20,9 @@ export async function fetchCollection(
   )(args)
   const url = `${getBaseUrl(contract.chain)}/collections/${contract.address}${query}`
   const init = await fetchInit(logger)
-  logger?.info({ fn: fetchCollection.name, collection: { contract }, url, init }, 'fetching collection')
   const response = await fetch(url, init)
   if (!response.ok) {
-    logger?.error(
-      { fn: fetchCollection.name, collection: { contract }, url, response: pick(['status'], response) },
-      'error fetching collection'
-    )
+    logger?.error({ collection: { contract }, url, response: pick(['status'], response) }, 'error fetching collection')
     return Promise.reject(Error(`error fetching collection ${JSON.stringify(contract)}`))
   }
   return pipe(

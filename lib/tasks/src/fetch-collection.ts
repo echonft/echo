@@ -19,7 +19,7 @@ interface FetchCollectionArgs extends WithFetch {
  */
 export function fetchCollection(args: WithLoggerType<FetchCollectionArgs>): Promise<Nullable<Collection>> {
   const fetcher = isTestnetChain(args.contract.chain) ? getCollectionFromOpenSea : getCollectionFromNftScan
-  args.logger?.info({ collection: { contract: args.contract }, fn: fetchCollection.name }, 'fetching collection')
+  args.logger?.info({ collection: { contract: args.contract }, fetcher: fetchCollection.name }, 'fetching collection')
   return pipe(
     fetcher,
     otherwise((err) => {

@@ -39,7 +39,7 @@ export const OfferDetailsContractApprovalRow: FunctionComponent<Props> = ({
           onSuccess?.(contract, false)
         },
         logger,
-        loggerContext: { component: OfferDetailsContractApprovalRow.name, fn: getErc721ContractApproval.name }
+        loggerContext: { component: OfferDetailsContractApprovalRow.name, fetcher: getErc721ContractApproval.name }
       }),
       errorRetryCount: 3,
       errorRetryInterval: 500,

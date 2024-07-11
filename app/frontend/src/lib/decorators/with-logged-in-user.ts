@@ -10,7 +10,7 @@ export function withLoggedInUser<Args extends Record<'user', User>, Return exten
   fn: (args: Args) => Return
 ) {
   return async function (args: Args): Promise<Return> {
-    const logger = getLogger().child({ component: 'server-component', fn: 'render' })
+    const logger = getLogger().child({ component: 'server-component', decorator: withLoggedInUser.name })
     await initializeFirebase({ logger })
     const user = await getAuthUser()
     if (isNil(user)) {

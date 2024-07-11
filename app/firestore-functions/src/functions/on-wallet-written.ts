@@ -12,7 +12,7 @@ import { isNil } from 'ramda'
 export const onWalletWritten = onDocumentWritten(
   setMaxInstances({ document: 'wallets/{id}', timeoutSeconds: 540 }),
   async (event) => {
-    const logger = getLogger().child({ fn: 'onWalletWritten' })
+    const logger = getLogger().child({ function: 'onWalletWritten' })
     const change = event.data
     if (!isNil(change)) {
       if (change.after.exists) {

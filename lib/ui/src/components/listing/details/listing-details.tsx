@@ -38,7 +38,7 @@ interface Props {
 export const ListingDetails: FunctionComponent<Props> = ({ listing, offers }) => {
   const t = useTranslations('error.listing')
   const router = useRouter()
-  const { cancelListing, logger } = useDependencies()
+  const { cancelListing } = useDependencies()
   const [updatedListing, setUpdatedListing] = useState(listing)
   const { creator, items, target } = updatedListing
   const isCreator = isListingRoleCreator(updatedListing)
@@ -51,8 +51,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, offers }) =>
     },
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('cancel') },
-      logger,
-      loggerContext: { component: ListingDetails.name, fn: cancelListing.name, listing: updatedListing }
+      loggerContext: { component: ListingDetails.name, fetcher: cancelListing.name, listing: updatedListing }
     }
   })
   // update listing if the prop changes

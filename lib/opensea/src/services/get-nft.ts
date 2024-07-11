@@ -6,6 +6,8 @@ import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { assoc, pipe } from 'ramda'
 
 export function getNft(args: WithLoggerType<FetchNftRequest>): Promise<Nullable<PartialNft>> {
-  const logger = getLogger({ chain: args.contract.chain, fn: getNft.name, logger: args.logger })
+  const logger = getLogger({ chain: args.contract.chain, logger: args.logger })?.child({
+    fetcher: getNft.name
+  })
   return pipe(assoc('logger', logger), fetchNft)(args)
 }

@@ -27,8 +27,11 @@ async function handlePaging(args: GetNftsByAccountRequest, accNfts: AccType): Pr
 }
 
 export function getNftsByAccount(args: GetNftsByAccountArgs) {
+  const logger = getLogger({ chain: args.wallet.chain, logger: args.logger })?.child({
+    fetcher: getNftsByAccount.name
+  })
   return pipe<[GetNftsByAccountArgs], GetNftsByAccountRequest, Promise<AccType>, Promise<PartialNft[]>>(
-    assoc('logger', getLogger({ chain: args.wallet.chain, fn: getNftsByAccount.name, logger: args.logger })),
+    assoc('logger', logger),
     partialRight(handlePaging, [[]]),
     andThen(
       map(pipe(applySpec<MapNftResponseArgs>({ chain: always(args.wallet.chain), response: identity }), mapNftResponse))

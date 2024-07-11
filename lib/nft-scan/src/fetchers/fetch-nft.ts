@@ -23,12 +23,11 @@ export async function fetchNft(
   if (!response.ok) {
     logger?.error(
       {
-        fn: 'fetchNft',
         nft: { collection: { contract }, tokenId: identifier },
         url,
         response: pick(['status'], response)
       },
-      'error fetching collection'
+      'error fetching NFT'
     )
     return Promise.reject(Error(`error fetching NFT ${identifier} for contract ${JSON.stringify(contract)}`))
   }
