@@ -9,7 +9,7 @@ import { isNil } from 'ramda'
 
 export const onListingCreated = onDocumentCreated(setMaxInstances({ document: 'listings/{id}' }), async (event) => {
   const functionName = 'expireListing'
-  const logger = getLogger().child({ fn: functionName })
+  const logger = getLogger().child({ function: functionName })
   const listing = getFirestoreEventData<Listing>(event)
   if (!isNil(listing)) {
     const queue = getFunctions().taskQueue(functionName)

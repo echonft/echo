@@ -1,3 +1,0 @@
-<component name="DependencyValidationManager">
-  <scope name="web3" pattern="file[echo]:lib/web3//*" />
-</component>

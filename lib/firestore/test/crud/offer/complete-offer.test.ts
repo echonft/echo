@@ -35,7 +35,6 @@ import { getOfferMockBySlug } from '@echo/model/mocks/offer/get-offer-mock-by-sl
 import { offerMockToJohnnycageId, offerMockToJohnnycageSlug } from '@echo/model/mocks/offer/offer-mock'
 import type { NftIndex } from '@echo/model/types/nft'
 import { promiseAll } from '@echo/utils/fp/promise-all'
-import { errorMessage } from '@echo/utils/helpers/error-message'
 import { futureDate } from '@echo/utils/helpers/future-date'
 import { pastDate } from '@echo/utils/helpers/past-date'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -74,22 +73,13 @@ describe('CRUD - offer - completeOffer', () => {
     updatedNftIndexes = []
   })
   afterEach(async () => {
-    try {
-      await unchecked_updateOffer(slug, getOfferMockBySlug(slug))
-    } catch (e) {
-      throw Error(`error updating offer with slug ${slug} to its original state: ${errorMessage(e)}`)
-    }
-    try {
-      await unchecked_updateListing(listingId, getListingMockById(listingId))
-    } catch (e) {
-      throw Error(`error updating listing ${listingId} to its original state: ${errorMessage(e)}`)
-    }
+    await unchecked_updateOffer(slug, getOfferMockBySlug(slug))
+    await unchecked_updateListing(listingId, getListingMockById(listingId))
     if (!isNil(createdStateUpdateId)) {
       await deleteOfferUpdate(createdStateUpdateId)
     }
     if (!isNil(createdSwapId)) {
       await deleteSwap(createdSwapId)
-
       // reset the NFTs with their original data
       if (!isEmpty(updatedNftIndexes)) {
         for (const index of updatedNftIndexes) {

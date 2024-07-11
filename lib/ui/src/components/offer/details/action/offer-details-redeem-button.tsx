@@ -37,7 +37,7 @@ export const OfferDetailsRedeemButton: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.details')
   const tError = useTranslations('error.offer')
-  const { contractCancelOffer, contractRedeemOffer, logger } = useDependencies()
+  const { contractCancelOffer, contractRedeemOffer } = useDependencies()
   const chain = pipe<[OfferWithRole], Nft[], Nft, ChainName>(
     prop('receiverItems'),
     head,
@@ -61,10 +61,9 @@ export const OfferDetailsRedeemButton: FunctionComponent<Props> = ({
         })
       },
       onError,
-      logger,
       loggerContext: {
         component: OfferDetailsRedeemButton.name,
-        fn: contractCancelOffer.name,
+        fetcher: contractCancelOffer.name,
         offer
       }
     }
@@ -83,10 +82,9 @@ export const OfferDetailsRedeemButton: FunctionComponent<Props> = ({
         })
       },
       onError,
-      logger,
       loggerContext: {
         component: OfferDetailsRedeemButton.name,
-        fn: contractRedeemOffer.name,
+        fetcher: contractRedeemOffer.name,
         offer
       }
     }

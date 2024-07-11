@@ -1,7 +1,7 @@
 'use client'
 import { OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
-import { NftCards } from '@echo/ui/components/nft/card/layout/nft-cards'
+import { NftCards } from '@echo/ui/components/nft/card/nft-cards'
 import { CreatedOfferSwitch } from '@echo/ui/components/offer/created/created-offer-switch'
 import { OfferDetailsButtons } from '@echo/ui/components/offer/details/action/offer-details-buttons'
 import { OfferDetailsInfoLayout } from '@echo/ui/components/offer/details/layout/offer-details-info-layout'

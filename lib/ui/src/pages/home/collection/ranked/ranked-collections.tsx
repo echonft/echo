@@ -1,7 +1,7 @@
 import { CollectionList } from '@echo/ui/components/collection/row/collection-list'
-import { RankedCollectionsButtonContainer } from '@echo/ui/pages/home/collection/ranked/layout/ranked-collections-button-container'
 import { RankedCollectionsLayout } from '@echo/ui/pages/home/collection/ranked/layout/ranked-collections-layout'
 import { RankedCollectionsButton } from '@echo/ui/pages/home/collection/ranked/ranked-collections-button'
+import { RankedCollectionsButtons } from '@echo/ui/pages/home/collection/ranked/ranked-collections-buttons'
 import type { CollectionWithRank } from '@echo/ui/types/collection-with-rank'
 import { isEmpty } from 'ramda'
 import { type FunctionComponent } from 'react'
@@ -17,9 +17,9 @@ export const RankedCollections: FunctionComponent<Props> = ({ collections }) => 
   return (
     <RankedCollectionsLayout>
       <CollectionList collections={collections} />
-      <RankedCollectionsButtonContainer>
+      <RankedCollectionsButtons>
         <RankedCollectionsButton />
-      </RankedCollectionsButtonContainer>
+      </RankedCollectionsButtons>
     </RankedCollectionsLayout>
   )
 }

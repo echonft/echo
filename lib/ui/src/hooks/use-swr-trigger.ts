@@ -1,7 +1,8 @@
 import { type ErrorCallback, errorCallback } from '@echo/ui/helpers/error-callback'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
+import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { Fetcher } from '@echo/utils/types/fetcher'
-import { assoc } from 'ramda'
+import { assoc, pipe } from 'ramda'
 import useSWRMutation from 'swr/mutation'
 
 interface UseSWRTriggerArgs<TResponse, TArgs> {
@@ -13,6 +14,8 @@ interface UseSWRTriggerArgs<TResponse, TArgs> {
 
 export function useSWRTrigger<TResponse, TArgs>(args: UseSWRTriggerArgs<TResponse, TArgs>) {
   const { key, fetcher, onSuccess, onError } = args
+  const { logger: parentLogger } = useDependencies()
+  const logger = parentLogger?.child({ hook: useSWRTrigger.name })
   const { show } = useAlertStore()
   return useSWRMutation<TResponse, Error, string, TArgs>(
     key,
@@ -25,7 +28,7 @@ export function useSWRTrigger<TResponse, TArgs>(args: UseSWRTriggerArgs<TRespons
         onSuccess?.(response)
       },
       onError: (err) => {
-        errorCallback(assoc('show', show, onError ?? {}))(err)
+        errorCallback(pipe(assoc('show', show), assoc('logger', logger))(onError ?? {}))(err)
       }
     }
   )

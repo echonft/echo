@@ -6,7 +6,7 @@ import type { UnformattedWallet } from '@echo/web3/types/unformatted-wallet'
  * Shorten the address to display the 4 first chars and 4 last chars.
  * Function throws if the str is not an address
  * @param {Wallet | UnformattedWallet} args
- * @return {((args: {address: string, chainId: number}) => string
+ * @return {((args: {address: string, chainId: number}) => string}
  */
 export function shortenAddress(args: Wallet | UnformattedWallet): string {
   const formattedAddress = formatWalletAddress(args)

@@ -4,17 +4,17 @@ import type { ListingResponse } from '@echo/api/types/responses/listing-response
 import type { User } from '@echo/auth/types/user'
 import type { Offer } from '@echo/model/types/offer'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
-import { ListingDetailsItemsContainerLayout } from '@echo/ui/components/listing/details/layout/listing-details-items-container-layout'
+import { ListingDetailsItemsAndTargetLayout } from '@echo/ui/components/listing/details/layout/listing-details-items-and-target-layout'
 import { ListingDetailsItemsLayout } from '@echo/ui/components/listing/details/layout/listing-details-items-layout'
 import { ListingDetailsLayout } from '@echo/ui/components/listing/details/layout/listing-details-layout'
-import { ListingDetailsTargetsContainerLayout } from '@echo/ui/components/listing/details/layout/listing-details-targets-container-layout'
+import { ListingDetailsTargetLayout } from '@echo/ui/components/listing/details/layout/listing-details-target-layout'
 import { ListingDetailsUserStateLayout } from '@echo/ui/components/listing/details/layout/listing-details-user-state-layout'
-import { ListingDetailsButtonsContainer } from '@echo/ui/components/listing/details/listing-details-buttons-container'
+import { ListingDetailsButtons } from '@echo/ui/components/listing/details/listing-details-buttons'
 import { ListingDetailsCreator } from '@echo/ui/components/listing/details/listing-details-creator'
-import { ListingDetailsItemsContainer } from '@echo/ui/components/listing/details/listing-details-items-container'
-import { ListingDetailsOffersContainer } from '@echo/ui/components/listing/details/listing-details-offers-container'
+import { ListingDetailsItems } from '@echo/ui/components/listing/details/listing-details-items'
+import { ListingDetailsOffers } from '@echo/ui/components/listing/details/listing-details-offers'
 import { ListingDetailsState } from '@echo/ui/components/listing/details/listing-details-state'
-import { ListingDetailsTargetContainer } from '@echo/ui/components/listing/details/listing-details-target-container'
+import { ListingDetailsTarget } from '@echo/ui/components/listing/details/listing-details-target'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { isListingRoleCreator } from '@echo/ui/helpers/listing/is-listing-role-creator'
 import { getNewOfferPath } from '@echo/ui/helpers/offer/get-new-offer-path'
@@ -38,7 +38,7 @@ interface Props {
 export const ListingDetails: FunctionComponent<Props> = ({ listing, offers }) => {
   const t = useTranslations('error.listing')
   const router = useRouter()
-  const { cancelListing, logger } = useDependencies()
+  const { cancelListing } = useDependencies()
   const [updatedListing, setUpdatedListing] = useState(listing)
   const { creator, items, target } = updatedListing
   const isCreator = isListingRoleCreator(updatedListing)
@@ -51,8 +51,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, offers }) =>
     },
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('cancel') },
-      logger,
-      loggerContext: { component: ListingDetails.name, fn: cancelListing.name, listing: updatedListing }
+      loggerContext: { component: ListingDetails.name, fetcher: cancelListing.name, listing: updatedListing }
     }
   })
   // update listing if the prop changes
@@ -66,22 +65,19 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, offers }) =>
         <ListingDetailsCreator show={!isCreator} creator={creator} />
         <ListingDetailsState listing={updatedListing} />
       </ListingDetailsUserStateLayout>
-      <ListingDetailsItemsLayout>
-        <ListingDetailsItemsContainerLayout>
-          <ListingDetailsItemsContainer items={items} />
-        </ListingDetailsItemsContainerLayout>
+      <ListingDetailsItemsAndTargetLayout>
+        <ListingDetailsItemsLayout>
+          <ListingDetailsItems items={items} />
+        </ListingDetailsItemsLayout>
         <ItemsSeparator />
         <div className={clsx('flex', 'flex-col', 'gap-14')}>
-          <ListingDetailsTargetsContainerLayout>
-            <ListingDetailsTargetContainer target={target} />
-          </ListingDetailsTargetsContainerLayout>
-          <ListingDetailsOffersContainer
-            show={isCreator && !isEmpty(offers) && !updatedListing.readOnly}
-            offers={offers}
-          />
+          <ListingDetailsTargetLayout>
+            <ListingDetailsTarget target={target} />
+          </ListingDetailsTargetLayout>
+          <ListingDetailsOffers show={isCreator && !isEmpty(offers) && !updatedListing.readOnly} offers={offers} />
         </div>
-      </ListingDetailsItemsLayout>
-      <ListingDetailsButtonsContainer
+      </ListingDetailsItemsAndTargetLayout>
+      <ListingDetailsButtons
         listing={updatedListing}
         isMutating={isMutating}
         onCancel={(listing) => {

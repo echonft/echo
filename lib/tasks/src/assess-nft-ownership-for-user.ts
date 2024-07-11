@@ -5,8 +5,7 @@ import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { otherwise, pipe } from 'ramda'
 
 export async function assessNftOwnershipForUser(args: WithLoggerType<Record<'user', UserDocumentData>>): Promise<void> {
-  const { user } = args
-  const logger = args.logger?.child({ fn: assessNftOwnershipForUser.name })
+  const { user, logger } = args
   const wallets = await pipe(
     getWalletsForUser,
     otherwise((err) => {

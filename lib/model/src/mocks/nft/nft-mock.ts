@@ -1,7 +1,7 @@
-import { type Nft } from '@echo/model/types/nft'
 import { collectionMockPxId, collectionMockSpiralId } from '@echo/model/mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model/mocks/collection/get-collection-mock-by-id'
 import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
+import { type Nft } from '@echo/model/types/nft'
 
 export function nftMockSpiralJohnnyId() {
   return '8hHFadIrrooORfTOLkBg'
@@ -16,6 +16,7 @@ export function nftMockSpiralCrewId() {
 export function nftMockPxJohnnyId() {
   return 'QFjMRNChUAHNswkRADXh'
 }
+// noinspection JSUnusedGlobalSymbols
 export function nftMockPxJohnny2Id() {
   return 'XiDa6k2P7gxXCKSxn2wq'
 }

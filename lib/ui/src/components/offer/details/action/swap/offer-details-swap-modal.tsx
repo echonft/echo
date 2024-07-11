@@ -30,7 +30,7 @@ interface Props {
 export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ open, offer, onClose, onSuccess }) => {
   const t = useTranslations('offer.details.swapModal')
   const tError = useTranslations('error.offer')
-  const { contractExecuteOffer, logger } = useDependencies()
+  const { contractExecuteOffer } = useDependencies()
   const chain = pipe<[OfferWithRole], Nft[], Nft, ChainName>(
     prop('receiverItems'),
     head,
@@ -53,10 +53,9 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ open, offer, o
       onError: () => {
         onClose?.()
       },
-      logger,
       loggerContext: {
         component: OfferDetailsSwapModal.name,
-        fn: contractExecuteOffer.name,
+        fetcher: contractExecuteOffer.name,
         offer
       }
     }

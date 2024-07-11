@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { NftCardSkeleton as Component } from '@echo/ui/components/nft/card/skeleton/nft-card-skeleton'
+import { CardSkeleton as Component } from '@echo/ui/components/base/card/skeleton/card-skeleton'
 import { CARD_VARIANT_REDUCED } from '@echo/ui/constants/card-variants'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { type FunctionComponent } from 'react'

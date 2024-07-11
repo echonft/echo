@@ -1,4 +1,4 @@
-import { NftCardsSkeleton } from '@echo/ui/components/nft/card/layout/skeleton/nft-cards-skeleton'
+import { CardsSkeleton } from '@echo/ui/components/base/card/skeleton/cards-skeleton'
 import { OfferDetailsButtonsSkeleton } from '@echo/ui/components/offer/details/action/skeleton/offer-details-buttons-skeleton'
 import { OfferDetailsItemsButtonsLayout } from '@echo/ui/components/offer/details/layout/offer-details-items-buttons-layout'
 import { OfferDetailsLayout } from '@echo/ui/components/offer/details/layout/offer-details-layout'
@@ -11,9 +11,9 @@ export const OfferDetailsSkeleton: FunctionComponent = () => (
   <OfferDetailsLayout>
     <UserDetailsSkeleton />
     <OfferDetailsItemsButtonsLayout>
-      <NftCardsSkeleton alignment={ALIGNMENT_CENTER} quantity={3} />
+      <CardsSkeleton alignment={ALIGNMENT_CENTER} />
       <OfferDetailsItemsSeparator />
-      <NftCardsSkeleton alignment={ALIGNMENT_CENTER} quantity={3} />
+      <CardsSkeleton alignment={ALIGNMENT_CENTER} />
       <OfferDetailsButtonsSkeleton />
     </OfferDetailsItemsButtonsLayout>
   </OfferDetailsLayout>

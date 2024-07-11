@@ -14,18 +14,16 @@ export interface FetchNftRequest extends WithFetch {
 }
 
 export async function fetchNft(args: WithLoggerType<FetchNftRequest>): Promise<Nullable<PartialNft>> {
-  const { contract, fetch, identifier, logger } = args
+  const { contract, fetch, identifier } = args
   const url = `${getBaseUrl(contract.chain)}/chain/${contract.chain}/contract/${contract.address}/nfts/${identifier}`
+  const logger = args.logger?.child({ url, fetcher: fetchNft.name })
   const response = await throttleFetch({
     fetch,
     url,
     logger
   })
   if (!response.ok) {
-    logger?.error(
-      { fn: 'fetchNft', nft: { collection: { contract }, tokenId: identifier }, url },
-      'error fetching collection'
-    )
+    logger?.error({ nft: { collection: { contract }, tokenId: identifier } }, 'error fetching NFT')
     return Promise.reject(
       Error(
         `error fetching NFT #${identifier} for contract ${JSON.stringify(

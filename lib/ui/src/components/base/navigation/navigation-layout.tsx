@@ -1,4 +1,4 @@
-import { PaddedContainer } from '@echo/ui/components/base/layout/padded-container'
+import { PaddedLayout } from '@echo/ui/components/base/layout/padded-layout'
 import { NavigationPills } from '@echo/ui/components/base/navigation/navigation-pills'
 import { type NavigationItem } from '@echo/ui/types/navigation-item'
 import { type NavigationItemId } from '@echo/ui/types/navigation-item-id'
@@ -15,9 +15,9 @@ export const NavigationLayout: FunctionComponent<PropsWithChildren<Props>> = ({
   children
 }) => {
   return (
-    <PaddedContainer>
+    <PaddedLayout>
       <NavigationPills items={navigationItems} activeItem={activeNavigationItem} />
       {children}
-    </PaddedContainer>
+    </PaddedLayout>
   )
 }

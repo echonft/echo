@@ -30,7 +30,7 @@ interface Props {
 export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open, onSuccess, onClose }) => {
   const t = useTranslations('offer.details.acceptModal')
   const tError = useTranslations('error.offer')
-  const { contractAcceptOffer, logger } = useDependencies()
+  const { contractAcceptOffer } = useDependencies()
   const chain = pipe<[OfferWithRole], Nft[], Nft, ChainName>(
     prop('receiverItems'),
     head,
@@ -49,10 +49,9 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open,
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('accept') },
       onError: onClose,
-      logger,
       loggerContext: {
         component: OfferDetailsAcceptModal.name,
-        fn: contractAcceptOffer.name,
+        fetcher: contractAcceptOffer.name,
         offer
       }
     }

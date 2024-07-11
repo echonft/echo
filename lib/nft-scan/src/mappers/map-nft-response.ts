@@ -35,7 +35,7 @@ export function mapNftResponse(args: MapNftResponseArgs): PartialNft {
       tokenId: prop('token_id')
     })(response)
   } catch (err) {
-    logger?.error({ err, fn: mapNftResponse.name }, 'error mapping NFT response')
+    logger?.error({ err, mapper: mapNftResponse.name }, 'error mapping NFT response')
     throw err
   }
 }

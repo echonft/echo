@@ -3,7 +3,7 @@ import {
   CreateListingTargetsSelection,
   type CreateListingTargetsSelectionProps
 } from '@echo/ui/components/listing/create/create-listing-targets-selection'
-import { ListingDetailsTargetContainer } from '@echo/ui/components/listing/details/listing-details-target-container'
+import { ListingDetailsTarget } from '@echo/ui/components/listing/details/listing-details-target'
 import type { FunctionComponent } from 'react'
 
 interface Props extends CreateListingTargetsSelectionProps {
@@ -18,7 +18,7 @@ export const CreateListingTargets: FunctionComponent<Props> = ({
   onSelect
 }) => {
   if (readOnly) {
-    return <ListingDetailsTargetContainer target={target} />
+    return <ListingDetailsTarget target={target} />
   }
   return (
     <CreateListingTargetsSelection target={target} onQtyChange={onQtyChange} onRemove={onRemove} onSelect={onSelect} />

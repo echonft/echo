@@ -9,7 +9,9 @@ import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { andThen, assoc, isNil, otherwise, pick, pipe } from 'ramda'
 
 async function fetchMainnetCollection(args: WithLoggerType<GetCollectionRequest>) {
-  const logger = getLogger({ chain: args.chain, fn: fetchMainnetCollection.name, logger: args.logger })
+  const logger = getLogger({ chain: args.chain, logger: args.logger })?.child({
+    fetcher: fetchMainnetCollection.name
+  })
   const regex = /^(.+)-\d+$/
   const match = args.slug.match(regex)
   logger?.info({ slug: args.slug }, 'trying to get mainnet slug')
@@ -31,7 +33,9 @@ async function fetchMainnetCollection(args: WithLoggerType<GetCollectionRequest>
 }
 
 export async function getCollection(args: WithLoggerType<GetCollectionRequest>): Promise<Nullable<Collection>> {
-  const logger = getLogger({ chain: args.chain, fn: getCollection.name, logger: args.logger })
+  const logger = getLogger({ chain: args.chain, logger: args.logger })?.child({
+    fetcher: getCollection.name
+  })
   const collection = await pipe(
     assoc('logger', logger),
     fetchCollection,

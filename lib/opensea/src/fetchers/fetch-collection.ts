@@ -6,11 +6,12 @@ import type { CollectionResponse } from '@echo/opensea/types/response/collection
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 
 export async function fetchCollection(args: WithLoggerType<GetCollectionRequest>): Promise<CollectionResponse> {
-  const { fetch, slug, chain, logger } = args
+  const { fetch, slug, chain } = args
   const url = `${getBaseUrl(chain)}/collections/${slug}`
+  const logger = args.logger?.child({ url, fetcher: fetchCollection.name })
   const response = await throttleFetch({ fetch, url, logger })
   if (!response.ok) {
-    logger?.error({ fn: fetchCollection.name, slug, url }, 'error fetching collection')
+    logger?.error({ slug }, 'error fetching collection')
     return Promise.reject(Error(`error fetching collection ${slug}`))
   }
   return parseFetchResponse<CollectionResponse>(response)

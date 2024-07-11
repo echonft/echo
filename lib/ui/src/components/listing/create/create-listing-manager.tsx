@@ -26,7 +26,7 @@ interface Props {
 export const CreateListingManager: FunctionComponent<Props> = ({ creatorNfts, items, target }) => {
   const t = useTranslations('error.listing')
   const router = useRouter()
-  const { createListing, logger } = useDependencies()
+  const { createListing } = useDependencies()
   const { trigger, isMutating } = useSWRTrigger<ListingResponse, CreateListingRequest>({
     key: SWRKeys.listing.create,
     fetcher: createListing,
@@ -35,8 +35,7 @@ export const CreateListingManager: FunctionComponent<Props> = ({ creatorNfts, it
     },
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('new') },
-      logger,
-      loggerContext: { component: CreateListingManager.name, fn: createListing.name }
+      loggerContext: { component: CreateListingManager.name, fetcher: createListing.name }
     }
   })
 

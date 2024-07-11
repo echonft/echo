@@ -11,7 +11,7 @@ import { applySpec, concat, defaultTo, pick, pipe, prop } from 'ramda'
 export async function fetchNftsByAccount(
   args: WithLoggerType<GetNftsByAccountRequest>
 ): Promise<GetNftsByAccountResponse> {
-  const { wallet, fetch, logger } = args
+  const { wallet, fetch } = args
   const query = applySpec<Pick<GetNftsByAccountRequest, 'next'> & Record<'limit', number>>({
     next: prop('next'),
     limit: pipe(prop('limit'), defaultTo(200))
@@ -20,12 +20,10 @@ export async function fetchNftsByAccount(
     `${getBaseUrl(wallet.chain)}/chain/${wallet.chain}/account/${wallet.address}/nfts`,
     stringify(query, { addQueryPrefix: true, skipNulls: true })
   )
+  const logger = args.logger?.child({ url, fetcher: fetchNftsByAccount.name })
   const response = await throttleFetch({ fetch, url, logger })
   if (!response.ok) {
-    logger?.error(
-      { fn: 'fetchNftsByAccount', wallet, url, response: pick(['status'], response) },
-      'error fetching NFTs'
-    )
+    logger?.error({ wallet, url, response: pick(['status'], response) }, 'error fetching NFTs')
     return Promise.reject(Error(`error fetching NFTs for wallet ${JSON.stringify(wallet)}`))
   }
   return parseResponse(getNftsByAccountResponseSchema)(response)

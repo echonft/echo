@@ -16,7 +16,7 @@ interface TryFetchArgs extends ThrottleFetchArgs {
 
 async function tryFetch(args: TryFetchArgs): Promise<Response> {
   const { fetch, url, init, retries } = args
-  const logger = args.logger?.child({ fn: 'tryFetch', url, retries })
+  const logger = args.logger?.child({ retries })
   if (retries === MAX_RETRIES) {
     logger?.error('throttling max retries reached. Returning error :(')
     return Promise.resolve(Response.error())
@@ -38,14 +38,10 @@ async function tryFetch(args: TryFetchArgs): Promise<Response> {
       return response
     }
   }
-  if (retries > 0) {
-    logger?.info('throttle success')
-  }
   return response
 }
 
 export async function throttleFetch(args: ThrottleFetchArgs) {
-  args.logger?.info(`fetching request to ${args.url}`)
   const init = await fetchInit(args.logger)
   return await tryFetch(pipe(assoc('retries', 0), assoc('init', init))(args))
 }

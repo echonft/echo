@@ -14,7 +14,7 @@ export function useEchoTradingFees(chain: ChainName): string | undefined {
     errorRetryInterval: 500,
     onError: errorCallback({
       logger,
-      loggerContext: { component: useEchoTradingFees.name, fn: getEchoTradingFees.name }
+      loggerContext: { component: useEchoTradingFees.name, fetcher: getEchoTradingFees.name }
     })
   })
   if (isNil(data)) {

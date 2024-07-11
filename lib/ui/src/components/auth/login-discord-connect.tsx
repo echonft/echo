@@ -27,7 +27,9 @@ export const LoginDiscordConnect: FunctionComponent<Props> = ({ user }) => {
             .then(() => {
               void mutate(SWRKeys.profile.wallet.get, undefined, {})
             })
-            .catch(errorCallback({ logger, loggerContext: { component: LoginDiscordConnect.name, fn: signIn.name } }))
+            .catch(
+              errorCallback({ logger, loggerContext: { component: LoginDiscordConnect.name, fetcher: signIn.name } })
+            )
         }}
       >
         {t('loginBtn')}

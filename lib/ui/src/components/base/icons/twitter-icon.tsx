@@ -1,5 +1,5 @@
-import { IconContainer } from '@echo/ui/components/base/icons/icon-container'
-import { IconContainerColor } from '@echo/ui/components/base/icons/icon-container-color'
+import { Icon } from '@echo/ui/components/base/icons/icon'
+import { IconColor } from '@echo/ui/components/base/icons/icon-color'
 import { TwitterIconSvg } from '@echo/ui/components/base/svg/twitter-icon-svg'
 import { getIconSizeInPx } from '@echo/ui/helpers/get-icon-size-in-px'
 import { type IconSize } from '@echo/ui/types/icon-size'
@@ -13,10 +13,10 @@ export const TwitterIcon: FunctionComponent<Props> = ({ size }) => {
   const width = Math.floor(getIconSizeInPx(size) * (21 / 30))
   const height = Math.floor(getIconSizeInPx(size) * (18 / 30))
   return (
-    <IconContainer size={size}>
-      <IconContainerColor>
+    <Icon size={size}>
+      <IconColor>
         <TwitterIconSvg width={width} height={height} />
-      </IconContainerColor>
-    </IconContainer>
+      </IconColor>
+    </Icon>
   )
 }

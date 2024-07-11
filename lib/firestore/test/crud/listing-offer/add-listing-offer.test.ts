@@ -1,18 +1,17 @@
-import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
 import { addListingOffer } from '@echo/firestore/crud/listing-offer/add-listing-offer'
-import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
-import { unchecked_updateListing } from '@echo/firestore/utils/listing/unchecked_update-listing'
-import { assertListingOffers } from '@echo/firestore/utils/listing-offer/assert-listing-offers'
 import { deleteListingOffer } from '@echo/firestore/crud/listing-offer/delete-listing-offer'
 import { getListingOfferById } from '@echo/firestore/crud/listing-offer/get-listing-offer-by-id'
-import { assertOffers } from '@echo/firestore/utils/offer/assert-offers'
+import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
 import { deleteOffer } from '@echo/firestore/crud/offer/delete-offer'
+import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
+import { assertListingOffers } from '@echo/firestore/utils/listing-offer/assert-listing-offers'
+import { unchecked_updateListing } from '@echo/firestore/utils/listing/unchecked_update-listing'
+import { assertOffers } from '@echo/firestore/utils/offer/assert-offers'
 import { unchecked_addOffer } from '@echo/firestore/utils/offer/unchecked_add-offer'
 import { LISTING_STATE_OFFERS_PENDING, LISTING_STATE_OPEN } from '@echo/model/constants/listing-states'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockFromJohnnycageId, offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
-import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
@@ -35,18 +34,10 @@ describe('CRUD - listing-offer - addListingOffer', () => {
   })
   afterEach(async () => {
     if (!isNil(createdOfferId)) {
-      try {
-        await deleteOffer(createdOfferId)
-      } catch (e) {
-        throw Error(`error deleting offer ${createdOfferId}: ${errorMessage(e)}`)
-      }
+      await deleteOffer(createdOfferId)
     }
     if (!isNil(createdListingOfferId)) {
-      try {
-        await deleteListingOffer(createdListingOfferId)
-      } catch (e) {
-        throw Error(`error deleting listing offer ${createdListingOfferId}: ${errorMessage(e)}`)
-      }
+      await deleteListingOffer(createdListingOfferId)
     }
   })
 
