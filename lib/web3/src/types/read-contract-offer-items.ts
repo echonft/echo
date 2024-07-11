@@ -2,5 +2,5 @@ import type { ReadContractOfferItem } from '@echo/web3/types/read-contract-offer
 
 export interface ReadContractOfferItems {
   readonly chainId: bigint
-  readonly items: Readonly<ReadContractOfferItem[]>
+  readonly items: readonly ReadContractOfferItem[]
 }
