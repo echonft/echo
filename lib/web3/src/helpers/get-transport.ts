@@ -6,7 +6,15 @@ import {
 } from '@echo/utils/helpers/chains/chain-ids'
 import { getSecret } from '@echo/utils/services/secret-manager'
 import { isNil } from 'ramda'
-import { type Chain, fallback, http, webSocket } from 'viem'
+import {
+  type Chain,
+  fallback,
+  type FallbackTransport,
+  http,
+  type HttpTransport,
+  webSocket,
+  type WebSocketTransport
+} from 'viem'
 
 function alchemyChainName(chainId: number) {
   switch (chainId) {
@@ -40,7 +48,7 @@ async function alchemyTransportUrl(chainId: number) {
   return `${alchemyChainName(chainId)}.g.alchemy.com/v2/${apiKey}`
 }
 
-export async function getTransport(chain: Chain) {
+export async function getTransport(chain: Chain): Promise<FallbackTransport<[WebSocketTransport, HttpTransport]>> {
   const chainId = chain.id
   if (chainId === blastSepoliaChainId() || chainId === blastChainId()) {
     // TODO add logger
