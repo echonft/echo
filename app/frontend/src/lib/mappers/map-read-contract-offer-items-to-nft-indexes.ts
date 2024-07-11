@@ -1,11 +1,12 @@
 import { mapReadContractOfferItemToNftIndex } from '@echo/frontend/lib/mappers/map-read-contract-offer-item-to-nft-index'
 import type { NftIndex } from '@echo/model/types/nft'
+import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { getChain } from '@echo/utils/helpers/chains/get-chain'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import type { ContractOfferItem } from '@echo/web3/types/contract-offer-item'
 import type { ContractOfferItems } from '@echo/web3/types/contract-offer-items'
-import { assoc, map, objOf, pipe, prop } from 'ramda'
+import { assoc, map, objOf, path, pipe } from 'ramda'
 
 /**
  * Maps {@link ContractOfferItems} to {@link NftIndex}
@@ -17,7 +18,7 @@ export function mapReadContractOfferItemsToNftIndexes(
 ): Promise<NftIndex[]> {
   const chain = getChain(args.items.chainId)
   return pipe(
-    prop('items'),
+    nonNullableReturn(path(['items', 'items'])),
     map<ContractOfferItem, Promise<NftIndex>>(
       pipe(objOf('item'), assoc('chain', chain), assoc('logger', args.logger), mapReadContractOfferItemToNftIndex)
     ),
