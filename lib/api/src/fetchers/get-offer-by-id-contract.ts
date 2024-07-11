@@ -18,7 +18,7 @@ async function fetchOffer(args: FetchOfferArgs): Promise<OfferResponse> {
   } catch (err) {
     const axiosError = err as AxiosError<OfferResponse>
     // we only retry on not found errors
-    if (args.retries === 10 || axiosError.status !== 404) {
+    if (args.retries === 10 || axiosError.response?.status !== 404) {
       return Promise.reject(axiosError)
     }
     return await delayPromise(
