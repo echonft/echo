@@ -1,7 +1,7 @@
 'use client'
 import type { SearchResult } from '@echo/model/types/search-result'
 import { SearchInput } from '@echo/ui/components/base/search/search-input'
-import { SearchResultsContainer } from '@echo/ui/components/base/search/search-results-container'
+import { SearchResultsPanel } from '@echo/ui/components/base/search/search-results-panel'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -63,7 +63,7 @@ export const SearchBox = <T,>({ resultsProvider, style, onSelect }: SearchBoxPro
         )(style)}
       />
       <AnimatePresence>
-        <SearchResultsContainer
+        <SearchResultsPanel
           results={results}
           style={unlessNil<NonNullable<typeof style>, Pick<NonNullable<typeof style>, 'categories'>>(
             pick(['categories'])

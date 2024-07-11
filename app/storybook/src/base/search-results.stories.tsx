@@ -5,7 +5,7 @@ import { mapUserToSearchResult } from '@echo/firestore/mappers/user/map-user-to-
 import { getAllUserDocumentDataMocks } from '@echo/firestore/mocks/user/get-all-user-document-data-mocks'
 import { getAllCollectionMocks } from '@echo/model/mocks/collection/get-all-collection-mocks'
 import type { SearchResult } from '@echo/model/types/search-result'
-import { SearchResultsContainer } from '@echo/ui/components/base/search/search-results-container'
+import { SearchResultsPanel } from '@echo/ui/components/base/search/search-results-panel'
 import { Combobox } from '@headlessui/react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { concat, map, pipe } from 'ramda'
@@ -55,12 +55,12 @@ export const Default: StoryObj<ComponentType> = {
 
     return (
       <Combobox onChange={onSelect}>
-        <SearchResultsContainer results={results} style={{ categories: { show: showCategories } }} />
+        <SearchResultsPanel results={results} style={{ categories: { show: showCategories } }} />
       </Combobox>
     )
   }
 }
 
 export const Empty: StoryObj<ComponentType> = {
-  render: () => <SearchResultsContainer results={[]} />
+  render: () => <SearchResultsPanel results={[]} />
 }

@@ -20,7 +20,7 @@ interface Props<T> {
   onSelect?: (selection: SearchResultModel<T>) => unknown
 }
 
-export const SearchResultsContainer = <T,>({ results, style, onSelect }: Props<T>) => {
+export const SearchResultsPanel = <T,>({ results, style, onSelect }: Props<T>) => {
   const [category, setCategory] = useState<Nullable<SearchResultCategory>>()
   const filteredResults = useMemo(() => {
     if (isNil(results)) {
