@@ -1,4 +1,4 @@
-import { ListingCardsContainer } from '@echo/ui/components/listing/card/layout/listing-cards-container'
+import { ListingCards } from '@echo/ui/components/listing/card/listing-cards'
 import { UserListingsEmpty } from '@echo/ui/pages/user/listings/user-listings-empty'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import { isEmpty } from 'ramda'
@@ -13,5 +13,5 @@ export const UserListings: FunctionComponent<Props> = ({ username, listings }) =
   if (isEmpty(listings)) {
     return <UserListingsEmpty username={username} />
   }
-  return <ListingCardsContainer listings={listings} />
+  return <ListingCards listings={listings} />
 }

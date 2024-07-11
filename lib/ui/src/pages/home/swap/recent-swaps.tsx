@@ -1,5 +1,5 @@
 import type { Swap } from '@echo/model/types/swap'
-import { SwapCardsContainer } from '@echo/ui/components/swap/card/layout/swap-cards-container'
+import { SwapCards } from '@echo/ui/components/swap/card/swap-cards'
 import { HomeSectionLayout } from '@echo/ui/pages/home/layout/home-section-layout'
 import { useTranslations } from 'next-intl'
 import { isEmpty } from 'ramda'
@@ -17,7 +17,7 @@ export const RecentSwaps: FunctionComponent<Props> = ({ swaps }) => {
   }
   return (
     <HomeSectionLayout title={t('title')}>
-      <SwapCardsContainer swaps={swaps} options={{ asLink: true }} />
+      <SwapCards swaps={swaps} options={{ asLink: true }} />
     </HomeSectionLayout>
   )
 }

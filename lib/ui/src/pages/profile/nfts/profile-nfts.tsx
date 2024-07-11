@@ -1,6 +1,6 @@
 'use client'
 import type { Nft } from '@echo/model/types/nft'
-import { SelectableNftsWithFilters } from '@echo/ui/components/nft/filters/layout/selectable-nfts-with-filters'
+import { SelectableNftsWithFilters } from '@echo/ui/components/nft/filters/selectable-nfts-with-filters'
 import { NFT_ACTION_LISTING } from '@echo/ui/constants/nft-actions'
 import { getNewListingPathFromItems } from '@echo/ui/helpers/listing/get-new-listing-path-from-items'
 import { ProfileNftsEmpty } from '@echo/ui/pages/profile/nfts/profile-nfts-empty'

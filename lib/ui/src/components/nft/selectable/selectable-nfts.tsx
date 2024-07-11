@@ -1,15 +1,15 @@
 'use client'
 import type { Nft } from '@echo/model/types/nft'
 import { keyOf } from '@echo/ui/components/nft/key-of'
-import { SelectableNftsLayout } from '@echo/ui/components/nft/selectable/layout/selectable-nfts-layout'
 import {
   SelectableNftCard,
   type SelectableNftCardProps
 } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
 import {
-  SelectableNftThumbnailContainer,
-  type SelectableNftThumbnailContainerProps
-} from '@echo/ui/components/nft/selectable-thumbnail/selectable-nft-thumbnail-container'
+  type SelectableNftThumbnailContainerProps,
+  SelectableNftThumbnails
+} from '@echo/ui/components/nft/selectable-thumbnail/selectable-nft-thumbnails'
+import { SelectableNftsLayout } from '@echo/ui/components/nft/selectable/layout/selectable-nfts-layout'
 import { clsx } from 'clsx'
 import { motion } from 'framer-motion'
 import { isEmpty, map } from 'ramda'
@@ -37,7 +37,7 @@ export const SelectableNfts: FunctionComponent<SelectableNftsProps> = ({
 }) => {
   return (
     <div className={clsx('flex', 'flex-col', 'gap-8', 'grow')}>
-      <SelectableNftThumbnailContainer nfts={selection} onRemove={onUnselect} style={style?.selectionContainer} />
+      <SelectableNftThumbnails nfts={selection} onRemove={onUnselect} style={style?.selectionContainer} />
       <SelectableNftsLayout>
         {map(
           (nft) => (

@@ -1,4 +1,4 @@
-import { OfferCardsContainer } from '@echo/ui/components/offer/card/layout/offer-cards-container'
+import { OfferCards } from '@echo/ui/components/offer/card/offer-cards'
 import { ProfileOffersEmpty } from '@echo/ui/pages/profile/offers/profile-offers-empty'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { isEmpty } from 'ramda'
@@ -12,5 +12,5 @@ export const ProfileOffers: FunctionComponent<Props> = ({ offers }) => {
   if (isEmpty(offers)) {
     return <ProfileOffersEmpty />
   }
-  return <OfferCardsContainer offers={offers} options={{ asLink: true }} />
+  return <OfferCards offers={offers} options={{ asLink: true }} />
 }

@@ -1,4 +1,4 @@
-import { PaddedContainer } from '@echo/ui/components/base/layout/padded-container'
+import { PaddedLayout } from '@echo/ui/components/base/layout/padded-layout'
 import { clsx } from 'clsx'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
@@ -9,7 +9,7 @@ interface Props {
 
 export const HomeHeroLayout: FunctionComponent<PropsWithChildren<Props>> = ({ title, subtitle, children }) => {
   return (
-    <PaddedContainer>
+    <PaddedLayout>
       <div className={clsx('flex', 'flex-row', 'items-center', 'justify-between', 'gap-28', 'w-full', 'h-max')}>
         <div className={clsx('flex', 'flex-col', 'w-max', 'h-max', 'gap-10')}>
           <h1
@@ -30,6 +30,6 @@ export const HomeHeroLayout: FunctionComponent<PropsWithChildren<Props>> = ({ ti
         </div>
         {children}
       </div>
-    </PaddedContainer>
+    </PaddedLayout>
   )
 }

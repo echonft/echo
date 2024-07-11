@@ -1,4 +1,4 @@
-import { NftCardsSkeleton } from '@echo/ui/components/nft/card/layout/skeleton/nft-cards-skeleton'
+import { CardsSkeleton } from '@echo/ui/components/base/card/skeleton/cards-skeleton'
 import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panels-layout'
 import { NftsAndFiltersLayout } from '@echo/ui/components/nft/filters/layout/nfts-and-filters-layout'
 import { NftFilterPanelSkeleton } from '@echo/ui/components/nft/filters/skeleton/nft-filter-panel-skeleton'
@@ -12,7 +12,7 @@ export const UserNftsSkeleton: FunctionComponent = () => {
         <SelectableNftsActionButtonSkeleton />
         <NftFilterPanelSkeleton />
       </NftFiltersPanelsLayout>
-      <NftCardsSkeleton />
+      <CardsSkeleton />
     </NftsAndFiltersLayout>
   )
 }

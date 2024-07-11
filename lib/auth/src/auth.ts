@@ -10,6 +10,7 @@ import Discord, { type DiscordProfile } from 'next-auth/providers/discord'
 import { signIn, signOut } from 'next-auth/react'
 import { assoc, both, complement, dissoc, either, isNil, path, pipe } from 'ramda'
 
+// noinspection JSUnusedGlobalSymbols
 const {
   handlers: { GET, POST },
   auth

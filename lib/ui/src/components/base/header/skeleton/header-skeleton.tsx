@@ -1,14 +1,14 @@
 import { HeaderLayout } from '@echo/ui/components/base/header/header-layout'
-import { PaddedContainer } from '@echo/ui/components/base/layout/padded-container'
+import { PaddedLayout } from '@echo/ui/components/base/layout/padded-layout'
 import { EchoLogoSvg } from '@echo/ui/components/base/svg/echo-logo-svg'
 import { type FunctionComponent } from 'react'
 
 export const HeaderSkeleton: FunctionComponent = () => {
   return (
     <HeaderLayout>
-      <PaddedContainer>
+      <PaddedLayout>
         <EchoLogoSvg width={144} />
-      </PaddedContainer>
+      </PaddedLayout>
     </HeaderLayout>
   )
 }

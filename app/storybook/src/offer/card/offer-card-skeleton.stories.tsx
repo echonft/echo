@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { OfferCardSkeleton as Component } from '@echo/ui/components/offer/card/skeleton/offer-card-skeleton'
+import { CardSkeleton as Component } from '@echo/ui/components/base/card/skeleton/card-skeleton'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

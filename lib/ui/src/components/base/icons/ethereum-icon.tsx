@@ -1,5 +1,5 @@
-import { IconContainer } from '@echo/ui/components/base/icons/icon-container'
-import { IconContainerColor } from '@echo/ui/components/base/icons/icon-container-color'
+import { Icon } from '@echo/ui/components/base/icons/icon'
+import { IconColor } from '@echo/ui/components/base/icons/icon-color'
 import { EthereumIconSvg } from '@echo/ui/components/base/svg/ethereum-icon-svg'
 import { SIZE_MD } from '@echo/ui/constants/size'
 import { getIconSizeInPx } from '@echo/ui/helpers/get-icon-size-in-px'
@@ -13,10 +13,10 @@ interface Props {
 export const EthereumIcon: FunctionComponent<Props> = ({ size = SIZE_MD }) => {
   const sizeInPx = Math.floor(getIconSizeInPx(size) * 0.9)
   return (
-    <IconContainer size={size}>
-      <IconContainerColor className={'!bg-dark-500'}>
+    <Icon size={size}>
+      <IconColor className={'!bg-dark-500'}>
         <EthereumIconSvg width={sizeInPx} height={sizeInPx} />
-      </IconContainerColor>
-    </IconContainer>
+      </IconColor>
+    </Icon>
   )
 }
