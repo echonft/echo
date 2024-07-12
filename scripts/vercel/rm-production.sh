@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ "${VERCEL_PROJECT}" = "dev" ] || [ "${VERCEL_PROJECT}" = "staging" ] || [ "${VERCEL_PROJECT}" = "echo" ] || [ "${VERCEL_PROJECT}" = "storybook" ]; then
-  echo "$VERCEL_PROJECT" | xargs vercel link -y -p
+  vercel link -y -p "$VERCEL_PROJECT" 1>/dev/null 2>&1
   EXIT_STATUS=0
   while [ $EXIT_STATUS -eq 0 ]
   do

@@ -4,7 +4,7 @@
 # shellcheck disable=SC2128
 dir=$(cd "$(dirname "$BASH_SOURCE")" && pwd)
 if ! sh "${dir}"/../base/check-newt.sh; then
-    exit 1
+  exit 1
 fi
 
 ACTION=$(whiptail --default-item=dev --notags --menu "Wat do?" 15 30 5 \
@@ -19,5 +19,3 @@ if [ "$ACTION" = "clear-db" ] || [ "$ACTION" = "deploy-functions" ] || [ "$ACTIO
 else
   exit 1
 fi
-
-"${dir}"/"${ACTION}".sh

@@ -11,9 +11,9 @@ else
   exit 1
 fi
 
-firebase use "${ENV}"
+firebase use "${ENV}" 1>/dev/null
 firebase deploy --only functions
 sleep 10
-gcloud artifacts repositories delete gcf-artifacts --location=us-central1 --project=${project} -q
+gcloud artifacts repositories delete gcf-artifacts --location=us-central1 --project=${project} -q 1>/dev/null
 
 

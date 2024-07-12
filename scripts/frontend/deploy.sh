@@ -7,13 +7,15 @@ if ! sh "${dir}"/../base/check-newt.sh; then
     exit 1
 fi
 
-ENV=$(whiptail --default-item=staging --notags --menu "Pick an environment" 10 30 3 \
-"dev" "Development" \
-"staging" "Staging" \
-"echo" "Production" 3>&1 1>&2 2>&3)
+if [ ! "$ENV" ]; then
+  ENV=$(whiptail --default-item=staging --notags --menu "Pick an environment" 10 30 3 \
+  "dev" "Development" \
+  "staging" "Staging" \
+  "echo" "Production" 3>&1 1>&2 2>&3)
+fi
 
 if [ "$ENV" = "development" ] || [ "$ENV" = "staging" ] || [ "$ENV" = "echo" ]; then
-  echo "$ENV" | xargs vercel link -y -p
+  vercel link -y -p "$ENV" 1>/dev/null 2>&1
   vercel --prod
 else
   exit 1

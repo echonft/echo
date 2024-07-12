@@ -29,20 +29,21 @@ ENV=$(whiptail --default-item=staging --notags --menu "Pick an environment" 10 3
 
 if [ "$ENV" = "development" ] || [ "$ENV" = "staging" ] || [ "$ENV" = "production" ]; then
   DEPLOYMENTS=$(whiptail --notags --checklist "Deploy what?" 10 30 4 \
-  "all" "Everything below" "1" \
-  "bot" "Bot" "0"\
-  "frontend" "Frontend" "0"\
-  "firestore" "Firestore functions" "0" 3>&1 1>&2 2>&3)
+  "all" "Everything below" ON \
+  "bot" "Bot" OFF\
+  "frontend" "Frontend" OFF\
+  "firestore" "Firestore functions" OFF 3>&1 1>&2 2>&3)
   if [ ! "$DEPLOYMENTS" ]; then
     exit 1
   fi
   # if env is staging or production (since we deploy staging also), we always need to mirror prod
-  if [ "$ENV" = "staging" ] || [ "$ENV" = "production" ]; then
-    sh "${dir}"/../firestore/mirror-staging.sh
-  fi
+#  if [ "$ENV" = "staging" ] || [ "$ENV" = "production" ]; then
+#    sh "${dir}"/../firestore/mirror-staging.sh
+#  fi
 
-  for DEPLOYMENT in ${DEPLOYMENTS}
+  for deployment in ${DEPLOYMENTS}
   do
+    DEPLOYMENT=$(echo "$deployment" | tr -d '"')
     if [ "$DEPLOYMENT" = "all" ]; then
       deploy_firestore_functions "$ENV"
       deploy_bot "$ENV"
@@ -73,6 +74,7 @@ if [ "$ENV" = "development" ] || [ "$ENV" = "staging" ] || [ "$ENV" = "productio
       fi
     fi
   done
+  exit 0
 else
   exit 1
 fi

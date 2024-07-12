@@ -24,7 +24,17 @@ elif [ "$ACTION" = "update-collection" ] || [ "$ACTION" = "update-nft" ] || [ "$
     "development" "Development" \
     "staging" "Staging" \
     "production" "Production (be careful!)" 3>&1 1>&2 2>&3)
-    ENV=${ENV} pnpm exec turbo command --filter=@echo/tasks -- "${ACTION}"
+
+    if [ "${ENV}" = "development" ]; then
+      NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL="dev.echonft.xyz"
+    elif [ "${ENV}" = "staging" ]; then
+      NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL="staging.echonft.xyz"
+    elif [ "${ENV}" = "production" ]; then
+      NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL="app.echonft.xyz"
+    else
+      exit 1
+    fi
+    ENV=${ENV} NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL=${NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL} pnpm exec turbo command --filter=@echo/tasks -- "${ACTION}"
 else
   exit 1
 fi

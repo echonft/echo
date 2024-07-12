@@ -1,10 +1,9 @@
 import type { NftAttribute } from '@echo/model/types/nft-attribute'
-import { mapAttributeResponse } from '@echo/nft-scan/mappers/map-attribute-response'
 import { attributesResponseMock } from '@echo/nft-scan/mocks/attributes-response-mock'
+import { nftAttributeResponseSchema } from '@echo/nft-scan/validators/nft-attribute-response-schema'
 import { describe, expect, it } from '@jest/globals'
-import { map } from 'ramda'
 
-describe('mappers - mapAttributeResponse', () => {
+describe('validators - nftAttributeResponseSchema', () => {
   it('maps correctly', () => {
     const expectedResult: NftAttribute[] = [
       { trait: 'Backgrounds', value: 'Purple' },
@@ -14,7 +13,6 @@ describe('mappers - mapAttributeResponse', () => {
       { trait: 'Eyes', value: 'None' },
       { trait: 'Acessories', value: 'None' }
     ]
-    const mappedResult = map(mapAttributeResponse)(attributesResponseMock())
-    expect(mappedResult).toEqual(expectedResult)
+    expect(nftAttributeResponseSchema.array().parse(attributesResponseMock())).toEqual(expectedResult)
   })
 })

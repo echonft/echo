@@ -1,12 +1,11 @@
 import type { Collection } from '@echo/model/types/collection'
 import type { Wallet } from '@echo/model/types/wallet'
-import { mapCollectionResponse } from '@echo/nft-scan/mappers/map-collection-response'
 import { collectionResponseMock } from '@echo/nft-scan/mocks/collection-response-mock'
-import type { CollectionResponse } from '@echo/nft-scan/types/response/collection-response'
 import { collectionResponseSchema } from '@echo/nft-scan/validators/collection-response-schema'
 import { describe, expect, it } from '@jest/globals'
+import { assoc, pipe } from 'ramda'
 
-describe('mappers - mapCollectionResponse', () => {
+describe('validators - collectionResponseSchema', () => {
   const expectedResult: Collection = {
     contract: {
       address: '0xcfc4c2b14af5b1f8ed97e1717b009dca461d8461'.toLowerCase(),
@@ -26,31 +25,27 @@ describe('mappers - mapCollectionResponse', () => {
   }
 
   it('maps correctly with no slug', () => {
-    const result = mapCollectionResponse({
-      data: collectionResponseSchema.parse(collectionResponseMock()),
-      chain: 'blast'
-    })
-    expect(result).toEqual(expectedResult)
+    const result = collectionResponseSchema('blast').parse(collectionResponseMock())
+    expect(result).toEqual({ collection: expectedResult, isSpam: false })
   })
 
   it('maps correctly with no slug name with space', () => {
-    const response = { ...collectionResponseMock(), name: 'Name With Space' } as CollectionResponse
-    const resultWithSlug = { ...expectedResult, name: 'Name With Space', slug: 'name-with-space' }
-
-    const result = mapCollectionResponse({
-      data: collectionResponseSchema.parse(response),
-      chain: 'blast'
-    })
-    expect(result).toEqual(resultWithSlug)
+    const response = pipe(collectionResponseMock, assoc('name', 'Name With Space'))()
+    const resultWithSlug = pipe(assoc('name', 'Name With Space'), assoc('slug', 'name-with-space'))(expectedResult)
+    const result = collectionResponseSchema('blast').parse(response)
+    expect(result).toEqual({ collection: resultWithSlug, isSpam: false })
   })
 
   it('maps correctly with slug', () => {
-    const response = { ...collectionResponseMock(), opensea_slug: 'opensea-slug' } as CollectionResponse
-    const resultWithSlug = { ...expectedResult, slug: 'opensea-slug' }
-    const result = mapCollectionResponse({
-      data: collectionResponseSchema.parse(response),
-      chain: 'blast'
-    })
-    expect(result).toEqual(resultWithSlug)
+    const response = pipe(collectionResponseMock, assoc('opensea_slug', 'opensea-slug'))()
+    const resultWithSlug = assoc('slug', 'opensea-slug', expectedResult)
+    const result = collectionResponseSchema('blast').parse(response)
+    expect(result).toEqual({ collection: resultWithSlug, isSpam: false })
+  })
+
+  it('returns isSpam true if the collection is a spam collection', () => {
+    const response = pipe(collectionResponseMock, assoc('is_spam', true))()
+    const result = collectionResponseSchema('blast').parse(response)
+    expect(result).toEqual({ collection: undefined, isSpam: true })
   })
 })
