@@ -35,7 +35,9 @@ storybook-static
 .DS_Store
 
 # Firebase
-firebase-debug.log*
+firestore-debug.log
+ui-debug.log
 
 # Sentry Config File
 .sentryclirc
+

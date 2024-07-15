@@ -6,9 +6,8 @@ import { processOutEscrowTransfer } from '@echo/frontend/lib/helpers/webhook/pro
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
-import { promiseAll } from '@echo/utils/fp/promise-all'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { assoc, equals, head, ifElse, isNil, map, objOf, path, pipe, prop } from 'ramda'
+import { assoc, equals, head, ifElse, isNil, objOf, path, pipe, prop } from 'ramda'
 
 export async function processEchoOfferRedeemedEvent(args: WithLoggerType<ProcessEchoEventArgs>) {
   const { logger, event } = args
@@ -20,15 +19,26 @@ export async function processEchoOfferRedeemedEvent(args: WithLoggerType<Process
   if (isNil(offer)) {
     return Promise.reject(new NotFoundError({ message: 'offer not found', severity: 'warning' }))
   }
-  // Move items out of escrow
-  await pipe<[Offer], Nft[], Promise<void>[], Promise<void[]>>(
-    ifElse<[Offer], Nft[], Nft[]>(
-      pipe(prop('senderItems'), head, nonNullableReturn(path(['owner', 'wallet', 'address'])), equals(from)),
-      prop('senderItems'),
-      prop('receiverItems')
-    ),
-    map(pipe(objOf('nft'), assoc('logger', logger), processOutEscrowTransfer)),
-    promiseAll
+  if (!offer.readOnly) {
+    return Promise.reject(
+      new BadRequestError({
+        message: 'received Echo offer redeemrf event, but the offer is not read only',
+        severity: 'warning'
+      })
+    )
+  }
+  const items = ifElse<[Offer], Nft[], Nft[]>(
+    pipe(prop('senderItems'), head, nonNullableReturn(path(['owner', 'wallet', 'address'])), equals(from)),
+    prop('senderItems'),
+    prop('receiverItems')
   )(offer)
+  // Move items out of escrow
+  for (const item of items) {
+    await pipe<[Nft], Record<'nft', Nft>, WithLoggerType<Record<'nft', Nft>>, Promise<void>>(
+      objOf('nft'),
+      assoc('logger', args.logger),
+      processOutEscrowTransfer
+    )(item)
+  }
   logger?.info({ offer, from }, 'redeemed offer')
 }

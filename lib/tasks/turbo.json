@@ -5,7 +5,7 @@
     "command": {
       "cache": false,
       "persistent": true,
-      "passThroughEnv": ["ENV", "NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL"]
+      "passThroughEnv": ["ENV", "LOG_LEVEL", "NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL"]
     }
   }
 }
