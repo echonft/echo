@@ -1,4 +1,4 @@
-import { apiUrlProvider } from '@echo/api/routing/api-url-provider'
+import { apiPathProvider } from '@echo/api/routing/api/api-path-provider'
 import type { GetOfferByIdContractParams } from '@echo/api/types/params/get-offer-by-id-contract-params'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
@@ -11,7 +11,7 @@ interface FetchOfferArgs extends GetOfferByIdContractParams {
 
 async function fetchOffer(args: FetchOfferArgs): Promise<OfferResponse> {
   try {
-    const response = await axios.get<OfferResponse>(apiUrlProvider.offer.getByIdContract.getUrl(args), {
+    const response = await axios.get<OfferResponse>(apiPathProvider.offer.getByIdContract.getUrl(args), {
       withCredentials: true
     })
     return response.data

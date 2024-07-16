@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import type { HeaderLoggedInProps } from '@echo/ui/components/base/header/header-logged-in'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
@@ -15,7 +15,7 @@ export const HeaderProfileButton: FunctionComponent<HeaderLoggedInProps> = ({ us
       <ConnectWalletButton onClick={onWalletButtonClick} />
       <InternalLink
         className={clsx('w-12', 'h-12', 'rounded-lg', 'bg-dark-500', 'border', 'border-solid', 'border-white/[0.08]')}
-        path={linkProvider.profile.items.get()}
+        path={pathProvider.profile.items.get()}
       >
         <SizeableImage
           className={clsx(

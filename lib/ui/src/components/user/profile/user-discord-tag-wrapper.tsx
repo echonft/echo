@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { isNil } from 'ramda'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
@@ -11,5 +11,5 @@ export const UserDiscordTagWrapper: FunctionComponent<PropsWithChildren<Props>> 
   if (isNil(username)) {
     return <>{children}</>
   }
-  return <InternalLink path={linkProvider.user.items.get({ username })}>{children}</InternalLink>
+  return <InternalLink path={pathProvider.user.items.get({ username })}>{children}</InternalLink>
 }

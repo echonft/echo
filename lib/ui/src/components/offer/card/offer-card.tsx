@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { OfferCardSwitch } from '@echo/ui/components/offer/card/offer-card-switch'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
@@ -16,7 +16,7 @@ export const OfferCard: FunctionComponent<OfferCardProps> = (props) => {
   const { offer, options } = props
   if (options?.asLink) {
     return (
-      <InternalLink path={linkProvider.offer.details.get({ slug: offer.slug })} className={'group'}>
+      <InternalLink path={pathProvider.offer.details.get({ slug: offer.slug })} className={'group'}>
         <OfferCardSwitch {...props} />
       </InternalLink>
     )

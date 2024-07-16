@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import { buildListingLinkButton } from '@echo/bot/listing/build-listing-link-button'
 import { initializeTranslations } from '@echo/bot/messages/initialize-translations'
 import { beforeAll, describe, expect, it } from '@jest/globals'
@@ -13,7 +13,7 @@ describe('builders - buildNewListingButtons', () => {
   it('should build a new listing button with a link to the listing', () => {
     const slug = 'slug'
     const result = buildListingLinkButton(slug)
-    const expectedLink = linkProvider.listing.details.getUrl({ slug })
+    const expectedLink = pathProvider.listing.details.getUrl({ slug })
     expect(result).toBeInstanceOf(ActionRowBuilder)
     const components = result.components
     expect(components).toHaveLength(1)

@@ -1,4 +1,4 @@
-import { apiUrlProvider } from '@echo/api/routing/api-url-provider'
+import { apiPathProvider } from '@echo/api/routing/api/api-path-provider'
 import type { SearchResponse } from '@echo/api/types/responses/search-response'
 import type { SearchResult } from '@echo/model/types/search-result'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
@@ -9,7 +9,7 @@ import { concat, path } from 'ramda'
 export function searchCollections(q: string): Promise<SearchResult<string>[]> {
   return axios
     .get<SearchResponse<string>>(
-      concat(apiUrlProvider.collection.search.getUrl(), stringify({ q }, { addQueryPrefix: true })),
+      concat(apiPathProvider.collection.search.getUrl(), stringify({ q }, { addQueryPrefix: true })),
       {
         withCredentials: true
       }

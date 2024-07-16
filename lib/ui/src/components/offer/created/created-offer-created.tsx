@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import { OfferCreationSubLayout } from '@echo/ui/components/offer/created/layout/offer-creation-sub-layout'
 import { OfferCreationSuccessLayout } from '@echo/ui/components/offer/created/layout/offer-creation-success-layout'
 import { OfferCreationTextLayout } from '@echo/ui/components/offer/created/layout/offer-creation-text-layout'
@@ -17,7 +17,7 @@ export const CreatedOfferCreated: FunctionComponent<Props> = ({ count, slug }) =
   const router = useRouter()
 
   const onClick = () => {
-    router.replace(linkProvider.offer.details.get({ slug }))
+    router.replace(pathProvider.offer.details.get({ slug }))
   }
   return (
     <OfferCreationSuccessLayout>

@@ -1,5 +1,5 @@
 'use client'
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import {
   SEARCH_RESULT_CATEGORY_COLLECTION,
   SEARCH_RESULT_CATEGORY_USER
@@ -25,10 +25,10 @@ export const HeaderSearch: FunctionComponent = () => {
         resultsProvider={pipe(juxt([searchCollections, searchUsers]), promiseAll, andThen(flatten))}
         onSelect={(result: SearchResult<string>) => {
           if (result.category === SEARCH_RESULT_CATEGORY_COLLECTION) {
-            router.push(linkProvider.collection.items.get({ slug: result.value }))
+            router.push(pathProvider.collection.items.get({ slug: result.value }))
           }
           if (result.category === SEARCH_RESULT_CATEGORY_USER) {
-            router.push(linkProvider.user.items.get({ username: result.value }))
+            router.push(pathProvider.user.items.get({ username: result.value }))
           }
         }}
         style={{

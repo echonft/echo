@@ -1,8 +1,8 @@
-import { authRouteHandler } from '@echo/frontend/lib/request-handlers/auth-route-handler'
+import { authRequestHandler } from '@echo/frontend/lib/request-handlers/auth-request-handler'
 import { addWalletRequestHandler } from '@echo/frontend/lib/request-handlers/profile/add-wallet-request-handler'
 import { removeWalletRequestHandler } from '@echo/frontend/lib/request-handlers/profile/remove-wallet-request-handler'
 
-const PUT = authRouteHandler(addWalletRequestHandler)
-const DELETE = authRouteHandler(removeWalletRequestHandler)
+const PUT = authRequestHandler(addWalletRequestHandler)
+const DELETE = authRequestHandler(removeWalletRequestHandler)
 
 export { DELETE, PUT }

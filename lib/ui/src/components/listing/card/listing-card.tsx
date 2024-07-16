@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import type { Listing } from '@echo/model/types/listing'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { ListingCardSwitch } from '@echo/ui/components/listing/card/listing-card-switch'
@@ -13,7 +13,7 @@ export interface ListingCardProps {
 
 export const ListingCard: FunctionComponent<ListingCardProps> = ({ listing, options }) => {
   return (
-    <InternalLink path={linkProvider.listing.details.get({ slug: listing.slug })}>
+    <InternalLink path={pathProvider.listing.details.get({ slug: listing.slug })}>
       <ListingCardSwitch listing={listing} scaleDisabled={options?.scaleDisabled} />
     </InternalLink>
   )

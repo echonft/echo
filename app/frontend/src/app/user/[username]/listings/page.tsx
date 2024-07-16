@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import { getListingsForCreator } from '@echo/firestore/crud/listing/get-listings-for-creator'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
@@ -14,7 +14,7 @@ import { always, andThen, otherwise, pipe } from 'ramda'
 
 async function render({ params: { username }, user }: PropsWithUser<NextParams<WithUsername>>) {
   if (user?.username === username) {
-    redirect(linkProvider.profile.listings.get())
+    redirect(pathProvider.profile.listings.get())
   }
   const listings = await pipe(
     getListingsForCreator,

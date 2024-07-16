@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
@@ -33,7 +33,7 @@ async function render({ params: { slug }, user }: PropsWithAuthUser<NextParams<W
     notFound()
   }
   if (offer.state === OFFER_STATE_COMPLETED) {
-    redirect(linkProvider.swap.details.get({ slug }))
+    redirect(pathProvider.swap.details.get({ slug }))
   }
   if (isOfferRoleUndefined(offer)) {
     notFound()

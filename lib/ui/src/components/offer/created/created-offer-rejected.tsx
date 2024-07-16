@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import { CreatedOfferExpiredImg } from '@echo/ui/components/offer/created/created-offer-expired-img'
 import { OfferCreationLayout } from '@echo/ui/components/offer/created/layout/offer-creation-layout'
 import { OfferCreationSubLayout } from '@echo/ui/components/offer/created/layout/offer-creation-sub-layout'
@@ -13,7 +13,7 @@ export const CreatedOfferRejected: FunctionComponent = () => {
   const router = useRouter()
 
   const onClick = () => {
-    router.replace(linkProvider.base.home.get())
+    router.replace(pathProvider.base.home.get())
   }
   return (
     <OfferCreationLayout>

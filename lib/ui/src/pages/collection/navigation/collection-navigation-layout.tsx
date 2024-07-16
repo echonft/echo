@@ -1,5 +1,5 @@
 'use client'
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import { NavigationLayout } from '@echo/ui/components/base/navigation/navigation-layout'
 import { NAVIGATION_LISTINGS, NAVIGATION_NFTS, NAVIGATION_SWAPS } from '@echo/ui/constants/navigation-item'
 import { type NavigationItemId } from '@echo/ui/types/navigation-item-id'
@@ -10,6 +10,7 @@ interface Props {
   slug: string
   activeNavigationItem: NavigationItemId
 }
+
 export const CollectionNavigationLayout: FunctionComponent<PropsWithChildren<Props>> = ({
   slug,
   activeNavigationItem,
@@ -22,17 +23,17 @@ export const CollectionNavigationLayout: FunctionComponent<PropsWithChildren<Pro
         {
           id: NAVIGATION_NFTS,
           name: t('items'),
-          path: linkProvider.collection.items.get({ slug })
+          path: pathProvider.collection.items.get({ slug })
         },
         {
           id: NAVIGATION_LISTINGS,
           name: t('listings'),
-          path: linkProvider.collection.listings.get({ slug })
+          path: pathProvider.collection.listings.get({ slug })
         },
         {
           id: NAVIGATION_SWAPS,
           name: t('swaps'),
-          path: linkProvider.collection.swaps.get({ slug })
+          path: pathProvider.collection.swaps.get({ slug })
         }
       ]}
       activeNavigationItem={activeNavigationItem}

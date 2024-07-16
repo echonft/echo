@@ -1,6 +1,6 @@
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import { redirect } from 'next/navigation'
 
 export default function render() {
-  redirect(linkProvider.profile.items.get())
+  redirect(pathProvider.profile.items.get())
 }

@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
@@ -20,7 +20,7 @@ async function render({ params: { slug } }: PropsWithUser<NextParams<WithSlug>>)
   }
   if (offer.state !== OFFER_STATE_COMPLETED) {
     // user will be redirected to login if they are not logged in anyway
-    redirect(linkProvider.offer.details.get({ slug }))
+    redirect(pathProvider.offer.details.get({ slug }))
   }
   return (
     <PageLayout background={PAGE_LAYOUT_BG_GREEN_GRADIENT}>

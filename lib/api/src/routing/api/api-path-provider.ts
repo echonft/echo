@@ -1,12 +1,12 @@
-import { ApiPath } from '@echo/api/routing/api-path'
+import { ApiPath } from '@echo/api/routing/api/api-path'
 import type { HexString } from '@echo/utils/types/hex-string'
 
-export const apiUrlProvider = {
+export const apiPathProvider = {
   collection: {
-    search: new ApiPath({ path: '/search/collection' })
+    search: new ApiPath({ path: '/search/collection', secure: false })
   },
   ipfs: {
-    proxy: new ApiPath<{ path: string }>({ path: '/ipfs/:path' })
+    proxy: new ApiPath<{ path: string }>({ path: '/ipfs/:path', secure: false })
   },
   listing: {
     cancel: new ApiPath<Record<'slug', string>>({ path: '/listing/:slug/cancel', secure: true }),
@@ -25,7 +25,11 @@ export const apiUrlProvider = {
     wallets: new ApiPath({ path: '/profile/wallets', secure: true })
   },
   user: {
-    search: new ApiPath({ path: '/search/user' }),
-    update: new ApiPath({ path: '/user/update' })
+    search: new ApiPath({ path: '/search/user', secure: false }),
+    update: new ApiPath({ path: '/user/update', secure: false })
+  },
+  webhook: {
+    echo: new ApiPath<Record<'chain', string>>({ path: '/webhook/:chain/echo', secure: false }),
+    nftTransfer: new ApiPath<Record<'chain', string>>({ path: '/webhook/:chain/nft/transfer', secure: false })
   }
 }

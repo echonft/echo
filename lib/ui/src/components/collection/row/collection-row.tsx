@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
 import { CollectionRowLabel } from '@echo/ui/components/collection/row/collection-row-label'
@@ -18,7 +18,7 @@ export const CollectionRow: FunctionComponent<Props> = ({
   collection: { name, profilePictureUrl, rank, slug, swapsCount }
 }) => {
   return (
-    <InternalLink path={linkProvider.collection.items.get({ slug })}>
+    <InternalLink path={pathProvider.collection.items.get({ slug })}>
       <CollectionRowLayout>
         <CollectionRowNameRankPictureLayout>
           <CollectionRowRankPictureLayout>

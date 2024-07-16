@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import type { CardDiscordTagProps } from '@echo/ui/components/base/card/card-discord-tag'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
@@ -11,7 +11,7 @@ export const CardDiscordTagWrapper: FunctionComponent<PropsWithChildren<CardDisc
   if (asLink) {
     return (
       <InternalLink
-        path={linkProvider.user.items.get({ username })}
+        path={pathProvider.user.items.get({ username })}
         onClick={(event) => {
           event.stopPropagation()
         }}

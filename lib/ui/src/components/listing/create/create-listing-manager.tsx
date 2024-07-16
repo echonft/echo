@@ -1,5 +1,5 @@
 'use client'
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
@@ -31,7 +31,7 @@ export const CreateListingManager: FunctionComponent<Props> = ({ creatorNfts, it
     key: SWRKeys.listing.create,
     fetcher: createListing,
     onSuccess: (response) => {
-      router.replace(linkProvider.listing.details.get({ slug: response.listing.slug }))
+      router.replace(pathProvider.listing.details.get({ slug: response.listing.slug }))
     },
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('new') },
