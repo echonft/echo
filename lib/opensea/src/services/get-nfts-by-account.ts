@@ -14,6 +14,7 @@ import {
   assoc,
   concat,
   filter,
+  isNil,
   map,
   objOf,
   otherwise,
@@ -29,7 +30,16 @@ async function handlePaging(
   args: WithLoggerType<GetNftsByAccountRequest>,
   accNfts: PartialNft[]
 ): Promise<PartialNft[]> {
-  const response = await fetchNftsByAccount(args)
+  const response = await pipe(
+    fetchNftsByAccount,
+    otherwise((err) => {
+      args.logger?.error({ err, wallet: args.wallet }, 'could not fetch NFTs')
+      return undefined
+    })
+  )(args)
+  if (isNil(response)) {
+    return accNfts
+  }
   const { next, nfts } = response
   const requests = pipe<[NftResponse[]], NftResponse[], FetchNftRequest[]>(
     // for now we only support ERC721
@@ -48,14 +58,13 @@ async function handlePaging(
       fetchNft,
       andThen(unlessNil((response) => responses.push(response))),
       otherwise((err) => {
-        args.logger?.warn(
+        args.logger?.error(
           { err, nft: { collection: { contract: request.contract }, tokenId: request.identifier } },
           'could not fetch NFT'
         )
       })
     )(request)
   }
-  // reject suspicious NFTs
   const mergedResponse = concat(responses, accNfts)
   if (isNilOrEmpty(next)) {
     return mergedResponse

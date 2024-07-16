@@ -7,7 +7,7 @@ import type { GetContractRequest } from '@echo/opensea/types/request/get-contrac
 import type { ContractResponse } from '@echo/opensea/types/response/contract-response'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { andThen, applySpec, assoc, otherwise, pipe, prop } from 'ramda'
+import { andThen, applySpec, assoc, pipe, prop } from 'ramda'
 
 export async function getCollectionByAddress(args: WithLoggerType<GetContractRequest>): Promise<Nullable<Collection>> {
   const logger = getLogger({ chain: args.contract.chain, logger: args.logger })?.child({
@@ -29,10 +29,6 @@ export async function getCollectionByAddress(args: WithLoggerType<GetContractReq
         assoc('logger', logger),
         getCollection
       )
-    ),
-    otherwise((err) => {
-      logger?.error({ err, contract: args.contract }, 'could not fetch contract')
-      return undefined
-    })
+    )
   )(args)
 }

@@ -4,28 +4,43 @@ import type { Wallet } from '@echo/model/types/wallet'
 import { addCollection } from '@echo/tasks/add-collection'
 import { getLogger } from '@echo/tasks/commands/get-logger'
 import { fetchNft } from '@echo/tasks/fetch-nft'
-import { andThen, assoc, isNil, otherwise, pipe } from 'ramda'
+import { andThen, assoc, isNil, otherwise, pipe, tap } from 'ramda'
 
 export async function updateNftCommand(contract: Wallet, tokenId: string) {
   const logger = getLogger(updateNftCommand.name)
   await initializeFirebase()
-  const nft = await fetchNft({ contract, identifier: tokenId, fetch, logger })
-  if (isNil(nft)) {
-    logger.error({ nft: { collection: { contract }, tokenId } }, 'could not fetch NFT')
-    return
-  }
-  const collection = await addCollection({ contract, fetch, logger })
-  if (isNil(collection)) {
-    logger.error({ collection: { contract } }, 'could not fetch collection')
-    return
-  }
-  await pipe(
-    updateNft,
-    andThen((updatedNft) => {
-      logger.info({ nft: updatedNft }, 'updated NFT')
-    }),
+  const nft = await pipe(
+    fetchNft,
+    andThen(
+      tap((nft) => {
+        if (isNil(nft)) {
+          logger.warn({ nft: { collection: { contract }, tokenId } }, 'NFT not found')
+        }
+      })
+    ),
     otherwise((err) => {
-      logger.error({ err, nft: assoc('collection', collection, nft) }, 'could not update NFT')
+      logger.error({ err, nft: { collection: { contract }, tokenId } }, 'could not fetch NFT')
+      return undefined
     })
-  )(assoc('collection', collection, nft))
+  )({ contract, identifier: tokenId, fetch, logger })
+  if (!isNil(nft)) {
+    const collection = await pipe(
+      addCollection,
+      otherwise((err) => {
+        logger.error({ err, collection: { contract } }, 'could not add collection')
+        return undefined
+      })
+    )({ contract, fetch, logger })
+    if (!isNil(collection)) {
+      await pipe(
+        updateNft,
+        andThen((updatedNft) => {
+          logger.info({ nft: updatedNft }, 'updated NFT')
+        }),
+        otherwise((err) => {
+          logger.error({ err, nft: assoc('collection', collection, nft) }, 'could not update NFT')
+        })
+      )(assoc('collection', collection, nft))
+    }
+  }
 }

@@ -3,6 +3,8 @@ import type { Wallet } from '@echo/model/types/wallet'
 import { fetchCollectionCommand } from '@echo/tasks/commands/fetch-collection-command'
 import { fetchNftCommand } from '@echo/tasks/commands/fetch-nft-command'
 import { fetchNftsForWalletCommand } from '@echo/tasks/commands/fetch-nfts-for-wallet-command'
+import { findDuplicateCollections } from '@echo/tasks/commands/find-duplicate-collections'
+import { removeDuplicateCollections } from '@echo/tasks/commands/remove-duplicate-collections'
 import { updateCollectionCommand } from '@echo/tasks/commands/update-collection-command'
 import { updateNftCommand } from '@echo/tasks/commands/update-nft-command'
 import { updateUserNftsCommand } from '@echo/tasks/commands/update-user-nfts-command'
@@ -206,6 +208,33 @@ await yargs(hideBin(process.argv))
     () => {},
     async (_yargs) => {
       await updateUsersNftsCommand()
+      process.exit(0)
+    }
+  )
+  .command(
+    'update-users-nfts',
+    'Updates the NFTs of every users',
+    () => {},
+    async (_yargs) => {
+      await updateUsersNftsCommand()
+      process.exit(0)
+    }
+  )
+  .command(
+    'find-duplicate-collections',
+    'Find duplicate collections in the database',
+    () => {},
+    async (_yargs) => {
+      await findDuplicateCollections()
+      process.exit(0)
+    }
+  )
+  .command(
+    'remove-duplicate-collections',
+    'Remove duplicate collections (if any) from the database',
+    () => {},
+    async (_yargs) => {
+      await removeDuplicateCollections()
       process.exit(0)
     }
   )

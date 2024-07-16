@@ -4,10 +4,9 @@ import type { ProcessEchoEventArgs } from '@echo/frontend/lib/helpers/webhook/pr
 import { processInEscrowTransfer } from '@echo/frontend/lib/helpers/webhook/process-in-escrow-transfer'
 import { mapContractOfferToBaseOffer } from '@echo/frontend/lib/mappers/map-contract-offer-to-base-offer'
 import type { Nft } from '@echo/model/types/nft'
-import { promiseAll } from '@echo/utils/fp/promise-all'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { getEchoOffer } from '@echo/web3/helpers/get-echo-offer'
-import { assoc, isNil, map, objOf, pipe } from 'ramda'
+import { assoc, isNil, objOf, pipe } from 'ramda'
 
 export async function processEchoOfferCreatedEvent(args: WithLoggerType<ProcessEchoEventArgs>) {
   const { logger, event, chain } = args
@@ -24,10 +23,13 @@ export async function processEchoOfferCreatedEvent(args: WithLoggerType<ProcessE
     contractOffer
   })
   // Move all sender items to escrow
-  await pipe<[Nft[]], Promise<void>[], Promise<void[]>>(
-    map(pipe(objOf('nft'), assoc('logger', logger), processInEscrowTransfer)),
-    promiseAll
-  )(baseOffer.senderItems)
+  for (const item of baseOffer.senderItems) {
+    await pipe<[Nft], Record<'nft', Nft>, WithLoggerType<Record<'nft', Nft>>, Promise<void>>(
+      objOf('nft'),
+      assoc('logger', args.logger),
+      processInEscrowTransfer
+    )(item)
+  }
   const offer = await addOffer(baseOffer, offerId)
   logger?.info({ offer }, 'created offer')
 }

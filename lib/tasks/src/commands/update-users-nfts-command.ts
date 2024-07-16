@@ -7,7 +7,13 @@ import { andThen, otherwise, pipe } from 'ramda'
 export async function updateUsersNftsCommand() {
   const logger = getLogger(updateUsersNftsCommand.name)
   await initializeFirebase()
-  const users = await getAllUsers()
+  const users = await pipe(
+    getAllUsers,
+    otherwise((err) => {
+      logger.error({ err }, 'could not fetch users from Firestore')
+      return []
+    })
+  )()
   for (const user of users) {
     await pipe(
       updateNftsForUser,
@@ -15,7 +21,7 @@ export async function updateUsersNftsCommand() {
         logger.info({ user }, 'updated NFTs for user')
       }),
       otherwise((err) => {
-        logger.error({ err, user }, 'could not update NFTs')
+        logger.error({ err, user }, 'could not update NFTs for user')
       })
     )({ user, fetch, logger })
   }

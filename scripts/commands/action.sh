@@ -7,6 +7,7 @@ if ! sh "${dir}"/../base/check-newt.sh; then
     exit 1
 fi
 
+# Get action
 ACTION=$(whiptail --notags --menu "Wat do?" 15 30 8 \
 "fetch-collection" "Fetch a collection" \
 "fetch-nft" "Fetch an NFT" \
@@ -20,11 +21,33 @@ ACTION=$(whiptail --notags --menu "Wat do?" 15 30 8 \
 if [ "$ACTION" = "fetch-collection" ] || [ "$ACTION" = "fetch-nft" ] || [ "$ACTION" = "fetch-nfts-for-wallet" ]; then
   ENV=development pnpm exec turbo command --filter=@echo/tasks -- "${ACTION}"
 elif [ "$ACTION" = "update-collection" ] || [ "$ACTION" = "update-nft" ] || [ "$ACTION" = "update-user-nfts" ] || [ "$ACTION" = "update-wallet-nfts" ] || [ "$ACTION" = "update-users-nfts" ]; then
+    # Get env
     ENV=$(whiptail --default-item=development --notags --menu "Pick an environment" 10 30 3 \
     "development" "Development" \
     "staging" "Staging" \
     "production" "Production (be careful!)" 3>&1 1>&2 2>&3)
-    ENV=${ENV} pnpm exec turbo command --filter=@echo/tasks -- "${ACTION}"
+    if [ "${ENV}" = "development" ]; then
+      NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL="dev.echonft.xyz"
+    elif [ "${ENV}" = "staging" ]; then
+      NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL="staging.echonft.xyz"
+    elif [ "${ENV}" = "production" ]; then
+      NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL="app.echonft.xyz"
+    else
+      exit 1
+    fi
+    # Get log level
+    LOG_LEVEL=$(whiptail --default-item=trace --notags --menu "Pick a log level" 15 30 6 \
+    "fatal" "fatal" \
+    "error" "error" \
+    "warn" "warn" \
+    "info" "info" \
+    "debug" "debug" \
+    "trace" "trace" 3>&1 1>&2 2>&3)
+    if [ "$LOG_LEVEL" = "fatal" ] || [ "$LOG_LEVEL" = "error" ] || [ "$LOG_LEVEL" = "warn" ] || [ "$LOG_LEVEL" = "info" ] || [ "$LOG_LEVEL" = "debug" ] || [ "$LOG_LEVEL" = "trace" ]; then
+      LOG_LEVEL=${LOG_LEVEL} ENV=${ENV} NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL=${NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL} pnpm exec turbo command --filter=@echo/tasks -- "${ACTION}"
+    else
+      exit 1
+    fi
 else
   exit 1
 fi

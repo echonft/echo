@@ -5,9 +5,8 @@ import { NotFoundError } from '@echo/frontend/lib/helpers/error/not-found-error'
 import type { ProcessEchoEventArgs } from '@echo/frontend/lib/helpers/webhook/process-echo-event'
 import { processOutEscrowTransfer } from '@echo/frontend/lib/helpers/webhook/process-out-escrow-transfer'
 import type { Nft } from '@echo/model/types/nft'
-import { promiseAll } from '@echo/utils/fp/promise-all'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { assoc, isNil, map, objOf, pipe } from 'ramda'
+import { assoc, isNil, objOf, pipe } from 'ramda'
 
 export async function processEchoOfferCancelledEvent(args: WithLoggerType<ProcessEchoEventArgs>) {
   const { logger, event } = args
@@ -16,11 +15,6 @@ export async function processEchoOfferCancelledEvent(args: WithLoggerType<Proces
   if (isNil(offer)) {
     return Promise.reject(new NotFoundError({ message: 'offer not found', severity: 'warning' }))
   }
-  // Move all sender items out of escrow
-  await pipe<[Nft[]], Promise<void>[], Promise<void[]>>(
-    map(pipe(objOf('nft'), assoc('logger', logger), processOutEscrowTransfer)),
-    promiseAll
-  )(offer.senderItems)
   if (offer.readOnly) {
     return Promise.reject(
       new BadRequestError({
@@ -28,6 +22,14 @@ export async function processEchoOfferCancelledEvent(args: WithLoggerType<Proces
         severity: 'warning'
       })
     )
+  }
+  // Move all sender items out of escrow
+  for (const item of offer.senderItems) {
+    await pipe<[Nft], Record<'nft', Nft>, WithLoggerType<Record<'nft', Nft>>, Promise<void>>(
+      objOf('nft'),
+      assoc('logger', args.logger),
+      processOutEscrowTransfer
+    )(item)
   }
   await cancelOffer({ slug: offer.slug })
   logger?.info({ offer }, 'cancelled offer')

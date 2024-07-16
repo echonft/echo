@@ -8,9 +8,10 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { andThen, assoc, isNil, otherwise, pick, pipe } from 'ramda'
 
-async function fetchMainnetCollection(args: WithLoggerType<GetCollectionRequest>) {
+function fetchMainnetCollection(args: WithLoggerType<GetCollectionRequest>) {
   const logger = getLogger({ chain: args.chain, logger: args.logger })?.child({
-    fetcher: fetchMainnetCollection.name
+    fetcher: fetchMainnetCollection.name,
+    request: pick(['slug', 'chain'], args)
   })
   const regex = /^(.+)-\d+$/
   const match = args.slug.match(regex)
@@ -21,9 +22,17 @@ async function fetchMainnetCollection(args: WithLoggerType<GetCollectionRequest>
     return pipe(
       assoc('slug', mainnetSlug),
       fetchCollection,
-      andThen((response) => collectionResponseSchema({ logger }).parse(response)),
+      andThen(
+        pipe(
+          (response) => collectionResponseSchema({ logger }).parseAsync(response),
+          otherwise((err) => {
+            logger?.error({ err }, 'could not parse mainnet collection')
+            return undefined
+          })
+        )
+      ),
       otherwise((err) => {
-        logger?.error({ err, request: pick(['slug', 'chain'], args) }, 'could not fetch collection')
+        logger?.error({ err }, 'could not fetch mainnet collection')
         return undefined
       })
     )(assoc('logger', logger, args))
@@ -39,11 +48,7 @@ export async function getCollection(args: WithLoggerType<GetCollectionRequest>):
   const collection = await pipe(
     assoc('logger', logger),
     fetchCollection,
-    andThen((response) => collectionResponseSchema(pick(['chain', 'logger'], args)).parse(response)),
-    otherwise((err) => {
-      logger?.error({ err, request: pick(['slug', 'chain'], args) }, 'could not fetch collection')
-      return undefined
-    })
+    andThen((response) => collectionResponseSchema(pick(['chain', 'logger'], args)).parse(response))
   )(args)
   if (!isNil(collection) && isTestnetChain(args.chain)) {
     // chain does not matter here, but it has to be on mainnet

@@ -14,7 +14,7 @@ VERCEL_PROJECT=$(whiptail --default-item=staging --notags --menu "Pick an projec
 "storybook" "Storybook" 3>&1 1>&2 2>&3)
 
 if [ "$VERCEL_PROJECT" = "dev" ] || [ "$VERCEL_PROJECT" = "staging" ] || [ "$VERCEL_PROJECT" = "echo" ] || [ "$VERCEL_PROJECT" = "storybook" ]; then
-  echo "$ENV" | xargs vercel link -y -p
+  vercel link -y -p "$VERCEL_PROJECT" 1>/dev/null 2>&1
   vercel --prod
 else
   exit 1
