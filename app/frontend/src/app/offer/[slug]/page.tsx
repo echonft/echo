@@ -11,7 +11,7 @@ import type { WithSlug } from '@echo/model/types/with-slug'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
-import { getOfferPageLayoutBackground } from '@echo/ui/helpers/offer/get-offer-page-layout-background'
+import { getOfferBackground } from '@echo/ui/helpers/offer/get-offer-background'
 import { isOfferRoleUndefined } from '@echo/ui/helpers/offer/is-offer-role-undefined'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -40,7 +40,7 @@ async function render({ params: { slug }, user }: PropsWithAuthUser<NextParams<W
   }
   // TODO we should create a SwapDetails view which will be much simpler
   return (
-    <PageLayout user={user} background={getOfferPageLayoutBackground(offer)}>
+    <PageLayout user={user} background={getOfferBackground(offer)}>
       <PaddedSectionLayout>
         <OfferDetails offer={offer} />
       </PaddedSectionLayout>

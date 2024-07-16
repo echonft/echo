@@ -23,7 +23,7 @@ export const HeaderSearch: FunctionComponent = () => {
     <div className={clsx('h-max', 'w-full', 'max-w-[37.5rem]')}>
       <SearchBox
         resultsProvider={pipe(juxt([searchCollections, searchUsers]), promiseAll, andThen(flatten))}
-        onSelect={(result: SearchResult<string>) => {
+        onSelect={(result: SearchResult<Lowercase<string>>) => {
           if (result.category === SEARCH_RESULT_CATEGORY_COLLECTION) {
             router.push(pathProvider.collection.items.get({ slug: result.value }))
           }

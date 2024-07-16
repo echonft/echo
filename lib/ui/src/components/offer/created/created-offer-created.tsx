@@ -1,4 +1,5 @@
 import { pathProvider } from '@echo/api/routing/path-provider'
+import type { Slug } from '@echo/model/types/slug'
 import { OfferCreationSubLayout } from '@echo/ui/components/offer/created/layout/offer-creation-sub-layout'
 import { OfferCreationSuccessLayout } from '@echo/ui/components/offer/created/layout/offer-creation-success-layout'
 import { OfferCreationTextLayout } from '@echo/ui/components/offer/created/layout/offer-creation-text-layout'
@@ -9,7 +10,7 @@ import type { FunctionComponent } from 'react'
 
 interface Props {
   count: number
-  slug: string
+  slug: Slug
 }
 
 export const CreatedOfferCreated: FunctionComponent<Props> = ({ count, slug }) => {

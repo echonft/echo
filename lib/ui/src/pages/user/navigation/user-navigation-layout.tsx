@@ -1,5 +1,6 @@
 'use client'
 import { pathProvider } from '@echo/api/routing/path-provider'
+import type { Username } from '@echo/model/types/username'
 import { NavigationLayout } from '@echo/ui/components/base/navigation/navigation-layout'
 import { NAVIGATION_LISTINGS, NAVIGATION_NFTS, NAVIGATION_SWAPS } from '@echo/ui/constants/navigation-item'
 import { type NavigationItemId } from '@echo/ui/types/navigation-item-id'
@@ -7,7 +8,7 @@ import { useTranslations } from 'next-intl'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
-  username: string
+  username: Username
   activeNavigationItem: NavigationItemId
 }
 

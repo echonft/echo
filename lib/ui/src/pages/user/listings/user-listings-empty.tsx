@@ -1,4 +1,5 @@
 import { pathProvider } from '@echo/api/routing/path-provider'
+import type { Username } from '@echo/model/types/username'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { EmptyViewContent } from '@echo/ui/components/base/navigation/empty-view-content'
 import { clsx } from 'clsx'
@@ -6,7 +7,7 @@ import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  username: string
+  username: Username
 }
 
 export const UserListingsEmpty: FunctionComponent<Props> = ({ username }) => {

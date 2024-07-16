@@ -1,4 +1,7 @@
 import { Path } from '@echo/api/routing/path'
+import type { WithSlug } from '@echo/model/types/with-slug'
+import type { WithSlugType } from '@echo/model/types/with-slug-type'
+import type { WithUsername } from '@echo/model/types/with-username'
 
 export const pathProvider = {
   auth: {
@@ -9,17 +12,20 @@ export const pathProvider = {
   },
   collection: {
     all: new Path({ path: '/collections', secure: false }),
-    default: new Path<Record<'slug', string>>({ path: '/collection/:slug', secure: false }),
-    items: new Path<Record<'slug', string>>({ path: '/collection/:slug/items', secure: false }),
-    listings: new Path<Record<'slug', string>>({ path: '/collection/:slug/listings', secure: false }),
-    swaps: new Path<Record<'slug', string>>({ path: '/collection/:slug/swaps', secure: false })
+    default: new Path<WithSlug>({ path: '/collection/:slug', secure: false }),
+    items: new Path<WithSlug>({ path: '/collection/:slug/items', secure: false }),
+    listing: new Path<WithSlugType<Record<'listingSlug', string>>>({
+      path: '/collection/:slug/listing/:listingSlug',
+      secure: false
+    }),
+    listings: new Path<WithSlug>({ path: '/collection/:slug/listings', secure: false }),
+    swaps: new Path<WithSlug>({ path: '/collection/:slug/swaps', secure: false })
   },
   listing: {
-    details: new Path<Record<'slug', string>>({ path: '/listing/:slug', secure: false }),
     new: new Path({ path: '/listing/new', secure: true })
   },
   offer: {
-    details: new Path<Record<'slug', string>>({ path: '/offer/:slug', secure: true }),
+    details: new Path<WithSlug>({ path: '/offer/:slug', secure: true }),
     new: new Path({ path: '/offer/new', secure: true })
   },
   profile: {
@@ -31,12 +37,12 @@ export const pathProvider = {
     pendingOffers: new Path({ path: '/me/offers/pending', secure: true })
   },
   user: {
-    default: new Path<Record<'username', string>>({ path: '/user/:username', secure: false }),
-    items: new Path<Record<'username', string>>({ path: '/user/:username/items', secure: false }),
-    listings: new Path<Record<'username', string>>({ path: '/user/:username/listings', secure: false }),
-    swaps: new Path<Record<'username', string>>({ path: '/user/:username/swaps', secure: false })
+    default: new Path<WithUsername>({ path: '/user/:username', secure: false }),
+    items: new Path<WithUsername>({ path: '/user/:username/items', secure: false }),
+    listings: new Path<WithUsername>({ path: '/user/:username/listings', secure: false }),
+    swaps: new Path<WithUsername>({ path: '/user/:username/swaps', secure: false })
   },
   swap: {
-    details: new Path<Record<'slug', string>>({ path: '/swap/:slug', secure: false })
+    details: new Path<WithSlug>({ path: '/swap/:slug', secure: false })
   }
 }

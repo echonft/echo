@@ -8,19 +8,19 @@ import {
   OFFER_STATES,
   READ_ONLY_OFFER_STATES
 } from '@echo/model/constants/offer-states'
-import type { Offer } from '@echo/model/types/offer'
-import type { OfferRole } from '@echo/model/types/offer-role'
-import type { OfferState } from '@echo/model/types/offer-state'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
+import type { Offer } from '@echo/model/types/offer'
+import type { OfferRole } from '@echo/model/types/offer-role'
+import type { OfferState } from '@echo/model/types/offer-state'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
 import { OfferDetailsSkeleton } from '@echo/ui/components/offer/details/skeleton/offer-details-skeleton'
-import { getOfferPageLayoutBackground } from '@echo/ui/helpers/offer/get-offer-page-layout-background'
+import { getOfferBackground } from '@echo/ui/helpers/offer/get-offer-background'
 import { isOfferRoleSender } from '@echo/ui/helpers/offer/is-offer-role-sender'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
@@ -83,7 +83,7 @@ export const Page: StoryObj<ComponentType> = {
       isOfferRoleSender(renderedOffer) ? userMockCrewUsername() : userMockJohnnyUsername()
     )
     return (
-      <PageLayout user={user} background={getOfferPageLayoutBackground(renderedOffer)} excludeProviders={true}>
+      <PageLayout user={user} background={getOfferBackground(renderedOffer)} excludeProviders={true}>
         <PaddedSectionLayout>
           <OfferDetails offer={renderedOffer} />
         </PaddedSectionLayout>

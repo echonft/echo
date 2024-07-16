@@ -3,15 +3,12 @@ import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/g
 import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/crud/query/get-query-unique-document-snapshot'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
-import type { Nft, NftIndex } from '@echo/model/types/nft'
-import type { DeepPartial } from '@echo/utils/types/deep-partial'
+import type { Nft, NftIndex, PartialNft } from '@echo/model/types/nft'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, pipe } from 'ramda'
 
-export function getNftSnapshot(
-  nft: DeepPartial<Nft> & Required<NftIndex>
-): Promise<Nullable<QueryDocumentSnapshot<Nft>>> {
+export function getNftSnapshot(nft: PartialNft): Promise<Nullable<QueryDocumentSnapshot<Nft>>> {
   return pipe(getNftIndex, getNftSnapshotForIndex)(nft)
 }
 

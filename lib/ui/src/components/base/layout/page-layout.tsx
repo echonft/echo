@@ -5,23 +5,15 @@ import { Header } from '@echo/ui/components/base/header/header'
 import { Dependencies } from '@echo/ui/components/base/layout/dependencies'
 import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
 import { Web3Provider } from '@echo/ui/components/base/web3-provider'
-import {
-  PAGE_LAYOUT_BG_COLLECTIONS,
-  PAGE_LAYOUT_BG_DEFAULT,
-  PAGE_LAYOUT_BG_GREEN_GRADIENT,
-  PAGE_LAYOUT_BG_HOME,
-  PAGE_LAYOUT_BG_RED_GRADIENT,
-  PAGE_LAYOUT_BG_SUCCESS,
-  PAGE_LAYOUT_BG_YELLOW_GRADIENT
-} from '@echo/ui/constants/page-layout-background'
-import { themeExtension } from '@echo/ui/helpers/theme/theme'
-import type { PageLayoutBackground } from '@echo/ui/types/page-layout-background'
+import { useBackground } from '@echo/ui/hooks/use-background'
+import type { Background } from '@echo/ui/types/background'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
+import { pick } from 'ramda'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 export interface PageLayoutProps {
-  background?: PageLayoutBackground
+  background?: Background
   excludeProviders?: boolean
   headerVariants?: {
     logoOnly?: boolean
@@ -30,34 +22,16 @@ export interface PageLayoutProps {
 }
 
 const PageLayoutInner: FunctionComponent<PropsWithChildren<Exclude<PageLayoutProps, 'excludeProviders'>>> = ({
-  background = PAGE_LAYOUT_BG_DEFAULT,
+  background,
   headerVariants,
   user,
   children
 }) => {
+  const bgProps = useBackground(background)
   return (
     <div
-      className={clsx(
-        'flex',
-        'flex-col',
-        'self-stretch',
-        'grow',
-        'w-full',
-        'h-full',
-        background === PAGE_LAYOUT_BG_DEFAULT && 'bg-dark-500',
-        background === PAGE_LAYOUT_BG_HOME && ['bg-home', 'bg-[length:100%_41.4375rem]', 'bg-no-repeat'],
-        background === PAGE_LAYOUT_BG_COLLECTIONS && ['bg-home', 'bg-no-repeat'],
-        background === PAGE_LAYOUT_BG_GREEN_GRADIENT && ['bg-gradientGreen', 'bg-no-repeat'],
-        background === PAGE_LAYOUT_BG_YELLOW_GRADIENT && ['bg-gradientYellow', 'bg-no-repeat'],
-        background === PAGE_LAYOUT_BG_RED_GRADIENT && ['bg-gradientRed', 'bg-no-repeat']
-      )}
-      style={
-        background === PAGE_LAYOUT_BG_SUCCESS
-          ? {
-              background: `url('https://storage.googleapis.com/echo-dev-public/success-banner-left.png?alt=media') 0 1.5rem no-repeat, url('https://storage.googleapis.com/echo-dev-public/success-banner-right.png?alt=media') 100% 1.5rem no-repeat, ${themeExtension.colors.dark['500']}`
-            }
-          : undefined
-      }
+      className={clsx('flex', 'flex-col', 'self-stretch', 'grow', 'w-full', 'h-full', bgProps.className)}
+      {...pick(['style'], bgProps)}
     >
       <Header logoOnly={Boolean(headerVariants?.logoOnly)} user={user} />
       <MainSectionLayout>

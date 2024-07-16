@@ -1,15 +1,15 @@
-import type { GetOfferByIdContractParams } from '@echo/api/types/params/get-offer-by-id-contract-params'
 import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
 import { ForbiddenError } from '@echo/frontend/lib/helpers/error/forbidden-error'
 import { NotFoundError } from '@echo/frontend/lib/helpers/error/not-found-error'
 import { toNextReponse } from '@echo/frontend/lib/request-handlers/to-next-reponse'
 import type { AuthRequestHandlerArgsWithParams } from '@echo/frontend/lib/types/request-handlers/auth-request-handler'
+import type { Offer } from '@echo/model/types/offer'
 import { isNil } from 'ramda'
 
 export async function getOfferByIdContractRequestHandler({
   user: { username },
   params
-}: AuthRequestHandlerArgsWithParams<GetOfferByIdContractParams>) {
+}: AuthRequestHandlerArgsWithParams<Pick<Offer, 'idContract'>>) {
   const { idContract } = params
   const offer = await getOfferByIdContract(idContract)
   if (isNil(offer)) {
