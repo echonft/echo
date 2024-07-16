@@ -37,9 +37,9 @@ if [ "$ENV" = "development" ] || [ "$ENV" = "staging" ] || [ "$ENV" = "productio
     exit 1
   fi
   # if env is staging or production (since we deploy staging also), we always need to mirror prod
-#  if [ "$ENV" = "staging" ] || [ "$ENV" = "production" ]; then
-#    sh "${dir}"/../firestore/mirror-staging.sh
-#  fi
+  if [ "$ENV" = "staging" ] || [ "$ENV" = "production" ]; then
+    sh "${dir}"/../firestore/mirror-staging.sh
+  fi
 
   for deployment in ${DEPLOYMENTS}
   do

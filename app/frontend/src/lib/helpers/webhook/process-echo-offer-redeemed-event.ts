@@ -22,7 +22,7 @@ export async function processEchoOfferRedeemedEvent(args: WithLoggerType<Process
   if (!offer.readOnly) {
     return Promise.reject(
       new BadRequestError({
-        message: 'received Echo offer redeemrf event, but the offer is not read only',
+        message: 'received Echo offer redeemed event, but the offer is not read only',
         severity: 'warning'
       })
     )
