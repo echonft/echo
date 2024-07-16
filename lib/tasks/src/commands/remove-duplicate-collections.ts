@@ -61,23 +61,4 @@ export async function removeDuplicateCollections() {
       )(snapshot)
     }
   }
-  // TODO delete swaps count
-  // const swapsCounts = await getCollectionSwapsCounts()
-  // for (const swapsCount of swapsCounts) {
-  //   const ref = getReferenceById({
-  //     collectionReference: getCollectionsCollectionReference(),
-  //     id: swapsCount.collectionId
-  //   })
-  //   const snapshot = await ref.get()
-  //   if (!snapshot.exists) {
-  //     const toDelSnapshot = await getCollectionSwapsCountSnapshotByCollectionId(swapsCount.collectionId)
-  //     if (!isNil(toDelSnapshot)) {
-  //       await deleteReference({
-  //         collectionReference: getCollectionSwapsCountCollectionReference(),
-  //         id: toDelSnapshot.id
-  //       })
-  //       logger.info({ collection: { id: swapsCount.collectionId } }, 'deleted collection swaps count')
-  //     }
-  //   }
-  // }
 }
