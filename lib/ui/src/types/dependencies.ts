@@ -7,12 +7,13 @@ import type { ListingResponse } from '@echo/api/types/responses/listing-response
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
+import type { SignInResponse } from '@echo/auth/types/sign-in-response'
 import type { SearchResult } from '@echo/model/types/search-result'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { Logger } from '@echo/utils/types/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { type AreNftsInEscrowArgs } from '@echo/web3-dom/helpers/are-nfts-in-escrow'
+import type { AreNftsInEscrowArgs } from '@echo/web3-dom/helpers/are-nfts-in-escrow'
 import type { GetEchoTradingFeesArgs } from '@echo/web3-dom/helpers/get-echo-trading-fees'
 import type { AccountProvider } from '@echo/web3-dom/types/account-provider'
 import type { ApproveErc721ContractArgs } from '@echo/web3-dom/types/approve-erc-721-contract-args'
@@ -40,12 +41,12 @@ export interface Dependencies {
   getNonce: Fetcher<NonceResponse, never>
   getOfferByIdContract: Fetcher<OfferResponse, GetOfferByIdContractParams>
   getWallets: Fetcher<WalletsResponse, never>
+  logger?: Nullable<Logger>
+  login: () => Promise<SignInResponse | undefined>
+  logout: () => Promise<Record<'url', string> | undefined>
   rejectOffer: Fetcher<OfferResponse, RejectOfferArgs>
   searchCollections: (query: string) => Promise<SearchResult<string>[]>
   searchUsers: (query: string) => Promise<SearchResult<string>[]>
-  signIn: () => Promise<void>
   signNonce: Fetcher<SignNonceResult, SignNonceArgs>
-  signOut: () => Promise<void>
   switchChain: () => Promise<void>
-  logger?: Nullable<Logger>
 }

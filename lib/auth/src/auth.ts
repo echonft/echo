@@ -5,7 +5,7 @@ import { pathIsNil } from '@echo/utils/fp/path-is-nil'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import NextAuth, { type NextAuthResult } from 'next-auth'
 import Discord, { type DiscordProfile } from 'next-auth/providers/discord'
-import { signIn, signOut } from 'next-auth/react'
+import { signIn, type SignInResponse, signOut } from 'next-auth/react'
 import { assoc, dissoc, either, isNil } from 'ramda'
 
 // noinspection JSUnusedGlobalSymbols
@@ -55,13 +55,10 @@ const {
     })
   ]
 })
-export { GET, POST }
-export { auth }
-async function login() {
-  await signIn('discord')
+export { GET, POST, auth }
+export function login(): Promise<SignInResponse | undefined> {
+  return signIn('discord')
 }
-export { login as signIn }
-async function logout() {
-  await signOut({ callbackUrl: pathProvider.base.home.getUrl() })
+export function logout(): Promise<Record<'url', string> | undefined> {
+  return signOut({ callbackUrl: pathProvider.base.home.getUrl() })
 }
-export { logout as signOut }

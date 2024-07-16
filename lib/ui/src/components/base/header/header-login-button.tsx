@@ -7,7 +7,7 @@ import { type FunctionComponent, useState } from 'react'
 
 export const HeaderLoginButton: FunctionComponent = () => {
   const t = useTranslations('layout.header.button')
-  const { logger, signIn } = useDependencies()
+  const { logger, login } = useDependencies()
   const [loggingIn, setLoggingIn] = useState(false)
   return (
     <button
@@ -15,12 +15,13 @@ export const HeaderLoginButton: FunctionComponent = () => {
       className={clsx('btn-auth', loggingIn && 'animate-pulse')}
       onClick={() => {
         setLoggingIn(true)
-        signIn()
+        login()
           .then(() => {
+            logger?.info('logged in')
             setLoggingIn(false)
           })
           .catch((err: unknown) => {
-            logger?.error({ err }, 'sign in error')
+            logger?.error({ err }, 'could not log in')
           })
       }}
     >
