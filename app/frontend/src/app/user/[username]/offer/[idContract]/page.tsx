@@ -1,51 +1,52 @@
 import { pathProvider } from '@echo/api/routing/path-provider'
-import { getOffer } from '@echo/firestore/crud/offer/get-offer'
-import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
+import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
+import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import { setOfferRoleForUser } from '@echo/frontend/lib/helpers/offer/set-offer-role-for-user'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
-import type { PropsWithAuthUser } from '@echo/frontend/lib/types/props-with-auth-user'
+import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
-import type { WithSlug } from '@echo/model/types/with-slug'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
-import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
 import { getOfferBackground } from '@echo/ui/helpers/offer/get-offer-background'
 import { isOfferRoleUndefined } from '@echo/ui/helpers/offer/is-offer-role-undefined'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
+import { unlessNil } from '@echo/utils/fp/unless-nil'
+import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound, redirect } from 'next/navigation'
-import { always, andThen, isNil, otherwise, pipe, unless } from 'ramda'
+import { always, andThen, isNil, otherwise, pipe } from 'ramda'
 
-async function render({ params: { slug }, user }: PropsWithAuthUser<NextParams<WithSlug>>) {
+async function render({
+  params: { idContract },
+  user
+}: PropsWithUser<NextParams<Record<'idContract', Lowercase<HexString>>>>) {
   const offer = await pipe<
-    [string],
+    [Lowercase<HexString>],
     Promise<Nullable<Offer>>,
     Promise<Nullable<OfferWithRole>>,
     Promise<Nullable<OfferWithRole>>
   >(
-    getOffer,
-    andThen(unless(isNil, setOfferRoleForUser(user)) as (offer: Nullable<Offer>) => Nullable<OfferWithRole>),
+    getOfferByIdContract,
+    andThen(unlessNil(setOfferRoleForUser(user))),
     otherwise(pipe(captureAndLogError, always(undefined)))
-  )(slug)
+  )(idContract)
   if (isNil(offer)) {
     notFound()
   }
   if (offer.state === OFFER_STATE_COMPLETED) {
-    redirect(pathProvider.swap.details.get({ slug }))
+    redirect(pathProvider.swap.details.get({ slug: offer.slug }))
   }
   if (isOfferRoleUndefined(offer)) {
     notFound()
   }
   // TODO we should create a SwapDetails view which will be much simpler
   return (
-    <PageLayout user={user} background={getOfferBackground(offer)}>
-      <PaddedSectionLayout>
-        <OfferDetails offer={offer} />
-      </PaddedSectionLayout>
-    </PageLayout>
+    <PaddedSectionLayout background={getOfferBackground(offer)}>
+      <OfferDetails offer={offer} />
+    </PaddedSectionLayout>
   )
 }
 
-export default withLoggedInUser(render)
+export default withUser(render)

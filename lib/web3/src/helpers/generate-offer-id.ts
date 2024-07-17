@@ -6,7 +6,7 @@ import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { hashNfts } from '@echo/web3/helpers/hash-nfts'
-import { applySpec, head, path, pipe, prop } from 'ramda'
+import { applySpec, head, juxt, partial, path, pipe, prop, toLower } from 'ramda'
 import { encodeAbiParameters, keccak256, parseAbiParameters } from 'viem'
 
 interface OfferAbiParameters {
@@ -25,13 +25,13 @@ interface OfferAbiParameters {
  * See _generateOfferId on contract for details
  * @param offer The offer to generate the id from
  */
-export function generateOfferId(offer: BaseOffer): HexString {
+export function generateOfferId(offer: BaseOffer): Lowercase<HexString> {
   const params = parseAbiParameters([
     'struct Offer { address sender; address receiver; uint256 senderItemsChainId; bytes32 senderItems; uint256 receiverItemsChainId; bytes32 receiverItems; uint256 expiration; }',
     'Offer'
   ])
-  return keccak256(
-    encodeAbiParameters(params, [
+  return pipe(
+    juxt([
       applySpec<OfferAbiParameters>({
         sender: nonNullableReturn(path(['sender', 'wallet', 'address'])),
         receiver: nonNullableReturn(path(['receiver', 'wallet', 'address'])),
@@ -52,7 +52,10 @@ export function generateOfferId(offer: BaseOffer): HexString {
         ),
         receiverItems: pipe(prop('receiverItems'), hashNfts),
         expiration: prop('expiresAt')
-      })(offer)
-    ])
-  )
+      })
+    ]),
+    partial(encodeAbiParameters, [params]),
+    keccak256,
+    toLower<HexString>
+  )(offer)
 }

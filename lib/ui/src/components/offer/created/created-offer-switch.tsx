@@ -48,7 +48,7 @@ export const CreatedOfferSwitch: FunctionComponent<Props> = ({ offer, redeemed, 
   }
   switch (offer.state) {
     case OFFER_STATE_OPEN:
-      return <CreatedOfferCreated count={offer.senderItems.length} slug={offer.slug} />
+      return <CreatedOfferCreated offer={offer} />
     case OFFER_STATE_ACCEPTED:
       return <CreatedOfferAccepted count={offer.receiverItems.length} />
     case OFFER_STATE_EXPIRED:

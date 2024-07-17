@@ -1,8 +1,31 @@
-import { has, when } from 'ramda'
+import { propIsNil } from '@echo/utils/fp/prop-is-nil'
+import { isNil, unless } from 'ramda'
 
-export function whenHas<K extends keyof T, T, U, V>(
+function internalFn<K extends keyof T, T, U>(
   key: K,
-  whenTrue: (obj: Omit<T, K> & Record<K, U>) => V
-): (obj: T) => T | V {
-  return when(has(key), whenTrue) as unknown as (obj: T) => T | V
+  whenTrue: (obj: T) => T & Record<K, U>
+): (obj: T) => T | (T & Record<K, U>) {
+  return function (obj: T) {
+    return unless(propIsNil(key), whenTrue, obj)
+  }
+}
+
+export function whenHas<K extends keyof T, T, U>(
+  key: K,
+  whenTrue: (obj: T) => T & Record<K, U>
+): (obj: T) => T | (T & Record<K, U>)
+export function whenHas<K extends keyof T, T, U>(
+  key: K,
+  whenTrue: (obj: T) => T & Record<K, U>,
+  obj: T
+): T & Record<K, U>
+export function whenHas<K extends keyof T, T, U>(
+  key: K,
+  whenTrue: (obj: T) => T & Record<K, U>,
+  obj?: T
+): ((obj: T) => T | (T & Record<K, U>)) | (T | (T & Record<K, U>)) {
+  if (isNil(obj)) {
+    return internalFn<K, T, U>(key, whenTrue)
+  }
+  return internalFn<K, T, U>(key, whenTrue)(obj)
 }

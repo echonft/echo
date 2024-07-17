@@ -28,7 +28,7 @@ export async function addOffer(
   await assertOfferIsNotADuplicate({ senderItems, receiverItems })
   const data: Offer = pipe(
     assoc('createdAt', now()),
-    assoc('idContract', idContract),
+    assoc('idContract', toLower(idContract)),
     assoc('readOnly', false),
     assoc('updatedAt', now()),
     assoc('slug', pipe(nowMs, toString, toLower<string>)()),

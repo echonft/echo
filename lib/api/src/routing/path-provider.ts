@@ -1,7 +1,9 @@
 import { Path } from '@echo/api/routing/path'
+import type { Offer } from '@echo/model/types/offer'
 import type { WithSlug } from '@echo/model/types/with-slug'
 import type { WithSlugType } from '@echo/model/types/with-slug-type'
 import type { WithUsername } from '@echo/model/types/with-username'
+import type { WithUsernameType } from '@echo/model/types/with-username-type'
 
 export const pathProvider = {
   auth: {
@@ -25,7 +27,6 @@ export const pathProvider = {
     new: new Path({ path: '/listing/new', secure: true })
   },
   offer: {
-    details: new Path<WithSlug>({ path: '/offer/:slug', secure: true }),
     new: new Path({ path: '/offer/new', secure: true })
   },
   profile: {
@@ -40,6 +41,10 @@ export const pathProvider = {
     default: new Path<WithUsername>({ path: '/user/:username', secure: false }),
     items: new Path<WithUsername>({ path: '/user/:username/items', secure: false }),
     listings: new Path<WithUsername>({ path: '/user/:username/listings', secure: false }),
+    offer: new Path<WithUsernameType<Pick<Offer, 'idContract'>>>({
+      path: '/user/:username/offer/:idContract',
+      secure: true
+    }),
     swaps: new Path<WithUsername>({ path: '/user/:username/swaps', secure: false })
   },
   swap: {

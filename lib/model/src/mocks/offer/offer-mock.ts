@@ -1,8 +1,9 @@
 import { OFFER_STATE_COMPLETED, OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
-import { type Offer } from '@echo/model/types/offer'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockPxCrewId, nftMockSpiralJohnny2Id, nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
+import { type Offer } from '@echo/model/types/offer'
+import type { HexString } from '@echo/utils/types/hex-string'
 import { toLower } from 'ramda'
 
 export function offerMockToJohnnycageId() {
@@ -23,7 +24,7 @@ export const offerMock: Record<string, Offer> = {
     createdAt: 1676984897,
     expiresAt: 2324074781,
     readOnly: false,
-    idContract: '0xTEST',
+    idContract: toLower<HexString>('0xTEST'),
     receiver: getUserMockByUsername(userMockJohnnyUsername()),
     receiverItems: [getNftMockById(nftMockSpiralJohnnyId())],
     sender: getUserMockByUsername(userMockCrewUsername()),
@@ -35,7 +36,7 @@ export const offerMock: Record<string, Offer> = {
   ASkFpKoHEHVH0gd69t1G: {
     createdAt: 1676984897,
     expiresAt: 2324074781,
-    idContract: '0xTEST',
+    idContract: toLower<HexString>('0xTEST'),
     receiver: getUserMockByUsername(userMockCrewUsername()),
     readOnly: true,
     receiverItems: [getNftMockById(nftMockPxCrewId())],
