@@ -2,22 +2,22 @@
 
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
-import { PAGE_LAYOUT_BACKGROUNDS, PAGE_LAYOUT_BG_DEFAULT } from '@echo/ui/constants/page-layout-background'
-import type { PageLayoutBackground } from '@echo/ui/types/page-layout-background'
+import { BACKGROUNDS, BG_DEFAULT } from '@echo/ui/constants/background'
+import type { Background } from '@echo/ui/types/background'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { type FunctionComponent } from 'react'
 
 type ComponentType = FunctionComponent<{
-  background: PageLayoutBackground
+  background: Background
 }>
 const metadata: Meta<ComponentType> = {
   title: 'Base/Layout/Page',
   args: {
-    background: PAGE_LAYOUT_BG_DEFAULT
+    background: BG_DEFAULT
   },
   argTypes: {
     background: {
-      options: PAGE_LAYOUT_BACKGROUNDS,
+      options: BACKGROUNDS,
       control: { type: 'select' }
     }
   }

@@ -1,11 +1,12 @@
 import type { Swap } from '@echo/model/types/swap'
+import type { Username } from '@echo/model/types/username'
 import { SwapCards } from '@echo/ui/components/swap/card/swap-cards'
 import { UserSwapsEmpty } from '@echo/ui/pages/user/swaps/user-swaps-empty'
 import { isEmpty } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  username: string
+  username: Username
   swaps: Swap[]
 }
 

@@ -1,4 +1,5 @@
 import { ApiPath } from '@echo/api/routing/api/api-path'
+import type { WithSlug } from '@echo/model/types/with-slug'
 import type { HexString } from '@echo/utils/types/hex-string'
 
 export const apiPathProvider = {
@@ -9,7 +10,7 @@ export const apiPathProvider = {
     proxy: new ApiPath<{ path: string }>({ path: '/ipfs/:path', secure: false })
   },
   listing: {
-    cancel: new ApiPath<Record<'slug', string>>({ path: '/listing/:slug/cancel', secure: true }),
+    cancel: new ApiPath<WithSlug>({ path: '/listing/:slug/cancel', secure: true }),
     create: new ApiPath({ path: '/listing', secure: true })
   },
   offer: {
@@ -17,7 +18,7 @@ export const apiPathProvider = {
       path: '/offer/contract/:idContract',
       secure: true
     }),
-    reject: new ApiPath<Record<'slug', string>>({ path: '/offer/:slug/reject', secure: true })
+    reject: new ApiPath<WithSlug>({ path: '/offer/:slug/reject', secure: true })
   },
   profile: {
     nonce: new ApiPath({ path: '/profile/nonce', secure: true }),

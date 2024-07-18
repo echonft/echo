@@ -1,10 +1,11 @@
 import { pathProvider } from '@echo/api/routing/path-provider'
+import type { Username } from '@echo/model/types/username'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { isNil } from 'ramda'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
-  username?: string
+  username?: Username
 }
 
 export const UserDiscordTagWrapper: FunctionComponent<PropsWithChildren<Props>> = ({ username, children }) => {

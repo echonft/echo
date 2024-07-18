@@ -1,11 +1,12 @@
 import { type Collection } from '@echo/model/types/collection'
+import type { Slug } from '@echo/model/types/slug'
 import type { Wallet } from '@echo/model/types/wallet'
 import { toLower } from 'ramda'
 
 export function collectionMockPxId() {
   return 'Rc8pLQXxgyQGIRL0fr13'
 }
-export function collectionMockPxSlug(): Lowercase<string> {
+export function collectionMockPxSlug(): Slug {
   return 'pxmythics-genesis'
 }
 export function collectionMockPxContract(): Wallet {
@@ -17,7 +18,7 @@ export function collectionMockPxContract(): Wallet {
 export function collectionMockSpiralId() {
   return '1aomCtnoesD7WVll6Yi1'
 }
-export function collectionMockSpiralSlug(): Lowercase<string> {
+export function collectionMockSpiralSlug(): Slug {
   return 'spiral-frequencies'
 }
 export function collectionMockSpiralContract(): Wallet {

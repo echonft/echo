@@ -1,12 +1,13 @@
 import { getDiscordProfileMockByUsername } from '@echo/model/mocks/user/discord-profile-mock'
 import { getWalletMockByUsername } from '@echo/model/mocks/wallet/wallet-mock'
 import type { User } from '@echo/model/types/user'
+import type { Username } from '@echo/model/types/username'
 import { isNil, omit, pipe } from 'ramda'
 
-export function userMockCrewUsername() {
+export function userMockCrewUsername(): Username {
   return 'crewnft_'
 }
-export function userMockJohnnyUsername() {
+export function userMockJohnnyUsername(): Username {
   return 'johnnycagewins'
 }
 

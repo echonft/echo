@@ -3,19 +3,19 @@ import { buildListingEmbed } from '@echo/bot/listing/build-listing-embed'
 import { buildListingLinkButton } from '@echo/bot/listing/build-listing-link-button'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import type { Listing } from '@echo/model/types/listing'
+import type { WithIdType } from '@echo/model/types/with-id-type'
 import type { WithLogger } from '@echo/utils/types/with-logger'
 import type { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
 interface PostListingArgs extends WithLogger {
   client: Client
-  listing: Listing & Record<'id', string>
+  listing: WithIdType<Listing>
 }
 
 export async function postListing(args: PostListingArgs) {
   const { client, listing, logger } = args
   const {
-    slug,
     creator: { username }
   } = listing
   const creator = await getUserByUsername(username)
@@ -26,7 +26,7 @@ export async function postListing(args: PostListingArgs) {
   await sendToEchoChannel({
     client,
     payload: {
-      components: [buildListingLinkButton(slug)],
+      components: [buildListingLinkButton(listing)],
       embeds: [buildListingEmbed(listing, creator)]
     },
     logger

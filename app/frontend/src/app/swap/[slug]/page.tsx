@@ -1,33 +1,38 @@
 import { pathProvider } from '@echo/api/routing/path-provider'
-import { getOffer } from '@echo/firestore/crud/offer/get-offer'
+import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
+import { setOfferRoleForUser } from '@echo/frontend/lib/helpers/offer/set-offer-role-for-user'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
-import type { WithSlug } from '@echo/model/types/with-slug'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
-import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
-import { PAGE_LAYOUT_BG_GREEN_GRADIENT } from '@echo/ui/constants/page-layout-background'
+import { getOfferBackground } from '@echo/ui/helpers/offer/get-offer-background'
+import { unlessNil } from '@echo/utils/fp/unless-nil'
+import type { HexString } from '@echo/utils/types/hex-string'
 import { notFound, redirect } from 'next/navigation'
-import { always, assoc, isNil, otherwise, pipe } from 'ramda'
+import { always, andThen, assoc, isNil, otherwise, pipe } from 'ramda'
 
-async function render({ params: { slug } }: PropsWithUser<NextParams<WithSlug>>) {
-  const offer = await pipe(getOffer, otherwise(pipe(captureAndLogError, always(undefined))))(slug)
+async function render({
+  params: { idContract },
+  user
+}: PropsWithUser<NextParams<Record<'idContract', Lowercase<HexString>>>>) {
+  const offer = await pipe(
+    getOfferByIdContract,
+    andThen(unlessNil(setOfferRoleForUser(user))),
+    otherwise(pipe(captureAndLogError, always(undefined)))
+  )(idContract)
   if (isNil(offer)) {
     notFound()
   }
   if (offer.state !== OFFER_STATE_COMPLETED) {
-    // user will be redirected to login if they are not logged in anyway
-    redirect(pathProvider.offer.details.get({ slug }))
+    redirect(pathProvider.user.offer.get({ username: offer.sender.username, idContract: offer.idContract }))
   }
   return (
-    <PageLayout background={PAGE_LAYOUT_BG_GREEN_GRADIENT}>
-      <PaddedSectionLayout>
-        <OfferDetails offer={assoc('role', undefined, offer)} />
-      </PaddedSectionLayout>
-    </PageLayout>
+    <PaddedSectionLayout background={getOfferBackground(offer)}>
+      <OfferDetails offer={assoc('role', undefined, offer)} />
+    </PaddedSectionLayout>
   )
 }
 

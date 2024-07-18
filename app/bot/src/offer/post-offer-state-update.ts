@@ -52,7 +52,7 @@ export async function postOfferStateUpdate(args: PostOfferStateUpdateArgs) {
   const { offerThread, thread, offer, logger } = args
   const content = await getMessage(offer)
   await sendToThread(thread, {
-    components: [buildOfferLinkButton(offer.slug)],
+    components: [buildOfferLinkButton(offer)],
     content
   })
   logger?.info({ offer, offerThread }, 'posted update to thread')

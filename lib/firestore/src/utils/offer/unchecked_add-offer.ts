@@ -14,7 +14,7 @@ export async function unchecked_addOffer(senderItems: Nft[], receiverItems: Nft[
   const data: Offer = {
     createdAt: now(),
     expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix(),
-    idContract: '0xTODO', // TODO
+    idContract: toLower('0xwhatever'),
     readOnly: false,
     receiver: head(receiverItems as NonEmptyArray<Nft>).owner,
     receiverItems,

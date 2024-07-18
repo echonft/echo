@@ -1,9 +1,10 @@
 import { userDataConverter } from '@echo/firestore/converters/user/user-data-converter'
-import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
+import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
+import type { Username } from '@echo/model/types/username'
 import { describe, expect, it } from '@jest/globals'
-import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
+import { QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
 import { assoc, modify, toUpper } from 'ramda'
 
 describe('converters - userDataConverter', () => {
@@ -21,6 +22,11 @@ describe('converters - userDataConverter', () => {
     ).toStrictEqual(document)
   })
   it('to Firestore conversion', () => {
-    expect(userDataConverter.toFirestore(modify('username', toUpper, document))).toStrictEqual(documentData)
+    expect(
+      userDataConverter.toFirestore(
+        // @ts-expect-error Just to test uppercase -> lowercase conversion, even though typing does not allow it
+        modify<WithFieldValue<UserDocumentData>, 'username', Username>('username', toUpper, document)
+      )
+    ).toStrictEqual(documentData)
   })
 })

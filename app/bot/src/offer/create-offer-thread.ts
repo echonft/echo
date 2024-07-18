@@ -5,6 +5,7 @@ import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import type { Offer } from '@echo/model/types/offer'
+import type { WithIdType } from '@echo/model/types/with-id-type'
 import { now } from '@echo/utils/helpers/now'
 import type { WithLogger } from '@echo/utils/types/with-logger'
 import { ChannelType, type Client, ThreadAutoArchiveDuration, userMention } from 'discord.js'
@@ -12,7 +13,7 @@ import i18next from 'i18next'
 
 interface CreateOfferThreadArgs extends WithLogger {
   client: Client
-  offer: Offer & Record<'id', string>
+  offer: WithIdType<Offer>
   sender: UserDocumentData
   receiver: UserDocumentData
 }
@@ -44,7 +45,7 @@ export async function createOfferThread(args: CreateOfferThreadArgs): Promise<{
     return { threadId: thread.id, state: 'ARCHIVED' }
   }
   await sendToThread(thread, {
-    components: [buildOfferLinkButton(offer.slug)],
+    components: [buildOfferLinkButton(offer)],
     content: i18next.t('offer.thread.message', {
       sender: userMention(sender.discord.id),
       receiver: userMention(receiver.discord.id)

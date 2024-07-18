@@ -1,4 +1,5 @@
 import { pathProvider } from '@echo/api/routing/path-provider'
+import type { Offer } from '@echo/model/types/offer'
 import { OfferCreationSubLayout } from '@echo/ui/components/offer/created/layout/offer-creation-sub-layout'
 import { OfferCreationSuccessLayout } from '@echo/ui/components/offer/created/layout/offer-creation-success-layout'
 import { OfferCreationTextLayout } from '@echo/ui/components/offer/created/layout/offer-creation-text-layout'
@@ -8,16 +9,15 @@ import { useRouter } from 'next/navigation'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  count: number
-  slug: string
+  offer: Offer
 }
 
-export const CreatedOfferCreated: FunctionComponent<Props> = ({ count, slug }) => {
+export const CreatedOfferCreated: FunctionComponent<Props> = ({ offer }) => {
   const t = useTranslations('offer.created')
   const router = useRouter()
 
   const onClick = () => {
-    router.replace(pathProvider.offer.details.get({ slug }))
+    router.replace(pathProvider.user.offer.get({ username: offer.sender.username, idContract: offer.idContract }))
   }
   return (
     <OfferCreationSuccessLayout>
@@ -40,7 +40,7 @@ export const CreatedOfferCreated: FunctionComponent<Props> = ({ count, slug }) =
               'text-center'
             )}
           >
-            {t('description', { count })}
+            {t('description', { count: offer.senderItems.length })}
           </span>
         </OfferCreationTextLayout>
         <button className={clsx('btn-gradient', 'h-max', 'w-full', 'py-2.5', 'group')} onClick={onClick}>

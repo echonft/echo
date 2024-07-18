@@ -30,8 +30,10 @@ export const CreateListingManager: FunctionComponent<Props> = ({ creatorNfts, it
   const { trigger, isMutating } = useSWRTrigger<ListingResponse, CreateListingRequest>({
     key: SWRKeys.listing.create,
     fetcher: createListing,
-    onSuccess: (response) => {
-      router.replace(pathProvider.listing.details.get({ slug: response.listing.slug }))
+    onSuccess: ({ listing }) => {
+      router.replace(
+        pathProvider.collection.listing.get({ slug: listing.target.collection.slug, listingSlug: listing.slug })
+      )
     },
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('new') },

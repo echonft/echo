@@ -1,8 +1,8 @@
 'use client'
-import type { CancelListingArgs } from '@echo/api/types/fetchers/cancel-listing-args'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import type { User } from '@echo/auth/types/user'
 import type { Offer } from '@echo/model/types/offer'
+import type { WithSlug } from '@echo/model/types/with-slug'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { ListingDetailsItemsAndTargetLayout } from '@echo/ui/components/listing/details/layout/listing-details-items-and-target-layout'
 import { ListingDetailsItemsLayout } from '@echo/ui/components/listing/details/layout/listing-details-items-layout'
@@ -43,7 +43,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, offers }) =>
   const { creator, items, target } = updatedListing
   const isCreator = isListingRoleCreator(updatedListing)
 
-  const { trigger, isMutating } = useSWRTrigger<ListingResponse, CancelListingArgs>({
+  const { trigger, isMutating } = useSWRTrigger<ListingResponse, WithSlug>({
     key: SWRKeys.listing.cancel(updatedListing),
     fetcher: cancelListing,
     onSuccess: (response) => {

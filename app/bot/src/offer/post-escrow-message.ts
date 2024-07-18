@@ -51,7 +51,7 @@ export async function postEscrowMessage(args: PostEscrowMessageArgs) {
       const senderId = await getUserDiscordId(offer.sender.username)
       const receiverId = await getUserDiscordId(offer.receiver.username)
       await sendToThread(thread, {
-        components: [buildOfferLinkButton(offer.slug)],
+        components: [buildOfferLinkButton(offer)],
         content: i18next.t('offer.thread.redeemable.multiple', {
           sender: userMention(senderId),
           receiver: userMention(receiverId)
@@ -60,7 +60,7 @@ export async function postEscrowMessage(args: PostEscrowMessageArgs) {
     } else {
       const senderId = await getUserDiscordId(offer.sender.username)
       await sendToThread(thread, {
-        components: [buildOfferLinkButton(offer.slug)],
+        components: [buildOfferLinkButton(offer)],
         content: i18next.t('offer.thread.redeemable.single', { redeemer: userMention(senderId) })
       })
     }

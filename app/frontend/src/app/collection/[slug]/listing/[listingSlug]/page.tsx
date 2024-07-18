@@ -8,18 +8,20 @@ import { setOfferRoleForUser } from '@echo/frontend/lib/helpers/offer/set-offer-
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
 import type { Offer } from '@echo/model/types/offer'
-import type { WithSlug } from '@echo/model/types/with-slug'
+import type { WithSlugType } from '@echo/model/types/with-slug-type'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
-import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { ListingDetails } from '@echo/ui/components/listing/details/listing-details'
-import { getListingPageLayoutBackground } from '@echo/ui/helpers/listing/get-listing-page-layout-background'
+import { getListingBackground } from '@echo/ui/helpers/listing/get-listing-background'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import { notFound } from 'next/navigation'
 import { always, andThen, isNil, map, otherwise, pipe, reject } from 'ramda'
 
-async function render({ params: { slug }, user }: PropsWithUser<NextParams<WithSlug>>) {
+async function render({
+  params: { listingSlug },
+  user
+}: PropsWithUser<NextParams<WithSlugType<Record<'listingSlug', string>>>>) {
   const nfts = isNil(user)
     ? []
     : await pipe(getNftsForOwner, otherwise(pipe(captureAndLogError, always([]))))(user.username)
@@ -27,7 +29,7 @@ async function render({ params: { slug }, user }: PropsWithUser<NextParams<WithS
     getListing,
     andThen(unlessNil(setListingRoleForUser(user, nfts))),
     otherwise(pipe(captureAndLogError, always(undefined)))
-  )(slug)
+  )(listingSlug)
   if (isNil(listing)) {
     notFound()
   }
@@ -39,11 +41,9 @@ async function render({ params: { slug }, user }: PropsWithUser<NextParams<WithS
     otherwise(pipe(captureAndLogError, always([])))
   )(listing)
   return (
-    <PageLayout user={user} background={getListingPageLayoutBackground(listing)}>
-      <PaddedSectionLayout>
-        <ListingDetails listing={listing} user={user} offers={offers} />
-      </PaddedSectionLayout>
-    </PageLayout>
+    <PaddedSectionLayout background={getListingBackground(listing)}>
+      <ListingDetails listing={listing} user={user} offers={offers} />
+    </PaddedSectionLayout>
   )
 }
 

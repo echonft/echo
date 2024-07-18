@@ -16,7 +16,10 @@ export const OfferCard: FunctionComponent<OfferCardProps> = (props) => {
   const { offer, options } = props
   if (options?.asLink) {
     return (
-      <InternalLink path={pathProvider.offer.details.get({ slug: offer.slug })} className={'group'}>
+      <InternalLink
+        path={pathProvider.user.offer.get({ username: offer.sender.username, idContract: offer.idContract })}
+        className={'group'}
+      >
         <OfferCardSwitch {...props} />
       </InternalLink>
     )

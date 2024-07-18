@@ -5,7 +5,7 @@ import { getAllOfferMocks } from '@echo/model/mocks/offer/get-all-offer-mocks'
 import { type Collection } from '@echo/model/types/collection'
 import type { Swap } from '@echo/model/types/swap'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
-import { PAGE_LAYOUT_BG_HOME } from '@echo/ui/constants/page-layout-background'
+import { BG_HOME } from '@echo/ui/constants/background'
 import { HomePage as Component } from '@echo/ui/pages/home/home-page'
 import type { CollectionWithRank } from '@echo/ui/types/collection-with-rank'
 import { type Meta, type StoryObj } from '@storybook/react'
@@ -16,7 +16,7 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   decorators: [
     (Story) => (
-      <PageLayout background={PAGE_LAYOUT_BG_HOME} excludeProviders={true}>
+      <PageLayout background={BG_HOME} excludeProviders={true}>
         <Story />
       </PageLayout>
     )
