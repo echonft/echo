@@ -92,7 +92,7 @@ describe('CRUD - offer - addOffer', () => {
       sender: head(senderItems).owner,
       senderItems
     }
-    const createdOffer = await addOffer(baseOffer, '0xTEST')
+    const createdOffer = await addOffer(baseOffer, '0xtest')
     createdOfferId = createdOffer.id
     const newOffer: Offer = (await getOfferById(createdOfferId))!
     expect(newOffer.receiver).toStrictEqual(getUserMockByUsername(userMockJohnnyUsername()))
@@ -102,7 +102,7 @@ describe('CRUD - offer - addOffer', () => {
     expect(newOffer.sender).toStrictEqual(getUserMockByUsername(userMockCrewUsername()))
     expect(eqListContent(newOffer.senderItems, senderItems)).toBeTruthy()
     expect(newOffer.state).toBe(OFFER_STATE_OPEN)
-    expect(newOffer.idContract).toBe('0xTEST')
+    expect(newOffer.idContract).toBe('0xtest')
     expect(dayjs.unix(newOffer.updatedAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
     expect(dayjs.unix(newOffer.updatedAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
     expect(dayjs.unix(newOffer.expiresAt).isAfter(expiresAt.subtract(1, 'minute'))).toBeTruthy()

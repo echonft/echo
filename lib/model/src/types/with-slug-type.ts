@@ -1,3 +1,3 @@
-import type { Slug } from '@echo/model/types/slug'
+import type { WithSlug } from '@echo/model/types/with-slug'
 
-export type WithSlugType<T> = T & Record<'slug', Slug>
+export type WithSlugType<T> = T & WithSlug
