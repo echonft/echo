@@ -1,3 +1,4 @@
+import type { SelectionSearchParams } from '@echo/api/types/routing/search-params/selection-search-params'
 import { getListingsForCreator } from '@echo/firestore/crud/listing/get-listings-for-creator'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { getCompletedOffersForUser } from '@echo/firestore/crud/offer/get-completed-offers-for-user'
@@ -5,11 +6,13 @@ import { getOffersForSender } from '@echo/firestore/crud/offer/get-offers-for-se
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
+import { getPageSelection } from '@echo/frontend/lib/helpers/get-page-selection'
 import { setListingRole } from '@echo/frontend/lib/helpers/listing/set-listing-role'
 import { setOfferRoleForUser } from '@echo/frontend/lib/helpers/offer/set-offer-role-for-user'
 import { getUserProfile } from '@echo/frontend/lib/helpers/user/get-user-profile'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
+import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
 import type { Swap } from '@echo/model/types/swap'
 import type { WithUsername } from '@echo/model/types/with-username'
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
@@ -20,7 +23,11 @@ import { UserTabs } from '@echo/ui/pages/user/user-tabs'
 import { notFound } from 'next/navigation'
 import { always, andThen, isNil, map, otherwise, pipe } from 'ramda'
 
-async function render({ params: { username }, user: authUser }: PropsWithUser<NextParams<WithUsername>>) {
+async function render({
+  params: { username },
+  searchParams,
+  user: authUser
+}: PropsWithUser<NextParams<WithUsername> & WithSearchParamsProps<SelectionSearchParams>>) {
   const user = await pipe(getUserByUsername, otherwise(pipe(captureAndLogError, always(undefined))))(username)
   if (isNil(user)) {
     notFound()
@@ -45,13 +52,22 @@ async function render({ params: { username }, user: authUser }: PropsWithUser<Ne
     getCompletedOffersForUser,
     otherwise(pipe(captureAndLogError, always([])))
   )(username)) as Swap[]
+  const selection = getPageSelection({ listings, offers, swaps, searchParams })
+
   return (
     <NavigationPageLayout user={authUser}>
       <SectionLayout>
         <UserProfile profile={profile} />
       </SectionLayout>
       <NavigationSectionLayout>
-        <UserTabs isAuthUser={isAuthUser} listings={listings} nfts={nfts} offers={offers} swaps={swaps} />
+        <UserTabs
+          isAuthUser={isAuthUser}
+          listings={listings}
+          nfts={nfts}
+          offers={offers}
+          swaps={swaps}
+          selection={selection}
+        />
       </NavigationSectionLayout>
     </NavigationPageLayout>
   )
