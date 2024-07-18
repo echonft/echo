@@ -29,10 +29,7 @@ const PageLayoutInner: FunctionComponent<PropsWithChildren<Exclude<PageLayoutPro
 }) => {
   const bgProps = useBackground(background)
   return (
-    <div
-      className={clsx('flex', 'flex-col', 'self-stretch', 'grow', 'w-full', 'h-full', bgProps.className)}
-      {...pick(['style'], bgProps)}
-    >
+    <div className={clsx('page-layout', bgProps.className)} {...pick(['style'], bgProps)}>
       <Header logoOnly={Boolean(headerVariants?.logoOnly)} user={user} />
       <MainSectionLayout>
         {children}

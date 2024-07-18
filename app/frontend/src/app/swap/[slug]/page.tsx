@@ -6,9 +6,8 @@ import { setOfferRoleForUser } from '@echo/frontend/lib/helpers/offer/set-offer-
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
-import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
+import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
-import { getOfferBackground } from '@echo/ui/helpers/offer/get-offer-background'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { notFound, redirect } from 'next/navigation'
@@ -30,9 +29,9 @@ async function render({
     redirect(pathProvider.user.offer.get({ username: offer.sender.username, idContract: offer.idContract }))
   }
   return (
-    <PaddedSectionLayout background={getOfferBackground(offer)}>
+    <NavigationSectionLayout>
       <OfferDetails offer={assoc('role', undefined, offer)} />
-    </PaddedSectionLayout>
+    </NavigationSectionLayout>
   )
 }
 

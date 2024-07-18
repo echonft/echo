@@ -1,5 +1,5 @@
 'use client'
-import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
+import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { PageLayout, type PageLayoutProps } from '@echo/ui/components/base/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import type { PageLayoutBackgroundPickerProps } from '@echo/ui/types/props/page-layout-background-picker-props'
@@ -19,7 +19,7 @@ const PageLayoutBackgroundPickerLayout: FunctionComponent<PropsWithChildren<Layo
     return <SectionLayout>{children}</SectionLayout>
   }
   if (layout === 'padded') {
-    return <PaddedSectionLayout>{children}</PaddedSectionLayout>
+    return <NavigationSectionLayout>{children}</NavigationSectionLayout>
   }
   return <>{children}</>
 }

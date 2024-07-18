@@ -397,6 +397,7 @@ Don't worry, its safe with us.`
     navigation: {
       items: 'Items',
       listings: 'Listings',
+      offers: 'Offers',
       swaps: 'Swaps'
     }
   },

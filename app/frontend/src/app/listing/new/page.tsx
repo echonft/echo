@@ -7,7 +7,7 @@ import { getNftIndexFromQueryParam } from '@echo/frontend/lib/helpers/nft/get-nf
 import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
 import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
 import type { Nft } from '@echo/model/types/nft'
-import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
+import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { CreateListingManager } from '@echo/ui/components/listing/create/create-listing-manager'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
@@ -57,9 +57,9 @@ async function render({
 
   return (
     <PageLayout user={user}>
-      <PaddedSectionLayout>
+      <NavigationSectionLayout>
         <CreateListingManager creatorNfts={creatorNfts} items={listingItems} target={listingTarget} />
-      </PaddedSectionLayout>
+      </NavigationSectionLayout>
     </PageLayout>
   )
 }

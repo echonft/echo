@@ -25,6 +25,6 @@ fi
 # shellcheck disable=SC3044
 pushd "${dir}"/../../app/frontend/ || exit 1
 ENV=${ENV} NEXT_PUBLIC_IS_TESTNET=${NEXT_PUBLIC_IS_TESTNET} CI="1" scripts/build.sh
-ENV=${ENV} NEXT_PUBLIC_IS_TESTNET=${NEXT_PUBLIC_IS_TESTNET} scripts/start.sh
+AUTH_TRUST_HOST=true ENV=${ENV} NEXT_PUBLIC_IS_TESTNET=${NEXT_PUBLIC_IS_TESTNET} scripts/start.sh
 # shellcheck disable=SC3044
 popd || exit 1

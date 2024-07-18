@@ -1,12 +1,13 @@
 import { HeaderSkeleton } from '@echo/ui/components/base/header/skeleton/header-skeleton'
-import { clsx } from 'clsx'
+import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
+import type { WithChildrenProps } from '@echo/ui/types/props/with-children-props'
 import { type FunctionComponent } from 'react'
 
-export const PageLayoutSkeleton: FunctionComponent = () => {
+export const PageLayoutSkeleton: FunctionComponent<WithChildrenProps> = ({ children }) => {
   return (
-    <div className={clsx('h-screen', 'w-full')}>
+    <div className={'page-layout'}>
       <HeaderSkeleton />
-      <div className={clsx('h-full', 'w-full', 'bg-dark-500', 'animate-pulse')} />
+      <MainSectionLayout>{children}</MainSectionLayout>
     </div>
   )
 }

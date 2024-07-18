@@ -9,9 +9,8 @@ import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
 import type { Offer } from '@echo/model/types/offer'
 import type { WithSlugType } from '@echo/model/types/with-slug-type'
-import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
+import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { ListingDetails } from '@echo/ui/components/listing/details/listing-details'
-import { getListingBackground } from '@echo/ui/helpers/listing/get-listing-background'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
@@ -41,9 +40,9 @@ async function render({
     otherwise(pipe(captureAndLogError, always([])))
   )(listing)
   return (
-    <PaddedSectionLayout background={getListingBackground(listing)}>
-      <ListingDetails listing={listing} user={user} offers={offers} />
-    </PaddedSectionLayout>
+    <NavigationSectionLayout>
+      <ListingDetails listing={listing} offers={offers} />
+    </NavigationSectionLayout>
   )
 }
 

@@ -39,13 +39,10 @@ export const pathProvider = {
   },
   user: {
     default: new Path<WithUsername>({ path: '/user/:username', secure: false }),
-    items: new Path<WithUsername>({ path: '/user/:username/items', secure: false }),
-    listings: new Path<WithUsername>({ path: '/user/:username/listings', secure: false }),
     offer: new Path<WithUsernameType<Pick<Offer, 'idContract'>>>({
       path: '/user/:username/offer/:idContract',
       secure: true
-    }),
-    swaps: new Path<WithUsername>({ path: '/user/:username/swaps', secure: false })
+    })
   },
   swap: {
     details: new Path<WithSlug>({ path: '/swap/:slug', secure: false })

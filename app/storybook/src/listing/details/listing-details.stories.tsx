@@ -1,6 +1,5 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
 import { LISTING_ROLE_CREATOR, LISTING_ROLE_TARGET } from '@echo/model/constants/listing-role'
 import {
   LISTING_STATE_EXPIRED,
@@ -8,13 +7,12 @@ import {
   LISTING_STATES,
   READ_ONLY_LISTING_STATES
 } from '@echo/model/constants/listing-states'
+import { getListingMock } from '@echo/model/mocks/listing/get-listing-mock'
+import { getAllOfferMocks } from '@echo/model/mocks/offer/get-all-offer-mocks'
 import type { Listing } from '@echo/model/types/listing'
 import type { ListingRole } from '@echo/model/types/listing-role'
 import type { ListingState } from '@echo/model/types/listing-state'
 import type { Offer } from '@echo/model/types/offer'
-import { getListingMock } from '@echo/model/mocks/listing/get-listing-mock'
-import { getAllOfferMocks } from '@echo/model/mocks/offer/get-all-offer-mocks'
-import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
 import { ListingDetails as Component } from '@echo/ui/components/listing/details/listing-details'
@@ -88,16 +86,6 @@ export const Details: StoryObj<ComponentType> = {
       setExpirationAndReadOnly,
       setRole(role)
     )()
-    return (
-      <Component
-        listing={renderedListing}
-        user={
-          role === 'Creator'
-            ? getUserDocumentDataMockByUsername(userMockJohnnyUsername())
-            : getUserDocumentDataMockByUsername(userMockCrewUsername())
-        }
-        offers={getOffers()}
-      />
-    )
+    return <Component listing={renderedListing} offers={getOffers()} />
   }
 }

@@ -23,7 +23,7 @@ export const UserDetails: FunctionComponent<Props> = ({ user }) => {
   const { username, avatarUrl } = discord
   return (
     <UserDetailsLayout>
-      <InternalLink path={pathProvider.user.items.get({ username })}>
+      <InternalLink path={pathProvider.user.default.get({ username })}>
         <ProfilePicture alt={username} pictureUrl={avatarUrl} size={SIZE_MD} />
       </InternalLink>
       <UserDetailsDiscordTagAndWalletLayout>

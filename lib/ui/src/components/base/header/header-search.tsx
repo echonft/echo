@@ -28,7 +28,7 @@ export const HeaderSearch: FunctionComponent = () => {
             router.push(pathProvider.collection.items.get({ slug: result.value }))
           }
           if (result.category === SEARCH_RESULT_CATEGORY_USER) {
-            router.push(pathProvider.user.items.get({ username: result.value }))
+            router.push(pathProvider.user.default.get({ username: result.value }))
           }
         }}
         style={{
