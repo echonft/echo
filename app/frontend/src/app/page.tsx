@@ -5,7 +5,7 @@ import type { WithUserProps } from '@echo/frontend/lib/types/with-user-props'
 import type { Collection } from '@echo/model/types/collection'
 import type { Swap } from '@echo/model/types/swap'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
-import { PAGE_LAYOUT_BG_HOME } from '@echo/ui/constants/page-layout-background'
+import { BG_HOME } from '@echo/ui/constants/background'
 import { HomePage } from '@echo/ui/pages/home/home-page'
 import type { CollectionWithRank } from '@echo/ui/types/collection-with-rank'
 import { addIndex, andThen, assoc, map, pipe } from 'ramda'
@@ -19,7 +19,7 @@ async function render({ user }: WithUserProps) {
   )(10)
   const swaps = (await getCompletedOffers(5)) as Swap[]
   return (
-    <PageLayout user={user} background={PAGE_LAYOUT_BG_HOME}>
+    <PageLayout user={user} background={BG_HOME}>
       <HomePage collections={collections} swaps={swaps} />
     </PageLayout>
   )

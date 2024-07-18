@@ -1,4 +1,4 @@
-import { authRouteHandler } from '@echo/frontend/lib/request-handlers/auth-route-handler'
+import { authRequestHandler } from '@echo/frontend/lib/request-handlers/auth-request-handler'
 import { getWalletsRequestHandler } from '@echo/frontend/lib/request-handlers/profile/get-wallets-request-handler'
 
-export const GET = authRouteHandler(getWalletsRequestHandler)
+export const GET = authRequestHandler(getWalletsRequestHandler)

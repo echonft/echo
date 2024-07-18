@@ -18,12 +18,12 @@ import { getErc721ContractApproval } from '@echo/storybook/mocks/get-erc-721-con
 import { getNonce } from '@echo/storybook/mocks/get-nonce'
 import { getOfferByIdContract } from '@echo/storybook/mocks/get-offer-by-id-contract'
 import { getWallets } from '@echo/storybook/mocks/get-wallets'
+import { login } from '@echo/storybook/mocks/login'
+import { logout } from '@echo/storybook/mocks/logout'
 import { rejectOffer } from '@echo/storybook/mocks/reject-offer'
 import { searchCollections } from '@echo/storybook/mocks/search-collections'
 import { searchUsers } from '@echo/storybook/mocks/search-users'
-import { signIn } from '@echo/storybook/mocks/sign-in'
 import { signNonce } from '@echo/storybook/mocks/sign-nonce'
-import { signOut } from '@echo/storybook/mocks/sign-out'
 import { switchChain } from '@echo/storybook/mocks/switch-chain'
 import { Web3Provider } from '@echo/ui/components/base/web3-provider'
 import { messages } from '@echo/ui/messages/en'
@@ -61,12 +61,12 @@ const preview: Preview = {
                 getNonce,
                 getOfferByIdContract,
                 getWallets,
+                login,
+                logout,
                 rejectOffer,
                 searchCollections,
                 searchUsers,
-                signIn,
                 signNonce,
-                signOut,
                 switchChain
               }}
             >

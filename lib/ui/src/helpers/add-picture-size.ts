@@ -1,4 +1,4 @@
-import { apiUrlProvider } from '@echo/api/routing/api-url-provider'
+import { apiPathProvider } from '@echo/api/routing/api/api-path-provider'
 import { PICTURE_SIZE_MD, PICTURE_SIZES } from '@echo/ui/constants/picture-size'
 import type { PictureSize } from '@echo/ui/types/picture-size'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
@@ -67,7 +67,7 @@ export function addPictureSize(
       const path1 = nftStorageMatch[1]
       const path2 = nftStorageMatch[2]
       if (!isNil(path1) && !isNil(path2)) {
-        return apiUrlProvider.ipfs.proxy.getUrl({ path: `${path1}/${path2}?img-width=${size}` })
+        return apiPathProvider.ipfs.proxy.getUrl({ path: `${path1}/${path2}?img-width=${size}` })
       }
     }
     // w3s
@@ -76,7 +76,7 @@ export function addPictureSize(
       const path1 = w3sMatch[1]
       const path2 = w3sMatch[2]
       if (!isNil(path1) && !isNil(path2)) {
-        return apiUrlProvider.ipfs.proxy.getUrl({ path: `${path1}/${path2}?img-width=${size}` })
+        return apiPathProvider.ipfs.proxy.getUrl({ path: `${path1}/${path2}?img-width=${size}` })
       }
     }
     const urlObject = new URL(src)
@@ -88,7 +88,7 @@ export function addPictureSize(
         return src
       }
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      return `${apiUrlProvider.ipfs.proxy.getUrl({ path: match[1]! })}?img-width=${size}`
+      return `${apiPathProvider.ipfs.proxy.getUrl({ path: match[1]! })}?img-width=${size}`
     }
     // discord
     if (hostname.includes('discordapp.com')) {

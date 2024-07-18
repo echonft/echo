@@ -18,17 +18,17 @@ interface Props {
 
 export const LoginDiscordConnect: FunctionComponent<Props> = ({ user }) => {
   const t = useTranslations('auth.step0')
-  const { logger, signIn } = useDependencies()
+  const { logger, login } = useDependencies()
   if (isNil(user)) {
     return (
       <LoginDiscordButton
         onClick={() => {
-          signIn()
+          login()
             .then(() => {
               void mutate(SWRKeys.profile.wallet.get, undefined, {})
             })
             .catch(
-              errorCallback({ logger, loggerContext: { component: LoginDiscordConnect.name, fetcher: signIn.name } })
+              errorCallback({ logger, loggerContext: { component: LoginDiscordConnect.name, fetcher: login.name } })
             )
         }}
       >

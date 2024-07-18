@@ -41,14 +41,14 @@ describe('request-handlers - offer - getOfferByIdContractRequestHandler', () => 
     })
     const req = mockRequest<never>()
     await expect(() =>
-      getOfferByIdContractRequestHandler({ user: sender, req, params: { idContract: '0xTEST' } })
+      getOfferByIdContractRequestHandler({ user: sender, req, params: { idContract: '0xtest' } })
     ).rejects.toBeInstanceOf(ForbiddenError)
   })
 
   it('returns a 200 if the user is authenticated and user is sender', async () => {
     const offer = getOfferMockById(offerMockToJohnnycageId())
     const req = mockRequest<never>()
-    const res = await getOfferByIdContractRequestHandler({ user: sender, req, params: { idContract: '0xTEST' } })
+    const res = await getOfferByIdContractRequestHandler({ user: sender, req, params: { idContract: '0xtest' } })
     expect(res.status).toBe(200)
     const responseData = (await res.json()) as OfferResponse
     expect(responseData).toEqual({ offer })
@@ -57,7 +57,7 @@ describe('request-handlers - offer - getOfferByIdContractRequestHandler', () => 
   it('returns a 200 if the user is authenticated and user is receiver', async () => {
     const offer = getOfferMockById(offerMockToJohnnycageId())
     const req = mockRequest<never>()
-    const res = await getOfferByIdContractRequestHandler({ user: receiver, req, params: { idContract: '0xTEST' } })
+    const res = await getOfferByIdContractRequestHandler({ user: receiver, req, params: { idContract: '0xtest' } })
     expect(res.status).toBe(200)
     const responseData = (await res.json()) as OfferResponse
     expect(responseData).toEqual({ offer })

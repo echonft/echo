@@ -1,5 +1,4 @@
 'use client'
-import type { GetOfferByIdContractParams } from '@echo/api/types/params/get-offer-by-id-contract-params'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { generateBaseOffer } from '@echo/model/helpers/offer/generate-base-offer'
 import type { Nft } from '@echo/model/types/nft'
@@ -53,7 +52,7 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
   const idContract = useMemo(() => generateOfferId(baseOffer), [baseOffer])
   const { trigger: getOfferTrigger, isMutating: isGetOfferMutating } = useSWRTrigger<
     OfferResponse,
-    GetOfferByIdContractParams
+    Pick<Offer, 'idContract'>
   >({
     key: SWRKeys.offer.getByIdContract(idContract),
     fetcher: getOfferByIdContract,

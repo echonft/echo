@@ -1,4 +1,4 @@
-import { apiUrlProvider } from '@echo/api/routing/api-url-provider'
+import { apiPathProvider } from '@echo/api/routing/api/api-path-provider'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import type { NftResponse } from '@echo/nft-scan/types/response/nft-response'
 import { nftAttributeResponseSchema } from '@echo/nft-scan/validators/nft-attribute-response-schema'
@@ -23,13 +23,13 @@ export function nftResponseSchema(chain: ChainName) {
       return uri
     }
     if (uri.startsWith('ipfs://')) {
-      return apiUrlProvider.ipfs.proxy.getProductionUrl({
+      return apiPathProvider.ipfs.proxy.getProductionUrl({
         path: uri.slice(7).replace(/\/\//g, '/')
       })
     }
     const splittedUrl = split('://', uri)
     if (length(splittedUrl) === 1) {
-      return apiUrlProvider.ipfs.proxy.getProductionUrl({ path: uri.replace(/\/\//g, '/') })
+      return apiPathProvider.ipfs.proxy.getProductionUrl({ path: uri.replace(/\/\//g, '/') })
     }
     return uri
   }

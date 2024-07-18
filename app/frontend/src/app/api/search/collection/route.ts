@@ -1,4 +1,4 @@
 import { searchCollectionsRequestHandler } from '@echo/frontend/lib/request-handlers/collection/search-collections-request-handler'
-import { routeHandler } from '@echo/frontend/lib/request-handlers/route-handler'
+import { requestHandler } from '@echo/frontend/lib/request-handlers/request-handler'
 
-export const GET = routeHandler(searchCollectionsRequestHandler)
+export const GET = requestHandler(searchCollectionsRequestHandler)

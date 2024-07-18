@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import type { Nft } from '@echo/model/types/nft'
 import { mapNftToQueryParam } from '@echo/ui/helpers/nft/map-nft-to-query-param'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
@@ -20,7 +20,7 @@ export function getNewOfferPath(args: GetNewOfferPathArgs) {
     when(propIsNil('target'), dissoc('target'))
   )(args)
   return concat(
-    linkProvider.offer.new.get(),
+    pathProvider.offer.new.get(),
     stringify(params, { addQueryPrefix: true, arrayFormat: 'repeat', skipNulls: true })
   )
 }

@@ -8,20 +8,20 @@ import {
   LISTING_STATES,
   READ_ONLY_LISTING_STATES
 } from '@echo/model/constants/listing-states'
+import { getListingMock } from '@echo/model/mocks/listing/get-listing-mock'
+import { getAllOfferMocks } from '@echo/model/mocks/offer/get-all-offer-mocks'
+import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import type { Listing } from '@echo/model/types/listing'
 import type { ListingRole } from '@echo/model/types/listing-role'
 import type { ListingState } from '@echo/model/types/listing-state'
 import type { Offer } from '@echo/model/types/offer'
-import { getListingMock } from '@echo/model/mocks/listing/get-listing-mock'
-import { getAllOfferMocks } from '@echo/model/mocks/offer/get-all-offer-mocks'
-import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { ListingDetails } from '@echo/ui/components/listing/details/listing-details'
 import { ListingDetailsSkeleton } from '@echo/ui/components/listing/details/skeleton/listing-details-skeleton'
-import { getListingPageLayoutBackground } from '@echo/ui/helpers/listing/get-listing-page-layout-background'
+import { getListingBackground } from '@echo/ui/helpers/listing/get-listing-background'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
@@ -102,7 +102,7 @@ export const Page: StoryObj<ComponentType> = {
         ? getUserDocumentDataMockByUsername(userMockJohnnyUsername())
         : getUserDocumentDataMockByUsername(userMockCrewUsername())
     return (
-      <PageLayout user={user} background={getListingPageLayoutBackground(renderedListing)} excludeProviders={true}>
+      <PageLayout user={user} background={getListingBackground(renderedListing)} excludeProviders={true}>
         <PaddedSectionLayout>
           <ListingDetails listing={renderedListing} user={user} offers={getOffers()} />
         </PaddedSectionLayout>

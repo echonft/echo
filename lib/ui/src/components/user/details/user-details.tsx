@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import { type User } from '@echo/model/types/user'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { ProfilePicture } from '@echo/ui/components/base/profile-picture'
@@ -23,7 +23,7 @@ export const UserDetails: FunctionComponent<Props> = ({ user }) => {
   const { username, avatarUrl } = discord
   return (
     <UserDetailsLayout>
-      <InternalLink path={linkProvider.user.items.get({ username })}>
+      <InternalLink path={pathProvider.user.items.get({ username })}>
         <ProfilePicture alt={username} pictureUrl={avatarUrl} size={SIZE_MD} />
       </InternalLink>
       <UserDetailsDiscordTagAndWalletLayout>

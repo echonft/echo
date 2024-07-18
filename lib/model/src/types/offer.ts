@@ -7,6 +7,6 @@ export interface Offer extends WithSlug, BaseOffer {
   createdAt: number
   readOnly: boolean
   updatedAt: number
-  idContract: HexString
+  idContract: Lowercase<HexString>
   state: OfferState
 }

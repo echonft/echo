@@ -1,4 +1,5 @@
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
+import type { Slug } from '@echo/model/types/slug'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { PICTURE_SIZE_XL } from '@echo/ui/constants/picture-size'
 import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
@@ -10,7 +11,7 @@ import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  slug: string
+  slug: Slug
   pictureUrl: Nullable<string>
   name: string
   swapsCount: Nullable<number>
@@ -21,7 +22,7 @@ export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, nam
   const t = useTranslations('collection')
   const url = addPictureSize({ src: pictureUrl ?? '', width: PICTURE_SIZE_XL })
   return (
-    <InternalLink path={linkProvider.collection.items.get({ slug })}>
+    <InternalLink path={pathProvider.collection.items.get({ slug })}>
       <div
         className={clsx(
           'rounded-2xl',

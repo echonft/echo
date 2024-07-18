@@ -8,7 +8,7 @@ import { getWallets } from '@echo/api/fetchers/get-wallets'
 import { rejectOffer } from '@echo/api/fetchers/reject-offer'
 import { searchCollections } from '@echo/api/fetchers/search-collections'
 import { searchUsers } from '@echo/api/fetchers/search-users'
-import { signIn, signOut } from '@echo/auth/auth'
+import { login, logout } from '@echo/auth/auth'
 import { DependenciesProvider } from '@echo/ui/providers/dependencies-provider'
 import { getBaseLogger } from '@echo/utils/services/logger'
 import { acceptOffer as contractAcceptOffer } from '@echo/web3-dom/helpers/accept-offer'
@@ -47,16 +47,16 @@ export const Dependencies: FunctionComponent<PropsWithChildren> = ({ children })
         getNonce,
         getOfferByIdContract,
         getWallets,
+        login,
+        logger: getBaseLogger('web', {
+          baseMergeObject: { component: 'client-component' }
+        }),
+        logout,
         rejectOffer,
         searchCollections,
         searchUsers,
-        signIn,
         signNonce,
-        signOut,
-        switchChain,
-        logger: getBaseLogger('web', {
-          baseMergeObject: { component: 'client-component' }
-        })
+        switchChain
       }}
     >
       {children}

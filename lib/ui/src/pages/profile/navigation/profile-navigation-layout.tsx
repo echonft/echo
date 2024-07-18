@@ -1,5 +1,5 @@
 'use client'
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import { ExploreNavigationPill } from '@echo/ui/components/base/navigation/explore-navigation-pill'
 import { NavigationLayout } from '@echo/ui/components/base/navigation/navigation-layout'
 import {
@@ -16,6 +16,7 @@ import { type FunctionComponent, type PropsWithChildren } from 'react'
 interface Props {
   activeNavigationItem: NavigationItemId
 }
+
 export const ProfileNavigationLayout: FunctionComponent<PropsWithChildren<Props>> = ({
   activeNavigationItem,
   children
@@ -27,27 +28,27 @@ export const ProfileNavigationLayout: FunctionComponent<PropsWithChildren<Props>
         {
           id: NAVIGATION_NFTS,
           name: t('items'),
-          path: linkProvider.profile.items.get()
+          path: pathProvider.profile.items.get()
         },
         {
           id: NAVIGATION_OFFERS,
           name: t('offers'),
-          path: linkProvider.profile.offers.get()
+          path: pathProvider.profile.offers.get()
         },
         {
           id: NAVIGATION_PENDING_OFFERS,
           name: t('pendingOffers'),
-          path: linkProvider.profile.pendingOffers.get()
+          path: pathProvider.profile.pendingOffers.get()
         },
         {
           id: NAVIGATION_LISTINGS,
           name: t('listings'),
-          path: linkProvider.profile.listings.get()
+          path: pathProvider.profile.listings.get()
         },
         {
           id: NAVIGATION_EXPLORE,
           name: t('explore'),
-          path: linkProvider.profile.explore.get(),
+          path: pathProvider.profile.explore.get(),
           render: (props) => <ExploreNavigationPill {...props} />
         }
       ]}

@@ -1,10 +1,11 @@
+import type { Username } from '@echo/model/types/username'
 import { CardDiscordTagWrapper } from '@echo/ui/components/base/card/card-discord-tag-wrapper'
 import { DiscordIconSvg } from '@echo/ui/components/base/svg/discord-icon-svg'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 export interface CardDiscordTagProps {
-  username: string
+  username: Username
   asLink?: boolean
 }
 

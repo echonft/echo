@@ -11,8 +11,10 @@ import {
 } from '@echo/model/constants/offer-states'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
+import type { Offer } from '@echo/model/types/offer'
 import { describe, expect, it } from '@jest/globals'
-import { assoc, pipe } from 'ramda'
+import type { WithFieldValue } from 'firebase-admin/firestore'
+import { assoc, pipe, toUpper } from 'ramda'
 
 describe('converters - offerDataConverter', () => {
   const document = getOfferMockById(offerMockToJohnnycageId())
@@ -53,6 +55,10 @@ describe('converters - offerDataConverter', () => {
   })
 
   it('to Firestore conversion', () => {
-    expect(offerDataConverter.toFirestore(document)).toStrictEqual(documentData)
+    expect(
+      offerDataConverter.toFirestore(
+        assoc('idContract', toUpper(document.idContract), document) as unknown as WithFieldValue<Offer>
+      )
+    ).toStrictEqual(documentData)
   })
 })

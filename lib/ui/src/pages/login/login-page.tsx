@@ -1,5 +1,5 @@
 'use client'
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import type { User } from '@echo/auth/types/user'
 import { Login } from '@echo/ui/components/auth/login'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
@@ -21,7 +21,7 @@ export const LoginPage: FunctionComponent<Props> = ({ callbackUrl, user }) => {
         user={user}
         onFinish={() => {
           if (isNilOrEmpty(callbackUrl)) {
-            router.replace(linkProvider.base.home.get())
+            router.replace(pathProvider.base.home.get())
           } else {
             router.replace(callbackUrl)
           }

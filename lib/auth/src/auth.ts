@@ -1,14 +1,12 @@
-import { apiUrlProvider } from '@echo/api/routing/api-url-provider'
-import { isPathSecure } from '@echo/api/routing/is-path-secure'
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { apiPathProvider } from '@echo/api/routing/api/api-path-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import { mapUser } from '@echo/auth/map-user'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { pathIsNil } from '@echo/utils/fp/path-is-nil'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import NextAuth, { type NextAuthResult } from 'next-auth'
 import Discord, { type DiscordProfile } from 'next-auth/providers/discord'
-import { signIn, signOut } from 'next-auth/react'
-import { assoc, both, complement, dissoc, either, isNil, path, pipe } from 'ramda'
+import { signIn, type SignInResponse, signOut } from 'next-auth/react'
+import { assoc, dissoc, either, isNil } from 'ramda'
 
 // noinspection JSUnusedGlobalSymbols
 const {
@@ -16,14 +14,6 @@ const {
   auth
 }: NextAuthResult = NextAuth({
   callbacks: {
-    authorized: function (params) {
-      return complement(
-        both(
-          pipe(nonNullableReturn(path(['request', 'nextUrl', 'pathname'])), isPathSecure),
-          pathIsNil(['auth', 'user'])
-        )
-      )(params)
-    },
     jwt: function ({ token, user }) {
       if (!isNil(user)) {
         return assoc('user', dissoc('id', user), token)
@@ -50,7 +40,7 @@ const {
       profile: async (profile: DiscordProfile, token) => {
         // TODO switch runtime to nodejs and call the db directly here
         try {
-          await fetch(apiUrlProvider.user.update.getUrl(), {
+          await fetch(apiPathProvider.user.update.getUrl(), {
             headers: {
               'Content-Type': 'application/json'
             },
@@ -65,13 +55,10 @@ const {
     })
   ]
 })
-export { GET, POST }
-export { auth }
-async function login() {
-  await signIn('discord')
+export { GET, POST, auth }
+export function login(): Promise<SignInResponse | undefined> {
+  return signIn('discord')
 }
-export { login as signIn }
-async function logout() {
-  await signOut({ callbackUrl: linkProvider.base.home.getUrl() })
+export function logout(): Promise<Record<'url', string> | undefined> {
+  return signOut({ callbackUrl: pathProvider.base.home.getUrl() })
 }
-export { logout as signOut }

@@ -2,8 +2,6 @@ import { both, complement, has, isNil, pipe, prop } from 'ramda'
 
 function internalFn<T, K extends keyof T>(propKey: K) {
   return function (obj: T): obj is T & { [P in keyof T]: NonNullable<T[P]> } {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     return both(has(propKey), pipe(prop(propKey), complement(isNil)))(obj)
   }
 }

@@ -4,7 +4,7 @@ import type { AppRouteHandlerFnContext } from '@echo/auth/types/app-route-handle
 import type { NextAuthRequest } from '@echo/auth/types/next-auth-request'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { getLogger } from '@echo/frontend/lib/helpers/get-logger'
-import { routeHandlerErrorHandler } from '@echo/frontend/lib/request-handlers/route-handler-error-handler'
+import { requestErrorHandler } from '@echo/frontend/lib/request-handlers/request-error-handler'
 import type {
   RequestHandler,
   RequestWithParamsHandler
@@ -13,7 +13,7 @@ import { setUser } from '@sentry/nextjs'
 import { type NextRequest } from 'next/server'
 import { andThen, pipe } from 'ramda'
 
-export function routeHandler<ResponseBody, RequestBody = never, Params extends object = never>(
+export function requestHandler<ResponseBody, RequestBody = never, Params extends object = never>(
   requestHandler:
     | RequestWithParamsHandler<ResponseBody, RequestBody, Params>
     | RequestHandler<ResponseBody, RequestBody>
@@ -25,7 +25,7 @@ export function routeHandler<ResponseBody, RequestBody = never, Params extends o
       await pipe(getAuthUser, andThen(setUser))()
       return await requestHandler({ req, logger, params: context?.params as Params })
     } catch (err) {
-      return routeHandlerErrorHandler({ err, logger })
+      return requestErrorHandler({ err, logger })
     }
   })
 }

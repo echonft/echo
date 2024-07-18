@@ -7,22 +7,18 @@ import {
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
-import {
-  PAGE_LAYOUT_BG_GREEN_GRADIENT,
-  PAGE_LAYOUT_BG_RED_GRADIENT,
-  PAGE_LAYOUT_BG_YELLOW_GRADIENT
-} from '@echo/ui/constants/page-layout-background'
+import { BG_GREEN_GRADIENT, BG_RED_GRADIENT, BG_YELLOW_GRADIENT } from '@echo/ui/constants/background'
 
-export function getOfferPageLayoutBackground(offer: Offer) {
+export function getOfferBackground(offer: Offer) {
   switch (offer.state) {
     case OFFER_STATE_OPEN:
     case OFFER_STATE_ACCEPTED:
-      return PAGE_LAYOUT_BG_YELLOW_GRADIENT
+      return BG_YELLOW_GRADIENT
     case OFFER_STATE_COMPLETED:
-      return PAGE_LAYOUT_BG_GREEN_GRADIENT
+      return BG_GREEN_GRADIENT
     case OFFER_STATE_EXPIRED:
     case OFFER_STATE_CANCELLED:
     case OFFER_STATE_REJECTED:
-      return PAGE_LAYOUT_BG_RED_GRADIENT
+      return BG_RED_GRADIENT
   }
 }

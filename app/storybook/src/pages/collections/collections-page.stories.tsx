@@ -1,10 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { type Collection } from '@echo/model/types/collection'
 import { getAllCollectionMocks } from '@echo/model/mocks/collection/get-all-collection-mocks'
+import { type Collection } from '@echo/model/types/collection'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
-import { PAGE_LAYOUT_BG_COLLECTIONS } from '@echo/ui/constants/page-layout-background'
+import { BG_COLLECTIONS } from '@echo/ui/constants/background'
 import { CollectionsPage as Component } from '@echo/ui/pages/collections/collections-page'
 import { CollectionsPageSkeleton } from '@echo/ui/pages/collections/skeleton/collections-page-skeleton'
 import type { CollectionWithRank } from '@echo/ui/types/collection-with-rank'
@@ -16,7 +16,7 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   decorators: [
     (Story) => (
-      <PageLayout background={PAGE_LAYOUT_BG_COLLECTIONS} excludeProviders={true}>
+      <PageLayout background={BG_COLLECTIONS} excludeProviders={true}>
         <SectionLayout>
           <Story />
         </SectionLayout>

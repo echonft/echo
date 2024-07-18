@@ -13,7 +13,7 @@ import { CreatedOfferExecuted } from '@echo/ui/components/offer/created/created-
 import { CreatedOfferExpired } from '@echo/ui/components/offer/created/created-offer-expired'
 import { CreatedOfferRedeemed } from '@echo/ui/components/offer/created/created-offer-redeemed'
 import { CreatedOfferRejected } from '@echo/ui/components/offer/created/created-offer-rejected'
-import { PAGE_LAYOUT_BG_SUCCESS } from '@echo/ui/constants/page-layout-background'
+import { BG_SUCCESS } from '@echo/ui/constants/background'
 import { isOfferRoleReceiver } from '@echo/ui/helpers/offer/is-offer-role-receiver'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { PageLayoutBackgroundPickerProps } from '@echo/ui/types/props/page-layout-background-picker-props'
@@ -35,7 +35,7 @@ export const CreatedOfferSwitch: FunctionComponent<Props> = ({ offer, redeemed, 
     ) {
       onPageBackgroundUpdate?.(undefined)
     } else {
-      onPageBackgroundUpdate?.(PAGE_LAYOUT_BG_SUCCESS)
+      onPageBackgroundUpdate?.(BG_SUCCESS)
     }
   }, [onPageBackgroundUpdate, offer, redeemed])
 
@@ -48,7 +48,7 @@ export const CreatedOfferSwitch: FunctionComponent<Props> = ({ offer, redeemed, 
   }
   switch (offer.state) {
     case OFFER_STATE_OPEN:
-      return <CreatedOfferCreated count={offer.senderItems.length} slug={offer.slug} />
+      return <CreatedOfferCreated offer={offer} />
     case OFFER_STATE_ACCEPTED:
       return <CreatedOfferAccepted count={offer.receiverItems.length} />
     case OFFER_STATE_EXPIRED:

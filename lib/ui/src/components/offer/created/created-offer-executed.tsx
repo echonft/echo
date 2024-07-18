@@ -1,10 +1,10 @@
-import { linkProvider } from '@echo/api/routing/link-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import { OfferCreationSubLayout } from '@echo/ui/components/offer/created/layout/offer-creation-sub-layout'
 import { OfferCreationSuccessLayout } from '@echo/ui/components/offer/created/layout/offer-creation-success-layout'
 import { OfferCreationTextLayout } from '@echo/ui/components/offer/created/layout/offer-creation-text-layout'
 import { clsx } from 'clsx'
-import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import type { FunctionComponent } from 'react'
 
 interface Props {
@@ -16,7 +16,7 @@ export const CreatedOfferExecuted: FunctionComponent<Props> = ({ count }) => {
   const router = useRouter()
 
   const onClick = () => {
-    router.replace(linkProvider.base.home.get())
+    router.replace(pathProvider.base.home.get())
   }
   return (
     <OfferCreationSuccessLayout>

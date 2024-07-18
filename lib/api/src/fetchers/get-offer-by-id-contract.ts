@@ -1,17 +1,17 @@
-import { apiUrlProvider } from '@echo/api/routing/api-url-provider'
-import type { GetOfferByIdContractParams } from '@echo/api/types/params/get-offer-by-id-contract-params'
+import { apiPathProvider } from '@echo/api/routing/api/api-path-provider'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
+import type { Offer } from '@echo/model/types/offer'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import axios, { AxiosError } from 'axios'
 import { assoc, inc, modify, pipe } from 'ramda'
 
-interface FetchOfferArgs extends GetOfferByIdContractParams {
+interface FetchOfferArgs extends Pick<Offer, 'idContract'> {
   retries: number
 }
 
 async function fetchOffer(args: FetchOfferArgs): Promise<OfferResponse> {
   try {
-    const response = await axios.get<OfferResponse>(apiUrlProvider.offer.getByIdContract.getUrl(args), {
+    const response = await axios.get<OfferResponse>(apiPathProvider.offer.getByIdContract.getUrl(args), {
       withCredentials: true
     })
     return response.data
@@ -27,6 +27,6 @@ async function fetchOffer(args: FetchOfferArgs): Promise<OfferResponse> {
     )(args)
   }
 }
-export function getOfferByIdContract(args: GetOfferByIdContractParams) {
+export function getOfferByIdContract(args: Pick<Offer, 'idContract'>) {
   return pipe(assoc('retries', 0), fetchOffer)(args)
 }

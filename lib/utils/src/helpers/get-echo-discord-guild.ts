@@ -5,7 +5,7 @@ export function getEchoDiscordGuild() {
   if (isNil(environment) || environment === 'development' || environment === 'staging') {
     return {
       id: '1002691062374088794',
-      channelId: '1175976508662226944'
+      channelId: '1032728052209295450'
     }
   }
   return {
