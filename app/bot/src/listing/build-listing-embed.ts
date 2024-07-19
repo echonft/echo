@@ -17,9 +17,7 @@ export function buildListingEmbed(listing: Listing, creator: UserDocumentData) {
       // TODO Maybe a color per collection via settings?
       .setColor(0x00ff66)
       .setFields(fields(listing.items, listing.target))
-      .setURL(
-        pathProvider.collection.listing.getUrl({ slug: listing.target.collection.slug, listingSlug: listing.slug })
-      )
+      .setURL(pathProvider.collection.default.getUrl({ slug: listing.target.collection.slug }, { listing: listing }))
   )
 }
 
@@ -31,7 +29,7 @@ function fields(items: Nft[], target: ListingTarget): APIEmbedField[] {
 function listingItemsFields(items: Nft[]): APIEmbedField[] {
   const mapIndexed = addIndex<Nft>(map)
   return mapIndexed(
-    (item: Nft, index) => ({
+    (item: Nft, index: number) => ({
       name: index === 0 ? i18next.t('listing.embed.items.name') : '\u200b',
       value: embedValueForNft(item),
       inline: true

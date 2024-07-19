@@ -59,11 +59,6 @@ export const messages = {
     page: {
       title: 'Collections Stats'
     },
-    navigation: {
-      items: 'Items',
-      listings: 'Listings',
-      swaps: 'Swaps'
-    },
     search: {
       emptyResults: 'No collections found',
       label: 'Search by collection name'
@@ -124,6 +119,12 @@ export const messages = {
       search: {
         placeHolder: 'Search for collections or users'
       }
+    },
+    navigation: {
+      items: 'Items',
+      listings: 'Listings',
+      offers: 'Offers',
+      swaps: 'Swaps'
     }
   },
   listing: {
@@ -393,12 +394,6 @@ Don't worry, its safe with us.`
       collection: {
         title: 'Collections'
       }
-    },
-    navigation: {
-      items: 'Items',
-      listings: 'Listings',
-      offers: 'Offers',
-      swaps: 'Swaps'
     }
   },
   wallet: {

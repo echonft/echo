@@ -11,7 +11,7 @@ export function getOffersForSender(username: string): Promise<Offer[]> {
     getOffersCollectionReference,
     queryWhere<Offer>('sender.username', '==', username),
     queryWhere('state', '!=', OFFER_STATE_COMPLETED),
-    queryOrderBy<Offer>('createdAt', 'desc'),
+    queryOrderBy<Offer>('updatedAt', 'desc'),
     getQueryData
   )()
 }

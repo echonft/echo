@@ -35,7 +35,7 @@ function fields(senderItems: Nft[], receiverItems: Nft[]): APIEmbedField[] {
 function senderItemsFields(items: Nft[]): APIEmbedField[] {
   const mapIndexed = addIndex<Nft>(map)
   return mapIndexed(
-    (item: Nft, index) => ({
+    (item: Nft, index: number) => ({
       name: index === 0 ? i18next.t('swap.embed.senderItems') : '\u200b',
       value: embedValueForNft(item),
       inline: true

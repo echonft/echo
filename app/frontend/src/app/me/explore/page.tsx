@@ -1,7 +1,7 @@
 import { getPendingListingsForUser } from '@echo/firestore/crud/listing/get-pending-listings-for-user'
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
-import { setListingRole } from '@echo/frontend/lib/helpers/listing/set-listing-role'
+import { setListingsRole } from '@echo/frontend/lib/helpers/listing/set-listings-role'
 import type { WithAuthUserProps } from '@echo/frontend/lib/types/with-auth-user-props'
 import { NAVIGATION_EXPLORE } from '@echo/ui/constants/navigation-item'
 import { ProfileExplore } from '@echo/ui/pages/profile/explore/profile-explore'
@@ -13,7 +13,7 @@ async function render(props: WithAuthUserProps) {
   const listings = await pipe(
     nonNullableReturn(path(['user', 'username'])),
     getPendingListingsForUser,
-    andThen(setListingRole(props.user)),
+    andThen(setListingsRole(props.user)),
     otherwise(pipe(captureAndLogError, always([])))
   )(props)
   return (

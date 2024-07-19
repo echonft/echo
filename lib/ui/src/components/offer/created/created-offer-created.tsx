@@ -17,7 +17,7 @@ export const CreatedOfferCreated: FunctionComponent<Props> = ({ offer }) => {
   const router = useRouter()
 
   const onClick = () => {
-    router.replace(pathProvider.user.offer.get({ username: offer.sender.username, idContract: offer.idContract }))
+    router.replace(pathProvider.user.default.get({ username: offer.sender.username }, { offer }))
   }
   return (
     <OfferCreationSuccessLayout>

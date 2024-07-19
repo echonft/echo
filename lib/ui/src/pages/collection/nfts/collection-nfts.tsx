@@ -8,7 +8,7 @@ import { NFT_ACTION_LISTING, NFT_ACTION_OFFER } from '@echo/ui/constants/nft-act
 import { getNewListingPathFromTarget } from '@echo/ui/helpers/listing/get-new-listing-path-from-target'
 import { getNewOfferPath } from '@echo/ui/helpers/offer/get-new-offer-path'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
-import { CollectionNftsButton } from '@echo/ui/pages/collection/nfts/collection-nfts-button'
+import { CollectionItemsButton } from '@echo/ui/pages/collection/collection-items-button'
 import { CollectionNftsEmpty } from '@echo/ui/pages/collection/nfts/collection-nfts-empty'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/navigation'
@@ -48,7 +48,7 @@ export const CollectionNfts: FunctionComponent<Props> = ({ nfts, slug }) => {
     <div className={clsx('w-full', 'h-max')}>
       <NftsAndFiltersLayout>
         <NftFiltersPanelsLayout>
-          <CollectionNftsButton
+          <CollectionItemsButton
             action={action}
             count={count}
             onClick={() => {

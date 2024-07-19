@@ -1,7 +1,7 @@
 import { getListingsForCreator } from '@echo/firestore/crud/listing/get-listings-for-creator'
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
-import { setListingRole } from '@echo/frontend/lib/helpers/listing/set-listing-role'
+import { setListingsRole } from '@echo/frontend/lib/helpers/listing/set-listings-role'
 import type { WithAuthUserProps } from '@echo/frontend/lib/types/with-auth-user-props'
 import { NAVIGATION_LISTINGS } from '@echo/ui/constants/navigation-item'
 import { ProfileListings } from '@echo/ui/pages/profile/listings/profile-listings'
@@ -13,7 +13,7 @@ async function render(params: WithAuthUserProps) {
   const listings = await pipe(
     nonNullableReturn(path(['user', 'username'])),
     getListingsForCreator,
-    andThen(setListingRole(params.user)),
+    andThen(setListingsRole(params.user)),
     otherwise(pipe(captureAndLogError, always([])))
   )(params)
   return (

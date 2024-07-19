@@ -1,14 +1,14 @@
 'use client'
 import type { Nft } from '@echo/model/types/nft'
 import type { Swap } from '@echo/model/types/swap'
+import { ListingsPanel } from '@echo/ui/components/base/navigation/panels/listings-panel'
+import { OffersPanel } from '@echo/ui/components/base/navigation/panels/offers-panel'
+import { SwapsPanel } from '@echo/ui/components/base/navigation/panels/swaps-panel'
 import { ItemsTab } from '@echo/ui/components/base/navigation/tabs/items-tab'
 import { ListingsTab } from '@echo/ui/components/base/navigation/tabs/listings-tab'
 import { OffersTab } from '@echo/ui/components/base/navigation/tabs/offers-tab'
 import { SwapsTab } from '@echo/ui/components/base/navigation/tabs/swaps-tab'
-import { UserItemsPanel } from '@echo/ui/pages/user/user-items-panel'
-import { ListingsPanel } from '@echo/ui/components/base/navigation/panels/listings-panel'
-import { OffersPanel } from '@echo/ui/components/base/navigation/panels/offers-panel'
-import { SwapsPanel } from '@echo/ui/components/base/navigation/panels/swaps-panel'
+import { CollectionItemsPanel } from '@echo/ui/pages/collection/collection-items-panel'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { PageSelection } from '@echo/ui/types/page-selection'
@@ -19,15 +19,15 @@ import { all, isEmpty, isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  isAuthUser: boolean
   listings: ListingWithRole[]
   nfts: Nft[]
   offers: OfferWithRole[]
+  slug: string
   swaps: Swap[]
   selection?: Nullable<PageSelection>
 }
 
-export const UserTabs: FunctionComponent<Props> = ({ isAuthUser, listings, nfts, offers, swaps, selection }) => {
+export const CollectionTabs: FunctionComponent<Props> = ({ slug, listings, nfts, offers, swaps, selection }) => {
   function tabGroupProps() {
     if (isNil(selection)) {
       return {}
@@ -55,7 +55,7 @@ export const UserTabs: FunctionComponent<Props> = ({ isAuthUser, listings, nfts,
         <SwapsTab show={tabShown[3]} />
       </TabList>
       <TabPanels>
-        <UserItemsPanel show={tabShown[0]} isAuthUser={isAuthUser} nfts={nfts} />
+        <CollectionItemsPanel show={tabShown[0]} nfts={nfts} slug={slug} />
         <ListingsPanel
           show={tabShown[1]}
           listings={listings}

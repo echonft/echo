@@ -14,10 +14,10 @@ describe('builders - buildNewListingButtons', () => {
   it('should build a new listing button with a link to the listing', () => {
     const listing = getListingMock()
     const result = buildListingLinkButton(listing)
-    const expectedLink = pathProvider.collection.listing.getUrl({
-      slug: listing.target.collection.slug,
-      listingSlug: listing.slug
-    })
+    const expectedLink = pathProvider.collection.default.getUrl(
+      { slug: listing.target.collection.slug },
+      { listing: listing }
+    )
     expect(result).toBeInstanceOf(ActionRowBuilder)
     const components = result.components
     expect(components).toHaveLength(1)

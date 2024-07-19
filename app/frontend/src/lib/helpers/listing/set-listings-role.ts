@@ -7,7 +7,7 @@ import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil, map } from 'ramda'
 
-export function setListingRole(user: Nullable<User>) {
+export function setListingsRole(user: Nullable<User>) {
   return async function (listings: Listing[]): Promise<ListingWithRole[]> {
     if (isNil(user)) {
       return map(setListingRoleUndefined, listings)

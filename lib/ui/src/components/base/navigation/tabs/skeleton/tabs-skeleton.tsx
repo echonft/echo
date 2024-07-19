@@ -1,4 +1,4 @@
-import { TabSkeleton } from '@echo/ui/components/base/navigation/skeleton/tab-skeleton'
+import { TabSkeleton } from '@echo/ui/components/base/navigation/tabs/skeleton/tab-skeleton'
 import { map, pipe, range } from 'ramda'
 import { type FunctionComponent } from 'react'
 

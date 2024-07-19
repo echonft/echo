@@ -18,7 +18,7 @@ export const CollectionRow: FunctionComponent<Props> = ({
   collection: { name, profilePictureUrl, rank, slug, swapsCount }
 }) => {
   return (
-    <InternalLink path={pathProvider.collection.items.get({ slug })}>
+    <InternalLink path={pathProvider.collection.default.get({ slug })}>
       <CollectionRowLayout>
         <CollectionRowNameRankPictureLayout>
           <CollectionRowRankPictureLayout>

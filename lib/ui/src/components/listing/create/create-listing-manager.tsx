@@ -32,7 +32,7 @@ export const CreateListingManager: FunctionComponent<Props> = ({ creatorNfts, it
     fetcher: createListing,
     onSuccess: ({ listing }) => {
       router.replace(
-        pathProvider.collection.listing.get({ slug: listing.target.collection.slug, listingSlug: listing.slug })
+        pathProvider.collection.default.getUrl({ slug: listing.target.collection.slug }, { listing: listing })
       )
     },
     onError: {

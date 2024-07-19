@@ -15,14 +15,11 @@ export const pathProvider = {
   },
   collection: {
     all: new Path({ path: '/collections', secure: false }),
-    default: new PathWithParams<Record<'slug', Slug>>({ path: '/collection/:slug', secure: false }),
-    items: new PathWithParams<Record<'slug', Slug>>({ path: '/collection/:slug/items', secure: false }),
-    listing: new PathWithParams<{ slug: Slug; listingSlug: string }>({
-      path: '/collection/:slug/listing/:listingSlug',
-      secure: false
-    }),
-    listings: new PathWithParams<Record<'slug', Slug>>({ path: '/collection/:slug/listings', secure: false }),
-    swaps: new PathWithParams<Record<'slug', Slug>>({ path: '/collection/:slug/swaps', secure: false })
+    default: new PathWithParams<Record<'slug', Slug>, SelectionQueryParams, SelectionSearchParams>({
+      path: '/collection/:slug',
+      secure: false,
+      queryParamsMapper: selectionQueryMapper
+    })
   },
   listing: {
     new: new Path({ path: '/listing/new', secure: true })
@@ -43,13 +40,6 @@ export const pathProvider = {
       path: '/user/:username',
       secure: false,
       queryParamsMapper: selectionQueryMapper
-    }),
-    offer: new PathWithParams<{ username: Username; idContract: string }>({
-      path: '/user/:username/offer/:idContract',
-      secure: true
     })
-  },
-  swap: {
-    details: new PathWithParams<Record<'slug', Slug>>({ path: '/swap/:slug', secure: false })
   }
 }

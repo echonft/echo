@@ -11,7 +11,7 @@ interface Props {
   onClick?: MouseEventHandler
 }
 
-export const CollectionNftsButton: FunctionComponent<Props> = ({ action, count, onClick }) => {
+export const CollectionItemsButton: FunctionComponent<Props> = ({ action, count, onClick }) => {
   const t = useTranslations('nft.action')
   if (action === NFT_ACTION_LISTING) {
     return (

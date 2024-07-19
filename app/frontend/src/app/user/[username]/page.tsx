@@ -7,7 +7,7 @@ import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-usernam
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import { getPageSelection } from '@echo/frontend/lib/helpers/get-page-selection'
-import { setListingRole } from '@echo/frontend/lib/helpers/listing/set-listing-role'
+import { setListingsRole } from '@echo/frontend/lib/helpers/listing/set-listings-role'
 import { setOfferRoleForUser } from '@echo/frontend/lib/helpers/offer/set-offer-role-for-user'
 import { getUserProfile } from '@echo/frontend/lib/helpers/user/get-user-profile'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
@@ -15,9 +15,9 @@ import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
 import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
 import type { Swap } from '@echo/model/types/swap'
 import type { WithUsername } from '@echo/model/types/with-username'
+import { NavigationPageLayout } from '@echo/ui/components/base/layout/navigation-page-layout'
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
-import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
 import { UserProfile } from '@echo/ui/components/user/profile/user-profile'
 import { UserTabs } from '@echo/ui/pages/user/user-tabs'
 import { notFound } from 'next/navigation'
@@ -40,7 +40,7 @@ async function render({
   const nfts = await pipe(getNftsForOwner, otherwise(pipe(captureAndLogError, always([]))))(username)
   const listings = await pipe(
     getListingsForCreator,
-    andThen(setListingRole(user)),
+    andThen(setListingsRole(user)),
     otherwise(pipe(captureAndLogError, always([])))
   )(username)
   const offers = await pipe(
