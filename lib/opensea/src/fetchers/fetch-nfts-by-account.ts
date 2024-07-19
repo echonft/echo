@@ -16,7 +16,7 @@ export async function fetchNftsByAccount(
   const response = await throttleFetch({ fetch, url, logger })
   if (!response.ok) {
     logger?.error({ wallet, url, response: pick(['status'], response) }, 'error fetching NFTs')
-    return Promise.reject(Error(`error fetching NFTs for wallet ${JSON.stringify(wallet)}`))
+    return Promise.reject(Error('error fetching NFTs for wallet'))
   }
   return parseResponse(getNftsByAccountResponseSchema)(response)
 }

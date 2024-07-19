@@ -1,18 +1,12 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
 import { NextRequest } from 'next/server'
-import { stringify } from 'qs'
-import { concat, isNil } from 'ramda'
+import { isNil } from 'ramda'
 
-export function mockRequest<T = undefined, Q = undefined>(body?: T, query?: Q) {
-  const baseUrl = 'https://echo.xyz/'
-  const url = isNil(query)
-    ? baseUrl
-    : concat(stringify(query, { addQueryPrefix: true, arrayFormat: 'repeat', skipNulls: true }), baseUrl)
-
+export function mockRequest<T extends object = never>(body?: T) {
+  const url = 'https://echo.xyz/'
   if (isNil(body)) {
     return new NextRequest(url) as ApiRequest<T>
   }
-
   return new NextRequest(url, {
     body: JSON.stringify(body),
     method: 'POST'

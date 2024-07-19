@@ -25,13 +25,7 @@ export async function fetchNft(args: WithLoggerType<FetchNftRequest>): Promise<N
   })
   if (!response.ok) {
     logger?.error({ nft: { collection: { contract }, tokenId: identifier } }, 'error fetching NFT')
-    return Promise.reject(
-      Error(
-        `error fetching NFT #${identifier} for contract ${JSON.stringify(
-          contract
-        )}: {url: ${url}\nstatus:${response.statusText}}`
-      )
-    )
+    return Promise.reject(Error('error fetching NFT for contract'))
   }
   return parseResponse(getNftResponseSchema(contract.chain))(response)
 }

@@ -6,7 +6,7 @@ import { equals, find, isNil, pipe } from 'ramda'
 export function getNftMockByIndex(index: NftIndex): Nft {
   const mock = find(pipe(getNftIndex, equals(index)), getAllNftMocks())
   if (isNil(mock)) {
-    throw Error(`wrong nft mock index: ${JSON.stringify(index)}`)
+    throw Error(`wrong nft mock index`)
   }
   return mock
 }
