@@ -7,7 +7,7 @@ export function buildOfferLinkButton(offer: Offer) {
   return new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder()
       .setLabel(i18next.t('offer.button'))
-      .setURL(pathProvider.user.default.getUrl({ username: offer.sender.username }, { offer }))
+      .setURL(pathProvider.profile.default.getUrl({ offer }))
       .setStyle(ButtonStyle.Link)
   )
 }

@@ -5,6 +5,7 @@ import { NftsWithFilters } from '@echo/ui/components/nft/filters/nfts-with-filte
 import { SelectableNftsWithFilters } from '@echo/ui/components/nft/filters/selectable-nfts-with-filters'
 import { NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
 import { TabPanel } from '@headlessui/react'
+import { clsx } from 'clsx'
 import { useRouter } from 'next/navigation'
 import type { FunctionComponent } from 'react'
 
@@ -20,7 +21,7 @@ export const UserItemsPanel: FunctionComponent<Props> = ({ isAuthUser, nfts, sho
   if (show) {
     if (isAuthUser) {
       return (
-        <TabPanel>
+        <TabPanel className={clsx('outline-none')}>
           <NftsWithFilters nfts={nfts} sortBy={'collection'} cardOptions={{ owner: { hide: true } }} />
         </TabPanel>
       )

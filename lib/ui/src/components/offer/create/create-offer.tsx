@@ -1,12 +1,9 @@
 'use client'
-import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
-import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { ProfilePicture } from '@echo/ui/components/base/profile-picture'
-import { StateExpiration } from '@echo/ui/components/base/state-expiration'
 import { NftCards } from '@echo/ui/components/nft/card/nft-cards'
 import { CreateOfferButtons } from '@echo/ui/components/offer/create/create-offer-buttons'
 import { CreateOfferExpiration } from '@echo/ui/components/offer/create/create-offer-expiration'
@@ -21,7 +18,6 @@ import { SIZE_MD } from '@echo/ui/constants/size'
 import { SWAP_DIRECTION_IN, SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
 import { clsx } from 'clsx'
-import dayjs from 'dayjs'
 import { isEmpty } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
@@ -73,12 +69,6 @@ export const CreateOffer: FunctionComponent<Props> = ({
             <UserProfileWallets wallets={[wallet]} />
           </UserDetailsDiscordTagAndWalletLayout>
         </UserDetailsLayout>
-        {/*  FIXME expiresAt value should be derived from state */}
-        <StateExpiration
-          expiresAt={dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix()}
-          readOnly={false}
-          state={OFFER_STATE_OPEN}
-        />
       </div>
       <div className={clsx('flex', 'flex-col', 'gap-20')}>
         <CreateOfferSwapDirectionHeader direction={SWAP_DIRECTION_IN} />

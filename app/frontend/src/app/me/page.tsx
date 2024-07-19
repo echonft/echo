@@ -4,12 +4,12 @@ import { getListingsForCreator } from '@echo/firestore/crud/listing/get-listings
 import { getPendingListingsForUser } from '@echo/firestore/crud/listing/get-pending-listings-for-user'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { getCompletedOffersForUser } from '@echo/firestore/crud/offer/get-completed-offers-for-user'
-import { getPendingOffersForUser } from '@echo/firestore/crud/offer/get-pending-offers-for-user'
+import { getOffersForUser } from '@echo/firestore/crud/offer/get-offers-for-user'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import { getPageSelection } from '@echo/frontend/lib/helpers/get-page-selection'
 import { setListingsRole } from '@echo/frontend/lib/helpers/listing/set-listings-role'
-import { setOfferRoleReceiver } from '@echo/frontend/lib/helpers/offer/set-offer-role-receiver'
+import { setOfferRoleForUser } from '@echo/frontend/lib/helpers/offer/set-offer-role-for-user'
 import { getUserProfile } from '@echo/frontend/lib/helpers/user/get-user-profile'
 import type { PropsWithAuthUser } from '@echo/frontend/lib/types/props-with-auth-user'
 import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
@@ -47,8 +47,8 @@ async function render({ searchParams, user }: PropsWithAuthUser<WithSearchParams
   )(user)
   const offers = await pipe(
     prop('username'),
-    getPendingOffersForUser,
-    andThen(map(setOfferRoleReceiver)),
+    getOffersForUser,
+    andThen(map(setOfferRoleForUser(user))),
     otherwise(pipe(captureAndLogError, always([])))
   )(user)
   const swaps = (await pipe(

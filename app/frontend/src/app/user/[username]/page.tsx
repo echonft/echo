@@ -2,7 +2,7 @@ import type { SelectionSearchParams } from '@echo/api/types/routing/search-param
 import { getListingsForCreator } from '@echo/firestore/crud/listing/get-listings-for-creator'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { getCompletedOffersForUser } from '@echo/firestore/crud/offer/get-completed-offers-for-user'
-import { getOffersForSender } from '@echo/firestore/crud/offer/get-offers-for-sender'
+import { getPendingOffersForUser } from '@echo/firestore/crud/offer/get-pending-offers-for-user'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
@@ -44,7 +44,7 @@ async function render({
     otherwise(pipe(captureAndLogError, always([])))
   )(username)
   const offers = await pipe(
-    getOffersForSender,
+    getPendingOffersForUser,
     andThen(map(setOfferRoleForUser(authUser))),
     otherwise(pipe(captureAndLogError, always([])))
   )(username)

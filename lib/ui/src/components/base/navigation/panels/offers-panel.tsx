@@ -4,6 +4,7 @@ import { OfferDetailsModal } from '@echo/ui/components/offer/details/offer-detai
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { TabPanel } from '@headlessui/react'
+import { clsx } from 'clsx'
 import { isNil, nth } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
@@ -18,7 +19,7 @@ export const OffersPanel: FunctionComponent<Props> = ({ offers, selection, show 
 
   if (show) {
     return (
-      <TabPanel>
+      <TabPanel className={clsx('outline-none')}>
         <OfferCards offers={offers} onSelect={setOffer} />
         <OfferDetailsModal
           offer={offer}

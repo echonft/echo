@@ -4,6 +4,7 @@ import { ListingDetailsModal } from '@echo/ui/components/listing/details/listing
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { TabPanel } from '@headlessui/react'
+import { clsx } from 'clsx'
 import { isNil, nth } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
@@ -19,7 +20,7 @@ export const ListingsPanel: FunctionComponent<Props> = ({ listings, selection, s
   )
   if (show) {
     return (
-      <TabPanel>
+      <TabPanel className={clsx('outline-none')}>
         <ListingCards listings={listings} onSelect={setListing} />
         {/*TODO grab offers*/}
         <ListingDetailsModal
