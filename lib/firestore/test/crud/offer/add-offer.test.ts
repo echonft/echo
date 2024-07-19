@@ -12,7 +12,6 @@ import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listin
 import { assertListingOffers } from '@echo/firestore/utils/listing-offer/assert-listing-offers'
 import { unchecked_updateListing } from '@echo/firestore/utils/listing/unchecked_update-listing'
 import { assertOffers } from '@echo/firestore/utils/offer/assert-offers'
-import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
 import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
@@ -79,7 +78,7 @@ describe('CRUD - offer - addOffer', () => {
     expect(eqListContent(offers, getAllOfferMocks())).toBeTruthy()
   })
   it('add an offer', async () => {
-    const expiresAt = dayjs().add(DEFAULT_EXPIRATION_TIME, 'day')
+    const expiresAt = dayjs().add(1, 'day')
     const senderItems: NonEmptyArray<Nft> = [getNftMockById(nftMockPxCrewId())]
     const receiverItems: NonEmptyArray<Nft> = [
       getNftMockById(nftMockSpiralJohnnyId()),

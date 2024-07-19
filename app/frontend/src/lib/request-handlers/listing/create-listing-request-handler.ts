@@ -7,13 +7,14 @@ import { toNextReponse } from '@echo/frontend/lib/request-handlers/to-next-repon
 import type { AuthRequestHandlerArgs } from '@echo/frontend/lib/types/request-handlers/auth-request-handler'
 import { createListingSchema } from '@echo/frontend/lib/validators/create-listing-schema'
 import { parseRequest } from '@echo/frontend/lib/validators/parse-request'
+import { expirationToDate } from '@echo/model/helpers/expiration-to-date'
 import { andThen, objOf, pipe, prop } from 'ramda'
 
 export async function createListingRequestHandler({
   user: { username },
   req
 }: AuthRequestHandlerArgs<CreateListingRequest>) {
-  const { items: requestItems, target: requestTarget, expiresAt } = await parseRequest(createListingSchema)(req)
+  const { items: requestItems, target: requestTarget, expiration } = await parseRequest(createListingSchema)(req)
   const items = await getNftsFromIndexes(requestItems)
   const target = await getListingTargetFromRequest(requestTarget)
   for (const item of items) {
@@ -21,5 +22,8 @@ export async function createListingRequestHandler({
       return Promise.reject(new ForbiddenError())
     }
   }
-  return pipe(addListing, andThen(pipe(prop('data'), objOf('listing'), toNextReponse)))({ items, target, expiresAt })
+  return pipe(
+    addListing,
+    andThen(pipe(prop('data'), objOf('listing'), toNextReponse))
+  )({ items, target, expiresAt: expirationToDate(expiration) })
 }
