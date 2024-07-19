@@ -28,12 +28,11 @@ export const pathProvider = {
     new: new Path({ path: '/offer', secure: true })
   },
   profile: {
-    default: new Path({ path: '/me', secure: true }),
-    explore: new Path({ path: '/me/explore', secure: true }),
-    items: new Path({ path: '/me/items', secure: true }),
-    listings: new Path({ path: '/me/listings', secure: true }),
-    offers: new Path({ path: '/me/offers', secure: true }),
-    pendingOffers: new Path({ path: '/me/offers/pending', secure: true })
+    default: new Path<SelectionQueryParams, SelectionSearchParams>({
+      path: '/me',
+      secure: true,
+      queryParamsMapper: selectionQueryMapper
+    })
   },
   user: {
     default: new PathWithParams<Record<'username', Username>, SelectionQueryParams, SelectionSearchParams>({

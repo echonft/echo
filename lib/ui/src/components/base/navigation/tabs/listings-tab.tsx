@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const ListingsTab: FunctionComponent<Props> = ({ show }) => {
-  const t = useTranslations('layout.navigation')
+  const t = useTranslations('layout.tab')
   if (show) {
     return <Tab>{t('listings')}</Tab>
   }

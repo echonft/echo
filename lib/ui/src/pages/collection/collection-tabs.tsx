@@ -12,11 +12,14 @@ import { CollectionItemsPanel } from '@echo/ui/pages/collection/collection-items
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { PageSelection } from '@echo/ui/types/page-selection'
+import type { TabOptions } from '@echo/ui/types/tab-options'
 import { isFalsy } from '@echo/utils/fp/is-falsy'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { TabGroup, TabList, TabPanels } from '@headlessui/react'
-import { all, isEmpty, isNil } from 'ramda'
+import { all, always, find, findIndex, ifElse, isEmpty, isNil, map, pipe, prop, propEq } from 'ramda'
 import type { FunctionComponent } from 'react'
+
+type TabName = 'items' | 'listings' | 'offers' | 'swaps'
 
 interface Props {
   listings: ListingWithRole[]
@@ -28,46 +31,70 @@ interface Props {
 }
 
 export const CollectionTabs: FunctionComponent<Props> = ({ slug, listings, nfts, offers, swaps, selection }) => {
+  const tabs: TabOptions<TabName>[] = [
+    {
+      name: 'items',
+      show: !isEmpty(nfts)
+    },
+    {
+      name: 'listings',
+      show: !isEmpty(listings)
+    },
+    {
+      name: 'items',
+      show: !isEmpty(nfts)
+    },
+    {
+      name: 'offers',
+      show: !isEmpty(offers)
+    },
+    {
+      name: 'swaps',
+      show: !isEmpty(swaps)
+    }
+  ]
   function tabGroupProps() {
     if (isNil(selection)) {
       return {}
     }
     switch (selection.type) {
       case 'listing':
-        return { defaultIndex: 1 }
+        return { defaultIndex: findIndex(propEq('listings', 'name'), tabs) }
       case 'offer':
-        return { defaultIndex: 2 }
+        return { defaultIndex: findIndex(propEq('offers', 'name'), tabs) }
       case 'swap':
-        return { defaultIndex: 3 }
+        return { defaultIndex: findIndex(propEq('swaps', 'name'), tabs) }
     }
   }
-  const tabShown = [!isEmpty(nfts), !isEmpty(listings), !isEmpty(offers), !isEmpty(swaps)]
-  if (all(isFalsy, tabShown)) {
+  function showTab(name: TabName) {
+    return pipe(find<TabOptions<TabName>>(propEq(name, 'name')), ifElse(isNil, always(false), prop('show')))(tabs)
+  }
+  if (all(isFalsy, map(prop('show'), tabs))) {
     // TODO empty view
     return null
   }
   return (
     <TabGroup {...tabGroupProps()}>
       <TabList className={'tab-list'}>
-        <ItemsTab show={tabShown[0]} />
-        <ListingsTab show={tabShown[1]} />
-        <OffersTab show={tabShown[2]} />
-        <SwapsTab show={tabShown[3]} />
+        <ItemsTab show={showTab('items')} />
+        <ListingsTab show={showTab('listings')} />
+        <OffersTab show={showTab('offers')} />
+        <SwapsTab show={showTab('swaps')} />
       </TabList>
       <TabPanels>
-        <CollectionItemsPanel show={tabShown[0]} nfts={nfts} slug={slug} />
+        <CollectionItemsPanel show={showTab('items')} nfts={nfts} slug={slug} />
         <ListingsPanel
-          show={tabShown[1]}
+          show={showTab('listings')}
           listings={listings}
           selection={selection?.type === 'listing' ? selection.index : undefined}
         />
         <OffersPanel
-          show={tabShown[2]}
+          show={showTab('offers')}
           offers={offers}
           selection={selection?.type === 'offer' ? selection.index : undefined}
         />
         <SwapsPanel
-          show={tabShown[3]}
+          show={showTab('swaps')}
           swaps={swaps}
           selection={selection?.type === 'swap' ? selection.index : undefined}
         />

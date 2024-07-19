@@ -9,7 +9,7 @@ import { getNewListingPathFromTarget } from '@echo/ui/helpers/listing/get-new-li
 import { getNewOfferPath } from '@echo/ui/helpers/offer/get-new-offer-path'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
 import { CollectionItemsButton } from '@echo/ui/pages/collection/collection-items-button'
-import { clsx } from 'clsx'
+import { TabPanel } from '@headlessui/react'
 import { useRouter } from 'next/navigation'
 import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
@@ -41,7 +41,7 @@ export const CollectionItemsPanel: FunctionComponent<Props> = ({ nfts, slug, sho
     const count = selection.nfts.length
     const action = count > 0 ? NFT_ACTION_OFFER : NFT_ACTION_LISTING
     return (
-      <div className={clsx('w-full', 'h-max')}>
+      <TabPanel>
         <NftsAndFiltersLayout>
           <NftFiltersPanelsLayout>
             <CollectionItemsButton
@@ -70,7 +70,7 @@ export const CollectionItemsPanel: FunctionComponent<Props> = ({ nfts, slug, sho
             onUnselect={unselectNft}
           />
         </NftsAndFiltersLayout>
-      </div>
+      </TabPanel>
     )
   }
   return null

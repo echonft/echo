@@ -120,7 +120,8 @@ export const messages = {
         placeHolder: 'Search for collections or users'
       }
     },
-    navigation: {
+    tab: {
+      explore: 'Explore',
       items: 'Items',
       listings: 'Listings',
       offers: 'Offers',
@@ -358,13 +359,6 @@ Don't worry, its safe with us.`
     listingButton: {
       create: 'Create listing',
       finalize: 'Finalize listing'
-    },
-    navigation: {
-      explore: 'Explore',
-      items: 'Owned',
-      listings: 'Listings',
-      offers: 'Offers',
-      pendingOffers: 'Pending Offers'
     },
     offerButton: 'Finalize offer'
   },

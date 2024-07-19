@@ -15,7 +15,7 @@ export const HeaderProfileButton: FunctionComponent<HeaderLoggedInProps> = ({ us
       <ConnectWalletButton onClick={onWalletButtonClick} />
       <InternalLink
         className={clsx('w-12', 'h-12', 'rounded-lg', 'bg-dark-500', 'border', 'border-solid', 'border-white/[0.08]')}
-        path={pathProvider.profile.items.get()}
+        path={pathProvider.profile.default.get()}
       >
         <SizeableImage
           className={clsx(

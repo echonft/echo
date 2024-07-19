@@ -25,6 +25,7 @@ export const StackLayout: FunctionComponent<Props> = ({ loading, className, chil
         'border',
         'group',
         'transition ease-in-out',
+        'outline-none',
         loading ? 'animate-pulse' : !isNil(onClick) && 'cursor-pointer',
         className
       )}

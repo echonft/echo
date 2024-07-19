@@ -24,6 +24,7 @@ export const CardLayout: FunctionComponent<CardLayoutProps> = ({ loading, classN
         'bg-dark-500',
         'group',
         'transition ease-in-out',
+        'outline-none',
         loading ? 'animate-pulse' : !isNil(onClick) && 'cursor-pointer',
         className
       )}
