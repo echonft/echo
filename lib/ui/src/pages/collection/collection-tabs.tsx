@@ -1,4 +1,5 @@
 'use client'
+import type { Collection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
 import type { Swap } from '@echo/model/types/swap'
 import { ListingsPanel } from '@echo/ui/components/base/navigation/panels/listings-panel'
@@ -22,15 +23,15 @@ import type { FunctionComponent } from 'react'
 type TabName = 'items' | 'listings' | 'offers' | 'swaps'
 
 interface Props {
+  collection: Collection
   listings: ListingWithRole[]
   nfts: Nft[]
   offers: OfferWithRole[]
-  slug: string
   swaps: Swap[]
   selection?: Nullable<PageSelection>
 }
 
-export const CollectionTabs: FunctionComponent<Props> = ({ slug, listings, nfts, offers, swaps, selection }) => {
+export const CollectionTabs: FunctionComponent<Props> = ({ collection, listings, nfts, offers, swaps, selection }) => {
   const tabs: TabOptions<TabName>[] = [
     {
       name: 'items',
@@ -82,7 +83,7 @@ export const CollectionTabs: FunctionComponent<Props> = ({ slug, listings, nfts,
         <SwapsTab show={showTab('swaps')} />
       </TabList>
       <TabPanels>
-        <CollectionItemsPanel show={showTab('items')} nfts={nfts} slug={slug} />
+        <CollectionItemsPanel show={showTab('items')} collection={collection} nfts={nfts} />
         <ListingsPanel
           show={showTab('listings')}
           listings={listings}

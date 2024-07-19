@@ -4,16 +4,12 @@ import type { SearchResult } from '@echo/model/types/search-result'
 import type { Slug } from '@echo/model/types/slug'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import axios from 'axios'
-import { stringify } from 'qs'
-import { concat, path } from 'ramda'
+import { path } from 'ramda'
 
 export function searchCollections(q: string): Promise<SearchResult<Slug>[]> {
   return axios
-    .get<SearchResponse<Slug>>(
-      concat(apiPathProvider.collection.search.getUrl(), stringify({ q }, { addQueryPrefix: true })),
-      {
-        withCredentials: true
-      }
-    )
+    .get<SearchResponse<Slug>>(apiPathProvider.collection.search.getUrl({ q }), {
+      withCredentials: true
+    })
     .then(nonNullableReturn(path(['data', 'results'])))
 }

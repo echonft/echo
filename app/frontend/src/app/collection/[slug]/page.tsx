@@ -57,10 +57,10 @@ async function render({
       </SectionLayout>
       <NavigationSectionLayout>
         <CollectionTabs
+          collection={collection}
           listings={listings}
           nfts={nfts}
           offers={offers}
-          slug={slug}
           swaps={swaps}
           selection={selection}
         />

@@ -5,7 +5,7 @@ import type { Offer } from '@echo/model/types/offer'
 import type { Swap } from '@echo/model/types/swap'
 import { modify, pipe, prop } from 'ramda'
 
-export function selectionQueryMapper(queryParams: SelectionQueryParams): SelectionSearchParams {
+export function selectionQueryMapper(params: SelectionQueryParams): SelectionSearchParams {
   return pipe(
     modify<'offer', Offer, string>('offer', prop('idContract')) as (
       obj: SelectionQueryParams
@@ -16,5 +16,5 @@ export function selectionQueryMapper(queryParams: SelectionQueryParams): Selecti
     modify<'swap', Swap, string>('swap', prop('idContract')) as (
       obj: Omit<SelectionQueryParams, 'offer' | 'listing'> & Pick<SelectionSearchParams, 'offer' | 'listing'>
     ) => SelectionSearchParams
-  )(queryParams)
+  )(params)
 }

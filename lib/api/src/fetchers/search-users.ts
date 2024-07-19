@@ -4,16 +4,12 @@ import type { SearchResult } from '@echo/model/types/search-result'
 import type { Username } from '@echo/model/types/username'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import axios from 'axios'
-import { stringify } from 'qs'
-import { concat, path } from 'ramda'
+import { path } from 'ramda'
 
 export function searchUsers(q: string): Promise<SearchResult<Username>[]> {
   return axios
-    .get<SearchResponse<Username>>(
-      concat(apiPathProvider.user.search.getUrl(), stringify({ q }, { addQueryPrefix: true })),
-      {
-        withCredentials: true
-      }
-    )
+    .get<SearchResponse<Username>>(apiPathProvider.user.search.getUrl({ q }), {
+      withCredentials: true
+    })
     .then(nonNullableReturn(path(['data', 'results'])))
 }

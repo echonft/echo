@@ -2,10 +2,11 @@ import { ApiPath } from '@echo/api/routing/api/api-path'
 import { ApiPathWithParams } from '@echo/api/routing/api/api-path-with-params'
 import type { Slug } from '@echo/model/types/slug'
 import type { HexString } from '@echo/utils/types/hex-string'
+import { identity } from 'ramda'
 
 export const apiPathProvider = {
   collection: {
-    search: new ApiPath({ path: '/search/collection', secure: false })
+    search: new ApiPath<Record<'q', string>>({ path: '/search/collection', secure: false, queryParamsMapper: identity })
   },
   ipfs: {
     proxy: new ApiPathWithParams<{ path: string }>({ path: '/ipfs/:path', secure: false })
@@ -27,7 +28,7 @@ export const apiPathProvider = {
     wallets: new ApiPath({ path: '/profile/wallets', secure: true })
   },
   user: {
-    search: new ApiPath({ path: '/search/user', secure: false }),
+    search: new ApiPath<Record<'q', string>>({ path: '/search/user', secure: false, queryParamsMapper: identity }),
     update: new ApiPath({ path: '/user/update', secure: false })
   },
   webhook: {
