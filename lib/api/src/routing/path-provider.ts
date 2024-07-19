@@ -22,10 +22,10 @@ export const pathProvider = {
     })
   },
   listing: {
-    new: new Path({ path: '/listing/new', secure: true })
+    new: new Path({ path: '/listing', secure: true })
   },
   offer: {
-    new: new Path({ path: '/offer/new', secure: true })
+    new: new Path({ path: '/offer', secure: true })
   },
   profile: {
     default: new Path({ path: '/me', secure: true }),
