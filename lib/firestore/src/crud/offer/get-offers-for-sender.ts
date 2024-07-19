@@ -6,6 +6,10 @@ import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import { type Offer } from '@echo/model/types/offer'
 import { pipe } from 'ramda'
 
+/**
+ * Retrieves all the offers for a sender, except the completed ones (which are considered a swap)
+ * @param username
+ */
 export function getOffersForSender(username: string): Promise<Offer[]> {
   return pipe(
     getOffersCollectionReference,

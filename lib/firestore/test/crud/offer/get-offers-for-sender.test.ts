@@ -1,6 +1,6 @@
 import { getOffersForSender } from '@echo/firestore/crud/offer/get-offers-for-sender'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
-import { offerMockFromJohnnycageId, offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
+import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { describe, expect, it } from '@jest/globals'
 
@@ -14,7 +14,6 @@ describe('CRUD - offer - getOffersForSender', () => {
     expect(documents.length).toBe(1)
     expect(documents[0]).toStrictEqual(getOfferMockById(offerMockToJohnnycageId()))
     documents = await getOffersForSender(userMockJohnnyUsername())
-    expect(documents.length).toBe(1)
-    expect(documents[0]).toStrictEqual(getOfferMockById(offerMockFromJohnnycageId()))
+    expect(documents.length).toBe(0)
   })
 })
