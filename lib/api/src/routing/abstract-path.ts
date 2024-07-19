@@ -9,7 +9,7 @@ import { isNil, prop } from 'ramda'
 
 export abstract class AbstractPath<
   TQueryParams extends QueryParams = never,
-  TSearchParams extends SearchParams = TQueryParams extends SearchParams ? TQueryParams : never
+  TSearchParams extends SearchParams = TQueryParams extends SearchParams ? TQueryParams : SearchParams
 > {
   secure: boolean
   protected path: string
@@ -17,7 +17,8 @@ export abstract class AbstractPath<
   constructor(args: PathArgs<TQueryParams, TSearchParams>) {
     this.path = args.path
     this.secure = args.secure
-    // @ts-expect-error this typing is too complex for ramda ;)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     this.queryParamsMapper = prop('queryParamsMapper', args)
   }
 

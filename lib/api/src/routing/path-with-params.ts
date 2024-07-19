@@ -10,7 +10,7 @@ import { concat, isNil } from 'ramda'
 export class PathWithParams<
   TParams extends PathParams,
   TQueryParams extends QueryParams = never,
-  TSearchParams extends SearchParams = TQueryParams extends SearchParams ? TQueryParams : never
+  TSearchParams extends SearchParams = TQueryParams extends SearchParams ? TQueryParams : SearchParams
 > extends AbstractPath<TQueryParams, TSearchParams> {
   get(params: TParams, queryParams?: TQueryParams): string {
     const path = compile<TParams>(this.path, { encode: encodeURIComponent })(params)

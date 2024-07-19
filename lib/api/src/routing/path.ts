@@ -6,7 +6,7 @@ import { concat, isNil } from 'ramda'
 
 export class Path<
   TQueryParams extends QueryParams = never,
-  TSearchParams extends SearchParams = TQueryParams extends SearchParams ? TQueryParams : never
+  TSearchParams extends SearchParams = TQueryParams extends SearchParams ? TQueryParams : SearchParams
 > extends AbstractPath<TQueryParams, TSearchParams> {
   get(queryParams?: TQueryParams): string {
     if (isNil(queryParams)) {

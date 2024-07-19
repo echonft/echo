@@ -665,6 +665,9 @@ importers:
 
   lib/opensea:
     dependencies:
+      path-to-regexp:
+        specifier: 7.1.0
+        version: 7.1.0
       qs:
         specifier: 6.12.3
         version: 6.12.3
@@ -684,6 +687,9 @@ importers:
       '@babel/preset-typescript':
         specifier: 7.24.7
         version: 7.24.7(@babel/core@7.24.9)
+      '@echo/api':
+        specifier: workspace:*
+        version: link:../api
       '@echo/model':
         specifier: workspace:*
         version: link:../model

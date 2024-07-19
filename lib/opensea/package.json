@@ -15,6 +15,7 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
+    "path-to-regexp": "7.1.0",
     "qs": "6.12.3",
     "ramda": "0.30.1",
     "zod": "3.23.8"
@@ -23,6 +24,7 @@
     "@babel/core": "7.24.9",
     "@babel/preset-env": "7.24.8",
     "@babel/preset-typescript": "7.24.7",
+    "@echo/api": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "@jest/globals": "29.7.0",

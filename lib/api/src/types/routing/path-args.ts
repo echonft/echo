@@ -9,7 +9,7 @@ interface BasePathArgs {
 
 export type PathArgs<
   TQueryParams extends QueryParams = never,
-  TSearchParams extends SearchParams = TQueryParams extends SearchParams ? TQueryParams : never
+  TSearchParams extends SearchParams = TQueryParams extends SearchParams ? TQueryParams : SearchParams
 > = [TQueryParams] extends [never]
   ? BasePathArgs
   : BasePathArgs & Record<'queryParamsMapper', QueryParamsMapper<TQueryParams, TSearchParams>>
