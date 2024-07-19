@@ -4,6 +4,7 @@ import { propIsEmpty } from '@echo/utils/fp/prop-is-empty'
 import { always, isNil, modify, pipe, reject, when } from 'ramda'
 import { number, object, string } from 'zod'
 
+// noinspection JSUnusedGlobalSymbols
 export const collectionAttributesResponseSchema = object({
   attributes_name: string(),
   attributes_values: collectionAttributeResponseSchema.array(),
