@@ -9,7 +9,7 @@ import { concat, modify } from 'ramda'
 export class ApiPathWithParams<
   TParams extends PathParams,
   TQueryParams extends QueryParams = never,
-  TSearchParams extends SearchParams = TQueryParams extends SearchParams ? TQueryParams : never
+  TSearchParams extends SearchParams = TQueryParams extends SearchParams ? TQueryParams : SearchParams
 > extends PathWithParams<TParams, TQueryParams, TSearchParams> {
   constructor(args: PathArgs<TQueryParams, TSearchParams>) {
     super(modify('path', concat(apiBasePath), args) as PathArgs<TQueryParams, TSearchParams>)

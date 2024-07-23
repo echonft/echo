@@ -27,7 +27,7 @@ describe('request-handlers - offer - getOfferByIdContractRequestHandler', () => 
 
   it('throws if the offer is undefined', async () => {
     jest.mocked(getOfferByIdContract).mockResolvedValueOnce(undefined)
-    const req = mockRequest<never>()
+    const req = mockRequest()
     await expect(() =>
       getOfferByIdContractRequestHandler({ user: sender, req, params: { idContract: '0x' } })
     ).rejects.toBeInstanceOf(NotFoundError)
@@ -39,7 +39,7 @@ describe('request-handlers - offer - getOfferByIdContractRequestHandler', () => 
       sender: { ...offerMock.sender, username: 'other-user' },
       receiver: { ...offerMock.receiver, username: 'other-user' }
     })
-    const req = mockRequest<never>()
+    const req = mockRequest()
     await expect(() =>
       getOfferByIdContractRequestHandler({ user: sender, req, params: { idContract: '0xtest' } })
     ).rejects.toBeInstanceOf(ForbiddenError)
@@ -47,7 +47,7 @@ describe('request-handlers - offer - getOfferByIdContractRequestHandler', () => 
 
   it('returns a 200 if the user is authenticated and user is sender', async () => {
     const offer = getOfferMockById(offerMockToJohnnycageId())
-    const req = mockRequest<never>()
+    const req = mockRequest()
     const res = await getOfferByIdContractRequestHandler({ user: sender, req, params: { idContract: '0xtest' } })
     expect(res.status).toBe(200)
     const responseData = (await res.json()) as OfferResponse
@@ -56,7 +56,7 @@ describe('request-handlers - offer - getOfferByIdContractRequestHandler', () => 
 
   it('returns a 200 if the user is authenticated and user is receiver', async () => {
     const offer = getOfferMockById(offerMockToJohnnycageId())
-    const req = mockRequest<never>()
+    const req = mockRequest()
     const res = await getOfferByIdContractRequestHandler({ user: receiver, req, params: { idContract: '0xtest' } })
     expect(res.status).toBe(200)
     const responseData = (await res.json()) as OfferResponse

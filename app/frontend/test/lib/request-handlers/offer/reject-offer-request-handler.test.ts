@@ -28,13 +28,13 @@ describe('request-handlers - offer - rejectOfferRequestHandler', () => {
 
   it('throws if the offer does not exist', async () => {
     jest.mocked(getOffer).mockResolvedValueOnce(undefined)
-    const req = mockRequest<never>()
+    const req = mockRequest()
     await expect(() => rejectOfferRequestHandler({ user, req, params: { slug } })).rejects.toBeInstanceOf(NotFoundError)
   })
 
   it('throws if the offer state is read only', async () => {
     jest.mocked(getOffer).mockResolvedValueOnce(assoc('readOnly', true, offer))
-    const req = mockRequest<never>()
+    const req = mockRequest()
     await expect(() => rejectOfferRequestHandler({ user, req, params: { slug } })).rejects.toBeInstanceOf(
       ForbiddenError
     )
@@ -42,7 +42,7 @@ describe('request-handlers - offer - rejectOfferRequestHandler', () => {
 
   it('throws if the offer state is not OPEN', async () => {
     jest.mocked(getOffer).mockResolvedValueOnce(assoc('state', OFFER_STATE_ACCEPTED, offer))
-    const req = mockRequest<never>()
+    const req = mockRequest()
     await expect(() => rejectOfferRequestHandler({ user, req, params: { slug } })).rejects.toBeInstanceOf(
       ForbiddenError
     )
@@ -52,7 +52,7 @@ describe('request-handlers - offer - rejectOfferRequestHandler', () => {
     jest
       .mocked(getOffer)
       .mockResolvedValueOnce(modify<Offer, 'receiver', User>('receiver', assoc('username', 'another-user'), offer))
-    const req = mockRequest<never>()
+    const req = mockRequest()
     await expect(() => rejectOfferRequestHandler({ user, req, params: { slug } })).rejects.toBeInstanceOf(
       ForbiddenError
     )
@@ -62,7 +62,7 @@ describe('request-handlers - offer - rejectOfferRequestHandler', () => {
     jest.mocked(getOffer).mockResolvedValueOnce(offer)
     const updatedOffer = assoc('state', OFFER_STATE_REJECTED, offer)
     jest.mocked(rejectOffer).mockResolvedValueOnce(updatedOffer)
-    const req = mockRequest<never>()
+    const req = mockRequest()
     const res = await rejectOfferRequestHandler({ user, req, params: { slug } })
     expect(rejectOffer).toHaveBeenCalledTimes(1)
     expect(res.status).toBe(200)

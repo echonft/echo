@@ -22,7 +22,7 @@ describe('request-handlers - user - nonceRequestHandler', () => {
   it('if authenticated, returns success and updates DB', async () => {
     jest.mocked(getUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById(userMockJohnnyId()))
     jest.mocked(setNonceForUser).mockResolvedValueOnce({ nonce: 'testNonce' } as Nonce)
-    const req = mockRequest<never>()
+    const req = mockRequest()
     const res = await nonceRequestHandler({ user, req })
     expect(setNonceForUser).toHaveBeenCalledTimes(1)
     expect(res.status).toBe(200)

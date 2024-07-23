@@ -28,7 +28,7 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
 
   it('throws if the listing does not exist', async () => {
     jest.mocked(getListing).mockResolvedValueOnce(undefined)
-    const req = mockRequest<never>()
+    const req = mockRequest()
     await expect(() =>
       cancelListingRequestHandler({ user, req, params: { slug: 'not-found' } })
     ).rejects.toBeInstanceOf(NotFoundError)
@@ -36,7 +36,7 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
 
   it('throws if the listing state is read only', async () => {
     jest.mocked(getListing).mockResolvedValueOnce(assoc('readOnly', true, listing))
-    const req = mockRequest<never>()
+    const req = mockRequest()
     await expect(() => cancelListingRequestHandler({ user, req, params: { slug } })).rejects.toBeInstanceOf(
       ForbiddenError
     )
@@ -46,7 +46,7 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
     jest
       .mocked(getListing)
       .mockResolvedValueOnce(modify<Listing, 'creator', User>('creator', assoc('username', 'another-user'), listing))
-    const req = mockRequest<never>()
+    const req = mockRequest()
     await expect(() => cancelListingRequestHandler({ user, req, params: { slug } })).rejects.toBeInstanceOf(
       ForbiddenError
     )
@@ -56,7 +56,7 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
     jest.mocked(getListing).mockResolvedValueOnce(listing)
     const updatedListing = assoc('state', LISTING_STATE_CANCELLED, listing)
     jest.mocked(cancelListing).mockResolvedValueOnce(updatedListing)
-    const req = mockRequest<never>()
+    const req = mockRequest()
     const res = await cancelListingRequestHandler({ user, req, params: { slug } })
     expect(cancelListing).toHaveBeenCalledTimes(1)
     expect(res.status).toBe(200)

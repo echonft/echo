@@ -1,3 +1,4 @@
+import type { OfferSearchParams } from '@echo/api/types/routing/search-params/offer-search-params'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
@@ -38,12 +39,7 @@ import {
 async function render({
   searchParams: { items, target },
   user
-}: PropsWithUser<
-  WithSearchParamsProps<{
-    items?: string[] | string
-    target?: string
-  }>
->) {
+}: PropsWithUser<WithSearchParamsProps<OfferSearchParams>>) {
   // Cannot go to that page without previously selected data
   if (isNilOrEmpty(items)) {
     notFound()

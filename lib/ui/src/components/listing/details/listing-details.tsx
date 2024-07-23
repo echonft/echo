@@ -1,4 +1,5 @@
 'use client'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import type { Offer } from '@echo/model/types/offer'
 import type { WithSlug } from '@echo/model/types/with-slug'
@@ -16,7 +17,6 @@ import { ListingDetailsState } from '@echo/ui/components/listing/details/listing
 import { ListingDetailsTarget } from '@echo/ui/components/listing/details/listing-details-target'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { isListingRoleCreator } from '@echo/ui/helpers/listing/is-listing-role-creator'
-import { getNewOfferPath } from '@echo/ui/helpers/offer/get-new-offer-path'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
@@ -76,7 +76,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, offers, onUp
           void trigger({ slug: listing.slug })
         }}
         onFill={() => {
-          router.push(getNewOfferPath({ items: listing.items, target: listing.target.collection.slug }))
+          router.push(pathProvider.offer.new.get({ items: listing.items, target: listing.target.collection }))
         }}
       />
     </ListingDetailsLayout>

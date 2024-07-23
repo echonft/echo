@@ -1,12 +1,12 @@
 'use client'
+import { pathProvider } from '@echo/api/routing/path-provider'
+import type { Collection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
 import { TraitFilterPanel } from '@echo/ui/components/nft/filters/by-traits/trait-filter-panel'
 import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panels-layout'
 import { NftsAndFiltersLayout } from '@echo/ui/components/nft/filters/layout/nfts-and-filters-layout'
 import { SelectableNfts } from '@echo/ui/components/nft/selectable/selectable-nfts'
 import { NFT_ACTION_LISTING, NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
-import { getNewListingPathFromTarget } from '@echo/ui/helpers/listing/get-new-listing-path-from-target'
-import { getNewOfferPath } from '@echo/ui/helpers/offer/get-new-offer-path'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
 import { CollectionItemsButton } from '@echo/ui/pages/collection/collection-items-button'
 import { TabPanel } from '@headlessui/react'
@@ -15,25 +15,25 @@ import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
+  collection: Collection
   nfts: Nft[]
-  slug: string
   show?: boolean
 }
 
-export const CollectionItemsPanel: FunctionComponent<Props> = ({ nfts, slug, show }) => {
+export const CollectionItemsPanel: FunctionComponent<Props> = ({ collection, nfts, show }) => {
   const router = useRouter()
   const { filteredByNfts, selection, toggleTraitFilterSelection, selectNft, unselectNft } = useNfts({
     nfts,
     sortBy: 'owner'
   })
   function onCreateListing() {
-    router.push(getNewListingPathFromTarget(slug))
+    router.push(pathProvider.listing.new.get({ target: collection }))
   }
   function onCreateOffer(nft?: Nft) {
     if (isNil(nft)) {
-      router.push(getNewOfferPath({ items: selection.nfts }))
+      router.push(pathProvider.offer.new.get({ items: selection.nfts }))
     } else {
-      router.push(getNewOfferPath({ items: nft }))
+      router.push(pathProvider.offer.new.get({ items: nft }))
     }
   }
 
