@@ -49,10 +49,6 @@ export const ProfileTabs: FunctionComponent<Props> = ({
       show: !isEmpty(listings)
     },
     {
-      name: 'items',
-      show: !isEmpty(nfts)
-    },
-    {
       name: 'offers',
       show: !isEmpty(offers)
     },

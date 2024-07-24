@@ -10,6 +10,7 @@ import { NFT_ACTION_LISTING, NFT_ACTION_OFFER } from '@echo/ui/constants/nft-act
 import { useNfts } from '@echo/ui/hooks/use-nfts'
 import { CollectionItemsButton } from '@echo/ui/pages/collection/collection-items-button'
 import { TabPanel } from '@headlessui/react'
+import { clsx } from 'clsx'
 import { useRouter } from 'next/navigation'
 import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
@@ -41,7 +42,7 @@ export const CollectionItemsPanel: FunctionComponent<Props> = ({ collection, nft
     const count = selection.nfts.length
     const action = count > 0 ? NFT_ACTION_OFFER : NFT_ACTION_LISTING
     return (
-      <TabPanel>
+      <TabPanel className={clsx('outline-none')}>
         <NftsAndFiltersLayout>
           <NftFiltersPanelsLayout>
             <CollectionItemsButton

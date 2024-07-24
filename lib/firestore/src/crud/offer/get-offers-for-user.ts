@@ -2,18 +2,23 @@ import { getOffersCollectionReference } from '@echo/firestore/helpers/collection
 import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
+import { queryWhereFilter } from '@echo/firestore/helpers/crud/query/query-where-filter'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import { type Offer } from '@echo/model/types/offer'
+import { Filter } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
 /**
- * Retrieves all the offers for a sender, except the completed ones (which are considered a swap)
+ * Returns all offers for a user, that is if the user is either the sender or the receiver
+ * It does not return the completed offers since it is considered a swap
  * @param username
  */
-export function getOffersForSender(username: string): Promise<Offer[]> {
+export function getOffersForUser(username: string): Promise<Offer[]> {
   return pipe(
     getOffersCollectionReference,
-    queryWhere<Offer>('sender.username', '==', username),
+    queryWhereFilter<Offer>(
+      Filter.or(Filter.where('sender.username', '==', username), Filter.where('receiver.username', '==', username))
+    ),
     queryWhere('state', '!=', OFFER_STATE_COMPLETED),
     queryOrderBy<Offer>('updatedAt', 'desc'),
     getQueryData

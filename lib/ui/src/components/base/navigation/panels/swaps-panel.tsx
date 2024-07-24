@@ -5,6 +5,7 @@ import { SwapCards } from '@echo/ui/components/swap/card/swap-cards'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { TabPanel } from '@headlessui/react'
+import { clsx } from 'clsx'
 import { assoc, isNil, nth, pipe } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
@@ -21,7 +22,7 @@ export const SwapsPanel: FunctionComponent<Props> = ({ swaps, selection, show })
   // TODO swap details
   if (show) {
     return (
-      <TabPanel>
+      <TabPanel className={clsx('outline-none')}>
         <SwapCards swaps={swaps} onSelect={pipe(assoc('role', undefined), setSwap)} />
         <OfferDetailsModal
           offer={swap}

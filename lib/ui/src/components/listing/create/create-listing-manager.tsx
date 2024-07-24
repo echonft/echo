@@ -4,6 +4,7 @@ import type { CreateListingRequest } from '@echo/api/types/requests/create-listi
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
 import type { Collection } from '@echo/model/types/collection'
+import type { Expiration } from '@echo/model/types/expiration'
 import type { ListingTarget } from '@echo/model/types/listing-target'
 import type { Nft } from '@echo/model/types/nft'
 import { CreateListing } from '@echo/ui/components/listing/create/create-listing'
@@ -47,11 +48,11 @@ export const CreateListingManager: FunctionComponent<Props> = ({ creatorNfts, it
       items={items}
       target={target}
       loading={isMutating}
-      onComplete={(items: Nft[], target: ListingTarget, expiresAt: number) => {
+      onComplete={(items: Nft[], target: ListingTarget, expiration: Expiration) => {
         void trigger({
           items: getNftIndexForNfts(items),
           target: mapListingTargetToRequest(target),
-          expiresAt
+          expiration
         })
       }}
       onCancel={() => {

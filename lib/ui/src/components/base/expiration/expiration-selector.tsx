@@ -1,5 +1,5 @@
-import { EXPIRATIONS } from '@echo/ui/constants/expiration'
-import type { Expiration } from '@echo/ui/types/expiration'
+import { EXPIRATIONS } from '@echo/model/constants/expiration'
+import type { Expiration } from '@echo/model/types/expiration'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const ExpirationSelector: FunctionComponent<Props> = ({ selectedExpiration, onSelect, loading }) => {
-  const t = useTranslations('offer.create.expiration')
+  const t = useTranslations('offer.create.expiration.selector')
   return (
     <div className={clsx('flex', 'flex-row', 'gap-2.5')}>
       {EXPIRATIONS.map((expiration) => (
@@ -28,7 +28,7 @@ export const ExpirationSelector: FunctionComponent<Props> = ({ selectedExpiratio
           onClick={() => onSelect?.(expiration)}
           key={expiration}
         >
-          <span className={clsx('prose-label-md', 'text-white')}>{t('selector', { count: expiration })}</span>
+          <span className={clsx('prose-label-md', 'text-white')}>{t(expiration)}</span>
         </button>
       ))}
     </div>

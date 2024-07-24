@@ -148,7 +148,6 @@ export const messages = {
       expiration: {
         title: 'One <yellow>last step</yellow>\n before we create the listing!',
         subtitle: 'Set the expiration date to:',
-        selector: '{count} {count, plural, =1 { Day} other { Days}}',
         finalizeBtn: 'Finalize Listing',
         editBtn: 'Edit'
       }
@@ -220,7 +219,11 @@ export const messages = {
       expiration: {
         title: 'One <yellow>last step</yellow>\n before you let it\n go!',
         subtitle: 'Set the expiration date to:',
-        selector: '{count} {count, plural, =1 { Day} other { Days}}',
+        selector: {
+          '1d': '1 day',
+          '3d': '3 days',
+          '7d': '7 days'
+        },
         finalizeBtn: 'Finalize Offer',
         editBtn: 'Edit'
       },

@@ -9,6 +9,7 @@ import { getListingTargetFromRequest } from '@echo/frontend/lib/helpers/listing/
 import { getNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-nfts-from-indexes'
 import { createListingRequestHandler } from '@echo/frontend/lib/request-handlers/listing/create-listing-request-handler'
 import { mockRequest } from '@echo/frontend/mocks/mock-request'
+import { ONE_DAY } from '@echo/model/constants/expiration'
 import { getListingItemsIndexes } from '@echo/model/helpers/listing/get-listing-items-indexes'
 import { getCollectionMockBySlug } from '@echo/model/mocks/collection/get-collection-mock-by-slug'
 import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
@@ -22,7 +23,6 @@ import type { ListingTarget } from '@echo/model/types/listing-target'
 import { type Nft, type NftIndex } from '@echo/model/types/nft'
 import { mapListingTargetToRequest } from '@echo/ui/mappers/to-api/map-listing-target-to-request'
 import { toPromise } from '@echo/utils/fp/to-promise'
-import { futureDate } from '@echo/utils/helpers/future-date'
 import { map, modify, pipe, prop } from 'ramda'
 
 jest.mock('@echo/firestore/crud/listing/add-listing')
@@ -52,7 +52,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
     const request: CreateListingRequest = {
       items: [getNftMockById(nftMockSpiralCrewId())],
       target: pipe<[Listing], ListingTarget, ListingTargetRequest>(prop('target'), mapListingTargetToRequest)(listing),
-      expiresAt: futureDate()
+      expiration: ONE_DAY
     }
     jest.mocked(addListing).mockResolvedValue({ id: listingMockId(), data: listing, listingOffers: [] })
     const req = mockRequest<CreateListingRequest>(request)
@@ -63,7 +63,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
     const validRequest: CreateListingRequest = {
       items: getListingItemsIndexes(listing),
       target: pipe<[Listing], ListingTarget, ListingTargetRequest>(prop('target'), mapListingTargetToRequest)(listing),
-      expiresAt: futureDate()
+      expiration: ONE_DAY
     }
     jest.mocked(addListing).mockResolvedValue({ id: listingMockId(), data: listing, listingOffers: [] })
     const req = mockRequest<CreateListingRequest>(validRequest)
