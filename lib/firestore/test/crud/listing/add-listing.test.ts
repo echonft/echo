@@ -10,7 +10,9 @@ import type { ListingOffer } from '@echo/firestore/types/model/listing-offer/lis
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { assertListingOffers } from '@echo/firestore/utils/listing-offer/assert-listing-offers'
 import { assertListings } from '@echo/firestore/utils/listing/assert-listings'
+import { ONE_DAY } from '@echo/model/constants/expiration'
 import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
+import { expirationToDate } from '@echo/model/helpers/expiration-to-date'
 import { getAllListingMocks } from '@echo/model/mocks/listing/get-all-listing-mocks'
 import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
@@ -50,15 +52,16 @@ describe('CRUD - listing - addListing', () => {
     ).rejects.toBeDefined()
   })
   it('throws if the listing is a duplicate', async () => {
-    const { items, target, expiresAt } = getListingMockById(listingMockId())
-    await expect(addListing({ items, target, expiresAt })).rejects.toBeDefined()
+    const { items, target } = getListingMockById(listingMockId())
+    await expect(addListing({ items, target, expiration: ONE_DAY })).rejects.toBeDefined()
     const listings = await getAllListings()
     expect(eqListContent(listings, getAllListingMocks())).toBeTruthy()
   })
   it('add a listing', async () => {
-    const { creator, items, target, expiresAt } = getListingMockById(listingMockId())
+    const { creator, items, target } = getListingMockById(listingMockId())
+    const expirationDate = expirationToDate(ONE_DAY)
     const newTarget = assoc('amount', 1, target)
-    const newDocument = await addListing({ items, target: newTarget, expiresAt })
+    const newDocument = await addListing({ items, target: newTarget, expiration: ONE_DAY })
     createdListingId = newDocument.id
     createdListingOfferIds = pipe(
       prop('listingOffers'),
@@ -71,7 +74,8 @@ describe('CRUD - listing - addListing', () => {
     expect(newListing.target).toStrictEqual(newTarget)
     expect(dayjs.unix(newListing.updatedAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
     expect(dayjs.unix(newListing.updatedAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
-    expect(newListing.expiresAt).toBe(expiresAt)
+    expect(dayjs.unix(newListing.expiresAt).isAfter(expirationDate.subtract(1, 'minute'))).toBeTruthy()
+    expect(dayjs.unix(newListing.expiresAt).isBefore(expirationDate.add(1, 'minute'))).toBeTruthy()
     // check if listing offers have been created
     const listingOffers = await getListingOffersForListing(newListing)
     const createdListingOffers = await getListingOffersByListingId(createdListingId)

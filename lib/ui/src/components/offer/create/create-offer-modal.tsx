@@ -1,6 +1,6 @@
 'use client'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
-import { expirationToDate } from '@echo/model/helpers/expiration-to-date'
+import { expirationToDateNumber } from '@echo/model/helpers/expiration-to-date-number'
 import { generateBaseOffer } from '@echo/model/helpers/offer/generate-base-offer'
 import type { Expiration } from '@echo/model/types/expiration'
 import type { Nft } from '@echo/model/types/nft'
@@ -45,7 +45,7 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
       generateBaseOffer({
         receiverOfferItems: receiverItems,
         senderOfferItems: senderItems,
-        expiresAt: expirationToDate(expiration)
+        expiresAt: expirationToDateNumber(expiration)
       }),
     [expiration, receiverItems, senderItems]
   )

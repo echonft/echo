@@ -10,7 +10,7 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { allPass, always, andThen, assoc, complement, isNotNil, pipe, propEq, toLower, when } from 'ramda'
 
-// TODO add a flag to only compare with EVM - we will want a chains equal check at some poin
+// TODO add a flag to only compare with EVM - we will want a chains equal check at some point
 // also, we should probably simply create wallets for all supported EVM chains when a user adds a wallet
 // it would make things much easier
 export function getWalletSnapshotByAddress(
