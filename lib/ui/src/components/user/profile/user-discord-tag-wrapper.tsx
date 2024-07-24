@@ -12,5 +12,5 @@ export const UserDiscordTagWrapper: FunctionComponent<PropsWithChildren<Props>> 
   if (isNil(username)) {
     return <>{children}</>
   }
-  return <InternalLink path={pathProvider.user.items.get({ username })}>{children}</InternalLink>
+  return <InternalLink path={pathProvider.user.default.get({ username })}>{children}</InternalLink>
 }

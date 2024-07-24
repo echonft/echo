@@ -1,6 +1,6 @@
 'use client'
+import { pathProvider } from '@echo/api/routing/path-provider'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
-import type { User } from '@echo/auth/types/user'
 import type { Offer } from '@echo/model/types/offer'
 import type { WithSlug } from '@echo/model/types/with-slug'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
@@ -17,53 +17,45 @@ import { ListingDetailsState } from '@echo/ui/components/listing/details/listing
 import { ListingDetailsTarget } from '@echo/ui/components/listing/details/listing-details-target'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { isListingRoleCreator } from '@echo/ui/helpers/listing/is-listing-role-creator'
-import { getNewOfferPath } from '@echo/ui/helpers/offer/get-new-offer-path'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
-import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { assoc, isEmpty } from 'ramda'
-import { type FunctionComponent, useEffect, useState } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   listing: ListingWithRole
-  user: Nullable<User>
   offers: Offer[]
+  onUpdate?: (listing: ListingWithRole) => unknown
 }
 
-export const ListingDetails: FunctionComponent<Props> = ({ listing, offers }) => {
+export const ListingDetails: FunctionComponent<Props> = ({ listing, offers, onUpdate }) => {
   const t = useTranslations('error.listing')
   const router = useRouter()
   const { cancelListing } = useDependencies()
-  const [updatedListing, setUpdatedListing] = useState(listing)
-  const { creator, items, target } = updatedListing
-  const isCreator = isListingRoleCreator(updatedListing)
-
   const { trigger, isMutating } = useSWRTrigger<ListingResponse, WithSlug>({
-    key: SWRKeys.listing.cancel(updatedListing),
+    key: SWRKeys.listing.cancel(listing),
     fetcher: cancelListing,
     onSuccess: (response) => {
-      setUpdatedListing(assoc('role', listing.role, response.listing))
+      onUpdate?.(assoc('role', listing.role, response.listing))
     },
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('cancel') },
-      loggerContext: { component: ListingDetails.name, fetcher: cancelListing.name, listing: updatedListing }
+      loggerContext: { component: ListingDetails.name, fetcher: cancelListing.name, listing }
     }
   })
-  // update listing if the prop changes
-  useEffect(() => {
-    setUpdatedListing(listing)
-  }, [listing])
+  const { creator, items, target } = listing
+  const isCreator = isListingRoleCreator(listing)
 
   return (
     <ListingDetailsLayout>
-      <ListingDetailsUserStateLayout role={updatedListing.role}>
+      <ListingDetailsUserStateLayout role={listing.role}>
         <ListingDetailsCreator show={!isCreator} creator={creator} />
-        <ListingDetailsState listing={updatedListing} />
+        <ListingDetailsState listing={listing} />
       </ListingDetailsUserStateLayout>
       <ListingDetailsItemsAndTargetLayout>
         <ListingDetailsItemsLayout>
@@ -74,17 +66,17 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, offers }) =>
           <ListingDetailsTargetLayout>
             <ListingDetailsTarget target={target} />
           </ListingDetailsTargetLayout>
-          <ListingDetailsOffers show={isCreator && !isEmpty(offers) && !updatedListing.readOnly} offers={offers} />
+          <ListingDetailsOffers show={isCreator && !isEmpty(offers) && !listing.readOnly} offers={offers} />
         </div>
       </ListingDetailsItemsAndTargetLayout>
       <ListingDetailsButtons
-        listing={updatedListing}
+        listing={listing}
         isMutating={isMutating}
         onCancel={(listing) => {
           void trigger({ slug: listing.slug })
         }}
         onFill={() => {
-          router.push(getNewOfferPath({ items: listing.items, target: listing.target.collection.slug }))
+          router.push(pathProvider.offer.new.get({ items: listing.items, target: listing.target.collection }))
         }}
       />
     </ListingDetailsLayout>

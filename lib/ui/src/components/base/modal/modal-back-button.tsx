@@ -8,7 +8,7 @@ export interface ModalBackButtonProps {
 }
 
 export const ModalBackButton: FunctionComponent<ModalBackButtonProps> = ({ label, onBack }) => {
-  if (isNil(label)) {
+  if (isNil(label) && isNil(onBack)) {
     return null
   }
   return <BackButton onBack={onBack} title={label} disabled={isNil(onBack)} />

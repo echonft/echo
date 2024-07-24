@@ -1,11 +1,9 @@
 'use client'
-import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
-import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import type { Collection } from '@echo/model/types/collection'
+import type { Expiration } from '@echo/model/types/expiration'
 import type { ListingTarget } from '@echo/model/types/listing-target'
 import type { Nft } from '@echo/model/types/nft'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
-import { StateExpiration } from '@echo/ui/components/base/state-expiration'
 import { CreateListingButtons } from '@echo/ui/components/listing/create/create-listing-buttons'
 import { CreateListingExpiration } from '@echo/ui/components/listing/create/create-listing-expiration'
 import { CreateListingNfts } from '@echo/ui/components/listing/create/create-listing-nfts'
@@ -16,7 +14,6 @@ import { SWAP_DIRECTION_IN, SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-d
 import { useNfts } from '@echo/ui/hooks/use-nfts'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
-import dayjs from 'dayjs'
 import { assoc, isEmpty, isNil } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
@@ -26,7 +23,7 @@ interface Props {
   target: Nullable<Collection>
   loading?: boolean
   onCancel?: VoidFunction
-  onComplete?: (items: Nft[], target: ListingTarget, expiresAt: number) => void
+  onComplete?: (items: Nft[], target: ListingTarget, expiration: Expiration) => void
 }
 
 export const CreateListing: FunctionComponent<Props> = ({
@@ -59,7 +56,7 @@ export const CreateListing: FunctionComponent<Props> = ({
         }}
         onComplete={(expiration) => {
           if (!isNil(targetSelection)) {
-            onComplete?.(selection.nfts, targetSelection, dayjs().add(expiration, 'day').unix())
+            onComplete?.(selection.nfts, targetSelection, expiration)
           }
         }}
         loading={loading}
@@ -69,14 +66,6 @@ export const CreateListing: FunctionComponent<Props> = ({
 
   return (
     <div className={clsx('flex', 'flex-col', 'gap-24')}>
-      <div className={clsx('flex', 'flex-row', 'justify-end')}>
-        {/*  FIXME expiresAt value should be derived from state */}
-        <StateExpiration
-          expiresAt={dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix()}
-          readOnly={false}
-          state={OFFER_STATE_OPEN}
-        />
-      </div>
       <div className={clsx('flex', 'flex-col', 'gap-20')}>
         <CreateListingSwapDirectionHeader direction={SWAP_DIRECTION_IN} />
         <div className={clsx('flex', 'flex-row', 'justify-center', 'h-max', 'w-full', 'px-8')}>
@@ -112,7 +101,7 @@ export const CreateListing: FunctionComponent<Props> = ({
         <div className={clsx('flex', 'flex-row', 'gap-8', 'justify-center', 'items-center', 'pb-5')}>
           <CreateListingButtons
             readOnly={reviewing}
-            disabled={!reviewing && (isEmpty(selection.nfts) || isEmpty(targetSelection))}
+            disabled={!reviewing && (isEmpty(selection.nfts) || isNil(targetSelection))}
             loading={loading}
             onComplete={() => {
               if (reviewing) {

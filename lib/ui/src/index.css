@@ -18,6 +18,18 @@
   .pill {
     @apply w-max h-max py-3 px-6 rounded-lg enabled:bg-transparent enabled:cursor-pointer enabled:hover:bg-white/[0.08] disabled:bg-white/[0.08] disabled:cursor-default;
   }
+  .tab {
+    @apply w-max h-max py-3 px-6 rounded-lg bg-transparent cursor-pointer data-[hover]:bg-white/[0.08] data-[selected]:bg-white/[0.08] data-[selected]:cursor-default focus:outline-none;
+  }
+  .tab-list {
+    @apply flex flex-row w-full h-max gap-3.5 pb-12;
+  }
+  .page-layout {
+    @apply flex flex-col self-stretch grow w-full h-full;
+  }
+  .navigation-page-layout {
+    @apply flex flex-col w-full gap-12;
+  }
   .btn {
     @apply flex flex-row justify-center items-center disabled:opacity-40 rounded-lg select-none outline-none h-max w-max transition-colors;
   }

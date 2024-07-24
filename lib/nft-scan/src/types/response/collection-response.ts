@@ -1,3 +1,4 @@
+import type { ErcType } from '@echo/nft-scan/types/erc-type'
 import type { CollectionAttributesResponse } from '@echo/nft-scan/types/response/collection-attributes-response'
 import type { Nullable } from '@echo/utils/types/nullable'
 
@@ -11,7 +12,7 @@ export interface CollectionResponse {
   description: string | null
   discord: string | null
   email: string | null
-  erc_type: 'erc721' | 'erc1155'
+  erc_type: ErcType
   featured_url: string | null
   floor_price: number | null
   github: string | null

@@ -1,6 +1,8 @@
 'use client'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
+import { expirationToDateNumber } from '@echo/model/helpers/expiration-to-date-number'
 import { generateBaseOffer } from '@echo/model/helpers/offer/generate-base-offer'
+import type { Expiration } from '@echo/model/types/expiration'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { Modal } from '@echo/ui/components/base/modal/modal'
@@ -10,13 +12,11 @@ import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
-import type { Expiration } from '@echo/ui/types/expiration'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { ContractCreateOfferArgs } from '@echo/web3-dom/types/contract-create-offer-args'
 import { generateOfferId } from '@echo/web3/helpers/generate-offer-id'
 import { clsx } from 'clsx'
-import dayjs from 'dayjs'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useMemo } from 'react'
 
@@ -45,7 +45,7 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
       generateBaseOffer({
         receiverOfferItems: receiverItems,
         senderOfferItems: senderItems,
-        expiresAt: dayjs().add(expiration, 'day').unix()
+        expiresAt: expirationToDateNumber(expiration)
       }),
     [expiration, receiverItems, senderItems]
   )

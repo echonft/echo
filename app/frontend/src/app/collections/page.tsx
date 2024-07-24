@@ -3,11 +3,14 @@ import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-e
 import { getCollectionsWithSwapsCount } from '@echo/frontend/lib/helpers/collection/get-collections-with-swaps-count'
 import type { WithUserProps } from '@echo/frontend/lib/types/with-user-props'
 import type { Collection } from '@echo/model/types/collection'
+import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
+import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
+import { BG_COLLECTIONS } from '@echo/ui/constants/background'
 import { CollectionsPage } from '@echo/ui/pages/collections/collections-page'
 import type { CollectionWithRank } from '@echo/ui/types/collection-with-rank'
 import { addIndex, always, andThen, assoc, map, otherwise, pipe } from 'ramda'
 
-async function render(_props: WithUserProps) {
+async function render({ user }: WithUserProps) {
   const collections = await pipe<
     [],
     Promise<Collection[]>,
@@ -20,7 +23,13 @@ async function render(_props: WithUserProps) {
     ),
     otherwise(pipe(captureAndLogError, always([])))
   )()
-  return <CollectionsPage collections={collections} />
+  return (
+    <PageLayout user={user} background={BG_COLLECTIONS}>
+      <SectionLayout>
+        <CollectionsPage collections={collections} />
+      </SectionLayout>
+    </PageLayout>
+  )
 }
 
 export default withUser(render)

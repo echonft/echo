@@ -7,9 +7,14 @@ import {
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
-import { BG_GREEN_GRADIENT, BG_RED_GRADIENT, BG_YELLOW_GRADIENT } from '@echo/ui/constants/background'
+import { BG_DEFAULT, BG_GREEN_GRADIENT, BG_RED_GRADIENT, BG_YELLOW_GRADIENT } from '@echo/ui/constants/background'
+import type { Nullable } from '@echo/utils/types/nullable'
+import { isNil } from 'ramda'
 
-export function getOfferBackground(offer: Offer) {
+export function getOfferBackground(offer: Nullable<Offer>) {
+  if (isNil(offer)) {
+    return BG_DEFAULT
+  }
   switch (offer.state) {
     case OFFER_STATE_OPEN:
     case OFFER_STATE_ACCEPTED:

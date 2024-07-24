@@ -1,22 +1,57 @@
-import { pathProvider } from '@echo/api/routing/path-provider'
+'use client'
 import type { Listing } from '@echo/model/types/listing'
-import { InternalLink } from '@echo/ui/components/base/internal-link'
-import { ListingCardSwitch } from '@echo/ui/components/listing/card/listing-card-switch'
-import { type FunctionComponent } from 'react'
+import { CardFooter } from '@echo/ui/components/base/card/card-footer'
+import { CardLayout } from '@echo/ui/components/base/card/layout/card-layout'
+import { StackLayout } from '@echo/ui/components/base/stack/layout/stack-layout'
+import { StackFooter } from '@echo/ui/components/base/stack/stack-footer'
+import { ListingCardPicture } from '@echo/ui/components/listing/card/listing-card-picture'
+import { ListingStackPicture } from '@echo/ui/components/listing/card/listing-stack-picture'
+import { getNftStack } from '@echo/ui/helpers/nft/get-nft-stack'
+import { getTokenIdString } from '@echo/ui/helpers/nft/get-token-id-string'
+import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
+import { head } from 'ramda'
 
-export interface ListingCardProps {
-  listing: Listing
+export interface ListingCardProps<T extends Listing> {
+  listing: T
   options?: {
     scaleDisabled?: boolean
   }
+  onSelect?: (listing: T) => unknown
 }
 
-export const ListingCard: FunctionComponent<ListingCardProps> = ({ listing, options }) => {
-  return (
-    <InternalLink
-      path={pathProvider.collection.listing.getUrl({ slug: listing.target.collection.slug, listingSlug: listing.slug })}
-    >
-      <ListingCardSwitch listing={listing} scaleDisabled={options?.scaleDisabled} />
-    </InternalLink>
-  )
+export const ListingCard = <T extends Listing>({ listing, options, onSelect }: ListingCardProps<T>) => {
+  const { items } = listing
+  if (isNonEmptyArray(items)) {
+    if (items.length > 1) {
+      const stack = getNftStack(items)
+      return (
+        <StackLayout
+          onClick={() => {
+            onSelect?.(listing)
+          }}
+        >
+          <ListingStackPicture stack={stack} listing={listing} scaleDisabled={options?.scaleDisabled} />
+          <StackFooter
+            title={stack.collection.name}
+            subtitle={getTokenIdString(stack.tokenId, stack.collection.totalSupply)}
+          />
+        </StackLayout>
+      )
+    }
+    const item = head(items)
+    return (
+      <CardLayout
+        onClick={() => {
+          onSelect?.(listing)
+        }}
+      >
+        <ListingCardPicture listing={listing} scaleDisabled={options?.scaleDisabled} />
+        <CardFooter
+          title={item.collection.name}
+          subtitle={getTokenIdString(item.tokenId, item.collection.totalSupply)}
+        />
+      </CardLayout>
+    )
+  }
+  return null
 }

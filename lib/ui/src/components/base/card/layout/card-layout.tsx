@@ -1,11 +1,16 @@
+'use client'
 import type { WithChildrenProps } from '@echo/ui/types/props/with-children-props'
 import type { WithClassNameProps } from '@echo/ui/types/props/with-class-name-props'
 import type { WithLoadingProps } from '@echo/ui/types/props/with-loading-props'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { isNil } from 'ramda'
+import type { FunctionComponent, MouseEventHandler } from 'react'
 
-export interface CardLayoutProps extends WithChildrenProps, WithLoadingProps, WithClassNameProps {}
-export const CardLayout: FunctionComponent<CardLayoutProps> = ({ loading, className, children }) => {
+export interface CardLayoutProps extends WithChildrenProps, WithLoadingProps, WithClassNameProps {
+  onClick?: MouseEventHandler
+}
+
+export const CardLayout: FunctionComponent<CardLayoutProps> = ({ loading, className, children, onClick }) => {
   return (
     <div
       className={clsx(
@@ -19,9 +24,11 @@ export const CardLayout: FunctionComponent<CardLayoutProps> = ({ loading, classN
         'bg-dark-500',
         'group',
         'transition ease-in-out',
-        loading && 'animate-pulse',
+        'outline-none',
+        loading ? 'animate-pulse' : !isNil(onClick) && 'cursor-pointer',
         className
       )}
+      onClick={loading ? undefined : onClick}
     >
       {children}
     </div>

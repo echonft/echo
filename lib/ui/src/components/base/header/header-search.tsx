@@ -25,10 +25,10 @@ export const HeaderSearch: FunctionComponent = () => {
         resultsProvider={pipe(juxt([searchCollections, searchUsers]), promiseAll, andThen(flatten))}
         onSelect={(result: SearchResult<Lowercase<string>>) => {
           if (result.category === SEARCH_RESULT_CATEGORY_COLLECTION) {
-            router.push(pathProvider.collection.items.get({ slug: result.value }))
+            router.push(pathProvider.collection.default.get({ slug: result.value }))
           }
           if (result.category === SEARCH_RESULT_CATEGORY_USER) {
-            router.push(pathProvider.user.items.get({ username: result.value }))
+            router.push(pathProvider.user.default.get({ username: result.value }))
           }
         }}
         style={{

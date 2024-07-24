@@ -1,3 +1,4 @@
+import type { ErcType } from '@echo/nft-scan/types/erc-type'
 import type { NftAttributeResponse } from '@echo/nft-scan/types/response/nft-attribute-response'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -11,7 +12,7 @@ export interface NftResponse {
   contract_name: string
   contract_token_id: string
   description: string | null
-  erc_type: 'erc721' | 'erc1155'
+  erc_type: ErcType
   external_link: string | null
   image_uri: string | null
   latest_trade_price: number | null

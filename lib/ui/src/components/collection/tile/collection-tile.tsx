@@ -22,7 +22,7 @@ export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, nam
   const t = useTranslations('collection')
   const url = addPictureSize({ src: pictureUrl ?? '', width: PICTURE_SIZE_XL })
   return (
-    <InternalLink path={pathProvider.collection.items.get({ slug })}>
+    <InternalLink path={pathProvider.collection.default.get({ slug })}>
       <div
         className={clsx(
           'rounded-2xl',

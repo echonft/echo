@@ -1,9 +1,16 @@
 import { Path } from '@echo/api/routing/path'
-import type { Offer } from '@echo/model/types/offer'
-import type { WithSlug } from '@echo/model/types/with-slug'
-import type { WithSlugType } from '@echo/model/types/with-slug-type'
-import type { WithUsername } from '@echo/model/types/with-username'
-import type { WithUsernameType } from '@echo/model/types/with-username-type'
+import { PathWithParams } from '@echo/api/routing/path-with-params'
+import { listingQueryMapper } from '@echo/api/routing/query-mappers/listing-query-mapper'
+import { offerQueryMapper } from '@echo/api/routing/query-mappers/offer-query-mapper'
+import { selectionQueryMapper } from '@echo/api/routing/query-mappers/selection-query-mapper'
+import type { ListingQueryParams } from '@echo/api/types/routing/query-params/listing-query-params'
+import type { OfferQueryParams } from '@echo/api/types/routing/query-params/offer-query-params'
+import type { SelectionQueryParams } from '@echo/api/types/routing/query-params/selection-query-params'
+import type { ListingSearchParams } from '@echo/api/types/routing/search-params/listing-search-params'
+import type { OfferSearchParams } from '@echo/api/types/routing/search-params/offer-search-params'
+import type { SelectionSearchParams } from '@echo/api/types/routing/search-params/selection-search-params'
+import type { Slug } from '@echo/model/types/slug'
+import type { Username } from '@echo/model/types/username'
 
 export const pathProvider = {
   auth: {
@@ -14,40 +21,38 @@ export const pathProvider = {
   },
   collection: {
     all: new Path({ path: '/collections', secure: false }),
-    default: new Path<WithSlug>({ path: '/collection/:slug', secure: false }),
-    items: new Path<WithSlug>({ path: '/collection/:slug/items', secure: false }),
-    listing: new Path<WithSlugType<Record<'listingSlug', string>>>({
-      path: '/collection/:slug/listing/:listingSlug',
-      secure: false
-    }),
-    listings: new Path<WithSlug>({ path: '/collection/:slug/listings', secure: false }),
-    swaps: new Path<WithSlug>({ path: '/collection/:slug/swaps', secure: false })
+    default: new PathWithParams<Record<'slug', Slug>, SelectionQueryParams, SelectionSearchParams>({
+      path: '/collection/:slug',
+      secure: false,
+      queryParamsMapper: selectionQueryMapper
+    })
   },
   listing: {
-    new: new Path({ path: '/listing/new', secure: true })
+    new: new Path<ListingQueryParams, ListingSearchParams>({
+      path: '/listing',
+      secure: true,
+      queryParamsMapper: listingQueryMapper
+    })
   },
   offer: {
-    new: new Path({ path: '/offer/new', secure: true })
+    new: new Path<OfferQueryParams, OfferSearchParams>({
+      path: '/offer',
+      secure: true,
+      queryParamsMapper: offerQueryMapper
+    })
   },
   profile: {
-    default: new Path({ path: '/me', secure: true }),
-    explore: new Path({ path: '/me/explore', secure: true }),
-    items: new Path({ path: '/me/items', secure: true }),
-    listings: new Path({ path: '/me/listings', secure: true }),
-    offers: new Path({ path: '/me/offers', secure: true }),
-    pendingOffers: new Path({ path: '/me/offers/pending', secure: true })
+    default: new Path<SelectionQueryParams, SelectionSearchParams>({
+      path: '/me',
+      secure: true,
+      queryParamsMapper: selectionQueryMapper
+    })
   },
   user: {
-    default: new Path<WithUsername>({ path: '/user/:username', secure: false }),
-    items: new Path<WithUsername>({ path: '/user/:username/items', secure: false }),
-    listings: new Path<WithUsername>({ path: '/user/:username/listings', secure: false }),
-    offer: new Path<WithUsernameType<Pick<Offer, 'idContract'>>>({
-      path: '/user/:username/offer/:idContract',
-      secure: true
-    }),
-    swaps: new Path<WithUsername>({ path: '/user/:username/swaps', secure: false })
-  },
-  swap: {
-    details: new Path<WithSlug>({ path: '/swap/:slug', secure: false })
+    default: new PathWithParams<Record<'username', Username>, SelectionQueryParams, SelectionSearchParams>({
+      path: '/user/:username',
+      secure: false,
+      queryParamsMapper: selectionQueryMapper
+    })
   }
 }

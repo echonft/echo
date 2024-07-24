@@ -7,9 +7,7 @@ export function buildListingLinkButton(listing: Listing) {
   return new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder()
       .setLabel(i18next.t('listing.button'))
-      .setURL(
-        pathProvider.collection.listing.getUrl({ slug: listing.target.collection.slug, listingSlug: listing.slug })
-      )
+      .setURL(pathProvider.collection.default.getUrl({ slug: listing.target.collection.slug }, { listing: listing }))
       .setStyle(ButtonStyle.Link)
   )
 }

@@ -13,7 +13,7 @@ export async function createListingRequestHandler({
   user: { username },
   req
 }: AuthRequestHandlerArgs<CreateListingRequest>) {
-  const { items: requestItems, target: requestTarget, expiresAt } = await parseRequest(createListingSchema)(req)
+  const { items: requestItems, target: requestTarget, expiration } = await parseRequest(createListingSchema)(req)
   const items = await getNftsFromIndexes(requestItems)
   const target = await getListingTargetFromRequest(requestTarget)
   for (const item of items) {
@@ -21,5 +21,5 @@ export async function createListingRequestHandler({
       return Promise.reject(new ForbiddenError())
     }
   }
-  return pipe(addListing, andThen(pipe(prop('data'), objOf('listing'), toNextReponse)))({ items, target, expiresAt })
+  return pipe(addListing, andThen(pipe(prop('data'), objOf('listing'), toNextReponse)))({ items, target, expiration })
 }

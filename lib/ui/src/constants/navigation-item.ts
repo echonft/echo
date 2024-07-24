@@ -1,6 +1,0 @@
-export const NAVIGATION_EXPLORE = 'explore'
-export const NAVIGATION_LISTINGS = 'listings'
-export const NAVIGATION_NFTS = 'nfts'
-export const NAVIGATION_OFFERS = 'offers'
-export const NAVIGATION_PENDING_OFFERS = 'pending-offers'
-export const NAVIGATION_SWAPS = 'swaps'

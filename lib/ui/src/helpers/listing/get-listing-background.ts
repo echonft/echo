@@ -7,9 +7,14 @@ import {
   LISTING_STATE_PARTIALLY_FULFILLED
 } from '@echo/model/constants/listing-states'
 import type { Listing } from '@echo/model/types/listing'
-import { BG_GREEN_GRADIENT, BG_RED_GRADIENT, BG_YELLOW_GRADIENT } from '@echo/ui/constants/background'
+import { BG_DEFAULT, BG_GREEN_GRADIENT, BG_RED_GRADIENT, BG_YELLOW_GRADIENT } from '@echo/ui/constants/background'
+import type { Nullable } from '@echo/utils/types/nullable'
+import { isNil } from 'ramda'
 
-export function getListingBackground(listing: Listing) {
+export function getListingBackground(listing: Nullable<Listing>) {
+  if (isNil(listing)) {
+    return BG_DEFAULT
+  }
   switch (listing.state) {
     case LISTING_STATE_OPEN:
     case LISTING_STATE_OFFERS_PENDING:

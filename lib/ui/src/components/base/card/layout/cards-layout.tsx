@@ -7,6 +7,7 @@ import { type FunctionComponent, type PropsWithChildren } from 'react'
 interface Props {
   alignment?: Alignment
 }
+
 export const CardsLayout: FunctionComponent<PropsWithChildren<Props>> = ({ alignment = ALIGNMENT_LEFT, children }) => {
   return (
     <div
@@ -17,6 +18,7 @@ export const CardsLayout: FunctionComponent<PropsWithChildren<Props>> = ({ align
         'gap-5',
         'h-max',
         'w-full',
+        'outline-none',
         alignment === ALIGNMENT_RIGHT ? 'flex-row-reverse' : 'flex-row',
         alignment === ALIGNMENT_CENTER && 'justify-center'
       )}

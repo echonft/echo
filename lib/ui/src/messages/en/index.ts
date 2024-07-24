@@ -59,11 +59,6 @@ export const messages = {
     page: {
       title: 'Collections Stats'
     },
-    navigation: {
-      items: 'Items',
-      listings: 'Listings',
-      swaps: 'Swaps'
-    },
     search: {
       emptyResults: 'No collections found',
       label: 'Search by collection name'
@@ -124,6 +119,13 @@ export const messages = {
       search: {
         placeHolder: 'Search for collections or users'
       }
+    },
+    tab: {
+      explore: 'Explore',
+      items: 'Items',
+      listings: 'Listings',
+      offers: 'Offers',
+      swaps: 'Swaps'
     }
   },
   listing: {
@@ -146,7 +148,6 @@ export const messages = {
       expiration: {
         title: 'One <yellow>last step</yellow>\n before we create the listing!',
         subtitle: 'Set the expiration date to:',
-        selector: '{count} {count, plural, =1 { Day} other { Days}}',
         finalizeBtn: 'Finalize Listing',
         editBtn: 'Edit'
       }
@@ -218,7 +219,11 @@ export const messages = {
       expiration: {
         title: 'One <yellow>last step</yellow>\n before you let it\n go!',
         subtitle: 'Set the expiration date to:',
-        selector: '{count} {count, plural, =1 { Day} other { Days}}',
+        selector: {
+          '1d': '1 day',
+          '3d': '3 days',
+          '7d': '7 days'
+        },
         finalizeBtn: 'Finalize Offer',
         editBtn: 'Edit'
       },
@@ -358,13 +363,6 @@ Don't worry, its safe with us.`
       create: 'Create listing',
       finalize: 'Finalize listing'
     },
-    navigation: {
-      explore: 'Explore',
-      items: 'Owned',
-      listings: 'Listings',
-      offers: 'Offers',
-      pendingOffers: 'Pending Offers'
-    },
     offerButton: 'Finalize offer'
   },
   search: {
@@ -393,11 +391,6 @@ Don't worry, its safe with us.`
       collection: {
         title: 'Collections'
       }
-    },
-    navigation: {
-      items: 'Items',
-      listings: 'Listings',
-      swaps: 'Swaps'
     }
   },
   wallet: {

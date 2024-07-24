@@ -1,17 +1,25 @@
 'use client'
 import { ModalBackButton, type ModalBackButtonProps } from '@echo/ui/components/base/modal/modal-back-button'
 import { ModalTitle, type ModalTitleProps } from '@echo/ui/components/base/modal/modal-title'
+import type { WithClassNameProps } from '@echo/ui/types/props/with-class-name-props'
 import { Description, Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { Fragment, type FunctionComponent, type PropsWithChildren } from 'react'
 
-interface Props extends ModalTitleProps {
+interface Props extends ModalTitleProps, WithClassNameProps {
   open: boolean
   onClose?: VoidFunction
   backButton?: Omit<ModalBackButtonProps, 'show'>
 }
 
-export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({ open, title, onClose, backButton, children }) => {
+export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
+  open,
+  title,
+  onClose,
+  backButton,
+  className,
+  children
+}) => {
   return (
     <Dialog onClose={() => onClose?.()} open={open} className={clsx('relative', 'z-30')}>
       <DialogBackdrop
@@ -59,7 +67,8 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({ open, title
             'duration-300',
             'ease-out',
             'data-[closed]:scale-95',
-            'data-[closed]:opacity-0'
+            'data-[closed]:opacity-0',
+            className
           )}
         >
           <ModalBackButton {...backButton} />

@@ -1,7 +1,7 @@
+import type { Expiration } from '@echo/model/types/expiration'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { CreateOfferModalSwitch } from '@echo/ui/components/offer/create/create-offer-modal-switch'
-import type { Expiration } from '@echo/ui/types/expiration'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useState } from 'react'
