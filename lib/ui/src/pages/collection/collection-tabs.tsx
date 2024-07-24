@@ -71,7 +71,7 @@ export const CollectionTabs: FunctionComponent<Props> = ({ collection, listings,
     return pipe(find<TabOptions<TabName>>(propEq(name, 'name')), ifElse(isNil, always(false), prop('show')))(tabs)
   }
   if (all(isFalsy, map(prop('show'), tabs))) {
-    // TODO empty view
+    // TODO empty view https://linear.app/echobot/issue/DEV-343/pages-with-tabs-empty-views
     return null
   }
   return (
