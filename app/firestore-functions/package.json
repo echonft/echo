@@ -16,7 +16,7 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "firebase-admin": "12.2.0",
+    "firebase-admin": "12.3.0",
     "firebase-functions": "5.0.1",
     "google-auth-library": "9.11.0",
     "ramda": "0.30.1",
