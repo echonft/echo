@@ -10,34 +10,34 @@ elif [ "${ENV}" = "production" ]; then
   project_id="echo-prod-b71e2"
   NEXT_PUBLIC_IS_TESTNET="0"
 else
-  >&2 echo "ENV not set"
+  printf "\e[31mWrong ENV\n\e[0m"
   exit 1
 fi
 
 # Get the secrets
 AUTH_DISCORD_ID=$(gcloud secrets versions access 'latest' --secret="DISCORD_CLIENT_ID" --project=${project_id})
 if [ ! "${AUTH_DISCORD_ID}" ]; then
-  >&2 echo "DISCORD_CLIENT_ID secret not found"
+  printf "\e[31mDISCORD_CLIENT_ID secret not found\n\e[0m"
   exit 1
 fi
 AUTH_DISCORD_SECRET=$(gcloud secrets versions access 'latest' --secret="DISCORD_CLIENT_SECRET" --project=${project_id})
 if [ ! "${AUTH_DISCORD_SECRET}" ]; then
-  >&2 echo "DISCORD_CLIENT_SECRET secret not found"
+  printf "\e[31mDISCORD_CLIENT_SECRET secret not found\n\e[0m"
   exit 1
 fi
 AUTH_SECRET=$(gcloud secrets versions access 'latest' --secret="AUTH_SECRET" --project=${project_id})
 if [ ! "${AUTH_SECRET}" ]; then
-  >&2 echo "AUTH_SECRET secret not found"
+  printf "\e[31mAUTH_SECRET secret not found\n\e[0m"
   exit 1
 fi
 SECRET_MANAGER_EMAIL=$(gcloud secrets versions access 'latest' --secret="SECRET_MANAGER_EMAIL" --project=${project_id})
 if [ ! "${SECRET_MANAGER_EMAIL}" ]; then
-  >&2 echo "SECRET_MANAGER_EMAIL secret not found"
+  printf "\e[31mSECRET_MANAGER_EMAIL secret not found\n\e[0m"
   exit 1
 fi
 SECRET_MANAGER_PRIVATE_KEY=$(gcloud secrets versions access 'latest' --secret="SECRET_MANAGER_PRIVATE_KEY" --project=${project_id})
 if [ ! "${SECRET_MANAGER_PRIVATE_KEY}" ]; then
-  >&2 echo "SECRET_MANAGER_PRIVATE_KEY secret not found"
+  printf "\e[31mSECRET_MANAGER_PRIVATE_KEY secret not found\n\e[0m"
   exit 1
 fi
 

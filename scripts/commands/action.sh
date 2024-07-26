@@ -4,7 +4,7 @@
 # shellcheck disable=SC2128
 dir=$(cd "$(dirname "$BASH_SOURCE")" && pwd)
 if ! sh "${dir}"/../base/check-newt.sh; then
-    exit 1
+  exit 1
 fi
 
 # Get action
@@ -33,6 +33,7 @@ elif [ "$ACTION" = "update-collection" ] || [ "$ACTION" = "update-nft" ] || [ "$
     elif [ "${ENV}" = "production" ]; then
       NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL="app.echonft.xyz"
     else
+      printf "\e[31mCanceled\n\e[0m"
       exit 1
     fi
     # Get log level
@@ -44,11 +45,16 @@ elif [ "$ACTION" = "update-collection" ] || [ "$ACTION" = "update-nft" ] || [ "$
     "debug" "debug" \
     "trace" "trace" 3>&1 1>&2 2>&3)
     if [ "$LOG_LEVEL" = "fatal" ] || [ "$LOG_LEVEL" = "error" ] || [ "$LOG_LEVEL" = "warn" ] || [ "$LOG_LEVEL" = "info" ] || [ "$LOG_LEVEL" = "debug" ] || [ "$LOG_LEVEL" = "trace" ]; then
+      printf "\e[35mSelected command: %s\n\e[0m" "${ACTION}"
+      printf "\e[35mSelected environment: %s\n\e[0m" "${ENV}"
+      printf "\e[35mSelected log level: %s\n\e[0m" "${LOG_LEVEL}"
       LOG_LEVEL=${LOG_LEVEL} ENV=${ENV} NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL=${NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL} pnpm exec turbo command --filter=@echo/tasks -- "${ACTION}"
     else
+      printf "\e[31mCanceled\n\e[0m"
       exit 1
     fi
 else
+  printf "\e[31mCanceled\n\e[0m"
   exit 1
 fi
 

@@ -4,7 +4,7 @@
 # shellcheck disable=SC2128
 dir=$(cd "$(dirname "$BASH_SOURCE")" && pwd)
 if ! sh "${dir}"/../base/check-newt.sh; then
-    exit 1
+  exit 1
 fi
 
 if [ ! "$ENV" ]; then
@@ -17,5 +17,6 @@ fi
 if [ "$ENV" = "development" ] || [ "$ENV" = "staging" ] || [ "$ENV" = "production" ]; then
   ENV=${ENV} pnpm exec turbo deploy --filter=@echo/firestore-functions
 else
+  printf "\e[31mCanceled\n\e[0m"
   exit 1
 fi

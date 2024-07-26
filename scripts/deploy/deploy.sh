@@ -15,11 +15,17 @@ deploy_frontend() {
   ENV=${local_env} sh "${dir}"/../frontend/deploy.sh
 }
 
+mirror_staging() {
+  sh "${dir}"/../firestore/mirror-staging.sh
+  printf "\n\e[32mDone mirroring staging database\n\e[0m"
+}
+
+
 # shellcheck disable=SC3028
 # shellcheck disable=SC2128
 dir=$(cd "$(dirname "$BASH_SOURCE")" && pwd)
 if ! sh "${dir}"/../base/check-newt.sh; then
-    exit 1
+  exit 1
 fi
 
 ENV=$(whiptail --default-item=staging --notags --menu "Pick an environment" 10 30 3 \
@@ -34,11 +40,15 @@ if [ "$ENV" = "development" ] || [ "$ENV" = "staging" ] || [ "$ENV" = "productio
   "frontend" "Frontend" OFF\
   "firestore" "Firestore functions" OFF 3>&1 1>&2 2>&3)
   if [ ! "$DEPLOYMENTS" ]; then
+    printf "\e[31mCanceled\n\e[0m"
     exit 1
   fi
+
+  printf "\e[35mSelected environment: %s\n\e[0m" "${ENV}"
+  printf "\e[35mSelected targets: %s\n\e[0m" "${DEPLOYMENTS}"
   # if env is staging or production (since we deploy staging also), we always need to mirror prod
   if [ "$ENV" = "staging" ] || [ "$ENV" = "production" ]; then
-    sh "${dir}"/../firestore/mirror-staging.sh
+    mirror_staging
   fi
 
   for deployment in ${DEPLOYMENTS}
@@ -76,5 +86,6 @@ if [ "$ENV" = "development" ] || [ "$ENV" = "staging" ] || [ "$ENV" = "productio
   done
   exit 0
 else
+  printf "\e[31mCanceled\n\e[0m"
   exit 1
 fi
