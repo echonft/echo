@@ -2,19 +2,25 @@ import { NftError } from '@echo/firestore/constants/errors/nft/nft-error'
 import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
 import { getNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-nfts-collection-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
-import { type Nft, type NftIndex } from '@echo/model/types/nft'
+import { type Nft, type NftIndex, type OwnedNft } from '@echo/model/types/nft'
+import type { User } from '@echo/model/types/user'
 import { now } from '@echo/utils/helpers/now'
-import { FieldValue } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
-export async function removeNftOwner(index: NftIndex): Promise<Nft> {
+interface SetNftOwnerArgs {
+  index: NftIndex
+  owner: User
+}
+
+export async function setNftOwner(args: SetNftOwnerArgs): Promise<OwnedNft> {
+  const { index, owner } = args
   const snapshot = await getNftSnapshot(index)
   if (isNil(snapshot)) {
     return Promise.reject(Error(NftError.NFT_NOT_FOUND))
   }
-  return updateReference<Nft>({
+  return (await updateReference<Nft>({
     collectionReference: getNftsCollectionReference(),
     id: snapshot.id,
-    data: { owner: FieldValue.delete(), updatedAt: now() }
-  })
+    data: { owner, updatedAt: now() }
+  })) as OwnedNft
 }

@@ -75,7 +75,7 @@ describe('CRUD - offer - addOffer', () => {
       ['expiresAt', 'receiver', 'receiverItems', 'receiverItems', 'sender', 'senderItems'],
       offerMock
     )
-    await expect(addOffer(baseOffer, offerMock.idContract)).rejects.toBeDefined()
+    await expect(addOffer({ baseOffer, idContract: offerMock.idContract })).rejects.toBeDefined()
     const offers = await getAllOffers()
     expect(eqListContent(offers, getAllOfferMocks())).toBeTruthy()
   })
@@ -93,7 +93,7 @@ describe('CRUD - offer - addOffer', () => {
       sender: head(senderItems).owner,
       senderItems
     }
-    const createdOffer = await addOffer(baseOffer, '0xtest')
+    const createdOffer = await addOffer({ baseOffer, idContract: '0xtest' })
     createdOfferId = createdOffer.id
     const newOffer: Offer = (await getOfferById(createdOfferId))!
     expect(newOffer.receiver).toStrictEqual(getUserMockByUsername(userMockJohnnyUsername()))

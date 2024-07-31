@@ -1,3 +1,4 @@
+import { NftError } from '@echo/firestore/constants/errors/nft/nft-error'
 import { getEscrowedNftSnapshot } from '@echo/firestore/crud/nft/get-escrowed-nft-snapshot'
 import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
 import { getEscrowedNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-escrowed-nfts-collection-reference'
@@ -6,18 +7,18 @@ import { setReference } from '@echo/firestore/helpers/crud/reference/set-referen
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import type { EscrowedNft } from '@echo/firestore/types/model/nft/escrowed-nft'
 import type { Nft, PartialOwnedNft } from '@echo/model/types/nft'
+import { now } from '@echo/utils/helpers/now'
 import { FieldValue } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
 export enum EscrowNftError {
-  NFT_NOT_FOUND = 'NFT does not exist',
   NFT_ALREADY_IN_ESCROW = 'NFT is already in escrow'
 }
 
 export async function escrowNft(nft: PartialOwnedNft): Promise<string> {
   const snapshot = await getNftSnapshot(nft)
   if (isNil(snapshot)) {
-    return Promise.reject(Error(EscrowNftError.NFT_NOT_FOUND))
+    return Promise.reject(Error(NftError.NFT_NOT_FOUND))
   }
   const escrowedNftSnapshot = await getEscrowedNftSnapshot(snapshot.id)
   if (!isNil(escrowedNftSnapshot)) {
@@ -27,7 +28,7 @@ export async function escrowNft(nft: PartialOwnedNft): Promise<string> {
   await updateReference<Nft>({
     collectionReference: getNftsCollectionReference(),
     id: snapshot.id,
-    data: { owner: FieldValue.delete() }
+    data: { owner: FieldValue.delete(), updatedAt: now() }
   })
   // add escrowed NFT
   return setReference<EscrowedNft>({

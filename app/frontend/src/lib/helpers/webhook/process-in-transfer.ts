@@ -1,39 +1,25 @@
-import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
-import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
+import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
-import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
-import { NotFoundError } from '@echo/frontend/lib/helpers/error/not-found-error'
-import type { TransferData } from '@echo/frontend/lib/types/transfer/transfer-data'
-import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
-import { addCollection } from '@echo/tasks/add-collection'
-import { updateNft } from '@echo/tasks/update-nft'
+import { getUserFromWalletDocumentData } from '@echo/frontend/lib/helpers/webhook/get-user-from-wallet-document-data'
+import type { NftTransfer } from '@echo/frontend/lib/types/transfer/nft-transfer'
+import { getOrAddCollection } from '@echo/tasks/get-or-add-collection'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { isNil, otherwise, pipe } from 'ramda'
+import { isNil } from 'ramda'
 
 /**
- * Processes the transfer of an NFT from a foreign user to a user in our database.
- * Checks if NFT exists (shouldn't be the case or else it'd be a swap) and updates it if needed
- * Otherwise checks if the collection exists, and if not, create it and then add the NFT to it
+ * Processes the transfer of an NFT from a user (foreign or in our database) to a user in our database.
  */
 export async function processInTransfer(
-  args: WithLoggerType<Record<'transfer', Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>>>
+  args: WithLoggerType<Record<'transfer', Omit<NftTransfer, 'to'> & Record<'to', WalletDocumentData>>>
 ): Promise<void> {
   const {
     transfer: { contract, to, tokenId },
     logger
   } = args
-  const userDocumentData = await pipe(
-    getUserById,
-    otherwise((err) => {
-      captureAndLogError(err, { logObject: { user: { id: to.userId } }, message: 'could not get user from Firestore' })
-      return undefined
-    })
-  )(to.userId)
-  if (isNil(userDocumentData)) {
-    return Promise.reject(new NotFoundError({ message: 'user not found', severity: 'warning' }))
+  const user = await getUserFromWalletDocumentData(to)
+  if (isNil(user)) {
+    return
   }
-  const user = getUserFromFirestoreData({ user: userDocumentData, wallet: to })
-  const collection = await addCollection({ contract, fetch, logger })
-  const nftIndex = getNftIndex({ collection, tokenId })
-  await updateNft({ nft: nftIndex, owner: user, collection })
+  const collection = await getOrAddCollection({ contract, fetch, logger })
+  await setNftOwner({ index: { collection, tokenId }, owner: user })
 }

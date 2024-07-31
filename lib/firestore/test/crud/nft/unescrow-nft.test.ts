@@ -1,3 +1,4 @@
+import { NftError } from '@echo/firestore/constants/errors/nft/nft-error'
 import { escrowNft } from '@echo/firestore/crud/nft/escrow-nft'
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { unescrowNft, UnescrowNftError } from '@echo/firestore/crud/nft/unescrow-nft'
@@ -19,7 +20,7 @@ describe('CRUD - nft - unescrowNft', () => {
     await assertNfts()
   })
   it('throws if the NFT does not exist', async () => {
-    await expect(unescrowNft('not-found')).rejects.toEqual(Error(UnescrowNftError.NFT_NOT_FOUND))
+    await expect(unescrowNft('not-found')).rejects.toEqual(Error(NftError.NFT_NOT_FOUND))
   })
   it('throws if the NFT is not in escrow', async () => {
     await expect(unescrowNft(nftMockSpiralJohnnyId())).rejects.toEqual(Error(UnescrowNftError.NFT_NOT_IN_ESCROW))

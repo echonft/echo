@@ -1,35 +1,49 @@
+import { getWalletByAddress } from '@echo/firestore/crud/wallet/get-wallet-by-address'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
-import { isEscrowing } from '@echo/frontend/lib/helpers/webhook/is-escrowing'
+import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
+import { processInEscrowTransfer } from '@echo/frontend/lib/helpers/webhook/process-in-escrow-transfer'
 import { processInTransfer } from '@echo/frontend/lib/helpers/webhook/process-in-transfer'
+import { processOutEscrowTransfer } from '@echo/frontend/lib/helpers/webhook/process-out-escrow-transfer'
 import { processOutTransfer } from '@echo/frontend/lib/helpers/webhook/process-out-transfer'
-import { processSwapTransfer } from '@echo/frontend/lib/helpers/webhook/process-swap-transfer'
-import { mapNftTransferToTransferData } from '@echo/frontend/lib/mappers/map-nft-transfer-to-transfer-data'
 import type { NftTransfer } from '@echo/frontend/lib/types/transfer/nft-transfer'
-import type { TransferData } from '@echo/frontend/lib/types/transfer/transfer-data'
-import { pathIsNil } from '@echo/utils/fp/path-is-nil'
-import { propIsNotNil } from '@echo/utils/fp/prop-is-not-nil'
+import type { Wallet } from '@echo/model/types/wallet'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
+import { isEcho } from '@echo/web3/helpers/is-echo'
+import { assoc, isNil, modify, otherwise, pipe } from 'ramda'
 
-export async function handleNftTransfer(args: WithLoggerType<Record<'transfer', NftTransfer>>): Promise<void> {
-  // If it's an escrow transaction simply return, we don't manage this anymore (echo events handler does)
-  if (!isEscrowing(args)) {
-    const transferData = await mapNftTransferToTransferData(args)
-    if (propIsNotNil('transfer', transferData)) {
-      if (pathIsNil(['transfer', 'to'], transferData)) {
-        await processOutTransfer(transferData)
-      } else if (pathIsNil(['transfer', 'from'], transferData)) {
-        await processInTransfer(
-          transferData as WithLoggerType<
-            Record<'transfer', Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>>
-          >
-        )
-      } else {
-        await processSwapTransfer(
-          transferData as WithLoggerType<
-            Record<'transfer', Omit<TransferData, 'to'> & Record<'to', WalletDocumentData>>
-          >
-        )
-      }
-    }
+export type HandleNftTransferArgs = WithLoggerType<Record<'transfer', NftTransfer>>
+function getWalletFromFirestore(wallet: Wallet) {
+  return pipe(
+    getWalletByAddress,
+    otherwise((err) => {
+      captureAndLogError(err, { logObject: { wallet }, message: 'could not get wallet from Firestore' })
+      return undefined
+    })
+  )(wallet)
+}
+export async function handleNftTransfer(args: HandleNftTransferArgs): Promise<void> {
+  const {
+    transfer: { from, to }
+  } = args
+  if (isEcho(from)) {
+    return processOutEscrowTransfer(args)
   }
+  if (isEcho(to)) {
+    return processInEscrowTransfer(args)
+  }
+  const fromWallet = await getWalletFromFirestore(from)
+  const toWallet = await getWalletFromFirestore(to)
+  if (!isNil(toWallet)) {
+    return pipe(
+      modify<'transfer', NftTransfer, Omit<NftTransfer, 'to'> & Record<'to', WalletDocumentData>>(
+        'transfer',
+        assoc('to', toWallet)
+      ),
+      processInTransfer
+    )(args)
+  }
+  if (!isNil(fromWallet)) {
+    return processOutTransfer(args)
+  }
+  return
 }

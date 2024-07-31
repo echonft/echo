@@ -1,3 +1,4 @@
+import { NftError } from '@echo/firestore/constants/errors/nft/nft-error'
 import { escrowNft, EscrowNftError } from '@echo/firestore/crud/nft/escrow-nft'
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { getEscrowedNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-escrowed-nfts-collection-reference'
@@ -40,7 +41,7 @@ describe('CRUD - nft - escrowNft', () => {
   })
   it('throws if the NFT does not exist', async () => {
     const nft = pipe(getNftMock, assoc('tokenId', 0))()
-    await expect(escrowNft(nft)).rejects.toEqual(Error(EscrowNftError.NFT_NOT_FOUND))
+    await expect(escrowNft(nft)).rejects.toEqual(Error(NftError.NFT_NOT_FOUND))
   })
   it('adds the escrowed NFT and removes the NFT owner', async () => {
     nftId = nftMockSpiralJohnnyId()

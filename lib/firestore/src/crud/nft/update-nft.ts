@@ -8,7 +8,7 @@ import { assoc, isNil } from 'ramda'
 export async function updateNft(data: PartialNft): Promise<Nft> {
   const snapshot = await getNftSnapshot(data)
   if (isNil(snapshot)) {
-    return Promise.reject(Error(`NFT #${data.tokenId} for collection ${data.collection.slug} does not exist`))
+    return Promise.reject(Error('NFT does not exist'))
   }
   return updateReference<Nft>({
     collectionReference: getNftsCollectionReference(),

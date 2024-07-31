@@ -1,9 +1,9 @@
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { Wallet } from '@echo/model/types/wallet'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
-import { addCollection } from '@echo/tasks/add-collection'
 import { assessNftOwnershipForWallet } from '@echo/tasks/assess-nft-ownership-for-wallet'
 import { fetchNfts } from '@echo/tasks/fetch-nfts'
+import { getOrAddCollection } from '@echo/tasks/get-or-add-collection'
 import { updateNft } from '@echo/tasks/update-nft'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
@@ -36,7 +36,7 @@ export async function updateNftsForWallet(args: WithLoggerType<UpdateNftsForWall
       nonNullableReturn(path(['collection', 'contract']))
     )(nftGroup)
     const collection = await pipe(
-      addCollection,
+      getOrAddCollection,
       otherwise((err) => {
         logger?.error({ err, collection: { contract } }, 'could not add collection')
         return undefined

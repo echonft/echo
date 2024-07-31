@@ -6,17 +6,17 @@ import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { andThen, assoc, isNil, pipe } from 'ramda'
 
-interface AddCollectionArgs extends WithFetch {
+interface GetOrAddCollectionArgs extends WithFetch {
   contract: PartialWallet
 }
 
 /**
- * Adds the collection associated to a given contract if it does not exist already
+ * Retrieves the collection associated with a given contract or adds it to Firestore if it does not exist already
  * @param args
  * @throws Error returns a rejected promise if the collection is not found
  * @throws Error returns a rejected promise if the collection could not have been added to Firestore
  */
-export async function addCollection(args: WithLoggerType<AddCollectionArgs>): Promise<Collection> {
+export async function getOrAddCollection(args: WithLoggerType<GetOrAddCollectionArgs>): Promise<Collection> {
   const { collection, source } = await getCollection(args)
   if (isNil(collection)) {
     return Promise.reject(Error('collection not found'))

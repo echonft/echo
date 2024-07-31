@@ -1,9 +1,9 @@
 import { updateNft } from '@echo/firestore/crud/nft/update-nft'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import type { Wallet } from '@echo/model/types/wallet'
-import { addCollection } from '@echo/tasks/add-collection'
 import { getLogger } from '@echo/tasks/commands/get-logger'
 import { fetchNft } from '@echo/tasks/fetch-nft'
+import { getOrAddCollection } from '@echo/tasks/get-or-add-collection'
 import { andThen, assoc, isNil, otherwise, pipe, tap } from 'ramda'
 
 export async function updateNftCommand(contract: Wallet, tokenId: string) {
@@ -25,7 +25,7 @@ export async function updateNftCommand(contract: Wallet, tokenId: string) {
   )({ contract, identifier: tokenId, fetch, logger })
   if (!isNil(nft)) {
     const collection = await pipe(
-      addCollection,
+      getOrAddCollection,
       otherwise((err) => {
         logger.error({ err, collection: { contract } }, 'could not add collection')
         return undefined
