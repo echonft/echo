@@ -1,4 +1,4 @@
-import { requestHandler } from '@echo/frontend/lib/request-handlers/request-handler'
+import { noLoggingRequestHandler } from '@echo/frontend/lib/request-handlers/no-logging-request-handler'
 import { echoWebhookRequestHandler } from '@echo/frontend/lib/request-handlers/webhook/echo-webhook-request-handler'
 
-export const POST = requestHandler(echoWebhookRequestHandler)
+export const POST = noLoggingRequestHandler(echoWebhookRequestHandler)
