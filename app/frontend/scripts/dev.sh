@@ -7,7 +7,7 @@ elif [ "${ENV}" = "staging" ]; then
 elif [ "${ENV}" = "production" ]; then
   project_id="echo-prod-b71e2"
 else
-  >&2 echo "ENV not set"
+  printf "\e[31mWrong ENV\n\e[0m"
   exit 1
 fi
 
@@ -20,7 +20,8 @@ if [ "$NEXT_PUBLIC_IS_TESTNET" = "1" ]; then
 else
   network="mainnet"
 fi
-echo "Starting frontend development with environment=${ENV} and network=${network}"
+
+printf "\e[36mStarting frontend development on %s environment and %s network\n\e[0m" "${ENV}" "${network}"
 sleep 3
 ENV=${ENV} \
 NEXT_PUBLIC_IS_TESTNET=${NEXT_PUBLIC_IS_TESTNET} \

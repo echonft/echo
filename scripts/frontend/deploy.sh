@@ -4,20 +4,33 @@
 # shellcheck disable=SC2128
 dir=$(cd "$(dirname "$BASH_SOURCE")" && pwd)
 if ! sh "${dir}"/../base/check-newt.sh; then
-    exit 1
+  exit 1
 fi
 
 if [ ! "$ENV" ]; then
-  VERLCEL_PROJECT=$(whiptail --default-item=staging --notags --menu "Pick an environment" 10 30 3 \
-  "dev" "Development" \
+  ENV=$(whiptail --default-item=development --notags --menu "Pick an environment" 10 30 3 \
+  "development" "Development" \
   "staging" "Staging" \
-  "echo" "Production" 3>&1 1>&2 2>&3)
+  "production" "Production" 3>&1 1>&2 2>&3)
 fi
 
-if [ "$VERLCEL_PROJECT" = "dev" ] || [ "$VERLCEL_PROJECT" = "staging" ] || [ "$VERLCEL_PROJECT" = "echo" ]; then
+if [ "$ENV" = "development" ] || [ "$ENV" = "staging" ] || [ "$ENV" = "production" ]; then
+  if [ "$ENV" = "development" ]; then
+    VERLCEL_PROJECT="dev"
+  elif [ "$ENV" = "staging" ]; then
+    VERLCEL_PROJECT="staging"
+  elif [ "$ENV" = "production" ]; then
+    VERLCEL_PROJECT="echo"
+  else
+    printf "\e[31mWrong ENV\n\e[0m"
+    exit 1
+  fi
+  printf "\e[36mDeploying frontend on %s...\n\e[0m" "${ENV}"
   vercel link -y -p "$VERLCEL_PROJECT" 1>/dev/null 2>&1
   vercel --prod
+  printf "\n\e[32m\nDone deploying frontend on %s\n\e[0m" "${ENV}"
 else
+  printf "\e[31mCanceled\n\e[0m"
   exit 1
 fi
 

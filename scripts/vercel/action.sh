@@ -15,7 +15,7 @@ rm_production() {
 # shellcheck disable=SC2128
 dir=$(cd "$(dirname "$BASH_SOURCE")" && pwd)
 if ! sh "${dir}"/../base/check-newt.sh; then
-    exit 1
+  exit 1
 fi
 
 ACTION=$(whiptail --default-item=dev --notags --menu "Wat do?" 15 50 4 \
@@ -32,8 +32,11 @@ if [ "$ACTION" = "rm-canceled" ] || [ "$ACTION" = "rm-production" ] || [ "$ACTIO
   "echo" "Production" \
   "storybook" "Storybook" 3>&1 1>&2 2>&3)
   if [ "$VERCEL_PROJECT" != "all" ] && [ "$VERCEL_PROJECT" != "dev" ] && [ "$VERCEL_PROJECT" != "staging" ] && [ "$VERCEL_PROJECT" != "echo" ] && [ "$VERCEL_PROJECT" != "storybook" ]; then
+    printf "\e[31mCanceled\n\e[0m"
     exit 1
   fi
+  printf "\e[35mSelected action: %s\n\e[0m" "${ACTION}"
+  printf "\e[35mSelected project: %s\n\e[0m" "${VERCEL_PROJECT}"
   if [ "$ACTION" = "rm-canceled" ]; then
       if [ "$VERCEL_PROJECT" = "all" ]; then
         rm_canceled "dev"
@@ -70,6 +73,7 @@ if [ "$ACTION" = "rm-canceled" ] || [ "$ACTION" = "rm-production" ] || [ "$ACTIO
 elif [ "$ACTION" = "deploy" ]; then
   sh "${dir}"/deploy.sh
 else
+  printf "\e[31mCanceled\n\e[0m"
   exit 1
 fi
 

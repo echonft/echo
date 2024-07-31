@@ -10,8 +10,10 @@ elif [ "${ENV}" = "staging" ]; then
   app="echo-bot-staging"
   machine_id="e82d92ef0243e8"
 else
-  >&2 echo "ENV not set"
+  printf "\e[31mWrong ENV\n\e[0m"
   exit 1
 fi
 
+printf "\e[36mRestarting bot machine on %s...\n\e[0m" "${ENV}"
 flyctl machines restart ${machine_id} --app=${app}
+printf "\e[32m]\nDone restarting bot machine on %s\n\e[0m" "${ENV}"

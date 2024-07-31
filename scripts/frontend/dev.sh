@@ -4,7 +4,7 @@
 # shellcheck disable=SC2128
 dir=$(cd "$(dirname "$BASH_SOURCE")" && pwd)
 if ! sh "${dir}"/../base/check-newt.sh; then
-    exit 1
+  exit 1
 fi
 
 ENV=$(whiptail --default-item=development --notags --menu "Pick an environment" 10 30 3 \
@@ -27,13 +27,16 @@ if [ "$ENV" = "development" ]; then
       if [ "$LOG_LEVEL" = "fatal" ] || [ "$LOG_LEVEL" = "error" ] || [ "$LOG_LEVEL" = "warn" ] || [ "$LOG_LEVEL" = "info" ] || [ "$LOG_LEVEL" = "debug" ] || [ "$LOG_LEVEL" = "trace" ]; then
         LOG_LEVEL=${LOG_LEVEL} ENV=${ENV} NEXT_PUBLIC_IS_TESTNET=${NEXT_PUBLIC_IS_TESTNET} "${dir}"/../../app/frontend/scripts/dev.sh
       else
-          exit 1
+        printf "\e[31mCanceled\n\e[0m"
+        exit 1
       fi
   else
+    printf "\e[31mCanceled\n\e[0m"
     exit 1
   fi
 elif [ "$ENV" = "staging" ] || [ "$ENV" = "production" ]; then
   ENV=${ENV} NEXT_PUBLIC_IS_TESTNET=0 "${dir}"/../../app/frontend/scripts/dev.sh
 else
+  printf "\e[31mCanceled\n\e[0m"
   exit 1
 fi

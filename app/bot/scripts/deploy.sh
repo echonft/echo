@@ -10,10 +10,11 @@ elif [ "${ENV}" = "staging" ]; then
   app="echo-bot-staging"
   machine_id="e82d92ef0243e8"
 else
-  >&2 echo "ENV not set"
+  printf "\e[31mWrong ENV\n\e[0m"
   exit 1
 fi
 
+printf "\e[36mDeploying bot on %s...\n\e[0m" "${ENV}"
 # shellcheck disable=SC2128
 # shellcheck disable=SC3028
 dir=$(cd "$(dirname "$BASH_SOURCE")" && pwd)
@@ -24,3 +25,4 @@ docker push registry.fly.io/"${id}"
 flyctl deploy -i registry.fly.io/"${id}" --local-only --app=${app} --only-machines=${machine_id} --image-label="${git_sha}"
 sleep 30
 flyctl machine restart ${machine_id} --app=${app}
+printf "\e[32m]\nDone deploying bot on %s\n\e[0m" "${ENV}"
