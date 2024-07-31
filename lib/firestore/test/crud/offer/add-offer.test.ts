@@ -25,7 +25,7 @@ import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import type { BaseOffer } from '@echo/model/types/base-offer'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -81,8 +81,8 @@ describe('CRUD - offer - addOffer', () => {
   })
   it('add an offer', async () => {
     const expiresAt = expirationToDate(ONE_DAY)
-    const senderItems: NonEmptyArray<Nft> = [getNftMockById(nftMockPxCrewId())]
-    const receiverItems: NonEmptyArray<Nft> = [
+    const senderItems: NonEmptyArray<OwnedNft> = [getNftMockById(nftMockPxCrewId())]
+    const receiverItems: NonEmptyArray<OwnedNft> = [
       getNftMockById(nftMockSpiralJohnnyId()),
       getNftMockById(nftMockSpiralJohnny2Id())
     ]

@@ -1,4 +1,4 @@
-import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft'
+import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
 import { getNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-nfts-collection-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import { type Nft, type PartialNft } from '@echo/model/types/nft'

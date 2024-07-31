@@ -1,5 +1,5 @@
 import { addNft } from '@echo/firestore/crud/nft/add-nft'
-import { getNft } from '@echo/firestore/crud/nft/get-nft'
+import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getWalletOwner } from '@echo/firestore/crud/wallet/get-wallet-owner'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
 import type { Collection } from '@echo/model/types/collection'
@@ -28,7 +28,7 @@ export interface UpdateNftArgs {
 export async function updateNft(args: WithLoggerType<UpdateNftArgs>): Promise<Nullable<Nft>> {
   const { owner, collection } = args
   const nft = await pipe(
-    getNft,
+    getNftByIndex,
     otherwise((err) => {
       args.logger?.error({ err, nft: nft }, 'could not get NFT from Firestore')
       return undefined

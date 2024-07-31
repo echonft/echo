@@ -7,7 +7,8 @@ import { toNextReponse } from '@echo/frontend/lib/request-handlers/to-next-repon
 import type { AuthRequestHandlerArgs } from '@echo/frontend/lib/types/request-handlers/auth-request-handler'
 import { createListingSchema } from '@echo/frontend/lib/validators/create-listing-schema'
 import { parseRequest } from '@echo/frontend/lib/validators/parse-request'
-import { andThen, objOf, pipe, prop } from 'ramda'
+import type { OwnedNft } from '@echo/model/types/nft'
+import { andThen, type NonEmptyArray, objOf, pipe, prop } from 'ramda'
 
 export async function createListingRequestHandler({
   user: { username },
@@ -17,9 +18,12 @@ export async function createListingRequestHandler({
   const items = await getNftsFromIndexes(requestItems)
   const target = await getListingTargetFromRequest(requestTarget)
   for (const item of items) {
-    if (item.owner.username !== username) {
+    if (item.owner?.username !== username) {
       return Promise.reject(new ForbiddenError())
     }
   }
-  return pipe(addListing, andThen(pipe(prop('data'), objOf('listing'), toNextReponse)))({ items, target, expiration })
+  return pipe(
+    addListing,
+    andThen(pipe(prop('data'), objOf('listing'), toNextReponse))
+  )({ items: items as NonEmptyArray<OwnedNft>, target, expiration })
 }

@@ -1,15 +1,15 @@
 'use client'
-import { type Nft } from '@echo/model/types/nft'
+import { type OwnedNft } from '@echo/model/types/nft'
 import { CreateListingNftsSelected } from '@echo/ui/components/listing/create/create-listing-nfts-selected'
 import { CreateListingNftsSelection } from '@echo/ui/components/listing/create/create-listing-nfts-selection'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  nfts: Nft[]
-  selection: Nft[]
+  nfts: OwnedNft[]
+  selection: OwnedNft[]
   readOnly: boolean
-  onSelect?: (nft: Nft) => unknown
-  onUnselect?: (nft: Nft) => unknown
+  onSelect?: (nft: OwnedNft) => unknown
+  onUnselect?: (nft: OwnedNft) => unknown
 }
 
 export const CreateListingNfts: FunctionComponent<Props> = ({ nfts, selection, readOnly, onSelect, onUnselect }) => {

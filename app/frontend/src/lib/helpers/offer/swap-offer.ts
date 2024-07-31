@@ -1,6 +1,7 @@
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
-import { assoc, map, modify, pipe } from 'ramda'
+import { nonEmptyArrayMap } from '@echo/utils/fp/non-empty-array-map'
+import { assoc, modify, pipe } from 'ramda'
 
 /**
  * Swaps the owners of the items in the given offer and returns the updated offer.
@@ -10,7 +11,7 @@ import { assoc, map, modify, pipe } from 'ramda'
  */
 export function swapOffer(offer: Offer): Offer {
   return pipe<[Offer], Offer, Offer>(
-    modify('senderItems', map<Nft, Nft>(assoc('owner', offer.receiver))),
-    modify('receiverItems', map<Nft, Nft>(assoc('owner', offer.sender)))
+    modify('senderItems', nonEmptyArrayMap<OwnedNft, OwnedNft>(assoc('owner', offer.receiver))),
+    modify('receiverItems', nonEmptyArrayMap<OwnedNft, OwnedNft>(assoc('owner', offer.sender)))
   )(offer)
 }

@@ -1,7 +1,7 @@
 import { eqWithId } from '@echo/model/helpers/eq-with-id'
 import { eqNft } from '@echo/model/helpers/nft/eq-nft'
-import { eqNftOwner } from '@echo/model/helpers/nft/eq-nft-owner'
-import type { Nft } from '@echo/model/types/nft'
+import { eqOwnedNftOwner } from '@echo/model/helpers/nft/eq-owned-nft-owner'
+import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import { getByCollectionNftFilterPredicate } from '@echo/ui/helpers/nft/filters/get-by-collection-nft-filter-predicate'
 import { getByTraitsNftFilterPredicate } from '@echo/ui/helpers/nft/filters/get-by-traits-nft-filter-predicate'
 import { sortNftsByCollection } from '@echo/ui/helpers/nft/sort/sort-nfts-by-collection'
@@ -40,31 +40,31 @@ import {
 import { useCallback, useState } from 'react'
 
 interface State {
-  readonly source: Nft[] // underlying NFTs, unaffected by the selection nor any filters
-  readonly nfts: Nft[] // sorted NFTs without selected ones, unfiltered
+  readonly source: OwnedNft[] // underlying NFTs, unaffected by the selection nor any filters
+  readonly nfts: OwnedNft[] // sorted NFTs without selected ones, unfiltered
   readonly filteredByNfts: {
-    readonly byTraits: Nft[]
-    readonly byCollection: Nft[]
+    readonly byTraits: OwnedNft[]
+    readonly byCollection: OwnedNft[]
   }
   readonly selection: {
     readonly collectionFilter: Nullable<CollectionFilter>
-    readonly nfts: Nft[]
+    readonly nfts: OwnedNft[]
     readonly traitFilters: TraitFilter[]
   }
   readonly sortBy: NftSortBy
 }
 
 interface UseNftsArgs {
-  readonly nfts: Nft[]
+  readonly nfts: OwnedNft[]
   readonly selection?: {
-    readonly nfts?: Nullable<Nft[]>
+    readonly nfts?: Nullable<OwnedNft[]>
   }
   readonly sortBy: NftSortBy
 }
 
 interface UseNftsReturn extends Omit<State, 'source' | 'sortBy'> {
-  readonly selectNft: (nft: Nft) => void
-  readonly unselectNft: (nft: Nft) => void
+  readonly selectNft: (nft: OwnedNft) => void
+  readonly unselectNft: (nft: OwnedNft) => void
   readonly toggleTraitFilterSelection: (filter: TraitFilter) => void
   readonly toggleCollectionFilterSelection: (filter: CollectionFilter) => void
 }
@@ -76,27 +76,27 @@ function sort(state: State) {
   return sortNftsByOwner
 }
 
-function selectNft(nft: Nft): (state: State) => State {
+function selectNft(nft: OwnedNft): (state: State) => State {
   return function (state: State): State {
     return pipe<[State], State, State>(
       modify<'selection', State['selection'], State['selection']>(
         'selection',
-        modify('nfts', when<Nft[], Nft[]>(none(eqNft(nft)), append(nft)))
+        modify('nfts', when<OwnedNft[], OwnedNft[]>(none(eqNft(nft)), append(nft)))
       ),
       onSelectionUpdate
     )(state)
   }
 }
 
-function unselectNft(nft: Nft): (state: State) => State {
+function unselectNft(nft: OwnedNft): (state: State) => State {
   return function (state: State): State {
     const sourceNft = find(eqNft(nft), state.source)
     const addNft = isNil(sourceNft) ? identity : append(sourceNft)
     return pipe<[State], State, State, State>(
-      modify<'nfts', Nft[], Nft[]>('nfts', addNft),
+      modify<'nfts', OwnedNft[], OwnedNft[]>('nfts', addNft),
       modify<'selection', State['selection'], State['selection']>(
         'selection',
-        modify<'nfts', Nft[], Nft[]>('nfts', reject(eqNft(nft)))
+        modify<'nfts', OwnedNft[], OwnedNft[]>('nfts', reject(eqNft(nft)))
       ),
       onSelectionUpdate
     )(state)
@@ -105,13 +105,13 @@ function unselectNft(nft: Nft): (state: State) => State {
 function onSelectionUpdate(state: State): State {
   const { source } = state
   const selection = state.selection.nfts
-  const selectionFilterFn: (nft: Nft) => boolean = isEmpty(selection)
+  const selectionFilterFn = isEmpty(selection)
     ? T
-    : eqNftOwner(head(selection as NonEmptyArray<Nft>))
+    : (eqOwnedNftOwner(head(selection as NonEmptyArray<OwnedNft>)) as (nft: Nft) => boolean)
   const sortedNfts = pipe(reject(isInWith(selection, eqNft)), sort(state))(source)
   return pipe<[State], State, State, State>(
     assoc('nfts', sortedNfts),
-    modify<'nfts', Nft[], Nft[]>('nfts', filter(selectionFilterFn)),
+    modify<'nfts', OwnedNft[], OwnedNft[]>('nfts', filter(selectionFilterFn)),
     filterNfts
   )(state)
 }
@@ -197,10 +197,10 @@ export const useNfts = (options: UseNftsArgs): UseNftsReturn => {
       sortBy
     })
   )
-  const selectNftCallback = useCallback((nft: Nft) => {
+  const selectNftCallback = useCallback((nft: OwnedNft) => {
     setState(selectNft(nft))
   }, [])
-  const unselectNftCallback = useCallback((nft: Nft) => {
+  const unselectNftCallback = useCallback((nft: OwnedNft) => {
     setState(unselectNft(nft))
   }, [])
   const toggleTraitFilterSelectionCallback = useCallback((filter: TraitFilter) => {

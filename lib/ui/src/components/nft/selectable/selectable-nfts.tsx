@@ -1,5 +1,5 @@
 'use client'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { keyOf } from '@echo/ui/components/nft/key-of'
 import {
   SelectableNftCard,
@@ -16,13 +16,13 @@ import { isEmpty, map } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 export interface SelectableNftsProps extends Pick<SelectableNftCardProps, 'action' | 'options' | 'onAction'> {
-  nfts: Nft[]
-  selection: Nft[]
+  nfts: OwnedNft[]
+  selection: OwnedNft[]
   style?: {
     selectionContainer?: SelectableNftThumbnailContainerProps['style']
   }
-  onSelect?: (nft: Nft) => unknown
-  onUnselect?: (nft: Nft) => unknown
+  onSelect?: (nft: OwnedNft) => unknown
+  onUnselect?: (nft: OwnedNft) => unknown
 }
 
 export const SelectableNfts: FunctionComponent<SelectableNftsProps> = ({

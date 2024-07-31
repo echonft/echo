@@ -1,5 +1,5 @@
 'use client'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { NftCardProps } from '@echo/ui/components/nft/card/nft-card'
 import { NftCards } from '@echo/ui/components/nft/card/nft-cards'
 import { CollectionFilterPanel } from '@echo/ui/components/nft/filters/by-collection/collection-filter-panel'
@@ -13,7 +13,7 @@ import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  nfts: Nft[]
+  nfts: OwnedNft[]
   sortBy: NftSortBy
   cardOptions: NftCardProps['options']
 }

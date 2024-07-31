@@ -1,4 +1,4 @@
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { keyOf } from '@echo/ui/components/nft/key-of'
 import { SelectableNftThumbnail } from '@echo/ui/components/nft/selectable-thumbnail/selectable-nft-thumbnail'
 import { clsx } from 'clsx'
@@ -7,11 +7,11 @@ import { isEmpty, map } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 export interface SelectableNftThumbnailContainerProps {
-  nfts: Nft[]
+  nfts: OwnedNft[]
   style?: {
     minWitdh?: boolean
   }
-  onRemove?: (nft: Nft) => unknown
+  onRemove?: (nft: OwnedNft) => unknown
 }
 
 export const SelectableNftThumbnails: FunctionComponent<SelectableNftThumbnailContainerProps> = ({

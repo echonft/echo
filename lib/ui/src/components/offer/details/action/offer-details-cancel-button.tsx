@@ -1,11 +1,11 @@
 'use client'
 import { OFFER_STATE_CANCELLED } from '@echo/model/constants/offer-states'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
-import { useDependencies } from '@echo/ui/providers/dependencies-provider'
+import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import type { ChainName } from '@echo/utils/types/chain-name'
@@ -13,7 +13,7 @@ import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { ContractUpdateOfferArgs } from '@echo/web3-dom/types/contract-update-offer-args'
 import { useTranslations } from 'next-intl'
-import { assoc, head, path, pipe, prop } from 'ramda'
+import { assoc, head, type NonEmptyArray, path, pipe, prop } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -36,7 +36,7 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
   const t = useTranslations('offer.details.cancelBtn')
   const tError = useTranslations('error.offer')
   const { contractCancelOffer } = useDependencies()
-  const chain = pipe<[OfferWithRole], Nft[], Nft, ChainName>(
+  const chain = pipe<[OfferWithRole], NonEmptyArray<OwnedNft>, OwnedNft, ChainName>(
     prop('receiverItems'),
     head,
     nonNullableReturn(path(['collection', 'contract', 'chain']))

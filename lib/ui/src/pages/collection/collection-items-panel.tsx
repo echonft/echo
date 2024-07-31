@@ -1,7 +1,7 @@
 'use client'
 import { pathProvider } from '@echo/api/routing/path-provider'
 import type { Collection } from '@echo/model/types/collection'
-import type { Nft } from '@echo/model/types/nft'
+import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import { TraitFilterPanel } from '@echo/ui/components/nft/filters/by-traits/trait-filter-panel'
 import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panels-layout'
 import { NftsAndFiltersLayout } from '@echo/ui/components/nft/filters/layout/nfts-and-filters-layout'
@@ -17,7 +17,7 @@ import type { FunctionComponent } from 'react'
 
 interface Props {
   collection: Collection
-  nfts: Nft[]
+  nfts: OwnedNft[]
   show?: boolean
 }
 

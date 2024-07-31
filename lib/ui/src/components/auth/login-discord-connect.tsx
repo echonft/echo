@@ -4,7 +4,7 @@ import { LoginDiscordButton } from '@echo/ui/components/auth/login-discord-butto
 import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
-import { useDependencies } from '@echo/ui/providers/dependencies-provider'
+import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'

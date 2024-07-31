@@ -7,6 +7,7 @@ import { getUserDocumentDataMockById } from '@echo/firestore/mocks/user/get-user
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
 import { userMockJohnnyId } from '@echo/firestore/mocks/user/user-document-data-mock'
 import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
+import { walletMockJohnnyId } from '@echo/firestore/mocks/wallet/wallet-document-data-mock'
 import { type Nonce } from '@echo/firestore/types/model/nonce/nonce'
 import { BadRequestError } from '@echo/frontend/lib/helpers/error/bad-request-error'
 import { ForbiddenError } from '@echo/frontend/lib/helpers/error/forbidden-error'
@@ -58,11 +59,12 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
   })
 
   it('returns a 200 if the nonce is valid', async () => {
+    const id = walletMockJohnnyId()
     jest.mocked(getUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById(userMockJohnnyId()))
     jest.mocked(getNonceForUser).mockResolvedValueOnce({ nonce, expired: false } as Nonce)
     jest.mocked(addWallet).mockResolvedValueOnce({
-      id: 'i28NWtlxElPXCnO0c6BC',
-      data: getWalletDocumentDataMockById('i28NWtlxElPXCnO0c6BC')
+      id,
+      data: getWalletDocumentDataMockById(id)
     })
     jest.mocked(getWalletsForUser).mockResolvedValueOnce([])
     const req = mockRequest<AddWalletRequest>(validRequest)

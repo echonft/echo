@@ -1,14 +1,15 @@
 import type { Expiration } from '@echo/model/types/expiration'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { CreateOfferModalSwitch } from '@echo/ui/components/offer/create/create-offer-modal-switch'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
+import type { NonEmptyArray } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  senderItems: Nft[]
-  receiverItems: Nft[]
+  senderItems: NonEmptyArray<OwnedNft>
+  receiverItems: NonEmptyArray<OwnedNft>
   expiration: Expiration
   onComplete?: (offer: Offer) => unknown
 }

@@ -1,6 +1,6 @@
 'use client'
 import { OFFER_STATE_ACCEPTED } from '@echo/model/constants/offer-states'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalDescription } from '@echo/ui/components/base/modal/modal-description'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
@@ -8,7 +8,7 @@ import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useEchoTradingFees } from '@echo/ui/hooks/use-echo-trading-fees'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
-import { useDependencies } from '@echo/ui/providers/dependencies-provider'
+import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import type { ChainName } from '@echo/utils/types/chain-name'
@@ -17,7 +17,7 @@ import type { HexString } from '@echo/utils/types/hex-string'
 import type { ContractUpdateOfferArgs } from '@echo/web3-dom/types/contract-update-offer-args'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { assoc, head, isNil, path, pipe, prop } from 'ramda'
+import { assoc, head, isNil, type NonEmptyArray, path, pipe, prop } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -31,7 +31,7 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open,
   const t = useTranslations('offer.details.acceptModal')
   const tError = useTranslations('error.offer')
   const { contractAcceptOffer } = useDependencies()
-  const chain = pipe<[OfferWithRole], Nft[], Nft, ChainName>(
+  const chain = pipe<[OfferWithRole], NonEmptyArray<OwnedNft>, OwnedNft, ChainName>(
     prop('receiverItems'),
     head,
     nonNullableReturn(path(['collection', 'contract', 'chain']))

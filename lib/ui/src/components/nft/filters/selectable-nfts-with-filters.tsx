@@ -1,5 +1,5 @@
 'use client'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { CollectionFilterPanel } from '@echo/ui/components/nft/filters/by-collection/collection-filter-panel'
 import { TraitFilterPanelVisibilityManager } from '@echo/ui/components/nft/filters/by-traits/trait-filter-panel-visibility-manager'
 import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panels-layout'
@@ -14,9 +14,9 @@ import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props extends Pick<SelectableNftsProps, 'action' | 'options' | 'style'> {
-  nfts: Nft[]
+  nfts: OwnedNft[]
   sortBy: NftSortBy
-  onSelectionAction?: (selection: Nft[]) => void
+  onSelectionAction?: (selection: OwnedNft[]) => void
 }
 
 export const SelectableNftsWithFilters: FunctionComponent<Props> = ({

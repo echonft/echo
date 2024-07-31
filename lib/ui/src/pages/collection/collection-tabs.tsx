@@ -1,6 +1,6 @@
 'use client'
 import type { Collection } from '@echo/model/types/collection'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { Swap } from '@echo/model/types/swap'
 import { ListingsPanel } from '@echo/ui/components/base/navigation/panels/listings-panel'
 import { OffersPanel } from '@echo/ui/components/base/navigation/panels/offers-panel'
@@ -25,7 +25,7 @@ type TabName = 'items' | 'listings' | 'offers' | 'swaps'
 interface Props {
   collection: Collection
   listings: ListingWithRole[]
-  nfts: Nft[]
+  nfts: OwnedNft[]
   offers: OfferWithRole[]
   swaps: Swap[]
   selection?: Nullable<PageSelection>

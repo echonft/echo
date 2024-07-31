@@ -2,8 +2,10 @@
 
 import { getNftMocksByUsername } from '@echo/model/mocks/nft/get-nft-mocks-by-username'
 import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { CreateOffer as Component } from '@echo/ui/components/offer/create/create-offer'
 import type { Meta, StoryObj } from '@storybook/react'
+import type { NonEmptyArray } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/Create',
@@ -11,7 +13,7 @@ const metadata: Meta<typeof Component> = {
   args: {
     loading: false,
     receiver: getUserMockByUsername(userMockCrewUsername()),
-    receiverItems: getNftMocksByUsername(userMockCrewUsername()),
+    receiverItems: getNftMocksByUsername(userMockCrewUsername()) as NonEmptyArray<OwnedNft>,
     senderNfts: getNftMocksByUsername(userMockJohnnyUsername())
   },
   argTypes: {

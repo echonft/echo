@@ -1,14 +1,14 @@
 'use client'
-import { type Nft } from '@echo/model/types/nft'
+import { type OwnedNft } from '@echo/model/types/nft'
 import { SelectableNfts } from '@echo/ui/components/nft/selectable/selectable-nfts'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  nfts: Nft[]
-  selection: Nft[]
-  onSelect?: (nft: Nft) => unknown
-  onUnselect?: (nft: Nft) => unknown
+  nfts: OwnedNft[]
+  selection: OwnedNft[]
+  onSelect?: (nft: OwnedNft) => unknown
+  onUnselect?: (nft: OwnedNft) => unknown
 }
 
 export const CreateListingNftsSelection: FunctionComponent<Props> = ({ nfts, selection, onSelect, onUnselect }) => {

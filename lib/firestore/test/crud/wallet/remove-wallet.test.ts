@@ -3,6 +3,7 @@ import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
 import { getWalletsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-wallets-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
+import { walletMockJohnnyId } from '@echo/firestore/mocks/wallet/wallet-document-data-mock'
 import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
@@ -47,7 +48,7 @@ describe('CRUD - wallet - removeWallet', () => {
     ).rejects.toBeDefined()
   })
   it('remove wallet', async () => {
-    const walletId = 'i28NWtlxElPXCnO0c6BC'
+    const walletId = walletMockJohnnyId()
     const wallet = getWalletDocumentDataMockById(walletId)
     const walletData = pick(['address', 'chain'], wallet)
     await removeWallet(userMockJohnnyUsername(), walletData)

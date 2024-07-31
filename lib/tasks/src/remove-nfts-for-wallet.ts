@@ -1,5 +1,6 @@
 import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
-import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft'
+
+import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
 import { getNftsForWallet } from '@echo/firestore/crud/nft/get-nfts-for-wallet'
 import type { PartialWallet } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { Nft } from '@echo/model/types/nft'

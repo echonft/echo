@@ -1,5 +1,5 @@
 'use client'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { ImagePlaceholder } from '@echo/ui/components/base/image-placeholder'
 import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
 import { PICTURE_SIZE_MD } from '@echo/ui/constants/picture-size'
@@ -8,7 +8,7 @@ import { clsx } from 'clsx'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  nft: Nft
+  nft: OwnedNft
   onLoadComplete?: VoidFunction
 }
 

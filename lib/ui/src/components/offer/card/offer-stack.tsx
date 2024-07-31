@@ -1,5 +1,5 @@
 'use client'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { StackLayout } from '@echo/ui/components/base/stack/layout/stack-layout'
 import { StackFooter } from '@echo/ui/components/base/stack/stack-footer'
 import type { OfferCardProps } from '@echo/ui/components/offer/card/offer-card'
@@ -8,10 +8,11 @@ import { getNftStack } from '@echo/ui/helpers/nft/get-nft-stack'
 import { getTokenIdString } from '@echo/ui/helpers/nft/get-token-id-string'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { clsx } from 'clsx'
+import type { NonEmptyArray } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props extends OfferCardProps {
-  items: Nft[]
+  items: NonEmptyArray<OwnedNft>
   onSelect?: (offer: OfferWithRole) => unknown
 }
 

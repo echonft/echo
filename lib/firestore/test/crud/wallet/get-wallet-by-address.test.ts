@@ -1,5 +1,6 @@
 import { getWalletByAddress } from '@echo/firestore/crud/wallet/get-wallet-by-address'
 import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
+import { walletMockJohnnyId } from '@echo/firestore/mocks/wallet/wallet-document-data-mock'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
 
@@ -12,7 +13,7 @@ describe('CRUD - wallet - getWalletByAddress', () => {
     expect(wallet).toBeUndefined()
   })
   it('returns undefined if the wallet if it exists', async () => {
-    const walletMock = getWalletDocumentDataMockById('i28NWtlxElPXCnO0c6BC')
+    const walletMock = getWalletDocumentDataMockById(walletMockJohnnyId())
     const wallet = await getWalletByAddress({
       chain: walletMock.chain,
       address: toLower(walletMock.address)

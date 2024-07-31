@@ -1,5 +1,5 @@
 'use client'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { Wallet } from '@echo/model/types/wallet'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
@@ -11,11 +11,11 @@ import { propIsNotNil } from '@echo/utils/fp/prop-is-not-nil'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
-import { all, assoc, find, isNil, map, propEq, when } from 'ramda'
+import { all, assoc, find, isNil, map, type NonEmptyArray, propEq, when } from 'ramda'
 import { type FunctionComponent, useCallback, useEffect, useState } from 'react'
 
 interface Props {
-  items: Nft[]
+  items: NonEmptyArray<OwnedNft>
   open: boolean
   title: string
   subtitle: string

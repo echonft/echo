@@ -1,6 +1,6 @@
 import { addEscrowedNftWithId } from '@echo/firestore/crud/escrowed-nft/add-escrowed-nft-with-id'
 import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
-import { getNftSnapshotForIndex } from '@echo/firestore/crud/nft/get-nft'
+import { getNftSnapshotByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import type { NftWithId } from '@echo/firestore/types/model/nft/nft-with-id'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import { NotFoundError } from '@echo/frontend/lib/helpers/error/not-found-error'
@@ -21,7 +21,7 @@ export async function processInEscrowTransfer(args: WithLoggerType<Record<'nft',
   const collection = await addCollection({ contract, fetch, logger })
   const nftIndex = getNftIndex({ collection, tokenId })
   const nftSnapshot = await pipe(
-    getNftSnapshotForIndex,
+    getNftSnapshotByIndex,
     otherwise((err) => {
       captureAndLogError(err, { logObject: { nft: nftIndex }, message: 'could get NFT snapshot' })
       return undefined

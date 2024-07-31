@@ -1,19 +1,22 @@
+import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference/collection-reference-name'
 import { walletDataConverter } from '@echo/firestore/converters/wallet/wallet-data-converter'
 import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
+import { walletMockJohnnyId } from '@echo/firestore/mocks/wallet/wallet-document-data-mock'
 import type { Wallet } from '@echo/model/types/wallet'
 import { describe, expect, it } from '@jest/globals'
 import { DocumentReference, QueryDocumentSnapshot } from 'firebase-admin/firestore'
 
 describe('converters - walletDataConverter', () => {
-  const document = getWalletDocumentDataMockById('i28NWtlxElPXCnO0c6BC')
+  const id = walletMockJohnnyId()
+  const document = getWalletDocumentDataMockById(id)
 
   it('from Firestore conversion', () => {
     const snapshot = {
       ref: {
-        id: 'i28NWtlxElPXCnO0c6BC',
-        path: 'wallets/i28NWtlxElPXCnO0c6BC'
+        id,
+        path: `${CollectionReferenceName.WALLETS}/${id}`
       } as unknown as DocumentReference<Wallet>,
-      id: 'i28NWtlxElPXCnO0c6BC',
+      id,
       exists: true,
       data: () => document
     } as unknown as QueryDocumentSnapshot<Wallet>

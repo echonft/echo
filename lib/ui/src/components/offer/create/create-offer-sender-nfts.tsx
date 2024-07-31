@@ -1,15 +1,15 @@
 'use client'
-import { type Nft } from '@echo/model/types/nft'
+import { type OwnedNft } from '@echo/model/types/nft'
 import { CreateOfferSenderNftsSelected } from '@echo/ui/components/offer/create/create-offer-sender-nfts-selected'
 import { CreateOfferSenderNftsSelection } from '@echo/ui/components/offer/create/create-offer-sender-nfts-selection'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  nfts: Nft[]
-  selection: Nft[]
+  nfts: OwnedNft[]
+  selection: OwnedNft[]
   readOnly: boolean
-  onSelect?: (nft: Nft) => unknown
-  onUnselect?: (nft: Nft) => unknown
+  onSelect?: (nft: OwnedNft) => unknown
+  onUnselect?: (nft: OwnedNft) => unknown
 }
 
 export const CreateOfferSenderNfts: FunctionComponent<Props> = ({

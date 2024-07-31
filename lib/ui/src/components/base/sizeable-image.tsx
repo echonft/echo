@@ -1,6 +1,6 @@
 'use client'
 import { addPictureSize } from '@echo/ui/helpers/add-picture-size'
-import { useDependencies } from '@echo/ui/providers/dependencies-provider'
+import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import type { Nullable } from '@echo/utils/types/nullable'
 import Image, { type ImageProps } from 'next/image'
 import { assoc, pipe } from 'ramda'

@@ -1,6 +1,6 @@
 'use client'
 import { pathProvider } from '@echo/api/routing/path-provider'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { SelectableNftsWithFilters } from '@echo/ui/components/nft/filters/selectable-nfts-with-filters'
 import { NFT_ACTION_LISTING } from '@echo/ui/constants/nft-actions'
 import { TabPanel } from '@headlessui/react'
@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  nfts: Nft[]
+  nfts: OwnedNft[]
   show?: boolean
 }
 

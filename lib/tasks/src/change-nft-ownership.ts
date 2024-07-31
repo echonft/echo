@@ -1,5 +1,6 @@
 import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
-import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft'
+
+import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
 import { updateNft } from '@echo/firestore/crud/nft/update-nft'
 import { getWalletOwner } from '@echo/firestore/crud/wallet/get-wallet-owner'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'

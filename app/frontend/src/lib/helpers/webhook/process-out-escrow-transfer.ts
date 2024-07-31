@@ -1,6 +1,6 @@
 import { deleteEscrowedNft } from '@echo/firestore/crud/escrowed-nft/delete-escrowed-nft'
-import { getEscrowedNftSnapshot } from '@echo/firestore/crud/escrowed-nft/get-escrowed-nft'
 import { addNftWithId } from '@echo/firestore/crud/nft/add-nft-with-id'
+import { getEscrowedNftSnapshot } from '@echo/firestore/crud/nft/get-escrowed-nft-snapshot'
 import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { getWalletByAddress } from '@echo/firestore/crud/wallet/get-wallet-by-address'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
@@ -13,11 +13,14 @@ import { addCollection } from '@echo/tasks/add-collection'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { andThen, assoc, isNil, otherwise, pipe } from 'ramda'
 
+// TODO
 export async function processOutEscrowTransfer(args: WithLoggerType<Record<'nft', Nft>>): Promise<void> {
   const {
     nft: {
       tokenId,
       collection: { contract },
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       owner: { wallet }
     },
     logger
@@ -30,6 +33,8 @@ export async function processOutEscrowTransfer(args: WithLoggerType<Record<'nft'
       captureAndLogError(err, { logObject: { nft: nftIndex }, message: 'could not get escrowed NFT snapshot' })
       return undefined
     })
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
   )(nftIndex)
   if (isNil(nftSnapshot)) {
     return Promise.reject(new NotFoundError({ message: 'NFT snapshot not found', severity: 'warning' }))
@@ -40,9 +45,11 @@ export async function processOutEscrowTransfer(args: WithLoggerType<Record<'nft'
       captureAndLogError(err, { logObject: { wallet }, message: 'could not get wallet from Firestore' })
       return undefined
     })
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   )(wallet)
   // wallet is not in the database, we simply delete the NFT in that case
   if (isNil(to)) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     logger?.warn({ wallet }, 'target wallet not found in the database')
     await deleteEscrowedNft(nftSnapshot.id)
     logger?.warn({ nft: nftIndex }, 'deleted escrowed NFT')
@@ -61,6 +68,8 @@ export async function processOutEscrowTransfer(args: WithLoggerType<Record<'nft'
       return Promise.reject(new NotFoundError({ message: 'user not found', severity: 'warning' }))
     }
     // We add NFT back in the NFT database and remove the escrowed one
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const nft: NftWithId = {
       ...nftSnapshot.data(),
       id: nftSnapshot.id,

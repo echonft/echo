@@ -5,7 +5,7 @@ import { getPendingListingsForUser } from '@echo/firestore/crud/listing/get-pend
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { getCompletedOffersForUser } from '@echo/firestore/crud/offer/get-completed-offers-for-user'
 import { getOffersForUser } from '@echo/firestore/crud/offer/get-offers-for-user'
-import { withUser } from '@echo/frontend/lib/decorators/with-user'
+import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import { getPageSelection } from '@echo/frontend/lib/helpers/get-page-selection'
 import { setListingsRole } from '@echo/frontend/lib/helpers/listing/set-listings-role'
@@ -13,7 +13,6 @@ import { setOfferRoleForUser } from '@echo/frontend/lib/helpers/offer/set-offer-
 import { getUserProfile } from '@echo/frontend/lib/helpers/user/get-user-profile'
 import type { PropsWithAuthUser } from '@echo/frontend/lib/types/props-with-auth-user'
 import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
-import type { Nft } from '@echo/model/types/nft'
 import type { Swap } from '@echo/model/types/swap'
 import { NavigationPageLayout } from '@echo/ui/components/base/layout/navigation-page-layout'
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
@@ -28,11 +27,7 @@ async function render({ searchParams, user }: PropsWithAuthUser<WithSearchParams
   if (isNil(profile)) {
     redirect(pathProvider.base.home.get())
   }
-  const nfts: Nft[] = await pipe(
-    prop('username'),
-    getNftsForOwner,
-    otherwise(pipe(captureAndLogError, always([])))
-  )(user)
+  const nfts = await pipe(prop('username'), getNftsForOwner, otherwise(pipe(captureAndLogError, always([]))))(user)
   const listings = await pipe(
     prop('username'),
     getListingsForCreator,
@@ -77,4 +72,4 @@ async function render({ searchParams, user }: PropsWithAuthUser<WithSearchParams
   )
 }
 
-export default withUser(render)
+export default withLoggedInUser(render)

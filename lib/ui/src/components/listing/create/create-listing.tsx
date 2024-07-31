@@ -2,7 +2,7 @@
 import type { Collection } from '@echo/model/types/collection'
 import type { Expiration } from '@echo/model/types/expiration'
 import type { ListingTarget } from '@echo/model/types/listing-target'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { CreateListingButtons } from '@echo/ui/components/listing/create/create-listing-buttons'
 import { CreateListingExpiration } from '@echo/ui/components/listing/create/create-listing-expiration'
@@ -18,12 +18,12 @@ import { assoc, isEmpty, isNil } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  creatorNfts: Nft[]
-  items: Nullable<Nft[]>
+  creatorNfts: OwnedNft[]
+  items: Nullable<OwnedNft[]>
   target: Nullable<Collection>
   loading?: boolean
   onCancel?: VoidFunction
-  onComplete?: (items: Nft[], target: ListingTarget, expiration: Expiration) => void
+  onComplete?: (items: OwnedNft[], target: ListingTarget, expiration: Expiration) => void
 }
 
 export const CreateListing: FunctionComponent<Props> = ({

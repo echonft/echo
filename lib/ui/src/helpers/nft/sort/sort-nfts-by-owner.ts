@@ -1,8 +1,8 @@
-import { nftByOwnerDiscordUsernameComparator } from '@echo/model/helpers/nft/nft-by-owner-discord-username-comparator'
 import { nftByTokenIdComparator } from '@echo/model/helpers/nft/nft-by-token-id-comparator'
-import type { Nft } from '@echo/model/types/nft'
+import { ownedNftComparator } from '@echo/model/helpers/nft/owned-nft-comparator'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { sortWith } from 'ramda'
 
-export function sortNftsByOwner(nfts: Nft[]): Nft[] {
-  return sortWith([nftByOwnerDiscordUsernameComparator, nftByTokenIdComparator], nfts)
+export function sortNftsByOwner(nfts: OwnedNft[]): OwnedNft[] {
+  return sortWith([ownedNftComparator, nftByTokenIdComparator], nfts)
 }
