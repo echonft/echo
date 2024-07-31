@@ -31,7 +31,7 @@ function showAcceptButton(offer: OfferWithRole) {
   try {
     assertOfferStateTransition(offer, OFFER_STATE_ACCEPTED)
     return isOfferRoleReceiver(offer)
-  } catch (e) {
+  } catch (_err) {
     return false
   }
 }
@@ -40,7 +40,7 @@ function showCancelButton(offer: OfferWithRole) {
   try {
     assertOfferStateTransition(offer, OFFER_STATE_CANCELLED)
     return isOfferRoleSender(offer)
-  } catch (e) {
+  } catch (_err) {
     return false
   }
 }
@@ -49,7 +49,7 @@ function showRejectButton(offer: OfferWithRole) {
   try {
     assertOfferStateTransition(offer, OFFER_STATE_REJECTED)
     return isOfferRoleReceiver(offer)
-  } catch (e) {
+  } catch (_err) {
     return false
   }
 }
@@ -58,7 +58,7 @@ function showSwapButton(offer: OfferWithRole) {
   try {
     assertOfferStateTransition(offer, OFFER_STATE_COMPLETED)
     return isOfferRoleSender(offer)
-  } catch (e) {
+  } catch (_err) {
     return false
   }
 }

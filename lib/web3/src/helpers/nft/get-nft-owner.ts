@@ -22,7 +22,7 @@ export async function getNftOwner(
       args: [BigInt(tokenId)]
     })
     return { chain: contract.chain, address: toLower(owner) }
-  } catch (err) {
+  } catch (_err) {
     return undefined
   }
 }

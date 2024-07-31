@@ -14,7 +14,7 @@ function fetchMainnetCollection(args: WithLoggerType<GetCollectionRequest>) {
     request: pick(['slug', 'chain'], args)
   })
   const regex = /^(.+)-\d+$/
-  const match = args.slug.match(regex)
+  const match = regex.exec(args.slug)
   logger?.info({ slug: args.slug }, 'trying to get mainnet slug')
   if (match) {
     const mainnetSlug = match[1]
