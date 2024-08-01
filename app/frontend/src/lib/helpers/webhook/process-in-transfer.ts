@@ -21,5 +21,5 @@ export async function processInTransfer(
     return
   }
   const collection = await getOrAddCollection({ contract, fetch, logger })
-  await setNftOwner({ index: { collection, tokenId }, owner: user })
+  await setNftOwner({ nft: { collection, tokenId }, owner: user })
 }

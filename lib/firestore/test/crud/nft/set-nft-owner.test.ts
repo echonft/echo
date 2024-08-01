@@ -29,7 +29,7 @@ describe('CRUD - nft - setNftOwner', () => {
   })
   it('throws if the NFT does not exist', async () => {
     const owner = getUserMockByUsername(userMockJohnnyUsername())
-    await expect(setNftOwner({ index: { collection: { slug: 'not-found' }, tokenId: 0 }, owner })).rejects.toEqual(
+    await expect(setNftOwner({ nft: { collection: { slug: 'not-found' }, tokenId: 0 }, owner })).rejects.toEqual(
       Error(NftError.NFT_NOT_FOUND)
     )
   })
@@ -37,7 +37,7 @@ describe('CRUD - nft - setNftOwner', () => {
     const owner = getUserMockByUsername(userMockCrewUsername())
     nftId = nftMockSpiralJohnnyId()
     const nft = getNftMockById(nftId)
-    await setNftOwner({ index: getNftIndex(nft), owner })
+    await setNftOwner({ nft: getNftIndex(nft), owner })
     const updatedNft = await getNftById(nftId)
     expect(updatedNft).toBeDefined()
     expect(updatedNft?.owner).toStrictEqual(owner)

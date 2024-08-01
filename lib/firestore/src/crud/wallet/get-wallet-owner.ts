@@ -3,19 +3,17 @@ import { getWalletsCollectionReference } from '@echo/firestore/helpers/collectio
 import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
-import type { PartialWallet } from '@echo/firestore/types/model/wallet/wallet-document-data'
+import type { Wallet } from '@echo/model/types/wallet'
+import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { isNil, pipe } from 'ramda'
+import { andThen, pipe, prop } from 'ramda'
 
-export async function getWalletOwner(wallet: PartialWallet): Promise<Nullable<UserDocumentData>> {
-  const foundWallet = await pipe(
+export function getWalletOwner(wallet: Wallet): Promise<Nullable<UserDocumentData>> {
+  return pipe(
     getWalletsCollectionReference,
     queryWhere('address', '==', wallet.address),
     queryWhere('chain', '==', wallet.chain),
-    getQueryUniqueData
+    getQueryUniqueData,
+    andThen(unlessNil(pipe(prop('userId'), getUserById)))
   )()
-  if (isNil(foundWallet)) {
-    return undefined
-  }
-  return getUserById(foundWallet.userId)
 }

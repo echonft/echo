@@ -1,13 +1,13 @@
 import { addCollection as addCollectionToFirestore } from '@echo/firestore/crud/collection/add-collection'
-import type { PartialWallet } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { Collection } from '@echo/model/types/collection'
+import type { Wallet } from '@echo/model/types/wallet'
 import { getCollection } from '@echo/tasks/get-collection'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { andThen, assoc, isNil, pipe } from 'ramda'
 
 interface GetOrAddCollectionArgs extends WithFetch {
-  contract: PartialWallet
+  contract: Wallet
 }
 
 /**

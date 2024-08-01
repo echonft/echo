@@ -2,8 +2,8 @@ import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
 
 import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
 import { getNftsForWallet } from '@echo/firestore/crud/nft/get-nfts-for-wallet'
-import type { PartialWallet } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { Nft } from '@echo/model/types/nft'
+import type { Wallet } from '@echo/model/types/wallet'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { andThen, dissoc, otherwise, pipe, prop } from 'ramda'
@@ -13,10 +13,10 @@ import { andThen, dissoc, otherwise, pipe, prop } from 'ramda'
  * TODO remove for all EVM chains
  * @param args
  */
-export async function removeNftsForWallet(args: WithLoggerType<Record<'wallet', PartialWallet>>): Promise<void> {
+export async function removeNftsForWallet(args: WithLoggerType<Record<'wallet', Wallet>>): Promise<void> {
   const nfts = await pipe<
-    [WithLoggerType<Record<'wallet', PartialWallet>>],
-    Record<'wallet', PartialWallet>,
+    [WithLoggerType<Record<'wallet', Wallet>>],
+    Record<'wallet', Wallet>,
     Promise<Nft[]>,
     Promise<Nft[]>
   >(

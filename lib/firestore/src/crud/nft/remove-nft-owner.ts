@@ -7,8 +7,8 @@ import { now } from '@echo/utils/helpers/now'
 import { FieldValue } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
-export async function removeNftOwner(index: NftIndex): Promise<Nft> {
-  const snapshot = await getNftSnapshot(index)
+export async function removeNftOwner(nft: NftIndex): Promise<Nft> {
+  const snapshot = await getNftSnapshot(nft)
   if (isNil(snapshot)) {
     return Promise.reject(Error(NftError.NFT_NOT_FOUND))
   }

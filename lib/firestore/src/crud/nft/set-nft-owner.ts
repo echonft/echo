@@ -8,13 +8,13 @@ import { now } from '@echo/utils/helpers/now'
 import { isNil } from 'ramda'
 
 interface SetNftOwnerArgs {
-  index: NftIndex
+  nft: NftIndex
   owner: User
 }
 
 export async function setNftOwner(args: SetNftOwnerArgs): Promise<OwnedNft> {
-  const { index, owner } = args
-  const snapshot = await getNftSnapshot(index)
+  const { nft, owner } = args
+  const snapshot = await getNftSnapshot(nft)
   if (isNil(snapshot)) {
     return Promise.reject(Error(NftError.NFT_NOT_FOUND))
   }
