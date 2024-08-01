@@ -1,8 +1,8 @@
-import type { FetchNftsByAccountQueryParams } from '@echo/nft-scan/types/routing/fetch-nfts-by-account-query-params'
 import type { FetchNftsByAccountSearchParams } from '@echo/nft-scan/types/routing/fetch-nfts-by-account-search-params'
+import type { FetchNftsQueryParams } from '@echo/nft-scan/types/routing/fetch-nfts-query-params'
 import { always, applySpec, defaultTo, pipe, prop } from 'ramda'
 
-export function fetchNftsByAccountQueryMapper(params: FetchNftsByAccountQueryParams): FetchNftsByAccountSearchParams {
+export function fetchNftsByAccountQueryMapper(params: FetchNftsQueryParams): FetchNftsByAccountSearchParams {
   return applySpec<FetchNftsByAccountSearchParams>({
     erc_type: always('erc721'),
     cursor: prop('next'),

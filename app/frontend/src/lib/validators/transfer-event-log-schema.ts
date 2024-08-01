@@ -1,5 +1,5 @@
-import type { NftTransfer } from '@echo/frontend/lib/types/transfer/nft-transfer'
 import type { Log } from '@echo/frontend/lib/types/webhook/log'
+import type { NftTransfer } from '@echo/frontend/lib/types/webhook/nft-transfer'
 import { blockDataSchema } from '@echo/frontend/lib/validators/block-data-schema'
 import type { EvmAddress } from '@echo/model/types/evm-address'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'

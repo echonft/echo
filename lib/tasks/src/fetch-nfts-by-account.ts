@@ -8,7 +8,7 @@ import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { andThen, collectBy, otherwise, path, pipe } from 'ramda'
 
-interface FetchNftsArgs extends WithFetch {
+interface FetchNftsByAccountArgs extends WithFetch {
   wallet: Wallet
 }
 
@@ -17,14 +17,14 @@ interface FetchNftsArgs extends WithFetch {
  * We use OpenSea API on testnet and NFTScan on mainnet
  * @param args
  */
-export function fetchNfts(args: WithLoggerType<FetchNftsArgs>): Promise<PartialNft[][]> {
+export function fetchNftsByAccount(args: WithLoggerType<FetchNftsByAccountArgs>): Promise<PartialNft[][]> {
   const { wallet } = args
   const fetcher = isTestnetChain(wallet.chain) ? getNftsFromOpensea : getNftsFromNftScan
   return pipe(
     fetcher,
     andThen(collectBy(nonNullableReturn<[PartialNft], string>(path(['collection', 'contract', 'address'])))),
     otherwise((err) => {
-      args.logger?.error({ err, wallet }, 'could not fetch NFTs from API')
+      args.logger?.error({ err, wallet }, 'could not fetch NFTs by account from API')
       return []
     })
   )(args)

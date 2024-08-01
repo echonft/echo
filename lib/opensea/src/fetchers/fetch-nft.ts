@@ -2,7 +2,7 @@ import type { Wallet } from '@echo/model/types/wallet'
 import { throttleFetch } from '@echo/opensea/helpers/throttle-fetch'
 import { openseaApiPathProvider } from '@echo/opensea/services/routing/opensea-api-path-provider'
 import type { PartialNft } from '@echo/opensea/types/partial-nft'
-import { getNftResponseSchema } from '@echo/opensea/validators/get-nft-response-schema'
+import { fetchNftResponseSchema } from '@echo/opensea/validators/fetch-nft-response-schema'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
@@ -27,5 +27,5 @@ export async function fetchNft(args: WithLoggerType<FetchNftRequest>): Promise<N
     logger?.error({ nft: { collection: { contract }, tokenId: identifier } }, 'error fetching NFT')
     return Promise.reject(Error('error fetching NFT for contract'))
   }
-  return parseResponse(getNftResponseSchema(contract.chain))(response)
+  return parseResponse(fetchNftResponseSchema(contract.chain))(response)
 }

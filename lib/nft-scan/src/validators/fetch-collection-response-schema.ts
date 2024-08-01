@@ -7,7 +7,7 @@ import type { ChainName } from '@echo/utils/types/chain-name'
 import { isNil } from 'ramda'
 import { object } from 'zod'
 
-export function getCollectionResponseSchema(chain: ChainName) {
+export function fetchCollectionResponseSchema(chain: ChainName) {
   return object({
     data: collectionResponseSchema(chain).nullable().optional()
   })

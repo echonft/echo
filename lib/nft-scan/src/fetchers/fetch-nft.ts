@@ -1,14 +1,14 @@
 import { fetchInit } from '@echo/nft-scan/constants/fetch-init'
 import { nftScanApiPathProvider } from '@echo/nft-scan/services/routing/nft-scan-api-path-provider'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
-import type { GetNftRequest } from '@echo/nft-scan/types/request/get-nft-request'
-import { getNftResponseSchema } from '@echo/nft-scan/validators/get-nft-response-schema'
+import type { FetchNftRequest } from '@echo/nft-scan/types/request/fetch-nft-request'
+import { fetchNftResponseSchema } from '@echo/nft-scan/validators/fetch-nft-response-schema'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { parseResponse } from '@echo/utils/validators/parse-response'
 import { assoc, pick } from 'ramda'
 
-export async function fetchNft(args: WithLoggerType<GetNftRequest>): Promise<Nullable<PartialNft>> {
+export async function fetchNft(args: WithLoggerType<FetchNftRequest>): Promise<Nullable<PartialNft>> {
   const { fetch, contract, identifier, logger } = args
   const url = nftScanApiPathProvider.nft.fetch.getUrl(
     assoc('identifier', identifier, contract),
@@ -27,5 +27,5 @@ export async function fetchNft(args: WithLoggerType<GetNftRequest>): Promise<Nul
     )
     return Promise.reject(Error(`error fetching NFT ${identifier} for contract`))
   }
-  return parseResponse(getNftResponseSchema(contract.chain))(response)
+  return parseResponse(fetchNftResponseSchema(contract.chain))(response)
 }

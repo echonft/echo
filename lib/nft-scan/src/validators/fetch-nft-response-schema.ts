@@ -7,7 +7,7 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { pipe, prop } from 'ramda'
 import { object } from 'zod'
 
-export function getNftResponseSchema(chain: ChainName) {
+export function fetchNftResponseSchema(chain: ChainName) {
   return object({
     data: nftResponseSchema(chain).nullable().optional()
   })

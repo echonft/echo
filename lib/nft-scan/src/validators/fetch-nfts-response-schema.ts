@@ -6,12 +6,12 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { prop } from 'ramda'
 import { object, string } from 'zod'
 
-export interface GetNftsByAccountResponseSchemaReturn {
+export interface FetchNftsByAccountResponseSchemaReturn {
   next?: Nullable<string>
   content: PartialNft[]
 }
 
-export function getNftsByAccountResponseSchema(chain: ChainName) {
+export function fetchNftsResponseSchema(chain: ChainName) {
   const schema = object({
     data: object({
       // total: number(),
@@ -19,5 +19,5 @@ export function getNftsByAccountResponseSchema(chain: ChainName) {
       content: nftResponseSchema(chain).array()
     })
   }).extend(baseResponseAugmentation)
-  return schema.transform<GetNftsByAccountResponseSchemaReturn>(prop('data'))
+  return schema.transform<FetchNftsByAccountResponseSchemaReturn>(prop('data'))
 }

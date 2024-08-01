@@ -5,7 +5,7 @@ import { processInEscrowTransfer } from '@echo/frontend/lib/helpers/webhook/proc
 import { processInTransfer } from '@echo/frontend/lib/helpers/webhook/process-in-transfer'
 import { processOutEscrowTransfer } from '@echo/frontend/lib/helpers/webhook/process-out-escrow-transfer'
 import { processOutTransfer } from '@echo/frontend/lib/helpers/webhook/process-out-transfer'
-import type { NftTransfer } from '@echo/frontend/lib/types/transfer/nft-transfer'
+import type { NftTransfer } from '@echo/frontend/lib/types/webhook/nft-transfer'
 import type { Wallet } from '@echo/model/types/wallet'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { isEcho } from '@echo/web3/helpers/is-echo'

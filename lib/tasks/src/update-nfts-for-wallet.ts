@@ -1,12 +1,11 @@
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getNftsForWallet } from '@echo/firestore/crud/nft/get-nfts-for-wallet'
-import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
 import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/wallet/map-wallet-document-data-to-wallet'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { eqNftWithCollectionContract } from '@echo/model/helpers/nft/eq-nft-with-collection-contract'
 import type { Wallet } from '@echo/model/types/wallet'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
-import { fetchNfts } from '@echo/tasks/fetch-nfts'
+import { fetchNftsByAccount } from '@echo/tasks/fetch-nfts-by-account'
 import { getOrAddCollection } from '@echo/tasks/get-or-add-collection'
 import { updateNftOwner } from '@echo/tasks/update-nft-owner'
 import { isInWith } from '@echo/utils/fp/is-in-with'
@@ -36,7 +35,7 @@ interface UpdateNftsForWalletArgs extends WithFetch {
 export async function updateNftsForWallet(args: WithLoggerType<UpdateNftsForWalletArgs>): Promise<void> {
   const { wallet, logger } = args
   logger?.info({ wallet }, 'started updating NFTs for wallet')
-  const nftGroups = await fetchNfts(args)
+  const nftGroups = await fetchNftsByAccount(args)
   for (const nftGroup of nftGroups) {
     const contract = pipe<[PartialNft[]], PartialNft, Wallet>(
       head,
@@ -58,11 +57,7 @@ export async function updateNftsForWallet(args: WithLoggerType<UpdateNftsForWall
   for (const walletNft of walletNfts) {
     if (!isInWith(nfts, eqNftWithCollectionContract, walletNft)) {
       const ownerWallet = await getNftOwner(walletNft)
-      if (isNil(ownerWallet)) {
-        await removeNftOwner(walletNft)
-      } else {
-        await updateNftOwner({ nft: walletNft, wallet: ownerWallet })
-      }
+      await updateNftOwner({ nft: walletNft, wallet: ownerWallet })
     }
   }
   logger?.info({ wallet }, 'done updating NFTs for wallet')

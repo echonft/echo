@@ -1,10 +1,10 @@
 import { nftResponseMock } from '@echo/nft-scan/mocks/nft-response-mock'
-import { getNftsByAccountResponseSchema } from '@echo/nft-scan/validators/get-nfts-by-account-response-schema'
+import { fetchNftsResponseSchema } from '@echo/nft-scan/validators/fetch-nfts-response-schema'
 import { nftResponseSchema } from '@echo/nft-scan/validators/nft-response-schema'
 import { describe, expect, it } from '@jest/globals'
 import { juxt, map, pipe, prop } from 'ramda'
 
-describe('validators - getNftsByAccountResponseSchema', () => {
+describe('validators - fetchNftsResponseSchema', () => {
   it('maps correctly', () => {
     const next = 'next'
     const content = pipe(nftResponseMock, juxt([prop('1'), prop('2'), prop('3')]))()
@@ -15,7 +15,7 @@ describe('validators - getNftsByAccountResponseSchema', () => {
         content
       }
     }
-    const result = getNftsByAccountResponseSchema('blast').parse(response)
+    const result = fetchNftsResponseSchema('blast').parse(response)
     expect(result).toEqual({
       next,
       content: map((response) => nftResponseSchema('blast').parse(response), content)

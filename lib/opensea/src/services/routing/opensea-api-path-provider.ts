@@ -1,7 +1,7 @@
-import { fetchNftsByAccountQueryMapper } from '@echo/opensea/services/routing/fetch-nfts-by-account-query-mapper'
 import { OpenseaApiPath } from '@echo/opensea/services/routing/opensea-api-path'
-import type { FetchNftsByAccountQueryParams } from '@echo/opensea/types/routing/fetch-nfts-by-account-query-params'
-import type { FetchNftsByAccountSearchParams } from '@echo/opensea/types/routing/fetch-nfts-by-account-search-params'
+import { pagingQueryMapper } from '@echo/opensea/services/routing/paging-query-mapper'
+import type { PagingQueryParams } from '@echo/opensea/types/routing/paging-query-params'
+import type { PagingSearchParams } from '@echo/opensea/types/routing/paging-search-params'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
 
@@ -22,16 +22,22 @@ export const openseaApiPathProvider = {
     })
   },
   nfts: {
-    fetch: new OpenseaApiPath<
+    fetchByAccount: new OpenseaApiPath<{ chain: ChainName; address: HexString }, PagingQueryParams, PagingSearchParams>(
+      {
+        path: '/chain/:chain/account/:address/nfts',
+        queryParamsMapper: pagingQueryMapper
+      }
+    ),
+    fetchByContract: new OpenseaApiPath<
       {
         chain: ChainName
         address: HexString
       },
-      FetchNftsByAccountQueryParams,
-      FetchNftsByAccountSearchParams
+      PagingQueryParams,
+      PagingSearchParams
     >({
-      path: '/chain/:chain/account/:address/nfts',
-      queryParamsMapper: fetchNftsByAccountQueryMapper
+      path: '/chain/:chain/contract/:address/nfts',
+      queryParamsMapper: pagingQueryMapper
     })
   }
 }

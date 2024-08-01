@@ -8,7 +8,7 @@ import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { andThen, pipe, prop } from 'ramda'
 
-export function getWalletOwner(wallet: Wallet): Promise<Nullable<UserDocumentData>> {
+export function getUserByWallet(wallet: Wallet): Promise<Nullable<UserDocumentData>> {
   return pipe(
     getWalletsCollectionReference,
     queryWhere('address', '==', wallet.address),

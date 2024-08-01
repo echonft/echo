@@ -7,21 +7,17 @@ import { erc721Abi } from 'viem'
 
 export async function getNftOwner(
   nft: Record<'tokenId', number> & Record<'collection', Pick<Collection, 'contract'>>
-): Promise<Wallet | undefined> {
+): Promise<Wallet> {
   const {
     collection: { contract },
     tokenId
   } = nft
   const client = await pipe(prop('chain'), getClientForChain)(contract)
-  try {
-    const owner = await client.readContract({
-      address: formatWalletAddress(contract),
-      abi: erc721Abi,
-      functionName: 'ownerOf',
-      args: [BigInt(tokenId)]
-    })
-    return { chain: contract.chain, address: toLower(owner) }
-  } catch (_err) {
-    return undefined
-  }
+  const owner = await client.readContract({
+    address: formatWalletAddress(contract),
+    abi: erc721Abi,
+    functionName: 'ownerOf',
+    args: [BigInt(tokenId)]
+  })
+  return { chain: contract.chain, address: toLower(owner) }
 }

@@ -1,14 +1,13 @@
 import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
-import { getWalletOwner } from '@echo/firestore/crud/wallet/get-wallet-owner'
+import { getUserByWallet } from '@echo/firestore/crud/user/get-user-by-wallet'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
 import type { Nft, NftIndex } from '@echo/model/types/nft'
 import type { Wallet } from '@echo/model/types/wallet'
-import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { isNil, otherwise, pipe } from 'ramda'
 
-interface UpdateNftOwnerArgs {
+export interface UpdateNftOwnerArgs {
   nft: NftIndex
   wallet: Wallet
 }
@@ -20,10 +19,10 @@ interface UpdateNftOwnerArgs {
  * @param args
  * @throws Error returns a rejected promise if the NFT owner could not have been updated
  */
-export async function updateNftOwner(args: WithLoggerType<UpdateNftOwnerArgs>): Promise<Nullable<Nft>> {
+export async function updateNftOwner(args: WithLoggerType<UpdateNftOwnerArgs>): Promise<Nft> {
   const { nft, wallet, logger } = args
   const user = await pipe(
-    getWalletOwner,
+    getUserByWallet,
     otherwise((err) => {
       logger?.error({ err, wallet }, 'could not get wallet owner')
       return undefined

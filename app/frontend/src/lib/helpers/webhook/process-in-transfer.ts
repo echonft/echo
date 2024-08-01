@@ -1,7 +1,7 @@
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { getUserFromWalletDocumentData } from '@echo/frontend/lib/helpers/webhook/get-user-from-wallet-document-data'
-import type { NftTransfer } from '@echo/frontend/lib/types/transfer/nft-transfer'
+import type { NftTransfer } from '@echo/frontend/lib/types/webhook/nft-transfer'
 import { getOrAddCollection } from '@echo/tasks/get-or-add-collection'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { isNil } from 'ramda'

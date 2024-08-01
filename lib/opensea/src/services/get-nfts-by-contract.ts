@@ -1,8 +1,8 @@
 import { fetchNft, type FetchNftRequest } from '@echo/opensea/fetchers/fetch-nft'
-import { fetchNftsByAccount } from '@echo/opensea/fetchers/fetch-nfts-by-account'
+import { fetchNftsByContract } from '@echo/opensea/fetchers/fetch-nfts-by-contract'
 import { getLogger } from '@echo/opensea/helpers/get-logger'
 import type { PartialNft } from '@echo/opensea/types/partial-nft'
-import type { FetchNftsByAccountRequest } from '@echo/opensea/types/request/fetch-nfts-by-account-request'
+import type { FetchNftsByContractRequest } from '@echo/opensea/types/request/fetch-nfts-by-contract-request'
 import type { NftResponse } from '@echo/opensea/types/response/nft-response'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
@@ -24,13 +24,13 @@ import {
   propEq
 } from 'ramda'
 
-export type GetNftsByAccountArgs = Omit<WithLoggerType<FetchNftsByAccountRequest>, 'limit' | 'next'>
+export type GetNftsByContractArgs = Omit<WithLoggerType<FetchNftsByContractRequest>, 'limit' | 'next'>
 
 async function handlePaging(
-  args: WithLoggerType<FetchNftsByAccountRequest>,
+  args: WithLoggerType<FetchNftsByContractRequest>,
   accNfts: PartialNft[]
 ): Promise<PartialNft[]> {
-  const response = await pipe(fetchNftsByAccount, otherwise(always(undefined)))(args)
+  const response = await pipe(fetchNftsByContract, otherwise(always(undefined)))(args)
   if (isNil(response)) {
     return accNfts
   }
@@ -41,7 +41,7 @@ async function handlePaging(
     map(
       applySpec<FetchNftRequest>({
         identifier: pipe(prop('identifier'), (identifier: number) => identifier.toString(10)),
-        contract: pipe(prop('contract'), objOf('address'), assoc('chain', args.wallet.chain)),
+        contract: pipe(prop('contract'), objOf('address'), assoc('chain', args.contract.chain)),
         fetch: always(args.fetch)
       })
     )
@@ -57,11 +57,11 @@ async function handlePaging(
   return handlePaging(assoc('next', next, args), mergedResponse)
 }
 
-export function getNftsByAccount(args: GetNftsByAccountArgs) {
-  const logger = getLogger({ chain: args.wallet.chain, logger: args.logger })?.child({
-    fetcher: getNftsByAccount.name
+export function getNftsByContract(args: GetNftsByContractArgs) {
+  const logger = getLogger({ chain: args.contract.chain, logger: args.logger })?.child({
+    fetcher: getNftsByContract.name
   })
-  return pipe<[GetNftsByAccountArgs], WithLoggerType<FetchNftsByAccountRequest>, Promise<PartialNft[]>>(
+  return pipe<[GetNftsByContractArgs], WithLoggerType<FetchNftsByContractRequest>, Promise<PartialNft[]>>(
     assoc('logger', logger),
     partialRight(handlePaging, [[]])
   )(args)
