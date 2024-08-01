@@ -1,13 +1,16 @@
 import { getLogger } from '@echo/firestore-functions/helper/get-logger'
 import { setMaxInstances } from '@echo/firestore-functions/helper/set-max-instances'
+import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
+import { getNftsForWallet } from '@echo/firestore/crud/nft/get-nfts-for-wallet'
+import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
 import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
-import { removeNftsForWallet } from '@echo/tasks/remove-nfts-for-wallet'
 import { updateNftsForWallet } from '@echo/tasks/update-nfts-for-wallet'
+import { unlessNil } from '@echo/utils/fp/unless-nil'
 import { DocumentSnapshot } from 'firebase-admin/firestore'
 import { onDocumentWritten } from 'firebase-functions/v2/firestore'
-import { isNil } from 'ramda'
+import { andThen, invoker, isNil, otherwise, pipe } from 'ramda'
 
 export const onWalletWritten = onDocumentWritten(
   setMaxInstances({ document: 'wallets/{id}', timeoutSeconds: 540 }),
@@ -41,7 +44,36 @@ export const onWalletWritten = onDocumentWritten(
         if (!isNil(wallet)) {
           logger.info({ wallet }, 'wallet was deleted')
           try {
-            await removeNftsForWallet({ wallet, logger })
+            const nfts = await pipe(
+              getNftsForWallet,
+              otherwise((err: unknown) => {
+                logger.error({ err, wallet }, 'could not get NFTs for wallet')
+                return []
+              })
+            )({ wallet })
+            for (const nft of nfts) {
+              await pipe(
+                getNftSnapshot,
+                andThen(
+                  unlessNil(
+                    pipe(
+                      invoker(0, 'data'),
+                      removeNftOwner,
+                      otherwise((err: unknown) => {
+                        logger.error({ err, nft }, 'could not remove NFT owner')
+                      }),
+                      andThen(() => {
+                        logger.info({ nft }, 'removed NFT owner')
+                      })
+                    )
+                  )
+                ),
+                otherwise((err: unknown) => {
+                  logger.error({ err, nft }, 'could not get NFT snapshot')
+                  return undefined
+                })
+              )(nft)
+            }
           } catch (err) {
             logger.error({ err, wallet }, 'error removing NFTs for wallet')
           }
