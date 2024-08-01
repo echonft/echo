@@ -22,6 +22,6 @@ export const StateLabel: FunctionComponent<Props> = ({ title, subtitle }) => (
     >
       {title}
     </h2>
-    <h1 className={clsx('text-white', 'text-center', 'prose-header-lg-semi')}>{subtitle}</h1>
+    <h1 className={clsx('text-white/70', 'text-center', 'prose-header-lg-semi')}>{subtitle}</h1>
   </div>
 )

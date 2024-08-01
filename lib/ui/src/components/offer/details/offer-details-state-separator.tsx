@@ -10,5 +10,5 @@ export const OfferDetailsStateSeparator: FunctionComponent<Props> = ({ readOnly 
     return null
   }
 
-  return <div className={clsx('h-[5.3125rem]', 'w-0.5', 'bg-white')} />
+  return <div className={clsx('h-[5.3125rem]', 'w-0.5', 'bg-white/70')} />
 }

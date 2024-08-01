@@ -1,8 +1,10 @@
 import type { Offer } from '@echo/model/types/offer'
 import { StateExpiration } from '@echo/ui/components/base/state-expiration'
+import { OfferDetailsStateDetailsLayout } from '@echo/ui/components/offer/details/layout/offer-details-state-details-layout'
+import { OfferDetailsStateLayout } from '@echo/ui/components/offer/details/layout/offer-details-state-layout'
 import { OfferDetailsStateLabel } from '@echo/ui/components/offer/details/offer-details-state-label'
 import { OfferDetailsStateSeparator } from '@echo/ui/components/offer/details/offer-details-state-separator'
-import { clsx } from 'clsx'
+import { ALIGNMENT_LEFT, ALIGNMENT_RIGHT } from '@echo/ui/constants/alignments'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -12,10 +14,14 @@ interface Props {
 export const OfferDetailsState: FunctionComponent<Props> = ({ offer }) => {
   const { expiresAt, readOnly, state } = offer
   return (
-    <div className={clsx('flex', 'flex-row', 'gap-16', 'items-center', 'h-max', 'w-max')}>
-      <StateExpiration expiresAt={expiresAt} readOnly={readOnly} state={state} />
+    <OfferDetailsStateLayout>
+      <OfferDetailsStateDetailsLayout alignment={ALIGNMENT_RIGHT}>
+        <StateExpiration expiresAt={expiresAt} readOnly={readOnly} state={state} />
+      </OfferDetailsStateDetailsLayout>
       <OfferDetailsStateSeparator readOnly={readOnly} />
-      <OfferDetailsStateLabel state={state} />
-    </div>
+      <OfferDetailsStateDetailsLayout alignment={ALIGNMENT_LEFT}>
+        <OfferDetailsStateLabel state={state} />
+      </OfferDetailsStateDetailsLayout>
+    </OfferDetailsStateLayout>
   )
 }
