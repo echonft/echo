@@ -373,6 +373,7 @@ Don't worry, its safe with us.`
     emptyResults: 'No results'
   },
   user: {
+    authUser: 'You',
     button: 'Make an offer',
     empty: {
       items: {

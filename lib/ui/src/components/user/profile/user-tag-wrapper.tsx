@@ -8,7 +8,7 @@ interface Props {
   username?: Username
 }
 
-export const UserDiscordTagWrapper: FunctionComponent<PropsWithChildren<Props>> = ({ username, children }) => {
+export const UserTagWrapper: FunctionComponent<PropsWithChildren<Props>> = ({ username, children }) => {
   if (isNil(username)) {
     return <>{children}</>
   }
