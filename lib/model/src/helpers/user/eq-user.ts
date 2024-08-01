@@ -1,13 +1,9 @@
 import type { User } from '@echo/model/types/user'
-import { equals, isNil, pick } from 'ramda'
-
-function getProps(user: User) {
-  return pick(['username', 'wallet'], user)
-}
+import { eqBy, isNil, pick } from 'ramda'
 
 function internalFn(userA: User): (userB: User) => boolean {
   return function (userB: User) {
-    return equals(getProps(userA), getProps(userB))
+    return eqBy(pick(['username', 'wallet']), userA, userB)
   }
 }
 

@@ -4,7 +4,6 @@ import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
 import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/wallet/map-wallet-document-data-to-wallet'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { eqNftWithCollectionContract } from '@echo/model/helpers/nft/eq-nft-with-collection-contract'
-import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import type { Wallet } from '@echo/model/types/wallet'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import { fetchNfts } from '@echo/tasks/fetch-nfts'
@@ -47,7 +46,7 @@ export async function updateNftsForWallet(args: WithLoggerType<UpdateNftsForWall
     const nftGroupWithCollection = map(assoc('collection', collection), nftGroup)
     for (const nft of nftGroupWithCollection) {
       const currentWallet = mapWalletDocumentDataToWallet(wallet)
-      const owner = await pipe(getNftIndex, getNftByIndex, andThen(unlessNil(prop('owner'))))(nft)
+      const owner = await pipe(getNftByIndex, andThen(unlessNil(prop('owner'))))(nft)
       if (isNil(owner) || !equals(currentWallet, owner.wallet)) {
         await updateNftOwner({ nft, wallet: currentWallet })
       }

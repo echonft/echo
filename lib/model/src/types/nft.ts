@@ -1,7 +1,6 @@
 import { type Collection, type CollectionIndex } from '@echo/model/types/collection'
 import { type NftAttribute } from '@echo/model/types/nft-attribute'
 import { type User } from '@echo/model/types/user'
-import type { DeepPartial } from '@echo/utils/types/deep-partial'
 import type { Nullable } from '@echo/utils/types/nullable'
 
 export interface Nft {
@@ -17,6 +16,5 @@ export interface Nft {
 }
 
 export type NftIndex = Pick<Nft, 'tokenId'> & Record<'collection', CollectionIndex>
-export type PartialNft = DeepPartial<Nft> & Required<NftIndex>
 export type OwnedNft = Omit<Nft, 'owner'> & Record<'owner', User>
-export type PartialOwnedNft = Omit<PartialNft, 'owner'> & Record<'owner', User>
+export type OwnedNftIndex = NftIndex & Record<'owner', User>

@@ -1,33 +1,22 @@
-import type { PartialCollection } from '@echo/model/types/collection'
-import type { Listing } from '@echo/model/types/listing'
-import type { ListingTarget } from '@echo/model/types/listing-target'
-import type { PartialNft } from '@echo/model/types/nft'
-import type { Offer } from '@echo/model/types/offer'
-import type { PartialUser, User, UserDiscordProfile } from '@echo/model/types/user'
-import type { WithId } from '@echo/model/types/with-id'
+import type { WithUsername } from '@echo/model/types/with-username'
 import { propIsNotNil } from '@echo/utils/fp/prop-is-not-nil'
-import type { DeepPartial } from '@echo/utils/types/deep-partial'
 import type { LoggerSerializer } from '@echo/utils/types/logger-serializer'
 import { map, modify, pick, pipe, when } from 'ramda'
 
-function serializeCollection<T extends PartialCollection & Partial<WithId>>(collection: T): T {
-  return pick(['id', 'contract', 'slug'], collection) as T
+function serializeCollection(collection: unknown) {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  return pick(['id', 'contract', 'slug'], collection)
 }
-function serializeUserDiscordProfile(profile: Partial<UserDiscordProfile>): Partial<UserDiscordProfile> {
+function serializeUserDiscordProfile(profile: WithUsername) {
   return pick(['username'], profile)
 }
-function serializeUser<T extends PartialUser>(user: T): DeepPartial<User> {
-  return when<T, T & Record<'discord', NonNullable<DeepPartial<UserDiscordProfile>>>, DeepPartial<User>>(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    propIsNotNil('discord'),
-    modify<'discord', NonNullable<DeepPartial<UserDiscordProfile>>, Partial<UserDiscordProfile>>(
-      'discord',
-      serializeUserDiscordProfile
-    )
-  )(user)
+function serializeUser(user: unknown) {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  return when(propIsNotNil('discord'), modify('discord', serializeUserDiscordProfile))(user)
 }
-function serializeNft<T extends PartialNft & Partial<WithId>>(nft: T) {
+function serializeNft(nft: unknown) {
   // sometimes we might not have all the data needed to build the index, so lets clean the extra data that is
   // actually there, and keep the rest
   return pipe(
@@ -41,9 +30,9 @@ function serializeNft<T extends PartialNft & Partial<WithId>>(nft: T) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     pick(['id', 'collection', 'owner', 'tokenId'])
-  )(nft) as T
+  )(nft)
 }
-function serializeListing<T extends DeepPartial<Listing> & Partial<WithId>>(listing: T): T {
+function serializeListing(listing: unknown) {
   return pipe(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -54,15 +43,15 @@ function serializeListing<T extends DeepPartial<Listing> & Partial<WithId>>(list
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     when(propIsNotNil('target'), modify('target', serializeListingTarget))
-  )(listing) as T
+  )(listing)
 }
-function serializeListingTarget<T extends DeepPartial<ListingTarget>>(target: T): T {
+function serializeListingTarget(target: unknown) {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  return when(propIsNotNil('collection'), modify('collection', serializeCollection))(target) as T
+  return when(propIsNotNil('collection'), modify('collection', serializeCollection))(target)
 }
 
-function serializeOffer<T extends DeepPartial<Offer> & Partial<WithId>>(offer: T): T {
+function serializeOffer(offer: unknown) {
   return pipe(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -76,7 +65,7 @@ function serializeOffer<T extends DeepPartial<Offer> & Partial<WithId>>(offer: T
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     when(propIsNotNil('sender'), modify('creator', serializeUser))
-  )(offer) as T
+  )(offer)
 }
 export const modelLoggerSerializers: LoggerSerializer = {
   collection: serializeCollection,

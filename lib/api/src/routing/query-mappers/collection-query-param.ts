@@ -1,5 +1,5 @@
-import type { PartialCollection } from '@echo/model/types/collection'
+import type { CollectionIndex } from '@echo/model/types/collection'
 
-export function collectionQueryParam(collection: PartialCollection): string {
+export function collectionQueryParam(collection: CollectionIndex): string {
   return collection.slug
 }

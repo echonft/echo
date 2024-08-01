@@ -1,6 +1,6 @@
-import type { PartialCollection } from '@echo/model/types/collection'
+import type { CollectionIndex } from '@echo/model/types/collection'
 import { stringComparator } from '@echo/utils/comparators/string-comparator'
 
-export function collectionComparator(collectionA: PartialCollection, collectionB: PartialCollection): number {
+export function collectionComparator(collectionA: CollectionIndex, collectionB: CollectionIndex): number {
   return stringComparator(collectionA.slug, collectionB.slug)
 }

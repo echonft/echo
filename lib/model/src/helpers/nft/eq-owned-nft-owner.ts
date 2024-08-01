@@ -1,17 +1,18 @@
+import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
 import { eqUser } from '@echo/model/helpers/user/eq-user'
-import type { Nft, OwnedNft } from '@echo/model/types/nft'
-import { propIsNil } from '@echo/utils/fp/prop-is-nil'
+import type { Nft } from '@echo/model/types/nft'
+import { eqPropsWith } from '@echo/utils/fp/eq-props-with'
 import { isNil } from 'ramda'
 
 function internalFn(nftA: Nft): (nftB: Nft) => boolean {
   return function (nftB: Nft) {
-    if (propIsNil('owner', nftA)) {
-      return propIsNil('owner', nftB)
+    if (!isOwnedNft(nftA)) {
+      return !isOwnedNft(nftB)
     }
-    if (propIsNil('owner', nftB)) {
-      return propIsNil('owner', nftA)
+    if (!isOwnedNft(nftB)) {
+      return false
     }
-    return eqUser((nftA as OwnedNft).owner, (nftB as OwnedNft).owner)
+    return eqPropsWith('owner', eqUser, nftA, nftB)
   }
 }
 

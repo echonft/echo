@@ -6,7 +6,7 @@ import { getNftsCollectionReference } from '@echo/firestore/helpers/collection-r
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import type { EscrowedNft } from '@echo/firestore/types/model/nft/escrowed-nft'
-import type { Nft, PartialOwnedNft } from '@echo/model/types/nft'
+import type { Nft, OwnedNftIndex } from '@echo/model/types/nft'
 import { now } from '@echo/utils/helpers/now'
 import { FieldValue } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
@@ -15,7 +15,7 @@ export enum EscrowNftError {
   NFT_ALREADY_IN_ESCROW = 'NFT is already in escrow'
 }
 
-export async function escrowNft(nft: PartialOwnedNft): Promise<string> {
+export async function escrowNft(nft: OwnedNftIndex): Promise<string> {
   const snapshot = await getNftSnapshot(nft)
   if (isNil(snapshot)) {
     return Promise.reject(Error(NftError.NFT_NOT_FOUND))

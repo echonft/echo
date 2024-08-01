@@ -1,13 +1,12 @@
-import type { Nft } from '@echo/model/types/nft'
+import type { Collection } from '@echo/model/types/collection'
 import type { Wallet } from '@echo/model/types/wallet'
-import type { DeepPartial } from '@echo/utils/types/deep-partial'
 import { getClientForChain } from '@echo/web3/helpers/chain/get-client-for-chain'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
 import { pipe, prop, toLower } from 'ramda'
 import { erc721Abi } from 'viem'
 
 export async function getNftOwner(
-  nft: DeepPartial<Nft> & Record<'collection', Record<'contract', Wallet>> & Record<'tokenId', number>
+  nft: Record<'tokenId', number> & Record<'collection', Pick<Collection, 'contract'>>
 ): Promise<Wallet | undefined> {
   const {
     collection: { contract },
