@@ -1,6 +1,8 @@
 'use client'
 import type { Wallet } from '@echo/model/types/wallet'
-import { WalletIconSvg } from '@echo/ui/components/base/svg/wallet-icon-svg'
+import { ExternalLink } from '@echo/ui/components/base/external-link'
+import { ExternalLinkIconSvg } from '@echo/ui/components/base/svg/external-link-icon-svg'
+import { blockExplorerLinkFromChain } from '@echo/web3/helpers/block-explorer-link-from-chain'
 import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
 import { shortenAddress } from '@echo/web3/helpers/shorten-address'
 import { clsx } from 'clsx'
@@ -16,26 +18,35 @@ interface Props {
 export const WalletConnectedButton: FunctionComponent<Props> = ({ wallet }) => {
   const t = useTranslations('wallet.button')
   const buttonId = `wallet-${wallet.address}`
-
+  const walletLink = blockExplorerLinkFromChain(wallet)
   return (
-    <div className={clsx('w-max', 'h-max')}>
-      <CopyToClipboard text={formatWalletAddress(wallet)}>
-        <button id={buttonId} className={clsx('btn-auth-alt', 'bg-white/[0.08]', 'border-none')}>
-          <WalletIconSvg width={24} />
-          <span className={clsx('btn-label-auth')}>{shortenAddress(wallet)}</span>
-        </button>
-      </CopyToClipboard>
-      <Tooltip
-        className={clsx('tooltip')}
-        anchorSelect={`#${buttonId}`}
-        delayHide={200}
-        opacity={1}
-        content={t('copied')}
-        openOnClick={true}
-        noArrow={true}
-        place={'bottom'}
-        closeEvents={{ mouseleave: true, blur: true, click: true, dblclick: true, mouseup: true }}
-      />
+    <div className={clsx('flex', 'flex-row')}>
+      <div>
+        <CopyToClipboard text={formatWalletAddress(wallet)}>
+          <button
+            id={buttonId}
+            className={clsx('btn-auth-alt', 'bg-white/[0.08]', 'border-none', 'rounded-none', 'rounded-l-lg')}
+          >
+            <span className={clsx('btn-label-auth')}>{shortenAddress(wallet)}</span>
+          </button>
+        </CopyToClipboard>
+        <Tooltip
+          className={clsx('tooltip')}
+          anchorSelect={`#${buttonId}`}
+          delayHide={200}
+          opacity={1}
+          content={t('copied')}
+          openOnClick={true}
+          noArrow={true}
+          place={'bottom'}
+          closeEvents={{ mouseleave: true, blur: true, click: true, dblclick: true, mouseup: true }}
+        />
+      </div>
+      <ExternalLink href={walletLink} style={{ inline: true }} key={walletLink}>
+        <div className={clsx('border-2', 'border-white/[0.08]', 'rounded-r-lg', 'p-2.5')}>
+          <ExternalLinkIconSvg />
+        </div>
+      </ExternalLink>
     </div>
   )
 }

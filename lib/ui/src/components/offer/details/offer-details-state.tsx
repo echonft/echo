@@ -1,3 +1,4 @@
+import { OFFER_STATE_EXPIRED } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
 import { StateExpiration } from '@echo/ui/components/base/state-expiration'
 import { OfferDetailsStateDetailsLayout } from '@echo/ui/components/offer/details/layout/offer-details-state-details-layout'
@@ -13,6 +14,13 @@ interface Props {
 
 export const OfferDetailsState: FunctionComponent<Props> = ({ offer }) => {
   const { expiresAt, readOnly, state } = offer
+  if (offer.state === OFFER_STATE_EXPIRED) {
+    return (
+      <OfferDetailsStateLayout>
+        <StateExpiration expiresAt={expiresAt} readOnly={readOnly} state={state} />
+      </OfferDetailsStateLayout>
+    )
+  }
   return (
     <OfferDetailsStateLayout>
       <OfferDetailsStateDetailsLayout alignment={ALIGNMENT_RIGHT}>

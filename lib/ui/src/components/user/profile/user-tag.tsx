@@ -7,10 +7,10 @@ import { type FunctionComponent } from 'react'
 interface Props {
   discordUsername: string
   username?: Username
-  isAuthUser: boolean
+  isAuthUser?: boolean
 }
 
-export const UserTag: FunctionComponent<Props> = ({ username, discordUsername, isAuthUser }) => {
+export const UserTag: FunctionComponent<Props> = ({ username, discordUsername, isAuthUser = false }) => {
   const t = useTranslations('user')
   return (
     <UserTagWrapper username={username}>

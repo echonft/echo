@@ -1,20 +1,26 @@
 import { CardsSkeleton } from '@echo/ui/components/base/card/skeleton/cards-skeleton'
-import { OfferDetailsButtonsSkeleton } from '@echo/ui/components/offer/details/action/skeleton/offer-details-buttons-skeleton'
-import { OfferDetailsItemsButtonsLayout } from '@echo/ui/components/offer/details/layout/offer-details-items-buttons-layout'
+import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
+import { OfferDetailsInfoLayout } from '@echo/ui/components/offer/details/layout/offer-details-info-layout'
 import { OfferDetailsLayout } from '@echo/ui/components/offer/details/layout/offer-details-layout'
-import { OfferDetailsItemsSeparator } from '@echo/ui/components/offer/details/offer-details-items-separator'
+import { OfferDetailsUserInfoLayout } from '@echo/ui/components/offer/details/layout/offer-details-user-info-layout'
+import { OfferDetailsStateSkeleton } from '@echo/ui/components/offer/details/skeleton/offer-details-state-skeleton'
 import { UserDetailsSkeleton } from '@echo/ui/components/user/details/skeleton/user-details-skeleton'
-import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
+import { ALIGNMENT_LEFT } from '@echo/ui/constants/alignments'
 import { type FunctionComponent } from 'react'
 
 export const OfferDetailsSkeleton: FunctionComponent = () => (
   <OfferDetailsLayout>
-    <UserDetailsSkeleton />
-    <OfferDetailsItemsButtonsLayout>
-      <CardsSkeleton alignment={ALIGNMENT_CENTER} />
-      <OfferDetailsItemsSeparator />
-      <CardsSkeleton alignment={ALIGNMENT_CENTER} />
-      <OfferDetailsButtonsSkeleton />
-    </OfferDetailsItemsButtonsLayout>
+    <OfferDetailsStateSkeleton />
+    <OfferDetailsInfoLayout>
+      <OfferDetailsUserInfoLayout>
+        <UserDetailsSkeleton />
+        <CardsSkeleton alignment={ALIGNMENT_LEFT} />
+      </OfferDetailsUserInfoLayout>
+      <ItemsSeparator />
+      <OfferDetailsUserInfoLayout>
+        <UserDetailsSkeleton />
+        <CardsSkeleton alignment={ALIGNMENT_LEFT} />
+      </OfferDetailsUserInfoLayout>
+    </OfferDetailsInfoLayout>
   </OfferDetailsLayout>
 )
