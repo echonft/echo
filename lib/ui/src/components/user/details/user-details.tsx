@@ -11,7 +11,7 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   user: User
-  isAuthUser: boolean
+  isAuthUser?: boolean
 }
 
 /**
@@ -20,7 +20,7 @@ interface Props {
  * @param user
  * @param isAuthUser
  */
-export const UserDetails: FunctionComponent<Props> = ({ user, isAuthUser }) => {
+export const UserDetails: FunctionComponent<Props> = ({ user, isAuthUser = false }) => {
   const { discord, wallet } = user
   const { username, globalName, avatarUrl } = discord
   return (
