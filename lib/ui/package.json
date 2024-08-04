@@ -20,7 +20,7 @@
   "dependencies": {
     "@headlessui/react": "2.1.2",
     "@sentry/nextjs": "8.22.0",
-    "@tanstack/react-query": "5.51.18",
+    "@tanstack/react-query": "5.51.21",
     "connectkit": "1.8.2",
     "dayjs": "1.11.12",
     "framer-motion": "11.3.21",
@@ -55,7 +55,7 @@
     "@echo/web3-dom": "workspace:*",
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
-    "@types/node": "22.0.2",
+    "@types/node": "22.1.0",
     "@types/prop-types": "15.7.12",
     "@types/qs": "6.9.15",
     "@types/ramda": "0.30.1",
@@ -63,13 +63,13 @@
     "@types/react-copy-to-clipboard": "5.0.7",
     "@types/react-dom": "18.3.0",
     "@types/throttle-debounce": "5.0.2",
-    "autoprefixer": "10.4.19",
+    "autoprefixer": "10.4.20",
     "clsx": "2.1.1",
     "cssnano": "7.0.4",
     "i18next": "23.12.2",
     "jest": "29.7.0",
     "jest-junit": "16.0.0",
-    "tsup": "8.2.3",
+    "tsup": "8.2.4",
     "typescript": "5.5.4"
   }
 }
