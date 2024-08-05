@@ -8,7 +8,7 @@ interface Props {
   onAddToken?: () => unknown
 }
 
-export const TokenSelector: FunctionComponent<Props> = ({}) => {
+export const TokenSelector: FunctionComponent<Props> = ({ onAddToken }) => {
   const t = useTranslations('tokenSelector')
 
   return (
