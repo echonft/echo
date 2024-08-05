@@ -18,7 +18,6 @@ export const OfferDetailsStateDetailsLayout: FunctionComponent<PropsWithChildren
         'flex-col',
         'grow',
         'basis-0',
-        '',
         alignment === ALIGNMENT_RIGHT ? 'items-end' : 'items-start'
       )}
     >

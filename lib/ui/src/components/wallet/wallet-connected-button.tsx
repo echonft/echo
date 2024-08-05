@@ -2,9 +2,9 @@
 import type { Wallet } from '@echo/model/types/wallet'
 import { ExternalLink } from '@echo/ui/components/base/external-link'
 import { ExternalLinkIconSvg } from '@echo/ui/components/base/svg/external-link-icon-svg'
-import { blockExplorerLinkFromChain } from '@echo/web3/helpers/block-explorer-link-from-chain'
-import { formatWalletAddress } from '@echo/web3/utils/format-wallet-address'
-import { shortenAddress } from '@echo/web3/utils/shorten-address'
+import { useBlockExplorerLink } from '@echo/ui/hooks/use-block-explorer-link'
+import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
+import { shortenAddress } from '@echo/web3/helpers/shorten-address'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
@@ -18,7 +18,7 @@ interface Props {
 export const WalletConnectedButton: FunctionComponent<Props> = ({ wallet }) => {
   const t = useTranslations('wallet.button')
   const buttonId = `wallet-${wallet.address}`
-  const walletLink = blockExplorerLinkFromChain(wallet)
+  const walletLink = useBlockExplorerLink(wallet)
   return (
     <div className={clsx('flex', 'flex-row')}>
       <div>

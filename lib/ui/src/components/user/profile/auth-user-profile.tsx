@@ -17,7 +17,7 @@ export const AuthUserProfile: FunctionComponent<Props> = ({ profile }) => {
   return (
     <Profile banner={{ bannerUrl, bannerColor }} picture={{ pictureUrl: avatarUrl, alt: username }}>
       <UserProfileDetailsLayout>
-        <UserTag discordUsername={username} />
+        <UserTag user={profile} />
         <div className={clsx('flex', 'flex-row', 'h-max', 'w-max', 'gap-2.5')}>
           <UserProfileWallets wallets={wallets} />
           <LogoutButtonManager />

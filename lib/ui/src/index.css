@@ -24,6 +24,9 @@
   .tab-list {
     @apply flex flex-row w-full h-max gap-3.5 pb-12;
   }
+  .loading-div {
+    @apply w-max h-max rounded-lg bg-white/[0.08] animate-pulse;
+  }
   .page-layout {
     @apply flex flex-col self-stretch grow w-full h-full;
   }

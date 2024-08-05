@@ -10,13 +10,31 @@ export const OfferDetailsStateSkeleton: FunctionComponent = () => {
     <OfferDetailsStateLayout>
       <OfferDetailsStateDetailsLayout alignment={ALIGNMENT_RIGHT}>
         <div className={clsx('flex', 'flex-col', 'gap-1', 'items-center')}>
-          <div className={clsx('h-5', 'w-40', 'rounded-lg', 'bg-white/[0.08]', 'animate-pulse')} />
-          <div className={clsx('h-10', 'w-48', 'rounded-lg', 'bg-white/[0.08]', 'animate-pulse')} />
+          <div className={clsx('loading-div')}>
+            <h2
+              className={clsx(
+                'text-[0.875rem]',
+                'font-semibold',
+                'leading-[1.28125rem]',
+                'tracking-[0.0175rem]',
+                'font-inter',
+                'text-center',
+                'invisible'
+              )}
+            >
+              {'Expires in'}
+            </h2>
+          </div>
+          <div className={clsx('loading-div')}>
+            <h1 className={clsx('text-center', 'prose-header-lg-semi', 'invisible')}>{'10 hours'}</h1>
+          </div>
         </div>
       </OfferDetailsStateDetailsLayout>
       <OfferDetailsStateSeparator readOnly={false} />
       <OfferDetailsStateDetailsLayout alignment={ALIGNMENT_LEFT}>
-        <div className={clsx('h-10', 'w-48', 'rounded-lg', 'bg-white/[0.08]', 'animate-pulse')} />
+        <div className={clsx('loading-div')}>
+          <h1 className={clsx('text-center', 'prose-header-lg-semi', 'invisible')}>{'Pending'}</h1>
+        </div>
       </OfferDetailsStateDetailsLayout>
     </OfferDetailsStateLayout>
   )
