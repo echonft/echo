@@ -11,8 +11,8 @@ import { CreateOfferSenderNfts } from '@echo/ui/components/offer/create/create-o
 import { CreateOfferSwapDirectionHeader } from '@echo/ui/components/offer/create/create-offer-swap-direction-header'
 import { UserDetailsDiscordTagAndWalletLayout } from '@echo/ui/components/user/details/layout/user-details-discord-tag-and-wallet-layout'
 import { UserDetailsLayout } from '@echo/ui/components/user/details/layout/user-details-layout'
-import { UserDiscordTag } from '@echo/ui/components/user/profile/user-discord-tag'
 import { UserProfileWallets } from '@echo/ui/components/user/profile/user-profile-wallets'
+import { UserTag } from '@echo/ui/components/user/profile/user-tag'
 import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { SIZE_MD } from '@echo/ui/constants/size'
 import { SWAP_DIRECTION_IN, SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
@@ -65,7 +65,7 @@ export const CreateOffer: FunctionComponent<Props> = ({
         <UserDetailsLayout>
           <ProfilePicture alt={username} pictureUrl={discord.avatarUrl} size={SIZE_MD} />
           <UserDetailsDiscordTagAndWalletLayout>
-            <UserDiscordTag discordUsername={discord.username} />
+            <UserTag discordUsername={discord.username} />
             <UserProfileWallets wallets={[wallet]} />
           </UserDetailsDiscordTagAndWalletLayout>
         </UserDetailsLayout>

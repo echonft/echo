@@ -1,8 +1,8 @@
 import type { UserProfile as UserProfileModel } from '@echo/model/types/user-profile'
 import { Profile } from '@echo/ui/components/base/profile'
 import { UserProfileDetailsLayout } from '@echo/ui/components/user/profile/layout/user-profile-details-layout'
-import { UserDiscordTag } from '@echo/ui/components/user/profile/user-discord-tag'
 import { UserProfileWallets } from '@echo/ui/components/user/profile/user-profile-wallets'
+import { UserTag } from '@echo/ui/components/user/profile/user-tag'
 import type { FunctionComponent } from 'react'
 
 interface Props {
@@ -15,7 +15,7 @@ export const UserProfile: FunctionComponent<Props> = ({ profile }) => {
   return (
     <Profile banner={{ bannerUrl, bannerColor }} picture={{ pictureUrl: avatarUrl, alt: username }}>
       <UserProfileDetailsLayout>
-        <UserDiscordTag discordUsername={username} />
+        <UserTag discordUsername={username} />
         <UserProfileWallets wallets={wallets} />
       </UserProfileDetailsLayout>
     </Profile>

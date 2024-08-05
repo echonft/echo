@@ -120,21 +120,21 @@ export const themeExtension = {
       }
     ] as fontSizeConfig,
     'display-md': [
-      '3rem',
+      '2.5rem',
       {
         lineHeight: '117%',
         fontWeight: 500
       }
     ] as fontSizeConfig,
     'display-md-bold': [
-      '3rem',
+      '2.5rem',
       {
         lineHeight: '117%',
         fontWeight: 700
       }
     ] as fontSizeConfig,
     'display-md-light': [
-      '3rem',
+      '2.5rem',
       {
         lineHeight: '117%',
         fontWeight: 300
