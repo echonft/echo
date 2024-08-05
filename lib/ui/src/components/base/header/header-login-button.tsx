@@ -1,6 +1,6 @@
 'use client'
 import { DiscordIconSvg } from '@echo/ui/components/base/svg/discord-icon-svg'
-import { useDependencies } from '@echo/ui/providers/dependencies-provider'
+import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useState } from 'react'

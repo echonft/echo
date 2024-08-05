@@ -1,1 +1,1 @@
-export type PathParams = Record<string, string | string[]>
+export type PathParams = Record<PropertyKey, string | string[]>

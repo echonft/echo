@@ -10,13 +10,13 @@ import { assertItems } from '@echo/model/helpers/item/assert/assert-items'
 import type { Expiration } from '@echo/model/types/expiration'
 import { type Listing } from '@echo/model/types/listing'
 import { type ListingTarget } from '@echo/model/types/listing-target'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { now } from '@echo/utils/helpers/now'
 import { nowMs } from '@echo/utils/helpers/now-ms'
 import { head, pipe, toLower, toString } from 'ramda'
 
 interface AddListingArgs {
-  items: Nft[]
+  items: OwnedNft[]
   target: ListingTarget
   expiration: Expiration
 }

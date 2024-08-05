@@ -2,7 +2,6 @@ import { processEchoOfferAcceptedEvent } from '@echo/frontend/lib/helpers/webhoo
 import { processEchoOfferCancelledEvent } from '@echo/frontend/lib/helpers/webhook/process-echo-offer-cancelled-event'
 import { processEchoOfferCreatedEvent } from '@echo/frontend/lib/helpers/webhook/process-echo-offer-created-event'
 import { processEchoOfferExecutedEvent } from '@echo/frontend/lib/helpers/webhook/process-echo-offer-executed-event'
-import { processEchoOfferRedeemedEvent } from '@echo/frontend/lib/helpers/webhook/process-echo-offer-redeemed-event'
 import type { EchoEvent } from '@echo/frontend/lib/types/webhook/echo-event'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
@@ -19,8 +18,6 @@ export async function processEchoEvent(args: WithLoggerType<ProcessEchoEventArgs
       return processEchoOfferCreatedEvent(args)
     case 'OFFER_EXECUTED':
       return processEchoOfferExecutedEvent(args)
-    case 'OFFER_REDEEMED':
-      return processEchoOfferRedeemedEvent(args)
     case 'OFFER_ACCEPTED':
       return processEchoOfferAcceptedEvent(args)
     case 'OFFER_CANCELLED':

@@ -1,6 +1,6 @@
 import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
-import { useDependencies } from '@echo/ui/providers/dependencies-provider'
+import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { formatEther } from '@echo/web3/helpers/format-ether'
 import { isNil } from 'ramda'

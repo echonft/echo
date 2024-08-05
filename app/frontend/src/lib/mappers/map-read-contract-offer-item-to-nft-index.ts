@@ -1,6 +1,6 @@
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import type { NftIndex } from '@echo/model/types/nft'
-import { addCollection } from '@echo/tasks/add-collection'
+import { getOrAddCollection } from '@echo/tasks/get-or-add-collection'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import type { ContractOfferItem } from '@echo/web3/types/contract-offer-item'
@@ -20,7 +20,7 @@ export async function mapReadContractOfferItemToNftIndex(
   args: WithLoggerType<MapReadContractOfferItemToNftIndexArgs>
 ): Promise<NftIndex> {
   const { chain, item, logger } = args
-  const collection = await addCollection({ contract: { address: item.tokenAddress, chain }, fetch, logger })
+  const collection = await getOrAddCollection({ contract: { address: item.tokenAddress, chain }, fetch, logger })
   if (isNil(collection)) {
     return Promise.reject(Error(`could not add collection for contract ${item.tokenAddress}`))
   }

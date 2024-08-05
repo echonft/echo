@@ -15,7 +15,7 @@ import { concat, filter, isNil, length, lte, reduce } from 'ramda'
  */
 function getCurrentHostnameSrc(src: string): string {
   const regex = /^(https?:\/\/)([^/]+)(\/.*)?$/
-  const match = src.match(regex)
+  const match = regex.exec(src)
   const hostname = process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
   if (
     match &&
@@ -62,7 +62,7 @@ export function addPictureSize(
       return concat(src, `?img-width=${size}`)
     }
     // NFT storage
-    const nftStorageMatch = src.match(/^https:\/\/([^.]+)\.ipfs\.nftstorage\.link\/(.+)$/)
+    const nftStorageMatch = /^https:\/\/([^.]+)\.ipfs\.nftstorage\.link\/(.+)$/.exec(src)
     if (!isNil(nftStorageMatch)) {
       const path1 = nftStorageMatch[1]
       const path2 = nftStorageMatch[2]
@@ -71,7 +71,7 @@ export function addPictureSize(
       }
     }
     // w3s
-    const w3sMatch = src.match(/^https:\/\/([^.]+)\.ipfs\.w3s\.link\/(.+)$/)
+    const w3sMatch = /^https:\/\/([^.]+)\.ipfs\.w3s\.link\/(.+)$/.exec(src)
     if (!isNil(w3sMatch)) {
       const path1 = w3sMatch[1]
       const path2 = w3sMatch[2]
@@ -83,7 +83,7 @@ export function addPictureSize(
     const hostname = urlObject.hostname
     // ipfs.io
     if (hostname.includes('ipfs.io')) {
-      const match = urlObject.pathname.match(/ipfs\/([^/]+)\/?/)
+      const match = /ipfs\/([^/]+)\/?/.exec(urlObject.pathname)
       if (isNil(match) || length(match) < 2 || isNil(match[1])) {
         return src
       }

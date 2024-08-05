@@ -1,14 +1,9 @@
-import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
-import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { addWalletSchema } from '@echo/frontend/lib/validators/add-wallet-schema'
-import type { Wallet } from '@echo/model/types/wallet'
-import { pick, pipe } from 'ramda'
+import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
+import { getWalletMockByUsername } from '@echo/model/mocks/wallet/wallet-mock'
 
 describe('validators - addWalletSchema', () => {
-  const wallet = pipe<[string], WalletDocumentData, Wallet>(
-    getWalletDocumentDataMockById,
-    pick(['address', 'chain'])
-  )('i28NWtlxElPXCnO0c6BC')
+  const wallet = getWalletMockByUsername(userMockJohnnyUsername())
   const signature =
     '0x89eb5dc2993d982fe4d261b06d8433dcdacb9fe22aac1623fe9d444668bb7d3509ee29b54a01278b325c71438849f9d052f2ead93e3614d8e19449a9376e74351c'
   const message = Buffer.from(

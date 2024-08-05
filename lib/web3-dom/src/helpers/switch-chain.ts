@@ -10,7 +10,7 @@ export async function switchChain(chain?: ChainName): Promise<void> {
   try {
     const chainId = pipe(defaultTo(defaultChain), getChainId)(chain)
     await wagmiSwitchChain(wagmiConfig, { chainId })
-  } catch (err) {
+  } catch (_err) {
     return
   }
 }

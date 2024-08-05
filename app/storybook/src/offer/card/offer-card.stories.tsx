@@ -2,16 +2,16 @@
 
 import { OFFER_ROLE_RECEIVER } from '@echo/model/constants/offer-role'
 import { OFFER_STATE_OPEN, OFFER_STATES } from '@echo/model/constants/offer-states'
-import type { Nft } from '@echo/model/types/nft'
+import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
+import { offerMockFromJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import type { OfferRole } from '@echo/model/types/offer-role'
 import type { OfferState } from '@echo/model/types/offer-state'
-import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
-import { offerMockFromJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { OfferCard } from '@echo/ui/components/offer/card/offer-card'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { always, assoc, drop, modify, pipe, unless } from 'ramda'
+import { always, assoc, drop, modify, type NonEmptyArray, pipe, unless } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
 
 type ComponentType = FunctionComponent<{
@@ -53,7 +53,7 @@ export const Default: StoryObj<ComponentType> = {
           assoc('state', state),
           unless<OfferWithRole, OfferWithRole>(
             always(stack),
-            modify<'senderItems', Nft[], Nft[]>('senderItems', drop(1))
+            modify('senderItems', drop(1) as unknown as (list: NonEmptyArray<OwnedNft>) => NonEmptyArray<OwnedNft>)
           )
         )(getOfferMockById(offerMockFromJohnnycageId())),
       [state, stack]

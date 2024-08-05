@@ -1,6 +1,6 @@
 import { type ErrorCallback, errorCallback } from '@echo/ui/helpers/error-callback'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
-import { useDependencies } from '@echo/ui/providers/dependencies-provider'
+import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import { assoc, pipe } from 'ramda'
 import useSWRMutation from 'swr/mutation'

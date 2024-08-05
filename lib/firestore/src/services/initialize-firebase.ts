@@ -29,7 +29,7 @@ export async function initializeFirebase(args?: InitializeFirebaseArgs) {
     const firestore = firebaseInitializeFirestore(app)
     firestore.settings({ ignoreUndefinedProperties: true })
     childLogger?.info('initialized Firebase')
-  } catch (err) {
+  } catch (_err) {
     return
   }
 }

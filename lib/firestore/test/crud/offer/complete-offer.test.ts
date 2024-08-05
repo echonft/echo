@@ -83,7 +83,7 @@ describe('CRUD - offer - completeOffer', () => {
       // reset the NFTs with their original data
       if (!isEmpty(updatedNftIndexes)) {
         for (const index of updatedNftIndexes) {
-          await unchecked_updateNft(index, getNftMockByIndex(index))
+          await unchecked_updateNft(getNftMockByIndex(index))
         }
       }
     }

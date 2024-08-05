@@ -3,14 +3,14 @@ import { mapContractOfferToBaseOffer } from '@echo/frontend/lib/mappers/map-cont
 import { getCollectionMock } from '@echo/model/mocks/collection/get-collection-mock'
 import { getNftMock } from '@echo/model/mocks/nft/get-nft-mock'
 import type { BaseOffer } from '@echo/model/types/base-offer'
-import { addCollection } from '@echo/tasks/add-collection'
+import { getOrAddCollection } from '@echo/tasks/get-or-add-collection'
 import type { ContractOffer } from '@echo/web3/types/contract-offer'
 
-jest.mock('@echo/tasks/add-collection')
+jest.mock('@echo/tasks/get-or-add-collection')
 jest.mock('@echo/frontend/lib/helpers/nft/get-nft-from-index')
 
 describe('mappers - mapContractOfferToBaseOffer', () => {
-  jest.mocked(addCollection).mockResolvedValue(getCollectionMock())
+  jest.mocked(getOrAddCollection).mockResolvedValue(getCollectionMock())
   jest.mocked(getNftFromIndex).mockResolvedValue(getNftMock())
   test('maps correctly', async () => {
     const contractOffer: ContractOffer = {

@@ -1,7 +1,7 @@
 /* eslint-disable no-var */
 // noinspection JSUnusedGlobalSymbols,ES6ConvertVarToLetConst
 
-import { messages } from '@echo/bot/messages/en'
+import type { messages } from '@echo/bot/messages/en'
 import type { Logger } from '@echo/utils/types/logger'
 import type { Client } from 'discord.js'
 
@@ -20,3 +20,5 @@ declare global {
   var logger: Readonly<Logger>
   var keepAliveTimer: Readonly<ReturnType<typeof setInterval>>
 }
+
+export {}

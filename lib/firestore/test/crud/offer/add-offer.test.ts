@@ -25,7 +25,7 @@ import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import type { BaseOffer } from '@echo/model/types/base-offer'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -75,14 +75,14 @@ describe('CRUD - offer - addOffer', () => {
       ['expiresAt', 'receiver', 'receiverItems', 'receiverItems', 'sender', 'senderItems'],
       offerMock
     )
-    await expect(addOffer(baseOffer, offerMock.idContract)).rejects.toBeDefined()
+    await expect(addOffer({ baseOffer, idContract: offerMock.idContract })).rejects.toBeDefined()
     const offers = await getAllOffers()
     expect(eqListContent(offers, getAllOfferMocks())).toBeTruthy()
   })
   it('add an offer', async () => {
     const expiresAt = expirationToDate(ONE_DAY)
-    const senderItems: NonEmptyArray<Nft> = [getNftMockById(nftMockPxCrewId())]
-    const receiverItems: NonEmptyArray<Nft> = [
+    const senderItems: NonEmptyArray<OwnedNft> = [getNftMockById(nftMockPxCrewId())]
+    const receiverItems: NonEmptyArray<OwnedNft> = [
       getNftMockById(nftMockSpiralJohnnyId()),
       getNftMockById(nftMockSpiralJohnny2Id())
     ]
@@ -93,7 +93,7 @@ describe('CRUD - offer - addOffer', () => {
       sender: head(senderItems).owner,
       senderItems
     }
-    const createdOffer = await addOffer(baseOffer, '0xtest')
+    const createdOffer = await addOffer({ baseOffer, idContract: '0xtest' })
     createdOfferId = createdOffer.id
     const newOffer: Offer = (await getOfferById(createdOfferId))!
     expect(newOffer.receiver).toStrictEqual(getUserMockByUsername(userMockJohnnyUsername()))

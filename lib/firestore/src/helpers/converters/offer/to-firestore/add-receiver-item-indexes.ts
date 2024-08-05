@@ -1,6 +1,5 @@
 import type { OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
 import { getOfferReceiverItemsIndexes } from '@echo/model/helpers/offer/get-offer-receiver-items-indexes'
-import type { Nft } from '@echo/model/types/nft'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { assoc, has } from 'ramda'
 
@@ -10,9 +9,7 @@ type ModelObject = WithFieldValue<
     'receiverItemIndexes' | 'receiverItemCollections' | 'senderItemIndexes' | 'senderItemCollections'
   >
 >
-type WithReceiverItems = Omit<ModelObject, 'receiverItems'> & {
-  receiverItems: Nft[]
-}
+type WithReceiverItems = Omit<ModelObject, 'receiverItems'> & Pick<OfferDocumentData, 'receiverItems'>
 
 function hasItems(modelObject: ModelObject): modelObject is WithReceiverItems {
   return has('receiverItems', modelObject)

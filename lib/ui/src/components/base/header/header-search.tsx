@@ -6,7 +6,7 @@ import {
 } from '@echo/model/constants/search-result-category'
 import type { SearchResult } from '@echo/model/types/search-result'
 import { SearchBox } from '@echo/ui/components/base/search/search-box'
-import { useDependencies } from '@echo/ui/providers/dependencies-provider'
+import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'

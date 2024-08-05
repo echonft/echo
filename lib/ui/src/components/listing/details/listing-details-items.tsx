@@ -1,13 +1,13 @@
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { CardsLayout } from '@echo/ui/components/base/card/layout/cards-layout'
 import { NftCard } from '@echo/ui/components/nft/card/nft-card'
 import { keyOf } from '@echo/ui/components/nft/key-of'
 import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
-import { map } from 'ramda'
+import { map, type NonEmptyArray } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  items: Nft[]
+  items: NonEmptyArray<OwnedNft>
 }
 
 export const ListingDetailsItems: FunctionComponent<Props> = ({ items }) => (

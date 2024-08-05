@@ -1,6 +1,6 @@
 import { getCollectionByAddress as getCollectionByAddressFromFirestore } from '@echo/firestore/crud/collection/get-collection-by-address'
-import type { PartialWallet } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { Collection } from '@echo/model/types/collection'
+import type { Wallet } from '@echo/model/types/wallet'
 import { fetchCollection } from '@echo/tasks/fetch-collection'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
@@ -13,7 +13,7 @@ interface GetCollectionReturn {
 }
 
 interface GetCollectionArgs extends WithFetch {
-  contract: PartialWallet
+  contract: Wallet
 }
 
 /**

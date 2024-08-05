@@ -1,7 +1,7 @@
 import { collectionMockPxId, collectionMockSpiralId } from '@echo/model/mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model/mocks/collection/get-collection-mock-by-id'
 import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
-import { type Nft } from '@echo/model/types/nft'
+import { type OwnedNft } from '@echo/model/types/nft'
 
 export function nftMockSpiralJohnnyId() {
   return '8hHFadIrrooORfTOLkBg'
@@ -24,7 +24,7 @@ export function nftMockPxCrewId() {
   return 'kRE3UCfXWkJ33nwzj2X1'
 }
 
-export const nftMock: Record<string, Nft> = {
+export const nftMock: Record<string, OwnedNft> = {
   '8hHFadIrrooORfTOLkBg': {
     attributes: [
       { value: 'archimedean', trait: 'Algorithm' },

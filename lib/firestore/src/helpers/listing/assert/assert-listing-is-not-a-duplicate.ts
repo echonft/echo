@@ -3,16 +3,16 @@ import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { NOT_READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
 import { getListingItemsCollectionSlugs } from '@echo/model/helpers/listing/get-listing-items-collection-slugs'
-import { eqNfts } from '@echo/model/helpers/nft/eq-nfts'
+import { eqOwnedNfts } from '@echo/model/helpers/nft/eq-owned-nfts'
 import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
 import type { Listing } from '@echo/model/types/listing'
 import { type ListingTarget } from '@echo/model/types/listing-target'
-import { type Nft } from '@echo/model/types/nft'
+import { type OwnedNft } from '@echo/model/types/nft'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import { now } from '@echo/utils/helpers/now'
-import { andThen, filter, pipe } from 'ramda'
+import { andThen, filter, type NonEmptyArray, pipe } from 'ramda'
 
-export async function assertListingIsNotADuplicate(args: { items: Nft[]; target: ListingTarget }) {
+export async function assertListingIsNotADuplicate(args: { items: NonEmptyArray<OwnedNft>; target: ListingTarget }) {
   const { items, target } = args
   const potentialDuplicates = await pipe(
     getListingsCollectionReference,
@@ -25,7 +25,7 @@ export async function assertListingIsNotADuplicate(args: { items: Nft[]; target:
   )()
   // compare the items with each potential duplicate
   for (const potentialDuplicate of potentialDuplicates) {
-    if (eqNfts(items, potentialDuplicate.items, true)) {
+    if (eqOwnedNfts(items, potentialDuplicate.items)) {
       return Promise.reject(Error('listing is a duplicate'))
     }
   }

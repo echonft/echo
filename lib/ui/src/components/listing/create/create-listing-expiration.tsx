@@ -1,6 +1,6 @@
 import { ONE_DAY } from '@echo/model/constants/expiration'
 import type { Expiration } from '@echo/model/types/expiration'
-import type { Nft } from '@echo/model/types/nft'
+import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import { ExpirationButtonsLayout } from '@echo/ui/components/base/expiration/expiration-buttons-layout'
 import { ExpirationImage } from '@echo/ui/components/base/expiration/expiration-image'
 import { ExpirationLayout } from '@echo/ui/components/base/expiration/expiration-layout'
@@ -15,7 +15,7 @@ import { head, type NonEmptyArray } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  items: Nft[]
+  items: OwnedNft[]
   onCancel?: VoidFunction
   onComplete?: (expiration: Expiration) => void
   loading?: boolean

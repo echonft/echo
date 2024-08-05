@@ -47,7 +47,7 @@ const {
             method: 'POST',
             body: JSON.stringify(token)
           })
-        } catch (err) {
+        } catch (_err) {
           // nothing to do
         }
         return mapUser(profile)

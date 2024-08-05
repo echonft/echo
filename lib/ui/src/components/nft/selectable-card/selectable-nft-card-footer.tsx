@@ -1,4 +1,4 @@
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { CardSubtitle } from '@echo/ui/components/base/card/card-subtitle'
 import { CardTitle } from '@echo/ui/components/base/card/card-title'
 import { SelectableNftCardFooterLayout } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-card-footer-layout'
@@ -10,7 +10,7 @@ import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  nft: Nft
+  nft: OwnedNft
   action?: Nullable<NftAction>
 }
 

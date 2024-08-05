@@ -1,12 +1,12 @@
 import { parseFetchResponse } from '@echo/opensea/helpers/parse-fetch-response'
 import { throttleFetch } from '@echo/opensea/helpers/throttle-fetch'
 import { openseaApiPathProvider } from '@echo/opensea/services/routing/opensea-api-path-provider'
-import type { GetCollectionRequest } from '@echo/opensea/types/request/get-collection-request'
+import type { FetchCollectionRequest } from '@echo/opensea/types/request/fetch-collection-request'
 import type { CollectionResponse } from '@echo/opensea/types/response/collection-response'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { pick } from 'ramda'
 
-export async function fetchCollection(args: WithLoggerType<GetCollectionRequest>): Promise<CollectionResponse> {
+export async function fetchCollection(args: WithLoggerType<FetchCollectionRequest>): Promise<CollectionResponse> {
   const { fetch, slug } = args
   const url = openseaApiPathProvider.collection.fetch.getUrl(pick(['chain', 'slug'], args))
   const logger = args.logger?.child({ url, fetcher: fetchCollection.name })

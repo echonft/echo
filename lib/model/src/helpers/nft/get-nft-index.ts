@@ -1,12 +1,11 @@
-import type { Collection } from '@echo/model/types/collection'
-import type { NftIndex, PartialNft } from '@echo/model/types/nft'
-import type { DeepPartial } from '@echo/utils/types/deep-partial'
+import type { CollectionIndex } from '@echo/model/types/collection'
+import type { NftIndex } from '@echo/model/types/nft'
+import type { Strict } from '@echo/utils/types/strict'
 import { modify, pick, pipe } from 'ramda'
 
-type PartialCollection = DeepPartial<Collection> & Required<Pick<Collection, 'slug'>>
-export function getNftIndex(nft: PartialNft): NftIndex {
-  return pipe<[PartialNft], Pick<PartialNft, 'collection' | 'tokenId'>, NftIndex>(
+export function getNftIndex(nft: NftIndex): Strict<NftIndex, NftIndex> {
+  return pipe<[NftIndex], NftIndex, Strict<NftIndex, NftIndex>>(
     pick(['collection', 'tokenId']),
-    modify<'collection', PartialCollection, Pick<PartialCollection, 'slug'>>('collection', pick(['slug']))
+    modify<'collection', CollectionIndex, CollectionIndex>('collection', pick(['slug']))
   )(nft)
 }

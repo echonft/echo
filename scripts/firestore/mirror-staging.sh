@@ -14,10 +14,16 @@ firebase use staging 1>/dev/null
 set +e
 gsutil -m rm -r "gs://echo-firestore-prod-backup/**" 1>/dev/null
 firebase firestore:databases:delete "(default)" --force 1>/dev/null
-printf "\e[35m\nDeleted staging database, waiting 5 minutes...\n\e[0m"
+printf "\e[35m\nDeleted staging database, waiting 2 minutes...\n\e[0m"
 # Re-enable exit on error
 set -e
-sleep 300
+duration=120
+while [ "$duration" -gt 0 ]
+do
+  printf "\e[35m\r%02d:%02d\e[0m" $((duration/60)) $((duration%60))
+  sleep 1
+  duration=$((duration-1))
+done
 # Getting production database
 firebase use production 1>/dev/null
 firebase firestore:indexes > "${dir}"/../../firestore.indexes.json

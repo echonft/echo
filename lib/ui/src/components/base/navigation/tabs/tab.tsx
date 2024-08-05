@@ -1,6 +1,7 @@
 'use client'
 import { Tab as HeadlessTab } from '@headlessui/react'
 import { clsx } from 'clsx'
+import PropTypes from 'prop-types'
 import { forwardRef, type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
@@ -15,6 +16,9 @@ const TabButton = forwardRef<HTMLButtonElement, PropsWithChildren>(function ({ c
     </button>
   )
 })
+TabButton.propTypes = {
+  children: PropTypes.node
+}
 TabButton.displayName = TabButton.name
 
 export const Tab: FunctionComponent<PropsWithChildren<Props>> = ({ autoFocus, disabled, children }) => {

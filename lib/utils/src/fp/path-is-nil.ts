@@ -1,9 +1,8 @@
-import { isNil, path as ramdaPath, pipe } from 'ramda'
+import { isNil, path, type Path, pipe } from 'ramda'
 
-type Path = (string | number)[]
-function internalFn<V>(path: Path) {
+function internalFn<V>(arg: Path) {
   return function (obj: V) {
-    return pipe(ramdaPath(path), isNil)(obj)
+    return pipe(path<V>(arg), isNil)(obj)
   }
 }
 

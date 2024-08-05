@@ -14,14 +14,17 @@ import { nowMs } from '@echo/utils/helpers/now-ms'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { assoc, pipe, toLower, toString } from 'ramda'
 
-export async function addOffer(
-  baseOffer: BaseOffer,
+interface AddOfferArgs {
+  baseOffer: BaseOffer
   idContract: HexString
-): Promise<
+}
+
+export async function addOffer(args: AddOfferArgs): Promise<
   NewDocument<Offer> & {
     listingOffers: NewDocument<ListingOffer>[]
   }
 > {
+  const { baseOffer, idContract } = args
   const { receiverItems, senderItems } = baseOffer
   assertItems(receiverItems)
   assertItems(senderItems)

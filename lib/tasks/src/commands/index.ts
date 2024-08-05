@@ -6,7 +6,6 @@ import { fetchNftsForWalletCommand } from '@echo/tasks/commands/fetch-nfts-for-w
 import { findDuplicateCollections } from '@echo/tasks/commands/find-duplicate-collections'
 import { removeDuplicateCollections } from '@echo/tasks/commands/remove-duplicate-collections'
 import { updateCollectionCommand } from '@echo/tasks/commands/update-collection-command'
-import { updateNftCommand } from '@echo/tasks/commands/update-nft-command'
 import { updateUserNftsCommand } from '@echo/tasks/commands/update-user-nfts-command'
 import { updateUsersNftsCommand } from '@echo/tasks/commands/update-users-nfts-command'
 import { updateWalletNftsCommand } from '@echo/tasks/commands/update-wallet-nfts-command'
@@ -130,36 +129,6 @@ await yargs(hideBin(process.argv))
         chain: prop('chain')
       })({ address, chain })
       await updateCollectionCommand(contract)
-      process.exit(0)
-    }
-  )
-  .command(
-    'update-nft',
-    'Updates an NFT in the database',
-    () => {},
-    async (_yargs) => {
-      const address = await input({
-        message: 'Collection address:',
-        validate: (input: string) => {
-          if (!isAddress(input, { strict: false })) {
-            return 'invalid address'
-          }
-          return true
-        }
-      })
-      const chain = await select({
-        message: 'Collection chain:',
-        choices: pipe(getChains, sort(stringComparator), map(objOf('value')))(),
-        default: 'ethereum'
-      })
-      const tokenId = await input({
-        message: 'Token ID:'
-      })
-      const contract: Wallet = applySpec<Wallet>({
-        address: pipe(formatWalletAddress, toLower<HexString>),
-        chain: prop('chain')
-      })({ address, chain })
-      await updateNftCommand(contract, tokenId)
       process.exit(0)
     }
   )

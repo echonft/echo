@@ -1,7 +1,7 @@
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 
-export function getNftMock(): Nft {
+export function getNftMock(): OwnedNft {
   return getNftMockById(nftMockSpiralJohnnyId())
 }

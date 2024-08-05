@@ -1,4 +1,5 @@
-import { isEmpty, type NonEmptyArray } from 'ramda'
+import type { Nullable } from '@echo/utils/types/nullable'
+import { either, isEmpty, isNil, type NonEmptyArray } from 'ramda'
 
 /**
  * Function that asserts that an array is not empty
@@ -6,6 +7,6 @@ import { isEmpty, type NonEmptyArray } from 'ramda'
  * @param array
  * @return {array is NonEmptyArray}
  */
-export function isNonEmptyArray<T>(array: T[]): array is NonEmptyArray<T> {
-  return !isEmpty(array)
+export function isNonEmptyArray<T>(array: Nullable<T[]>): array is NonEmptyArray<T> {
+  return !either(isNil, isEmpty)(array)
 }

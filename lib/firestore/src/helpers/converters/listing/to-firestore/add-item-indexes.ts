@@ -1,13 +1,10 @@
 import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
 import { getListingItemsIndexes } from '@echo/model/helpers/listing/get-listing-items-indexes'
-import type { Nft } from '@echo/model/types/nft'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { assoc, has } from 'ramda'
 
 type ModelObject = WithFieldValue<Omit<ListingDocumentData, 'itemIndexes' | 'itemCollections'>>
-type WithItems = Omit<ModelObject, 'items'> & {
-  items: Nft[]
-}
+type WithItems = Omit<ModelObject, 'items'> & Pick<ListingDocumentData, 'items'>
 
 function hasItems(modelObject: ModelObject): modelObject is WithItems {
   return has('items', modelObject)

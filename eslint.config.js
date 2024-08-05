@@ -62,11 +62,20 @@ export default tseslint.config(
           args: 'after-used',
           ignoreRestSiblings: false,
           argsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
           destructuredArrayIgnorePattern: '^_'
         }
       ],
       '@typescript-eslint/no-invalid-void-type': 'off',
-      '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
+      '@typescript-eslint/restrict-template-expressions': [
+        'error',
+        {
+          allowNumber: true,
+          allowBoolean: true,
+          allowNullish: true
+        }
+      ],
+      '@typescript-eslint/no-unnecessary-type-parameters': 'off',
       'no-console': 'error',
       'turbo/no-undeclared-env-vars': 'off',
       'no-restricted-imports': [

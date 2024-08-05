@@ -1,19 +1,19 @@
 'use client'
 import { OFFER_ROLE_SENDER } from '@echo/model/constants/offer-role'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
 import { CreateOffer } from '@echo/ui/components/offer/create/create-offer'
 import { CreatedOfferSwitch } from '@echo/ui/components/offer/created/created-offer-switch'
 import type { PageLayoutBackgroundPickerProps } from '@echo/ui/types/props/page-layout-background-picker-props'
 import { useRouter } from 'next/navigation'
-import { assoc, isNil } from 'ramda'
+import { assoc, isNil, type NonEmptyArray } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props extends PageLayoutBackgroundPickerProps {
   receiver: User
-  receiverItems: Nft[]
-  senderNfts: Nft[]
+  receiverItems: NonEmptyArray<OwnedNft>
+  senderNfts: OwnedNft[]
 }
 
 export const CreateOfferManager: FunctionComponent<Props> = ({

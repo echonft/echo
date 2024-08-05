@@ -1,6 +1,6 @@
 'use client'
 import type { Expiration } from '@echo/model/types/expiration'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { CreateOfferModal } from '@echo/ui/components/offer/create/create-offer-modal'
 import { OfferDetailsContractApprovalModal } from '@echo/ui/components/offer/details/offer-details-contract-approval-modal'
@@ -8,11 +8,12 @@ import { ConnectWalletModal } from '@echo/ui/components/wallet/connect-wallet-mo
 import { useAccount } from '@echo/ui/hooks/use-account'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { useTranslations } from 'next-intl'
+import type { NonEmptyArray } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  senderItems: Nft[]
-  receiverItems: Nft[]
+  senderItems: NonEmptyArray<OwnedNft>
+  receiverItems: NonEmptyArray<OwnedNft>
   expiration: Expiration
   open: boolean
   onClose?: EmptyFunction

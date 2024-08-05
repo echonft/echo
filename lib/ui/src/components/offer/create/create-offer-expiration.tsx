@@ -1,6 +1,6 @@
 import { ONE_DAY } from '@echo/model/constants/expiration'
 import type { Expiration } from '@echo/model/types/expiration'
-import type { Nft } from '@echo/model/types/nft'
+import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { ExpirationButtonsLayout } from '@echo/ui/components/base/expiration/expiration-buttons-layout'
 import { ExpirationImage } from '@echo/ui/components/base/expiration/expiration-image'
@@ -17,8 +17,8 @@ import { head, type NonEmptyArray } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  senderItems: Nft[]
-  receiverItems: Nft[]
+  senderItems: NonEmptyArray<OwnedNft>
+  receiverItems: NonEmptyArray<OwnedNft>
   onCancel?: VoidFunction
   onComplete?: (offer: Offer) => unknown
   loading?: boolean

@@ -1,5 +1,5 @@
 'use client'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { SelectableNftCardButtonLayout } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-card-button-layout'
 import { SelectableNftCardLayout } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-card-layout'
 import { SelectableNftCardButton } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-button'
@@ -10,15 +10,15 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { type FunctionComponent } from 'react'
 
 export interface SelectableNftCardProps {
-  nft: Nft
+  nft: OwnedNft
   options?: {
     owner?: {
       hide?: boolean
     }
   }
   action?: Nullable<NftAction>
-  onSelect?: (nft: Nft) => unknown
-  onAction?: (nft: Nft) => unknown
+  onSelect?: (nft: OwnedNft) => unknown
+  onAction?: (nft: OwnedNft) => unknown
 }
 
 export const SelectableNftCard: FunctionComponent<SelectableNftCardProps> = ({

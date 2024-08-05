@@ -1,5 +1,5 @@
 'use client'
-import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
@@ -18,13 +18,13 @@ import { SIZE_MD } from '@echo/ui/constants/size'
 import { SWAP_DIRECTION_IN, SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
 import { clsx } from 'clsx'
-import { isEmpty } from 'ramda'
+import { isEmpty, type NonEmptyArray } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
   receiver: User
-  receiverItems: Nft[]
-  senderNfts: Nft[]
+  receiverItems: NonEmptyArray<OwnedNft>
+  senderNfts: OwnedNft[]
   loading?: boolean
   onCancel?: VoidFunction
   onComplete?: (offer: Offer) => void
@@ -47,7 +47,7 @@ export const CreateOffer: FunctionComponent<Props> = ({
   if (settingExpiration) {
     return (
       <CreateOfferExpiration
-        senderItems={selection.nfts}
+        senderItems={selection.nfts as NonEmptyArray<OwnedNft>}
         receiverItems={receiverItems}
         onCancel={() => {
           setSettingExpiration(false)

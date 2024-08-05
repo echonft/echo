@@ -1,13 +1,13 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { LISTING_STATE_OPEN, LISTING_STATES } from '@echo/model/constants/listing-states'
+import { getListingMock } from '@echo/model/mocks/listing/get-listing-mock'
 import type { Listing } from '@echo/model/types/listing'
 import type { ListingState } from '@echo/model/types/listing-state'
-import type { Nft } from '@echo/model/types/nft'
-import { getListingMock } from '@echo/model/mocks/listing/get-listing-mock'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { ListingCard } from '@echo/ui/components/listing/card/listing-card'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { always, assoc, drop, modify, pipe, unless } from 'ramda'
+import { always, assoc, drop, modify, type NonEmptyArray, pipe, unless } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
 
 type ComponentType = FunctionComponent<{
@@ -47,7 +47,10 @@ export const Default: StoryObj<ComponentType> = {
         pipe<never[], Listing, Listing, Listing>(
           getListingMock,
           assoc('state', state),
-          unless<Listing, Listing>(always(stack), modify<'items', Nft[], Nft[]>('items', drop(1)))
+          unless<Listing, Listing>(
+            always(stack),
+            modify('items', drop(1) as unknown as (list: NonEmptyArray<OwnedNft>) => NonEmptyArray<OwnedNft>)
+          )
         )(),
       [state, stack]
     )
