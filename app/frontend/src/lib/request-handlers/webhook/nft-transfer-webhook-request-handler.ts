@@ -1,6 +1,6 @@
 import type { WebhookBlockRequest } from '@echo/api/types/requests/webhook-block-request'
 import { assertQuicknodeSignature } from '@echo/frontend/lib/helpers/webhook/assert/assert-quicknode-signature'
-import { handleNftTransfer } from '@echo/frontend/lib/helpers/webhook/handle-nft-transfer'
+import { nftTransferEventHandler } from '@echo/frontend/lib/helpers/webhook/nft-transfer-event-handler'
 import type { RequestHandlerArgsWithParams } from '@echo/frontend/lib/types/request-handlers/request-handler'
 import { parseRequest } from '@echo/frontend/lib/validators/parse-request'
 import { transferEventLogSchema } from '@echo/frontend/lib/validators/transfer-event-log-schema'
@@ -19,7 +19,7 @@ export async function nftTransferWebhookRequestHandler({
     andThen(parseRequest(transferEventLogSchema(chain)))
   )({ req, type: 'nft-transfer' })
   for (const transfer of transfers) {
-    await handleNftTransfer({ transfer, logger })
+    await nftTransferEventHandler({ transfer, logger })
   }
   return NextResponse.json({})
 }

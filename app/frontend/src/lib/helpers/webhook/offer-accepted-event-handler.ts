@@ -1,13 +1,12 @@
-import { cancelOffer } from '@echo/firestore/crud/offer/cancel-offer'
+import { acceptOffer } from '@echo/firestore/crud/offer/accept-offer'
 import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
 import { BadRequestError } from '@echo/frontend/lib/helpers/error/bad-request-error'
 import { NotFoundError } from '@echo/frontend/lib/helpers/error/not-found-error'
-import type { ProcessEchoEventArgs } from '@echo/frontend/lib/helpers/webhook/process-echo-event'
-import type { WithLoggerType } from '@echo/utils/types/with-logger'
+import type { EchoEventHandlerArgs } from '@echo/frontend/lib/helpers/webhook/echo-event-handler'
 import { isNil } from 'ramda'
 
-export async function processEchoOfferCancelledEvent(args: WithLoggerType<ProcessEchoEventArgs>) {
-  const { logger, event } = args
+export async function offerAcceptedEventHandler(args: EchoEventHandlerArgs) {
+  const { event } = args
   const { offerId } = event
   const offer = await getOfferByIdContract(offerId)
   if (isNil(offer)) {
@@ -16,11 +15,11 @@ export async function processEchoOfferCancelledEvent(args: WithLoggerType<Proces
   if (offer.readOnly) {
     return Promise.reject(
       new BadRequestError({
-        message: 'received Echo offer cancelled event, but the offer is read only',
+        message: 'received Echo offer accepted event, but the offer is read only',
         severity: 'warning'
       })
     )
   }
-  await cancelOffer({ slug: offer.slug })
-  logger?.info({ offer }, 'cancelled offer')
+  await acceptOffer({ slug: offer.slug })
+  args.logger?.info({ offer }, 'accepted offer')
 }

@@ -10,11 +10,10 @@ import { unchecked_updateNft } from '@echo/firestore/utils/nft/unchecked_update-
 import { getNftMock } from '@echo/model/mocks/nft/get-nft-mock'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
-import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import type { DocumentReference, DocumentSnapshot } from 'firebase-admin/firestore'
-import { assoc, invoker, isNil, omit, pipe } from 'ramda'
+import { assoc, invoker, isNil, pipe } from 'ramda'
 
 describe('CRUD - nft - escrowNft', () => {
   let escrowedNftId: Nullable<string>
@@ -49,9 +48,7 @@ describe('CRUD - nft - escrowNft', () => {
     escrowedNftId = await escrowNft(nft)
     const updatedNft = await getNftById(nftId)
     expect(updatedNft).toBeDefined()
-    expect(omit(['updatedAt'], updatedNft!)).toStrictEqual(
-      pipe<[OwnedNft], Nft, Omit<Nft, 'updatedAt'>>(assoc('owner', undefined), omit(['updatedAt']))(nft)
-    )
+    expect(updatedNft).toStrictEqual(assoc('owner', undefined, nft))
     const escrowedNft = await pipe<
       [GetReferenceByIdArgs<EscrowedNft>],
       DocumentReference<EscrowedNft>,

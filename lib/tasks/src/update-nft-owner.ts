@@ -4,23 +4,40 @@ import { getUserByWallet } from '@echo/firestore/crud/user/get-user-by-wallet'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
 import type { Nft, NftIndex } from '@echo/model/types/nft'
 import type { Wallet } from '@echo/model/types/wallet'
+import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { isNil, otherwise, pipe } from 'ramda'
+import { andThen, equals, isNil, otherwise, pipe, tap } from 'ramda'
 
 export interface UpdateNftOwnerArgs {
-  nft: NftIndex
-  wallet: Wallet
+  nft: NftIndex & Partial<Pick<Nft, 'owner'>>
+  wallet: Nullable<Wallet>
 }
 
 /**
  * Updates the NFT owner in Firestore
- * If the wallet is in our database, it sets it has the owner of the NFT
+ * If the wallet is in our database, it sets it as the owner of the NFT
  * Else, it removes the owner
  * @param args
- * @throws Error returns a rejected promise if the NFT owner could not have been updated
  */
 export async function updateNftOwner(args: WithLoggerType<UpdateNftOwnerArgs>): Promise<Nft> {
   const { nft, wallet, logger } = args
+  if (equals(args.wallet, nft.owner?.wallet)) {
+    // NFT owner is already set to the right value in Firestore, return it
+    return nft as Nft
+  }
+  // TODO check if any offers or listings are tied to this NFT and, if so, cancel them
+  // see https://linear.app/echobot/issue/DEV-299/check-if-there-is-any-tied-offers-when-switching-ownership-of-an-nft
+  // and https://linear.app/echobot/issue/DEV-301/check-if-there-is-any-tied-listings-when-switching-ownership-of-an-nft
+  if (isNil(wallet)) {
+    return pipe(
+      removeNftOwner,
+      andThen(
+        tap((nft) => {
+          logger?.info({ nft }, 'removed NFT owner')
+        })
+      )
+    )(nft)
+  }
   const user = await pipe(
     getUserByWallet,
     otherwise((err) => {
@@ -29,11 +46,23 @@ export async function updateNftOwner(args: WithLoggerType<UpdateNftOwnerArgs>): 
     })
   )(wallet)
   if (isNil(user)) {
-    return removeNftOwner(nft)
+    return pipe(
+      removeNftOwner,
+      andThen(
+        tap((nft) => {
+          logger?.info({ nft }, 'removed NFT owner')
+        })
+      )
+    )(nft)
   } else {
-    return setNftOwner({ nft, owner: getUserFromFirestoreData({ user, wallet }) })
+    const owner = getUserFromFirestoreData({ user, wallet })
+    return pipe(
+      setNftOwner,
+      andThen(
+        tap((nft) => {
+          logger?.info({ nft }, 'updated NFT owner')
+        })
+      )
+    )({ nft, owner })
   }
-  // TODO check if any offers or listings are tied to this NFT and, if so, cancel them
-  // see https://linear.app/echobot/issue/DEV-299/check-if-there-is-any-tied-offers-when-switching-ownership-of-an-nft
-  // and https://linear.app/echobot/issue/DEV-301/check-if-there-is-any-tied-listings-when-switching-ownership-of-an-nft
 }

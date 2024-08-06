@@ -1,5 +1,5 @@
 import type { Log } from '@echo/frontend/lib/types/webhook/log'
-import type { NftTransfer } from '@echo/frontend/lib/types/webhook/nft-transfer'
+import type { NftTransferEvent } from '@echo/frontend/lib/types/webhook/nft-transfer-event'
 import { blockDataSchema } from '@echo/frontend/lib/validators/block-data-schema'
 import type { EvmAddress } from '@echo/model/types/evm-address'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
@@ -15,7 +15,7 @@ export function transferEventLogSchema(chain: ChainName) {
   const schema = array(blockDataSchema).nonempty()
   function transform(chain: ChainName) {
     return function (response: typeof schema._output) {
-      return pipe<[typeof schema._output], NftTransfer[][], NftTransfer[]>(
+      return pipe<[typeof schema._output], NftTransferEvent[][], NftTransferEvent[]>(
         map(
           pipe(
             prop('logs'),

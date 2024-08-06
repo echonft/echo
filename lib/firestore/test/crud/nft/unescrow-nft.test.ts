@@ -12,7 +12,7 @@ import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import type { DocumentReference, DocumentSnapshot } from 'firebase-admin/firestore'
-import { invoker, isNil, omit, pipe } from 'ramda'
+import { invoker, isNil, pipe } from 'ramda'
 
 describe('CRUD - nft - unescrowNft', () => {
   let nftId: Nullable<string>
@@ -45,7 +45,7 @@ describe('CRUD - nft - unescrowNft', () => {
     await unescrowNft(nftId)
     const updatedNft = await getNftById(nftId)
     expect(updatedNft).toBeDefined()
-    expect(omit(['updatedAt'], updatedNft!)).toStrictEqual(omit(['updatedAt'], nft))
+    expect(updatedNft).toStrictEqual(nft)
     const escrowedNftSnapshot = await pipe<
       [GetReferenceByIdArgs<EscrowedNft>],
       DocumentReference<EscrowedNft>,

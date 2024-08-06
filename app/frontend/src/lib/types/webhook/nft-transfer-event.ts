@@ -1,6 +1,6 @@
 import type { Wallet } from '@echo/model/types/wallet'
 
-export interface NftTransfer {
+export interface NftTransferEvent {
   contract: Wallet
   from: Wallet
   to: Wallet

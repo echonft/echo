@@ -1,5 +1,4 @@
-import type { Collection } from '@echo/model/types/collection'
+import type { CollectionContract } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
 
-export type PartialNft = Omit<Nft, 'collection' | 'owner' | 'updatedAt'> &
-  Record<'collection', Pick<Collection, 'contract'>>
+export type PartialNft = Omit<Nft, 'collection'> & Record<'collection', CollectionContract>

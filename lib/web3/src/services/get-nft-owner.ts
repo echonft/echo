@@ -1,4 +1,4 @@
-import type { Collection } from '@echo/model/types/collection'
+import type { NftWithContract } from '@echo/model/types/nft'
 import type { Wallet } from '@echo/model/types/wallet'
 import { getClientForChain } from '@echo/web3/helpers/get-client-for-chain'
 import { formatWalletAddress } from '@echo/web3/utils/format-wallet-address'
@@ -6,9 +6,7 @@ import { backOff } from 'exponential-backoff'
 import { pipe, prop, toLower } from 'ramda'
 import { erc721Abi } from 'viem'
 
-export async function getNftOwner(
-  nft: Record<'tokenId', number> & Record<'collection', Pick<Collection, 'contract'>>
-): Promise<Wallet> {
+export async function getNftOwner(nft: NftWithContract): Promise<Wallet> {
   const {
     collection: { contract },
     tokenId
