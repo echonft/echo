@@ -6,7 +6,6 @@ import { setReference } from '@echo/firestore/helpers/crud/reference/set-referen
 import type { OfferStateUpdate } from '@echo/firestore/types/model/offer-update/offer-state-update'
 import type { OfferStateUpdateArgs } from '@echo/firestore/types/model/offer-update/offer-state-update-args'
 import type { NewDocument } from '@echo/firestore/types/new-document'
-import { now } from '@echo/utils/helpers/now'
 import { isNil } from 'ramda'
 
 export interface AddOfferStateUpdateArgs {
@@ -33,8 +32,7 @@ export async function addOfferStateUpdate(args: AddOfferStateUpdateArgs): Promis
   }
   const data: OfferStateUpdate = {
     offerId,
-    update: { kind: OFFER_UPDATE_KIND_STATE, args: args.args },
-    createdAt: now()
+    update: { kind: OFFER_UPDATE_KIND_STATE, args: args.args }
   }
   const id = await setReference<OfferStateUpdate>({
     collectionReference: getOfferUpdatesCollectionReference<OfferStateUpdate>(),

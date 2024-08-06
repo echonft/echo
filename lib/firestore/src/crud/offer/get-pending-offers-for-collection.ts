@@ -10,7 +10,7 @@ export async function getPendingOffersForCollection(slug: string): Promise<Offer
   return pipe(
     getOffersCollectionReference,
     queryWhere('state', 'in', NOT_READ_ONLY_OFFER_STATES),
-    queryOrderBy<Offer>('updatedAt', 'desc'),
+    queryOrderBy<Offer>('expiresAt', 'desc'),
     juxt([
       queryWhere<Offer>('receiverItemCollections', 'array-contains', slug),
       queryWhere<Offer>('senderItemCollections', 'array-contains', slug)

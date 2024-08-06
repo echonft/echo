@@ -1,8 +1,8 @@
+import { addOrUpdateUser } from '@echo/firestore/crud/user/add-or-update-user'
 import { deleteUser } from '@echo/firestore/crud/user/delete-user'
 import { getUserSnapshotByDiscordId } from '@echo/firestore/crud/user/get-user-by-discord-id'
 import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
-import { updateUser } from '@echo/firestore/crud/user/update-user'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
 import { assertUsers } from '@echo/firestore/utils/user/assert-users'
 import { unchecked_updateUser } from '@echo/firestore/utils/user/unchecked_update-user'
@@ -11,7 +11,7 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNotNil } from 'ramda'
 
-describe('CRUD - user - updateUser', () => {
+describe('CRUD - user - addOrUpdateUser', () => {
   let newUserId: Nullable<string>
   let updatedUsername: Nullable<string>
 
@@ -42,7 +42,7 @@ describe('CRUD - user - updateUser', () => {
       bannerColor: '#ffffff',
       discriminator: '0'
     }
-    await updateUser(discordProfile)
+    await addOrUpdateUser(discordProfile)
     const snapshot = (await getUserSnapshotByDiscordId('discord-id'))!
     newUserId = snapshot.id
     expect(newUserId).toBeDefined()
@@ -62,7 +62,7 @@ describe('CRUD - user - updateUser', () => {
       bannerColor: '#ffffff',
       discriminator: '0'
     }
-    await updateUser(discordProfile)
+    await addOrUpdateUser(discordProfile)
     const foundUser = (await getUserByUsername(updatedUsername))!
     expect(foundUser.discord).toStrictEqual(assoc('id', existingUser!.discord.id, discordProfile))
   })

@@ -5,13 +5,11 @@ import { setReference } from '@echo/firestore/helpers/crud/reference/set-referen
 import type { OfferStateUpdate } from '@echo/firestore/types/model/offer-update/offer-state-update'
 import type { OfferUpdate } from '@echo/firestore/types/model/offer-update/offer-update'
 import type { NewDocument } from '@echo/firestore/types/new-document'
-import { now } from '@echo/utils/helpers/now'
 
 export async function unchecked_addOfferStateUpdate(args: AddOfferStateUpdateArgs): Promise<NewDocument<OfferUpdate>> {
   const data: OfferUpdate = {
     offerId: args.offerId,
-    update: { kind: OFFER_UPDATE_KIND_STATE, args: args.args },
-    createdAt: now()
+    update: { kind: OFFER_UPDATE_KIND_STATE, args: args.args }
   }
   const id = await setReference<OfferUpdate>({
     collectionReference: getOfferUpdatesCollectionReference<OfferStateUpdate>(),

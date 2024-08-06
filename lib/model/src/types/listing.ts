@@ -6,12 +6,10 @@ import type { WithSlug } from '@echo/model/types/with-slug'
 import type { NonEmptyArray } from 'ramda'
 
 export interface Listing extends WithSlug {
-  createdAt: number
   creator: User
   expiresAt: number
   items: NonEmptyArray<OwnedNft>
   readOnly: boolean
   state: ListingState
   target: ListingTarget
-  updatedAt: number
 }

@@ -1,5 +1,5 @@
 import { mapDiscordProfile } from '@echo/auth/map-discord-profile'
-import { updateUser } from '@echo/firestore/crud/user/update-user'
+import { addOrUpdateUser } from '@echo/firestore/crud/user/add-or-update-user'
 import { BadRequestError } from '@echo/frontend/lib/helpers/error/bad-request-error'
 import { toNextReponse } from '@echo/frontend/lib/request-handlers/to-next-reponse'
 import type { RequestHandlerArgs } from '@echo/frontend/lib/types/request-handlers/request-handler'
@@ -28,7 +28,7 @@ export async function updateUserRequestHandler(args: RequestHandlerArgs<DiscordA
   if (response.ok) {
     return pipe(
       parseResponse(discordProfileSchema),
-      andThen(pipe(mapDiscordProfile, updateUser, objOf('user'), toNextReponse))
+      andThen(pipe(mapDiscordProfile, addOrUpdateUser, objOf('user'), toNextReponse))
     )(response)
   }
   return Promise.reject(new BadRequestError({ message: 'request to Discord failed' }))

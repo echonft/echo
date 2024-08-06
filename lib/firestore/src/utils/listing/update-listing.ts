@@ -3,7 +3,7 @@ import { updateReference } from '@echo/firestore/helpers/crud/reference/update-r
 import { type Listing } from '@echo/model/types/listing'
 import type { UpdateData } from 'firebase-admin/firestore'
 
-export function unchecked_updateListing(id: string, data: UpdateData<Listing>): Promise<Listing> {
+export function updateListing(id: string, data: UpdateData<Listing>): Promise<Listing> {
   return updateReference<Listing>({
     collectionReference: getListingsCollectionReference(),
     id,

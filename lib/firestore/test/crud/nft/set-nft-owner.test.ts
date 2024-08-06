@@ -2,7 +2,7 @@ import { NftError } from '@echo/firestore/constants/errors/nft/nft-error'
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { assertNfts } from '@echo/firestore/utils/nft/assert-nfts'
-import { unchecked_updateNft } from '@echo/firestore/utils/nft/unchecked_update-nft'
+import { updateNft } from '@echo/firestore/utils/nft/update-nft'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
@@ -24,7 +24,7 @@ describe('CRUD - nft - setNftOwner', () => {
   })
   afterEach(async () => {
     if (!isNil(nftId)) {
-      await unchecked_updateNft(getNftMockById(nftId))
+      await updateNft(getNftMockById(nftId))
     }
   })
   it('throws if the NFT does not exist', async () => {

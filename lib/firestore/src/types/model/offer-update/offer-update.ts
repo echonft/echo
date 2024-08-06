@@ -6,5 +6,4 @@ export interface OfferUpdate {
     kind: OfferUpdateKind
     args: object
   }
-  createdAt: number
 }

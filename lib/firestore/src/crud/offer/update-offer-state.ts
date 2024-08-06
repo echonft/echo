@@ -5,7 +5,6 @@ import { updateReference } from '@echo/firestore/helpers/crud/reference/update-r
 import type { OfferStateUpdateArgs } from '@echo/firestore/types/model/offer-update/offer-state-update-args'
 import { assertOfferStateTransition } from '@echo/model/helpers/offer/assert/assert-offer-state-transition'
 import type { Offer } from '@echo/model/types/offer'
-import { now } from '@echo/utils/helpers/now'
 import { dissoc, isNil } from 'ramda'
 
 export interface UpdateOfferStateArgs extends OfferStateUpdateArgs {
@@ -23,7 +22,7 @@ export async function updateOfferState(args: UpdateOfferStateArgs): Promise<Offe
   const updatedOffer = await updateReference<Offer>({
     collectionReference: getOffersCollectionReference(),
     id: snapshot.id,
-    data: { state, updatedAt: now() }
+    data: { state }
   })
   await addOfferStateUpdate({ offerId: snapshot.id, args: dissoc('slug', args) })
   return updatedOffer

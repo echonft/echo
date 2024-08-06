@@ -1,24 +1,22 @@
-import { assertListings } from '@echo/firestore/utils/listing/assert-listings'
-import { unchecked_updateListing } from '@echo/firestore/utils/listing/unchecked_update-listing'
 import { cancelListing } from '@echo/firestore/crud/listing/cancel-listing'
 import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
-import { listingMockId, listingMockSlug } from '@echo/model/mocks/listing/listing-mock'
+import { assertListings } from '@echo/firestore/utils/listing/assert-listings'
+import { updateListing } from '@echo/firestore/utils/listing/update-listing'
 import {
   LISTING_STATE_CANCELLED,
   LISTING_STATE_EXPIRED,
   LISTING_STATE_FULFILLED,
   LISTING_STATE_OPEN
 } from '@echo/model/constants/listing-states'
-import { type ListingState } from '@echo/model/types/listing-state'
+import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
+import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
+import { isNil } from 'ramda'
 
 describe('CRUD - listing - cancelListing', () => {
-  let initialState: ListingState
-  let initialExpiresAt: number
-  let initialUpdatedAt: number
-  const listingId = listingMockId()
-  const listingSlug = listingMockSlug()
+  let listingId: Nullable<string>
 
   beforeAll(async () => {
     await assertListings()
@@ -26,53 +24,50 @@ describe('CRUD - listing - cancelListing', () => {
   afterAll(async () => {
     await assertListings()
   })
-  beforeEach(async () => {
-    const listing = (await getListingById(listingId))!
-    initialState = listing.state
-    initialExpiresAt = listing.expiresAt
-    initialUpdatedAt = listing.updatedAt
+  beforeEach(() => {
+    listingId = undefined
   })
   afterEach(async () => {
-    await unchecked_updateListing(listingId, {
-      state: initialState,
-      expiresAt: initialExpiresAt,
-      updatedAt: initialUpdatedAt
-    })
+    if (!isNil(listingId)) {
+      await updateListing(listingId, getListingMockById(listingId))
+    }
   })
 
   it('throws if the listing is undefined', async () => {
     await expect(cancelListing('not-found')).rejects.toBeDefined()
   })
   it('throws if the listing is expired', async () => {
-    await unchecked_updateListing(listingId, {
+    listingId = listingMockId()
+    await updateListing(listingId, {
       state: LISTING_STATE_EXPIRED,
       expiresAt: dayjs().subtract(1, 'day').unix()
     })
     await expect(cancelListing(listingId)).rejects.toBeDefined()
   })
   it('throws if the listing is cancelled', async () => {
-    await unchecked_updateListing(listingId, {
+    listingId = listingMockId()
+    await updateListing(listingId, {
       state: LISTING_STATE_CANCELLED,
       expiresAt: dayjs().add(1, 'day').unix()
     })
     await expect(cancelListing(listingId)).rejects.toBeDefined()
   })
   it('throws if the listing is fulfilled', async () => {
-    await unchecked_updateListing(listingId, {
+    listingId = listingMockId()
+    await updateListing(listingId, {
       state: LISTING_STATE_FULFILLED,
       expiresAt: dayjs().add(1, 'day').unix()
     })
     await expect(cancelListing(listingId)).rejects.toBeDefined()
   })
   it('cancel listing if its not expired and in the right state', async () => {
-    await unchecked_updateListing(listingId, {
+    listingId = listingMockId()
+    const { slug } = await updateListing(listingId, {
       state: LISTING_STATE_OPEN,
       expiresAt: dayjs().add(1, 'day').unix()
     })
-    await cancelListing(listingSlug)
+    await cancelListing(slug)
     const updatedListing = (await getListingById(listingId))!
     expect(updatedListing.state).toEqual(LISTING_STATE_CANCELLED)
-    expect(dayjs.unix(updatedListing.updatedAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
-    expect(dayjs.unix(updatedListing.updatedAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
   })
 })

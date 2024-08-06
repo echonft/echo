@@ -6,7 +6,7 @@ import { getEscrowedNftsCollectionReference } from '@echo/firestore/helpers/coll
 import { getReferenceById, type GetReferenceByIdArgs } from '@echo/firestore/helpers/crud/reference/get-reference-by-id'
 import type { EscrowedNft } from '@echo/firestore/types/model/nft/escrowed-nft'
 import { assertNfts } from '@echo/firestore/utils/nft/assert-nfts'
-import { unchecked_updateNft } from '@echo/firestore/utils/nft/unchecked_update-nft'
+import { updateNft } from '@echo/firestore/utils/nft/update-nft'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -27,7 +27,7 @@ describe('CRUD - nft - unescrowNft', () => {
   })
   afterEach(async () => {
     if (!isNil(nftId)) {
-      await unchecked_updateNft(getNftMockById(nftId))
+      await updateNft(getNftMockById(nftId))
     }
   })
   it('throws if the NFT does not exist', async () => {

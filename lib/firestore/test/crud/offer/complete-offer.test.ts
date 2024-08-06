@@ -10,11 +10,11 @@ import { getSwapSnapshot } from '@echo/firestore/crud/swap/get-swap'
 import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
 import { assertCollectionSwapsCounts } from '@echo/firestore/utils/collection-swaps-count/assert-collection-swaps-counts'
 import { unchecked_updateCollectionSwapCounts } from '@echo/firestore/utils/collection-swaps-count/unchecked_update-collection-swap-counts'
-import { unchecked_updateListing } from '@echo/firestore/utils/listing/unchecked_update-listing'
+import { updateListing } from '@echo/firestore/utils/listing/update-listing'
 import { assertNfts } from '@echo/firestore/utils/nft/assert-nfts'
-import { unchecked_updateNft } from '@echo/firestore/utils/nft/unchecked_update-nft'
+import { updateNft } from '@echo/firestore/utils/nft/update-nft'
 import { assertOffers } from '@echo/firestore/utils/offer/assert-offers'
-import { unchecked_updateOffer } from '@echo/firestore/utils/offer/unchecked_update-offer'
+import { updateOffer } from '@echo/firestore/utils/offer/update-offer'
 import { assertSwaps } from '@echo/firestore/utils/swap/assert-swaps'
 import { LISTING_STATE_PARTIALLY_FULFILLED } from '@echo/model/constants/listing-states'
 import {
@@ -39,7 +39,6 @@ import { futureDate } from '@echo/utils/helpers/future-date'
 import { pastDate } from '@echo/utils/helpers/past-date'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import dayjs from 'dayjs'
 import { andThen, assoc, find, isEmpty, isNil, map, pipe, prop, propEq, reject } from 'ramda'
 
 describe('CRUD - offer - completeOffer', () => {
@@ -73,8 +72,8 @@ describe('CRUD - offer - completeOffer', () => {
     updatedNftIndexes = []
   })
   afterEach(async () => {
-    await unchecked_updateOffer(slug, getOfferMockBySlug(slug))
-    await unchecked_updateListing(listingId, getListingMockById(listingId))
+    await updateOffer(slug, getOfferMockBySlug(slug))
+    await updateListing(listingId, getListingMockById(listingId))
     if (!isNil(createdStateUpdateId)) {
       await deleteOfferUpdate(createdStateUpdateId)
     }
@@ -83,7 +82,7 @@ describe('CRUD - offer - completeOffer', () => {
       // reset the NFTs with their original data
       if (!isEmpty(updatedNftIndexes)) {
         for (const index of updatedNftIndexes) {
-          await unchecked_updateNft(getNftMockByIndex(index))
+          await updateNft(getNftMockByIndex(index))
         }
       }
     }
@@ -98,23 +97,23 @@ describe('CRUD - offer - completeOffer', () => {
     await expect(pipe(assoc('slug', 'not-found'), completeOffer)(args)).rejects.toBeDefined()
   })
   it('throws if the offer is expired', async () => {
-    await unchecked_updateOffer(slug, { state: OFFER_STATE_EXPIRED, expiresAt: pastDate() })
+    await updateOffer(slug, { state: OFFER_STATE_EXPIRED, expiresAt: pastDate() })
     await expect(completeOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is cancelled', async () => {
-    await unchecked_updateOffer(slug, { state: OFFER_STATE_CANCELLED, expiresAt: futureDate() })
+    await updateOffer(slug, { state: OFFER_STATE_CANCELLED, expiresAt: futureDate() })
     await expect(completeOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is completed', async () => {
-    await unchecked_updateOffer(slug, { state: OFFER_STATE_COMPLETED, expiresAt: futureDate() })
+    await updateOffer(slug, { state: OFFER_STATE_COMPLETED, expiresAt: futureDate() })
     await expect(completeOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is rejected', async () => {
-    await unchecked_updateOffer(slug, { state: OFFER_STATE_REJECTED, expiresAt: futureDate() })
+    await updateOffer(slug, { state: OFFER_STATE_REJECTED, expiresAt: futureDate() })
     await expect(completeOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is open', async () => {
-    await unchecked_updateOffer(slug, { state: OFFER_STATE_OPEN, expiresAt: futureDate() })
+    await updateOffer(slug, { state: OFFER_STATE_OPEN, expiresAt: futureDate() })
     await expect(completeOffer(args)).rejects.toBeDefined()
   })
   it('complete offer', async () => {
@@ -128,7 +127,7 @@ describe('CRUD - offer - completeOffer', () => {
     )(offer)
     expect(initialSwapsCounts).toBeDefined()
     expect(initialSwapsCounts.length).toBe(2)
-    await unchecked_updateOffer(slug, { state: OFFER_STATE_ACCEPTED, expiresAt: futureDate() })
+    await updateOffer(slug, { state: OFFER_STATE_ACCEPTED, expiresAt: futureDate() })
     await completeOffer(args)
     const updatedOffer = (await getOffer(slug))!
     updatedNftIndexes = pipe(getOfferItems, getNftIndexForNfts)(updatedOffer)
@@ -151,13 +150,9 @@ describe('CRUD - offer - completeOffer', () => {
     expect(stateUpdateSnapshot).toBeDefined()
     // check updated offer
     expect(updatedOffer.state).toEqual(OFFER_STATE_COMPLETED)
-    expect(dayjs.unix(updatedOffer.updatedAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
-    expect(dayjs.unix(updatedOffer.updatedAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
     // check swap
     expect(swap.offerId).toStrictEqual(offerId)
     expect(swap.transactionId).toStrictEqual(args.transactionId)
-    expect(dayjs.unix(swap.createdAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
-    expect(dayjs.unix(swap.createdAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
     // check if the listing state was updated properly
     expect(updatedListing.state).toBe(LISTING_STATE_PARTIALLY_FULFILLED)
     // check the swaps counts
