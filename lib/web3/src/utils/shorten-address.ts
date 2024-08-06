@@ -1,6 +1,6 @@
 import type { Wallet } from '@echo/model/types/wallet'
-import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
 import type { UnformattedWallet } from '@echo/web3/types/unformatted-wallet'
+import { formatWalletAddress } from '@echo/web3/utils/format-wallet-address'
 
 /**
  * Shorten the address to display the 4 first chars and 4 last chars.

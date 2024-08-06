@@ -13,7 +13,7 @@ import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { getNftOwner } from '@echo/web3/helpers/nft/get-nft-owner'
+import { getNftOwner } from '@echo/web3/services/get-nft-owner'
 import { andThen, assoc, equals, flatten, head, isNil, map, path, pipe, prop } from 'ramda'
 
 interface UpdateNftsForWalletArgs extends WithFetch {

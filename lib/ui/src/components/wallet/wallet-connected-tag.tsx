@@ -1,7 +1,7 @@
 'use client'
 import type { Wallet } from '@echo/model/types/wallet'
 import { WalletIconSvg } from '@echo/ui/components/base/svg/wallet-icon-svg'
-import { shortenAddress } from '@echo/web3/helpers/shorten-address'
+import { shortenAddress } from '@echo/web3/utils/shorten-address'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 

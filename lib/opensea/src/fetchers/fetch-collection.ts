@@ -1,12 +1,14 @@
-import { parseFetchResponse } from '@echo/opensea/helpers/parse-fetch-response'
+import type { Collection } from '@echo/model/types/collection'
 import { throttleFetch } from '@echo/opensea/helpers/throttle-fetch'
 import { openseaApiPathProvider } from '@echo/opensea/services/routing/opensea-api-path-provider'
 import type { FetchCollectionRequest } from '@echo/opensea/types/request/fetch-collection-request'
-import type { CollectionResponse } from '@echo/opensea/types/response/collection-response'
+import { collectionResponseSchema } from '@echo/opensea/validators/collection-response-schema'
+import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
+import { parseResponse } from '@echo/utils/validators/parse-response'
 import { pick } from 'ramda'
 
-export async function fetchCollection(args: WithLoggerType<FetchCollectionRequest>): Promise<CollectionResponse> {
+export async function fetchCollection(args: WithLoggerType<FetchCollectionRequest>): Promise<Nullable<Collection>> {
   const { fetch, slug } = args
   const url = openseaApiPathProvider.collection.fetch.getUrl(pick(['chain', 'slug'], args))
   const logger = args.logger?.child({ url, fetcher: fetchCollection.name })
@@ -15,5 +17,5 @@ export async function fetchCollection(args: WithLoggerType<FetchCollectionReques
     logger?.error({ slug }, 'error fetching collection')
     return Promise.reject(Error(`error fetching collection ${slug}`))
   }
-  return parseFetchResponse<CollectionResponse>(response)
+  return parseResponse(collectionResponseSchema({ chain: args.chain, logger }))(response)
 }

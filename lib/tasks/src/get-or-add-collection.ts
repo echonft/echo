@@ -12,7 +12,7 @@ import { getCollection } from '@echo/tasks/get-collection'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { getNftOwner } from '@echo/web3/helpers/nft/get-nft-owner'
+import { getNftOwner } from '@echo/web3/services/get-nft-owner'
 import { andThen, assoc, isNil, objOf, otherwise, pipe } from 'ramda'
 
 interface GetOrAddCollectionArgs extends WithFetch {

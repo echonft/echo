@@ -13,6 +13,7 @@ async function handlePaging(args: FetchNftsByContractRequest, accNfts: PartialNf
   }
   const { next, content } = response
   const mergedResponse = concat(accNfts, content)
+  args.logger?.info({ request: content.length, total: mergedResponse.length }, 'fetched NFTs')
   if (isNilOrEmpty(next)) {
     return mergedResponse
   }

@@ -1,8 +1,8 @@
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import type { ApproveErc721ContractArgs } from '@echo/web3-dom/types/approve-erc-721-contract-args'
-import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
 import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
+import { formatWalletAddress } from '@echo/web3/utils/format-wallet-address'
 import { erc721Abi } from 'viem'
 import { simulateContract, waitForTransactionReceipt, writeContract } from 'wagmi/actions'
 

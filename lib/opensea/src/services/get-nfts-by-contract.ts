@@ -51,6 +51,7 @@ async function handlePaging(
     await pipe(fetchNft, andThen(unlessNil((response) => responses.push(response))))(request)
   }
   const mergedResponse = concat(responses, accNfts)
+  args.logger?.info({ request: responses.length, total: mergedResponse.length }, 'fetched NFTs')
   if (isNilOrEmpty(next)) {
     return mergedResponse
   }

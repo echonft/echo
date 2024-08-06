@@ -12,7 +12,7 @@ import { updateNftOwner, type UpdateNftOwnerArgs } from '@echo/tasks/update-nft-
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { getNftOwner } from '@echo/web3/helpers/nft/get-nft-owner'
+import { getNftOwner } from '@echo/web3/services/get-nft-owner'
 import { andThen, assoc, dissoc, equals, isNil, objOf, pipe } from 'ramda'
 
 interface UpdateNftsForCollectionArgs extends WithFetch {
@@ -21,7 +21,7 @@ interface UpdateNftsForCollectionArgs extends WithFetch {
 
 export async function updateNftsForCollection(args: WithLoggerType<UpdateNftsForCollectionArgs>): Promise<void> {
   const { collection, logger } = args
-  logger?.info({ collection }, 'started updating NFTs for collection')
+  logger?.info({ collection }, `started updating NFTs (${collection.totalSupply}) for collection`)
   const nfts = await pipe<
     [UpdateNftsForCollectionArgs],
     Omit<UpdateNftsForCollectionArgs, 'collection'>,
@@ -80,5 +80,5 @@ export async function updateNftsForCollection(args: WithLoggerType<UpdateNftsFor
       }
     }
   }
-  logger?.info({ collection }, 'done updating NFTs for collection')
+  logger?.info({ collection }, `done updating ${collection.totalSupply} NFTs for collection`)
 }

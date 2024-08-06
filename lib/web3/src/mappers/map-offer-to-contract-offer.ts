@@ -1,9 +1,9 @@
 import type { BaseOffer } from '@echo/model/types/base-offer'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
-import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
 import { mapOfferItemsToContractOfferItems } from '@echo/web3/mappers/map-offer-items-to-contract-offer-items'
 import type { ContractOffer } from '@echo/web3/types/contract-offer'
 import { ContractOfferState } from '@echo/web3/types/contract-offer-state'
+import { formatWalletAddress } from '@echo/web3/utils/format-wallet-address'
 import { always, applySpec, path, pipe, prop } from 'ramda'
 
 export function mapOfferToContractOffer(offer: BaseOffer): ContractOffer {

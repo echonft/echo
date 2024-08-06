@@ -50,11 +50,12 @@ async function alchemyTransportUrl(chainId: number) {
 
 export async function getTransport(chain: Chain): Promise<FallbackTransport<[WebSocketTransport, HttpTransport]>> {
   const chainId = chain.id
+  const config = { rank: true, retryCount: 10, retryDelay: 1200 }
   if (chainId === blastSepoliaChainId() || chainId === blastChainId()) {
     // TODO add logger
     const endpoint = await getSecret({ name: 'QUICKNODE_BLAST_ENDPOINT' })
-    return fallback([webSocket(`wss://${endpoint}`), http(`https://${endpoint}`)], { rank: true })
+    return fallback([webSocket(`wss://${endpoint}`), http(`https://${endpoint}`)], config)
   }
   const transportUrl = await alchemyTransportUrl(chainId)
-  return fallback([webSocket(`wss://${transportUrl}`), http(`https://${transportUrl}`)], { rank: true })
+  return fallback([webSocket(`wss://${transportUrl}`), http(`https://${transportUrl}`)], config)
 }

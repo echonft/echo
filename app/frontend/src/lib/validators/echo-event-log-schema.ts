@@ -9,7 +9,7 @@ import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { trim } from '@echo/web3/helpers/utils'
+import { trim } from '@echo/web3/utils/trim'
 import { __, applySpec, filter, flatten, keys, map, path, pipe, prop, reject, toLower } from 'ramda'
 import { array } from 'zod'
 

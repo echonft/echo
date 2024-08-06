@@ -8,7 +8,7 @@ import { processOutTransfer } from '@echo/frontend/lib/helpers/webhook/process-o
 import type { NftTransfer } from '@echo/frontend/lib/types/webhook/nft-transfer'
 import type { Wallet } from '@echo/model/types/wallet'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { isEcho } from '@echo/web3/helpers/is-echo'
+import { isEcho } from '@echo/web3/utils/is-echo'
 import { assoc, isNil, modify, otherwise, pipe } from 'ramda'
 
 export type HandleNftTransferArgs = WithLoggerType<Record<'transfer', NftTransfer>>
