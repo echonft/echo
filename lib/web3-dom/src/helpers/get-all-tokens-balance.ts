@@ -5,7 +5,7 @@ import { promiseAll } from '@echo/utils/fp/promise-all'
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
 import { addERC20TokenBalance, type AddErc20TokenBalanceArgs } from '@echo/web3-dom/helpers/add-erc20-token-balance'
 import { getWalletClient } from '@echo/web3-dom/helpers/get-wallet-client'
-import { getViemChainById } from '@echo/web3/helpers/chain/get-viem-chain-by-id'
+import { getViemChainById } from '@echo/web3/helpers/get-viem-chain-by-id'
 import { assoc, map, objOf, pipe } from 'ramda'
 
 export interface GetAllTokensBalanceArgs {
