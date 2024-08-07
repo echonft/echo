@@ -15,7 +15,7 @@ export const UserProfile: FunctionComponent<Props> = ({ profile }) => {
   return (
     <Profile banner={{ bannerUrl, bannerColor }} picture={{ pictureUrl: avatarUrl, alt: username }}>
       <UserProfileDetailsLayout>
-        <UserTag discordUsername={username} />
+        <UserTag user={profile} />
         <UserProfileWallets wallets={wallets} />
       </UserProfileDetailsLayout>
     </Profile>
