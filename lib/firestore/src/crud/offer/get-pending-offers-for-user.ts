@@ -15,7 +15,7 @@ export function getPendingOffersForUser(username: string): Promise<Offer[]> {
       Filter.or(Filter.where('sender.username', '==', username), Filter.where('receiver.username', '==', username))
     ),
     queryWhere('state', 'in', NOT_READ_ONLY_OFFER_STATES),
-    queryOrderBy<Offer>('updatedAt', 'desc'),
+    queryOrderBy<Offer>('expiresAt', 'desc'),
     getQueryData
   )()
 }

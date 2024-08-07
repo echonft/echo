@@ -7,7 +7,6 @@ import { expirationToDateNumber } from '@echo/model/helpers/expiration-to-date-n
 import type { OwnedNft } from '@echo/model/types/nft'
 import { type Offer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
-import { now } from '@echo/utils/helpers/now'
 import { nowMs } from '@echo/utils/helpers/now-ms'
 import { head, type NonEmptyArray, pipe, prop, toLower, toString } from 'ramda'
 
@@ -16,7 +15,6 @@ export async function unchecked_addOffer(
   receiverItems: NonEmptyArray<OwnedNft>
 ): Promise<NewDocument<Offer>> {
   const data: Offer = {
-    createdAt: now(),
     expiresAt: expirationToDateNumber(ONE_DAY),
     idContract: toLower('0xwhatever'),
     readOnly: false,
@@ -25,8 +23,7 @@ export async function unchecked_addOffer(
     sender: pipe<[NonEmptyArray<OwnedNft>], OwnedNft, User>(head, prop('owner'))(senderItems),
     senderItems,
     slug: pipe(nowMs, toString, toLower<string>)(),
-    state: OFFER_STATE_OPEN,
-    updatedAt: now()
+    state: OFFER_STATE_OPEN
   }
   const id = await setReference<Offer>({
     collectionReference: getOffersCollectionReference(),

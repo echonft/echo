@@ -1,6 +1,6 @@
 import { getPendingListingsForCollection } from '@echo/firestore/crud/listing/get-pending-listings-for-collection'
 import { assertListings } from '@echo/firestore/utils/listing/assert-listings'
-import { unchecked_updateListing } from '@echo/firestore/utils/listing/unchecked_update-listing'
+import { updateListing } from '@echo/firestore/utils/listing/update-listing'
 import { LISTING_STATE_FULFILLED } from '@echo/model/constants/listing-states'
 import { collectionMockPxSlug, collectionMockSpiralSlug } from '@echo/model/mocks/collection/collection-mock'
 import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
@@ -12,7 +12,7 @@ describe('CRUD - listing - getPendingListingsForCollection', () => {
     await assertListings()
   })
   afterAll(async () => {
-    await unchecked_updateListing(listingMockId(), { state: getListingMockById(listingMockId()).state })
+    await updateListing(listingMockId(), { state: getListingMockById(listingMockId()).state })
     await assertListings()
   })
   it('returns an empty array if the collection does not exist', async () => {
@@ -26,7 +26,7 @@ describe('CRUD - listing - getPendingListingsForCollection', () => {
     listings = await getPendingListingsForCollection(collectionMockSpiralSlug())
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(getListingMockById(listingMockId()))
-    await unchecked_updateListing(listingMockId(), { state: LISTING_STATE_FULFILLED })
+    await updateListing(listingMockId(), { state: LISTING_STATE_FULFILLED })
     listings = await getPendingListingsForCollection(collectionMockPxSlug())
     expect(listings).toEqual([])
     listings = await getPendingListingsForCollection(collectionMockSpiralSlug())

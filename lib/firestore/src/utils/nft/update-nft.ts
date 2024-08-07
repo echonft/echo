@@ -4,7 +4,7 @@ import { updateReference } from '@echo/firestore/helpers/crud/reference/update-r
 import { type Nft } from '@echo/model/types/nft'
 import { isNil } from 'ramda'
 
-export async function unchecked_updateNft(data: Nft): Promise<void> {
+export async function updateNft(data: Nft): Promise<void> {
   const snapshot = await getNftSnapshot(data)
   if (!isNil(snapshot)) {
     await updateReference<Nft>({

@@ -41,13 +41,7 @@ export async function getOrAddCollection(args: WithLoggerType<GetOrAddCollection
         getUserByWallet,
         andThen(unlessNil(pipe(objOf('user'), assoc('wallet', ownerWallet), getUserFromFirestoreData)))
       )(ownerWallet)
-      await pipe<
-        [PartialNft],
-        Omit<Nft, 'owner' | 'updatedAt'>,
-        Omit<Nft, 'updatedAt'>,
-        Promise<NewDocument<Nft>>,
-        Promise<NewDocument<Nft>>
-      >(
+      await pipe<[PartialNft], Nft, Nft, Promise<NewDocument<Nft>>, Promise<NewDocument<Nft>>>(
         assoc('collection', collection),
         assoc('owner', owner),
         addNft,

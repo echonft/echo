@@ -4,7 +4,6 @@ import { getNftsCollectionReference } from '@echo/firestore/helpers/collection-r
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import { type Nft, type NftIndex, type OwnedNft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
-import { now } from '@echo/utils/helpers/now'
 import { isNil } from 'ramda'
 
 interface SetNftOwnerArgs {
@@ -21,6 +20,6 @@ export async function setNftOwner(args: SetNftOwnerArgs): Promise<OwnedNft> {
   return (await updateReference<Nft>({
     collectionReference: getNftsCollectionReference(),
     id: snapshot.id,
-    data: { owner, updatedAt: now() }
+    data: { owner }
   })) as OwnedNft
 }

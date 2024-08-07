@@ -21,7 +21,6 @@ export function offerMockFromJohnnycageSlug(): Lowercase<string> {
 
 export const offerMock: Record<string, Offer> = {
   LyCfl6Eg7JKuD7XJ6IPi: {
-    createdAt: 1676984897,
     expiresAt: 2324074781,
     readOnly: false,
     idContract: toLower<HexString>('0xTEST'),
@@ -30,11 +29,9 @@ export const offerMock: Record<string, Offer> = {
     sender: getUserMockByUsername(userMockCrewUsername()),
     senderItems: [getNftMockById(nftMockPxCrewId())],
     slug: offerMockToJohnnycageSlug(),
-    state: OFFER_STATE_OPEN,
-    updatedAt: 1676984897
+    state: OFFER_STATE_OPEN
   },
   ASkFpKoHEHVH0gd69t1G: {
-    createdAt: 1676984897,
     expiresAt: 2324074781,
     idContract: toLower<HexString>('0xTEST'),
     receiver: getUserMockByUsername(userMockCrewUsername()),
@@ -43,7 +40,6 @@ export const offerMock: Record<string, Offer> = {
     sender: getUserMockByUsername(userMockJohnnyUsername()),
     senderItems: [getNftMockById(nftMockSpiralJohnnyId()), getNftMockById(nftMockSpiralJohnny2Id())],
     slug: offerMockFromJohnnycageSlug(),
-    state: OFFER_STATE_COMPLETED,
-    updatedAt: 1676984897
+    state: OFFER_STATE_COMPLETED
   }
 }

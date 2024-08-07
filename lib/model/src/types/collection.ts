@@ -16,3 +16,4 @@ export interface Collection extends WithSlug {
 }
 
 export type CollectionIndex = Pick<Collection, 'slug'>
+export type CollectionContract = Pick<Collection, 'contract'>

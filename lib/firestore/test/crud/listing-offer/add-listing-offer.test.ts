@@ -5,7 +5,7 @@ import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
 import { deleteOffer } from '@echo/firestore/crud/offer/delete-offer'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import { assertListingOffers } from '@echo/firestore/utils/listing-offer/assert-listing-offers'
-import { unchecked_updateListing } from '@echo/firestore/utils/listing/unchecked_update-listing'
+import { updateListing } from '@echo/firestore/utils/listing/update-listing'
 import { assertOffers } from '@echo/firestore/utils/offer/assert-offers'
 import { unchecked_addOffer } from '@echo/firestore/utils/offer/unchecked_add-offer'
 import { LISTING_STATE_OFFERS_PENDING, LISTING_STATE_OPEN } from '@echo/model/constants/listing-states'
@@ -82,7 +82,7 @@ describe('CRUD - listing-offer - addListingOffer', () => {
     createdListingOfferId = createdListingOfferNewDocument.id
     // get the new listing state and reset the listing state to its original value
     const newListingState = (await getListingById(listingId))!.state
-    await unchecked_updateListing(listingId, { state: initialListingState })
+    await updateListing(listingId, { state: initialListingState })
     const foundListingOffer = await getListingOfferById(createdListingOfferId)
     expect(foundListingOffer).toStrictEqual(createdListingOfferNewDocument.data)
     // check if the listing state was correctly updated

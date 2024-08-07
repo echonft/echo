@@ -5,7 +5,7 @@ import { type Offer } from '@echo/model/types/offer'
 import type { UpdateData } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
-export async function unchecked_updateOffer(slug: string, data: UpdateData<Offer>): Promise<Offer> {
+export async function updateOffer(slug: string, data: UpdateData<Offer>): Promise<Offer> {
   const snapshot = await getOfferSnapshot(slug)
   if (isNil(snapshot)) {
     return Promise.reject(Error(`offer with slug ${slug} does not exist`))

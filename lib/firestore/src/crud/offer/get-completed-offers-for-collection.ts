@@ -10,7 +10,7 @@ export async function getCompletedOffersForCollection(slug: string): Promise<Off
   return pipe(
     getOffersCollectionReference,
     queryWhere<Offer>('state', '==', OFFER_STATE_COMPLETED),
-    queryOrderBy<Offer>('updatedAt', 'desc'),
+    queryOrderBy<Offer>('expiresAt', 'desc'),
     juxt([
       queryWhere<Offer>('receiverItemCollections', 'array-contains', slug),
       queryWhere<Offer>('senderItemCollections', 'array-contains', slug)

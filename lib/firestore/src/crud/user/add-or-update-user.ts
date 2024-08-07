@@ -4,17 +4,14 @@ import { setReference } from '@echo/firestore/helpers/crud/reference/set-referen
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import type { DiscordProfile } from '@echo/model/types/discord-profile'
-import { now } from '@echo/utils/helpers/now'
-import { always, applySpec, identity, isNil, pipe, prop, toLower } from 'ramda'
+import { applySpec, identity, isNil, pipe, prop, toLower } from 'ramda'
 
-export async function updateUser(profile: DiscordProfile): Promise<UserDocumentData> {
+export async function addOrUpdateUser(profile: DiscordProfile): Promise<UserDocumentData> {
   const snapshot = await getUserSnapshotByDiscordId(profile.id)
   if (isNil(snapshot)) {
     const user = applySpec<UserDocumentData>({
       username: pipe(prop('username'), toLower),
-      discord: identity,
-      createdAt: always(now()),
-      updatedAt: always(now())
+      discord: identity
     })(profile)
     await setReference<UserDocumentData>({
       collectionReference: getUsersCollectionReference(),
