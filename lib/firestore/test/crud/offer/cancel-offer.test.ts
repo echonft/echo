@@ -4,7 +4,7 @@ import { cancelOffer } from '@echo/firestore/crud/offer/cancel-offer'
 import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
 import type { UpdateOfferStateArgs } from '@echo/firestore/crud/offer/update-offer-state'
 import { assertOffers } from '@echo/firestore/utils/offer/assert-offers'
-import { unchecked_updateOffer } from '@echo/firestore/utils/offer/unchecked_update-offer'
+import { updateOffer } from '@echo/firestore/utils/offer/update-offer'
 import {
   OFFER_STATE_ACCEPTED,
   OFFER_STATE_CANCELLED,
@@ -19,7 +19,6 @@ import { futureDate } from '@echo/utils/helpers/future-date'
 import { pastDate } from '@echo/utils/helpers/past-date'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import dayjs from 'dayjs'
 import { assoc, isNil, pipe } from 'ramda'
 
 describe('CRUD - offer - cancelOffer', () => {
@@ -38,7 +37,7 @@ describe('CRUD - offer - cancelOffer', () => {
     createdStateUpdateId = undefined
   })
   afterEach(async () => {
-    await unchecked_updateOffer(slug, getOfferMockBySlug(slug))
+    await updateOffer(slug, getOfferMockBySlug(slug))
     if (!isNil(createdStateUpdateId)) {
       await deleteOfferUpdate(createdStateUpdateId)
     }
@@ -48,27 +47,27 @@ describe('CRUD - offer - cancelOffer', () => {
     await expect(pipe(assoc('slug', 'not-found'), cancelOffer)(args)).rejects.toBeDefined()
   })
   it('throws if the offer is expired', async () => {
-    await unchecked_updateOffer(slug, { state: OFFER_STATE_EXPIRED, expiresAt: pastDate() })
+    await updateOffer(slug, { state: OFFER_STATE_EXPIRED, expiresAt: pastDate() })
     await expect(cancelOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is cancelled', async () => {
-    await unchecked_updateOffer(slug, { state: OFFER_STATE_CANCELLED, expiresAt: futureDate() })
+    await updateOffer(slug, { state: OFFER_STATE_CANCELLED, expiresAt: futureDate() })
     await expect(cancelOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is completed', async () => {
-    await unchecked_updateOffer(slug, { state: OFFER_STATE_COMPLETED, expiresAt: futureDate() })
+    await updateOffer(slug, { state: OFFER_STATE_COMPLETED, expiresAt: futureDate() })
     await expect(cancelOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is rejected', async () => {
-    await unchecked_updateOffer(slug, { state: OFFER_STATE_REJECTED, expiresAt: futureDate() })
+    await updateOffer(slug, { state: OFFER_STATE_REJECTED, expiresAt: futureDate() })
     await expect(cancelOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is accepted', async () => {
-    await unchecked_updateOffer(slug, { state: OFFER_STATE_ACCEPTED, expiresAt: futureDate() })
+    await updateOffer(slug, { state: OFFER_STATE_ACCEPTED, expiresAt: futureDate() })
     await expect(cancelOffer(args)).rejects.toBeDefined()
   })
   it('cancel offer', async () => {
-    await unchecked_updateOffer(slug, { state: OFFER_STATE_OPEN, expiresAt: futureDate() })
+    await updateOffer(slug, { state: OFFER_STATE_OPEN, expiresAt: futureDate() })
     await cancelOffer(args)
     const offerSnapshot = (await getOfferSnapshot(slug))!
     const updatedOffer = offerSnapshot.data()
@@ -78,8 +77,6 @@ describe('CRUD - offer - cancelOffer', () => {
     }))!
     createdStateUpdateId = stateUpdateSnapshot.id
     expect(updatedOffer.state).toEqual(OFFER_STATE_CANCELLED)
-    expect(dayjs.unix(updatedOffer.updatedAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
-    expect(dayjs.unix(updatedOffer.updatedAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
     expect(stateUpdateSnapshot).toBeDefined()
   })
 })

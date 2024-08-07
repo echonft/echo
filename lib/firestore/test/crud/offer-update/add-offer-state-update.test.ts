@@ -9,7 +9,6 @@ import { OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
-import dayjs from 'dayjs'
 import { assoc, isNil, pipe } from 'ramda'
 
 describe('CRUD - offer-update - addOfferStateUpdate', () => {
@@ -44,7 +43,5 @@ describe('CRUD - offer-update - addOfferStateUpdate', () => {
     expect(newDocument.offerId).toStrictEqual(args.offerId)
     expect(newDocument.update.kind).toStrictEqual(OFFER_UPDATE_KIND_STATE)
     expect(newDocument.update.args).toStrictEqual(args.args)
-    expect(dayjs.unix(newDocument.createdAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
-    expect(dayjs.unix(newDocument.createdAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
   })
 })

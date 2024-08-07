@@ -25,7 +25,7 @@ describe('mapUser', () => {
     banner_color: 'banner_color',
     image_url: 'image_url'
   }
-  const user: Omit<User, 'createdAt' | 'updatedAt'> = {
+  const user: User = {
     id: 'username',
     username: 'username',
     discord: mapDiscordProfile(providerProfile)

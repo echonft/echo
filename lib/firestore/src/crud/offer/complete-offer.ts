@@ -39,12 +39,7 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
     updateOfferState
   )(args)
   // add swap
-  await pipe<
-    [CompleteOfferArgs],
-    Omit<CompleteOfferArgs, 'reason'>,
-    Omit<Swap, 'createdAt'>,
-    Promise<NewDocument<Swap>>
-  >(
+  await pipe<[CompleteOfferArgs], Omit<CompleteOfferArgs, 'reason'>, Swap, Promise<NewDocument<Swap>>>(
     omit(['reason']),
     assoc('offerId', snapshot.id),
     addSwap

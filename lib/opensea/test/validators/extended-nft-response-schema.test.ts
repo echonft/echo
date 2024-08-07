@@ -7,7 +7,7 @@ import type { Nft } from '@echo/model/types/nft'
 import type { PartialNft } from '@echo/opensea/types/partial-nft'
 import { nftExtendedResponseSchema } from '@echo/opensea/validators/nft-extended-response-schema'
 import { describe, expect, it } from '@jest/globals'
-import { assoc, modify, omit, pick, pipe } from 'ramda'
+import { assoc, dissoc, modify, pick, pipe } from 'ramda'
 
 describe('validators - nftExtendedResponseSchema', () => {
   const nftMock = getNftMockById(nftMockSpiralJohnnyId())
@@ -41,8 +41,8 @@ describe('validators - nftExtendedResponseSchema', () => {
       ],
       owners: [{ address: walletMockJohnnyAddress(), quantity: 1 }]
     }
-    const nft = pipe<[Nft], Omit<Nft, 'owner' | 'updatedAt'>, PartialNft>(
-      omit(['owner', 'updatedAt']),
+    const nft = pipe<[Nft], Omit<Nft, 'owner'>, PartialNft>(
+      dissoc('owner'),
       modify<'collection', Collection, Pick<Collection, 'contract' | 'slug'>>('collection', pick(['contract', 'slug']))
     )(nftMock)
     expect(nftExtendedResponseSchema(nftMock.collection.contract.chain).parse(response)).toStrictEqual(nft)
@@ -77,15 +77,8 @@ describe('validators - nftExtendedResponseSchema', () => {
       ],
       owners: [{ address: walletMockJohnnyAddress(), quantity: 1 }]
     }
-    const nft: PartialNft = pipe<
-      [Nft],
-      Omit<Nft, 'owner' | 'updatedAt'>,
-      PartialNft,
-      PartialNft,
-      PartialNft,
-      PartialNft
-    >(
-      omit(['owner', 'updatedAt']),
+    const nft: PartialNft = pipe<[Nft], Omit<Nft, 'owner'>, PartialNft, PartialNft, PartialNft, PartialNft>(
+      dissoc('owner'),
       modify<'collection', Collection, Pick<Collection, 'contract' | 'slug'>>('collection', pick(['contract', 'slug'])),
       assoc('animationUrl', undefined),
       assoc('metadataUrl', undefined),

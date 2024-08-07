@@ -32,8 +32,7 @@ describe('offer - postEscrowMessageIfNeeded', () => {
           by: 'system'
         }
       }
-    },
-    createdAt: Date.now()
+    }
   }
 
   beforeAll(async () => {

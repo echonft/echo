@@ -10,7 +10,7 @@ import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { assertOfferIsNotADuplicate } from '@echo/firestore/helpers/offer/assert/assert-offer-is-not-a-duplicate'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import { assertListingOffers } from '@echo/firestore/utils/listing-offer/assert-listing-offers'
-import { unchecked_updateListing } from '@echo/firestore/utils/listing/unchecked_update-listing'
+import { updateListing } from '@echo/firestore/utils/listing/update-listing'
 import { assertOffers } from '@echo/firestore/utils/offer/assert-offers'
 import { ONE_DAY } from '@echo/model/constants/expiration'
 import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
@@ -53,7 +53,7 @@ describe('CRUD - offer - addOffer', () => {
   afterEach(async () => {
     if (!isNil(createdOfferId)) {
       await deleteOffer(createdOfferId)
-      await unchecked_updateListing(listingId, getListingMockById(listingId))
+      await updateListing(listingId, getListingMockById(listingId))
     }
     if (!isNil(createdListingOfferId)) {
       await deleteListingOffer(createdListingOfferId)
@@ -98,14 +98,10 @@ describe('CRUD - offer - addOffer', () => {
     const newOffer: Offer = (await getOfferById(createdOfferId))!
     expect(newOffer.receiver).toStrictEqual(getUserMockByUsername(userMockJohnnyUsername()))
     expect(eqListContent(newOffer.receiverItems, receiverItems)).toBeTruthy()
-    expect(dayjs.unix(newOffer.createdAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
-    expect(dayjs.unix(newOffer.createdAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
     expect(newOffer.sender).toStrictEqual(getUserMockByUsername(userMockCrewUsername()))
     expect(eqListContent(newOffer.senderItems, senderItems)).toBeTruthy()
     expect(newOffer.state).toBe(OFFER_STATE_OPEN)
     expect(newOffer.idContract).toBe('0xtest')
-    expect(dayjs.unix(newOffer.updatedAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
-    expect(dayjs.unix(newOffer.updatedAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
     expect(dayjs.unix(newOffer.expiresAt).isAfter(expiresAt.subtract(1, 'minute'))).toBeTruthy()
     expect(dayjs.unix(newOffer.expiresAt).isBefore(expiresAt.add(1, 'minute'))).toBeTruthy()
     // check if offer has been added to tied listings

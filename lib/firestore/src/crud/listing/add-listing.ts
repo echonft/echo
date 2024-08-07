@@ -11,7 +11,6 @@ import type { Expiration } from '@echo/model/types/expiration'
 import { type Listing } from '@echo/model/types/listing'
 import { type ListingTarget } from '@echo/model/types/listing-target'
 import type { OwnedNft } from '@echo/model/types/nft'
-import { now } from '@echo/utils/helpers/now'
 import { nowMs } from '@echo/utils/helpers/now-ms'
 import { head, pipe, toLower, toString } from 'ramda'
 
@@ -31,14 +30,12 @@ export async function addListing(args: AddListingArgs): Promise<
   await assertListingIsNotADuplicate({ items, target })
   const data: Listing = {
     creator: head(items).owner,
-    createdAt: now(),
     expiresAt: expirationToDateNumber(expiration),
     items,
     readOnly: false,
     slug: pipe(nowMs, toString, toLower<string>)(),
     state: LISTING_STATE_OPEN,
-    target,
-    updatedAt: now()
+    target
   }
   const id = await setReference<Listing>({
     collectionReference: getListingsCollectionReference(),

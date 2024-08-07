@@ -6,13 +6,13 @@ import { getEscrowedNftsCollectionReference } from '@echo/firestore/helpers/coll
 import { getReferenceById, type GetReferenceByIdArgs } from '@echo/firestore/helpers/crud/reference/get-reference-by-id'
 import type { EscrowedNft } from '@echo/firestore/types/model/nft/escrowed-nft'
 import { assertNfts } from '@echo/firestore/utils/nft/assert-nfts'
-import { unchecked_updateNft } from '@echo/firestore/utils/nft/unchecked_update-nft'
+import { updateNft } from '@echo/firestore/utils/nft/update-nft'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import type { DocumentReference, DocumentSnapshot } from 'firebase-admin/firestore'
-import { invoker, isNil, omit, pipe } from 'ramda'
+import { invoker, isNil, pipe } from 'ramda'
 
 describe('CRUD - nft - unescrowNft', () => {
   let nftId: Nullable<string>
@@ -27,7 +27,7 @@ describe('CRUD - nft - unescrowNft', () => {
   })
   afterEach(async () => {
     if (!isNil(nftId)) {
-      await unchecked_updateNft(getNftMockById(nftId))
+      await updateNft(getNftMockById(nftId))
     }
   })
   it('throws if the NFT does not exist', async () => {
@@ -45,7 +45,7 @@ describe('CRUD - nft - unescrowNft', () => {
     await unescrowNft(nftId)
     const updatedNft = await getNftById(nftId)
     expect(updatedNft).toBeDefined()
-    expect(omit(['updatedAt'], updatedNft!)).toStrictEqual(omit(['updatedAt'], nft))
+    expect(updatedNft).toStrictEqual(nft)
     const escrowedNftSnapshot = await pipe<
       [GetReferenceByIdArgs<EscrowedNft>],
       DocumentReference<EscrowedNft>,

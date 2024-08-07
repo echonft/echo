@@ -6,6 +6,11 @@
       "cache": false,
       "persistent": true,
       "passThroughEnv": ["ENV", "LOG_LEVEL", "NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL"]
+    },
+    "firestore:migration": {
+      "cache": false,
+      "persistent": true,
+      "passThroughEnv": ["ENV", "MIGRATION"]
     }
   }
 }

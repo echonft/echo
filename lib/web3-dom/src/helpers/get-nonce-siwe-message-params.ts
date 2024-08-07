@@ -1,7 +1,7 @@
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
 import type { HexString } from '@echo/utils/types/hex-string'
-import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
 import type { SignNonceArgs } from '@echo/web3-dom/types/sign-nonce-args'
+import { formatWalletAddress } from '@echo/web3/utils/format-wallet-address'
 import { assoc, dissoc, pipe } from 'ramda'
 import type { SiweMessage } from 'siwe'
 

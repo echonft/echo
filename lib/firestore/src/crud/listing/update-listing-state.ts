@@ -4,7 +4,6 @@ import { updateReference } from '@echo/firestore/helpers/crud/reference/update-r
 import { assertListingStateTransition } from '@echo/model/helpers/listing/assert/assert-listing-state-transition'
 import type { Listing } from '@echo/model/types/listing'
 import { type ListingState } from '@echo/model/types/listing-state'
-import { now } from '@echo/utils/helpers/now'
 import { isNil } from 'ramda'
 
 export async function updateListingState(slug: string, state: ListingState): Promise<Listing> {
@@ -16,6 +15,6 @@ export async function updateListingState(slug: string, state: ListingState): Pro
   return updateReference<Listing>({
     collectionReference: getListingsCollectionReference(),
     id: snapshot.id,
-    data: { state, updatedAt: now() }
+    data: { state }
   })
 }

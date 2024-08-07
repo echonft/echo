@@ -9,7 +9,7 @@ export function getListingsForCreator(username: string): Promise<Listing[]> {
   return pipe(
     getListingsCollectionReference,
     queryWhere<Listing>('creator.username', '==', username),
-    queryOrderBy<Listing>('createdAt', 'desc'),
+    queryOrderBy<Listing>('expiresAt', 'desc'),
     getQueryData
   )()
 }

@@ -11,7 +11,7 @@ export function getCompletedOffers(limit?: number): Promise<Offer[]> {
   return pipe(
     getOffersCollectionReference,
     queryWhere<Offer>('state', '==', OFFER_STATE_COMPLETED),
-    queryOrderBy<Offer>('updatedAt', 'desc'),
+    queryOrderBy<Offer>('expiresAt', 'desc'),
     queryLimit<Offer>(limit),
     getQueryData
   )()

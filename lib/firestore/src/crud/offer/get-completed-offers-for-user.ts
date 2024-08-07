@@ -15,7 +15,7 @@ export function getCompletedOffersForUser(username: string): Promise<Offer[]> {
       Filter.or(Filter.where('sender.username', '==', username), Filter.where('receiver.username', '==', username))
     ),
     queryWhere<Offer>('state', '==', OFFER_STATE_COMPLETED),
-    queryOrderBy<Offer>('updatedAt', 'desc'),
+    queryOrderBy<Offer>('expiresAt', 'desc'),
     getQueryData
   )()
 }

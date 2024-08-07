@@ -72,8 +72,6 @@ describe('CRUD - listing - addListing', () => {
     expect(newListing.items).toStrictEqual(items)
     expect(newListing.state).toBe(LISTING_STATE_OFFERS_PENDING)
     expect(newListing.target).toStrictEqual(newTarget)
-    expect(dayjs.unix(newListing.updatedAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
-    expect(dayjs.unix(newListing.updatedAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
     expect(dayjs.unix(newListing.expiresAt).isAfter(expirationDate.subtract(1, 'minute'))).toBeTruthy()
     expect(dayjs.unix(newListing.expiresAt).isBefore(expirationDate.add(1, 'minute'))).toBeTruthy()
     // check if listing offers have been created

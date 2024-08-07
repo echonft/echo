@@ -9,7 +9,6 @@ import { assertItems } from '@echo/model/helpers/item/assert/assert-items'
 import type { BaseOffer } from '@echo/model/types/base-offer'
 import { type Offer } from '@echo/model/types/offer'
 import type { OfferState } from '@echo/model/types/offer-state'
-import { now } from '@echo/utils/helpers/now'
 import { nowMs } from '@echo/utils/helpers/now-ms'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { assoc, pipe, toLower, toString } from 'ramda'
@@ -30,10 +29,8 @@ export async function addOffer(args: AddOfferArgs): Promise<
   assertItems(senderItems)
   await assertOfferIsNotADuplicate({ senderItems, receiverItems })
   const data: Offer = pipe(
-    assoc('createdAt', now()),
     assoc('idContract', toLower(idContract)),
     assoc('readOnly', false),
-    assoc('updatedAt', now()),
     assoc('slug', pipe(nowMs, toString, toLower<string>)()),
     assoc('state', OFFER_STATE_OPEN as OfferState)
   )(baseOffer)

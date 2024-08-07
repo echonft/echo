@@ -2,11 +2,10 @@ import type { Collection } from '@echo/model/types/collection'
 import { fetchCollection } from '@echo/opensea/fetchers/fetch-collection'
 import { getLogger } from '@echo/opensea/helpers/get-logger'
 import type { FetchCollectionRequest } from '@echo/opensea/types/request/fetch-collection-request'
-import { collectionResponseSchema } from '@echo/opensea/validators/collection-response-schema'
 import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { andThen, assoc, isNil, otherwise, pick, pipe } from 'ramda'
+import { assoc, isNil, otherwise, pick, pipe } from 'ramda'
 
 function fetchMainnetCollection(args: WithLoggerType<FetchCollectionRequest>) {
   const logger = getLogger({ chain: args.chain, logger: args.logger })?.child({
@@ -22,15 +21,6 @@ function fetchMainnetCollection(args: WithLoggerType<FetchCollectionRequest>) {
     return pipe(
       assoc('slug', mainnetSlug),
       fetchCollection,
-      andThen(
-        pipe(
-          (response) => collectionResponseSchema({ logger }).parseAsync(response),
-          otherwise((err) => {
-            logger?.error({ err }, 'could not parse mainnet collection')
-            return undefined
-          })
-        )
-      ),
       otherwise((err) => {
         logger?.error({ err }, 'could not fetch mainnet collection')
         return undefined
@@ -45,11 +35,7 @@ export async function getCollection(args: WithLoggerType<FetchCollectionRequest>
   const logger = getLogger({ chain: args.chain, logger: args.logger })?.child({
     fetcher: getCollection.name
   })
-  const collection = await pipe(
-    assoc('logger', logger),
-    fetchCollection,
-    andThen((response) => collectionResponseSchema(pick(['chain', 'logger'], args)).parse(response))
-  )(args)
+  const collection = await pipe(assoc('logger', logger), fetchCollection)(args)
   if (!isNil(collection) && isTestnetChain(args.chain)) {
     // chain does not matter here, but it has to be on mainnet
     const mainnetCollection = await fetchMainnetCollection(assoc('chain', 'blast', args))

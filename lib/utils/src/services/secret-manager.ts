@@ -45,15 +45,15 @@ async function connect(args: WithLoggerType<Record<'projectId', string>>) {
   const { projectId, logger } = args
   try {
     if (noCredentials()) {
-      logger?.info('connecting without credentials')
+      logger?.trace('connecting without credentials')
       const client = new SecretManagerServiceClient({ projectId })
       await client.initialize()
-      logger?.info('connected')
+      logger?.trace('connected')
       return client
     } else {
       const credentials = getCredentials()
       if (!isNil(credentials)) {
-        logger?.info('connecting using credentials')
+        logger?.trace('connecting using credentials')
         const { clientEmail, privateKey } = credentials
         const client = new SecretManagerServiceClient({
           projectId,
@@ -63,7 +63,7 @@ async function connect(args: WithLoggerType<Record<'projectId', string>>) {
           }
         })
         await client.initialize()
-        logger?.info('connected')
+        logger?.trace('connected')
         return client
       }
       logger?.fatal('credentials needed')
@@ -86,7 +86,7 @@ async function accessSecret(args: AccessSecretArgs): Promise<Record<Secret, Null
   if (isNil(client)) {
     return objOf(name, undefined)
   }
-  logger?.info(`fetching secret ${name}`)
+  logger?.trace(`fetching secret ${name}`)
   const [version] = await client.accessSecretVersion({
     name: `projects/${projectId}/secrets/${name}/versions/latest`
   })
@@ -94,7 +94,7 @@ async function accessSecret(args: AccessSecretArgs): Promise<Record<Secret, Null
     logger?.error(`secret ${name} not found`)
     return objOf(name, undefined)
   }
-  logger?.info(`secret ${name} found. Delivering it...`)
+  logger?.trace(`secret ${name} found. Delivering it...`)
   return objOf(name, version.payload.data.toString())
 }
 

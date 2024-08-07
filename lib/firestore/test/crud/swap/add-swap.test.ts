@@ -14,12 +14,11 @@ import { offerMockFromJohnnycageId, offerMockToJohnnycageId } from '@echo/model/
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import dayjs from 'dayjs'
 import { andThen, assoc, find, isEmpty, isNil, map, pipe, prop, propEq, reject } from 'ramda'
 
 describe('CRUD - swap - addSwap', () => {
   const offerId = offerMockToJohnnycageId()
-  const args: Omit<Swap, 'createdAt'> = {
+  const args: Swap = {
     offerId,
     transactionId: '0xnew'
   }
@@ -71,8 +70,6 @@ describe('CRUD - swap - addSwap', () => {
     )(initialSwapsCounts)
     expect(newSwap.offerId).toStrictEqual(args.offerId)
     expect(newSwap.transactionId).toStrictEqual(args.transactionId)
-    expect(dayjs.unix(newSwap.createdAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
-    expect(dayjs.unix(newSwap.createdAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
     // check the swaps count
     expect(updatedSwapsCounts.length).toEqual(initialSwapsCounts.length)
     for (const updatedSwapsCount of updatedSwapsCounts) {
