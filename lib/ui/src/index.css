@@ -52,7 +52,7 @@
     @apply flex flex-row items-center rounded-lg bg-dark-500 border border-solid border-white/[0.08] gap-2.5 h-12 w-max py-2.75 px-5 text-white prose-other-bold select-none outline-none disabled:opacity-40 enabled:hover:bg-white/[0.12] transition-colors;
   }
   .btn-auth-alt {
-    @apply flex flex-row items-center rounded-lg bg-white/[0.08] gap-2.5 h-12 w-max py-2.75 px-5 text-white prose-other-bold select-none outline-none disabled:opacity-40 enabled:hover:bg-white/[0.12] transition-colors;
+    @apply flex flex-row items-center rounded-lg bg-white/[0.08] gap-2.5 py-2.5 px-5 w-max text-white prose-other-bold select-none outline-none disabled:opacity-40 enabled:hover:bg-white/[0.12] transition-colors;
   }
   .btn-cancel {
     @apply btn bg-red-400 enabled:hover:bg-red-600;

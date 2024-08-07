@@ -20,7 +20,7 @@ export const TokenSelector: FunctionComponent<Props> = ({ onAddToken, tokens }) 
   const [tokenValue, setTokenValue] = useState<number>()
   // FIXME
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const [selectedToken, setSelectedToken] = useState<OwnedERC20Token>(head(tokens)!)
+  const [selectedToken, setSelectedToken] = useState(head(tokens)!)
 
   const getTokenMaxValue = useCallback(
     () => pipe(find(eqERC20(selectedToken)), ifElse(isNil, always(0), prop('balance')))(tokens),

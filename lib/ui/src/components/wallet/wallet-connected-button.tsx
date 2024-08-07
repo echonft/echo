@@ -43,8 +43,8 @@ export const WalletConnectedButton: FunctionComponent<Props> = ({ wallet }) => {
         />
       </div>
       <ExternalLink href={walletLink} style={{ inline: true }} key={walletLink}>
-        <div className={clsx('border-2', 'border-white/[0.08]', 'rounded-r-lg', 'p-2.5')}>
-          <ExternalLinkIconSvg />
+        <div className={clsx('border-2', 'border-white/[0.08]', 'rounded-r-lg', 'p-2')}>
+          <ExternalLinkIconSvg width={23} height={23} />
         </div>
       </ExternalLink>
     </div>
