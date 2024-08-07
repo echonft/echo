@@ -376,6 +376,7 @@ Don't worry, its safe with us.`
     title: 'Add tokens',
     subtitle: 'Optional',
     placeholder: 'Amount',
+    balance: 'Balance: {balance}',
     btn: 'Add'
   },
   user: {

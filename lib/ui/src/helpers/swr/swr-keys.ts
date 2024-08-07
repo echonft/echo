@@ -16,7 +16,8 @@ export const SWRKeys = {
     getEchoTradingFees: 'get-echo-trading-fees',
     getErc721approval: pipe<[Wallet], string, string>(contractKey, concat('get-erc721-approval-')),
     approveErc721: pipe<[Wallet], string, string>(contractKey, concat('approve-erc721-')),
-    createOffer: pipe<[Offer], string, string>(prop('slug'), concat('create-offer-'))
+    createOffer: pipe<[Offer], string, string>(prop('slug'), concat('create-offer-')),
+    getAllTokensBalance: 'get-all-tokens-balance'
   },
   listing: {
     cancel: pipe<[Listing], string, string>(prop('slug'), concat('cancel-listing-')),

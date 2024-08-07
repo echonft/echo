@@ -6,6 +6,7 @@ import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
 import type { SignInResponse } from '@echo/auth/types/sign-in-response'
 import type { Offer } from '@echo/model/types/offer'
+import type { OwnedERC20Token } from '@echo/model/types/owned-erc20-token'
 import type { SearchResult } from '@echo/model/types/search-result'
 import type { Slug } from '@echo/model/types/slug'
 import type { Username } from '@echo/model/types/username'
@@ -15,6 +16,7 @@ import type { HexString } from '@echo/utils/types/hex-string'
 import type { Logger } from '@echo/utils/types/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { AreNftsInEscrowArgs } from '@echo/web3-dom/helpers/are-nfts-in-escrow'
+import type { GetAllTokensBalanceArgs } from '@echo/web3-dom/helpers/get-all-tokens-balance'
 import type { GetEchoTradingFeesArgs } from '@echo/web3-dom/helpers/get-echo-trading-fees'
 import type { AccountProvider } from '@echo/web3-dom/types/account-provider'
 import type { ApproveErc721ContractArgs } from '@echo/web3-dom/types/approve-erc-721-contract-args'
@@ -37,6 +39,7 @@ export interface Dependencies {
   createListing: Fetcher<ListingResponse, CreateListingRequest>
   disconnectWallet: () => Promise<void>
   getAccount: AccountProvider
+  getAllTokensBalance: Fetcher<OwnedERC20Token[], GetAllTokensBalanceArgs>
   getEchoTradingFees: (args: GetEchoTradingFeesArgs) => Promise<bigint>
   getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
   getNonce: Fetcher<NonceResponse, never>

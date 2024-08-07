@@ -13,6 +13,7 @@ import { contractRedeemOffer } from '@echo/storybook/mocks/contract-redeem-offer
 import { createListing } from '@echo/storybook/mocks/create-listing'
 import { disconnectWallet } from '@echo/storybook/mocks/disconnect-wallet'
 import { getAccount } from '@echo/storybook/mocks/get-account'
+import { getAllTokensBalance } from '@echo/storybook/mocks/get-all-tokens-balance'
 import { getEchoTradingFees } from '@echo/storybook/mocks/get-echo-trading-fees'
 import { getErc721ContractApproval } from '@echo/storybook/mocks/get-erc-721-contract-approval'
 import { getNonce } from '@echo/storybook/mocks/get-nonce'
@@ -25,9 +26,9 @@ import { searchCollections } from '@echo/storybook/mocks/search-collections'
 import { searchUsers } from '@echo/storybook/mocks/search-users'
 import { signNonce } from '@echo/storybook/mocks/sign-nonce'
 import { switchChain } from '@echo/storybook/mocks/switch-chain'
+import { DependenciesProvider } from '@echo/ui/components/base/dependencies-provider'
 import { Web3Provider } from '@echo/ui/components/base/web3-provider'
 import { messages } from '@echo/ui/messages/en'
-import { DependenciesProvider } from '@echo/ui/components/base/dependencies-provider'
 import { init } from '@sentry/nextjs'
 import { type Preview } from '@storybook/react'
 import dayjs from 'dayjs'
@@ -56,6 +57,7 @@ const preview: Preview = {
                 createListing,
                 disconnectWallet,
                 getAccount,
+                getAllTokensBalance,
                 getEchoTradingFees,
                 getErc721ContractApproval,
                 getNonce,

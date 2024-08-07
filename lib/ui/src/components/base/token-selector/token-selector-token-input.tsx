@@ -1,22 +1,17 @@
+import type { OwnedERC20Token } from '@echo/model/types/owned-erc20-token'
 import { DownCaretSvg } from '@echo/ui/components/base/svg/down-caret-svg'
-import { defaultERC20Token } from '@echo/web3-dom/constants/supported-erc20-tokens'
-import type { ERC20Token } from '@echo/web3-dom/types/erc20-token'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { map } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  tokens: ERC20Token[]
-  onTokenChanged?: (token: ERC20Token) => unknown
-  selectedToken?: ERC20Token
+  tokens: OwnedERC20Token[]
+  onTokenChanged?: (token: OwnedERC20Token) => unknown
+  selectedToken: OwnedERC20Token
 }
 
-export const TokenSelectorTokenInput: FunctionComponent<Props> = ({
-  onTokenChanged,
-  selectedToken = defaultERC20Token,
-  tokens
-}) => {
+export const TokenSelectorTokenInput: FunctionComponent<Props> = ({ onTokenChanged, selectedToken, tokens }) => {
   return (
     <Menu>
       <MenuButton
