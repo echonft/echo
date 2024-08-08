@@ -3,7 +3,7 @@ import { getOfferStateUpdateSnapshot } from '@echo/firestore/crud/offer-update/g
 import { cancelOffer } from '@echo/firestore/crud/offer/cancel-offer'
 import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
 import type { UpdateOfferStateArgs } from '@echo/firestore/crud/offer/update-offer-state'
-import { assertOffers } from '@echo/firestore/utils/offer/assert-offers'
+import { resetOffers } from '@echo/firestore/utils/offer/reset-offers'
 import { updateOffer } from '@echo/firestore/utils/offer/update-offer'
 import {
   OFFER_STATE_ACCEPTED,
@@ -13,12 +13,11 @@ import {
   OFFER_STATE_OPEN,
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
-import { getOfferMockBySlug } from '@echo/model/mocks/offer/get-offer-mock-by-slug'
 import { offerMockToJohnnycageSlug } from '@echo/model/mocks/offer/offer-mock'
 import { futureDate } from '@echo/utils/helpers/future-date'
 import { pastDate } from '@echo/utils/helpers/past-date'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNil, pipe } from 'ramda'
 
 describe('CRUD - offer - cancelOffer', () => {
@@ -27,17 +26,11 @@ describe('CRUD - offer - cancelOffer', () => {
   const args: Omit<UpdateOfferStateArgs, 'state'> = {
     slug
   }
-  beforeAll(async () => {
-    await assertOffers()
-  })
-  afterAll(async () => {
-    await assertOffers()
-  })
   beforeEach(() => {
     createdStateUpdateId = undefined
   })
   afterEach(async () => {
-    await updateOffer(slug, getOfferMockBySlug(slug))
+    await resetOffers()
     if (!isNil(createdStateUpdateId)) {
       await deleteOfferUpdate(createdStateUpdateId)
     }

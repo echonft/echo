@@ -1,3 +1,3 @@
 export enum NftError {
-  NFT_NOT_FOUND = 'NFT does not exist'
+  NOT_FOUND = 'NFT does not exist'
 }

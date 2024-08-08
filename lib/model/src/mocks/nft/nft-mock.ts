@@ -16,7 +16,6 @@ export function nftMockSpiralCrewId() {
 export function nftMockPxJohnnyId() {
   return 'QFjMRNChUAHNswkRADXh'
 }
-// noinspection JSUnusedGlobalSymbols
 export function nftMockPxJohnny2Id() {
   return 'XiDa6k2P7gxXCKSxn2wq'
 }

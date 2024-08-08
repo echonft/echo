@@ -15,7 +15,7 @@ export enum EscrowNftError {
 export async function escrowNft(nft: OwnedNftIndex): Promise<string> {
   const snapshot = await getNftSnapshot(nft)
   if (isNil(snapshot)) {
-    return Promise.reject(Error(NftError.NFT_NOT_FOUND))
+    return Promise.reject(Error(NftError.NOT_FOUND))
   }
   const escrowedNftSnapshot = await getEscrowedNftSnapshot(snapshot.id)
   if (!isNil(escrowedNftSnapshot)) {

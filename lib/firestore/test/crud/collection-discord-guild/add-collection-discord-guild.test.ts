@@ -1,20 +1,13 @@
 import { addCollectionDiscordGuild } from '@echo/firestore/crud/collection-discord-guild/add-collection-discord-guild'
 import { deleteCollectionDiscordGuild } from '@echo/firestore/crud/collection-discord-guild/delete-collection-discord-guild'
 import { getCollectionDiscordGuildById } from '@echo/firestore/crud/collection-discord-guild/get-collection-discord-guild-by-id'
-import { assertCollectionDiscordGuilds } from '@echo/firestore/utils/collection-discord-guild/assert-collection-discord-guilds'
 import { collectionMockPxId } from '@echo/model/mocks/collection/collection-mock'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
 
 describe('CRUD - collection-discord-guild - addCollectionDiscordGuild', () => {
   let collectionDiscordGuildId: Nullable<string>
-  beforeAll(async () => {
-    await assertCollectionDiscordGuilds()
-  })
-  afterAll(async () => {
-    await assertCollectionDiscordGuilds()
-  })
   beforeEach(() => {
     collectionDiscordGuildId = undefined
   })

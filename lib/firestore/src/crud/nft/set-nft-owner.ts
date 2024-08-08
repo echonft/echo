@@ -15,7 +15,7 @@ export async function setNftOwner(args: SetNftOwnerArgs): Promise<OwnedNft> {
   const { nft, owner } = args
   const snapshot = await getNftSnapshot(nft)
   if (isNil(snapshot)) {
-    return Promise.reject(Error(NftError.NFT_NOT_FOUND))
+    return Promise.reject(Error(NftError.NOT_FOUND))
   }
   return (await updateReference<Nft>({
     collectionReference: getNftsCollectionReference(),

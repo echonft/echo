@@ -1,10 +1,9 @@
-import { assertOfferThreads } from '@echo/firestore/utils/offer-thread/assert-offer-threads'
-import { deleteOfferThread } from '@echo/firestore/crud/offer-thread/delete-offer-thread'
 import { addOfferThread } from '@echo/firestore/crud/offer-thread/add-offer-thread'
+import { deleteOfferThread } from '@echo/firestore/crud/offer-thread/delete-offer-thread'
 import { getOfferThread } from '@echo/firestore/crud/offer-thread/get-offer-thread'
 import type { OfferThread, OfferThreadDiscordGuild } from '@echo/firestore/types/model/offer-thread/offer-thread'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
-import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 import { omit } from 'ramda'
 
@@ -14,12 +13,6 @@ describe('CRUD - offer-thread - addOfferThread', () => {
     id: 'discordId',
     threadId: 'threadId'
   }
-  beforeAll(async () => {
-    await assertOfferThreads()
-  })
-  afterAll(async () => {
-    await assertOfferThreads()
-  })
   it('throws if trying to add a thread for an offer that does not exist', async () => {
     await expect(addOfferThread({ offerId: 'not-found', guild, state: 'ACTIVE' })).rejects.toBeDefined()
   })
