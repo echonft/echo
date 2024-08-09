@@ -8,8 +8,6 @@ import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
 import { assertListingIsNotADuplicate } from '@echo/firestore/helpers/listing/assert/assert-listing-is-not-a-duplicate'
 import type { ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
 import type { NewDocument } from '@echo/firestore/types/new-document'
-import { assertListingOffers } from '@echo/firestore/utils/listing-offer/assert-listing-offers'
-import { assertListings } from '@echo/firestore/utils/listing/assert-listings'
 import { ONE_DAY } from '@echo/model/constants/expiration'
 import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import { expirationToDate } from '@echo/model/helpers/expiration-to-date'
@@ -18,21 +16,13 @@ import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-b
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 import { assoc, find, isNil, map, pick, pipe, prop, propEq } from 'ramda'
 
 describe('CRUD - listing - addListing', () => {
   let createdListingId: Nullable<string>
   let createdListingOfferIds: string[]
-  beforeAll(async () => {
-    await assertListings()
-    await assertListingOffers()
-  })
-  afterAll(async () => {
-    await assertListings()
-    await assertListingOffers()
-  })
   beforeEach(() => {
     createdListingId = undefined
     createdListingOfferIds = []

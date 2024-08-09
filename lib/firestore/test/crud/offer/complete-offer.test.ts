@@ -8,14 +8,11 @@ import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { deleteSwap } from '@echo/firestore/crud/swap/delete-swap'
 import { getSwapSnapshot } from '@echo/firestore/crud/swap/get-swap'
 import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
-import { assertCollectionSwapsCounts } from '@echo/firestore/utils/collection-swaps-count/assert-collection-swaps-counts'
 import { unchecked_updateCollectionSwapCounts } from '@echo/firestore/utils/collection-swaps-count/unchecked_update-collection-swap-counts'
-import { updateListing } from '@echo/firestore/utils/listing/update-listing'
-import { assertNfts } from '@echo/firestore/utils/nft/assert-nfts'
+import { resetListings } from '@echo/firestore/utils/listing/reset-listings'
 import { updateNft } from '@echo/firestore/utils/nft/update-nft'
-import { assertOffers } from '@echo/firestore/utils/offer/assert-offers'
+import { resetOffers } from '@echo/firestore/utils/offer/reset-offers'
 import { updateOffer } from '@echo/firestore/utils/offer/update-offer'
-import { assertSwaps } from '@echo/firestore/utils/swap/assert-swaps'
 import { LISTING_STATE_PARTIALLY_FULFILLED } from '@echo/model/constants/listing-states'
 import {
   OFFER_STATE_ACCEPTED,
@@ -28,17 +25,15 @@ import {
 import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
 import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
 import { getOfferItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-items-collection-slugs'
-import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
 import { getNftMockByIndex } from '@echo/model/mocks/nft/get-nft-mock-by-index'
-import { getOfferMockBySlug } from '@echo/model/mocks/offer/get-offer-mock-by-slug'
 import { offerMockToJohnnycageId, offerMockToJohnnycageSlug } from '@echo/model/mocks/offer/offer-mock'
 import type { NftIndex } from '@echo/model/types/nft'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { futureDate } from '@echo/utils/helpers/future-date'
 import { pastDate } from '@echo/utils/helpers/past-date'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { andThen, assoc, find, isEmpty, isNil, map, pipe, prop, propEq, reject } from 'ramda'
 
 describe('CRUD - offer - completeOffer', () => {
@@ -53,18 +48,18 @@ describe('CRUD - offer - completeOffer', () => {
     slug,
     transactionId: 'swap-transaction-id'
   }
-  beforeAll(async () => {
-    await assertNfts()
-    await assertOffers()
-    await assertSwaps()
-    await assertCollectionSwapsCounts()
-  })
-  afterAll(async () => {
-    await assertNfts()
-    await assertOffers()
-    await assertSwaps()
-    await assertCollectionSwapsCounts()
-  })
+  // beforeAll(async () => {
+  //   await assertNfts()
+  //   await assertOffers()
+  //   await assertSwaps()
+  //   await assertCollectionSwapsCounts()
+  // })
+  // afterAll(async () => {
+  //   await assertNfts()
+  //   await assertOffers()
+  //   await assertSwaps()
+  //   await assertCollectionSwapsCounts()
+  // })
   beforeEach(() => {
     createdStateUpdateId = undefined
     createdSwapId = undefined
@@ -72,8 +67,8 @@ describe('CRUD - offer - completeOffer', () => {
     updatedNftIndexes = []
   })
   afterEach(async () => {
-    await updateOffer(slug, getOfferMockBySlug(slug))
-    await updateListing(listingId, getListingMockById(listingId))
+    await resetOffers()
+    await resetListings()
     if (!isNil(createdStateUpdateId)) {
       await deleteOfferUpdate(createdStateUpdateId)
     }

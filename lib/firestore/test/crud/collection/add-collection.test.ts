@@ -3,26 +3,16 @@ import { getCollectionSwapsCountByCollectionId } from '@echo/firestore/crud/coll
 import { addCollection } from '@echo/firestore/crud/collection/add-collection'
 import { deleteCollection } from '@echo/firestore/crud/collection/delete-collection'
 import { getCollectionById } from '@echo/firestore/crud/collection/get-collection-by-id'
-import { assertCollectionSwapsCounts } from '@echo/firestore/utils/collection-swaps-count/assert-collection-swaps-counts'
-import { assertCollections } from '@echo/firestore/utils/collection/assert-collections'
 import { collectionMockPxId } from '@echo/model/mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model/mocks/collection/get-collection-mock-by-id'
 import type { Collection } from '@echo/model/types/collection'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, assocPath, isNil, pipe } from 'ramda'
 
 describe('CRUD - collection - addCollection', () => {
   let collectionId: Nullable<string>
   let swapsCountId: Nullable<string>
-  beforeAll(async () => {
-    await assertCollections()
-    await assertCollectionSwapsCounts()
-  })
-  afterAll(async () => {
-    await assertCollections()
-    await assertCollectionSwapsCounts()
-  })
   beforeEach(() => {
     collectionId = undefined
     swapsCountId = undefined

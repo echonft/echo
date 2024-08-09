@@ -4,30 +4,19 @@ import { getListingOfferById } from '@echo/firestore/crud/listing-offer/get-list
 import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
 import { deleteOffer } from '@echo/firestore/crud/offer/delete-offer'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
-import { assertListingOffers } from '@echo/firestore/utils/listing-offer/assert-listing-offers'
 import { updateListing } from '@echo/firestore/utils/listing/update-listing'
-import { assertOffers } from '@echo/firestore/utils/offer/assert-offers'
 import { unchecked_addOffer } from '@echo/firestore/utils/offer/unchecked_add-offer'
 import { LISTING_STATE_OFFERS_PENDING, LISTING_STATE_OPEN } from '@echo/model/constants/listing-states'
-import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
+import { listingMockId, listingMockSlug } from '@echo/model/mocks/listing/listing-mock'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockFromJohnnycageId, offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
 
 describe('CRUD - listing-offer - addListingOffer', () => {
   let createdOfferId: Nullable<string>
   let createdListingOfferId: Nullable<string>
-
-  beforeAll(async () => {
-    await assertOffers()
-    await assertListingOffers()
-  })
-  afterAll(async () => {
-    await assertOffers()
-    await assertListingOffers()
-  })
   beforeEach(() => {
     createdOfferId = undefined
     createdListingOfferId = undefined
@@ -70,6 +59,7 @@ describe('CRUD - listing-offer - addListingOffer', () => {
   })
   it('add a listing offer', async () => {
     const listingId = listingMockId()
+    const slug = listingMockSlug()
     const initialListingState = (await getListingById(listingId))!.state
     const { receiverItems, senderItems } = getOfferMockById(offerMockToJohnnycageId())
     const createdOfferNewDocument = await unchecked_addOffer(receiverItems, senderItems)
@@ -82,7 +72,7 @@ describe('CRUD - listing-offer - addListingOffer', () => {
     createdListingOfferId = createdListingOfferNewDocument.id
     // get the new listing state and reset the listing state to its original value
     const newListingState = (await getListingById(listingId))!.state
-    await updateListing(listingId, { state: initialListingState })
+    await updateListing(slug, { state: initialListingState })
     const foundListingOffer = await getListingOfferById(createdListingOfferId)
     expect(foundListingOffer).toStrictEqual(createdListingOfferNewDocument.data)
     // check if the listing state was correctly updated

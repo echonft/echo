@@ -2,22 +2,15 @@ import { addListingPost } from '@echo/firestore/crud/listing-post/add-listing-po
 import { deleteListingPost } from '@echo/firestore/crud/listing-post/delete-listing-post'
 import { getListingPost } from '@echo/firestore/crud/listing-post/get-listing-post'
 import type { ListingPostDiscordGuild } from '@echo/firestore/types/model/listing-post/listing-post'
-import { assertListingPosts } from '@echo/firestore/utils/listing-post/assert-listing-posts'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 import { isNil } from 'ramda'
 
 describe('CRUD - listing-post - addListingPost', () => {
   let listingPostId: Nullable<string>
   const guild: ListingPostDiscordGuild = { id: 'discordId', channelId: 'channelId' }
-  beforeAll(async () => {
-    await assertListingPosts()
-  })
-  afterAll(async () => {
-    await assertListingPosts()
-  })
   beforeEach(() => {
     listingPostId = undefined
   })

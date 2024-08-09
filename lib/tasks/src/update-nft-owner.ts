@@ -2,6 +2,8 @@ import { cancelListing } from '@echo/firestore/crud/listing/cancel-listing'
 import { getListingsForNft } from '@echo/firestore/crud/listing/get-listings-for-nft'
 import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
+import { cancelOffer } from '@echo/firestore/crud/offer/cancel-offer'
+import { getOffersForNft } from '@echo/firestore/crud/offer/get-offers-for-nft'
 import { getUserByWallet } from '@echo/firestore/crud/user/get-user-by-wallet'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
 import type { Nft, NftIndex } from '@echo/model/types/nft'
@@ -22,6 +24,13 @@ async function cancelTiedListings(nft: NftIndex) {
   }
 }
 
+async function cancelTiedOffers(nft: NftIndex) {
+  const offers = await getOffersForNft(nft)
+  for (const offer of offers) {
+    await cancelOffer({ slug: offer.slug, reason: 'onwership of one or more items changed' })
+  }
+}
+
 /**
  * Updates the NFT owner in Firestore
  * If the wallet is in our database, it sets it as the owner of the NFT
@@ -34,8 +43,7 @@ export async function updateNftOwner(args: WithLoggerType<UpdateNftOwnerArgs>): 
     // NFT owner is already set to the right value in Firestore, return it
     return nft as Nft
   }
-  // TODO check if any offers are tied to this NFT and, if so, cancel them
-  // see https://linear.app/echobot/issue/DEV-299/check-if-there-is-any-tied-offers-when-switching-ownership-of-an-nft
+  await cancelTiedOffers(nft)
   await cancelTiedListings(nft)
   if (isNil(wallet)) {
     return pipe(

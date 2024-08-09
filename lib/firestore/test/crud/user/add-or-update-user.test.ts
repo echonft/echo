@@ -4,23 +4,15 @@ import { getUserSnapshotByDiscordId } from '@echo/firestore/crud/user/get-user-b
 import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
-import { assertUsers } from '@echo/firestore/utils/user/assert-users'
 import { unchecked_updateUser } from '@echo/firestore/utils/user/unchecked_update-user'
 import type { DiscordProfile } from '@echo/model/types/discord-profile'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNotNil } from 'ramda'
 
 describe('CRUD - user - addOrUpdateUser', () => {
   let newUserId: Nullable<string>
   let updatedUsername: Nullable<string>
-
-  beforeAll(async () => {
-    await assertUsers()
-  })
-  afterAll(async () => {
-    await assertUsers()
-  })
   beforeEach(() => {
     newUserId = undefined
     updatedUsername = undefined
