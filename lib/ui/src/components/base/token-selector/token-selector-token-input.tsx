@@ -6,12 +6,12 @@ import { map } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
+  selectedToken: OwnedERC20Token
   tokens: OwnedERC20Token[]
   onTokenChanged?: (token: OwnedERC20Token) => unknown
-  selectedToken: OwnedERC20Token
 }
 
-export const TokenSelectorTokenInput: FunctionComponent<Props> = ({ onTokenChanged, selectedToken, tokens }) => {
+export const TokenSelectorTokenInput: FunctionComponent<Props> = ({ selectedToken, tokens, onTokenChanged }) => {
   return (
     <Menu>
       <MenuButton

@@ -8,20 +8,18 @@ import { TokenSelectorLayout } from '@echo/ui/components/base/token-selector/tok
 import { TokenSelectorTokenInput } from '@echo/ui/components/base/token-selector/token-selector-token-input'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { always, find, head, ifElse, isNil, pipe, prop } from 'ramda'
+import { always, find, head, ifElse, isNil, type NonEmptyArray, pipe, prop } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
+  tokens: NonEmptyArray<OwnedERC20Token>
   onAddToken?: (token: OwnedERC20Token, quantity: number) => unknown
-  tokens: OwnedERC20Token[]
 }
 
-export const TokenSelector: FunctionComponent<Props> = ({ onAddToken, tokens }) => {
+export const TokenSelector: FunctionComponent<Props> = ({ tokens, onAddToken }) => {
   const t = useTranslations('tokenSelector')
   const [tokenValue, setTokenValue] = useState<number>()
-  // FIXME
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const [selectedToken, setSelectedToken] = useState(head(tokens)!)
+  const [selectedToken, setSelectedToken] = useState(head(tokens))
 
   const getTokenMaxValue = pipe(find(eqERC20(selectedToken)), ifElse(isNil, always(0), prop('balance')))(tokens)
 

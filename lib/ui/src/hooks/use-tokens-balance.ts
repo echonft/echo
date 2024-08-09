@@ -6,10 +6,10 @@ import { useAccount } from '@echo/ui/hooks/use-account'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { blastSupportedErc20Tokens } from '@echo/web3-dom/constants/supported-erc20-tokens'
 import { getSupportedErc20TokensByChain } from '@echo/web3-dom/helpers/get-supported-erc20-tokens-by-chain'
-import { assoc, isNil, map } from 'ramda'
+import { assoc, isNil, map, type NonEmptyArray } from 'ramda'
 import useSWR from 'swr'
 
-export function useTokensBalance(): OwnedERC20Token[] {
+export function useTokensBalance(): NonEmptyArray<OwnedERC20Token> {
   const account = useAccount()
   const { getAllTokensBalance, logger } = useDependencies()
   const { data } = useSWR<OwnedERC20Token[], Error>(
@@ -32,7 +32,7 @@ export function useTokensBalance(): OwnedERC20Token[] {
     }
   )
   if (isNilOrEmpty(data)) {
-    return map(assoc('balance', 0), blastSupportedErc20Tokens)
+    return map(assoc('balance', 0), blastSupportedErc20Tokens) as NonEmptyArray<OwnedERC20Token>
   }
-  return data
+  return data as NonEmptyArray<OwnedERC20Token>
 }
