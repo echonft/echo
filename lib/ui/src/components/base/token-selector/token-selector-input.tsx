@@ -5,12 +5,12 @@ import { defaultTo } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  onValueChange?: (value: number) => unknown
-  value?: number
   balance: number
+  value?: number
+  onValueChange?: (value: number) => unknown
 }
 
-export const TokenSelectorInput: FunctionComponent<Props> = ({ balance, onValueChange, value }) => {
+export const TokenSelectorInput: FunctionComponent<Props> = ({ balance, value, onValueChange }) => {
   const t = useTranslations('tokenSelector')
   return (
     <div className={clsx('flex', 'flex-col', 'grow')}>
@@ -32,8 +32,7 @@ export const TokenSelectorInput: FunctionComponent<Props> = ({ balance, onValueC
           'prose-label-xs-semi',
           'text-white'
         )}
-        name={'token'}
-        placeholder={'Amount'}
+        placeholder={t('placeholder')}
         onChange={(event) => {
           onValueChange?.(Number(event.target.value))
         }}

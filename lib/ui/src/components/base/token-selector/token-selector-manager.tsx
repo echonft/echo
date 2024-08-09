@@ -1,3 +1,4 @@
+'use client'
 import type { OwnedERC20Token } from '@echo/model/types/owned-erc20-token'
 import { TokenSelector } from '@echo/ui/components/base/token-selector/token-selector'
 import { useTokensBalance } from '@echo/ui/hooks/use-tokens-balance'

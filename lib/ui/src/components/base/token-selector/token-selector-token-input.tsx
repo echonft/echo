@@ -67,7 +67,7 @@ export const TokenSelectorTokenInput: FunctionComponent<Props> = ({ onTokenChang
                   'prose-label-xs-semi',
                   'text-white',
                   selectedToken == token ? 'bg-white/[0.08]' : 'bg-transparent',
-                  'hover:bg-white/5'
+                  selectedToken != token && 'hover:bg-white/5'
                 )}
                 onClick={() => onTokenChanged?.(token)}
               >
