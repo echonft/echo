@@ -9,7 +9,7 @@ import { isNil } from 'ramda'
 export async function removeNftOwner(nft: NftIndex): Promise<Nft> {
   const snapshot = await getNftSnapshot(nft)
   if (isNil(snapshot)) {
-    return Promise.reject(Error(NftError.NFT_NOT_FOUND))
+    return Promise.reject(Error(NftError.NOT_FOUND))
   }
   return updateReference<Nft>({
     collectionReference: getNftsCollectionReference(),

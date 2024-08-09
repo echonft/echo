@@ -5,23 +5,16 @@ import { unescrowNft, UnescrowNftError } from '@echo/firestore/crud/nft/unescrow
 import { getEscrowedNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-escrowed-nfts-collection-reference'
 import { getReferenceById, type GetReferenceByIdArgs } from '@echo/firestore/helpers/crud/reference/get-reference-by-id'
 import type { EscrowedNft } from '@echo/firestore/types/model/nft/escrowed-nft'
-import { assertNfts } from '@echo/firestore/utils/nft/assert-nfts'
 import { updateNft } from '@echo/firestore/utils/nft/update-nft'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import type { DocumentReference, DocumentSnapshot } from 'firebase-admin/firestore'
 import { invoker, isNil, pipe } from 'ramda'
 
 describe('CRUD - nft - unescrowNft', () => {
   let nftId: Nullable<string>
-  beforeAll(async () => {
-    await assertNfts()
-  })
-  afterAll(async () => {
-    await assertNfts()
-  })
   beforeEach(() => {
     nftId = undefined
   })
@@ -31,7 +24,7 @@ describe('CRUD - nft - unescrowNft', () => {
     }
   })
   it('throws if the NFT does not exist', async () => {
-    await expect(unescrowNft('not-found')).rejects.toEqual(Error(NftError.NFT_NOT_FOUND))
+    await expect(unescrowNft('not-found')).rejects.toEqual(Error(NftError.NOT_FOUND))
   })
   it('throws if the NFT is not in escrow', async () => {
     await expect(unescrowNft(nftMockSpiralJohnnyId())).rejects.toEqual(Error(UnescrowNftError.NFT_NOT_IN_ESCROW))

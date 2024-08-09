@@ -7,21 +7,13 @@ import {
   userMockJohnnyId
 } from '@echo/firestore/mocks/user/user-document-data-mock'
 import { getWalletDocumentDataMockByUserId } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-user-id'
-import { assertWallets } from '@echo/firestore/utils/wallet/assert-wallets'
 import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNil, pick, pipe, toLower } from 'ramda'
 
 describe('CRUD - wallet - addWallet', () => {
   let addedWalletId: Nullable<string>
-
-  beforeAll(async () => {
-    await assertWallets()
-  })
-  afterAll(async () => {
-    await assertWallets()
-  })
   beforeEach(() => {
     addedWalletId = undefined
   })

@@ -9,14 +9,11 @@ import { getAllOffers } from '@echo/firestore/crud/offer/get-all-offers'
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { assertOfferIsNotADuplicate } from '@echo/firestore/helpers/offer/assert/assert-offer-is-not-a-duplicate'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
-import { assertListingOffers } from '@echo/firestore/utils/listing-offer/assert-listing-offers'
-import { updateListing } from '@echo/firestore/utils/listing/update-listing'
-import { assertOffers } from '@echo/firestore/utils/offer/assert-offers'
+import { resetListings } from '@echo/firestore/utils/listing/reset-listings'
 import { ONE_DAY } from '@echo/model/constants/expiration'
 import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { expirationToDate } from '@echo/model/helpers/expiration-to-date'
-import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockPxCrewId, nftMockSpiralJohnny2Id, nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
@@ -29,7 +26,7 @@ import type { OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 import { head, isNil, type NonEmptyArray, pick, pipe } from 'ramda'
 
@@ -37,15 +34,6 @@ describe('CRUD - offer - addOffer', () => {
   const listingId = listingMockId()
   let createdOfferId: Nullable<string>
   let createdListingOfferId: Nullable<string>
-
-  beforeAll(async () => {
-    await assertOffers()
-    await assertListingOffers()
-  })
-  afterAll(async () => {
-    await assertOffers()
-    await assertListingOffers()
-  })
   beforeEach(() => {
     createdOfferId = undefined
     createdListingOfferId = undefined
@@ -53,7 +41,7 @@ describe('CRUD - offer - addOffer', () => {
   afterEach(async () => {
     if (!isNil(createdOfferId)) {
       await deleteOffer(createdOfferId)
-      await updateListing(listingId, getListingMockById(listingId))
+      await resetListings()
     }
     if (!isNil(createdListingOfferId)) {
       await deleteListingOffer(createdListingOfferId)

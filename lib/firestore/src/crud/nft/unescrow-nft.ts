@@ -19,11 +19,11 @@ export async function unescrowNft(nftId: string): Promise<Nft> {
     invoker(0, 'get')
   )(nftId)
   if (!snapshot.exists) {
-    return Promise.reject(Error(NftError.NFT_NOT_FOUND))
+    return Promise.reject(Error(NftError.NOT_FOUND))
   }
   const nft = snapshot.data()
   if (isNil(nft)) {
-    return Promise.reject(Error(NftError.NFT_NOT_FOUND))
+    return Promise.reject(Error(NftError.NOT_FOUND))
   }
   const escrowedNftSnapshot = await getEscrowedNftSnapshot(snapshot.id)
   if (isNil(escrowedNftSnapshot)) {

@@ -5,15 +5,13 @@ import { deleteSwap } from '@echo/firestore/crud/swap/delete-swap'
 import { getSwapById } from '@echo/firestore/crud/swap/get-swap-by-id'
 import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
 import type { Swap } from '@echo/firestore/types/model/swap/swap'
-import { assertCollectionSwapsCounts } from '@echo/firestore/utils/collection-swaps-count/assert-collection-swaps-counts'
 import { unchecked_updateCollectionSwapCounts } from '@echo/firestore/utils/collection-swaps-count/unchecked_update-collection-swap-counts'
-import { assertSwaps } from '@echo/firestore/utils/swap/assert-swaps'
 import { getOfferItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-items-collection-slugs'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockFromJohnnycageId, offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { andThen, assoc, find, isEmpty, isNil, map, pipe, prop, propEq, reject } from 'ramda'
 
 describe('CRUD - swap - addSwap', () => {
@@ -24,14 +22,6 @@ describe('CRUD - swap - addSwap', () => {
   }
   let initialSwapsCounts: CollectionSwapsCount[]
   let createdSwapId: Nullable<string>
-  beforeAll(async () => {
-    await assertSwaps()
-    await assertCollectionSwapsCounts()
-  })
-  afterAll(async () => {
-    await assertSwaps()
-    await assertCollectionSwapsCounts()
-  })
   beforeEach(() => {
     initialSwapsCounts = []
     createdSwapId = undefined

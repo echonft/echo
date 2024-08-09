@@ -1,3 +1,4 @@
+import { OfferError } from '@echo/firestore/constants/errors/offer/offer-error'
 import { getListingOffersByOfferId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-offer-id'
 import { getListingOffersForListing } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-listing'
 import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
@@ -26,7 +27,7 @@ export interface CompleteOfferArgs extends Omit<UpdateOfferStateArgs, 'state'> {
 export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
   const snapshot = await getOfferSnapshot(args.slug)
   if (isNil(snapshot)) {
-    return Promise.reject(Error(`offer with slug ${args.slug} does not exist`))
+    return Promise.reject(Error(OfferError.NOT_FOUND))
   }
   const offer = await pipe<
     [CompleteOfferArgs],
