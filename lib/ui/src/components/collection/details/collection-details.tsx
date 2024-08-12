@@ -1,5 +1,5 @@
 import type { Collection } from '@echo/model/types/collection'
-import { ProfileLayout } from '@echo/ui/components/base/layout/profile-layout'
+import { ProfileBackgroundBanner } from '@echo/ui/components/base/profile-background-banner'
 import { CollectionDetailsDescription } from '@echo/ui/components/collection/details/collection-details-description'
 import { CollectionProfile } from '@echo/ui/components/collection/profile/collection-profile'
 import { type FunctionComponent } from 'react'
@@ -9,22 +9,12 @@ interface Props {
 }
 
 export const CollectionDetails: FunctionComponent<Props> = ({ collection }) => {
-  const {
-    bannerUrl,
-    totalSupply,
-    name,
-    description,
-    profilePictureUrl,
-    discordUrl,
-    twitterUsername,
-    verified,
-    websiteUrl
-  } = collection
+  const { totalSupply, name, description, profilePictureUrl, discordUrl, twitterUsername, verified, websiteUrl } =
+    collection
 
   return (
-    <ProfileLayout>
+    <ProfileBackgroundBanner bannerUrl={profilePictureUrl}>
       <CollectionProfile
-        bannerUrl={bannerUrl}
         name={name}
         totalSupply={totalSupply}
         profilePictureUrl={profilePictureUrl}
@@ -34,6 +24,6 @@ export const CollectionDetails: FunctionComponent<Props> = ({ collection }) => {
         verified={verified}
       />
       <CollectionDetailsDescription description={description} />
-    </ProfileLayout>
+    </ProfileBackgroundBanner>
   )
 }

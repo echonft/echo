@@ -5,14 +5,18 @@ import { themeExtension } from '@echo/ui/helpers/theme/theme'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import type { FunctionComponent, PropsWithChildren } from 'react'
 
 export interface ProfileBannerProps {
   bannerUrl?: Nullable<string>
   bannerColor?: Nullable<string>
 }
 
-export const ProfileBanner: FunctionComponent<ProfileBannerProps> = ({ bannerUrl, bannerColor }) => {
+export const ProfileBackgroundBanner: FunctionComponent<PropsWithChildren<ProfileBannerProps>> = ({
+  bannerUrl,
+  bannerColor,
+  children
+}) => {
   const url = addPictureSize({ src: bannerUrl ?? '', width: PICTURE_SIZE_XXL })
   function getStyle() {
     if (isNilOrEmpty(bannerUrl)) {
@@ -32,8 +36,10 @@ export const ProfileBanner: FunctionComponent<ProfileBannerProps> = ({ bannerUrl
   }
   return (
     <div
-      className={clsx('w-full', 'h-[15.625rem]', 'bg-no-repeat', 'flex-none', 'select-none', 'bg-cover')}
+      className={clsx('w-full', 'h-full', 'bg-no-repeat', 'select-none', 'bg-cover', 'bg-top', 'overflow-clip')}
       style={getStyle()}
-    />
+    >
+      <div className={clsx('backdrop-blur-md', 'pt-16')}>{children}</div>
+    </div>
   )
 }
