@@ -1,4 +1,4 @@
-import type { OwnedERC20Token } from '@echo/model/types/owned-erc20-token'
+import type { Erc20Token } from '@echo/model/types/erc20-token'
 import { DownCaretSvg } from '@echo/ui/components/base/svg/down-caret-svg'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { clsx } from 'clsx'
@@ -6,12 +6,12 @@ import { map } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  selectedToken: OwnedERC20Token
-  tokens: OwnedERC20Token[]
-  onTokenChanged?: (token: OwnedERC20Token) => unknown
+  selectedToken: Erc20Token
+  tokens: Erc20Token[]
+  onTokenChanged?: (token: Erc20Token) => unknown
 }
 
-export const TokenSelectorTokenInput: FunctionComponent<Props> = ({ selectedToken, tokens, onTokenChanged }) => {
+export const TokenSelectorMenu: FunctionComponent<Props> = ({ selectedToken, tokens, onTokenChanged }) => {
   return (
     <Menu>
       <MenuButton
@@ -24,13 +24,14 @@ export const TokenSelectorTokenInput: FunctionComponent<Props> = ({ selectedToke
           'bg-transparent',
           'rounded-lg',
           'border',
-          'border-white/50',
+          'border-white/[0.08]',
           'py-2',
           'px-2.5',
           'w-20',
           'h-9',
           'prose-label-xs-semi',
-          'text-white'
+          'text-white',
+          'outline-none'
         )}
       >
         {selectedToken.name}

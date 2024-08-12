@@ -1,19 +1,26 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { accountStatusStore } from '@echo/storybook/mocks/stores/account-status-store'
-import { TokenSelectorManager as Component } from '@echo/ui/components/base/token-selector/token-selector-manager'
+import { TokenSelector as Component } from '@echo/ui/components/base/token-selector/token-selector'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { useEffect } from 'react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Base/Token Selector',
+  argTypes: {
+    onAddToken: {
+      table: {
+        disable: true
+      }
+    }
+  },
   component: Component,
-  render: () => {
+  render: ({ onAddToken }) => {
     const { connect } = accountStatusStore()
     useEffect(() => {
       connect()
     }, [])
-    return <Component />
+    return <Component onAddToken={onAddToken} />
   }
 }
 export default metadata

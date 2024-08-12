@@ -5,8 +5,8 @@ import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
 import type { SignInResponse } from '@echo/auth/types/sign-in-response'
+import type { Erc20TokenBalance } from '@echo/model/types/erc20-token-balance'
 import type { Offer } from '@echo/model/types/offer'
-import type { OwnedERC20Token } from '@echo/model/types/owned-erc20-token'
 import type { SearchResult } from '@echo/model/types/search-result'
 import type { Slug } from '@echo/model/types/slug'
 import type { Username } from '@echo/model/types/username'
@@ -25,6 +25,7 @@ import type { ContractUpdateOfferArgs } from '@echo/web3-dom/types/contract-upda
 import type { GetErc721ContractApprovalArgs } from '@echo/web3-dom/types/get-erc-721-contract-approval-args'
 import type { SignNonceArgs } from '@echo/web3-dom/types/sign-nonce-args'
 import type { SignNonceResult } from '@echo/web3-dom/types/sign-nonce-result'
+import type { NonEmptyArray } from 'ramda'
 
 export interface Dependencies {
   addWallet: Fetcher<WalletsResponse, AddWalletRequest>
@@ -39,7 +40,7 @@ export interface Dependencies {
   createListing: Fetcher<ListingResponse, CreateListingRequest>
   disconnectWallet: () => Promise<void>
   getAccount: AccountProvider
-  getAllTokensBalance: Fetcher<OwnedERC20Token[], GetAllTokensBalanceArgs>
+  getAllTokensBalance: Fetcher<NonEmptyArray<Erc20TokenBalance>, GetAllTokensBalanceArgs>
   getEchoTradingFees: (args: GetEchoTradingFeesArgs) => Promise<bigint>
   getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
   getNonce: Fetcher<NonceResponse, never>

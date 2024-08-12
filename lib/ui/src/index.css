@@ -10,6 +10,15 @@
   body {
     @apply w-screen min-h-screen flex flex-col bg-dark-500 text-transparent font-normal text-[0rem] leading-[0rem] tracking-[0rem] overflow-x-hidden;
   }
+  /* remove arrows from number input */
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
 }
 @layer components {
   .tooltip {

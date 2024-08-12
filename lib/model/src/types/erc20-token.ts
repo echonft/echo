@@ -1,6 +1,6 @@
 import type { EvmAddress } from '@echo/model/types/evm-address'
 
-export interface ERC20Token {
+export interface Erc20Token {
   contract: EvmAddress
   name: string
   decimals: number

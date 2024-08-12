@@ -1,34 +1,34 @@
-import type { ERC20Token } from '@echo/model/types/erc20-token'
-import type { OwnedERC20Token } from '@echo/model/types/owned-erc20-token'
+import type { Erc20Token } from '@echo/model/types/erc20-token'
+import type { Erc20TokenBalance } from '@echo/model/types/erc20-token-balance'
 import type { Wallet } from '@echo/model/types/wallet'
-import { promiseAll } from '@echo/utils/fp/promise-all'
+import { nonEmptyArrayMap } from '@echo/utils/fp/non-empty-array-map'
+import { nonEmptyPromiseAll } from '@echo/utils/fp/non-empty-promise-all'
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
-import { addERC20TokenBalance, type AddErc20TokenBalanceArgs } from '@echo/web3-dom/helpers/add-erc20-token-balance'
+import { type AddErc20TokenBalanceArgs, getErc20TokenBalance } from '@echo/web3-dom/helpers/get-erc20-token-balance'
 import { getWalletClient } from '@echo/web3-dom/helpers/get-wallet-client'
 import { getViemChainById } from '@echo/web3/helpers/get-viem-chain-by-id'
-import { assoc, map, objOf, pipe } from 'ramda'
+import { assoc, type NonEmptyArray, objOf, pipe } from 'ramda'
 
 export interface GetAllTokensBalanceArgs {
   wallet: Wallet
-  tokens: ERC20Token[]
+  tokens: NonEmptyArray<Erc20Token>
 }
 
-export async function getAllTokensBalance(args: GetAllTokensBalanceArgs): Promise<OwnedERC20Token[]> {
+export async function getAllTokensBalance(args: GetAllTokensBalanceArgs): Promise<NonEmptyArray<Erc20TokenBalance>> {
   const { wallet, tokens } = args
   const { chain } = wallet
   const chainId = getChainId(chain)
   const client = pipe(getViemChainById, getWalletClient)(chainId)
-
   return pipe(
-    map(
+    nonEmptyArrayMap(
       pipe<
-        [ERC20Token],
-        Record<'token', ERC20Token>,
+        [Erc20Token],
+        Record<'token', Erc20Token>,
         Omit<AddErc20TokenBalanceArgs, 'client'>,
         AddErc20TokenBalanceArgs,
-        Promise<OwnedERC20Token>
-      >(objOf('token'), assoc('wallet', wallet), assoc('client', client), addERC20TokenBalance)
+        Promise<Erc20TokenBalance>
+      >(objOf('token'), assoc('wallet', wallet), assoc('client', client), getErc20TokenBalance)
     ),
-    promiseAll
+    nonEmptyPromiseAll
   )(tokens)
 }
