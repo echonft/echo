@@ -1,11 +1,13 @@
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
-import { getQueriesDocuments } from '@echo/firestore/helpers/crud/query/get-queries-documents'
+import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
+import { queryWhereFilter } from '@echo/firestore/helpers/crud/query/query-where-filter'
 import { NOT_READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
 import { type Offer } from '@echo/model/types/offer'
 import { now } from '@echo/utils/helpers/now'
-import { juxt, pipe } from 'ramda'
+import { Filter } from 'firebase-admin/firestore'
+import { pipe } from 'ramda'
 
 export async function getPendingOffersForCollection(slug: string): Promise<Offer[]> {
   return pipe(
@@ -13,10 +15,12 @@ export async function getPendingOffersForCollection(slug: string): Promise<Offer
     queryWhere('state', 'in', NOT_READ_ONLY_OFFER_STATES),
     queryWhere('expiresAt', '>', now()),
     queryOrderBy<Offer>('expiresAt', 'desc'),
-    juxt([
-      queryWhere<Offer>('receiverItemCollections', 'array-contains', slug),
-      queryWhere<Offer>('senderItemCollections', 'array-contains', slug)
-    ]),
-    getQueriesDocuments
+    queryWhereFilter<Offer>(
+      Filter.or(
+        Filter.where('receiverItemCollections', 'array-contains', slug),
+        Filter.where('senderItemCollections', 'array-contains', slug)
+      )
+    ),
+    getQueryData
   )()
 }

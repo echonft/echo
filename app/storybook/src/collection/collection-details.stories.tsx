@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getCollectionMock } from '@echo/model/mocks/collection/get-collection-mock'
-import type { Collection } from '@echo/model/types/collection'
+import { getCollectionWithCountsMock } from '@echo/model/mocks/collection/get-collection-with-counts-mock'
+import type { CollectionWithCounts } from '@echo/model/types/collection-with-counts'
 import { CollectionDetails } from '@echo/ui/components/collection/details/collection-details'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { always, assoc, dissoc, pipe, when } from 'ramda'
@@ -34,11 +34,9 @@ export default metadata
 
 export const Details: StoryObj<ComponentType> = {
   render: ({ defaultPicture, verified }) => {
-    const collection = pipe<[], Collection, Collection, Collection>(
-      getCollectionMock,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      when<Collection, Collection>(always(defaultPicture), dissoc('profilePictureUrl')),
+    const collection = pipe<[], CollectionWithCounts, CollectionWithCounts, CollectionWithCounts>(
+      getCollectionWithCountsMock,
+      when<CollectionWithCounts, CollectionWithCounts>(always(defaultPicture), dissoc('profilePictureUrl')),
       assoc('verified', verified)
     )()
     return <CollectionDetails collection={collection} />

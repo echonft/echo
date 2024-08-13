@@ -1,19 +1,32 @@
-import type { Collection } from '@echo/model/types/collection'
-import { ProfileBackgroundBanner } from '@echo/ui/components/base/profile-background-banner'
+import type { CollectionWithCounts } from '@echo/model/types/collection-with-counts'
+import { ProfileLayout } from '@echo/ui/components/base/layout/profile-layout'
+import { CollectionDetailsCounts } from '@echo/ui/components/collection/details/collection-details-counts'
 import { CollectionDetailsDescription } from '@echo/ui/components/collection/details/collection-details-description'
 import { CollectionProfile } from '@echo/ui/components/collection/profile/collection-profile'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  collection: Collection
+  collection: CollectionWithCounts
 }
 
 export const CollectionDetails: FunctionComponent<Props> = ({ collection }) => {
-  const { totalSupply, name, description, profilePictureUrl, discordUrl, twitterUsername, verified, websiteUrl } =
-    collection
+  const {
+    totalSupply,
+    name,
+    description,
+    profilePictureUrl,
+    discordUrl,
+    twitterUsername,
+    verified,
+    websiteUrl,
+    offersCount,
+    nftsCount,
+    listingsCount,
+    swapsCount
+  } = collection
 
   return (
-    <ProfileBackgroundBanner bannerUrl={profilePictureUrl}>
+    <ProfileLayout bannerUrl={profilePictureUrl}>
       <CollectionProfile
         name={name}
         totalSupply={totalSupply}
@@ -23,7 +36,13 @@ export const CollectionDetails: FunctionComponent<Props> = ({ collection }) => {
         twitterUsername={twitterUsername}
         verified={verified}
       />
+      <CollectionDetailsCounts
+        listingsCount={listingsCount}
+        nftsCount={nftsCount}
+        offersCount={offersCount}
+        swapsCount={swapsCount}
+      />
       <CollectionDetailsDescription description={description} />
-    </ProfileBackgroundBanner>
+    </ProfileLayout>
   )
 }

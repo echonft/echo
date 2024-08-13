@@ -1,5 +1,5 @@
 import type { SelectionSearchParams } from '@echo/api/types/routing/search-params/selection-search-params'
-import { getCollection } from '@echo/firestore/crud/collection/get-collection'
+import { getCollectionWithCounts } from '@echo/firestore/crud/collection-with-counts/get-collection-with-counts'
 import { getPendingListingsForCollection } from '@echo/firestore/crud/listing/get-pending-listings-for-collection'
 import { getNftsForCollection } from '@echo/firestore/crud/nft/get-nfts-for-collection'
 import { getCompletedOffersForCollection } from '@echo/firestore/crud/offer/get-completed-offers-for-collection'
@@ -27,7 +27,7 @@ async function render({
   searchParams,
   user
 }: PropsWithUser<NextParams<WithSlug> & WithSearchParamsProps<SelectionSearchParams>>) {
-  const collection = await pipe(getCollection, otherwise(pipe(captureAndLogError, always(undefined))))(slug)
+  const collection = await pipe(getCollectionWithCounts, otherwise(pipe(captureAndLogError, always(undefined))))(slug)
   if (isNil(collection)) {
     notFound()
   }

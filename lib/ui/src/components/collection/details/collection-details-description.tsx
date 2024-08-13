@@ -18,8 +18,8 @@ const renderer = {
 export const CollectionDetailsDescription: FunctionComponent<Pick<Collection, 'description'>> = ({ description }) => {
   return (
     <PaddedLayout>
-      <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full', 'pt-8')}>
-        <div className={clsx('prose-header-xs', 'text-white/60', 'w-[37rem]')}>
+      <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full')}>
+        <div className={clsx('prose-label-md-semi', 'text-white/60', 'w-[37rem]')}>
           <Markdown renderer={renderer} value={description ?? undefined} />
         </div>
       </div>

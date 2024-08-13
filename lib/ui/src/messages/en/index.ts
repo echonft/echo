@@ -26,7 +26,11 @@ export const messages = {
   },
   collection: {
     details: {
-      supply: '{supply, number, ::K} NFTs'
+      supply: '{supply, number, ::K} NFTs',
+      listingsCount: '{count, plural, =1 {<bold>1</bold> Listing Created} other {<bold>#</bold> Listings Created}}',
+      nftsCount: '{count, plural, =1 {<bold>1</bold> NFT} other {<bold>#</bold> NFTs}}',
+      offersCount: '{count, plural, =1 {<bold>1</bold> Offer Created} other {<bold>#</bold> Offers Created}}',
+      swapsCount: '{count, plural, =1 {<bold>1</bold> Swap} other {<bold>#</bold> Swaps}}'
     },
     empty: {
       items: {
