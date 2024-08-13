@@ -1,8 +1,8 @@
 import type { SearchParams } from '@echo/api/types/routing/search-params/search-params'
-import type { ErcType } from '@echo/nft-scan/types/erc-type'
+import type { NftTokenType } from '@echo/model/types/token-type'
 
 export interface FetchNftsByAccountSearchParams extends SearchParams {
-  erc_type: ErcType
+  erc_type: NftTokenType
   cursor?: string
   limit: number
   show_attribute: boolean

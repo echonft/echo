@@ -73,7 +73,8 @@ export function nftExtendedResponseSchema(chain: ChainName) {
         name: prop('name'),
         metadataUrl: prop('metadata_url'),
         pictureUrl: prop('image_url'),
-        tokenId: prop('identifier')
+        tokenId: prop('identifier'),
+        type: prop('token_standard')
       })(response)
     }
   }

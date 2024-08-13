@@ -41,7 +41,8 @@ export const nftMock: Record<string, OwnedNft> = {
     owner: getUserMockByUsername(userMockJohnnyUsername()),
     metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
-    tokenId: 1
+    tokenId: 1,
+    type: 'erc721'
   },
   iRZFKEujarikVjpiFAkE: {
     attributes: [
@@ -84,7 +85,8 @@ export const nftMock: Record<string, OwnedNft> = {
     owner: getUserMockByUsername(userMockJohnnyUsername()),
     metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/c8ced259cc0a40a5a42d22182e82f9de',
-    tokenId: 2
+    tokenId: 2,
+    type: 'erc721'
   },
   '5SeF1NSN5uPUxtWSr516': {
     attributes: [
@@ -127,7 +129,8 @@ export const nftMock: Record<string, OwnedNft> = {
     owner: getUserMockByUsername(userMockCrewUsername()),
     metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/f7adbf923a17d9b1f9b33d7a23d2b621',
-    tokenId: 3
+    tokenId: 3,
+    type: 'erc721'
   },
   QFjMRNChUAHNswkRADXh: {
     attributes: [
@@ -186,7 +189,8 @@ export const nftMock: Record<string, OwnedNft> = {
     animationUrl: 'https://animation.url/',
     metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/c96b4f27dc8dec8a869932f36205bafa',
-    tokenId: 1
+    tokenId: 1,
+    type: 'erc721'
   },
   XiDa6k2P7gxXCKSxn2wq: {
     attributes: [
@@ -233,7 +237,8 @@ export const nftMock: Record<string, OwnedNft> = {
     animationUrl: 'https://animation.url/',
     metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/eaefecb1e422f0f1848058cfdc8a36a9',
-    tokenId: 2
+    tokenId: 2,
+    type: 'erc721'
   },
   kRE3UCfXWkJ33nwzj2X1: {
     attributes: [
@@ -284,6 +289,7 @@ export const nftMock: Record<string, OwnedNft> = {
     animationUrl: 'https://animation.url/',
     metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/d4ccdfe6a54889abc408c34335b6fb55',
-    tokenId: 3
+    tokenId: 3,
+    type: 'erc721'
   }
 }

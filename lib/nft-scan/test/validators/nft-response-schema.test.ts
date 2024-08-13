@@ -20,7 +20,8 @@ describe('validator - nftResponseSchema', () => {
       'https://dev.echonft.xyz/api/ipfs/bafybeibfviw32fzcimiobx2shiukbwis5cyufmenvddajvzbr3u4uwco3a%2F2944.png',
     name: 'Blast Penguins #2944',
     attributes: attributesMock()['1'],
-    metadataUrl: 'https://dweb.link/ipfs/bafybeier5k54xnsw26fhttl673vc57jmbddvkkjn4skiel26t5yawsi3x4/2944.json'
+    metadataUrl: 'https://dweb.link/ipfs/bafybeier5k54xnsw26fhttl673vc57jmbddvkkjn4skiel26t5yawsi3x4/2944.json',
+    type: 'erc721'
   }
   it('maps correctly with ipfs image uri', () => {
     expect(nftResponseSchema(chain).parse(response)).toEqual(expectedResult)

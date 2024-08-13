@@ -28,7 +28,8 @@ describe('CRUD - nft - escrowNft', () => {
       })
     }
     if (!isNil(nftId)) {
-      await updateNft(getNftMockById(nftId))
+      const nft = getNftMockById(nftId)
+      await updateNft(nft, nft)
     }
   })
   it('throws if the NFT does not exist', async () => {

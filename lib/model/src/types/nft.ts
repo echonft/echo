@@ -1,5 +1,6 @@
 import { type Collection, type CollectionContract, type CollectionIndex } from '@echo/model/types/collection'
 import { type NftAttribute } from '@echo/model/types/nft-attribute'
+import type { NftTokenType } from '@echo/model/types/token-type'
 import { type User } from '@echo/model/types/user'
 import type { Nullable } from '@echo/utils/types/nullable'
 
@@ -12,6 +13,7 @@ export interface Nft {
   owner?: Nullable<User>
   pictureUrl?: Nullable<string>
   tokenId: number
+  type: NftTokenType
 }
 
 export type NftIndex = Pick<Nft, 'tokenId'> & Record<'collection', CollectionIndex>

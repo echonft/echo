@@ -12,7 +12,7 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { bigIntStringSchema } from '@echo/utils/validators/big-int-string-schema'
 import { evmAddressSchema } from '@echo/utils/validators/evm-address-schema'
 import { always, applySpec, ifElse, invoker, isNil, length, pipe, prop, reject, split } from 'ramda'
-import { object, string } from 'zod'
+import { nativeEnum, object, string } from 'zod'
 
 export function nftResponseSchema(chain: ChainName) {
   function updateIPFSUri(uri: Nullable<string>): Nullable<string> {
@@ -46,7 +46,10 @@ export function nftResponseSchema(chain: ChainName) {
     // contract_name: string(),
     // contract_token_id: string(),
     // description: string().nullable(),
-    // erc_type: custom<ErcType>(either(equals('erc721'), equals('erc1155'))),
+    erc_type: nativeEnum({
+      erc721: 'erc721',
+      erc1155: 'erc1155'
+    }),
     // external_link: string().nullable(),
     image_uri: string()
       .nullable()
@@ -88,7 +91,8 @@ export function nftResponseSchema(chain: ChainName) {
       ),
       metadataUrl: pipe(prop('token_uri'), removeNull),
       pictureUrl: pipe(prop('image_uri'), removeNull),
-      tokenId: prop('token_id')
+      tokenId: prop('token_id'),
+      type: prop('erc_type')
     })
   )
 }
