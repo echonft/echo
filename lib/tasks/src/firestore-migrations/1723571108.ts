@@ -1,10 +1,12 @@
+import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
 import { getAllNfts } from '@echo/firestore/crud/nft/get-all-nfts'
+import { updateCollection } from '@echo/firestore/utils/collection/update-collection'
 import { updateNft } from '@echo/firestore/utils/nft/update-nft'
 import { getLogger } from '@echo/tasks/commands/get-logger'
 
 /**
- * This migration adds the type to NFTs.
- * Since only ERC721 NFTs are supported at the moment, we add this type to every NFTs.
+ * This migration adds the type to NFTs and collections.
+ * Since only ERC721 NFTs are supported at the moment, we add this type to every NFTs and collections.
  */
 async function migrate() {
   const id = '1723571108'
@@ -13,6 +15,10 @@ async function migrate() {
   const nfts = await getAllNfts()
   for (const nft of nfts) {
     await updateNft(nft, { type: 'erc721' })
+  }
+  const collections = await getAllCollections()
+  for (const collection of collections) {
+    await updateCollection(collection.slug, { type: 'erc721' })
   }
   logger.info(`Migration ${id} completed`)
 }

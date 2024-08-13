@@ -4,13 +4,15 @@ import { walletMockCrewAddress } from '@echo/model/mocks/wallet/wallet-mock'
 import type { Wallet } from '@echo/model/types/wallet'
 import { collectionResponseSchema } from '@echo/opensea/validators/collection-response-schema'
 import { describe, expect, it } from '@jest/globals'
-import { assoc, assocPath, modify, pipe } from 'ramda'
+import { assoc, assocPath, dissoc, modify, pipe } from 'ramda'
 
 describe('validators - collectionResponseSchema', () => {
   const mock = pipe(
+    collectionMockSpiralId,
     getCollectionMockById,
-    modify<'contract', Wallet, Wallet>('contract', assoc('chain', 'sepolia'))
-  )(collectionMockSpiralId())
+    modify<'contract', Wallet, Wallet>('contract', assoc('chain', 'sepolia')),
+    dissoc('type')
+  )()
   const response = {
     banner_image_url: mock.bannerUrl,
     category: 'whatever',

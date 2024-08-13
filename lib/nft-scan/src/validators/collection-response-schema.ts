@@ -9,6 +9,7 @@ import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { evmAddressSchema } from '@echo/utils/validators/evm-address-schema'
+import { nftTokenTypeSchema } from '@echo/utils/validators/nft-token-type-schema'
 import { applySpec, assoc, F, ifElse, objOf, pipe, prop, replace, toLower } from 'ramda'
 import { boolean, number, object, string } from 'zod'
 
@@ -35,7 +36,7 @@ export function collectionResponseSchema(chain: ChainName) {
     description: string().nullable(),
     discord: string().nullable(),
     // email: string().nullable(),
-    // erc_type: custom<ErcType>(either(equals('erc721'), equals('erc1155'))),
+    erc_type: nftTokenTypeSchema,
     // featured_url: string().nullable(),
     // floor_price: number().nullable(),
     // github: string().nullable(),
@@ -81,8 +82,9 @@ export function collectionResponseSchema(chain: ChainName) {
           ),
           pipe(nonNullableReturn(prop('opensea_slug')), toLower, removeSpecialCharacters)
         ),
-        twitterUsername: pipe(prop('twitter'), removeNullOrEmptyString),
         totalSupply: prop('items_total'),
+        twitterUsername: pipe(prop('twitter'), removeNullOrEmptyString),
+        type: prop('erc_type'),
         websiteUrl: pipe(prop('website'), removeNullOrEmptyString),
         verified: F
       }),

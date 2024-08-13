@@ -1,3 +1,4 @@
+import type { NftTokenType } from '@echo/model/types/token-type'
 import type { Wallet } from '@echo/model/types/wallet'
 import type { WithSlug } from '@echo/model/types/with-slug'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -11,6 +12,7 @@ export interface Collection extends WithSlug {
   profilePictureUrl?: Nullable<string>
   totalSupply: number
   twitterUsername?: Nullable<string>
+  type: NftTokenType
   verified: boolean
   websiteUrl?: Nullable<string>
 }

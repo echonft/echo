@@ -1,6 +1,5 @@
 import type { Collection } from '@echo/model/types/collection'
 import { emptyStringToUndefined } from '@echo/opensea/helpers/empty-string-to-undefined'
-import type { CollectionContract } from '@echo/opensea/types/response/collection-response'
 import { removeSpecialCharacters } from '@echo/utils/fp/remove-special-characters'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import type { ChainName } from '@echo/utils/types/chain-name'
@@ -9,6 +8,8 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { evmAddressSchema } from '@echo/utils/validators/evm-address-schema'
 import { always, applySpec, assoc, chain, F, find, ifElse, isEmpty, isNil, pipe, prop, propEq } from 'ramda'
 import { boolean, nativeEnum, number, object, string } from 'zod'
+
+type CollectionContract = ReturnType<typeof collectionContractSchema.parse>
 
 interface CollectionResponseSchemaArgs {
   chain?: ChainName
@@ -101,7 +102,7 @@ export function collectionResponseSchema(args?: CollectionResponseSchemaArgs) {
         args.logger?.info({ schema: collectionResponseSchema.name, response, chain }, 'no contract found for chain')
         return undefined
       }
-      return applySpec<Collection>({
+      return applySpec<Omit<Collection, 'type'>>({
         bannerUrl: prop('banner_image_url'),
         contract: prop('contract'),
         description: prop('description'),
