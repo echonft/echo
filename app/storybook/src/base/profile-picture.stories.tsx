@@ -7,7 +7,7 @@ import { SIZE_LG } from '@echo/ui/constants/size'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Base/Profile/Picture',
+  title: 'Base/Profile Picture',
   component: Component,
   argTypes: {
     border: {
