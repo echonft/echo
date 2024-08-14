@@ -1,5 +1,6 @@
 import type { UserProfile as UserProfileModel } from '@echo/model/types/user-profile'
 import { LogoutButtonManager } from '@echo/ui/components/auth/logout-button-manager'
+import { CountsDetails } from '@echo/ui/components/base/counts-details'
 import { ProfileLayout } from '@echo/ui/components/base/layout/profile-layout'
 import { Profile } from '@echo/ui/components/base/profile'
 import { UserProfileDetailsLayout } from '@echo/ui/components/user/profile/layout/user-profile-details-layout'
@@ -13,7 +14,7 @@ interface Props {
 }
 
 export const AuthUserProfile: FunctionComponent<Props> = ({ profile }) => {
-  const { discord, wallets } = profile
+  const { discord, wallets, listingsCount, swapsCount, nftsCount, offersCount } = profile
   const { username, avatarUrl } = discord
   return (
     <ProfileLayout bannerUrl={avatarUrl}>
@@ -26,6 +27,12 @@ export const AuthUserProfile: FunctionComponent<Props> = ({ profile }) => {
           </div>
         </UserProfileDetailsLayout>
       </Profile>
+      <CountsDetails
+        listingsCount={listingsCount}
+        nftsCount={nftsCount}
+        offersCount={offersCount}
+        swapsCount={swapsCount}
+      />
     </ProfileLayout>
   )
 }

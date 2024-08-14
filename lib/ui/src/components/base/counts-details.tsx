@@ -1,14 +1,17 @@
 'use client'
-import type { CollectionWithCounts } from '@echo/model/types/collection-with-counts'
 import { PaddedLayout } from '@echo/ui/components/base/layout/padded-layout'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
-export const CollectionDetailsCounts: FunctionComponent<
-  Pick<CollectionWithCounts, 'listingsCount' | 'nftsCount' | 'offersCount' | 'swapsCount'>
-> = ({ listingsCount, nftsCount, offersCount, swapsCount }) => {
-  const t = useTranslations('collection.details')
+interface Props {
+  listingsCount: number
+  nftsCount: number
+  offersCount: number
+  swapsCount: number
+}
+export const CountsDetails: FunctionComponent<Props> = ({ listingsCount, nftsCount, offersCount, swapsCount }) => {
+  const t = useTranslations('counts')
   return (
     <PaddedLayout>
       <div className={clsx('flex', 'flex-row', 'gap-2.5', 'w-full')}>

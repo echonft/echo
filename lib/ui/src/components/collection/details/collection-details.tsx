@@ -1,6 +1,6 @@
 import type { CollectionWithCounts } from '@echo/model/types/collection-with-counts'
+import { CountsDetails } from '@echo/ui/components/base/counts-details'
 import { ProfileLayout } from '@echo/ui/components/base/layout/profile-layout'
-import { CollectionDetailsCounts } from '@echo/ui/components/collection/details/collection-details-counts'
 import { CollectionDetailsDescription } from '@echo/ui/components/collection/details/collection-details-description'
 import { CollectionProfile } from '@echo/ui/components/collection/profile/collection-profile'
 import { type FunctionComponent } from 'react'
@@ -36,7 +36,7 @@ export const CollectionDetails: FunctionComponent<Props> = ({ collection }) => {
         twitterUsername={twitterUsername}
         verified={verified}
       />
-      <CollectionDetailsCounts
+      <CountsDetails
         listingsCount={listingsCount}
         nftsCount={nftsCount}
         offersCount={offersCount}

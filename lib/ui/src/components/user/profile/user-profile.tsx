@@ -1,4 +1,5 @@
 import type { UserProfile as UserProfileModel } from '@echo/model/types/user-profile'
+import { CountsDetails } from '@echo/ui/components/base/counts-details'
 import { ProfileLayout } from '@echo/ui/components/base/layout/profile-layout'
 import { Profile } from '@echo/ui/components/base/profile'
 import { UserProfileDetailsLayout } from '@echo/ui/components/user/profile/layout/user-profile-details-layout'
@@ -11,7 +12,7 @@ interface Props {
 }
 
 export const UserProfile: FunctionComponent<Props> = ({ profile }) => {
-  const { discord, wallets } = profile
+  const { discord, wallets, listingsCount, nftsCount, swapsCount, offersCount } = profile
   const { username, avatarUrl } = discord
   return (
     <ProfileLayout bannerUrl={avatarUrl}>
@@ -21,6 +22,12 @@ export const UserProfile: FunctionComponent<Props> = ({ profile }) => {
           <UserProfileWallets wallets={wallets} />
         </UserProfileDetailsLayout>
       </Profile>
+      <CountsDetails
+        listingsCount={listingsCount}
+        nftsCount={nftsCount}
+        offersCount={offersCount}
+        swapsCount={swapsCount}
+      />
     </ProfileLayout>
   )
 }
