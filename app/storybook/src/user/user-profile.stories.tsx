@@ -3,29 +3,22 @@
 import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { getUserProfileMockByUsername } from '@echo/model/mocks/user/user-profile-mock'
 import { UserProfile } from '@echo/ui/components/user/profile/user-profile'
-import type { Nullable } from '@echo/utils/types/nullable'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { assocPath, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
 
-type BannerType = 'Color' | 'Default' | 'Image'
-type ComponentType = FunctionComponent<{ banner: BannerType; bannerColor: Nullable<string> }>
+type ImageType = 'Default' | 'Image'
+type ComponentType = FunctionComponent<{ image: ImageType }>
 
 const metadata: Meta<ComponentType> = {
   title: 'User/Profile ',
   args: {
-    bannerColor: '#d11bd9',
-    banner: 'Image'
+    image: 'Image'
   },
   argTypes: {
-    bannerColor: {
-      defaultValue: '#d11bd9',
-      control: 'color',
-      if: { arg: 'banner', eq: 'Color' }
-    },
-    banner: {
+    image: {
       defaultValue: 'Image',
-      options: ['Color', 'Default', 'Image'],
+      options: ['Default', 'Image'],
       control: { type: 'radio' }
     }
   }
@@ -34,16 +27,15 @@ const metadata: Meta<ComponentType> = {
 export default metadata
 
 export const Profile: StoryObj<ComponentType> = {
-  render: ({ bannerColor, banner }) => {
+  render: ({ image }) => {
     const profile = pipe(
       getUserProfileMockByUsername,
       assocPath(
-        ['discord', 'bannerUrl'],
-        banner === 'Image'
-          ? 'https://i.seadn.io/gae/eASCOXqiarHXrJSwwN34-mX65lSSvSclmrG8qYk5cYdYgX-euMi5AVQa_8b3rvbVc9NYIeF1q2xTjU74ZkLQvRjGV4LZWGCiEp8J?auto=format&dpr=1&w=2048'
+        ['discord', 'avatarUrl'],
+        image === 'Image'
+          ? 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png'
           : undefined
-      ),
-      assocPath(['discord', 'bannerColor'], banner === 'Color' ? bannerColor : undefined)
+      )
     )(userMockJohnnyUsername())
     return <UserProfile profile={profile} />
   }
