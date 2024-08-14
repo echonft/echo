@@ -12,9 +12,9 @@ interface Props {
 
 export const UserProfile: FunctionComponent<Props> = ({ profile }) => {
   const { discord, wallets } = profile
-  const { bannerColor, username, avatarUrl } = discord
+  const { username, avatarUrl } = discord
   return (
-    <ProfileLayout bannerUrl={avatarUrl} bannerColor={bannerColor}>
+    <ProfileLayout bannerUrl={avatarUrl}>
       <Profile picture={{ pictureUrl: avatarUrl, alt: username }}>
         <UserProfileDetailsLayout>
           <UserTag user={profile} />
