@@ -3,7 +3,7 @@ import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import { walletMockCrewAddress, walletMockJohnnyAddress } from '@echo/model/mocks/wallet/wallet-mock'
 import type { Collection } from '@echo/model/types/collection'
-import type { Nft } from '@echo/model/types/nft'
+import type { Nft, NftCollection } from '@echo/model/types/nft'
 import type { PartialNft } from '@echo/opensea/types/partial-nft'
 import { nftExtendedResponseSchema } from '@echo/opensea/validators/nft-extended-response-schema'
 import { describe, expect, it } from '@jest/globals'
@@ -41,9 +41,13 @@ describe('validators - nftExtendedResponseSchema', () => {
       ],
       owners: [{ address: walletMockJohnnyAddress(), quantity: 1 }]
     }
-    const nft = pipe<[Nft], Omit<Nft, 'owner'>, PartialNft>(
+    const nft = pipe<[Nft], Omit<Nft, 'owner'>, Omit<Nft, 'owner' | 'tokenIdLabel'>, PartialNft>(
       dissoc('owner'),
-      modify<'collection', Collection, Pick<Collection, 'contract' | 'slug'>>('collection', pick(['contract', 'slug']))
+      dissoc('tokenIdLabel'),
+      modify<'collection', NftCollection, Pick<Collection, 'contract' | 'slug'>>(
+        'collection',
+        pick(['contract', 'slug'])
+      )
     )(nftMock)
     expect(nftExtendedResponseSchema(nftMock.collection.contract.chain).parse(response)).toStrictEqual(nft)
   })
@@ -77,9 +81,21 @@ describe('validators - nftExtendedResponseSchema', () => {
       ],
       owners: [{ address: walletMockJohnnyAddress(), quantity: 1 }]
     }
-    const nft: PartialNft = pipe<[Nft], Omit<Nft, 'owner'>, PartialNft, PartialNft, PartialNft, PartialNft>(
+    const nft: PartialNft = pipe<
+      [Nft],
+      Omit<Nft, 'owner'>,
+      Omit<Nft, 'owner' | 'tokenIdLabel'>,
+      PartialNft,
+      PartialNft,
+      PartialNft,
+      PartialNft
+    >(
       dissoc('owner'),
-      modify<'collection', Collection, Pick<Collection, 'contract' | 'slug'>>('collection', pick(['contract', 'slug'])),
+      dissoc('tokenIdLabel'),
+      modify<'collection', NftCollection, Pick<Collection, 'contract' | 'slug'>>(
+        'collection',
+        pick(['contract', 'slug'])
+      ),
       assoc('animationUrl', undefined),
       assoc('metadataUrl', undefined),
       assoc('pictureUrl', undefined)

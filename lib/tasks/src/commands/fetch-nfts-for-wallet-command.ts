@@ -1,13 +1,10 @@
-import type { CollectionContract } from '@echo/model/types/collection'
-import type { Nft } from '@echo/model/types/nft'
 import type { Wallet } from '@echo/model/types/wallet'
+import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import { getLogger } from '@echo/tasks/commands/get-logger'
 import { fetchCollection } from '@echo/tasks/fetch-collection'
 import { fetchNftsByAccount } from '@echo/tasks/fetch-nfts-by-account'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { andThen, assoc, head, isEmpty, isNil, otherwise, path, pipe, tap } from 'ramda'
-
-type PartialNft = Omit<Nft, 'collection' | 'owner'> & Record<'collection', CollectionContract>
 
 export async function fetchNftsForWalletCommand(wallet: Wallet) {
   const logger = getLogger(fetchNftsForWalletCommand.name)

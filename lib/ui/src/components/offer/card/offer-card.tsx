@@ -3,7 +3,6 @@ import { CardFooter } from '@echo/ui/components/base/card/card-footer'
 import { CardLayout } from '@echo/ui/components/base/card/layout/card-layout'
 import { OfferCardPicture } from '@echo/ui/components/offer/card/offer-card-picture'
 import { OfferStack } from '@echo/ui/components/offer/card/offer-stack'
-import { getTokenIdString } from '@echo/ui/helpers/nft/get-token-id-string'
 import { getCounterpartyOfferItemsFromRole } from '@echo/ui/helpers/offer/get-counterparty-offer-items-from-role'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
@@ -35,7 +34,7 @@ export const OfferCard: FunctionComponent<OfferCardProps> = ({ offer, options, o
         }}
       >
         <OfferCardPicture offer={offer} scaleDisabled={options?.scaleDisabled} />
-        <CardFooter title={nft.collection.name} subtitle={getTokenIdString(nft.tokenId, nft.collection.totalSupply)} />
+        <CardFooter title={nft.collection.name} subtitle={nft.tokenIdLabel} />
       </CardLayout>
     )
   }

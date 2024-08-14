@@ -1,9 +1,9 @@
 import { nftMock } from '@echo/model/mocks/nft/nft-mock'
 import type { OwnedNft } from '@echo/model/types/nft'
-import { isNil } from 'ramda'
+import { isNil, pipe, prop } from 'ramda'
 
 export function getNftMockById(id: string): OwnedNft {
-  const mock = nftMock[id]
+  const mock = pipe(nftMock, prop(id))()
   if (isNil(mock)) {
     throw Error(`wrong nft mock id: ${id}`)
   }

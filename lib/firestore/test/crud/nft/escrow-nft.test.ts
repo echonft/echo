@@ -5,7 +5,7 @@ import { getEscrowedNftsCollectionReference } from '@echo/firestore/helpers/coll
 import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
 import { getReferenceById, type GetReferenceByIdArgs } from '@echo/firestore/helpers/crud/reference/get-reference-by-id'
 import type { EscrowedNft } from '@echo/firestore/types/model/nft/escrowed-nft'
-import { updateNft } from '@echo/firestore/utils/nft/update-nft'
+import { resetNft } from '@echo/firestore/utils/nft/reset-nft'
 import { getNftMock } from '@echo/model/mocks/nft/get-nft-mock'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
@@ -29,7 +29,7 @@ describe('CRUD - nft - escrowNft', () => {
     }
     if (!isNil(nftId)) {
       const nft = getNftMockById(nftId)
-      await updateNft(nft, nft)
+      await resetNft(nft)
     }
   })
   it('throws if the NFT does not exist', async () => {

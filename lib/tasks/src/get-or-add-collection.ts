@@ -2,6 +2,7 @@ import { addCollection as addCollectionToFirestore } from '@echo/firestore/crud/
 import { addNft } from '@echo/firestore/crud/nft/add-nft'
 import { getUserByWallet } from '@echo/firestore/crud/user/get-user-by-wallet'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
+import type { NftDocumentData } from '@echo/firestore/types/model/nft/nft-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import type { Collection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
@@ -41,7 +42,7 @@ export async function getOrAddCollection(args: WithLoggerType<GetOrAddCollection
         getUserByWallet,
         andThen(unlessNil(pipe(objOf('user'), assoc('wallet', ownerWallet), getUserFromFirestoreData)))
       )(ownerWallet)
-      await pipe<[PartialNft], Nft, Nft, Promise<NewDocument<Nft>>, Promise<NewDocument<Nft>>>(
+      await pipe<[PartialNft], NftDocumentData, NftDocumentData, Promise<NewDocument<Nft>>, Promise<NewDocument<Nft>>>(
         assoc('collection', collection),
         assoc('owner', owner),
         addNft,

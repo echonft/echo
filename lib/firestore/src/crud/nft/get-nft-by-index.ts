@@ -9,11 +9,11 @@ import { andThen, pipe } from 'ramda'
 
 export function getNftSnapshotByIndex(index: NftIndex): Promise<Nullable<QueryDocumentSnapshot<Nft>>> {
   return pipe(
-    getNftsCollectionReference,
+    getNftsCollectionReference<true>,
     queryWhere<Nft>('tokenId', '==', index.tokenId),
     queryWhere<Nft>('collection.slug', '==', index.collection.slug),
     getQueryUniqueDocumentSnapshot
-  )()
+  )(true)
 }
 
 export function getNftByIndex(index: NftIndex): Promise<Nullable<Nft>> {

@@ -1,7 +1,6 @@
 import { StackLayout } from '@echo/ui/components/base/stack/layout/stack-layout'
 import { StackFooter } from '@echo/ui/components/base/stack/stack-footer'
 import { NftStackPicture } from '@echo/ui/components/nft/stack/nft-stack-picture'
-import { getTokenIdString } from '@echo/ui/helpers/nft/get-token-id-string'
 import type { NftStack as NftStackModel } from '@echo/ui/types/nft-stack'
 import { type FunctionComponent } from 'react'
 
@@ -15,10 +14,7 @@ export const NftStack: FunctionComponent<Props> = ({ stack, hideOwner, scaleDisa
   return (
     <StackLayout>
       <NftStackPicture stack={stack} hideOwner={hideOwner} scaleDisabled={scaleDisabled} />
-      <StackFooter
-        title={stack.collection.name}
-        subtitle={getTokenIdString(stack.tokenId, stack.collection.totalSupply)}
-      />
+      <StackFooter title={stack.collection.name} subtitle={stack.tokenId} />
     </StackLayout>
   )
 }

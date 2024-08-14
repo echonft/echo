@@ -1,18 +1,17 @@
 import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference/collection-reference-name'
-import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import { collectionDiscordGuildMock } from '@echo/firestore/mocks/collection-discord-guild/collection-discord-guild-mock'
 import { collectionSwapsCountMock } from '@echo/firestore/mocks/collection-swaps-count/collection-swaps-count-mock'
-import { listingDocumentDataMock } from '@echo/firestore/mocks/listing/listing-document-data-mock'
 import { listingOfferMock } from '@echo/firestore/mocks/listing-offer/listing-offer-mock'
 import { listingPostMock } from '@echo/firestore/mocks/listing-post/listing-post-mock'
-import { offerDocumentDataMock } from '@echo/firestore/mocks/offer/offer-document-data-mock'
+import { listingDocumentDataMock } from '@echo/firestore/mocks/listing/listing-document-data-mock'
 import { offerThreadMock } from '@echo/firestore/mocks/offer-thread/offer-thread-mock'
-import { swapMock } from '@echo/firestore/mocks/swap/swap-mock'
+import { offerDocumentDataMock } from '@echo/firestore/mocks/offer/offer-document-data-mock'
 import { swapPostMock } from '@echo/firestore/mocks/swap-post/swap-post-mock'
+import { swapMock } from '@echo/firestore/mocks/swap/swap-mock'
 import { userDocumentDataMock } from '@echo/firestore/mocks/user/user-document-data-mock'
 import { walletDocumentDataMock } from '@echo/firestore/mocks/wallet/wallet-document-data-mock'
+import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import { collectionMock } from '@echo/model/mocks/collection/collection-mock'
-import { nftMock } from '@echo/model/mocks/nft/nft-mock'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import type { DocumentData, WriteResult } from 'firebase-admin/firestore'
 import { always, ifElse, isNil, mapObjIndexed, pipe, values } from 'ramda'
@@ -31,8 +30,6 @@ function getMock(collectionReferenceName: CollectionReferenceName) {
       return listingOfferMock() as Record<string, DocumentData>
     case CollectionReferenceName.LISTING_POSTS:
       return listingPostMock() as Record<string, DocumentData>
-    case CollectionReferenceName.NFTS:
-      return nftMock as Record<string, DocumentData>
     case CollectionReferenceName.OFFERS:
       return offerDocumentDataMock() as Record<string, DocumentData>
     case CollectionReferenceName.OFFER_THREADS:

@@ -7,7 +7,7 @@ import type { DocumentReference } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
 export function getNftReferenceById(id: string): DocumentReference<Nft> {
-  return getReferenceById<Nft>({ collectionReference: getNftsCollectionReference(), id })
+  return getReferenceById<Nft>({ collectionReference: getNftsCollectionReference(true), id })
 }
 
 export function getNftById(id: string): Promise<Nullable<Nft>> {

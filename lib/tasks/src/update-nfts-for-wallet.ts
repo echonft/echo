@@ -40,8 +40,8 @@ export async function updateNftsForWallet(args: WithLoggerType<UpdateNftsForWall
       nonNullableReturn(path(['collection', 'contract']))
     )(nftGroup)
     const collection = await getOrAddCollection({ contract, fetch: args.fetch, logger })
-    const nftGroupWithCollection = map(assoc('collection', collection), nftGroup)
-    for (const nft of nftGroupWithCollection) {
+    const nfts = map(assoc('collection', collection), nftGroup)
+    for (const nft of nfts) {
       await addOrUpdateNft({ nft, logger })
     }
   }

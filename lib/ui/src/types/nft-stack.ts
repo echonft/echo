@@ -1,12 +1,10 @@
-import type { Collection } from '@echo/model/types/collection'
-import type { Nft } from '@echo/model/types/nft'
-import type { User } from '@echo/model/types/user'
+import type { Nft, NftCollection, OwnedNft } from '@echo/model/types/nft'
 import type { NonEmptyArray } from 'ramda'
 
 export interface NftStack {
-  owner: User
-  collection: Collection
+  owner: OwnedNft['owner']
+  collection: NftCollection
   pictureUrl: string
-  tokenId: number
+  tokenId: string
   nfts: NonEmptyArray<Nft>
 }

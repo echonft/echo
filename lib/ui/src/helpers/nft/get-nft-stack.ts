@@ -9,7 +9,7 @@ export function getNftStack(nfts: Nft[]): NftStack {
       owner: prop('owner'),
       collection: prop('collection'),
       pictureUrl: prop('pictureUrl'),
-      tokenId: prop('tokenId'),
+      tokenId: prop('tokenIdLabel'),
       nfts: always(nfts)
     })
   )(nfts)

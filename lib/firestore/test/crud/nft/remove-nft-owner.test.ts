@@ -1,7 +1,7 @@
 import { NftError } from '@echo/firestore/constants/errors/nft/nft-error'
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
-import { updateNft } from '@echo/firestore/utils/nft/update-nft'
+import { resetNft } from '@echo/firestore/utils/nft/reset-nft'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
@@ -17,7 +17,7 @@ describe('CRUD - nft - removeNftOwner', () => {
   afterEach(async () => {
     if (!isNil(nftId)) {
       const nft = getNftMockById(nftId)
-      await updateNft(nft, nft)
+      await resetNft(nft)
     }
   })
   it('throws if the NFT does not exist', async () => {

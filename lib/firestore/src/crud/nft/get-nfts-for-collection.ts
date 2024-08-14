@@ -14,11 +14,11 @@ export function getNftsForCollection(
   options?: GetNftsForCollectionOptions
 ): Promise<OwnedNft[]> {
   return pipe(
-    getNftsCollectionReference,
+    getNftsCollectionReference<true>,
     queryWhere('collection.slug', '==', collectionSlug),
     unless(always(isNil(options?.excludeOwner)), queryWhere('owner.username', '!=', options?.excludeOwner)),
     queryOrderBy('owner.discord.username'),
     queryOrderBy('tokenId'),
     getQueryData
-  )() as Promise<OwnedNft[]>
+  )(true) as Promise<OwnedNft[]>
 }

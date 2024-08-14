@@ -7,9 +7,9 @@ import { pipe } from 'ramda'
 
 export function getNftsForOwner(username: string): Promise<OwnedNft[]> {
   return pipe(
-    getNftsCollectionReference,
+    getNftsCollectionReference<true>,
     queryWhere<Nft>('owner.username', '==', username),
     queryOrderBy<Nft>('tokenId'),
     getQueryData
-  )() as Promise<OwnedNft[]>
+  )(true) as Promise<OwnedNft[]>
 }

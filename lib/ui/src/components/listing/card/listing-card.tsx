@@ -7,7 +7,6 @@ import { StackFooter } from '@echo/ui/components/base/stack/stack-footer'
 import { ListingCardPicture } from '@echo/ui/components/listing/card/listing-card-picture'
 import { ListingStackPicture } from '@echo/ui/components/listing/card/listing-stack-picture'
 import { getNftStack } from '@echo/ui/helpers/nft/get-nft-stack'
-import { getTokenIdString } from '@echo/ui/helpers/nft/get-token-id-string'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { head } from 'ramda'
 
@@ -31,10 +30,7 @@ export const ListingCard = <T extends Listing>({ listing, options, onSelect }: L
           }}
         >
           <ListingStackPicture stack={stack} listing={listing} scaleDisabled={options?.scaleDisabled} />
-          <StackFooter
-            title={stack.collection.name}
-            subtitle={getTokenIdString(stack.tokenId, stack.collection.totalSupply)}
-          />
+          <StackFooter title={stack.collection.name} subtitle={stack.tokenId} />
         </StackLayout>
       )
     }
@@ -46,10 +42,7 @@ export const ListingCard = <T extends Listing>({ listing, options, onSelect }: L
         }}
       >
         <ListingCardPicture listing={listing} scaleDisabled={options?.scaleDisabled} />
-        <CardFooter
-          title={item.collection.name}
-          subtitle={getTokenIdString(item.tokenId, item.collection.totalSupply)}
-        />
+        <CardFooter title={item.collection.name} subtitle={item.tokenIdLabel} />
       </CardLayout>
     )
   }

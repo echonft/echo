@@ -10,7 +10,7 @@ import { getSwapSnapshot } from '@echo/firestore/crud/swap/get-swap'
 import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
 import { unchecked_updateCollectionSwapCounts } from '@echo/firestore/utils/collection-swaps-count/unchecked_update-collection-swap-counts'
 import { resetListings } from '@echo/firestore/utils/listing/reset-listings'
-import { updateNft } from '@echo/firestore/utils/nft/update-nft'
+import { resetNft } from '@echo/firestore/utils/nft/reset-nft'
 import { resetOffers } from '@echo/firestore/utils/offer/reset-offers'
 import { updateOffer } from '@echo/firestore/utils/offer/update-offer'
 import { LISTING_STATE_PARTIALLY_FULFILLED } from '@echo/model/constants/listing-states'
@@ -26,7 +26,6 @@ import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nf
 import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
 import { getOfferItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-items-collection-slugs'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
-import { getNftMockByIndex } from '@echo/model/mocks/nft/get-nft-mock-by-index'
 import { offerMockToJohnnycageId, offerMockToJohnnycageSlug } from '@echo/model/mocks/offer/offer-mock'
 import type { NftIndex } from '@echo/model/types/nft'
 import { promiseAll } from '@echo/utils/fp/promise-all'
@@ -77,7 +76,7 @@ describe('CRUD - offer - completeOffer', () => {
       // reset the NFTs with their original data
       if (!isEmpty(updatedNftIndexes)) {
         for (const index of updatedNftIndexes) {
-          await updateNft(index, getNftMockByIndex(index))
+          await resetNft(index)
         }
       }
     }

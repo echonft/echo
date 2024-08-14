@@ -1,6 +1,6 @@
 import type { CollectionContract, CollectionIndex } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
 
-export type PartialNft = Omit<Nft, 'collection'> & {
+export type PartialNft = Omit<Nft, 'collection' | 'tokenIdLabel'> & {
   collection: CollectionIndex & CollectionContract
 }

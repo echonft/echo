@@ -8,9 +8,9 @@ import { pipe } from 'ramda'
 export function getNftsForWallet(args: Record<'wallet', Wallet>): Promise<OwnedNft[]> {
   const { wallet } = args
   return pipe(
-    getNftsCollectionReference,
+    getNftsCollectionReference<true>,
     queryWhere('owner.wallet.chain', '==', wallet.chain),
     queryWhere('owner.wallet.address', '==', wallet.address),
     getQueryData
-  )() as Promise<OwnedNft[]>
+  )(true) as Promise<OwnedNft[]>
 }
