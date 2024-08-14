@@ -22,14 +22,14 @@ interface Props {
  */
 export const UserDetails: FunctionComponent<Props> = ({ user, isAuthUser = false }) => {
   const { discord, wallet } = user
-  const { username, globalName, avatarUrl } = discord
+  const { username, avatarUrl } = discord
   return (
     <UserDetailsLayout>
       <InternalLink path={pathProvider.user.default.get({ username }).toString()}>
         <ProfilePicture alt={username} pictureUrl={avatarUrl} size={SIZE_MD} />
       </InternalLink>
       <UserDetailsDiscordTagAndWalletLayout>
-        <UserTag discordUsername={globalName ?? username} isAuthUser={isAuthUser} />
+        <UserTag user={user} isAuthUser={isAuthUser} />
         <WalletConnectedButton wallet={wallet} />
       </UserDetailsDiscordTagAndWalletLayout>
     </UserDetailsLayout>

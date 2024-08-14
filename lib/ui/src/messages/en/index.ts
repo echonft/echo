@@ -372,6 +372,14 @@ Don't worry, its safe with us.`
     },
     emptyResults: 'No results'
   },
+  tokenSelector: {
+    title: 'Add tokens',
+    subtitle: 'Optional',
+    placeholder: 'Amount',
+    max: 'Max',
+    balance: 'Balance: {balance}',
+    btn: 'Add'
+  },
   user: {
     authUser: 'You',
     button: 'Make an offer',

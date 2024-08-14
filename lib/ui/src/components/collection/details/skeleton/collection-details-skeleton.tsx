@@ -1,16 +1,21 @@
-import { ProfileLayout } from '@echo/ui/components/base/layout/profile-layout'
 import { ProfileSkeleton } from '@echo/ui/components/base/profile-skeleton'
-import { CollectionDetailsDescription } from '@echo/ui/components/collection/details/collection-details-description'
+import { CollectionProfileDetailsLayout } from '@echo/ui/components/collection/profile/layout/collection-profile-details-layout'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 export const CollectionDetailsSkeleton: FunctionComponent = () => {
   return (
-    <ProfileLayout>
-      <ProfileSkeleton />
-      <div className={clsx('w-max', 'h-max', 'invisible')}>
-        <CollectionDetailsDescription description={'description'} />
-      </div>
-    </ProfileLayout>
+    <ProfileSkeleton>
+      <CollectionProfileDetailsLayout>
+        <div className={clsx('loading-div')}>
+          <h1 className={clsx('text-white', 'prose-display-lg-bold', 'uppercase', 'truncate', 'invisible')}>
+            {'TEST COLLECTION'}
+          </h1>
+        </div>
+        <div className={clsx('loading-div')}>
+          <h2 className={clsx('text-white', 'prose-header-md', 'invisible')}>{'10k NFTs'}</h2>
+        </div>
+      </CollectionProfileDetailsLayout>
+    </ProfileSkeleton>
   )
 }

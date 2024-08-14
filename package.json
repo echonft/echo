@@ -63,7 +63,7 @@
     "typescript-eslint": "8.0.1",
     "vercel": "35.2.3"
   },
-  "packageManager": "pnpm@9.6.0",
+  "packageManager": "pnpm@9.7.0",
   "engines": {
     "node": "20.15.1"
   },

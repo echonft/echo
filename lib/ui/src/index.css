@@ -10,6 +10,15 @@
   body {
     @apply w-screen min-h-screen flex flex-col bg-dark-500 text-transparent font-normal text-[0rem] leading-[0rem] tracking-[0rem] overflow-x-hidden;
   }
+  /* remove arrows from number input */
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
 }
 @layer components {
   .tooltip {
@@ -23,6 +32,9 @@
   }
   .tab-list {
     @apply flex flex-row w-full h-max gap-3.5 pb-12;
+  }
+  .loading-div {
+    @apply w-max h-max rounded-lg bg-white/[0.08] animate-pulse;
   }
   .page-layout {
     @apply flex flex-col self-stretch grow w-full h-full;
@@ -49,7 +61,7 @@
     @apply flex flex-row items-center rounded-lg bg-dark-500 border border-solid border-white/[0.08] gap-2.5 h-12 w-max py-2.75 px-5 text-white prose-other-bold select-none outline-none disabled:opacity-40 enabled:hover:bg-white/[0.12] transition-colors;
   }
   .btn-auth-alt {
-    @apply flex flex-row items-center rounded-lg bg-white/[0.08] gap-2.5 h-12 w-max py-2.75 px-5 text-white prose-other-bold select-none outline-none disabled:opacity-40 enabled:hover:bg-white/[0.12] transition-colors;
+    @apply flex flex-row items-center rounded-lg bg-white/[0.08] gap-2.5 py-2.5 px-5 w-max text-white prose-other-bold select-none outline-none disabled:opacity-40 enabled:hover:bg-white/[0.12] transition-colors;
   }
   .btn-cancel {
     @apply btn bg-red-400 enabled:hover:bg-red-600;

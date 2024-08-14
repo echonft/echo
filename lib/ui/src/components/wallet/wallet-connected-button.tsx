@@ -2,7 +2,7 @@
 import type { Wallet } from '@echo/model/types/wallet'
 import { ExternalLink } from '@echo/ui/components/base/external-link'
 import { ExternalLinkIconSvg } from '@echo/ui/components/base/svg/external-link-icon-svg'
-import { blockExplorerLinkFromChain } from '@echo/web3/helpers/block-explorer-link-from-chain'
+import { useBlockExplorerLink } from '@echo/ui/hooks/use-block-explorer-link'
 import { formatWalletAddress } from '@echo/web3/utils/format-wallet-address'
 import { shortenAddress } from '@echo/web3/utils/shorten-address'
 import { clsx } from 'clsx'
@@ -18,7 +18,7 @@ interface Props {
 export const WalletConnectedButton: FunctionComponent<Props> = ({ wallet }) => {
   const t = useTranslations('wallet.button')
   const buttonId = `wallet-${wallet.address}`
-  const walletLink = blockExplorerLinkFromChain(wallet)
+  const walletLink = useBlockExplorerLink(wallet)
   return (
     <div className={clsx('flex', 'flex-row')}>
       <div>
@@ -43,8 +43,8 @@ export const WalletConnectedButton: FunctionComponent<Props> = ({ wallet }) => {
         />
       </div>
       <ExternalLink href={walletLink} style={{ inline: true }} key={walletLink}>
-        <div className={clsx('border-2', 'border-white/[0.08]', 'rounded-r-lg', 'p-2.5')}>
-          <ExternalLinkIconSvg />
+        <div className={clsx('border-2', 'border-white/[0.08]', 'rounded-r-lg', 'p-2')}>
+          <ExternalLinkIconSvg width={23} height={23} />
         </div>
       </ExternalLink>
     </div>

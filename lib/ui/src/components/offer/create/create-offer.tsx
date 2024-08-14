@@ -65,7 +65,7 @@ export const CreateOffer: FunctionComponent<Props> = ({
         <UserDetailsLayout>
           <ProfilePicture alt={username} pictureUrl={discord.avatarUrl} size={SIZE_MD} />
           <UserDetailsDiscordTagAndWalletLayout>
-            <UserTag discordUsername={discord.username} />
+            <UserTag user={receiver} />
             <UserProfileWallets wallets={[wallet]} />
           </UserDetailsDiscordTagAndWalletLayout>
         </UserDetailsLayout>
