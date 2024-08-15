@@ -1,7 +1,7 @@
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import { getDiscordProfileMockByUsername } from '@echo/model/mocks/user/discord-profile-mock'
 import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
-import { getUserProfileMockByUsername } from '@echo/model/mocks/user/user-profile-mock'
-import { assoc, dissoc, isNil, modify, pipe } from 'ramda'
+import { isNil, pipe } from 'ramda'
 
 export function userMockCrewId() {
   return '6rECUMhevHfxABZ1VNOm'
@@ -12,16 +12,14 @@ export function userMockJohnnyId() {
 
 export function userDocumentDataMock(): Record<string, UserDocumentData> {
   return {
-    '6rECUMhevHfxABZ1VNOm': pipe(
-      getUserProfileMockByUsername,
-      modify('discord', assoc('id', '884593489189433364')),
-      dissoc('wallets')
-    )(userMockCrewUsername()) as unknown as UserDocumentData,
-    oE6yUEQBPn7PZ89yMjKn: pipe(
-      getUserProfileMockByUsername,
-      modify('discord', assoc('id', '462798252543049728')),
-      dissoc('wallets')
-    )(userMockJohnnyUsername()) as unknown as UserDocumentData
+    '6rECUMhevHfxABZ1VNOm': {
+      username: userMockCrewUsername(),
+      discord: pipe(userMockCrewUsername, getDiscordProfileMockByUsername)()
+    },
+    oE6yUEQBPn7PZ89yMjKn: {
+      username: userMockJohnnyUsername(),
+      discord: pipe(userMockJohnnyUsername, getDiscordProfileMockByUsername)()
+    }
   }
 }
 

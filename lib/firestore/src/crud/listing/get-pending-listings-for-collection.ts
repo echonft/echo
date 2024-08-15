@@ -7,7 +7,7 @@ import { NOT_READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-stat
 import { type Listing } from '@echo/model/types/listing'
 import { now } from '@echo/utils/helpers/now'
 import { Filter } from 'firebase-admin/firestore'
-import { eqProps, partialRight, pipe } from 'ramda'
+import { pipe } from 'ramda'
 
 export async function getPendingListingsForCollection(slug: string): Promise<Listing[]> {
   return pipe(
@@ -21,6 +21,6 @@ export async function getPendingListingsForCollection(slug: string): Promise<Lis
         Filter.where('target.collection.slug', '==', slug)
       )
     ),
-    partialRight(getQueryData, [eqProps('slug')])
+    getQueryData
   )()
 }

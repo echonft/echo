@@ -4,18 +4,18 @@ import { isNil } from 'ramda'
 
 export function countsMockCrew(): WithCounts {
   return {
-    listingsCount: 7,
-    nftsCount: 10,
-    swapsCount: 3,
-    offersCount: 10
+    listingsCount: 0,
+    nftsCount: 2,
+    offersCount: 2,
+    swapsCount: 1
   }
 }
 export function countsMockJohnny(): WithCounts {
   return {
-    listingsCount: 21,
-    nftsCount: 150,
-    swapsCount: 15,
-    offersCount: 55
+    listingsCount: 1,
+    nftsCount: 4,
+    offersCount: 2,
+    swapsCount: 1
   }
 }
 
