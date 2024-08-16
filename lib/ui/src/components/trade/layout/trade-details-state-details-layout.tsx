@@ -6,8 +6,8 @@ interface Props {
   alignment?: Alignment
 }
 
-export const OfferDetailsStateDetailsLayout: FunctionComponent<PropsWithChildren<Props>> = ({
-  alignment = Alignment.Right,
+export const TradeDetailsStateDetailsLayout: FunctionComponent<PropsWithChildren<Props>> = ({
+  alignment = ALIGNMENT_RIGHT,
   children
 }) => {
   return (

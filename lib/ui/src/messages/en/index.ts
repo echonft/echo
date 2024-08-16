@@ -386,6 +386,12 @@ Don't worry, its safe with us.`
     balance: 'Balance: {balance}',
     btn: 'Add'
   },
+  trade: {
+    details: {
+      expiredAt: 'Expired',
+      expiresAt: 'Expires in'
+    }
+  },
   user: {
     authUser: 'You',
     button: 'Make an offer',

@@ -1,21 +1,23 @@
 'use client'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
-import type { Offer } from '@echo/model/types/offer/offer'
+import { LISTING_ROLE_CREATOR } from '@echo/model/constants/listing-role'
+import { LISTING_STATE_EXPIRED } from '@echo/model/constants/listing-states'
+import type { Offer } from '@echo/model/types/offer'
 import type { WithSlug } from '@echo/model/types/with-slug'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
-import { ListingDetailsItemsAndTargetLayout } from '@echo/ui/components/listing/details/layout/listing-details-items-and-target-layout'
-import { ListingDetailsItemsLayout } from '@echo/ui/components/listing/details/layout/listing-details-items-layout'
-import { ListingDetailsLayout } from '@echo/ui/components/listing/details/layout/listing-details-layout'
 import { ListingDetailsTargetLayout } from '@echo/ui/components/listing/details/layout/listing-details-target-layout'
-import { ListingDetailsUserStateLayout } from '@echo/ui/components/listing/details/layout/listing-details-user-state-layout'
 import { ListingDetailsButtons } from '@echo/ui/components/listing/details/listing-details-buttons'
-import { ListingDetailsCreator } from '@echo/ui/components/listing/details/listing-details-creator'
 import { ListingDetailsOffers } from '@echo/ui/components/listing/details/listing-details-offers'
-import { ListingDetailsState } from '@echo/ui/components/listing/details/listing-details-state'
 import { ListingDetailsTarget } from '@echo/ui/components/listing/details/listing-details-target'
-import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
-import { SWRKeys } from '@echo/ui/constants/swr-keys'
+import { NftCards } from '@echo/ui/components/nft/card/nft-cards'
+import { TradeDetailsInfoLayout } from '@echo/ui/components/trade/layout/trade-details-info-layout'
+import { TradeDetailsLayout } from '@echo/ui/components/trade/layout/trade-details-layout'
+import { TradeDetailsUserInfoLayout } from '@echo/ui/components/trade/layout/trade-details-user-info-layout'
+import { TradeDetailsState } from '@echo/ui/components/trade/trade-details-state'
+import { UserDetails } from '@echo/ui/components/user/details/user-details'
+import { ALIGNMENT_LEFT } from '@echo/ui/constants/alignments'
+import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { isListingRoleCreator } from '@echo/ui/helpers/listing/is-listing-role-creator'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
@@ -46,28 +48,33 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, offers, onUp
       loggerContext: { component: ListingDetails.name, fetcher: cancelListing.name, listing }
     }
   })
-  const { creator, target } = listing
+  const { items, target, state, readOnly, expiresAt, creator, role } = listing
+  const { collection } = target
+  const { profilePictureUrl } = collection
   const isCreator = isListingRoleCreator(listing)
 
   return (
-    <ListingDetailsLayout>
-      <ListingDetailsUserStateLayout role={listing.role}>
-        <ListingDetailsCreator show={!isCreator} creator={creator} />
-        <ListingDetailsState listing={listing} />
-      </ListingDetailsUserStateLayout>
-      <ListingDetailsItemsAndTargetLayout>
-        <ListingDetailsItemsLayout>
-          {/*FIXME*/}
-          {/*<ListingDetailsItems items={items} />*/}
-        </ListingDetailsItemsLayout>
+    <TradeDetailsLayout backgroundPictureUrl={profilePictureUrl}>
+      <TradeDetailsState
+        isOffer={false}
+        state={state}
+        readOnly={readOnly}
+        expiresAt={expiresAt}
+        expired={state === LISTING_STATE_EXPIRED}
+      />
+      <TradeDetailsInfoLayout>
+        <TradeDetailsUserInfoLayout>
+          <UserDetails user={creator} isAuthUser={role === LISTING_ROLE_CREATOR} />
+          <NftCards nfts={items} alignment={ALIGNMENT_LEFT} />
+        </TradeDetailsUserInfoLayout>
         <ItemsSeparator />
-        <div className={clsx('flex', 'flex-col', 'gap-14')}>
+        <div className={clsx('flex', 'flex-col', 'gap-14', 'grow', 'basis-0')}>
           <ListingDetailsTargetLayout>
             <ListingDetailsTarget target={target} />
           </ListingDetailsTargetLayout>
           <ListingDetailsOffers show={isCreator && !isEmpty(offers) && !listing.locked} offers={offers} />
         </div>
-      </ListingDetailsItemsAndTargetLayout>
+      </TradeDetailsInfoLayout>
       <ListingDetailsButtons
         listing={listing}
         isMutating={isMutating}
@@ -79,6 +86,6 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, offers, onUp
           // router.push(pathProvider.offer.new.get({ items: listing.items, target: listing.target.collection }))
         }}
       />
-    </ListingDetailsLayout>
+    </TradeDetailsLayout>
   )
 }

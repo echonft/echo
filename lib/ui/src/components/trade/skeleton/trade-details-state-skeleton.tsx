@@ -1,14 +1,14 @@
-import { OfferDetailsStateDetailsLayout } from '@echo/ui/components/offer/details/layout/offer-details-state-details-layout'
-import { OfferDetailsStateLayout } from '@echo/ui/components/offer/details/layout/offer-details-state-layout'
-import { OfferDetailsStateSeparator } from '@echo/ui/components/offer/details/offer-details-state-separator'
-import { Alignment } from '@echo/ui/constants/alignments'
+import { TradeDetailsStateDetailsLayout } from '@echo/ui/components/trade/layout/trade-details-state-details-layout'
+import { TradeDetailsStateLayout } from '@echo/ui/components/trade/layout/trade-details-state-layout'
+import { TradeDetailsStateSeparator } from '@echo/ui/components/trade/trade-details-state-separator'
+import { ALIGNMENT_LEFT, ALIGNMENT_RIGHT } from '@echo/ui/constants/alignments'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
-export const OfferDetailsStateSkeleton: FunctionComponent = () => {
+export const TradeDetailsStateSkeleton: FunctionComponent = () => {
   return (
-    <OfferDetailsStateLayout>
-      <OfferDetailsStateDetailsLayout alignment={Alignment.Right}>
+    <TradeDetailsStateLayout>
+      <TradeDetailsStateDetailsLayout alignment={ALIGNMENT_RIGHT}>
         <div className={clsx('flex', 'flex-col', 'gap-1', 'items-center')}>
           <div className={clsx('loading-div')}>
             <h2
@@ -29,13 +29,13 @@ export const OfferDetailsStateSkeleton: FunctionComponent = () => {
             <h1 className={clsx('text-center', 'prose-header-lg-semi', 'invisible')}>{'10 hours'}</h1>
           </div>
         </div>
-      </OfferDetailsStateDetailsLayout>
-      <OfferDetailsStateSeparator locked={false} />
-      <OfferDetailsStateDetailsLayout alignment={Alignment.Left}>
+      </TradeDetailsStateDetailsLayout>
+      <TradeDetailsStateSeparator readOnly={false} />
+      <TradeDetailsStateDetailsLayout alignment={ALIGNMENT_LEFT}>
         <div className={clsx('loading-div')}>
           <h1 className={clsx('text-center', 'prose-header-lg-semi', 'invisible')}>{'Pending'}</h1>
         </div>
-      </OfferDetailsStateDetailsLayout>
-    </OfferDetailsStateLayout>
+      </TradeDetailsStateDetailsLayout>
+    </TradeDetailsStateLayout>
   )
 }
