@@ -4,5 +4,9 @@ import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { pipe } from 'ramda'
 
 export function getCollectionNftsCount(collectionSlug: string): Promise<number> {
-  return pipe(getNftsCollectionReference, queryWhere('collection.slug', '==', collectionSlug), getQueryCount)()
+  return pipe(
+    getNftsCollectionReference<true>,
+    queryWhere('collection.slug', '==', collectionSlug),
+    getQueryCount
+  )(true)
 }
