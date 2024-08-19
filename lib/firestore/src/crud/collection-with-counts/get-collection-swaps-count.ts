@@ -7,13 +7,16 @@ import type { Offer } from '@echo/model/types/offer'
 import { Filter } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
-export function getUserOffersCount(username: string): Promise<number> {
+export function getCollectionSwapsCount(collectionSlug: string): Promise<number> {
   return pipe(
     getOffersCollectionReference,
-    queryWhereFilter(
-      Filter.or(Filter.where('receiver.username', '==', username), Filter.where('sender.username', '==', username))
+    queryWhereFilter<Offer>(
+      Filter.or(
+        Filter.where('receiverItemCollections', 'array-contains', collectionSlug),
+        Filter.where('senderItemCollections', 'array-contains', collectionSlug)
+      )
     ),
-    queryWhere('state', '!=', OFFER_STATE_COMPLETED),
+    queryWhere('state', '==', OFFER_STATE_COMPLETED),
     getQueryCount
   )()
 }

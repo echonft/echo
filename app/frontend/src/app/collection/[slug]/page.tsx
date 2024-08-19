@@ -1,4 +1,6 @@
-import { getCollectionWithCounts } from '@echo/firestore/crud/collection-with-counts/get-collection-with-counts'
+import type { SelectionSearchParams } from '@echo/api/types/routing/search-params/selection-search-params'
+import { getCollectionCounts } from '@echo/firestore/crud/collection-with-counts/get-collection-counts'
+import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { getPendingListingsForCollection } from '@echo/firestore/crud/listing/get-pending-listings-for-collection'
 import { getNftsForCollection } from '@echo/firestore/crud/nft/get-nfts-for-collection'
 import { getCompletedOffersForCollection } from '@echo/firestore/crud/offer/get-completed-offers-for-collection'
@@ -20,17 +22,18 @@ import { setListingsRole } from '@echo/ui/helpers/listing/set-listings-role'
 import { setOfferRoleForUser } from '@echo/ui/helpers/offer/set-offer-role-for-user'
 import { CollectionTabs } from '@echo/ui/pages/collection/collection-tabs'
 import { notFound } from 'next/navigation'
-import { always, andThen, isNil, map, otherwise, pipe } from 'ramda'
+import { always, andThen, isNil, map, mergeLeft, otherwise, pipe, prop } from 'ramda'
 
 async function render({
   params: { slug },
   searchParams,
   user
 }: PropsWithUser<NextParams<WithSlug> & WithSearchParamsProps<SelectionSearchParams>>) {
-  const collection = await pipe(getCollectionWithCounts, otherwise(pipe(captureAndLogError, always(undefined))))(slug)
+  const collection = await pipe(getCollection, otherwise(pipe(captureAndLogError, always(undefined))))(slug)
   if (isNil(collection)) {
     notFound()
   }
+  const counts = await pipe(prop('slug'), getCollectionCounts)(collection)
   const nfts = await pipe(getNftsForCollection, otherwise(pipe(captureAndLogError, always([]))))(slug, {
     excludeOwner: user?.username
   })
@@ -53,7 +56,7 @@ async function render({
   return (
     <NavigationPageLayout user={user}>
       <SectionLayout>
-        <CollectionDetails collection={collection} />
+        <CollectionDetails collection={mergeLeft(collection, counts)} />
       </SectionLayout>
       <NavigationSectionLayout>
         <CollectionTabs

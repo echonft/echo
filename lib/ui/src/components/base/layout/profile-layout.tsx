@@ -1,5 +1,4 @@
-import { defaultBannerUrl } from '@echo/ui/constants/default-banner-url'
-import { PictureSize } from '@echo/ui/constants/picture-size'
+import { PICTURE_SIZE_XXL } from '@echo/ui/constants/picture-size'
 import { addPictureSize } from '@echo/ui/helpers/add-picture-size'
 import { themeExtension } from '@echo/ui/helpers/theme/theme'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
@@ -12,12 +11,11 @@ export interface ProfileBannerProps {
 }
 
 export const ProfileLayout: FunctionComponent<PropsWithChildren<ProfileBannerProps>> = ({ bannerUrl, children }) => {
-  const url = addPictureSize({ src: bannerUrl ?? '', width: PictureSize.XXL })
+  const url = addPictureSize({ src: bannerUrl ?? '', width: PICTURE_SIZE_XXL })
+  const isBackgroundImageNilOrEmpty = isNilOrEmpty(bannerUrl)
   function getStyle() {
-    if (isNilOrEmpty(bannerUrl)) {
-      return {
-        backgroundImage: `${themeExtension.backgroundImage.banner}, url('${defaultBannerUrl}')`
-      }
+    if (isBackgroundImageNilOrEmpty) {
+      return
     }
     return {
       backgroundImage: `${themeExtension.backgroundImage.banner}, url('${url}')`
@@ -25,10 +23,18 @@ export const ProfileLayout: FunctionComponent<PropsWithChildren<ProfileBannerPro
   }
   return (
     <div
-      className={clsx('w-full', 'h-full', 'bg-no-repeat', 'select-none', 'bg-cover', 'bg-top', 'overflow-clip')}
+      className={clsx(
+        'w-full',
+        'h-full',
+        'select-none',
+        'overflow-clip',
+        !isBackgroundImageNilOrEmpty && ['bg-no-repeat', 'bg-contain', 'bg-top']
+      )}
       style={getStyle()}
     >
-      <div className={clsx('flex', 'flex-col', 'gap-10', 'backdrop-blur-md', 'pt-16')}>{children}</div>
+      <div className={clsx('flex', 'flex-col', 'gap-10', 'pt-16', !isBackgroundImageNilOrEmpty && 'backdrop-blur-md')}>
+        {children}
+      </div>
     </div>
   )
 }
