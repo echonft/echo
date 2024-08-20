@@ -34,7 +34,7 @@ export const SelectableNftThumbnails: FunctionComponent<SelectableNftThumbnailCo
         'gap-2.5',
         'rounded-3xl',
         'border-2',
-        'border-dark-400',
+        'border-dark-350',
         'p-4',
         style?.minWitdh && 'min-w-[28rem]'
       )}

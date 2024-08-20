@@ -17,6 +17,7 @@ export const themeExtension = {
     gradientGreen: 'linear-gradient(225deg, rgba(75, 191, 75, 0.20) 5.29%, rgba(0, 0, 0, 0.00) 63.02%)',
     gradientRed: 'linear-gradient(225deg, rgba(255, 64, 64, 0.20) 5.29%, rgba(0, 0, 0, 0.00) 63.02%)',
     gradientYellow: 'linear-gradient(225deg, rgba(239, 244, 39, 0.20) 5.29%, rgba(0, 0, 0, 0.00) 63.02%)',
+    gradientYellowToTransparent: 'linear-gradient(90deg, #EFF427 0%, rgba(255, 255, 255, 0) 100%',
     home: 'linear-gradient(162deg, rgba(239, 244, 39, 0.20) -11.34%, #121212 42.54%)',
     joinDiscordLabel: 'linear-gradient(91deg, #EFF427 32.27%, rgba(255, 255, 255, 0.00) 128.1%)',
     main: 'linear-gradient(95.27deg, #EFF427 7.68%, #8F27F5 100%)',
@@ -39,7 +40,8 @@ export const themeExtension = {
       100: '#3D3C3C',
       200: '#363434',
       300: '#312E2E',
-      400: '#2C2929',
+      350: '#2C2929',
+      400: '#292929',
       450: '#252525',
       500: '#121212',
       600: '#0F0F0F',
@@ -364,6 +366,14 @@ export const themeExtension = {
       {
         lineHeight: '108%',
         fontWeight: 400,
+        letterSpacing: '0.02em'
+      }
+    ] as fontSizeConfig,
+    'label-xxs': [
+      '0.625rem',
+      {
+        lineHeight: '155%',
+        fontWeight: 500,
         letterSpacing: '0.02em'
       }
     ] as fontSizeConfig,

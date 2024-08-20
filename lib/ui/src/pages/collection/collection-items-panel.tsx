@@ -1,8 +1,8 @@
 'use client'
-import type { Collection } from '@echo/model/types/collection/collection'
-import type { Nft } from '@echo/model/types/nft/nft'
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
-import { pathProvider } from '@echo/routing/path-provider'
+import { pathProvider } from '@echo/api/routing/path-provider'
+import type { Collection } from '@echo/model/types/collection'
+import type { Nft, OwnedNft } from '@echo/model/types/nft'
+import { BottomBarLayout } from '@echo/ui/components/base/layout/bottom-bar-layout'
 import { TraitFilterPanel } from '@echo/ui/components/nft/filters/by-traits/trait-filter-panel'
 import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panels-layout'
 import { NftsAndFiltersLayout } from '@echo/ui/components/nft/filters/layout/nfts-and-filters-layout'
@@ -43,20 +43,9 @@ export const CollectionItemsPanel: FunctionComponent<Props> = ({ collection, nft
     const count = selection.nfts.length
     const action = count > 0 ? NftAction.Offer : NftAction.Listing
     return (
-      <TabPanel className={clsx('outline-none')}>
+      <TabPanel className={clsx('outline-none', 'pb-20')}>
         <NftsAndFiltersLayout>
           <NftFiltersPanelsLayout>
-            <CollectionItemsButton
-              action={action}
-              count={count}
-              onClick={() => {
-                if (action === NftAction.Offer) {
-                  onCreateOffer()
-                } else {
-                  onCreateListing()
-                }
-              }}
-            />
             <TraitFilterPanel
               nfts={nfts}
               selection={selection.traitFilters}
@@ -72,6 +61,19 @@ export const CollectionItemsPanel: FunctionComponent<Props> = ({ collection, nft
             onUnselect={unselectNft}
           />
         </NftsAndFiltersLayout>
+        <BottomBarLayout>
+          <CollectionItemsButton
+            action={action}
+            count={count}
+            onClick={() => {
+              if (action === NFT_ACTION_OFFER) {
+                onCreateOffer()
+              } else {
+                onCreateListing()
+              }
+            }}
+          />
+        </BottomBarLayout>
       </TabPanel>
     )
   }

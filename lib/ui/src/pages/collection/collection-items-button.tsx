@@ -14,10 +14,7 @@ export const CollectionItemsButton: FunctionComponent<Props> = ({ action, count,
   const t = useTranslations('nft.action')
   if (action === NftAction.Listing) {
     return (
-      <button
-        onClick={onClick}
-        className={clsx('btn-gradient', 'group', 'w-full', 'p-2.5', 'h-[2.875rem]', 'justify-start')}
-      >
+      <button onClick={onClick} className={clsx('btn-gradient', 'group', 'w-max', 'p-3', 'justify-start')}>
         <span className={clsx('prose-label-sm-semi', 'btn-label-gradient')}>{t('listing')}</span>
       </button>
     )
