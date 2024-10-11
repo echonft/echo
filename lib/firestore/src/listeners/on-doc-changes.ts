@@ -1,9 +1,9 @@
-import type { ChangeHandler } from '@echo/firestore/types/change-handler'
+import type { ChangeHandler } from '@echo/firestore/types/change-handler/change-handler'
 import type { DocumentChange, DocumentData, QuerySnapshot } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
 function onDocChanges<AppModelType = DocumentData, DbModelType extends DocumentData = DocumentData>(
-  onChange: ChangeHandler<AppModelType>
+  onChange: ChangeHandler<AppModelType, DbModelType>
 ) {
   return function (change: DocumentChange<AppModelType, DbModelType>) {
     const { type, doc } = change
@@ -14,7 +14,7 @@ function onDocChanges<AppModelType = DocumentData, DbModelType extends DocumentD
 }
 
 export function onSnapshot<AppModelType = DocumentData, DbModelType extends DocumentData = DocumentData>(
-  onChange: ChangeHandler<AppModelType>
+  onChange: ChangeHandler<AppModelType, DbModelType>
 ) {
   return function (snapshot: QuerySnapshot<AppModelType, DbModelType>) {
     snapshot.docChanges().forEach(onDocChanges<AppModelType, DbModelType>(onChange))

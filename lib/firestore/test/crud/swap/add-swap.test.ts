@@ -3,8 +3,8 @@ import { getCollectionSwapsCountByCollectionSlug } from '@echo/firestore/crud/co
 import { addSwap } from '@echo/firestore/crud/swap/add-swap'
 import { deleteSwap } from '@echo/firestore/crud/swap/delete-swap'
 import { getSwapById } from '@echo/firestore/crud/swap/get-swap-by-id'
-import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
-import type { Swap } from '@echo/firestore/types/model/swap/swap'
+import type { CollectionSwapsCountDocumentData } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count-document-data'
+import type { SwapDocumentData } from '@echo/firestore/types/model/swap/swap-document-data'
 import { unchecked_updateCollectionSwapCounts } from '@echo/firestore/utils/collection-swaps-count/unchecked_update-collection-swap-counts'
 import { getOfferItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-items-collection-slugs'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
@@ -16,11 +16,11 @@ import { andThen, assoc, find, isEmpty, isNil, map, pipe, prop, propEq, reject }
 
 describe('CRUD - swap - addSwap', () => {
   const offerId = offerMockToJohnnycageId()
-  const args: Swap = {
+  const args: SwapDocumentData = {
     offerId,
     transactionId: '0xnew'
   }
-  let initialSwapsCounts: CollectionSwapsCount[]
+  let initialSwapsCounts: CollectionSwapsCountDocumentData[]
   let createdSwapId: Nullable<string>
   beforeEach(() => {
     initialSwapsCounts = []
@@ -48,7 +48,7 @@ describe('CRUD - swap - addSwap', () => {
       getOfferItemsCollectionSlugs,
       map(getCollectionSwapsCountByCollectionSlug),
       promiseAll,
-      andThen<Nullable<CollectionSwapsCount>[], CollectionSwapsCount[]>(reject(isNil))
+      andThen<Nullable<CollectionSwapsCountDocumentData>[], CollectionSwapsCountDocumentData[]>(reject(isNil))
     )(offer)
     const { id } = await addSwap(args)
     createdSwapId = id
@@ -56,7 +56,7 @@ describe('CRUD - swap - addSwap', () => {
     const updatedSwapsCounts = await pipe(
       map(pipe(prop('collectionId'), getCollectionSwapsCountByCollectionId)),
       promiseAll,
-      andThen<Nullable<CollectionSwapsCount>[], CollectionSwapsCount[]>(reject(isNil))
+      andThen<Nullable<CollectionSwapsCountDocumentData>[], CollectionSwapsCountDocumentData[]>(reject(isNil))
     )(initialSwapsCounts)
     expect(newSwap.offerId).toStrictEqual(args.offerId)
     expect(newSwap.transactionId).toStrictEqual(args.transactionId)

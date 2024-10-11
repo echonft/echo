@@ -2,10 +2,10 @@ import { getCollectionSwapsCountCollectionReference } from '@echo/firestore/help
 import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import { queryLimit } from '@echo/firestore/helpers/crud/query/query-limit'
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
-import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
+import type { CollectionSwapsCountDocumentData } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count-document-data'
 import { pipe } from 'ramda'
 
-export function getCollectionSwapsCounts(limit?: number): Promise<CollectionSwapsCount[]> {
+export function getCollectionSwapsCounts(limit?: number): Promise<CollectionSwapsCountDocumentData[]> {
   return pipe(
     getCollectionSwapsCountCollectionReference,
     queryOrderBy('swapsCount', 'desc'),

@@ -3,15 +3,14 @@ import { getCollectionSnapshot } from '@echo/firestore/crud/collection/get-colle
 import { getCollectionsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collections-collection-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import type { Collection } from '@echo/model/types/collection'
-import type { UpdateData } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
-export async function updateCollection(slug: string, data: UpdateData<Collection>): Promise<Collection> {
+export async function updateCollection(slug: string, data: Partial<Collection>): Promise<Collection> {
   const snapshot = await getCollectionSnapshot(slug)
   if (isNil(snapshot)) {
     return Promise.reject(Error(CollectionError.NOT_FOUND))
   }
-  return updateReference<Collection>({
+  return updateReference({
     collectionReference: getCollectionsCollectionReference(),
     id: snapshot.id,
     data

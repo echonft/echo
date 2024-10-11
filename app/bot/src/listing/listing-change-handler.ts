@@ -1,12 +1,13 @@
 import { postListing } from '@echo/bot/listing/post-listing'
-import type { ChangeHandler } from '@echo/bot/types/change-handler'
+import type { WithClientType } from '@echo/bot/types/with-client'
 import { addListingPost } from '@echo/firestore/crud/listing-post/add-listing-post'
 import { getListingPost } from '@echo/firestore/crud/listing-post/get-listing-post'
-import type { Listing } from '@echo/model/types/listing'
+import type { ListingChangeHandlerArgs } from '@echo/firestore/types/change-handler/listing-change-handler'
 import { getEchoDiscordGuild } from '@echo/utils/helpers/get-echo-discord-guild'
+import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { assoc, isNil } from 'ramda'
 
-export async function listingChangeHandler(args: ChangeHandler<Listing>) {
+export async function listingChangeHandler(args: WithLoggerType<WithClientType<ListingChangeHandlerArgs>>) {
   const { client, changeType, snapshot, logger } = args
   if (changeType === 'added') {
     const listingId = snapshot.id

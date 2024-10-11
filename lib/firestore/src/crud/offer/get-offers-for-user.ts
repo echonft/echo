@@ -16,11 +16,11 @@ import { pipe } from 'ramda'
 export function getOffersForUser(username: string): Promise<Offer[]> {
   return pipe(
     getOffersCollectionReference,
-    queryWhereFilter<Offer>(
+    queryWhereFilter(
       Filter.or(Filter.where('sender.username', '==', username), Filter.where('receiver.username', '==', username))
     ),
     queryWhere('state', '!=', OFFER_STATE_COMPLETED),
-    queryOrderBy<Offer>('expiresAt', 'desc'),
+    queryOrderBy('expiresAt', 'desc'),
     getQueryData
   )()
 }

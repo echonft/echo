@@ -16,7 +16,7 @@ export function getOffersForNft(nft: NftIndex): Promise<Offer[]> {
     getOffersCollectionReference,
     queryWhere('state', 'in', NOT_READ_ONLY_OFFER_STATES),
     queryWhere('expiresAt', '>', now()),
-    queryWhereFilter<Offer>(
+    queryWhereFilter(
       Filter.or(
         Filter.where('receiverItemIndexes', 'array-contains', index),
         Filter.where('senderItemIndexes', 'array-contains', index)

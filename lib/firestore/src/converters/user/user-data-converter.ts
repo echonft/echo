@@ -7,9 +7,9 @@ import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue
 import { pipe } from 'ramda'
 
 export const userDataConverter: FirestoreDataConverter<UserDocumentData, UserDocumentData> = {
-  fromFirestore(snapshot: QueryDocumentSnapshot<UserDocumentData>): UserDocumentData {
-    return pipe<[QueryDocumentSnapshot<UserDocumentData>], UserDocumentData, UserDocumentData>(
-      nonNullableReturn(getDocumentSnapshotData<UserDocumentData>),
+  fromFirestore(snapshot: QueryDocumentSnapshot<UserDocumentData, UserDocumentData>): UserDocumentData {
+    return pipe<[QueryDocumentSnapshot<UserDocumentData, UserDocumentData>], UserDocumentData, UserDocumentData>(
+      nonNullableReturn(getDocumentSnapshotData),
       lowerUsername
     )(snapshot)
   },

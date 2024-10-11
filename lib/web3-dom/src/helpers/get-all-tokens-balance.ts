@@ -1,10 +1,9 @@
-import type { Erc20Token } from '@echo/model/types/erc20-token'
-import type { Erc20TokenBalance } from '@echo/model/types/erc20-token-balance'
+import type { Erc20Token, Erc20TokenBalance } from '@echo/model/types/token'
 import type { Wallet } from '@echo/model/types/wallet'
 import { nonEmptyArrayMap } from '@echo/utils/fp/non-empty-array-map'
 import { nonEmptyPromiseAll } from '@echo/utils/fp/non-empty-promise-all'
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
-import { type AddErc20TokenBalanceArgs, getErc20TokenBalance } from '@echo/web3-dom/helpers/get-erc20-token-balance'
+import { getErc20TokenBalance, type GetErc20TokenBalanceArgs } from '@echo/web3-dom/helpers/get-erc20-token-balance'
 import { getWalletClient } from '@echo/web3-dom/helpers/get-wallet-client'
 import { getViemChainById } from '@echo/web3/helpers/get-viem-chain-by-id'
 import { assoc, type NonEmptyArray, objOf, pipe } from 'ramda'
@@ -24,8 +23,8 @@ export async function getAllTokensBalance(args: GetAllTokensBalanceArgs): Promis
       pipe<
         [Erc20Token],
         Record<'token', Erc20Token>,
-        Omit<AddErc20TokenBalanceArgs, 'client'>,
-        AddErc20TokenBalanceArgs,
+        Omit<GetErc20TokenBalanceArgs, 'client'>,
+        GetErc20TokenBalanceArgs,
         Promise<Erc20TokenBalance>
       >(objOf('token'), assoc('wallet', wallet), assoc('client', client), getErc20TokenBalance)
     ),

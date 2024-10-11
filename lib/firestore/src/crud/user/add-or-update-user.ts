@@ -13,13 +13,13 @@ export async function addOrUpdateUser(profile: DiscordProfile): Promise<UserDocu
       username: pipe(prop('username'), toLower),
       discord: identity
     })(profile)
-    await setReference<UserDocumentData>({
+    await setReference<UserDocumentData, UserDocumentData>({
       collectionReference: getUsersCollectionReference(),
       data: user
     })
     return user
   }
-  return updateReference<UserDocumentData>({
+  return updateReference({
     collectionReference: getUsersCollectionReference(),
     id: snapshot.id,
     data: { discord: profile }

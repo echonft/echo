@@ -5,6 +5,4 @@ export interface WithLogger {
   logger?: Nullable<Logger>
 }
 
-export type WithLoggerType<T> = T & {
-  logger?: Nullable<Logger>
-}
+export type WithLoggerType<T> = T & WithLogger

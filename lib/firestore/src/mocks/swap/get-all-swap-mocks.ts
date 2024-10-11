@@ -1,7 +1,7 @@
-import { type Swap } from '@echo/firestore/types/model/swap/swap'
 import { swapMock } from '@echo/firestore/mocks/swap/swap-mock'
+import { type SwapDocumentData } from '@echo/firestore/types/model/swap/swap-document-data'
 import { type NonEmptyArray } from 'ramda'
 
 export function getAllSwapMocks() {
-  return Object.values(swapMock()) as NonEmptyArray<Swap>
+  return Object.values(swapMock()) as NonEmptyArray<SwapDocumentData>
 }

@@ -1,6 +1,6 @@
 import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference/collection-reference-name'
 import { escrowedNftDataConverter } from '@echo/firestore/converters/nft/escrowed-nft-data-converter'
-import type { EscrowedNft } from '@echo/firestore/types/model/nft/escrowed-nft'
+import type { EscrowedNftDocumentData } from '@echo/firestore/types/model/nft/escrowed-nft-document-data'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import { describe, expect, it } from '@jest/globals'
@@ -9,7 +9,7 @@ import { DocumentReference, QueryDocumentSnapshot } from 'firebase-admin/firesto
 describe('converters - escrowedNftDataConverter', () => {
   const id = 'escrowed-nft-id'
   const nftId = nftMockSpiralJohnnyId()
-  const document: EscrowedNft = {
+  const document: EscrowedNftDocumentData = {
     nftId,
     owner: getNftMockById(nftId).owner
   }
@@ -19,11 +19,11 @@ describe('converters - escrowedNftDataConverter', () => {
       ref: {
         id,
         path: `${CollectionReferenceName.ESCROWED_NFTS}/${id}`
-      } as unknown as DocumentReference<EscrowedNft>,
+      } as unknown as DocumentReference<EscrowedNftDocumentData, EscrowedNftDocumentData>,
       id,
       exists: true,
       data: () => document
-    } as unknown as QueryDocumentSnapshot<EscrowedNft>
+    } as unknown as QueryDocumentSnapshot<EscrowedNftDocumentData, EscrowedNftDocumentData>
     expect(escrowedNftDataConverter.fromFirestore(snapshot)).toStrictEqual(document)
   })
 

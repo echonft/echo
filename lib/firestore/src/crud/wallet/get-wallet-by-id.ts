@@ -4,15 +4,15 @@ import { getReferenceData } from '@echo/firestore/helpers/crud/reference/get-ref
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { DocumentReference } from 'firebase-admin/firestore'
-import { pipe } from 'ramda'
+import { andThen, pipe } from 'ramda'
 
-export function getWalletReferenceById(id: string): DocumentReference<WalletDocumentData> {
-  return getReferenceById<WalletDocumentData>({
+export function getWalletReferenceById(id: string): Promise<DocumentReference<WalletDocumentData, WalletDocumentData>> {
+  return getReferenceById({
     collectionReference: getWalletsCollectionReference(),
     id
   })
 }
 
 export function getWalletById(id: string): Promise<Nullable<WalletDocumentData>> {
-  return pipe(getWalletReferenceById, getReferenceData<WalletDocumentData>)(id)
+  return pipe(getWalletReferenceById, andThen(getReferenceData))(id)
 }

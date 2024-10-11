@@ -12,12 +12,12 @@ import { pipe } from 'ramda'
 export function getPendingOffersForUser(username: string): Promise<Offer[]> {
   return pipe(
     getOffersCollectionReference,
-    queryWhereFilter<Offer>(
+    queryWhereFilter(
       Filter.or(Filter.where('sender.username', '==', username), Filter.where('receiver.username', '==', username))
     ),
     queryWhere('state', 'in', NOT_READ_ONLY_OFFER_STATES),
     queryWhere('expiresAt', '>', now()),
-    queryOrderBy<Offer>('expiresAt', 'desc'),
+    queryOrderBy('expiresAt', 'desc'),
     getQueryData
   )()
 }

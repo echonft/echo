@@ -1,7 +1,11 @@
-import type { FieldPath, Query, WhereFilterOp } from 'firebase-admin/firestore'
+import type { DocumentData, FieldPath, Query, WhereFilterOp } from 'firebase-admin/firestore'
 
-export function queryWhere<T>(fieldPath: string | FieldPath, opStr: WhereFilterOp, value: unknown) {
-  return function (query: Query<T>): Query<T> {
+export function queryWhere<AppModelType, DbModelType extends DocumentData>(
+  fieldPath: string | FieldPath,
+  opStr: WhereFilterOp,
+  value: unknown
+) {
+  return function (query: Query<AppModelType, DbModelType>): Query<AppModelType, DbModelType> {
     return query.where(fieldPath, opStr, value)
   }
 }

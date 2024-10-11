@@ -27,7 +27,7 @@ describe('converters - nonceDataConverter', () => {
     id,
     exists: true,
     data: () => documentData
-  } as QueryDocumentSnapshot<NonceDocumentData>
+  } as QueryDocumentSnapshot<Nonce, NonceDocumentData>
 
   it('from Firestore conversion', () => {
     expect(nonceDataConverter.fromFirestore(snapshot)).toStrictEqual(document)
@@ -39,7 +39,7 @@ describe('converters - nonceDataConverter', () => {
       id,
       exists: true,
       data: () => assoc('expiresAt', expiredAt, documentData)
-    } as QueryDocumentSnapshot<NonceDocumentData>
+    } as QueryDocumentSnapshot<Nonce, NonceDocumentData>
     const expiredDocument = pipe(assoc('expiresAt', expiredAt), assoc('expired', true))(document)
     expect(nonceDataConverter.fromFirestore(expiredSnapshot)).toStrictEqual(expiredDocument)
   })

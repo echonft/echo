@@ -4,6 +4,7 @@ import { getNoncesCollectionReference } from '@echo/firestore/helpers/collection
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import type { Nonce } from '@echo/firestore/types/model/nonce/nonce'
+import type { NonceDocumentData } from '@echo/firestore/types/model/nonce/nonce-document-data'
 import dayjs from 'dayjs'
 import { isNil } from 'ramda'
 
@@ -21,13 +22,13 @@ export async function setNonceForUser(username: string, nonce: string): Promise<
       expired: false,
       expiresAt: dayjs().add(1, 'h').unix()
     }
-    await setReference<Nonce>({
+    await setReference<Nonce, NonceDocumentData>({
       collectionReference: getNoncesCollectionReference(),
       data
     })
     return data
   }
-  return updateReference<Nonce>({
+  return updateReference({
     collectionReference: getNoncesCollectionReference(),
     id: nonceSnapshot.id,
     data: {

@@ -11,9 +11,9 @@ import { pipe } from 'ramda'
 export async function getCompletedOffersForCollection(slug: string): Promise<Offer[]> {
   return pipe(
     getOffersCollectionReference,
-    queryWhere<Offer>('state', '==', OFFER_STATE_COMPLETED),
-    queryOrderBy<Offer>('expiresAt', 'desc'),
-    queryWhereFilter<Offer>(
+    queryWhere('state', '==', OFFER_STATE_COMPLETED),
+    queryOrderBy('expiresAt', 'desc'),
+    queryWhereFilter(
       Filter.or(
         Filter.where('receiverItemCollections', 'array-contains', slug),
         Filter.where('senderItemCollections', 'array-contains', slug)

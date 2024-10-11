@@ -1,8 +1,8 @@
-import { Query } from 'firebase-admin/firestore'
+import { type DocumentData, Query } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
-export function queryLimit<T>(limit?: number) {
-  return function (query: Query<T>): Query<T> {
+export function queryLimit<AppModelType, DbModelType extends DocumentData>(limit?: number) {
+  return function (query: Query<AppModelType, DbModelType>): Query<AppModelType, DbModelType> {
     if (isNil(limit)) {
       return query
     }

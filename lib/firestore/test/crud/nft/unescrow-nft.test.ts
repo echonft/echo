@@ -4,14 +4,14 @@ import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { unescrowNft, UnescrowNftError } from '@echo/firestore/crud/nft/unescrow-nft'
 import { getEscrowedNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-escrowed-nfts-collection-reference'
 import { getReferenceById, type GetReferenceByIdArgs } from '@echo/firestore/helpers/crud/reference/get-reference-by-id'
-import type { EscrowedNft } from '@echo/firestore/types/model/nft/escrowed-nft'
+import type { EscrowedNftDocumentData } from '@echo/firestore/types/model/nft/escrowed-nft-document-data'
 import { resetNft } from '@echo/firestore/utils/nft/reset-nft'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import type { DocumentReference, DocumentSnapshot } from 'firebase-admin/firestore'
-import { invoker, isNil, pipe } from 'ramda'
+import { andThen, invoker, isNil, pipe } from 'ramda'
 
 describe('CRUD - nft - unescrowNft', () => {
   let nftId: Nullable<string>
@@ -41,12 +41,12 @@ describe('CRUD - nft - unescrowNft', () => {
     expect(updatedNft).toBeDefined()
     expect(updatedNft).toStrictEqual(nft)
     const escrowedNftSnapshot = await pipe<
-      [GetReferenceByIdArgs<EscrowedNft>],
-      DocumentReference<EscrowedNft>,
-      Promise<DocumentSnapshot<EscrowedNft, EscrowedNft>>
+      [GetReferenceByIdArgs<EscrowedNftDocumentData, EscrowedNftDocumentData>],
+      Promise<DocumentReference<EscrowedNftDocumentData, EscrowedNftDocumentData>>,
+      Promise<DocumentSnapshot<EscrowedNftDocumentData, EscrowedNftDocumentData>>
     >(
-      getReferenceById<EscrowedNft>,
-      invoker(0, 'get')
+      getReferenceById,
+      andThen(invoker(0, 'get'))
     )({ collectionReference: getEscrowedNftsCollectionReference(), id: escrowedNftId })
     expect(escrowedNftSnapshot.exists).toBeFalsy()
   })

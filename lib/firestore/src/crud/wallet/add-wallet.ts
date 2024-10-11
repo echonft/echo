@@ -25,7 +25,7 @@ export async function addWallet(username: string, wallet: Wallet): Promise<NewDo
     return Promise.reject(Error(`wallet already exists`))
   }
   const data = pipe(assoc('userId', userSnapshot.id), assoc('isEvm', isEvmChain(wallet.chain)))(wallet)
-  const id = await setReference<WalletDocumentData>({
+  const id = await setReference<WalletDocumentData, WalletDocumentData>({
     collectionReference: getWalletsCollectionReference(),
     data
   })

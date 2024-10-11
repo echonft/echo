@@ -2,17 +2,20 @@ import { getCollectionsCollectionReference } from '@echo/firestore/helpers/colle
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
 import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/crud/query/get-query-unique-document-snapshot'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
+import type { CollectionDocumentData } from '@echo/firestore/types/model/collection/collection-document-data'
 import type { Collection } from '@echo/model/types/collection'
 import type { Wallet } from '@echo/model/types/wallet'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, pipe } from 'ramda'
 
-export function getCollectionByAddressSnapshot(wallet: Wallet): Promise<Nullable<QueryDocumentSnapshot<Collection>>> {
+export function getCollectionByAddressSnapshot(
+  wallet: Wallet
+): Promise<Nullable<QueryDocumentSnapshot<Collection, CollectionDocumentData>>> {
   return pipe(
     getCollectionsCollectionReference,
-    queryWhere<Collection>('contract.address', '==', wallet.address),
-    queryWhere<Collection>('contract.chain', '==', wallet.chain),
+    queryWhere('contract.address', '==', wallet.address),
+    queryWhere('contract.chain', '==', wallet.chain),
     getQueryUniqueDocumentSnapshot
   )()
 }

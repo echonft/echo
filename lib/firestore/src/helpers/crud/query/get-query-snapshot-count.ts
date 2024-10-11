@@ -1,7 +1,9 @@
 import { querySnapshotIsEmpty } from '@echo/firestore/helpers/crud/query/query-snapshot-is-empty'
-import { QuerySnapshot } from 'firebase-admin/firestore'
+import { type DocumentData, QuerySnapshot } from 'firebase-admin/firestore'
 
-export function getQuerySnapshotCount<T>(querySnapshot: QuerySnapshot<T>): number {
+export function getQuerySnapshotCount<AppModelType, DbModelType extends DocumentData>(
+  querySnapshot: QuerySnapshot<AppModelType, DbModelType>
+): number {
   if (querySnapshotIsEmpty(querySnapshot)) {
     return 0
   }

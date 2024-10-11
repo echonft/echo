@@ -7,9 +7,13 @@ import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue
 import { pipe } from 'ramda'
 
 export const walletDataConverter: FirestoreDataConverter<WalletDocumentData, WalletDocumentData> = {
-  fromFirestore(snapshot: QueryDocumentSnapshot<WalletDocumentData>): WalletDocumentData {
-    return pipe<[QueryDocumentSnapshot<WalletDocumentData>], WalletDocumentData, WalletDocumentData>(
-      nonNullableReturn(getDocumentSnapshotData<WalletDocumentData>),
+  fromFirestore(snapshot: QueryDocumentSnapshot<WalletDocumentData, WalletDocumentData>): WalletDocumentData {
+    return pipe<
+      [QueryDocumentSnapshot<WalletDocumentData, WalletDocumentData>],
+      WalletDocumentData,
+      WalletDocumentData
+    >(
+      nonNullableReturn(getDocumentSnapshotData),
       lowerAddress
     )(snapshot)
   },

@@ -4,12 +4,14 @@ import { updateListingState } from '@echo/firestore/crud/listing/update-listing-
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { getListingOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listing-offers-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
+import { type ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer/listing-offer-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { LISTING_STATE_OFFERS_PENDING, LISTING_STATE_OPEN } from '@echo/model/constants/listing-states'
 import { isNil, omit } from 'ramda'
 
-export async function addListingOffer(listingOffer: ListingOffer): Promise<NewDocument<ListingOffer>> {
+export async function addListingOffer(
+  listingOffer: ListingOfferDocumentData
+): Promise<NewDocument<ListingOfferDocumentData>> {
   const { listingId, offerId } = listingOffer
   const listing = await getListingById(listingId)
   if (isNil(listing)) {
@@ -29,7 +31,7 @@ export async function addListingOffer(listingOffer: ListingOffer): Promise<NewDo
       )
     )
   }
-  const id = await setReference<ListingOffer>({
+  const id = await setReference<ListingOfferDocumentData, ListingOfferDocumentData>({
     collectionReference: getListingOffersCollectionReference(),
     data: listingOffer
   })

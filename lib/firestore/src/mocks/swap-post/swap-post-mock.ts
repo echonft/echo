@@ -1,6 +1,6 @@
-import type { SwapPost } from '@echo/firestore/types/model/swap-post/swap-post'
+import type { SwapPostDocumentData } from '@echo/firestore/types/model/swap-post/swap-post-document-data'
 
-export function swapPostMock(): Record<string, SwapPost> {
+export function swapPostMock(): Record<string, SwapPostDocumentData> {
   return {
     Y5nkR8DaI2YQDTXXBVZe: {
       swapId: '2ipuV3drjQlzEgkUkW7q',

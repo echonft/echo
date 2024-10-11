@@ -2,9 +2,10 @@ import { listingDocumentDataMock } from '@echo/firestore/mocks/listing/listing-d
 import { listingReferenceMock } from '@echo/firestore/mocks/listing/listing-reference-mock'
 import { type ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
+import type { Listing } from '@echo/model/types/listing'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 
-export function listingSnapshotMock(): Record<string, QueryDocumentSnapshot<ListingDocumentData>> {
+export function listingSnapshotMock(): Record<string, QueryDocumentSnapshot<Listing, ListingDocumentData>> {
   return {
     jUzMtPGKM62mMhEcmbN4: {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -12,6 +13,6 @@ export function listingSnapshotMock(): Record<string, QueryDocumentSnapshot<List
       id: listingReferenceMock()[listingMockId()]?.id,
       exists: true,
       data: () => listingDocumentDataMock()[listingMockId()]
-    } as unknown as QueryDocumentSnapshot<ListingDocumentData>
+    } as unknown as QueryDocumentSnapshot<Listing, ListingDocumentData>
   }
 }

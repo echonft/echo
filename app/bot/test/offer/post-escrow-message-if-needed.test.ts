@@ -1,11 +1,12 @@
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { initializeTranslations } from '@echo/bot/messages/initialize-translations'
 import { postEscrowMessage } from '@echo/bot/offer/post-escrow-message'
+import { OfferUpdateKind } from '@echo/firestore/constants/offer/offer-update-kind'
 import { getOfferUpdatesByOfferId } from '@echo/firestore/crud/offer-update/get-offer-updates-by-offer-id'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
-import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
-import type { OfferUpdate } from '@echo/firestore/types/model/offer-update/offer-update'
+import type { OfferThreadDocumentData } from '@echo/firestore/types/model/offer-thread/offer-thread-document-data'
+import type { OfferUpdateDocumentData } from '@echo/firestore/types/model/offer-update/offer-update-document-data'
 import { OFFER_STATE_EXPIRED, OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockFromJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
@@ -20,12 +21,15 @@ jest.mock('@echo/bot/helpers/send-to-thread')
 
 describe('offer - postEscrowMessageIfNeeded', () => {
   const offer: Offer = getOfferMockById(offerMockFromJohnnycageId())
-  const offerThread = { offerId: offerMockFromJohnnycageId(), guild: { threadId: 'test' } } as unknown as OfferThread
+  const offerThread = {
+    offerId: offerMockFromJohnnycageId(),
+    guild: { threadId: 'test' }
+  } as unknown as OfferThreadDocumentData
   const thread = {} as unknown as AnyThreadChannel
-  const offerUpdate: OfferUpdate = {
+  const offerUpdate: OfferUpdateDocumentData = {
     offerId: offerMockFromJohnnycageId(),
     update: {
-      kind: 'state',
+      kind: OfferUpdateKind.STATE,
       args: {
         state: 'OPEN',
         trigger: {

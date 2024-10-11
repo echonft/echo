@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1
 
-FROM node:20.11.0-slim as base
+FROM node:20.11.0-slim AS base
 LABEL fly_launch_runtime="NodeJS"
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"

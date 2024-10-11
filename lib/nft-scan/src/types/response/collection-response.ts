@@ -1,4 +1,4 @@
-import type { NftTokenType } from '@echo/model/types/token-type'
+import type { NftTokenType } from '@echo/model/types/token'
 import type { CollectionAttributesResponse } from '@echo/nft-scan/types/response/collection-attributes-response'
 import type { Nullable } from '@echo/utils/types/nullable'
 

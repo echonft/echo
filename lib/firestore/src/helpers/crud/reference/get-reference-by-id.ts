@@ -1,10 +1,18 @@
-import type { CollectionReference, DocumentReference } from 'firebase-admin/firestore'
+import { ReferenceError } from '@echo/firestore/constants/errors/reference/reference-error'
+import type { CollectionReference, DocumentData, DocumentReference } from 'firebase-admin/firestore'
 
-export interface GetReferenceByIdArgs<T> {
-  collectionReference: CollectionReference<T>
-  id: string
+export interface GetReferenceByIdArgs<AppModelType, DbModelType extends DocumentData> {
+  readonly collectionReference: CollectionReference<AppModelType, DbModelType>
+  readonly id: string
 }
 
-export function getReferenceById<T>(args: GetReferenceByIdArgs<T>): DocumentReference<T> {
-  return args.collectionReference.doc(args.id)
+export async function getReferenceById<AppModelType, DbModelType extends DocumentData>(
+  args: GetReferenceByIdArgs<AppModelType, DbModelType>
+): Promise<DocumentReference<AppModelType, DbModelType>> {
+  const ref = args.collectionReference.doc(args.id)
+  const snapshot = await ref.get()
+  if (!snapshot.exists) {
+    throw Error(ReferenceError.NOT_FOUND)
+  }
+  return ref
 }

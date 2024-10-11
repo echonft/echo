@@ -1,5 +1,7 @@
-import type { CollectionReference, DocumentReference } from 'firebase-admin/firestore'
+import type { CollectionReference, DocumentData, DocumentReference } from 'firebase-admin/firestore'
 
-export function getNewReference<T>(collectionReference: CollectionReference<T>): DocumentReference<T> {
+export function getNewReference<AppModelType, DbModelType extends DocumentData>(
+  collectionReference: CollectionReference<AppModelType, DbModelType>
+): DocumentReference<AppModelType, DbModelType> {
   return collectionReference.doc()
 }

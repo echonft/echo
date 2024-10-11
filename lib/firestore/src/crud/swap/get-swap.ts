@@ -1,11 +1,13 @@
 import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
 import { getSwapSnapshotByOfferId } from '@echo/firestore/crud/swap/get-swap-by-offer-id'
-import type { Swap } from '@echo/firestore/types/model/swap/swap'
+import type { SwapDocumentData } from '@echo/firestore/types/model/swap/swap-document-data'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
-export async function getSwapSnapshot(offerSlug: string): Promise<Nullable<QueryDocumentSnapshot<Swap>>> {
+export async function getSwapSnapshot(
+  offerSlug: string
+): Promise<Nullable<QueryDocumentSnapshot<SwapDocumentData, SwapDocumentData>>> {
   const snapshot = await getOfferSnapshot(offerSlug)
   if (isNil(snapshot)) {
     return Promise.reject(Error(`offer with slug ${offerSlug} does not exist`))

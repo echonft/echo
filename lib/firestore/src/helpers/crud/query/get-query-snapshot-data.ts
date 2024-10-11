@@ -1,16 +1,25 @@
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
 import { querySnapshotIsEmpty } from '@echo/firestore/helpers/crud/query/query-snapshot-is-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { QueryDocumentSnapshot, QuerySnapshot } from 'firebase-admin/firestore'
+import { type DocumentData, QueryDocumentSnapshot, QuerySnapshot } from 'firebase-admin/firestore'
 import { always, ifElse, isNil, map, pipe, prop, reject } from 'ramda'
 
-export function getQuerySnapshotData<T>(querySnapshot: QuerySnapshot<T>): T[] {
-  return ifElse<[QuerySnapshot<T>], T[], T[]>(
+export function getQuerySnapshotData<AppModelType, DbModelType extends DocumentData>(
+  querySnapshot: QuerySnapshot<AppModelType, DbModelType>
+): AppModelType[] {
+  return ifElse<[QuerySnapshot<AppModelType, DbModelType>], AppModelType[], AppModelType[]>(
     querySnapshotIsEmpty,
     always([]),
-    pipe<[QuerySnapshot<T>], QueryDocumentSnapshot<T>[], Nullable<T>[], T[]>(
+    pipe<
+      [QuerySnapshot<AppModelType, DbModelType>],
+      QueryDocumentSnapshot<AppModelType, DbModelType>[],
+      Nullable<AppModelType>[],
+      AppModelType[]
+    >(
       prop('docs'),
-      map<QueryDocumentSnapshot<T>, Nullable<T>>(getDocumentSnapshotData<T>),
+      map<QueryDocumentSnapshot<AppModelType, DbModelType>, Nullable<AppModelType>>(
+        getDocumentSnapshotData<AppModelType, DbModelType>
+      ),
       reject(isNil)
     )
   )(querySnapshot)

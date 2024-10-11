@@ -1,15 +1,16 @@
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { getReferenceById } from '@echo/firestore/helpers/crud/reference/get-reference-by-id'
 import { getReferenceData } from '@echo/firestore/helpers/crud/reference/get-reference-data'
+import type { OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
 import type { Offer } from '@echo/model/types/offer'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { DocumentReference } from 'firebase-admin/firestore'
-import { pipe } from 'ramda'
+import { andThen, pipe } from 'ramda'
 
-export function getOfferReferenceById(id: string): DocumentReference<Offer> {
-  return getReferenceById<Offer>({ collectionReference: getOffersCollectionReference(), id })
+export function getOfferReferenceById(id: string): Promise<DocumentReference<Offer, OfferDocumentData>> {
+  return getReferenceById({ collectionReference: getOffersCollectionReference(), id })
 }
 
 export function getOfferById(id: string): Promise<Nullable<Offer>> {
-  return pipe(getOfferReferenceById, getReferenceData<Offer>)(id)
+  return pipe(getOfferReferenceById, andThen(getReferenceData))(id)
 }

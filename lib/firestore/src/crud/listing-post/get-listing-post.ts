@@ -2,7 +2,7 @@ import { getListingPostsCollectionReference } from '@echo/firestore/helpers/coll
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
 import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/crud/query/get-query-unique-document-snapshot'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import type { ListingPost } from '@echo/firestore/types/model/listing-post/listing-post'
+import type { ListingPostDocumentData } from '@echo/firestore/types/model/listing-post/listing-post-document-data'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, pipe } from 'ramda'
@@ -10,15 +10,15 @@ import { andThen, pipe } from 'ramda'
 export function getListingPostSnapshot(
   listingId: string,
   guildId: string
-): Promise<Nullable<QueryDocumentSnapshot<ListingPost>>> {
+): Promise<Nullable<QueryDocumentSnapshot<ListingPostDocumentData, ListingPostDocumentData>>> {
   return pipe(
     getListingPostsCollectionReference,
-    queryWhere<ListingPost>('listingId', '==', listingId),
-    queryWhere<ListingPost>('guild.id', '==', guildId),
+    queryWhere('listingId', '==', listingId),
+    queryWhere('guild.id', '==', guildId),
     getQueryUniqueDocumentSnapshot
   )()
 }
 
-export function getListingPost(listingId: string, guildId: string): Promise<Nullable<ListingPost>> {
+export function getListingPost(listingId: string, guildId: string): Promise<Nullable<ListingPostDocumentData>> {
   return pipe(getListingPostSnapshot, andThen(getDocumentSnapshotData))(listingId, guildId)
 }

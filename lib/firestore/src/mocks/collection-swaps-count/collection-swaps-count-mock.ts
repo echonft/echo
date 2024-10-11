@@ -1,7 +1,7 @@
-import { type CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
+import { type CollectionSwapsCountDocumentData } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count-document-data'
 import { collectionMockPxId, collectionMockSpiralId } from '@echo/model/mocks/collection/collection-mock'
 
-export function collectionSwapsCountMock(): Record<string, CollectionSwapsCount> {
+export function collectionSwapsCountMock(): Record<string, CollectionSwapsCountDocumentData> {
   return {
     zkLBR3tGni1Z695gFQVU: {
       collectionId: collectionMockPxId(),

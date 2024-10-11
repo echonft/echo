@@ -1,4 +1,4 @@
-import type { NftTokenType } from '@echo/model/types/token-type'
+import type { NftTokenType } from '@echo/model/types/token'
 import type { Wallet } from '@echo/model/types/wallet'
 import type { WithSlug } from '@echo/model/types/with-slug'
 import type { Nullable } from '@echo/utils/types/nullable'

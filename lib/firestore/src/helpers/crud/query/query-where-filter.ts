@@ -1,7 +1,7 @@
-import type { Filter, Query } from 'firebase-admin/firestore'
+import type { DocumentData, Filter, Query } from 'firebase-admin/firestore'
 
-export function queryWhereFilter<T>(filter: Filter) {
-  return function (query: Query<T>): Query<T> {
+export function queryWhereFilter<AppModelType, DbModelType extends DocumentData>(filter: Filter) {
+  return function (query: Query<AppModelType, DbModelType>): Query<AppModelType, DbModelType> {
     return query.where(filter)
   }
 }

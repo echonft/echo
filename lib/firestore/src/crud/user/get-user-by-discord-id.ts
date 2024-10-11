@@ -9,10 +9,10 @@ import { andThen, pipe } from 'ramda'
 
 export function getUserSnapshotByDiscordId(
   discordId: string
-): Promise<Nullable<QueryDocumentSnapshot<UserDocumentData>>> {
+): Promise<Nullable<QueryDocumentSnapshot<UserDocumentData, UserDocumentData>>> {
   return pipe(getUsersCollectionReference, queryWhere('discord.id', '==', discordId), getQueryUniqueDocumentSnapshot)()
 }
 
 export function getUserByDiscordId(discordId: string): Promise<Nullable<UserDocumentData>> {
-  return pipe(getUserSnapshotByDiscordId, andThen(getDocumentSnapshotData<UserDocumentData>))(discordId)
+  return pipe(getUserSnapshotByDiscordId, andThen(getDocumentSnapshotData))(discordId)
 }

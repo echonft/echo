@@ -1,14 +1,14 @@
 import { addOfferThread } from '@echo/firestore/crud/offer-thread/add-offer-thread'
 import { deleteOfferThread } from '@echo/firestore/crud/offer-thread/delete-offer-thread'
 import { getOfferThread } from '@echo/firestore/crud/offer-thread/get-offer-thread'
-import type { OfferThread, OfferThreadDiscordGuild } from '@echo/firestore/types/model/offer-thread/offer-thread'
+import type { OfferThreadDocumentData } from '@echo/firestore/types/model/offer-thread/offer-thread-document-data'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 import { omit } from 'ramda'
 
 describe('CRUD - offer-thread - addOfferThread', () => {
-  const guild: OfferThreadDiscordGuild = {
+  const guild: OfferThreadDocumentData['guild'] = {
     channelId: 'channelId',
     id: 'discordId',
     threadId: 'threadId'
@@ -18,7 +18,7 @@ describe('CRUD - offer-thread - addOfferThread', () => {
   })
   it('add an offer thread', async () => {
     const offerId = offerMockToJohnnycageId()
-    const offerThread: Omit<OfferThread, 'postedAt'> = { offerId, guild, state: 'ACTIVE' }
+    const offerThread: Omit<OfferThreadDocumentData, 'postedAt'> = { offerId, guild, state: 'ACTIVE' }
     await addOfferThread(offerThread)
     const document = (await getOfferThread(offerId))!
     await deleteOfferThread(offerId)

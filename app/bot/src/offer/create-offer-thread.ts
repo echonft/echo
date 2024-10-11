@@ -2,7 +2,7 @@ import { deleteThread } from '@echo/bot/helpers/delete-thread'
 import { getEchoChannel } from '@echo/bot/helpers/get-echo-channel'
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
-import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
+import type { OfferThreadDocumentData } from '@echo/firestore/types/model/offer-thread/offer-thread-document-data'
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import type { Offer } from '@echo/model/types/offer'
 import type { WithIdType } from '@echo/model/types/with-id-type'
@@ -20,7 +20,7 @@ interface CreateOfferThreadArgs extends WithLogger {
 
 export async function createOfferThread(args: CreateOfferThreadArgs): Promise<{
   threadId: string
-  state: OfferThread['state']
+  state: OfferThreadDocumentData['state']
 }> {
   const { client, offer, receiver, sender, logger } = args
   const channel = await getEchoChannel({ client, logger })

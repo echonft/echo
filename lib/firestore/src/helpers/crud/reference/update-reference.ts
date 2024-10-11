@@ -1,19 +1,30 @@
 import { getReferenceById, type GetReferenceByIdArgs } from '@echo/firestore/helpers/crud/reference/get-reference-by-id'
-import type { DocumentReference, UpdateData } from 'firebase-admin/firestore'
+import type {
+  CollectionReference,
+  DocumentData,
+  DocumentReference,
+  PartialWithFieldValue
+} from 'firebase-admin/firestore'
 import { omit, pipe } from 'ramda'
 
-export interface UpdateReferenceArgs<T> extends GetReferenceByIdArgs<T> {
-  data: NonNullable<UpdateData<T>>
+export interface UpdateReferenceArgs<AppModelType, DbModelType extends DocumentData> {
+  readonly collectionReference: CollectionReference<AppModelType, DbModelType>
+  readonly data: PartialWithFieldValue<AppModelType>
+  readonly id: string
 }
 
-export async function updateReference<T>(args: UpdateReferenceArgs<T>): Promise<T> {
-  const ref = pipe<[UpdateReferenceArgs<T>], GetReferenceByIdArgs<T>, DocumentReference<T>>(
+export async function updateReference<AppModelType, DbModelType extends DocumentData>(
+  args: UpdateReferenceArgs<AppModelType, DbModelType>
+): Promise<AppModelType> {
+  const ref = await pipe<
+    [UpdateReferenceArgs<AppModelType, DbModelType>],
+    GetReferenceByIdArgs<AppModelType, DbModelType>,
+    Promise<DocumentReference<AppModelType, DbModelType>>
+  >(
     omit(['data']),
     getReferenceById
   )(args)
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  await ref.update(args.data)
+  await ref.set(args.data, { merge: true })
   const snapshot = await ref.get()
-  return snapshot.data() as T
+  return snapshot.data() as NonNullable<AppModelType>
 }

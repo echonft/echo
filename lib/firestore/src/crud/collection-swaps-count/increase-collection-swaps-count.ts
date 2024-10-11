@@ -4,10 +4,10 @@ import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/crud/que
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
-import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
+import type { CollectionSwapsCountDocumentData } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count-document-data'
 import { inc, isNil, pipe } from 'ramda'
 
-export async function increaseCollectionSwapsCount(slug: string): Promise<CollectionSwapsCount> {
+export async function increaseCollectionSwapsCount(slug: string): Promise<CollectionSwapsCountDocumentData> {
   const collectionSnapshot = await getCollectionSnapshot(slug)
   if (isNil(collectionSnapshot)) {
     return Promise.reject(
@@ -17,17 +17,17 @@ export async function increaseCollectionSwapsCount(slug: string): Promise<Collec
   const existingSwapsCount = await pipe(
     getCollectionSwapsCountCollectionReference,
     queryWhere('collectionId', '==', collectionSnapshot.id),
-    getQueryUniqueDocumentSnapshot<CollectionSwapsCount>
+    getQueryUniqueDocumentSnapshot<CollectionSwapsCountDocumentData, CollectionSwapsCountDocumentData>
   )()
   if (isNil(existingSwapsCount)) {
-    const data: CollectionSwapsCount = { collectionId: collectionSnapshot.id, swapsCount: 1 }
-    await setReference<CollectionSwapsCount>({
+    const data: CollectionSwapsCountDocumentData = { collectionId: collectionSnapshot.id, swapsCount: 1 }
+    await setReference<CollectionSwapsCountDocumentData, CollectionSwapsCountDocumentData>({
       collectionReference: getCollectionSwapsCountCollectionReference(),
       data
     })
     return data
   }
-  return updateReference<CollectionSwapsCount>({
+  return updateReference<CollectionSwapsCountDocumentData, CollectionSwapsCountDocumentData>({
     collectionReference: getCollectionSwapsCountCollectionReference(),
     id: existingSwapsCount.id,
     data: { swapsCount: inc(existingSwapsCount.data().swapsCount) }

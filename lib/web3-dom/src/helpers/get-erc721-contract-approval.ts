@@ -1,6 +1,6 @@
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
 import { getWalletClient } from '@echo/web3-dom/helpers/get-wallet-client'
-import type { GetErc721ContractApprovalArgs } from '@echo/web3-dom/types/get-erc-721-contract-approval-args'
+import type { GetErc721ContractApprovalArgs } from '@echo/web3-dom/types/get-erc721-contract-approval-args'
 import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
 import { getViemChainById } from '@echo/web3/helpers/get-viem-chain-by-id'
 import { formatWalletAddress } from '@echo/web3/utils/format-wallet-address'

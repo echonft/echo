@@ -1,6 +1,6 @@
+import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing/listing-offer-fulfilling-status'
 import { getListingItemsFulfillingStatusForOffer } from '@echo/firestore/helpers/listing-offer/get-listing-items-fulfilling-status-for-offer'
 import { getListingTargetFillForOffer } from '@echo/firestore/helpers/listing-offer/get-listing-target-fulfillment-for-offer'
-import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import type { Listing } from '@echo/model/types/listing'
 import type { Offer } from '@echo/model/types/offer'
 import { apply, juxt, pipe } from 'ramda'

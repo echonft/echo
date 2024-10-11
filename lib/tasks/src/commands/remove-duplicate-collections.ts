@@ -19,7 +19,7 @@ export async function removeDuplicateCollections() {
     const collection = head(collections as NonEmptyArray<Collection>)
     const snapshots = await pipe(
       getCollectionsCollectionReference,
-      queryWhere<Collection>('slug', '==', collection.slug),
+      queryWhere('slug', '==', collection.slug),
       getQueryDocumentSnapshots
     )()
     for (const snapshot of drop(1, snapshots)) {

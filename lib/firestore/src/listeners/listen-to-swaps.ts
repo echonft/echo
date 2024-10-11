@@ -1,8 +1,7 @@
 import { getSwapsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-swaps-collection-reference'
 import { onSnapshot } from '@echo/firestore/listeners/on-doc-changes'
-import type { ChangeHandler } from '@echo/firestore/types/change-handler'
-import type { Swap } from '@echo/firestore/types/model/swap/swap'
+import type { SwapChangeHandler } from '@echo/firestore/types/change-handler/swap-change-handler'
 
-export function listenToSwaps(onChange: ChangeHandler<Swap>) {
-  getSwapsCollectionReference().onSnapshot(onSnapshot<Swap, Swap>(onChange))
+export function listenToSwaps(onChange: SwapChangeHandler) {
+  getSwapsCollectionReference().onSnapshot(onSnapshot(onChange))
 }

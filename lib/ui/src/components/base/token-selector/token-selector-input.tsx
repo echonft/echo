@@ -1,4 +1,4 @@
-import type { Erc20TokenBalance } from '@echo/model/types/erc20-token-balance'
+import type { Erc20TokenBalance } from '@echo/model/types/token'
 import { TokenSelectorInputMaxButton } from '@echo/ui/components/base/token-selector/token-selector-input-max-button'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'

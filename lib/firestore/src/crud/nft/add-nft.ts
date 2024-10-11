@@ -7,7 +7,7 @@ import { type Nft } from '@echo/model/types/nft'
 
 export async function addNft(nft: NftDocumentData): Promise<NewDocument<Nft>> {
   const id = await setReference({
-    collectionReference: getNftsCollectionReference(false),
+    collectionReference: getNftsCollectionReference(),
     data: nft
   })
   return { id, data: nftDataConverter.fromDocumentData(nft) }

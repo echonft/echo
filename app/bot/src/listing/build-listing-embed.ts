@@ -1,10 +1,12 @@
 import { pathProvider } from '@echo/api/routing/path-provider'
 import { embedSeparator } from '@echo/bot/helpers/embed/embed-separator'
-import { embedValueForNft } from '@echo/bot/helpers/embed/embed-value-for-nft'
+import { embedValueForNftTokenItem } from '@echo/bot/helpers/embed/embed-value-for-nft-token-item'
 import { type UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import { nftItems } from '@echo/model/helpers/item/nft-items'
+import type { Item, Items } from '@echo/model/types/item'
 import { type Listing } from '@echo/model/types/listing'
 import { type ListingTarget } from '@echo/model/types/listing-target'
-import type { Nft } from '@echo/model/types/nft'
+import type { NftToken } from '@echo/model/types/token'
 import { type APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import i18next from 'i18next'
 import { addIndex, flatten, map } from 'ramda'
@@ -21,24 +23,25 @@ export function buildListingEmbed(listing: Listing, creator: UserDocumentData) {
   )
 }
 
-function fields(items: Nft[], target: ListingTarget): APIEmbedField[] {
-  // TODO Should work as is, but we might need to adjust if target change
-  return flatten([embedSeparator(), listingItemsFields(items), embedSeparator(), ListingTarget(target)])
+function fields(items: Items, target: ListingTarget): APIEmbedField[] {
+  return flatten([embedSeparator(), listingItemsFields(items), embedSeparator(), listingTargetFields(target)])
 }
 
-function listingItemsFields(items: Nft[]): APIEmbedField[] {
-  const mapIndexed = addIndex<Nft>(map)
+function listingItemsFields(items: Items): APIEmbedField[] {
+  // TODO add ERC-20 tokens
+  const nfts = nftItems(items)
+  const mapIndexed = addIndex<Item<NftToken>>(map)
   return mapIndexed(
-    (item: Nft, index: number) => ({
+    (item: Item<NftToken>, index: number) => ({
       name: index === 0 ? i18next.t('listing.embed.items.name') : '\u200b',
-      value: embedValueForNft(item),
+      value: embedValueForNftTokenItem(item),
       inline: true
     }),
-    items
+    nfts
   )
 }
 
-function ListingTarget(target: ListingTarget): APIEmbedField {
+function listingTargetFields(target: ListingTarget): APIEmbedField {
   return {
     name: i18next.t('listing.embed.target.name'),
     value: i18next.t('listing.embed.target.value', { count: target.amount, collectionName: target.collection.name }),

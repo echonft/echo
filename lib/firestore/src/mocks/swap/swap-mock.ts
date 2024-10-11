@@ -1,10 +1,10 @@
-import { type Swap } from '@echo/firestore/types/model/swap/swap'
+import { type SwapDocumentData } from '@echo/firestore/types/model/swap/swap-document-data'
 import { offerMockFromJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 
 export function swapMockId() {
   return '2ipuV3drjQlzEgkUkW7q'
 }
-export function swapMock(): Record<string, Swap> {
+export function swapMock(): Record<string, SwapDocumentData> {
   return {
     '2ipuV3drjQlzEgkUkW7q': {
       offerId: offerMockFromJohnnycageId(),

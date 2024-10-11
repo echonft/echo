@@ -1,11 +1,14 @@
 import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference/collection-reference-name'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
-import { type ListingPost } from '@echo/firestore/types/model/listing-post/listing-post'
+import { type ListingPostDocumentData } from '@echo/firestore/types/model/listing-post/listing-post-document-data'
 import { CollectionReference } from 'firebase-admin/firestore'
 
-export function getListingPostsCollectionReference(): CollectionReference<ListingPost, ListingPost> {
+export function getListingPostsCollectionReference(): CollectionReference<
+  ListingPostDocumentData,
+  ListingPostDocumentData
+> {
   return firestoreApp().collection(CollectionReferenceName.LISTING_POSTS) as CollectionReference<
-    ListingPost,
-    ListingPost
+    ListingPostDocumentData,
+    ListingPostDocumentData
   >
 }

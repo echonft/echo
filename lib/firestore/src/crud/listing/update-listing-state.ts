@@ -13,7 +13,7 @@ export async function updateListingState(slug: string, state: ListingState): Pro
     return Promise.reject(Error(ListingError.NOT_FOUND))
   }
   assertListingStateTransition(snapshot.data(), state)
-  return updateReference<Listing>({
+  return updateReference({
     collectionReference: getListingsCollectionReference(),
     id: snapshot.id,
     data: { state }

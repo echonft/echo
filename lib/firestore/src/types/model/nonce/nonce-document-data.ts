@@ -1,5 +1,3 @@
-export interface NonceDocumentData {
-  nonce: string
-  expiresAt: number
-  userId: string
-}
+import type { Nonce } from '@echo/firestore/types/model/nonce/nonce'
+
+export type NonceDocumentData = Omit<Nonce, 'expired'>

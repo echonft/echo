@@ -14,7 +14,7 @@ describe('converters - userDataConverter', () => {
     id: 'userId',
     exists: true,
     data: () => documentData
-  } as QueryDocumentSnapshot<UserDocumentData>
+  } as QueryDocumentSnapshot<UserDocumentData, UserDocumentData>
 
   it('from Firestore conversion', () => {
     expect(

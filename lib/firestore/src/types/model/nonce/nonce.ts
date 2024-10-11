@@ -1,5 +1,6 @@
-import type { NonceDocumentData } from '@echo/firestore/types/model/nonce/nonce-document-data'
-
-export interface Nonce extends NonceDocumentData {
+export interface Nonce {
   expired: boolean
+  expiresAt: number
+  nonce: string
+  userId: string
 }

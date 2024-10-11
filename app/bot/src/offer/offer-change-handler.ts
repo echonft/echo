@@ -1,13 +1,14 @@
 import { createOfferThread } from '@echo/bot/offer/create-offer-thread'
-import type { ChangeHandler } from '@echo/bot/types/change-handler'
+import type { WithClientType } from '@echo/bot/types/with-client'
 import { addOfferThread } from '@echo/firestore/crud/offer-thread/add-offer-thread'
 import { getOfferThread } from '@echo/firestore/crud/offer-thread/get-offer-thread'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
-import { type Offer } from '@echo/model/types/offer'
+import type { OfferChangeHandlerArgs } from '@echo/firestore/types/change-handler/offer-change-handler'
 import { getEchoDiscordGuild } from '@echo/utils/helpers/get-echo-discord-guild'
+import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { assoc, isNil } from 'ramda'
 
-export async function offerChangeHandler(args: ChangeHandler<Offer>) {
+export async function offerChangeHandler(args: WithLoggerType<WithClientType<OfferChangeHandlerArgs>>) {
   const { client, changeType, snapshot, logger } = args
   if (changeType === 'added') {
     logger?.info({ offer: { id: snapshot.id } }, 'offer was added')

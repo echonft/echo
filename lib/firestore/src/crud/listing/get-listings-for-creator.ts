@@ -8,8 +8,8 @@ import { pipe } from 'ramda'
 export function getListingsForCreator(username: string): Promise<Listing[]> {
   return pipe(
     getListingsCollectionReference,
-    queryWhere<Listing>('creator.username', '==', username),
-    queryOrderBy<Listing>('expiresAt', 'desc'),
+    queryWhere('creator.username', '==', username),
+    queryOrderBy('expiresAt', 'desc'),
     getQueryData
   )()
 }

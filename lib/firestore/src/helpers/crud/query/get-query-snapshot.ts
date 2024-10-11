@@ -1,5 +1,7 @@
-import type { Query, QuerySnapshot } from 'firebase-admin/firestore'
+import type { DocumentData, Query, QuerySnapshot } from 'firebase-admin/firestore'
 
-export function getQuerySnapshot<T>(query: Query<T>): Promise<QuerySnapshot<T>> {
+export function getQuerySnapshot<AppModelType, DbModelType extends DocumentData>(
+  query: Query<AppModelType, DbModelType>
+): Promise<QuerySnapshot<AppModelType, DbModelType>> {
   return query.get()
 }

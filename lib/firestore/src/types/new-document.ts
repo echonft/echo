@@ -1,4 +1,4 @@
-export interface NewDocument<T> {
+export interface NewDocument<AppModelType> {
   id: string
-  data: T
+  data: AppModelType
 }

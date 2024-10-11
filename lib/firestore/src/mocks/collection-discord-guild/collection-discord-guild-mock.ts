@@ -1,7 +1,7 @@
-import { type CollectionDiscordGuild } from '@echo/firestore/types/model/collection-discord-guild/collection-discord-guild'
+import type { CollectionDiscordGuildDocumentData } from '@echo/firestore/types/model/collection-discord-guild/collection-discord-guild-document-data'
 import { collectionMockPxId, collectionMockSpiralId } from '@echo/model/mocks/collection/collection-mock'
 
-export function collectionDiscordGuildMock(): Record<string, CollectionDiscordGuild> {
+export function collectionDiscordGuildMock(): Record<string, CollectionDiscordGuildDocumentData> {
   return {
     FTtQ8IaJAffIaSk66Fy6: {
       collectionId: collectionMockPxId(),

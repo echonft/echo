@@ -9,7 +9,7 @@ import { andThen, pipe } from 'ramda'
 
 export function getUserSnapshotByUsername(
   username: string
-): Promise<Nullable<QueryDocumentSnapshot<UserDocumentData>>> {
+): Promise<Nullable<QueryDocumentSnapshot<UserDocumentData, UserDocumentData>>> {
   return pipe(getUsersCollectionReference, queryWhere('username', '==', username), getQueryUniqueDocumentSnapshot)()
 }
 

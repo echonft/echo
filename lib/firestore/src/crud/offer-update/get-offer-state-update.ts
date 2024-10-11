@@ -2,7 +2,7 @@ import { getOfferUpdatesCollectionReference } from '@echo/firestore/helpers/coll
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
 import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/crud/query/get-query-unique-document-snapshot'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import type { OfferUpdate } from '@echo/firestore/types/model/offer-update/offer-update'
+import type { OfferUpdateDocumentData } from '@echo/firestore/types/model/offer-update/offer-update-document-data'
 import type { OfferState } from '@echo/model/types/offer-state'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'
@@ -15,16 +15,16 @@ interface GetOfferStateUpdateArgs {
 
 export function getOfferStateUpdateSnapshot(
   args: GetOfferStateUpdateArgs
-): Promise<Nullable<QueryDocumentSnapshot<OfferUpdate>>> {
+): Promise<Nullable<QueryDocumentSnapshot<OfferUpdateDocumentData, OfferUpdateDocumentData>>> {
   const { offerId, state } = args
   return pipe(
     getOfferUpdatesCollectionReference,
-    queryWhere<OfferUpdate>('offerId', '==', offerId),
-    queryWhere<OfferUpdate>('update.args.state', '==', state),
+    queryWhere('offerId', '==', offerId),
+    queryWhere('update.args.state', '==', state),
     getQueryUniqueDocumentSnapshot
   )()
 }
 
-export function getOfferStateUpdate(args: GetOfferStateUpdateArgs): Promise<Nullable<OfferUpdate>> {
+export function getOfferStateUpdate(args: GetOfferStateUpdateArgs): Promise<Nullable<OfferUpdateDocumentData>> {
   return pipe(getOfferStateUpdateSnapshot, andThen(getDocumentSnapshotData))(args)
 }

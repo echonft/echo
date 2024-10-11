@@ -1,12 +1,13 @@
 import { postSwap } from '@echo/bot/swap/post-swap'
-import type { ChangeHandler } from '@echo/bot/types/change-handler'
+import type { WithClientType } from '@echo/bot/types/with-client'
 import { addSwapPost } from '@echo/firestore/crud/swap-post/add-swap-post'
 import { getSwapPost } from '@echo/firestore/crud/swap-post/get-swap-post'
-import type { Swap } from '@echo/firestore/types/model/swap/swap'
+import type { SwapChangeHandlerArgs } from '@echo/firestore/types/change-handler/swap-change-handler'
 import { getEchoDiscordGuild } from '@echo/utils/helpers/get-echo-discord-guild'
+import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { assoc, isNil } from 'ramda'
 
-export async function swapChangeHandler(args: ChangeHandler<Swap>) {
+export async function swapChangeHandler(args: WithLoggerType<WithClientType<SwapChangeHandlerArgs>>) {
   const { client, changeType, snapshot, logger } = args
   if (changeType === 'added') {
     const swapId = snapshot.id

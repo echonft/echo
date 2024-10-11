@@ -2,7 +2,7 @@ import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import { getOfferUpdatesByOfferId } from '@echo/firestore/crud/offer-update/get-offer-updates-by-offer-id'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
-import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
+import type { OfferThreadDocumentData } from '@echo/firestore/types/model/offer-thread/offer-thread-document-data'
 import { OFFER_STATE_ACCEPTED, OFFER_STATE_EXPIRED, OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
 import type { WithLogger } from '@echo/utils/types/with-logger'
@@ -39,7 +39,7 @@ async function areBothPartiesInEscrow(args: AreBothPartiesInEscrowArgs) {
 }
 
 interface PostEscrowMessageArgs extends WithLogger {
-  offerThread: OfferThread
+  offerThread: OfferThreadDocumentData
   thread: AnyThreadChannel
   offer: Offer
 }

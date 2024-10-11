@@ -1,4 +1,5 @@
 import { OfferError } from '@echo/firestore/constants/errors/offer/offer-error'
+import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing/listing-offer-fulfilling-status'
 import { getListingOffersByOfferId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-offer-id'
 import { getListingOffersForListing } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-listing'
 import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
@@ -7,11 +8,11 @@ import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { updateOfferState, type UpdateOfferStateArgs } from '@echo/firestore/crud/offer/update-offer-state'
 import { addSwap } from '@echo/firestore/crud/swap/add-swap'
-import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
-import type { Swap } from '@echo/firestore/types/model/swap/swap'
+import type { SwapDocumentData } from '@echo/firestore/types/model/swap/swap-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { LISTING_STATE_FULFILLED, LISTING_STATE_PARTIALLY_FULFILLED } from '@echo/model/constants/listing-states'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
+import { getListingItemsIndex } from '@echo/model/helpers/listing/get-listing-items-index'
 import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
 import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
 import type { Nft } from '@echo/model/types/nft'
@@ -40,7 +41,12 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
     updateOfferState
   )(args)
   // add swap
-  await pipe<[CompleteOfferArgs], Omit<CompleteOfferArgs, 'reason'>, Swap, Promise<NewDocument<Swap>>>(
+  await pipe<
+    [CompleteOfferArgs],
+    Omit<CompleteOfferArgs, 'reason'>,
+    SwapDocumentData,
+    Promise<NewDocument<SwapDocumentData>>
+  >(
     omit(['reason']),
     assoc('offerId', snapshot.id),
     addSwap
@@ -65,7 +71,7 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
           flatten
         )(listingOffers)
         const offerItemIndexes = pipe(concat, getNftIndexForNfts)(offerItems, completedOffersItems)
-        const listingItemIndexes = getNftIndexForNfts(listing.items)
+        const listingItemIndexes = getListingItemsIndex(listing)
         if (intersection(offerItemIndexes, listingItemIndexes).length === listingItemIndexes.length) {
           await updateListingState(listing.slug, LISTING_STATE_FULFILLED)
         } else {

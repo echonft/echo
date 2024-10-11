@@ -1,5 +1,4 @@
-import type { Erc20Token } from '@echo/model/types/erc20-token'
-import type { Erc20TokenBalance } from '@echo/model/types/erc20-token-balance'
+import type { Erc20Token, Erc20TokenBalance } from '@echo/model/types/token'
 import { nonEmptyArrayMap } from '@echo/utils/fp/non-empty-array-map'
 import { toPromise } from '@echo/utils/fp/to-promise'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'

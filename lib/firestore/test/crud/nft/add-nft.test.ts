@@ -20,7 +20,7 @@ describe('CRUD - nft - addNft', () => {
   afterEach(async () => {
     if (!isNil(nftId)) {
       await deleteReference({
-        collectionReference: getNftsCollectionReference(false),
+        collectionReference: getNftsCollectionReference(),
         id: nftId
       })
     }

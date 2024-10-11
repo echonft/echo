@@ -2,7 +2,7 @@ import { ARCHIVE_THREAD_DELAY } from '@echo/bot/constants/archive-thread-delay'
 import { deleteThread } from '@echo/bot/helpers/delete-thread'
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { archiveOfferThread as firestoreArchiveOfferThread } from '@echo/firestore/crud/offer-thread/archive-offer-thread'
-import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
+import type { OfferThreadDocumentData } from '@echo/firestore/types/model/offer-thread/offer-thread-document-data'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import type { WithLogger } from '@echo/utils/types/with-logger'
 import type { AnyThreadChannel } from 'discord.js'
@@ -10,7 +10,7 @@ import i18next from 'i18next'
 import { isNil } from 'ramda'
 
 interface ArchiveOfferThreadArgs extends WithLogger {
-  offerThread: OfferThread
+  offerThread: OfferThreadDocumentData
   thread: AnyThreadChannel | undefined
 }
 

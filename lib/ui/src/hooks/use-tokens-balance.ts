@@ -1,5 +1,4 @@
-import type { Erc20Token } from '@echo/model/types/erc20-token'
-import type { Erc20TokenBalance } from '@echo/model/types/erc20-token-balance'
+import type { Erc20Token, Erc20TokenBalance } from '@echo/model/types/token'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
@@ -36,8 +35,17 @@ export function useTokensBalance(): NonEmptyArray<Erc20TokenBalance> {
     // Not the best UX as it might not be supported on every chains, but
     // 1) wallet should be connected when calling this hook
     // 2) lets see what we support and we can reassess after
+    // ummmmmmmm FIXME
     return [
-      { token: { contract: '0x0000000000000000000000000000000000000000', name: 'WETH', decimals: 18 }, balance: 0 }
+      {
+        token: {
+          contract: { address: '0x0000000000000000000000000000000000000000', chain: 'blast' },
+          name: 'WETH',
+          decimals: 18,
+          type: 'erc20'
+        },
+        balance: 0
+      }
     ]
   }
   if (isNilOrEmpty(data)) {

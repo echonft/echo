@@ -1,12 +1,5 @@
-import { is } from 'ramda'
-
-export function throwError<Args extends unknown[], Result = Args>(
-  error: string | ((...args: Args) => Error)
-): (...args: Args) => Result {
-  return function (...args: Args) {
-    if (is(String, error)) {
-      throw Error(error)
-    }
-    throw error(...args)
-  } as (...args: Args) => Result
+export function throwError<T>(error: string): (obj: T) => T {
+  return function (_obj: T) {
+    throw Error(error)
+  } as (_obj: T) => T
 }

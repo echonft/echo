@@ -4,5 +4,5 @@ import type { Nft } from '@echo/model/types/nft'
 import { pipe } from 'ramda'
 
 export function getAllNfts(): Promise<Nft[]> {
-  return pipe(getNftsCollectionReference<true>, getQueryData)(true)
+  return pipe(getNftsCollectionReference, getQueryData)()
 }

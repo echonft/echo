@@ -1,7 +1,7 @@
-import { type OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
+import { type OfferThreadDocumentData } from '@echo/firestore/types/model/offer-thread/offer-thread-document-data'
 import { offerMockFromJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 
-export function offerThreadMock(): Record<string, OfferThread> {
+export function offerThreadMock(): Record<string, OfferThreadDocumentData> {
   return {
     hot4VWDzd6ZRsC3nsvnb: {
       offerId: offerMockFromJohnnycageId(),

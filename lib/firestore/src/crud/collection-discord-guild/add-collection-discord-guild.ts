@@ -2,19 +2,21 @@ import { getCollectionDiscordGuildsByCollection } from '@echo/firestore/crud/col
 import { getCollectionById } from '@echo/firestore/crud/collection/get-collection-by-id'
 import { getCollectionDiscordGuildsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collection-discord-guilds-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import {
-  type CollectionDiscordGuild,
-  type CollectionDiscordGuildData
-} from '@echo/firestore/types/model/collection-discord-guild/collection-discord-guild'
+import type { CollectionDiscordGuildDocumentData } from '@echo/firestore/types/model/collection-discord-guild/collection-discord-guild-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { includes, isNil, map, pipe, prop } from 'ramda'
 
 export async function addCollectionDiscordGuild(
-  collectionGuild: CollectionDiscordGuild
-): Promise<NewDocument<CollectionDiscordGuild>> {
+  collectionGuild: CollectionDiscordGuildDocumentData
+): Promise<NewDocument<CollectionDiscordGuildDocumentData>> {
   const { collectionId, guild } = collectionGuild
   const discordGuilds = await getCollectionDiscordGuildsByCollection(collectionId)
-  if (pipe(map<CollectionDiscordGuild, CollectionDiscordGuildData>(prop('guild')), includes(guild))(discordGuilds)) {
+  if (
+    pipe(
+      map<CollectionDiscordGuildDocumentData, CollectionDiscordGuildDocumentData['guild']>(prop('guild')),
+      includes(guild)
+    )(discordGuilds)
+  ) {
     return Promise.reject(
       Error(
         `trying to add discord guild with discordId ${guild.id} and channelId ${guild.channelId} for collection with id ${collectionId} while it already exists`
@@ -29,7 +31,7 @@ export async function addCollectionDiscordGuild(
       )
     )
   }
-  const id = await setReference<CollectionDiscordGuild>({
+  const id = await setReference<CollectionDiscordGuildDocumentData, CollectionDiscordGuildDocumentData>({
     collectionReference: getCollectionDiscordGuildsCollectionReference(),
     data: collectionGuild
   })

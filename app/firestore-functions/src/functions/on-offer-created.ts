@@ -2,6 +2,7 @@ import { getFirestoreEventData } from '@echo/firestore-functions/helper/get-fire
 import { getFunctionUrl } from '@echo/firestore-functions/helper/get-function-url'
 import { getLogger } from '@echo/firestore-functions/helper/get-logger'
 import { setMaxInstances } from '@echo/firestore-functions/helper/set-max-instances'
+import type { OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
 import type { Offer } from '@echo/model/types/offer'
 import { getFunctions } from 'firebase-admin/functions'
 import { onDocumentCreated } from 'firebase-functions/v2/firestore'
@@ -10,7 +11,7 @@ import { isNil } from 'ramda'
 export const onOfferCreated = onDocumentCreated(setMaxInstances({ document: 'offers/{id}' }), async (event) => {
   const functionName = 'expireOffer'
   const logger = getLogger().child({ function: functionName })
-  const offer = getFirestoreEventData<Offer>(event)
+  const offer = getFirestoreEventData<Offer, OfferDocumentData>(event)
   if (!isNil(offer)) {
     const queue = getFunctions().taskQueue(functionName)
     const uri = await getFunctionUrl(functionName)

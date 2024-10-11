@@ -1,4 +1,4 @@
-import type { Erc20TokenBalance } from '@echo/model/types/erc20-token-balance'
+import type { Erc20TokenBalance } from '@echo/model/types/token'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'

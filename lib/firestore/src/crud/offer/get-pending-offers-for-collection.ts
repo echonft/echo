@@ -14,8 +14,8 @@ export async function getPendingOffersForCollection(slug: string): Promise<Offer
     getOffersCollectionReference,
     queryWhere('state', 'in', NOT_READ_ONLY_OFFER_STATES),
     queryWhere('expiresAt', '>', now()),
-    queryOrderBy<Offer>('expiresAt', 'desc'),
-    queryWhereFilter<Offer>(
+    queryOrderBy('expiresAt', 'desc'),
+    queryWhereFilter(
       Filter.or(
         Filter.where('receiverItemCollections', 'array-contains', slug),
         Filter.where('senderItemCollections', 'array-contains', slug)

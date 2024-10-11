@@ -7,7 +7,7 @@ import { completeOffer, type CompleteOfferArgs } from '@echo/firestore/crud/offe
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { deleteSwap } from '@echo/firestore/crud/swap/delete-swap'
 import { getSwapSnapshot } from '@echo/firestore/crud/swap/get-swap'
-import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
+import type { CollectionSwapsCountDocumentData } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count-document-data'
 import { unchecked_updateCollectionSwapCounts } from '@echo/firestore/utils/collection-swaps-count/unchecked_update-collection-swap-counts'
 import { resetListings } from '@echo/firestore/utils/listing/reset-listings'
 import { resetNft } from '@echo/firestore/utils/nft/reset-nft'
@@ -39,7 +39,7 @@ describe('CRUD - offer - completeOffer', () => {
   const listingId = listingMockId()
   const offerId = offerMockToJohnnycageId()
   const slug = offerMockToJohnnycageSlug()
-  let initialSwapsCounts: CollectionSwapsCount[]
+  let initialSwapsCounts: CollectionSwapsCountDocumentData[]
   let createdStateUpdateId: Nullable<string>
   let createdSwapId: Nullable<string>
   let updatedNftIndexes: NftIndex[]
@@ -117,7 +117,7 @@ describe('CRUD - offer - completeOffer', () => {
       getOfferItemsCollectionSlugs,
       map(getCollectionSwapsCountByCollectionSlug),
       promiseAll,
-      andThen<Nullable<CollectionSwapsCount>[], CollectionSwapsCount[]>(reject(isNil))
+      andThen<Nullable<CollectionSwapsCountDocumentData>[], CollectionSwapsCountDocumentData[]>(reject(isNil))
     )(offer)
     expect(initialSwapsCounts).toBeDefined()
     expect(initialSwapsCounts.length).toBe(2)
@@ -138,7 +138,7 @@ describe('CRUD - offer - completeOffer', () => {
     const updatedSwapsCounts = await pipe(
       map(pipe(prop('collectionId'), getCollectionSwapsCountByCollectionId)),
       promiseAll,
-      andThen<Nullable<CollectionSwapsCount>[], CollectionSwapsCount[]>(reject(isNil))
+      andThen<Nullable<CollectionSwapsCountDocumentData>[], CollectionSwapsCountDocumentData[]>(reject(isNil))
     )(initialSwapsCounts)
     // check the offer state update
     expect(stateUpdateSnapshot).toBeDefined()

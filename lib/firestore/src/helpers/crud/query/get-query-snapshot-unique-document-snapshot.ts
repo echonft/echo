@@ -1,11 +1,11 @@
 import { querySnapshotIsEmpty } from '@echo/firestore/helpers/crud/query/query-snapshot-is-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { QueryDocumentSnapshot, QuerySnapshot } from 'firebase-admin/firestore'
+import { type DocumentData, QueryDocumentSnapshot, QuerySnapshot } from 'firebase-admin/firestore'
 import { head } from 'ramda'
 
-export function getQuerySnapshotUniqueDocumentSnapshot<T>(
-  querySnapshot: QuerySnapshot<T>
-): Nullable<QueryDocumentSnapshot<T>> {
+export function getQuerySnapshotUniqueDocumentSnapshot<AppModelType, DbModelType extends DocumentData>(
+  querySnapshot: QuerySnapshot<AppModelType, DbModelType>
+): Nullable<QueryDocumentSnapshot<AppModelType, DbModelType>> {
   if (querySnapshotIsEmpty(querySnapshot)) {
     return undefined
   }

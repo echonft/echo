@@ -2,10 +2,10 @@ import { addListingOffersFromOffer } from '@echo/firestore/crud/listing-offer/ad
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { assertOfferIsNotADuplicate } from '@echo/firestore/helpers/offer/assert/assert-offer-is-not-a-duplicate'
-import type { ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
+import type { ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer/listing-offer-document-data'
+import type { OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
-import { assertItems } from '@echo/model/helpers/item/assert/assert-items'
 import type { BaseOffer } from '@echo/model/types/base-offer'
 import { type Offer } from '@echo/model/types/offer'
 import type { OfferState } from '@echo/model/types/offer-state'
@@ -20,13 +20,14 @@ interface AddOfferArgs {
 
 export async function addOffer(args: AddOfferArgs): Promise<
   NewDocument<Offer> & {
-    listingOffers: NewDocument<ListingOffer>[]
+    listingOffers: NewDocument<ListingOfferDocumentData>[]
   }
 > {
   const { baseOffer, idContract } = args
   const { receiverItems, senderItems } = baseOffer
-  assertItems(receiverItems)
-  assertItems(senderItems)
+  // FIXME put back when new Offer model is done
+  // assertItems(receiverItems)
+  // assertItems(senderItems)
   await assertOfferIsNotADuplicate({ senderItems, receiverItems })
   const data: Offer = pipe(
     assoc('idContract', toLower(idContract)),
@@ -34,7 +35,7 @@ export async function addOffer(args: AddOfferArgs): Promise<
     assoc('slug', pipe(nowMs, toString, toLower<string>)()),
     assoc('state', OFFER_STATE_OPEN as OfferState)
   )(baseOffer)
-  const id = await setReference<Offer>({
+  const id = await setReference<Offer, OfferDocumentData>({
     collectionReference: getOffersCollectionReference(),
     data
   })

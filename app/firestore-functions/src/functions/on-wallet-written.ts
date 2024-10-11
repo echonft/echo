@@ -20,7 +20,7 @@ export const onWalletWritten = onDocumentWritten(
     if (!isNil(change)) {
       if (change.after.exists) {
         // wallet was created
-        const wallet = getDocumentSnapshotData<WalletDocumentData>(change.after as DocumentSnapshot<WalletDocumentData>)
+        const wallet = getDocumentSnapshotData(change.after as DocumentSnapshot<WalletDocumentData, WalletDocumentData>)
         if (!isNil(wallet)) {
           logger.info({ wallet }, 'wallet was added')
           const foundUser = await pipe(
@@ -40,8 +40,8 @@ export const onWalletWritten = onDocumentWritten(
         }
       } else if (change.before.exists) {
         // wallet was deleted
-        const wallet = getDocumentSnapshotData<WalletDocumentData>(
-          change.before as DocumentSnapshot<WalletDocumentData>
+        const wallet = getDocumentSnapshotData(
+          change.before as DocumentSnapshot<WalletDocumentData, WalletDocumentData>
         )
         if (!isNil(wallet)) {
           logger.info({ wallet }, 'wallet was deleted')

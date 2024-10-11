@@ -1,9 +1,9 @@
-import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
-import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
+import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing/listing-offer-fulfilling-status'
+import { type ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer/listing-offer-document-data'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
 import { offerMockFromJohnnycageId, offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 
-export function listingOfferMock(): Record<string, ListingOffer> {
+export function listingOfferMock(): Record<string, ListingOfferDocumentData> {
   return {
     iVWbfiUCYlNGKEAvQoF8: {
       listingId: listingMockId(),

@@ -1,7 +1,7 @@
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
-import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
+import type { OfferThreadDocumentData } from '@echo/firestore/types/model/offer-thread/offer-thread-document-data'
 import {
   OFFER_STATE_ACCEPTED,
   OFFER_STATE_CANCELLED,
@@ -43,7 +43,7 @@ async function getMessage(offer: Offer) {
 }
 
 interface PostOfferStateUpdateArgs extends WithLogger {
-  offerThread: OfferThread
+  offerThread: OfferThreadDocumentData
   thread: AnyThreadChannel
   offer: Offer
 }

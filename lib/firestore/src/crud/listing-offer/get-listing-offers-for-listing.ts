@@ -1,25 +1,25 @@
+import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing/listing-offer-fulfilling-status'
 import { getListingSnapshot } from '@echo/firestore/crud/listing/get-listing'
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { getQueriesSnapshots } from '@echo/firestore/helpers/crud/query/get-queries-snapshots'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { eqListingOffers } from '@echo/firestore/helpers/listing-offer/eq-listing-offers'
 import { getListingOfferFulfillingStatusForOffer } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status-for-offer'
-import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
-import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
+import { type ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer/listing-offer-document-data'
 import { NOT_READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
-import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
+import { getListingItemsIndex } from '@echo/model/helpers/listing/get-listing-items-index'
 import { type Listing } from '@echo/model/types/listing'
 import { now } from '@echo/utils/helpers/now'
 import { always, andThen, applySpec, invoker, isNil, juxt, map, pipe, prop, propEq, reject, uniqWith } from 'ramda'
 
-export async function getListingOffersForListing(listing: Listing): Promise<ListingOffer[]> {
+export async function getListingOffersForListing(listing: Listing): Promise<ListingOfferDocumentData[]> {
   const listingSnapshot = await getListingSnapshot(listing.slug)
   if (isNil(listingSnapshot)) {
     return Promise.reject(Error(`listing with slug ${listing.slug} does not exist`))
   }
   // get pending offers for which sender items contain the listing targets and receiver items intersect listing items
   // then filter out the ones that don't fill the listing
-  const listingItemIndexes = getNftIndexForNfts(listing.items)
+  const listingItemIndexes = getListingItemsIndex(listing)
   return pipe(
     getOffersCollectionReference,
     queryWhere('expiresAt', '>', now()),
@@ -32,7 +32,7 @@ export async function getListingOffersForListing(listing: Listing): Promise<List
     andThen(
       pipe(
         map(
-          applySpec<ListingOffer>({
+          applySpec<ListingOfferDocumentData>({
             listingId: always(listingSnapshot.id),
             offerId: prop('id'),
             fulfillingStatus: pipe(invoker(0, 'data'), getListingOfferFulfillingStatusForOffer(listing))

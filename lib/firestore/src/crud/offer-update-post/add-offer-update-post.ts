@@ -2,12 +2,12 @@ import { getOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/get-o
 import { getOfferUpdateById } from '@echo/firestore/crud/offer-update/get-offer-update-by-id'
 import { getOfferUpdatePostsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-update-posts-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import type { OfferUpdatePost } from '@echo/firestore/types/model/offer-update-post/offer-update-post'
+import type { OfferUpdatePostDocumentData } from '@echo/firestore/types/model/offer-update-post/offer-update-post-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { now } from '@echo/utils/helpers/now'
 import { isNil } from 'ramda'
 
-export async function addOfferUpdatePost(offerUpdateId: string): Promise<NewDocument<OfferUpdatePost>> {
+export async function addOfferUpdatePost(offerUpdateId: string): Promise<NewDocument<OfferUpdatePostDocumentData>> {
   const offerUpdate = await getOfferUpdateById(offerUpdateId)
   if (isNil(offerUpdate)) {
     return Promise.reject(
@@ -22,11 +22,11 @@ export async function addOfferUpdatePost(offerUpdateId: string): Promise<NewDocu
       Error(`trying to add an offer update post for offer update with id ${offerUpdateId} while it already exists`)
     )
   }
-  const data: OfferUpdatePost = {
+  const data: OfferUpdatePostDocumentData = {
     offerUpdateId,
     postedAt: now()
   }
-  const id = await setReference<OfferUpdatePost>({
+  const id = await setReference<OfferUpdatePostDocumentData, OfferUpdatePostDocumentData>({
     collectionReference: getOfferUpdatePostsCollectionReference(),
     data
   })

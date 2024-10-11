@@ -1,21 +1,25 @@
 import { getQuerySnapshot } from '@echo/firestore/helpers/crud/query/get-query-snapshot'
 import { getQuerySnapshotDocumentSnapshots } from '@echo/firestore/helpers/crud/query/get-query-snapshot-document-snapshots'
 import { promiseAll } from '@echo/utils/fp/promise-all'
-import { Query, type QueryDocumentSnapshot, type QuerySnapshot } from 'firebase-admin/firestore'
+import { type DocumentData, Query, type QueryDocumentSnapshot, type QuerySnapshot } from 'firebase-admin/firestore'
 import { andThen, flatten, isEmpty, map, pipe, reject } from 'ramda'
 
-export function getQueriesSnapshots<T>(queries: Query<T>[]): Promise<QueryDocumentSnapshot<T>[]> {
+export function getQueriesSnapshots<AppModelType, DbModelType extends DocumentData>(
+  queries: Query<AppModelType, DbModelType>[]
+): Promise<QueryDocumentSnapshot<AppModelType, DbModelType>[]> {
   return pipe<
-    [Query<T>[]],
-    Promise<QuerySnapshot<T>>[],
-    Promise<QuerySnapshot<T>[]>,
-    Promise<QueryDocumentSnapshot<T>[]>
+    [Query<AppModelType, DbModelType>[]],
+    Promise<QuerySnapshot<AppModelType, DbModelType>>[],
+    Promise<QuerySnapshot<AppModelType, DbModelType>[]>,
+    Promise<QueryDocumentSnapshot<AppModelType, DbModelType>[]>
   >(
-    map(getQuerySnapshot<T>),
+    map(getQuerySnapshot<AppModelType, DbModelType>),
     promiseAll,
     andThen(
       pipe(
-        map<QuerySnapshot<T>, QueryDocumentSnapshot<T>[]>(getQuerySnapshotDocumentSnapshots<T>),
+        map<QuerySnapshot<AppModelType, DbModelType>, QueryDocumentSnapshot<AppModelType, DbModelType>[]>(
+          getQuerySnapshotDocumentSnapshots<AppModelType, DbModelType>
+        ),
         reject(isEmpty),
         flatten
       )

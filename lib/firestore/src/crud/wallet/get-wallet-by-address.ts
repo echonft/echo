@@ -15,20 +15,20 @@ import { allPass, always, andThen, assoc, complement, isNotNil, pipe, propEq, to
 // it would make things much easier
 export function getWalletSnapshotByAddress(
   wallet: Wallet
-): Promise<Nullable<QueryDocumentSnapshot<WalletDocumentData>>> {
+): Promise<Nullable<QueryDocumentSnapshot<WalletDocumentData, WalletDocumentData>>> {
   if (isEvmChain(wallet.chain)) {
     return pipe(
       getWalletsCollectionReference,
-      queryWhere<WalletDocumentData>('address', '==', toLower(wallet.address)),
-      queryWhere<WalletDocumentData>('isEvm', '==', true),
+      queryWhere('address', '==', toLower(wallet.address)),
+      queryWhere('isEvm', '==', true),
       queryLimit(1),
       getQueryUniqueDocumentSnapshot
     )()
   }
   return pipe(
     getWalletsCollectionReference,
-    queryWhere<WalletDocumentData>('address', '==', toLower(wallet.address)),
-    queryWhere<WalletDocumentData>('chain', '==', wallet.chain),
+    queryWhere('address', '==', toLower(wallet.address)),
+    queryWhere('chain', '==', wallet.chain),
     getQueryUniqueDocumentSnapshot
   )()
 }
@@ -38,13 +38,13 @@ export function getWalletByAddress(wallet: Wallet): Promise<Nullable<WalletDocum
   const isEvm = isEvmChain(chain)
   return pipe(
     getWalletSnapshotByAddress,
-    andThen<Nullable<QueryDocumentSnapshot<WalletDocumentData>>, Nullable<WalletDocumentData>>(
+    andThen<Nullable<QueryDocumentSnapshot<WalletDocumentData, WalletDocumentData>>, Nullable<WalletDocumentData>>(
       pipe<
-        [Nullable<QueryDocumentSnapshot<WalletDocumentData>>],
+        [Nullable<QueryDocumentSnapshot<WalletDocumentData, WalletDocumentData>>],
         Nullable<WalletDocumentData>,
         Nullable<WalletDocumentData>
       >(
-        getDocumentSnapshotData<WalletDocumentData>,
+        getDocumentSnapshotData,
         when(
           allPass([isNotNil, always(isEvm), complement(propEq(chain, 'chain'))]) as (
             obj: Nullable<WalletDocumentData>

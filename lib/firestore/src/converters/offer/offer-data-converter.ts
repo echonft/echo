@@ -17,9 +17,9 @@ import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue
 import { dissoc, pipe } from 'ramda'
 
 export const offerDataConverter: FirestoreDataConverter<Offer, OfferDocumentData> = {
-  fromFirestore(snapshot: QueryDocumentSnapshot<OfferDocumentData>): Offer {
+  fromFirestore(snapshot: QueryDocumentSnapshot<OfferDocumentData, OfferDocumentData>): Offer {
     return pipe(
-      nonNullableReturn(getDocumentSnapshotData<OfferDocumentData>),
+      nonNullableReturn(getDocumentSnapshotData<OfferDocumentData, OfferDocumentData>),
       lowerReceiverWalletAddress,
       lowerSenderWalletAddress,
       lowerIdContract,

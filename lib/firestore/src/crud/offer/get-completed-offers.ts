@@ -10,9 +10,9 @@ import { pipe } from 'ramda'
 export function getCompletedOffers(limit?: number): Promise<Offer[]> {
   return pipe(
     getOffersCollectionReference,
-    queryWhere<Offer>('state', '==', OFFER_STATE_COMPLETED),
-    queryOrderBy<Offer>('expiresAt', 'desc'),
-    queryLimit<Offer>(limit),
+    queryWhere('state', '==', OFFER_STATE_COMPLETED),
+    queryOrderBy('expiresAt', 'desc'),
+    queryLimit(limit),
     getQueryData
   )()
 }

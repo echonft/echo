@@ -10,7 +10,7 @@ import { getNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-nfts-from
 import { createListingRequestHandler } from '@echo/frontend/lib/request-handlers/listing/create-listing-request-handler'
 import { mockRequest } from '@echo/frontend/mocks/mock-request'
 import { ONE_DAY } from '@echo/model/constants/expiration'
-import { getListingItemsIndexes } from '@echo/model/helpers/listing/get-listing-items-indexes'
+import { getListingItemsIndex } from '@echo/model/helpers/listing/get-listing-items-index'
 import { getCollectionMockBySlug } from '@echo/model/mocks/collection/get-collection-mock-by-slug'
 import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
@@ -61,7 +61,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
 
   it('returns 200 if the user owns all the items', async () => {
     const validRequest: CreateListingRequest = {
-      items: getListingItemsIndexes(listing),
+      items: getListingItemsIndex(listing),
       target: pipe<[Listing], ListingTarget, ListingTargetRequest>(prop('target'), mapListingTargetToRequest)(listing),
       expiration: ONE_DAY
     }

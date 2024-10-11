@@ -1,4 +1,4 @@
-import type { Erc20Token } from '@echo/model/types/erc20-token'
+import type { Erc20Token } from '@echo/model/types/token'
 import { DownCaretSvg } from '@echo/ui/components/base/svg/down-caret-svg'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { clsx } from 'clsx'
@@ -57,7 +57,7 @@ export const TokenSelectorMenu: FunctionComponent<Props> = ({ selectedToken, tok
       >
         {map(
           (token) => (
-            <MenuItem key={token.contract}>
+            <MenuItem key={token.contract.address}>
               <button
                 className={clsx(
                   'flex',

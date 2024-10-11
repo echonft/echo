@@ -15,7 +15,7 @@ export async function getPendingListingsForCollection(slug: string): Promise<Lis
     queryWhere('state', 'in', NOT_READ_ONLY_LISTING_STATES),
     queryWhere('expiresAt', '>', now()),
     queryOrderBy('expiresAt', 'desc'),
-    queryWhereFilter<Listing>(
+    queryWhereFilter(
       Filter.or(
         Filter.where('itemCollections', 'array-contains', slug),
         Filter.where('target.collection.slug', '==', slug)

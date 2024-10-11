@@ -2,9 +2,9 @@ import { apiPathProvider } from '@echo/api/routing/api/api-path-provider'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import type { NftResponse } from '@echo/nft-scan/types/response/nft-response'
 import { nftAttributeResponseSchema } from '@echo/nft-scan/validators/nft-attribute-response-schema'
+import { convertNullToUndefined } from '@echo/utils/fp/convert-null-to-undefined'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
-import { removeNull } from '@echo/utils/fp/remove-null'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import type { ChainName } from '@echo/utils/types/chain-name'
@@ -87,8 +87,8 @@ export function nftResponseSchema(chain: ChainName) {
         pipe(prop('token_id'), invoker(0, 'toString')),
         nonNullableReturn(prop('name'))
       ),
-      metadataUrl: pipe(prop('token_uri'), removeNull),
-      pictureUrl: pipe(prop('image_uri'), removeNull),
+      metadataUrl: pipe(prop('token_uri'), convertNullToUndefined),
+      pictureUrl: pipe(prop('image_uri'), convertNullToUndefined),
       tokenId: prop('token_id'),
       type: prop('erc_type')
     })

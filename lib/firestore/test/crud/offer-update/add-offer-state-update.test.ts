@@ -1,4 +1,4 @@
-import { OFFER_UPDATE_KIND_STATE } from '@echo/firestore/constants/offer/offer-update-kinds'
+import { OfferUpdateKind } from '@echo/firestore/constants/offer/offer-update-kind'
 import {
   addOfferStateUpdate,
   type AddOfferStateUpdateArgs
@@ -41,7 +41,7 @@ describe('CRUD - offer-update - addOfferStateUpdate', () => {
     offerUpdateId = id
     const newDocument = (await getOfferUpdateById(id))!
     expect(newDocument.offerId).toStrictEqual(args.offerId)
-    expect(newDocument.update.kind).toStrictEqual(OFFER_UPDATE_KIND_STATE)
+    expect(newDocument.update.kind).toStrictEqual(OfferUpdateKind.STATE)
     expect(newDocument.update.args).toStrictEqual(args.args)
   })
 })

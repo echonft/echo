@@ -1,11 +1,11 @@
+import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing/listing-offer-fulfilling-status'
 import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
 import { getQueriesSnapshots } from '@echo/firestore/helpers/crud/query/get-queries-snapshots'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { eqListingOffers } from '@echo/firestore/helpers/listing-offer/eq-listing-offers'
 import { getListingOfferFulfillingStatusForListing } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status-for-listing'
-import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
-import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
+import { type ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer/listing-offer-document-data'
 import { NOT_READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
 import { getOfferReceiverItemsIndexes } from '@echo/model/helpers/offer/get-offer-receiver-items-indexes'
 import { getOfferSenderItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-sender-items-collection-slugs'
@@ -13,7 +13,7 @@ import { type Offer } from '@echo/model/types/offer'
 import { now } from '@echo/utils/helpers/now'
 import { always, andThen, applySpec, invoker, isNil, juxt, map, pipe, prop, propEq, reject, uniqWith } from 'ramda'
 
-export async function getListingOffersForOffer(offer: Offer): Promise<ListingOffer[]> {
+export async function getListingOffersForOffer(offer: Offer): Promise<ListingOfferDocumentData[]> {
   const offerSnapshot = await getOfferSnapshot(offer.slug)
   if (isNil(offerSnapshot)) {
     return Promise.reject(Error(`offer with slug ${offer.slug} does not exist`))
@@ -32,7 +32,7 @@ export async function getListingOffersForOffer(offer: Offer): Promise<ListingOff
     andThen(
       pipe(
         map(
-          applySpec<ListingOffer>({
+          applySpec<ListingOfferDocumentData>({
             listingId: prop('id'),
             offerId: always(offerSnapshot.id),
             fulfillingStatus: pipe(invoker(0, 'data'), getListingOfferFulfillingStatusForListing(offer))

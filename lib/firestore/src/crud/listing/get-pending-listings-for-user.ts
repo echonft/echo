@@ -20,10 +20,10 @@ export async function getPendingListingsForUser(username: string): Promise<Listi
   return pipe<
     [],
     CollectionReference<Listing, ListingDocumentData>,
-    Query<Listing>,
-    Query<Listing>,
-    Query<Listing>,
-    Query<Listing>[],
+    Query<Listing, ListingDocumentData>,
+    Query<Listing, ListingDocumentData>,
+    Query<Listing, ListingDocumentData>,
+    Query<Listing, ListingDocumentData>[],
     Promise<Listing[]>,
     Promise<Listing[]>
   >(
@@ -31,7 +31,7 @@ export async function getPendingListingsForUser(username: string): Promise<Listi
     queryWhere('creator.username', '!=', username),
     queryOrderBy('creator.username'),
     queryOrderBy('expiresAt', 'desc'),
-    juxt(map(partial(queryWhere<Listing>, ['target.collection.slug', 'in']), collectionSlugs)),
+    juxt(map(partial(queryWhere<Listing, ListingDocumentData>, ['target.collection.slug', 'in']), collectionSlugs)),
     partialRight(getQueriesDocuments, [eqProps('slug')]),
     andThen(reject<Listing>(prop('readOnly')))
   )()
