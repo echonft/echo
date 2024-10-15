@@ -12,5 +12,8 @@ export function getEchoAddress(chain: ChainName): EvmAddress {
       throw Error(`unsupported chain: ${chain}`)
     case 'sepolia':
       return toLower('0xB0904D81440EFCA27Ec61948c95f21D7d546F8C3')
+    case 'sei':
+      // FIXME wrong address
+      return toLower('0x538dd3e75d05b63dc81fee587b8a4aa5fde2cc95')
   }
 }

@@ -10,5 +10,7 @@ export function blockExplorerLinkFromChain(wallet: Wallet): string {
       return `https://sepolia.etherscan.io/address/${wallet.address}`
     case 'blast_sepolia':
       return `https://sepolia.blastscan.io/address/${wallet.address}`
+    case 'sei':
+      return `https://seitrace.com/address/${wallet.address}`
   }
 }

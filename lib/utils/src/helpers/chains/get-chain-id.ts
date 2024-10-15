@@ -10,6 +10,8 @@ export function getChainId(name: ChainName): number {
       return 1
     case 'sepolia':
       return 11155111
+    case 'sei':
+      return 1329
     default:
       throw Error(`chain not supported: ${name as string}`)
   }

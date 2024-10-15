@@ -10,6 +10,8 @@ export function getChain(id: number): ChainName {
       return 'ethereum'
     case 11155111:
       return 'sepolia'
+    case 1329:
+      return 'sei'
     default:
       throw Error(`chain id not supported: ${id}`)
   }

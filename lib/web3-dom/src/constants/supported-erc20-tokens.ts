@@ -53,5 +53,19 @@ export const supportedErc20Tokens: Record<ChainName, NonEmptyArray<Erc20Token>> 
       decimals: 18,
       type: 'erc20'
     }
+  ],
+  sei: [
+    {
+      contract: { address: '0xb75d0b03c06a926e488e2659df1a861f860bd3d1', chain: 'sei' },
+      name: 'USDT',
+      decimals: 18,
+      type: 'erc20'
+    },
+    {
+      contract: { address: '0x3894085ef7ff0f0aedf52e2a2704928d1ec074f1', chain: 'sei' },
+      name: 'USDC',
+      decimals: 18,
+      type: 'erc20'
+    }
   ]
 }

@@ -10,3 +10,7 @@ export function ethereumChainId() {
 export function sepoliaChainId() {
   return 11155111
 }
+
+export function seiChainId() {
+  return 1329
+}
