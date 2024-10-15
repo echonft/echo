@@ -2,6 +2,7 @@ import {
   blastChainId,
   blastSepoliaChainId,
   ethereumChainId,
+  seiChainId,
   sepoliaChainId
 } from '@echo/utils/helpers/chains/chain-ids'
 import { getSecret } from '@echo/utils/services/secret-manager'
@@ -55,6 +56,9 @@ export async function getTransport(chain: Chain): Promise<FallbackTransport<[Web
     // TODO add logger
     const endpoint = await getSecret({ name: 'QUICKNODE_BLAST_ENDPOINT' })
     return fallback([webSocket(`wss://${endpoint}`), http(`https://${endpoint}`)], config)
+  }
+  if (chainId === seiChainId()) {
+    return fallback([webSocket('wss://evm-ws.sei-apis.com'), http('https://evm-rpc.sei-apis.com')], config)
   }
   const transportUrl = await alchemyTransportUrl(chainId)
   return fallback([webSocket(`wss://${transportUrl}`), http(`https://${transportUrl}`)], config)

@@ -39,10 +39,15 @@ export async function updateNftsForWallet(args: WithLoggerType<UpdateNftsForWall
       head,
       nonNullableReturn(path(['collection', 'contract']))
     )(nftGroup)
-    const collection = await getOrAddCollection({ contract, fetch: args.fetch, logger })
-    const nfts = map(assoc('collection', collection), nftGroup)
-    for (const nft of nfts) {
-      await addOrUpdateNft({ nft, logger })
+    // Use a try to avoid the command from crashing in some cases (i.e. if collection is spam)
+    try {
+      const collection = await getOrAddCollection({ contract, fetch: args.fetch, logger })
+      const nfts = map(assoc('collection', collection), nftGroup)
+      for (const nft of nfts) {
+        await addOrUpdateNft({ nft, logger })
+      }
+    } catch (err) {
+      logger?.error({ err, nftGroup }, 'could not get/add collection or NFT')
     }
   }
   // check if there are any NFTs owned by the wallet in our database for which ownership changed

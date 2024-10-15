@@ -6,5 +6,5 @@ export function getSupportedChains() {
   if (isTestnet) {
     return ['blast_sepolia', 'sepolia'] as NonEmptyArray<ChainName>
   }
-  return ['blast'] as NonEmptyArray<ChainName>
+  return ['sei'] as NonEmptyArray<ChainName>
 }
