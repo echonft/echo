@@ -20,6 +20,7 @@ export const TradeStepIndicator: FunctionComponent<LoginStepIndicatorProps> = ({
                   'h-0.75',
                   'grow',
                   'basis-0',
+                  'transition-colors',
                   index == 0 && 'rounded-l-xl',
                   index <= step && 'bg-yellow-500'
                 )}
@@ -34,6 +35,7 @@ export const TradeStepIndicator: FunctionComponent<LoginStepIndicatorProps> = ({
                   'w-3.5',
                   'h-3.5',
                   'rounded-full',
+                  'transition-colors',
                   index <= step ? 'bg-yellow-500' : 'bg-white/10'
                 )}
               />
@@ -42,6 +44,7 @@ export const TradeStepIndicator: FunctionComponent<LoginStepIndicatorProps> = ({
                   'h-0.75',
                   'grow',
                   'basis-0',
+                  'transition-colors',
                   index == step &&
                     index < totalSteps - 1 && [
                       'bg-gradientYellowToTransparent',

@@ -390,6 +390,10 @@ Don't worry, its safe with us.`
     details: {
       expiredAt: 'Expired',
       expiresAt: 'Expires in'
+    },
+    create: {
+      backBtn: 'Back',
+      nextBtn: 'Next'
     }
   },
   user: {

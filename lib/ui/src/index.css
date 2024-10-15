@@ -225,6 +225,6 @@
     @apply w-40 h-10 px-5 py-1.5;
   }
   .bottom-bar-layout {
-    @apply flex flex-row justify-end items-center fixed bottom-0 w-screen px-14 border-t-2 border-dark-400 bg-dark-500 -translate-x-6 lg:-translate-x-12;
+    @apply flex flex-row items-center fixed bottom-0 w-screen px-14 border-t-2 border-dark-400 bg-dark-500;
   }
 }
