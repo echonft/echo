@@ -1,4 +1,4 @@
-import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference/collection-reference-name'
+import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
 import { getListingsForNft } from '@echo/firestore/crud/listing/get-listings-for-nft'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import { resetListings } from '@echo/firestore/utils/listing/reset-listings'
@@ -26,7 +26,7 @@ describe('CRUD - listing - getListingsForNft', () => {
   }
   beforeEach(async () => {
     await resetListings()
-    const documents = await firestoreApp().collection(CollectionReferenceName.LISTINGS).listDocuments()
+    const documents = await firestoreApp().collection(CollectionReferenceName.Listings).listDocuments()
     for (const document of documents) {
       await document.update({ state: LISTING_STATE_OPEN })
     }

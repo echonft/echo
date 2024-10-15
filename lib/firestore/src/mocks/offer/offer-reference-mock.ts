@@ -1,4 +1,4 @@
-import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference/collection-reference-name'
+import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
 import { type OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import type { Offer } from '@echo/model/types/offer'
@@ -9,7 +9,7 @@ export function offerReferenceMock(): Record<string, DocumentReference<Offer, Of
   return {
     LyCfl6Eg7JKuD7XJ6IPi: {
       id,
-      path: `${CollectionReferenceName.OFFERS}/${id}`
+      path: `${CollectionReferenceName.Offers}/${id}`
     } as unknown as DocumentReference<Offer, OfferDocumentData>
   }
 }

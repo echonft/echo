@@ -1,4 +1,4 @@
-import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference/collection-reference-name'
+import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
 import { escrowedNftDataConverter } from '@echo/firestore/converters/nft/escrowed-nft-data-converter'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { EscrowedNftDocumentData } from '@echo/firestore/types/model/nft/escrowed-nft-document-data'
@@ -9,6 +9,6 @@ export function getEscrowedNftsCollectionReference(): CollectionReference<
   EscrowedNftDocumentData
 > {
   return firestoreApp()
-    .collection(CollectionReferenceName.ESCROWED_NFTS)
+    .collection(CollectionReferenceName.EscrowedNfts)
     .withConverter<EscrowedNftDocumentData, EscrowedNftDocumentData>(escrowedNftDataConverter)
 }

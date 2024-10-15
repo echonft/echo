@@ -1,4 +1,4 @@
-import { OfferUpdateKind } from '@echo/firestore/constants/offer/offer-update-kind'
+import { OfferUpdateKind } from '@echo/firestore/constants/offer-update-kind'
 import { getOfferStateUpdate } from '@echo/firestore/crud/offer-update/get-offer-state-update'
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { getOfferUpdatesCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-updates-collection-reference'
@@ -34,7 +34,7 @@ export async function addOfferStateUpdate(
   }
   const data: OfferStateUpdateDocumentData = {
     offerId,
-    update: { kind: OfferUpdateKind.STATE, args: args.args }
+    update: { kind: OfferUpdateKind.State, args: args.args }
   }
   const id = await setReference<OfferStateUpdateDocumentData, OfferStateUpdateDocumentData>({
     collectionReference: getOfferUpdatesCollectionReference<OfferStateUpdateDocumentData>(),

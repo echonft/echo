@@ -1,7 +1,7 @@
-import { NftError } from '@echo/firestore/constants/errors/nft/nft-error'
+import { NftError } from '@echo/firestore/constants/errors/nft-error'
 import { escrowNft } from '@echo/firestore/crud/nft/escrow-nft'
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
-import { unescrowNft, UnescrowNftError } from '@echo/firestore/crud/nft/unescrow-nft'
+import { unescrowNft } from '@echo/firestore/crud/nft/unescrow-nft'
 import { getEscrowedNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-escrowed-nfts-collection-reference'
 import { getReferenceById, type GetReferenceByIdArgs } from '@echo/firestore/helpers/crud/reference/get-reference-by-id'
 import type { EscrowedNftDocumentData } from '@echo/firestore/types/model/nft/escrowed-nft-document-data'
@@ -25,10 +25,10 @@ describe('CRUD - nft - unescrowNft', () => {
     }
   })
   it('throws if the NFT does not exist', async () => {
-    await expect(unescrowNft('not-found')).rejects.toEqual(Error(NftError.NOT_FOUND))
+    await expect(unescrowNft('not-found')).rejects.toEqual(Error(NftError.NotFound))
   })
   it('throws if the NFT is not in escrow', async () => {
-    await expect(unescrowNft(nftMockSpiralJohnnyId())).rejects.toEqual(Error(UnescrowNftError.NFT_NOT_IN_ESCROW))
+    await expect(unescrowNft(nftMockSpiralJohnnyId())).rejects.toEqual(Error(NftError.NotInEscrow))
   })
   it('deletes the escrowed NFT and sets back the original NFT owner', async () => {
     // add the escrowed nft

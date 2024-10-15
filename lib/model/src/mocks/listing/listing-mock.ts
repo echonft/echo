@@ -66,7 +66,7 @@ export const listingMock: Record<string, Listing> = {
     state: LISTING_STATE_OFFERS_PENDING,
     target: {
       collection: getCollectionMockById(collectionMockPxId()),
-      amount: 3
+      quantity: 3
     }
   }
 }

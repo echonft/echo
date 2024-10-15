@@ -1,4 +1,4 @@
-import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing/listing-offer-fulfilling-status'
+import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing-offer-fulfilling-status'
 import { deleteListingOffer } from '@echo/firestore/crud/listing-offer/delete-listing-offer'
 import { getListingOfferSnapshot } from '@echo/firestore/crud/listing-offer/get-listing-offer'
 import { getListingOffersByOfferId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-offer-id'
@@ -10,7 +10,7 @@ import { getAllOffers } from '@echo/firestore/crud/offer/get-all-offers'
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { assertOfferIsNotADuplicate } from '@echo/firestore/helpers/offer/assert/assert-offer-is-not-a-duplicate'
 import { resetListings } from '@echo/firestore/utils/listing/reset-listings'
-import { ONE_DAY } from '@echo/model/constants/expiration'
+import { Expiration } from '@echo/model/constants/expiration'
 import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { expirationToDate } from '@echo/model/helpers/expiration-to-date'
@@ -68,7 +68,7 @@ describe('CRUD - offer - addOffer', () => {
     expect(eqListContent(offers, getAllOfferMocks())).toBeTruthy()
   })
   it('add an offer', async () => {
-    const expiresAt = expirationToDate(ONE_DAY)
+    const expiresAt = expirationToDate(Expiration.OneDay)
     const senderItems: NonEmptyArray<OwnedNft> = [getNftMockById(nftMockPxCrewId())]
     const receiverItems: NonEmptyArray<OwnedNft> = [
       getNftMockById(nftMockSpiralJohnnyId()),
@@ -101,7 +101,7 @@ describe('CRUD - offer - addOffer', () => {
     createdListingOfferId = (await getListingOfferSnapshot({ listingId, offerId: createdOfferId }))!.id
     expect(createdListingOffer.offerId).toEqual(createdOfferId)
     expect(createdListingOffer.listingId).toEqual(listingId)
-    expect(createdListingOffer.fulfillingStatus).toEqual(ListingOfferFulfillingStatus.PARTIALLY)
+    expect(createdListingOffer.fulfillingStatus).toEqual(ListingOfferFulfillingStatus.Partially)
     // check if the listing state was updated
     const newListingState = (await getListingById(listingId))!.state
     expect(newListingState).toEqual(LISTING_STATE_OFFERS_PENDING)

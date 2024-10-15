@@ -1,4 +1,4 @@
-import type { Expiration } from '@echo/model/types/expiration'
+import type { Expiration } from '@echo/model/constants/expiration'
 import type { OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { CreateOfferModalSwitch } from '@echo/ui/components/offer/create/create-offer-modal-switch'

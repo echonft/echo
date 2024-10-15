@@ -8,7 +8,7 @@ jest.mock('@echo/firestore/crud/collection/get-collection')
 
 describe('helpers - listing - getListingTargetsFromRequest', () => {
   const listingTargetRequest: ListingTargetRequest = {
-    amount: 1,
+    quantity: 1,
     collection: {
       slug: 'collection-slug'
     }
@@ -18,7 +18,7 @@ describe('helpers - listing - getListingTargetsFromRequest', () => {
     name: 'collection-name'
   } as Collection
   const listingTarget = {
-    amount: 1,
+    quantity: 1,
     collection
   } as ListingTarget
 

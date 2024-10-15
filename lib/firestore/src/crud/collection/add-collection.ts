@@ -1,4 +1,4 @@
-import { CollectionError } from '@echo/firestore/constants/errors/collection/collection-error'
+import { CollectionError } from '@echo/firestore/constants/errors/collection-error'
 import { addCollectionSwapsCount } from '@echo/firestore/crud/collection-swaps-count/add-collection-swaps-count'
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { getCollectionsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collections-collection-reference'
@@ -17,7 +17,7 @@ export async function addCollection(data: Collection): Promise<
   const uniqueSlug = await generateUniqueCollectionSlug(data.slug)
   const collectionBySlug = await getCollection(uniqueSlug)
   if (!isNil(collectionBySlug)) {
-    return Promise.reject(Error(CollectionError.EXISTS))
+    return Promise.reject(Error(CollectionError.Exists))
   }
   const newData = assoc('slug', uniqueSlug, data)
   const collectionId = await setReference({

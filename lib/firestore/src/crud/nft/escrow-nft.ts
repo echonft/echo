@@ -1,4 +1,4 @@
-import { NftError } from '@echo/firestore/constants/errors/nft/nft-error'
+import { NftError } from '@echo/firestore/constants/errors/nft-error'
 import { getEscrowedNftSnapshot } from '@echo/firestore/crud/nft/get-escrowed-nft-snapshot'
 import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
 import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
@@ -8,18 +8,14 @@ import type { EscrowedNftDocumentData } from '@echo/firestore/types/model/nft/es
 import type { OwnedNftIndex } from '@echo/model/types/nft'
 import { isNil } from 'ramda'
 
-export enum EscrowNftError {
-  NFT_ALREADY_IN_ESCROW = 'NFT is already in escrow'
-}
-
 export async function escrowNft(nft: OwnedNftIndex): Promise<string> {
   const snapshot = await getNftSnapshot(nft)
   if (isNil(snapshot)) {
-    return Promise.reject(Error(NftError.NOT_FOUND))
+    return Promise.reject(Error(NftError.NotFound))
   }
   const escrowedNftSnapshot = await getEscrowedNftSnapshot(snapshot.id)
   if (!isNil(escrowedNftSnapshot)) {
-    return Promise.reject(Error(EscrowNftError.NFT_ALREADY_IN_ESCROW))
+    return Promise.reject(Error(NftError.AlreadyInEscrow))
   }
   // remove NFT owner
   await removeNftOwner(nft)

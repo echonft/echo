@@ -14,7 +14,6 @@ export interface FetchNftsByAccountResponseSchemaReturn {
 export function fetchNftsResponseSchema(chain: ChainName) {
   const schema = object({
     data: object({
-      // total: number(),
       next: string().nullable().optional(),
       content: nftResponseSchema(chain).array()
     })

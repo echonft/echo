@@ -1,4 +1,4 @@
-import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference/collection-reference-name'
+import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
 import { collectionDiscordGuildMock } from '@echo/firestore/mocks/collection-discord-guild/collection-discord-guild-mock'
 import { collectionSwapsCountMock } from '@echo/firestore/mocks/collection-swaps-count/collection-swaps-count-mock'
 import { listingOfferMock } from '@echo/firestore/mocks/listing-offer/listing-offer-mock'
@@ -18,29 +18,29 @@ import { always, ifElse, isNil, mapObjIndexed, pipe, values } from 'ramda'
 
 function getMock(collectionReferenceName: CollectionReferenceName) {
   switch (collectionReferenceName) {
-    case CollectionReferenceName.COLLECTIONS:
+    case CollectionReferenceName.Collections:
       return collectionMock() as Record<string, DocumentData>
-    case CollectionReferenceName.COLLECTION_DISCORD_GUILDS:
+    case CollectionReferenceName.CollectionDiscordGuilds:
       return collectionDiscordGuildMock() as Record<string, DocumentData>
-    case CollectionReferenceName.COLLECTION_SWAPS_COUNT:
+    case CollectionReferenceName.CollectionSwapsCount:
       return collectionSwapsCountMock() as Record<string, DocumentData>
-    case CollectionReferenceName.LISTINGS:
+    case CollectionReferenceName.Listings:
       return listingDocumentDataMock() as Record<string, DocumentData>
-    case CollectionReferenceName.LISTING_OFFERS:
+    case CollectionReferenceName.ListingOffers:
       return listingOfferMock() as Record<string, DocumentData>
-    case CollectionReferenceName.LISTING_POSTS:
+    case CollectionReferenceName.ListingPosts:
       return listingPostMock() as Record<string, DocumentData>
-    case CollectionReferenceName.OFFERS:
+    case CollectionReferenceName.Offers:
       return offerDocumentDataMock() as Record<string, DocumentData>
-    case CollectionReferenceName.OFFER_THREADS:
+    case CollectionReferenceName.OfferThreads:
       return offerThreadMock() as Record<string, DocumentData>
-    case CollectionReferenceName.SWAPS:
+    case CollectionReferenceName.Swaps:
       return swapMock() as Record<string, DocumentData>
-    case CollectionReferenceName.SWAP_POSTS:
+    case CollectionReferenceName.SwapPosts:
       return swapPostMock() as Record<string, DocumentData>
-    case CollectionReferenceName.USERS:
+    case CollectionReferenceName.Users:
       return userDocumentDataMock() as Record<string, DocumentData>
-    case CollectionReferenceName.WALLETS:
+    case CollectionReferenceName.Wallets:
       return walletDocumentDataMock() as Record<string, DocumentData>
     default:
       return undefined

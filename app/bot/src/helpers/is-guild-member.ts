@@ -9,7 +9,7 @@ interface IsGuildMemberArgs extends WithLogger {
   userId: string
 }
 
-// FIXME might be needed if we support collection guilds
+// might be needed if we support collection guilds
 // noinspection JSUnusedGlobalSymbols
 export async function isGuildMember(args: IsGuildMemberArgs) {
   const guild = await getGuild(omit(['userId'], args))

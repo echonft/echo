@@ -1,4 +1,4 @@
-import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference/collection-reference-name'
+import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
 import { getOffersForNft } from '@echo/firestore/crud/offer/get-offers-for-nft'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import { resetOffers } from '@echo/firestore/utils/offer/reset-offers'
@@ -29,7 +29,7 @@ describe('CRUD - offer - getOffersForNft', () => {
   }
   beforeEach(async () => {
     await resetOffers()
-    const documents = await firestoreApp().collection(CollectionReferenceName.OFFERS).listDocuments()
+    const documents = await firestoreApp().collection(CollectionReferenceName.Offers).listDocuments()
     for (const document of documents) {
       await document.update({ state: OFFER_STATE_OPEN })
     }

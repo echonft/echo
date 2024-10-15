@@ -1,13 +1,13 @@
 import type { Erc721Nft, Nft, NftCollection } from '@echo/model/types/nft'
-import type { Erc1155Token, Erc721Token, NftToken, NftTokenCollection, NftTokenNft } from '@echo/model/types/token'
+import type { Erc1155Token, Erc721Token, NftToken } from '@echo/model/types/token'
 import { assoc, dissoc, modify, pipe } from 'ramda'
 
-export function mapNftCollectionToNftTokenCollection(collection: NftCollection): NftTokenCollection {
+export function mapNftCollectionToNftTokenCollection(collection: NftCollection): NftToken['collection'] {
   return dissoc('contract', collection)
 }
 
-export function mapNftToNftTokenNft(nft: Nft): NftTokenNft {
-  return pipe<[Nft], Omit<Nft, 'attributes'>, Omit<Nft, 'attributes' | 'owner'>, NftTokenNft>(
+export function mapNftToNftTokenNft(nft: Nft): Omit<NftToken, 'contract'> {
+  return pipe<[Nft], Omit<Nft, 'attributes'>, Omit<Nft, 'attributes' | 'owner'>, Omit<NftToken, 'contract'>>(
     dissoc('attributes'),
     dissoc('owner'),
     modify('collection', mapNftCollectionToNftTokenCollection)

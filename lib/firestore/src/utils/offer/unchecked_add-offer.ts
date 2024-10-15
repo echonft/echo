@@ -2,7 +2,7 @@ import { getOffersCollectionReference } from '@echo/firestore/helpers/collection
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import type { OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
-import { ONE_DAY } from '@echo/model/constants/expiration'
+import { Expiration } from '@echo/model/constants/expiration'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { expirationToDateNumber } from '@echo/model/helpers/expiration-to-date-number'
 import type { OwnedNft } from '@echo/model/types/nft'
@@ -16,7 +16,7 @@ export async function unchecked_addOffer(
   receiverItems: NonEmptyArray<OwnedNft>
 ): Promise<NewDocument<Offer>> {
   const data: Offer = {
-    expiresAt: expirationToDateNumber(ONE_DAY),
+    expiresAt: expirationToDateNumber(Expiration.OneDay),
     idContract: toLower('0xwhatever'),
     readOnly: false,
     receiver: pipe<[NonEmptyArray<OwnedNft>], OwnedNft, User>(head, prop('owner'))(receiverItems),

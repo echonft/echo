@@ -18,7 +18,7 @@ export const ListingDetailsTarget: FunctionComponent<Props> = ({ target }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'items-center', 'gap-4.5')}>
       <span className={clsx('prose-paragraph-lg', '!text-[0.9375rem]', 'text-white')}>
-        {t('quantity', { count: target.amount })}
+        {t('quantity', { count: target.quantity })}
       </span>
       <CollectionThumbnail collection={target.collection} />
     </div>

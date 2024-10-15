@@ -1,4 +1,4 @@
-import { NftError } from '@echo/firestore/constants/errors/nft/nft-error'
+import { NftError } from '@echo/firestore/constants/errors/nft-error'
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { resetNft } from '@echo/firestore/utils/nft/reset-nft'
@@ -24,7 +24,7 @@ describe('CRUD - nft - setNftOwner', () => {
   it('throws if the NFT does not exist', async () => {
     const owner = getUserMockByUsername(userMockJohnnyUsername())
     await expect(setNftOwner({ nft: { collection: { slug: 'not-found' }, tokenId: 0 }, owner })).rejects.toEqual(
-      Error(NftError.NOT_FOUND)
+      Error(NftError.NotFound)
     )
   })
   it('updates the NFT with the new owner', async () => {

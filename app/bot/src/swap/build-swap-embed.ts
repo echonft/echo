@@ -8,19 +8,16 @@ import i18next from 'i18next'
 import { addIndex, flatten, map } from 'ramda'
 
 export function buildSwapEmbed(offer: Offer, creator: UserDocumentData, counterparty: UserDocumentData) {
-  return (
-    new EmbedBuilder()
-      .setTitle(i18next.t('swap.embed.title'))
-      .setDescription(
-        i18next.t('swap.embed.description', {
-          creator: userMention(creator.discord.id),
-          counterparty: userMention(counterparty.discord.id)
-        })
-      )
-      // TODO Maybe a color per collection via settings?
-      .setColor(0x00ff66)
-      .setFields(fields(offer.senderItems, offer.receiverItems))
-  )
+  return new EmbedBuilder()
+    .setTitle(i18next.t('swap.embed.title'))
+    .setDescription(
+      i18next.t('swap.embed.description', {
+        creator: userMention(creator.discord.id),
+        counterparty: userMention(counterparty.discord.id)
+      })
+    )
+    .setColor(0x00ff66)
+    .setFields(fields(offer.senderItems, offer.receiverItems))
 }
 
 function fields(senderItems: Nft[], receiverItems: Nft[]): APIEmbedField[] {

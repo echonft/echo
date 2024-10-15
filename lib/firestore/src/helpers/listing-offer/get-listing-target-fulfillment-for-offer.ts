@@ -1,4 +1,4 @@
-import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing/listing-offer-fulfilling-status'
+import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing-offer-fulfilling-status'
 import type { Listing } from '@echo/model/types/listing'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
@@ -15,12 +15,12 @@ export function getListingTargetFillForOffer(listing: Listing) {
       length,
       (length: number) => {
         if (length === 0) {
-          return ListingOfferFulfillingStatus.NONE
+          return ListingOfferFulfillingStatus.None
         }
-        if (length >= listing.target.amount) {
-          return ListingOfferFulfillingStatus.COMPLETELY
+        if (length >= listing.target.quantity) {
+          return ListingOfferFulfillingStatus.Completely
         }
-        return ListingOfferFulfillingStatus.PARTIALLY
+        return ListingOfferFulfillingStatus.Partially
       }
     )(offer)
   }

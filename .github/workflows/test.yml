@@ -23,6 +23,8 @@ jobs:
         run: pnpm exec turbo run test:ci --filter=@echo/bot
       - name: frontend tests
         run: pnpm exec turbo run test:ci --filter=@echo/frontend
+      - name: api tests
+        run: pnpm exec turbo run test:ci --filter=@echo/api
       - name: auth tests
         run: pnpm exec turbo run test:ci --filter=@echo/auth
       - name: firestore tests

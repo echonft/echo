@@ -1,4 +1,4 @@
-import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference/collection-reference-name'
+import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
 import { escrowedNftDataConverter } from '@echo/firestore/converters/nft/escrowed-nft-data-converter'
 import type { EscrowedNftDocumentData } from '@echo/firestore/types/model/nft/escrowed-nft-document-data'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
@@ -18,7 +18,7 @@ describe('converters - escrowedNftDataConverter', () => {
     const snapshot = {
       ref: {
         id,
-        path: `${CollectionReferenceName.ESCROWED_NFTS}/${id}`
+        path: `${CollectionReferenceName.EscrowedNfts}/${id}`
       } as unknown as DocumentReference<EscrowedNftDocumentData, EscrowedNftDocumentData>,
       id,
       exists: true,

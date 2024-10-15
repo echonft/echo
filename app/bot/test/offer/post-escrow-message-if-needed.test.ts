@@ -1,7 +1,7 @@
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { initializeTranslations } from '@echo/bot/messages/initialize-translations'
 import { postEscrowMessage } from '@echo/bot/offer/post-escrow-message'
-import { OfferUpdateKind } from '@echo/firestore/constants/offer/offer-update-kind'
+import { OfferUpdateKind } from '@echo/firestore/constants/offer-update-kind'
 import { getOfferUpdatesByOfferId } from '@echo/firestore/crud/offer-update/get-offer-updates-by-offer-id'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
@@ -29,7 +29,7 @@ describe('offer - postEscrowMessageIfNeeded', () => {
   const offerUpdate: OfferUpdateDocumentData = {
     offerId: offerMockFromJohnnycageId(),
     update: {
-      kind: OfferUpdateKind.STATE,
+      kind: OfferUpdateKind.State,
       args: {
         state: 'OPEN',
         trigger: {

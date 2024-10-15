@@ -1,13 +1,29 @@
+import type { ChainName } from '@echo/utils/types/chain-name'
 import type { Collection } from '@echo/model/types/collection'
 import type { NftAttribute } from '@echo/model/types/nft-attribute'
 import { emptyStringToUndefined } from '@echo/opensea/helpers/empty-string-to-undefined'
 import type { PartialNft } from '@echo/opensea/types/partial-nft'
 import { nftResponseAugmentation } from '@echo/opensea/validators/nft-response-schema'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
-import type { ChainName } from '@echo/utils/types/chain-name'
 import { evmAddressSchema } from '@echo/utils/validators/evm-address-schema'
 import { always, applySpec, ifElse, is, isNil, map, partialRight, pipe, prop, when } from 'ramda'
 import { boolean, nativeEnum, number, object, string } from 'zod'
+
+const nftTraitSchema = object({
+  trait_type: string(),
+  display_type: nativeEnum({
+    number: 'number',
+    boostPercentage: 'boost_percentage',
+    boostNumber: 'boost_number',
+    author: 'author',
+    date: 'date',
+    none: 'None'
+  })
+    .nullable()
+    .optional(),
+  max_value: string().nullable().optional(),
+  value: string().or(number())
+})
 
 export function nftExtendedResponseSchema(chain: ChainName) {
   const schema = object({
@@ -18,27 +34,13 @@ export function nftExtendedResponseSchema(chain: ChainName) {
       .transform(pipe(emptyStringToUndefined, removeQueryFromUrl)),
     is_suspicious: boolean(),
     creator: evmAddressSchema.nullable(),
-    traits: object({
-      trait_type: string(),
-      display_type: nativeEnum({
-        number: 'number',
-        boostPercentage: 'boost_percentage',
-        boostNumber: 'boost_number',
-        author: 'author',
-        date: 'date',
-        none: 'None'
-      })
-        .nullable()
-        .optional(),
-      max_value: string().nullable().optional(),
-      value: string().or(number())
-    })
+    traits: nftTraitSchema
       .array()
       .nullable()
       .transform(
         ifElse(
           isNil,
-          always([]),
+          always<NftAttribute[]>([]),
           map(
             applySpec<NftAttribute>({
               trait: prop('trait_type'),

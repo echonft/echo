@@ -1,4 +1,4 @@
-import { ItemError } from '@echo/model/constants/errors/item/item-error'
+import { ItemError } from '@echo/model/constants/errors/item-error'
 import type { Item } from '@echo/model/types/item'
 import type { Erc20Token } from '@echo/model/types/token'
 import type { Wallet } from '@echo/model/types/wallet'
@@ -14,11 +14,11 @@ export async function assertErc20ItemQuantity(args: WithLoggerType<AssertErc20It
   const { item, owner, logger } = args
   if (item.quantity <= 0) {
     logger?.error({ item, owner }, 'ERC20 token item quantity must be positive')
-    return Promise.reject(Error(ItemError.QUANTITY))
+    return Promise.reject(Error(ItemError.Quantity))
   }
   const balance = await getErc20TokenBalance({ token: item.token, wallet: owner })
   if (item.quantity > balance) {
     logger?.error({ item, owner, balance }, "ERC20 token item quantity is greater than the owner's balance")
-    return Promise.reject(Error(ItemError.QUANTITY))
+    return Promise.reject(Error(ItemError.Quantity))
   }
 }

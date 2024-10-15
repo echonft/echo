@@ -1,6 +1,6 @@
+import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
 import { initializeFirestoreCollection } from '@echo/firestore/utils/initialize-firestore-collection'
-import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference/collection-reference-name'
 
 export async function initializeOffers() {
-  await initializeFirestoreCollection(CollectionReferenceName.OFFERS)
+  await initializeFirestoreCollection(CollectionReferenceName.Offers)
 }

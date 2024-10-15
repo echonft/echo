@@ -12,15 +12,12 @@ import i18next from 'i18next'
 import { addIndex, flatten, map } from 'ramda'
 
 export function buildListingEmbed(listing: Listing, creator: UserDocumentData) {
-  return (
-    new EmbedBuilder()
-      .setTitle(i18next.t('listing.embed.title'))
-      .setDescription(i18next.t('listing.embed.description', { user: userMention(creator.discord.id) }))
-      // TODO Maybe a color per collection via settings?
-      .setColor(0x00ff66)
-      .setFields(fields(listing.items, listing.target))
-      .setURL(pathProvider.collection.default.getUrl({ slug: listing.target.collection.slug }, { listing: listing }))
-  )
+  return new EmbedBuilder()
+    .setTitle(i18next.t('listing.embed.title'))
+    .setDescription(i18next.t('listing.embed.description', { user: userMention(creator.discord.id) }))
+    .setColor(0x00ff66)
+    .setFields(fields(listing.items, listing.target))
+    .setURL(pathProvider.collection.default.getUrl({ slug: listing.target.collection.slug }, { listing: listing }))
 }
 
 function fields(items: Items, target: ListingTarget): APIEmbedField[] {
@@ -44,7 +41,7 @@ function listingItemsFields(items: Items): APIEmbedField[] {
 function listingTargetFields(target: ListingTarget): APIEmbedField {
   return {
     name: i18next.t('listing.embed.target.name'),
-    value: i18next.t('listing.embed.target.value', { count: target.amount, collectionName: target.collection.name }),
+    value: i18next.t('listing.embed.target.value', { count: target.quantity, collectionName: target.collection.name }),
     inline: true
   }
 }

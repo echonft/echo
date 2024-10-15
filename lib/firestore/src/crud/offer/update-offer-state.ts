@@ -1,4 +1,4 @@
-import { OfferError } from '@echo/firestore/constants/errors/offer/offer-error'
+import { OfferError } from '@echo/firestore/constants/errors/offer-error'
 import { addOfferStateUpdate } from '@echo/firestore/crud/offer-update/add-offer-state-update'
 import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
@@ -14,7 +14,7 @@ export async function updateOfferState(args: UpdateOfferStateArgs): Promise<Offe
   const { slug, state } = args
   const snapshot = await getOfferSnapshot(slug)
   if (isNil(snapshot)) {
-    return Promise.reject(Error(OfferError.NOT_FOUND))
+    return Promise.reject(Error(OfferError.NotFound))
   }
   const offer = snapshot.data()
   assertOfferStateTransition(offer, state)

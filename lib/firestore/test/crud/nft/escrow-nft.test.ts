@@ -1,5 +1,5 @@
-import { NftError } from '@echo/firestore/constants/errors/nft/nft-error'
-import { escrowNft, EscrowNftError } from '@echo/firestore/crud/nft/escrow-nft'
+import { NftError } from '@echo/firestore/constants/errors/nft-error'
+import { escrowNft } from '@echo/firestore/crud/nft/escrow-nft'
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { getEscrowedNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-escrowed-nfts-collection-reference'
 import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
@@ -34,7 +34,7 @@ describe('CRUD - nft - escrowNft', () => {
   })
   it('throws if the NFT does not exist', async () => {
     const nft = pipe(getNftMock, assoc('tokenId', 0))()
-    await expect(escrowNft(nft)).rejects.toEqual(Error(NftError.NOT_FOUND))
+    await expect(escrowNft(nft)).rejects.toEqual(Error(NftError.NotFound))
   })
   it('adds the escrowed NFT and removes the NFT owner', async () => {
     nftId = nftMockSpiralJohnnyId()
@@ -61,6 +61,6 @@ describe('CRUD - nft - escrowNft', () => {
     nftId = nftMockSpiralJohnnyId()
     const nft = getNftMockById(nftId)
     escrowedNftId = await escrowNft(nft)
-    await expect(escrowNft(nft)).rejects.toEqual(Error(EscrowNftError.NFT_ALREADY_IN_ESCROW))
+    await expect(escrowNft(nft)).rejects.toEqual(Error(NftError.AlreadyInEscrow))
   })
 })

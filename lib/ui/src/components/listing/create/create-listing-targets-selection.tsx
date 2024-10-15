@@ -1,10 +1,10 @@
 'use client'
 import type { Collection } from '@echo/model/types/collection'
 import type { ListingTarget } from '@echo/model/types/listing-target'
+import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { QuantityPicker } from '@echo/ui/components/base/quantity-picker'
 import { SearchBox } from '@echo/ui/components/base/search/search-box'
 import { SelectableCollectionThumbnail } from '@echo/ui/components/collection/thumbnail/selectable-collection-thumbnail'
-import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -54,7 +54,7 @@ export const CreateListingTargetsSelection: FunctionComponent<CreateListingTarge
   return (
     <div className={clsx('flex', 'w-full', 'h-max', 'justify-center', 'items-center', 'gap-6')}>
       <SelectableCollectionThumbnail collection={target.collection} onRemove={onRemove} />
-      <QuantityPicker initialQty={target.amount} onQtyChange={onQtyChange} />
+      <QuantityPicker initialQty={target.quantity} onQtyChange={onQtyChange} />
     </div>
   )
 }

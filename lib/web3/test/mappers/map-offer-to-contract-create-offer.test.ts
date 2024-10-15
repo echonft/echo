@@ -45,6 +45,6 @@ describe('mappers - mapOfferToContractCreateOffer', () => {
       ]
     })
     expect(result.expiration).toBe(testOffer.expiresAt)
-    expect(result.state).toBe(ContractOfferState.OPEN)
+    expect(result.state).toBe(ContractOfferState.Open)
   })
 })

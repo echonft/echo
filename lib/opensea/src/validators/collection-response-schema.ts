@@ -1,8 +1,8 @@
-import type { Collection } from '@echo/model/types/collection'
-import { emptyStringToUndefined } from '@echo/opensea/helpers/empty-string-to-undefined'
-import { removeSpecialCharacters } from '@echo/utils/fp/remove-special-characters'
-import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import type { ChainName } from '@echo/utils/types/chain-name'
+import type { Collection } from '@echo/model/types/collection'
+import { slugSchema } from '@echo/model/validators/slug-schema'
+import { emptyStringToUndefined } from '@echo/opensea/helpers/empty-string-to-undefined'
+import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import type { Logger } from '@echo/utils/types/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { evmAddressSchema } from '@echo/utils/validators/evm-address-schema'
@@ -21,9 +21,8 @@ export const collectionContractSchema = object({
   chain: string()
 })
 export function collectionResponseSchema(args?: CollectionResponseSchemaArgs) {
-  // uncomment fields if needed
   const schema = object({
-    collection: string().toLowerCase().transform(removeSpecialCharacters),
+    collection: slugSchema,
     name: string(),
     description: string().nullable().optional().transform(emptyStringToUndefined),
     image_url: string()
@@ -47,46 +46,13 @@ export function collectionResponseSchema(args?: CollectionResponseSchemaArgs) {
     category: string(),
     is_disabled: boolean(),
     is_nsfw: boolean(),
-    // trait_offers_enabled: boolean(),
-    // collection_offers_enabled: boolean(),
     opensea_url: string().url(),
     project_url: string().or(string().url()).nullable().optional().transform(emptyStringToUndefined),
-    // wiki_url: string().or(string().url()).nullable().optional().transform(emptyStringToUndefined),
     discord_url: string().or(string().url()).nullable().optional().transform(emptyStringToUndefined),
-    // telegram_url: string().or(string().url()).nullable().optional().transform(emptyStringToUndefined),
     twitter_username: string().nullable().optional().transform(emptyStringToUndefined),
     instagram_username: string().nullable().optional().transform(emptyStringToUndefined),
     contracts: collectionContractSchema.array(),
-    // editors: evmAddressSchema.array(),
-    // fees: object({
-    //   fee: number(),
-    //   recipient: evmAddressSchema,
-    //   required: boolean().nullable().optional()
-    // }).array(),
-    // required_zone: string().nullable().optional(),
-    // rarity: object({
-    //   strategy_version: string(),
-    //   calculated_at: string().datetime().nullable().optional(),
-    //   max_rank: number(),
-    //   total_supply: number()
-    // })
-    //   .nullable()
-    //   .optional(),
-    // payment_tokens: object({
-    //   symbol: string(),
-    //   address: evmAddressSchema,
-    //   chain: string(),
-    //   image: string().url(),
-    //   name: string(),
-    //   decimals: number(),
-    //   eth_price: string(),
-    //   usd_price: string()
-    // })
-    //   .array()
-    //   .nullable()
-    //   .optional(),
     total_supply: number().nullable().optional()
-    // created_date: string().date()
   })
 
   function transform(args?: CollectionResponseSchemaArgs) {

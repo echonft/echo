@@ -1,14 +1,14 @@
-import { ItemError } from '@echo/model/constants/errors/item/item-error'
+import { ItemError } from '@echo/model/constants/errors/item-error'
 import { allItems } from '@echo/model/helpers/item/all-items'
 import { itemsEmpty } from '@echo/model/helpers/item/items-empty'
 import { eqNft } from '@echo/model/helpers/nft/eq-nft'
 import { eqErc20Token } from '@echo/model/helpers/token/eq-erc20-token'
+import type { ChainName } from '@echo/utils/types/chain-name'
 import type { Item, Items } from '@echo/model/types/item'
 import type { Erc1155Token, Erc20Token, Erc721Token, Token } from '@echo/model/types/token'
 import { hasDuplicates } from '@echo/utils/fp/has-duplicates'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { throwError } from '@echo/utils/fp/throw-error'
-import type { ChainName } from '@echo/utils/types/chain-name'
 import {
   __,
   allPass,
@@ -35,7 +35,7 @@ function itemsToken<T extends Token>(items: Item<T>[]): T[] {
  */
 export function assertItems(items: Items) {
   if (itemsEmpty(items)) {
-    throw Error(ItemError.EMPTY)
+    throw Error(ItemError.Empty)
   }
   if (
     anyPass([
@@ -44,7 +44,7 @@ export function assertItems(items: Items) {
       pipe(prop('erc1155'), itemsToken<Erc1155Token>, hasDuplicates(eqNft))
     ])(items)
   ) {
-    throwError(ItemError.DUPLICATES)
+    throwError(ItemError.Duplicates)
   }
   if (
     pipe(
@@ -55,7 +55,7 @@ export function assertItems(items: Items) {
       gt(__, 1)
     )(items)
   ) {
-    throwError(ItemError.CHAIN)
+    throwError(ItemError.Chain)
   }
   if (
     anyPass([
@@ -64,11 +64,11 @@ export function assertItems(items: Items) {
       pipe(prop('erc1155'), map<Item<Erc1155Token>, boolean>(pipe(prop('quantity'), gt(__, 0))), includes(false))
     ])(items)
   ) {
-    throwError(ItemError.QUANTITY)
+    throwError(ItemError.Quantity)
   }
   if (
     allPass([pipe(prop('erc20'), isNotEmpty), pipe(prop('erc721'), isEmpty), pipe(prop('erc1155'), isEmpty)])(items)
   ) {
-    throw Error(ItemError.ONLY_ERC20)
+    throw Error(ItemError.Erc20Only)
   }
 }

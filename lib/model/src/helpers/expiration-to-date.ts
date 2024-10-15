@@ -1,13 +1,13 @@
-import type { Expiration } from '@echo/model/types/expiration'
+import { Expiration } from '@echo/model/constants/expiration'
 import dayjs from 'dayjs'
 
 export function expirationToDate(expiration: Expiration) {
   switch (expiration) {
-    case '1d':
+    case Expiration.OneDay:
       return dayjs().add(1, 'day')
-    case '3d':
+    case Expiration.ThreeDays:
       return dayjs().add(3, 'day')
-    case '7d':
+    case Expiration.SevenDays:
       return dayjs().add(7, 'day')
   }
 }

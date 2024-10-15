@@ -1,4 +1,4 @@
-import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing/listing-offer-fulfilling-status'
+import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing-offer-fulfilling-status'
 
 export interface ListingOfferDocumentData {
   listingId: string

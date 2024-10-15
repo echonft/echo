@@ -1,9 +1,11 @@
 import { itemsDataConverter } from '@echo/firestore/converters/item-data-converter'
 import { setReadOnly } from '@echo/firestore/helpers/converters/listing/from-firestore/set-read-only'
 import { lowerCreatorWalletAddress } from '@echo/firestore/helpers/converters/listing/lower-creator-wallet-address'
+import { normalizeSlug } from '@echo/firestore/helpers/converters/listing/normalize-slug'
 import { addListingItemsCollectionSlug } from '@echo/firestore/helpers/converters/listing/to-firestore/add-listing-items-collection-slug'
 import { addListingItemsIndex } from '@echo/firestore/helpers/converters/listing/to-firestore/add-listing-items-index'
 import { lowerCreatorWalletAddressIfExists } from '@echo/firestore/helpers/converters/listing/to-firestore/lower-creator-wallet-address-if-exists'
+import { normalizeSlugIfExists } from '@echo/firestore/helpers/converters/listing/to-firestore/normalize-slug-if-exists'
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
 import { type ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
 import { type Listing } from '@echo/model/types/listing'
@@ -23,6 +25,7 @@ export const listingDataConverter: FirestoreDataConverter<Listing, ListingDocume
       Omit<ListingDocumentData, 'itemIndexes'>,
       Omit<ListingDocumentData, 'itemIndexes' | 'itemCollections'>,
       Omit<Listing, 'readOnly'>,
+      Listing,
       Listing
     >(
       nonNullableReturn(getDocumentSnapshotData),
@@ -30,7 +33,8 @@ export const listingDataConverter: FirestoreDataConverter<Listing, ListingDocume
       dissoc('itemIndexes'),
       dissoc('itemCollections'),
       modify('items', boundDataConverter),
-      setReadOnly
+      setReadOnly,
+      normalizeSlug
     )(snapshot)
   },
   toFirestore(modelObject: WithFieldValue<Listing>): WithFieldValue<ListingDocumentData> {
@@ -42,13 +46,15 @@ export const listingDataConverter: FirestoreDataConverter<Listing, ListingDocume
       WithFieldValue<Omit<Listing, 'items'> & Pick<ListingDocumentData, 'items'>>,
       WithFieldValue<Omit<ListingDocumentData, 'itemIndexes' | 'itemCollections'>>,
       WithFieldValue<Omit<ListingDocumentData, 'itemCollections'>>,
+      WithFieldValue<ListingDocumentData>,
       WithFieldValue<ListingDocumentData>
     >(
       lowerCreatorWalletAddressIfExists,
       unless(propIsNil('items'), modify('items', boundDataConverter)),
       dissoc('readOnly'),
       addListingItemsIndex,
-      addListingItemsCollectionSlug
+      addListingItemsCollectionSlug,
+      normalizeSlugIfExists
     )(modelObject)
   }
 }

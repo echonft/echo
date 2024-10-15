@@ -1,4 +1,4 @@
-import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing/listing-offer-fulfilling-status'
+import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing-offer-fulfilling-status'
 import { addListingOffer } from '@echo/firestore/crud/listing-offer/add-listing-offer'
 import { deleteListingOffer } from '@echo/firestore/crud/listing-offer/delete-listing-offer'
 import { getListingOfferById } from '@echo/firestore/crud/listing-offer/get-listing-offer-by-id'
@@ -35,7 +35,7 @@ describe('CRUD - listing-offer - addListingOffer', () => {
       addListingOffer({
         listingId: 'not-found',
         offerId: offerMockToJohnnycageId(),
-        fulfillingStatus: ListingOfferFulfillingStatus.PARTIALLY
+        fulfillingStatus: ListingOfferFulfillingStatus.Partially
       })
     ).rejects.toBeDefined()
   })
@@ -44,7 +44,7 @@ describe('CRUD - listing-offer - addListingOffer', () => {
       addListingOffer({
         listingId: listingMockId(),
         offerId: 'not-found',
-        fulfillingStatus: ListingOfferFulfillingStatus.PARTIALLY
+        fulfillingStatus: ListingOfferFulfillingStatus.Partially
       })
     ).rejects.toBeDefined()
   })
@@ -53,7 +53,7 @@ describe('CRUD - listing-offer - addListingOffer', () => {
       addListingOffer({
         listingId: listingMockId(),
         offerId: offerMockFromJohnnycageId(),
-        fulfillingStatus: ListingOfferFulfillingStatus.PARTIALLY
+        fulfillingStatus: ListingOfferFulfillingStatus.Partially
       })
     ).rejects.toBeDefined()
   })
@@ -67,7 +67,7 @@ describe('CRUD - listing-offer - addListingOffer', () => {
     const createdListingOfferNewDocument = await addListingOffer({
       listingId,
       offerId: createdOfferId,
-      fulfillingStatus: ListingOfferFulfillingStatus.COMPLETELY
+      fulfillingStatus: ListingOfferFulfillingStatus.Completely
     })
     createdListingOfferId = createdListingOfferNewDocument.id
     // get the new listing state and reset the listing state to its original value

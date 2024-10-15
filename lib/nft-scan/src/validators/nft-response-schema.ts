@@ -1,4 +1,5 @@
 import { apiPathProvider } from '@echo/api/routing/api/api-path-provider'
+import { nftTokenTypeSchema } from '@echo/model/validators/nft-token-type-schema'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import type { NftResponse } from '@echo/nft-scan/types/response/nft-response'
 import { nftAttributeResponseSchema } from '@echo/nft-scan/validators/nft-attribute-response-schema'
@@ -11,7 +12,6 @@ import type { ChainName } from '@echo/utils/types/chain-name'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { bigIntStringSchema } from '@echo/utils/validators/big-int-string-schema'
 import { evmAddressSchema } from '@echo/utils/validators/evm-address-schema'
-import { nftTokenTypeSchema } from '@echo/utils/validators/nft-token-type-schema'
 import { always, applySpec, ifElse, invoker, isNil, length, pipe, prop, reject, split } from 'ramda'
 import { object, string } from 'zod'
 
@@ -36,40 +36,17 @@ export function nftResponseSchema(chain: ChainName) {
   }
 
   const schema = object({
-    // amount: intStringSchema,
     attributes: nftAttributeResponseSchema
       .array()
       .nullable()
       .transform(ifElse(isNil, always([]), reject(isNil))),
-    // content_type: string().nullable(),
-    // content_uri: string().nullable(),
     contract_address: evmAddressSchema,
-    // contract_name: string(),
-    // contract_token_id: string(),
-    // description: string().nullable(),
     erc_type: nftTokenTypeSchema,
-    // external_link: string().nullable(),
     image_uri: string()
       .nullable()
       .optional()
       .transform(unlessNil(pipe(updateIPFSUri, removeQueryFromUrl))),
-    // latest_trade_price: number().nullable(),
-    // latest_trade_symbol: string().nullable(),
-    // latest_trade_timestamp: number().int().positive().nullable(),
-    // latest_trade_token: string().nullable(),
-    // metadata_json: string().nullable(),
-    // mint_price: number().nullable(),
-    // mint_timestamp: number().int().positive(),
-    // mint_transaction_hash: hexStringSchema,
-    // minter: evmAddressSchema,
     name: string().nullable().optional(),
-    // nftscan_id: string(),
-    // nftscan_uri: string().nullable(),
-    // own_timestamp: number().int().positive().nullable(),
-    // owner: evmAddressSchema,
-    // rarity_rank: number().nullable(),
-    // rarity_score: number().nullable(),
-    // small_nftscan_uri: string().nullable(),
     token_id: bigIntStringSchema,
     token_uri: string().nullable().optional().transform(updateIPFSUri)
   })

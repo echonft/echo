@@ -1,5 +1,4 @@
-import { ONE_DAY } from '@echo/model/constants/expiration'
-import type { Expiration } from '@echo/model/types/expiration'
+import { Expiration } from '@echo/model/constants/expiration'
 import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import { ExpirationButtonsLayout } from '@echo/ui/components/base/expiration/expiration-buttons-layout'
 import { ExpirationImage } from '@echo/ui/components/base/expiration/expiration-image'
@@ -23,7 +22,7 @@ interface Props {
 
 export const CreateListingExpiration: FunctionComponent<Props> = ({ items, onComplete, onCancel, loading }) => {
   const t = useTranslations('listing.create.expiration')
-  const [expiration, setExpiration] = useState<Expiration>(ONE_DAY)
+  const [expiration, setExpiration] = useState<Expiration>(Expiration.OneDay)
   const firstNft = head(items as NonEmptyArray<Nft>)
   return (
     <ExpirationLayout>

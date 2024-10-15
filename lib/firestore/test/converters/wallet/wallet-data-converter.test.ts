@@ -1,4 +1,4 @@
-import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference/collection-reference-name'
+import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
 import { walletDataConverter } from '@echo/firestore/converters/wallet/wallet-data-converter'
 import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
 import { walletMockJohnnyId } from '@echo/firestore/mocks/wallet/wallet-document-data-mock'
@@ -15,7 +15,7 @@ describe('converters - walletDataConverter', () => {
     const snapshot = {
       ref: {
         id,
-        path: `${CollectionReferenceName.WALLETS}/${id}`
+        path: `${CollectionReferenceName.Wallets}/${id}`
       } as unknown as DocumentReference<Wallet, WalletDocumentData>,
       id,
       exists: true,

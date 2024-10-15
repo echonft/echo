@@ -1,4 +1,4 @@
-import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing/listing-offer-fulfilling-status'
+import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing-offer-fulfilling-status'
 import { getListingSnapshot } from '@echo/firestore/crud/listing/get-listing'
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { getQueriesSnapshots } from '@echo/firestore/helpers/crud/query/get-queries-snapshots'
@@ -38,7 +38,7 @@ export async function getListingOffersForListing(listing: Listing): Promise<List
             fulfillingStatus: pipe(invoker(0, 'data'), getListingOfferFulfillingStatusForOffer(listing))
           })
         ),
-        reject(propEq(ListingOfferFulfillingStatus.NONE, 'fulfillingStatus')),
+        reject(propEq(ListingOfferFulfillingStatus.None, 'fulfillingStatus')),
         uniqWith(eqListingOffers)
       )
     )

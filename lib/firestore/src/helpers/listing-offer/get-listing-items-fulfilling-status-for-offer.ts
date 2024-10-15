@@ -1,4 +1,4 @@
-import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing/listing-offer-fulfilling-status'
+import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing-offer-fulfilling-status'
 import { getListingItemsIndex } from '@echo/model/helpers/listing/get-listing-items-index'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import type { Listing } from '@echo/model/types/listing'
@@ -16,12 +16,12 @@ export function getListingItemsFulfillingStatusForOffer(listing: Listing) {
       length,
       (length: number) => {
         if (length === 0) {
-          return ListingOfferFulfillingStatus.NONE
+          return ListingOfferFulfillingStatus.None
         }
         if (length === listingItemsIndex.length) {
-          return ListingOfferFulfillingStatus.COMPLETELY
+          return ListingOfferFulfillingStatus.Completely
         }
-        return ListingOfferFulfillingStatus.PARTIALLY
+        return ListingOfferFulfillingStatus.Partially
       }
     )(offer)
   }

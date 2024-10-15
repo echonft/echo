@@ -1,4 +1,4 @@
-import { OfferUpdateKind } from '@echo/firestore/constants/offer/offer-update-kind'
+import { OfferUpdateKind } from '@echo/firestore/constants/offer-update-kind'
 import type { OfferState } from '@echo/model/types/offer-state'
 
 export interface OfferUpdateDocumentData {
@@ -11,7 +11,7 @@ export interface OfferUpdateDocumentData {
 
 export interface OfferStateUpdateDocumentData extends OfferUpdateDocumentData {
   update: {
-    kind: OfferUpdateKind.STATE
+    kind: OfferUpdateKind.State
     args: {
       state: OfferState
       reason?: string

@@ -1,5 +1,5 @@
-import { OfferError } from '@echo/firestore/constants/errors/offer/offer-error'
-import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing/listing-offer-fulfilling-status'
+import { OfferError } from '@echo/firestore/constants/errors/offer-error'
+import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing-offer-fulfilling-status'
 import { getListingOffersByOfferId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-offer-id'
 import { getListingOffersForListing } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-listing'
 import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
@@ -28,7 +28,7 @@ export interface CompleteOfferArgs extends Omit<UpdateOfferStateArgs, 'state'> {
 export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
   const snapshot = await getOfferSnapshot(args.slug)
   if (isNil(snapshot)) {
-    return Promise.reject(Error(OfferError.NOT_FOUND))
+    return Promise.reject(Error(OfferError.NotFound))
   }
   const offer = await pipe<
     [CompleteOfferArgs],
@@ -57,7 +57,7 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
     const { listingId, fulfillingStatus } = offerListingOffer
     const listing = await getListingById(listingId)
     if (!isNil(listing) && !listing.readOnly) {
-      if (fulfillingStatus === ListingOfferFulfillingStatus.COMPLETELY) {
+      if (fulfillingStatus === ListingOfferFulfillingStatus.Completely) {
         await updateListingState(listingId, LISTING_STATE_FULFILLED)
       } else {
         // in this case, we need to check all the completed offers linked to this listing, and check if this one partially of completely fulfills it

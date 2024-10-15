@@ -13,6 +13,6 @@ export function mapOfferToContractOffer(offer: BaseOffer): ContractOffer {
     senderItems: pipe(prop('senderItems'), mapOfferItemsToContractOfferItems),
     receiverItems: pipe(prop('receiverItems'), mapOfferItemsToContractOfferItems),
     expiration: prop('expiresAt'),
-    state: always(ContractOfferState.OPEN)
+    state: always(ContractOfferState.Open)
   })(offer)
 }

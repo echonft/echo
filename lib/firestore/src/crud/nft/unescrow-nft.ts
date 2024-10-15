@@ -1,4 +1,4 @@
-import { NftError } from '@echo/firestore/constants/errors/nft/nft-error'
+import { NftError } from '@echo/firestore/constants/errors/nft-error'
 import { getEscrowedNftSnapshot } from '@echo/firestore/crud/nft/get-escrowed-nft-snapshot'
 import { getNftReferenceById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
@@ -10,10 +10,6 @@ import type { Nft } from '@echo/model/types/nft'
 import { type DocumentReference, type DocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, invoker, isNil, pipe } from 'ramda'
 
-export enum UnescrowNftError {
-  NFT_NOT_IN_ESCROW = 'NFT is not in escrow'
-}
-
 export async function unescrowNft(nftId: string): Promise<Nft> {
   const snapshot = await pipe<
     [string],
@@ -24,19 +20,19 @@ export async function unescrowNft(nftId: string): Promise<Nft> {
     andThen(invoker(0, 'get'))
   )(nftId)
   if (!snapshot.exists) {
-    return Promise.reject(Error(NftError.NOT_FOUND))
+    return Promise.reject(Error(NftError.NotFound))
   }
   const nft = snapshot.data()
   if (isNil(nft)) {
-    return Promise.reject(Error(NftError.NOT_FOUND))
+    return Promise.reject(Error(NftError.NotFound))
   }
   const escrowedNftSnapshot = await getEscrowedNftSnapshot(snapshot.id)
   if (isNil(escrowedNftSnapshot)) {
-    return Promise.reject(Error(UnescrowNftError.NFT_NOT_IN_ESCROW))
+    return Promise.reject(Error(NftError.NotInEscrow))
   }
   const escrowedNft = escrowedNftSnapshot.data()
   if (isNil(escrowedNft)) {
-    return Promise.reject(Error(UnescrowNftError.NFT_NOT_IN_ESCROW))
+    return Promise.reject(Error(NftError.NotInEscrow))
   }
   // delete escrowed NFT
   await deleteReference<EscrowedNftDocumentData, EscrowedNftDocumentData>({

@@ -1,5 +1,4 @@
-import { ONE_DAY } from '@echo/model/constants/expiration'
-import type { Expiration } from '@echo/model/types/expiration'
+import { Expiration } from '@echo/model/constants/expiration'
 import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { ExpirationButtonsLayout } from '@echo/ui/components/base/expiration/expiration-buttons-layout'
@@ -32,7 +31,7 @@ export const CreateOfferExpiration: FunctionComponent<Props> = ({
   loading
 }) => {
   const t = useTranslations('offer.create.expiration')
-  const [expiration, setExpiration] = useState<Expiration>(ONE_DAY)
+  const [expiration, setExpiration] = useState<Expiration>(Expiration.OneDay)
   const firstNft = head(senderItems as NonEmptyArray<Nft>)
   return (
     <ExpirationLayout>

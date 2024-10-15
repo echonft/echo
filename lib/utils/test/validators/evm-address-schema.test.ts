@@ -1,3 +1,4 @@
+import { bigIntStringSchema } from '@echo/utils/validators/big-int-string-schema'
 import { evmAddressSchema } from '@echo/utils/validators/evm-address-schema'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
@@ -5,6 +6,7 @@ import { toLower } from 'ramda'
 describe('validators - evmAddressSchema', () => {
   it('wrong address fails validation', () => {
     expect(() => evmAddressSchema.parse(undefined)).toThrow()
+    expect(() => bigIntStringSchema.parse(null)).toThrow()
     expect(() => evmAddressSchema.parse('')).toThrow()
     expect(() => evmAddressSchema.parse('asdasdsa')).toThrow()
     expect(() => evmAddressSchema.parse('0xsss')).toThrow()

@@ -1,6 +1,6 @@
 'use client'
+import type { Expiration } from '@echo/model/constants/expiration'
 import type { Collection } from '@echo/model/types/collection'
-import type { Expiration } from '@echo/model/types/expiration'
 import type { ListingTarget } from '@echo/model/types/listing-target'
 import type { OwnedNft } from '@echo/model/types/nft'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
@@ -40,7 +40,7 @@ export const CreateListing: FunctionComponent<Props> = ({
     selection: { nfts: items }
   })
   const [targetSelection, setTargetSelection] = useState<Nullable<ListingTarget>>(
-    isNil(target) ? undefined : { collection: target, amount: 1 }
+    isNil(target) ? undefined : { collection: target, quantity: 1 }
   )
   const [reviewing, setReviewing] = useState(false)
   // TODO Probably should change that, not the most beautiful
@@ -73,14 +73,14 @@ export const CreateListing: FunctionComponent<Props> = ({
             <CreateListingTargets
               readOnly={reviewing}
               target={targetSelection}
-              onQtyChange={(newQuantity) => {
-                setTargetSelection(assoc('amount', newQuantity))
+              onQtyChange={(quantity) => {
+                setTargetSelection(assoc('quantity', quantity))
               }}
               onRemove={() => {
                 setTargetSelection(undefined)
               }}
               onSelect={(selection) => {
-                setTargetSelection({ collection: selection, amount: 1 })
+                setTargetSelection({ collection: selection, quantity: 1 })
               }}
             />
           </div>

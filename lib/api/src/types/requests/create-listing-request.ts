@@ -1,5 +1,5 @@
 import { type ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
-import type { Expiration } from '@echo/model/types/expiration'
+import type { Expiration } from '@echo/model/constants/expiration'
 import type { NftIndex } from '@echo/model/types/nft'
 import type { Strict } from '@echo/utils/types/strict'
 

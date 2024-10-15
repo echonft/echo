@@ -1,4 +1,4 @@
-import { NftError } from '@echo/firestore/constants/errors/nft/nft-error'
+import { NftError } from '@echo/firestore/constants/errors/nft-error'
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
 import { resetNft } from '@echo/firestore/utils/nft/reset-nft'
@@ -22,7 +22,7 @@ describe('CRUD - nft - removeNftOwner', () => {
   })
   it('throws if the NFT does not exist', async () => {
     await expect(removeNftOwner({ collection: { slug: 'not-found' }, tokenId: 0 })).rejects.toEqual(
-      Error(NftError.NOT_FOUND)
+      Error(NftError.NotFound)
     )
   })
   it('removes the NFT owner', async () => {
