@@ -1,6 +1,6 @@
 import { listingDocumentDataMock } from '@echo/firestore/mocks/listing/listing-document-data-mock'
 import { listingReferenceMock } from '@echo/firestore/mocks/listing/listing-reference-mock'
-import { type ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
+import { type ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
 import type { Listing } from '@echo/model/types/listing'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'

@@ -1,4 +1,4 @@
-import { listingDataConverter } from '@echo/firestore/converters/listing/listing-data-converter'
+import { listingDataConverter } from '@echo/firestore/converters/listing-data-converter'
 import { listingDocumentDataMock } from '@echo/firestore/mocks/listing/listing-document-data-mock'
 import { listingSnapshotMock } from '@echo/firestore/mocks/listing/listing-snapshot-mock'
 import {

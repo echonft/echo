@@ -1,5 +1,5 @@
 import { auth } from '@echo/auth/auth'
-import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
 import { isNil } from 'ramda'
 
 export async function getAuthUser(): Promise<UserDocumentData | null> {

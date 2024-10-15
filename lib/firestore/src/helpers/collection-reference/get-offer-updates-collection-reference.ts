@@ -1,6 +1,6 @@
 import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
-import type { OfferUpdateDocumentData } from '@echo/firestore/types/model/offer-update/offer-update-document-data'
+import type { OfferUpdateDocumentData } from '@echo/firestore/types/model/offer-update-document-data'
 import { CollectionReference } from 'firebase-admin/firestore'
 
 export function getOfferUpdatesCollectionReference<

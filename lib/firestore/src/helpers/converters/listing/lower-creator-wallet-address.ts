@@ -1,5 +1,5 @@
 import { lowerAddress } from '@echo/firestore/helpers/converters/wallet/lower-address'
-import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
+import type { ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
 import type { Listing } from '@echo/model/types/listing'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { modifyPath } from 'ramda'

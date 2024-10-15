@@ -5,7 +5,7 @@ import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-usernam
 import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/wallet/map-wallet-document-data-to-wallet'
-import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
+import type { WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
 import { ForbiddenError } from '@echo/frontend/lib/helpers/error/forbidden-error'
 import { NotFoundError } from '@echo/frontend/lib/helpers/error/not-found-error'
 import { toNextReponse } from '@echo/frontend/lib/request-handlers/to-next-reponse'

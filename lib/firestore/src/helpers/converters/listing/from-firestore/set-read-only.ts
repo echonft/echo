@@ -1,4 +1,4 @@
-import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
+import type { ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
 import { READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
 import type { Listing } from '@echo/model/types/listing'
 import type { ListingState } from '@echo/model/types/listing-state'

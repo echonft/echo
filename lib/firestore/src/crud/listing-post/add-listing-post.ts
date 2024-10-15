@@ -1,6 +1,6 @@
 import { getListingPostsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listing-posts-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import type { ListingPostDocumentData } from '@echo/firestore/types/model/listing-post/listing-post-document-data'
+import type { ListingPostDocumentData } from '@echo/firestore/types/model/listing-post-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { now } from '@echo/utils/helpers/now'
 

@@ -2,7 +2,7 @@ import { getCollectionDiscordGuildsByCollection } from '@echo/firestore/crud/col
 import { getCollectionById } from '@echo/firestore/crud/collection/get-collection-by-id'
 import { getCollectionDiscordGuildsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collection-discord-guilds-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import type { CollectionDiscordGuildDocumentData } from '@echo/firestore/types/model/collection-discord-guild/collection-discord-guild-document-data'
+import type { CollectionDiscordGuildDocumentData } from '@echo/firestore/types/model/collection-discord-guild-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { includes, isNil, map, pipe, prop } from 'ramda'
 

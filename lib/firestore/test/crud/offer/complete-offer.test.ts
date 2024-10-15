@@ -7,7 +7,7 @@ import { completeOffer, type CompleteOfferArgs } from '@echo/firestore/crud/offe
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { deleteSwap } from '@echo/firestore/crud/swap/delete-swap'
 import { getSwapSnapshot } from '@echo/firestore/crud/swap/get-swap'
-import type { CollectionSwapsCountDocumentData } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count-document-data'
+import type { CollectionSwapsCountDocumentData } from '@echo/firestore/types/model/collection-swaps-count-document-data'
 import { unchecked_updateCollectionSwapCounts } from '@echo/firestore/utils/collection-swaps-count/unchecked_update-collection-swap-counts'
 import { resetListings } from '@echo/firestore/utils/listing/reset-listings'
 import { resetNft } from '@echo/firestore/utils/nft/reset-nft'

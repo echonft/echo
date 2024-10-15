@@ -5,7 +5,7 @@ import { setReference } from '@echo/firestore/helpers/crud/reference/set-referen
 import type {
   OfferStateUpdateDocumentData,
   OfferUpdateDocumentData
-} from '@echo/firestore/types/model/offer-update/offer-update-document-data'
+} from '@echo/firestore/types/model/offer-update-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 
 export async function unchecked_addOfferStateUpdate(

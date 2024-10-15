@@ -2,7 +2,7 @@ import { getOfferUpdatesCollectionReference } from '@echo/firestore/helpers/coll
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
 import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/crud/query/get-query-unique-document-snapshot'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import type { OfferUpdateDocumentData } from '@echo/firestore/types/model/offer-update/offer-update-document-data'
+import type { OfferUpdateDocumentData } from '@echo/firestore/types/model/offer-update-document-data'
 import type { OfferState } from '@echo/model/types/offer-state'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'

@@ -1,5 +1,5 @@
 import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
-import { type ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
+import { type ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
 import type { Listing } from '@echo/model/types/listing'
 import { DocumentReference } from 'firebase-admin/firestore'

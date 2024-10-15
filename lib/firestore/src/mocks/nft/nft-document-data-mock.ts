@@ -1,4 +1,4 @@
-import type { NftDocumentData } from '@echo/firestore/types/model/nft/nft-document-data'
+import type { NftDocumentData } from '@echo/firestore/types/model/nft-document-data'
 import { mapNftCollection } from '@echo/model/helpers/nft/map-nft-collection'
 import { collectionMockPxId, collectionMockSpiralId } from '@echo/model/mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model/mocks/collection/get-collection-mock-by-id'

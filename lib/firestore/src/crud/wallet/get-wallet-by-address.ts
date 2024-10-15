@@ -3,7 +3,7 @@ import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/g
 import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/crud/query/get-query-unique-document-snapshot'
 import { queryLimit } from '@echo/firestore/helpers/crud/query/query-limit'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
+import type { WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
 import { type Wallet } from '@echo/model/types/wallet'
 import { isEvmChain } from '@echo/utils/helpers/chains/is-evm-chain'
 import type { Nullable } from '@echo/utils/types/nullable'

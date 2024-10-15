@@ -1,6 +1,6 @@
 import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
-import { escrowedNftDataConverter } from '@echo/firestore/converters/nft/escrowed-nft-data-converter'
-import type { EscrowedNftDocumentData } from '@echo/firestore/types/model/nft/escrowed-nft-document-data'
+import { escrowedNftDataConverter } from '@echo/firestore/converters/escrowed-nft-data-converter'
+import type { EscrowedNftDocumentData } from '@echo/firestore/types/model/escrowed-nft-document-data'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import { describe, expect, it } from '@jest/globals'

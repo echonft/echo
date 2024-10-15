@@ -1,7 +1,7 @@
 import { normalizeSlug } from '@echo/firestore/helpers/converters/collection/normalize-slug'
 import { normalizeSlugIfExists } from '@echo/firestore/helpers/converters/collection/to-firestore/normalize-slug-if-exists'
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
-import type { CollectionDocumentData } from '@echo/firestore/types/model/collection/collection-document-data'
+import type { CollectionDocumentData } from '@echo/firestore/types/model/collection-document-data'
 import type { Collection } from '@echo/model/types/collection'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'

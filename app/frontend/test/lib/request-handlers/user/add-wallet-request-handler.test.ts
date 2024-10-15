@@ -8,7 +8,7 @@ import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/ge
 import { userMockJohnnyId } from '@echo/firestore/mocks/user/user-document-data-mock'
 import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
 import { walletMockJohnnyId } from '@echo/firestore/mocks/wallet/wallet-document-data-mock'
-import { type Nonce } from '@echo/firestore/types/model/nonce/nonce'
+import { type Nonce } from '@echo/firestore/types/model/nonce'
 import { BadRequestError } from '@echo/frontend/lib/helpers/error/bad-request-error'
 import { ForbiddenError } from '@echo/frontend/lib/helpers/error/forbidden-error'
 import { addWalletRequestHandler } from '@echo/frontend/lib/request-handlers/profile/add-wallet-request-handler'

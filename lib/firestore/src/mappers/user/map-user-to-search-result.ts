@@ -1,4 +1,4 @@
-import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
 import { SEARCH_RESULT_CATEGORY_USER } from '@echo/model/constants/search-result-category'
 import type { SearchResult } from '@echo/model/types/search-result'
 import type { Username } from '@echo/model/types/username'

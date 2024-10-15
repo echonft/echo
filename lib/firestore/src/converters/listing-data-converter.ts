@@ -7,7 +7,7 @@ import { addListingItemsIndex } from '@echo/firestore/helpers/converters/listing
 import { lowerCreatorWalletAddressIfExists } from '@echo/firestore/helpers/converters/listing/to-firestore/lower-creator-wallet-address-if-exists'
 import { normalizeSlugIfExists } from '@echo/firestore/helpers/converters/listing/to-firestore/normalize-slug-if-exists'
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
-import { type ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
+import { type ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
 import { type Listing } from '@echo/model/types/listing'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'

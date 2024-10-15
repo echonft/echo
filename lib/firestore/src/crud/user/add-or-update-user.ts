@@ -2,7 +2,7 @@ import { getUserSnapshotByDiscordId } from '@echo/firestore/crud/user/get-user-b
 import { getUsersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-users-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
-import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
 import type { DiscordProfile } from '@echo/model/types/discord-profile'
 import { applySpec, identity, isNil, pipe, prop, toLower } from 'ramda'
 

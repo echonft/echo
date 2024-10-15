@@ -1,5 +1,5 @@
 import { getCollectionById } from '@echo/firestore/crud/collection/get-collection-by-id'
-import type { CollectionSwapsCountDocumentData } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count-document-data'
+import type { CollectionSwapsCountDocumentData } from '@echo/firestore/types/model/collection-swaps-count-document-data'
 import type { CollectionWithSwapsCount } from '@echo/model/types/collection-with-swaps-count'
 import { assoc, isNil } from 'ramda'
 

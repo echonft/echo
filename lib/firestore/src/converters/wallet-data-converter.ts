@@ -1,7 +1,7 @@
 import { lowerAddress } from '@echo/firestore/helpers/converters/wallet/lower-address'
 import { lowerAddressIfExists } from '@echo/firestore/helpers/converters/wallet/to-firestore/lower-address-if-exists'
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
-import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
+import type { WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'

@@ -1,7 +1,7 @@
 import { pathProvider } from '@echo/api/routing/path-provider'
 import { embedSeparator } from '@echo/bot/helpers/embed/embed-separator'
 import { embedValueForNftTokenItem } from '@echo/bot/helpers/embed/embed-value-for-nft-token-item'
-import { type UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import { type UserDocumentData } from '@echo/firestore/types/model/user-document-data'
 import { nftItems } from '@echo/model/helpers/item/nft-items'
 import type { Item, Items } from '@echo/model/types/item'
 import { type Listing } from '@echo/model/types/listing'

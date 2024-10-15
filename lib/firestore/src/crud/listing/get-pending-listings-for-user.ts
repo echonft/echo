@@ -3,7 +3,7 @@ import { getListingsCollectionReference } from '@echo/firestore/helpers/collecti
 import { getQueriesDocuments } from '@echo/firestore/helpers/crud/query/get-queries-documents'
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
+import type { ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
 import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
 import { type Listing } from '@echo/model/types/listing'
 import type { Nft } from '@echo/model/types/nft'

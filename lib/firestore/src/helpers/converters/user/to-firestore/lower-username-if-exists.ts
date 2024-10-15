@@ -1,4 +1,4 @@
-import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
 import type { Username } from '@echo/model/types/username'
 import { propIsNotNil } from '@echo/utils/fp/prop-is-not-nil'
 import { firestore } from 'firebase-admin'

@@ -1,5 +1,5 @@
 import { getItemsCollectionSlugs } from '@echo/firestore/helpers/item/get-items-collection-slugs'
-import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
+import type { ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { assoc, has, pipe, prop } from 'ramda'
 

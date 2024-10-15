@@ -1,6 +1,6 @@
 import { offerDocumentDataMock } from '@echo/firestore/mocks/offer/offer-document-data-mock'
 import { offerReferenceMock } from '@echo/firestore/mocks/offer/offer-reference-mock'
-import { type OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
+import { type OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import type { Offer } from '@echo/model/types/offer'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'

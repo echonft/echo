@@ -1,4 +1,4 @@
-import { type OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
+import { type OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
 import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
 import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'

@@ -1,4 +1,4 @@
-import { nftDataConverter } from '@echo/firestore/converters/nft/nft-data-converter'
+import { nftDataConverter } from '@echo/firestore/converters/nft-data-converter'
 import { nftDocumentDataMock } from '@echo/firestore/mocks/nft/nft-document-data-mock'
 import { nftSnapshotMock } from '@echo/firestore/mocks/nft/nft-snapshot-mock'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'

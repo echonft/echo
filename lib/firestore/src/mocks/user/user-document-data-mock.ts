@@ -1,4 +1,4 @@
-import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
 import { getDiscordProfileMockByUsername } from '@echo/model/mocks/user/discord-profile-mock'
 import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { isNil, pipe } from 'ramda'

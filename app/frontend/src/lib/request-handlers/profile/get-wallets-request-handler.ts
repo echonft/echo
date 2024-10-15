@@ -1,6 +1,6 @@
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/wallet/map-wallet-document-data-to-wallet'
-import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
+import type { WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
 import { toNextReponse } from '@echo/frontend/lib/request-handlers/to-next-reponse'
 import type { AuthRequestHandlerArgs } from '@echo/frontend/lib/types/request-handlers/auth-request-handler'
 import type { Wallet } from '@echo/model/types/wallet'

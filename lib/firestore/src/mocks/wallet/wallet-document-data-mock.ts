@@ -1,5 +1,5 @@
 import { userMockJohnnyId } from '@echo/firestore/mocks/user/user-document-data-mock'
-import { type WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
+import { type WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
 import { toLower } from 'ramda'
 
 export function walletMockJohnnyId() {

@@ -4,7 +4,7 @@ import { updateListingState } from '@echo/firestore/crud/listing/update-listing-
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { getListingOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listing-offers-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import { type ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer/listing-offer-document-data'
+import { type ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { LISTING_STATE_OFFERS_PENDING, LISTING_STATE_OPEN } from '@echo/model/constants/listing-states'
 import { isNil, omit } from 'ramda'

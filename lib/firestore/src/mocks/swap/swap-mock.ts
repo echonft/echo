@@ -1,4 +1,4 @@
-import { type SwapDocumentData } from '@echo/firestore/types/model/swap/swap-document-data'
+import { type SwapDocumentData } from '@echo/firestore/types/model/swap-document-data'
 import { offerMockFromJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 
 export function swapMockId() {

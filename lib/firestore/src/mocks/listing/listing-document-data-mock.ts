@@ -1,4 +1,4 @@
-import { type ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
+import { type ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
 import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import {
   collectionMockPxId,

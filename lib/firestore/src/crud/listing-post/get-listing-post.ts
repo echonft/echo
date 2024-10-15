@@ -2,7 +2,7 @@ import { getListingPostsCollectionReference } from '@echo/firestore/helpers/coll
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
 import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/crud/query/get-query-unique-document-snapshot'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import type { ListingPostDocumentData } from '@echo/firestore/types/model/listing-post/listing-post-document-data'
+import type { ListingPostDocumentData } from '@echo/firestore/types/model/listing-post-document-data'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, pipe } from 'ramda'

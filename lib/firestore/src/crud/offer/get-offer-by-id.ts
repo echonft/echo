@@ -1,7 +1,7 @@
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { getReferenceById } from '@echo/firestore/helpers/crud/reference/get-reference-by-id'
 import { getReferenceData } from '@echo/firestore/helpers/crud/reference/get-reference-data'
-import type { OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
+import type { OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
 import type { Offer } from '@echo/model/types/offer'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { DocumentReference } from 'firebase-admin/firestore'

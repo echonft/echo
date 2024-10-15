@@ -10,7 +10,7 @@ import { lowerIdContractIfExists } from '@echo/firestore/helpers/converters/offe
 import { lowerReceiverWalletAddressIfExists } from '@echo/firestore/helpers/converters/offer/to-firestore/lower-receiver-wallet-address-if-exists'
 import { lowerSenderWalletAddressIfExists } from '@echo/firestore/helpers/converters/offer/to-firestore/lower-sender-wallet-address-if-exists'
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
-import { type OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
+import { type OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
 import { type Offer } from '@echo/model/types/offer'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'

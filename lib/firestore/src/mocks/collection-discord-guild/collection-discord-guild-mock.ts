@@ -1,4 +1,4 @@
-import type { CollectionDiscordGuildDocumentData } from '@echo/firestore/types/model/collection-discord-guild/collection-discord-guild-document-data'
+import type { CollectionDiscordGuildDocumentData } from '@echo/firestore/types/model/collection-discord-guild-document-data'
 import { collectionMockPxId, collectionMockSpiralId } from '@echo/model/mocks/collection/collection-mock'
 
 export function collectionDiscordGuildMock(): Record<string, CollectionDiscordGuildDocumentData> {

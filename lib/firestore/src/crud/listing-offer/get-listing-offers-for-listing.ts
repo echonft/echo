@@ -5,7 +5,7 @@ import { getQueriesSnapshots } from '@echo/firestore/helpers/crud/query/get-quer
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { eqListingOffers } from '@echo/firestore/helpers/listing-offer/eq-listing-offers'
 import { getListingOfferFulfillingStatusForOffer } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status-for-offer'
-import { type ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer/listing-offer-document-data'
+import { type ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer-document-data'
 import { NOT_READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
 import { getListingItemsIndex } from '@echo/model/helpers/listing/get-listing-items-index'
 import { type Listing } from '@echo/model/types/listing'

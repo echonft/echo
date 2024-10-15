@@ -1,6 +1,6 @@
-import { userDataConverter } from '@echo/firestore/converters/user/user-data-converter'
+import { userDataConverter } from '@echo/firestore/converters/user-data-converter'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
-import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
 import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import type { Username } from '@echo/model/types/username'
 import { describe, expect, it } from '@jest/globals'

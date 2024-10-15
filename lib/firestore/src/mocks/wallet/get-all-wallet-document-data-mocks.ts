@@ -1,4 +1,4 @@
-import { type WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
+import { type WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
 import { walletDocumentDataMock } from '@echo/firestore/mocks/wallet/wallet-document-data-mock'
 import { type NonEmptyArray } from 'ramda'
 

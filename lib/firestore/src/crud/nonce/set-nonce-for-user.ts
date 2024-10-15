@@ -3,8 +3,8 @@ import { getUserSnapshotByUsername } from '@echo/firestore/crud/user/get-user-by
 import { getNoncesCollectionReference } from '@echo/firestore/helpers/collection-reference/get-nonces-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
-import type { Nonce } from '@echo/firestore/types/model/nonce/nonce'
-import type { NonceDocumentData } from '@echo/firestore/types/model/nonce/nonce-document-data'
+import type { Nonce } from '@echo/firestore/types/model/nonce'
+import type { NonceDocumentData } from '@echo/firestore/types/model/nonce-document-data'
 import dayjs from 'dayjs'
 import { isNil } from 'ramda'
 

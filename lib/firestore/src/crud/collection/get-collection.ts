@@ -2,7 +2,7 @@ import { getCollectionsCollectionReference } from '@echo/firestore/helpers/colle
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
 import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/crud/query/get-query-unique-document-snapshot'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import type { CollectionDocumentData } from '@echo/firestore/types/model/collection/collection-document-data'
+import type { CollectionDocumentData } from '@echo/firestore/types/model/collection-document-data'
 import type { Collection } from '@echo/model/types/collection'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'

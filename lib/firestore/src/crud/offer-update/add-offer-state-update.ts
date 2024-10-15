@@ -4,7 +4,7 @@ import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { getOfferUpdatesCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-updates-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 
-import type { OfferStateUpdateDocumentData } from '@echo/firestore/types/model/offer-update/offer-update-document-data'
+import type { OfferStateUpdateDocumentData } from '@echo/firestore/types/model/offer-update-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { isNil } from 'ramda'
 

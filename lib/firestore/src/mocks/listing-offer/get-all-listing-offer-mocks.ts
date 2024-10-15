@@ -1,5 +1,5 @@
 import { listingOfferMock } from '@echo/firestore/mocks/listing-offer/listing-offer-mock'
-import { type ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer/listing-offer-document-data'
+import { type ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer-document-data'
 import { type NonEmptyArray } from 'ramda'
 
 export function getAllListingOfferMocks() {

@@ -1,4 +1,4 @@
-import type { ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer/listing-offer-document-data'
+import type { ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer-document-data'
 import { dissoc, equals } from 'ramda'
 
 export function eqListingOffers(listingOfferA: ListingOfferDocumentData, listingOfferB: ListingOfferDocumentData) {

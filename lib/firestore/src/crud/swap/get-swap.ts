@@ -1,6 +1,6 @@
 import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
 import { getSwapSnapshotByOfferId } from '@echo/firestore/crud/swap/get-swap-by-offer-id'
-import type { SwapDocumentData } from '@echo/firestore/types/model/swap/swap-document-data'
+import type { SwapDocumentData } from '@echo/firestore/types/model/swap-document-data'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'

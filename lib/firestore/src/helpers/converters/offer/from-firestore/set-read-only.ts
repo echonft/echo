@@ -1,4 +1,4 @@
-import type { OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
+import type { OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
 import { READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
 import type { OfferState } from '@echo/model/types/offer-state'

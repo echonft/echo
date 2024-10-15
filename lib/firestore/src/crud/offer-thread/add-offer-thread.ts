@@ -1,7 +1,7 @@
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { getOfferThreadsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-threads-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import type { OfferThreadDocumentData } from '@echo/firestore/types/model/offer-thread/offer-thread-document-data'
+import type { OfferThreadDocumentData } from '@echo/firestore/types/model/offer-thread-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { now } from '@echo/utils/helpers/now'
 import { assoc, isNil } from 'ramda'

@@ -1,7 +1,7 @@
 import { addOfferThread } from '@echo/firestore/crud/offer-thread/add-offer-thread'
 import { deleteOfferThread } from '@echo/firestore/crud/offer-thread/delete-offer-thread'
 import { getOfferThread } from '@echo/firestore/crud/offer-thread/get-offer-thread'
-import type { OfferThreadDocumentData } from '@echo/firestore/types/model/offer-thread/offer-thread-document-data'
+import type { OfferThreadDocumentData } from '@echo/firestore/types/model/offer-thread-document-data'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'

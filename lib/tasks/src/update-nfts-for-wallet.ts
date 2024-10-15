@@ -1,5 +1,5 @@
 import { getNftsForWallet } from '@echo/firestore/crud/nft/get-nfts-for-wallet'
-import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
+import type { WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
 import { eqNftContract } from '@echo/model/helpers/nft/eq-nft-contract'
 import type { Wallet } from '@echo/model/types/wallet'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'

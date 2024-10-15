@@ -1,4 +1,4 @@
-import { offerDataConverter } from '@echo/firestore/converters/offer/offer-data-converter'
+import { offerDataConverter } from '@echo/firestore/converters/offer-data-converter'
 import { offerDocumentDataMock } from '@echo/firestore/mocks/offer/offer-document-data-mock'
 import { offerSnapshotMock } from '@echo/firestore/mocks/offer/offer-snapshot-mock'
 import {

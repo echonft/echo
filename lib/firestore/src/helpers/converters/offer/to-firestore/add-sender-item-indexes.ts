@@ -1,4 +1,4 @@
-import type { OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
+import type { OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
 import { getOfferSenderItemsIndexes } from '@echo/model/helpers/offer/get-offer-sender-items-indexes'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { assoc, has } from 'ramda'

@@ -1,5 +1,5 @@
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
-import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
 import { updateNftsForWallet } from '@echo/tasks/update-nfts-for-wallet'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'

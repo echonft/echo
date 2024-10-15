@@ -2,7 +2,7 @@ import { getFirestoreEventData } from '@echo/firestore-functions/helper/get-fire
 import { getFunctionUrl } from '@echo/firestore-functions/helper/get-function-url'
 import { getLogger } from '@echo/firestore-functions/helper/get-logger'
 import { setMaxInstances } from '@echo/firestore-functions/helper/set-max-instances'
-import type { OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
+import type { OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
 import type { Offer } from '@echo/model/types/offer'
 import { getFunctions } from 'firebase-admin/functions'
 import { onDocumentCreated } from 'firebase-functions/v2/firestore'

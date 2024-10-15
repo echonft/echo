@@ -4,7 +4,7 @@ import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-usernam
 import { getUserDocumentDataMockById } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-id'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
 import { userMockJohnnyId } from '@echo/firestore/mocks/user/user-document-data-mock'
-import type { Nonce } from '@echo/firestore/types/model/nonce/nonce'
+import type { Nonce } from '@echo/firestore/types/model/nonce'
 import { nonceRequestHandler } from '@echo/frontend/lib/request-handlers/profile/nonce-request-handler'
 import { mockRequest } from '@echo/frontend/mocks/mock-request'
 import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'

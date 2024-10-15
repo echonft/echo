@@ -1,4 +1,4 @@
-import { type ListingPostDocumentData } from '@echo/firestore/types/model/listing-post/listing-post-document-data'
+import { type ListingPostDocumentData } from '@echo/firestore/types/model/listing-post-document-data'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
 
 export function listingPostMock(): Record<string, ListingPostDocumentData> {
