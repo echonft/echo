@@ -1,5 +1,6 @@
 'use client'
-import type { OwnedNft } from '@echo/model/types/nft'
+
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import { StackLayout } from '@echo/ui/components/base/stack/layout/stack-layout'
 import { StackFooter } from '@echo/ui/components/base/stack/stack-footer'
 import type { OfferCardProps } from '@echo/ui/components/offer/card/offer-card'

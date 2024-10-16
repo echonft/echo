@@ -1,6 +1,6 @@
 'use client'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
-import type { Offer } from '@echo/model/types/offer'
+import type { Offer } from '@echo/model/types/offer/offer'
 import type { WithSlug } from '@echo/model/types/with-slug'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'

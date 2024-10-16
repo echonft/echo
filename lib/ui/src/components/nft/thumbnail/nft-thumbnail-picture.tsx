@@ -1,4 +1,4 @@
-import type { Nft } from '@echo/model/types/nft'
+import type { Nft } from '@echo/model/types/nft/nft'
 import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
 import { NftThumbnailPictureLayout } from '@echo/ui/components/nft/thumbnail/layout/nft-thumbnail-picture-layout'
 import { PICTURE_SIZE_MD } from '@echo/ui/constants/picture-size'

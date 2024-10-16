@@ -1,5 +1,5 @@
 import { getCollectionByAddress as getCollectionByAddressFromFirestore } from '@echo/firestore/crud/collection/get-collection-by-address'
-import type { Collection } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection/collection'
 import type { Wallet } from '@echo/model/types/wallet'
 import { fetchCollection } from '@echo/tasks/fetch-collection'
 import type { Nullable } from '@echo/utils/types/nullable'

@@ -1,5 +1,5 @@
 import { toSlug } from '@echo/model/helpers/to-slug'
-import type { Collection } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection/collection'
 import { nftTokenTypeSchema } from '@echo/model/validators/nft-token-type-schema'
 import { slugSchema } from '@echo/model/validators/slug-schema'
 import type { CollectionResponse } from '@echo/nft-scan/types/response/collection-response'

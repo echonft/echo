@@ -2,7 +2,7 @@ import { CollectionError } from '@echo/firestore/constants/errors/collection-err
 import { getCollectionSnapshot } from '@echo/firestore/crud/collection/get-collection'
 import { getCollectionsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collections-collection-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
-import type { Collection } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection/collection'
 import { isNil } from 'ramda'
 
 export async function updateCollection(slug: string, data: Partial<Collection>): Promise<Collection> {

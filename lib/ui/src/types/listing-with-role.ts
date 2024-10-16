@@ -1,5 +1,5 @@
-import type { Listing } from '@echo/model/types/listing'
-import type { ListingRole } from '@echo/model/types/listing-role'
+import type { Listing } from '@echo/model/types/listing/listing'
+import type { ListingRole } from '@echo/model/types/listing/listing-role'
 import type { Nullable } from '@echo/utils/types/nullable'
 
 export interface ListingWithRole extends Listing {

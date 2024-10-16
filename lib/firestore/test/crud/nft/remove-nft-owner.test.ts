@@ -2,7 +2,7 @@ import { NftError } from '@echo/firestore/constants/errors/nft-error'
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
 import { resetNft } from '@echo/firestore/utils/nft/reset-nft'
-import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
+import { nftIndex } from '@echo/model/helpers/nft/nft-index'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -28,7 +28,7 @@ describe('CRUD - nft - removeNftOwner', () => {
   it('removes the NFT owner', async () => {
     nftId = nftMockSpiralJohnnyId()
     const nft = getNftMockById(nftId)
-    await pipe(getNftIndex, removeNftOwner)(nft)
+    await pipe(nftIndex, removeNftOwner)(nft)
     const updatedNft = await getNftById(nftId)
     expect(updatedNft).toBeDefined()
     expect(updatedNft?.owner).toBeUndefined()

@@ -1,4 +1,4 @@
-import type { Erc20Token } from '@echo/model/types/token'
+import type { Erc20Token } from '@echo/model/types/token/erc20-token'
 import { eqProps, isNil } from 'ramda'
 
 export function eqErc20Token(tokenA: Erc20Token, tokenB: Erc20Token): boolean

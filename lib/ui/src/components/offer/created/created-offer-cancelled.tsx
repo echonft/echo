@@ -1,4 +1,4 @@
-import { pathProvider } from '@echo/api/routing/path-provider'
+import { pathProvider } from '@echo/routing/path-provider'
 import { CreatedOfferExpiredImg } from '@echo/ui/components/offer/created/created-offer-expired-img'
 import { OfferCreationLayout } from '@echo/ui/components/offer/created/layout/offer-creation-layout'
 import { OfferCreationSubLayout } from '@echo/ui/components/offer/created/layout/offer-creation-sub-layout'

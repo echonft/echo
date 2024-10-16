@@ -1,4 +1,4 @@
-import type { Nft } from '@echo/model/types/nft'
+import type { Nft } from '@echo/model/types/nft/nft'
 import type { Wallet } from '@echo/model/types/wallet'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import type { HexString } from '@echo/utils/types/hex-string'

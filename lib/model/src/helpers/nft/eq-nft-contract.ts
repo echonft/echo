@@ -1,5 +1,5 @@
-import type { CollectionContract } from '@echo/model/types/collection'
-import type { NftWithContract } from '@echo/model/types/nft'
+import type { CollectionContract } from '@echo/model/types/collection/collection'
+import type { NftWithContract } from '@echo/model/types/nft/nft'
 import type { Strict } from '@echo/utils/types/strict'
 import { eqBy, isNil, modify, pick, pipe } from 'ramda'
 

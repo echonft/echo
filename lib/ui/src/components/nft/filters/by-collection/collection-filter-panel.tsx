@@ -1,6 +1,6 @@
 'use client'
 import { eqWithId } from '@echo/model/helpers/eq-with-id'
-import type { Nft } from '@echo/model/types/nft'
+import type { Nft } from '@echo/model/types/nft/nft'
 import { NftFiltersPanelLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panel-layout'
 import { NftFilter } from '@echo/ui/components/nft/filters/nft-filter'
 import { getCollectionFiltersForNfts } from '@echo/ui/helpers/nft/filters/get-collection-filters-for-nfts'

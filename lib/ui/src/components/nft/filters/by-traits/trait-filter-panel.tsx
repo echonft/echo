@@ -1,5 +1,5 @@
 'use client'
-import type { Nft } from '@echo/model/types/nft'
+import type { Nft } from '@echo/model/types/nft/nft'
 import { TraitFilterPickerManager } from '@echo/ui/components/nft/filters/by-traits/trait-filter-picker-manager'
 import { NftFiltersPanelLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panel-layout'
 import { getTraitFiltersForNfts } from '@echo/ui/helpers/nft/filters/get-trait-filters-for-nfts'

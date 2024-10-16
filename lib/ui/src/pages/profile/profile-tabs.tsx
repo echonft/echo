@@ -1,6 +1,7 @@
 'use client'
-import type { OwnedNft } from '@echo/model/types/nft'
-import type { Swap } from '@echo/model/types/swap'
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { Swap } from '@echo/model/types/offer/swap'
+import type { Selection } from '@echo/routing/types/selection'
 import { ListingsPanel } from '@echo/ui/components/base/navigation/panels/listings-panel'
 import { OffersPanel } from '@echo/ui/components/base/navigation/panels/offers-panel'
 import { SwapsPanel } from '@echo/ui/components/base/navigation/panels/swaps-panel'
@@ -12,7 +13,6 @@ import { SwapsTab } from '@echo/ui/components/base/navigation/tabs/swaps-tab'
 import { ProfileItemsPanel } from '@echo/ui/pages/profile/profile-items-panel'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import type { PageSelection } from '@echo/ui/types/page-selection'
 import type { TabOptions } from '@echo/ui/types/tab-options'
 import { isFalsy } from '@echo/utils/fp/is-falsy'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -28,7 +28,7 @@ interface Props {
   offers: OfferWithRole[]
   pendingListings: ListingWithRole[]
   swaps: Swap[]
-  selection?: Nullable<PageSelection>
+  selection?: Nullable<Selection>
 }
 
 export const ProfileTabs: FunctionComponent<Props> = ({

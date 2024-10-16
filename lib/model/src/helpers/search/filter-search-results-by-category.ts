@@ -1,5 +1,5 @@
-import type { SearchResult } from '@echo/model/types/search-result'
-import type { SearchResultCategory } from '@echo/model/types/search-result-category'
+import type { SearchResult } from '@echo/model/types/search/search-result'
+import type { SearchResultCategory } from '@echo/model/types/search/search-result-category'
 import { filter, propEq } from 'ramda'
 
 export function filterSearchResultsByCategory<T>(

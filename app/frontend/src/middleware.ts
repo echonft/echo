@@ -1,14 +1,21 @@
-import { isApiPath } from '@echo/api/routing/api/is-api-path'
-import { isApiPathSecure } from '@echo/api/routing/api/is-api-path-secure'
-import { isApiWebhookPath } from '@echo/api/routing/api/is-api-webhook-path'
-import { isPathSecure } from '@echo/api/routing/is-path-secure'
-import { pathProvider } from '@echo/api/routing/path-provider'
 import { auth } from '@echo/auth/auth'
-import { UnauthorizedError } from '@echo/frontend/lib/helpers/error/unauthorized-error'
+import type { NextAuthRequest } from '@echo/auth/types/next-auth-request'
+import { UnauthorizedError } from '@echo/backend/errors/unauthorized-error'
+import { isApiPath } from '@echo/routing/is-api-path'
+import { isApiPathSecure } from '@echo/routing/is-api-path-secure'
+import { isApiWebhookPath } from '@echo/routing/is-api-webhook-path'
+import { isPathSecure } from '@echo/routing/is-path-secure'
+import { pathProvider } from '@echo/routing/path-provider'
 import { getBaseUrl } from '@echo/utils/helpers/get-base-url'
-import type { AppRouteHandlerFn } from 'next/dist/server/future/route-modules/app-route/module'
 import { NextResponse } from 'next/server'
 import { isNil } from 'ramda'
+
+type RouteHandler = (
+  req: NextAuthRequest,
+  ctx: {
+    params?: Record<string, string | string[]>
+  }
+) => void | Response | Promise<void | Response>
 
 export default auth((req): void | Response | Promise<void | Response> => {
   const path = req.nextUrl.pathname
@@ -53,7 +60,7 @@ export default auth((req): void | Response | Promise<void | Response> => {
     signInUrl.searchParams.set('callbackUrl', req.nextUrl.href)
     return NextResponse.redirect(signInUrl)
   }
-}) as AppRouteHandlerFn
+}) as RouteHandler
 
 export const config = {
   matcher: ['/((?!_next/static|_next/image|favicon.ico).*)']

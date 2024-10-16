@@ -1,4 +1,4 @@
-import type { Collection } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection/collection'
 import { fetchContract } from '@echo/opensea/fetchers/fetch-contract'
 import { throttleFetch } from '@echo/opensea/helpers/throttle-fetch'
 import { openseaApiPathProvider } from '@echo/opensea/services/routing/opensea-api-path-provider'

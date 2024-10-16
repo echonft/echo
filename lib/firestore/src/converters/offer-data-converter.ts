@@ -11,7 +11,7 @@ import { lowerReceiverWalletAddressIfExists } from '@echo/firestore/helpers/conv
 import { lowerSenderWalletAddressIfExists } from '@echo/firestore/helpers/converters/offer/to-firestore/lower-sender-wallet-address-if-exists'
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
 import { type OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
-import { type Offer } from '@echo/model/types/offer'
+import { type Offer } from '@echo/model/types/offer/offer'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
 import { dissoc, pipe } from 'ramda'

@@ -1,5 +1,5 @@
 import type { OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
-import type { Offer } from '@echo/model/types/offer'
+import type { Offer } from '@echo/model/types/offer/offer'
 import { type WithFieldValue } from 'firebase-admin/firestore'
 import { is, modify, propSatisfies, toLower, when } from 'ramda'
 

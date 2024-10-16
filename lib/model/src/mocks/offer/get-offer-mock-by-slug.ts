@@ -1,4 +1,4 @@
-import type { Offer } from '@echo/model/types/offer'
+import type { Offer } from '@echo/model/types/offer/offer'
 import { getAllOfferMocks } from '@echo/model/mocks/offer/get-all-offer-mocks'
 import { find, isNil, propEq } from 'ramda'
 

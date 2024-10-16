@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { getAllCollectionMocks } from '@echo/model/mocks/collection/get-all-collection-mocks'
-import { type Collection } from '@echo/model/types/collection'
+import { type Collection } from '@echo/model/types/collection/collection'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { BG_COLLECTIONS } from '@echo/ui/constants/background'

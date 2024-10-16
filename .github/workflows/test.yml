@@ -21,12 +21,10 @@ jobs:
           run_install: true
       - name: bot tests
         run: pnpm exec turbo run test:ci --filter=@echo/bot
-      - name: frontend tests
-        run: pnpm exec turbo run test:ci --filter=@echo/frontend
-      - name: api tests
-        run: pnpm exec turbo run test:ci --filter=@echo/api
       - name: auth tests
         run: pnpm exec turbo run test:ci --filter=@echo/auth
+      - name: backend tests
+        run: pnpm exec turbo run test:ci --filter=@echo/backend
       - name: firestore tests
         env:
           ENV: 'test'
@@ -52,7 +50,8 @@ jobs:
         with:
           multiple-files: |
             app/bot, ./app/bot/test/.coverage/coverage-summary.json
-            app/frontend, ./app/frontend/test/.coverage/coverage-summary.json
+            lib/auth, ./lib/auth/test/.coverage/coverage-summary.json
+            lib/backend, ./lib/backend/test/.coverage/coverage-summary.json
             lib/firestore, ./lib/firestore/test/.coverage/coverage-summary.json
             lib/model, ./lib/model/test/.coverage/coverage-summary.json
             lib/nft-scan, ./lib/nft-scan/test/.coverage/coverage-summary.json
@@ -63,7 +62,8 @@ jobs:
             lib/web3-dom, ./lib/web3-dom/test/.coverage/coverage-summary.json
           multiple-junitxml-files: |
             app/bot, ./app/bot/test/.coverage/junit.xml
-            app/frontend, ./app/frontend/test/.coverage/junit.xml
+            lib/auth, ./lib/auth/test/.coverage/junit.xml
+            lib/backend, ./lib/backend/test/.coverage/junit.xml
             lib/firestore, ./lib/firestore/test/.coverage/junit.xml
             lib/model, ./lib/model/test/.coverage/junit.xml
             lib/nft-scan, ./lib/nft-scan/test/.coverage/junit.xml

@@ -2,7 +2,8 @@
 
 import { getNftMocksByUsername } from '@echo/model/mocks/nft/get-nft-mocks-by-username'
 import { userMockCrewUsername } from '@echo/model/mocks/user/user-mock'
-import type { OwnedNft } from '@echo/model/types/nft'
+
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import { CreateOfferExpiration as Component } from '@echo/ui/components/offer/create/create-offer-expiration'
 import type { Meta, StoryObj } from '@storybook/react'
 import type { NonEmptyArray } from 'ramda'

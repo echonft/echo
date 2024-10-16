@@ -1,6 +1,6 @@
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
-import type { Nft } from '@echo/model/types/nft'
+import type { Nft } from '@echo/model/types/nft/nft'
 import { mapOfferItemToContractOfferItem } from '@echo/web3/mappers/map-offer-item-to-contract-offer-item'
 import type { ContractOfferItem } from '@echo/web3/types/contract-offer-item'
 import { describe, expect, it } from '@jest/globals'

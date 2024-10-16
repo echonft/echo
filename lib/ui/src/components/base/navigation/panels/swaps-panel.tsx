@@ -1,5 +1,5 @@
 'use client'
-import type { Swap } from '@echo/model/types/swap'
+import type { Swap } from '@echo/model/types/offer/swap'
 import { OfferDetailsModal } from '@echo/ui/components/offer/details/offer-details-modal'
 import { SwapCards } from '@echo/ui/components/swap/card/swap-cards'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'

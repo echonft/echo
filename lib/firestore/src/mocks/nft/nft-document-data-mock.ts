@@ -1,5 +1,6 @@
 import type { NftDocumentData } from '@echo/firestore/types/model/nft-document-data'
-import { mapNftCollection } from '@echo/model/helpers/nft/map-nft-collection'
+import { TokenType } from '@echo/model/constants/token-type'
+import { nftCollection } from '@echo/model/mappers/nft/nft-collection'
 import { collectionMockPxId, collectionMockSpiralId } from '@echo/model/mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model/mocks/collection/get-collection-mock-by-id'
 import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
@@ -19,13 +20,13 @@ export function nftDocumentDataMock(): Record<string, NftDocumentData> {
         { value: '#complement', trait: 'Background' }
       ],
       animationUrl: 'https://animation.url/',
-      collection: pipe(collectionMockSpiralId, getCollectionMockById, mapNftCollection)(),
+      collection: pipe(collectionMockSpiralId, getCollectionMockById, nftCollection)(),
       name: 'Spiral Frequencies #1',
       owner: getUserMockByUsername(userMockJohnnyUsername()),
       metadataUrl: 'https://metadata.url/',
       pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
       tokenId: 1,
-      type: 'erc721'
+      type: TokenType.Erc721
     },
     iRZFKEujarikVjpiFAkE: {
       attributes: [
@@ -63,13 +64,13 @@ export function nftDocumentDataMock(): Record<string, NftDocumentData> {
         }
       ],
       animationUrl: 'https://animation.url/',
-      collection: pipe(collectionMockSpiralId, getCollectionMockById, mapNftCollection)(),
+      collection: pipe(collectionMockSpiralId, getCollectionMockById, nftCollection)(),
       name: 'Spiral Frequencies #2',
       owner: getUserMockByUsername(userMockJohnnyUsername()),
       metadataUrl: 'https://metadata.url/',
       pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/c8ced259cc0a40a5a42d22182e82f9de',
       tokenId: 2,
-      type: 'erc721'
+      type: TokenType.Erc721
     },
     '5SeF1NSN5uPUxtWSr516': {
       attributes: [
@@ -107,13 +108,13 @@ export function nftDocumentDataMock(): Record<string, NftDocumentData> {
         }
       ],
       animationUrl: 'https://animation.url/',
-      collection: pipe(collectionMockSpiralId, getCollectionMockById, mapNftCollection)(),
+      collection: pipe(collectionMockSpiralId, getCollectionMockById, nftCollection)(),
       name: 'Spiral Frequencies #3',
       owner: getUserMockByUsername(userMockCrewUsername()),
       metadataUrl: 'https://metadata.url/',
       pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/f7adbf923a17d9b1f9b33d7a23d2b621',
       tokenId: 3,
-      type: 'erc721'
+      type: TokenType.Erc721
     },
     QFjMRNChUAHNswkRADXh: {
       attributes: [
@@ -166,14 +167,14 @@ export function nftDocumentDataMock(): Record<string, NftDocumentData> {
           trait: 'Halo'
         }
       ],
-      collection: pipe(collectionMockPxId, getCollectionMockById, mapNftCollection)(),
+      collection: pipe(collectionMockPxId, getCollectionMockById, nftCollection)(),
       name: 'Creative Demigod #1',
       owner: getUserMockByUsername(userMockJohnnyUsername()),
       animationUrl: 'https://animation.url/',
       metadataUrl: 'https://metadata.url/',
       pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/c96b4f27dc8dec8a869932f36205bafa',
       tokenId: 1,
-      type: 'erc721'
+      type: TokenType.Erc721
     },
     XiDa6k2P7gxXCKSxn2wq: {
       attributes: [
@@ -214,14 +215,14 @@ export function nftDocumentDataMock(): Record<string, NftDocumentData> {
           trait: 'Tattoo'
         }
       ],
-      collection: pipe(collectionMockPxId, getCollectionMockById, mapNftCollection)(),
+      collection: pipe(collectionMockPxId, getCollectionMockById, nftCollection)(),
       name: 'Water Elemental #2',
       owner: getUserMockByUsername(userMockJohnnyUsername()),
       animationUrl: 'https://animation.url/',
       metadataUrl: 'https://metadata.url/',
       pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/eaefecb1e422f0f1848058cfdc8a36a9',
       tokenId: 2,
-      type: 'erc721'
+      type: TokenType.Erc721
     },
     kRE3UCfXWkJ33nwzj2X1: {
       attributes: [
@@ -266,14 +267,14 @@ export function nftDocumentDataMock(): Record<string, NftDocumentData> {
           trait: 'Beard'
         }
       ],
-      collection: pipe(collectionMockPxId, getCollectionMockById, mapNftCollection)(),
+      collection: pipe(collectionMockPxId, getCollectionMockById, nftCollection)(),
       name: 'Creative Demigod #3',
       owner: getUserMockByUsername(userMockCrewUsername()),
       animationUrl: 'https://animation.url/',
       metadataUrl: 'https://metadata.url/',
       pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/d4ccdfe6a54889abc408c34335b6fb55',
       tokenId: 3,
-      type: 'erc721'
+      type: TokenType.Erc721
     }
   }
 }

@@ -1,11 +1,12 @@
-import type { Erc20TokenBalance } from '@echo/model/types/token'
+import type { Erc20Token } from '@echo/model/types/token/erc20-token'
+import type { TokenBalance } from '@echo/model/types/token/token-balance'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import type { FunctionComponent, MouseEventHandler } from 'react'
 
 interface Props {
-  tokenBalance: Erc20TokenBalance
+  tokenBalance: TokenBalance<Erc20Token>
   quantity?: number
   onClick?: MouseEventHandler
 }

@@ -1,8 +1,8 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { OFFER_ROLE_SENDER } from '@echo/model/constants/offer-role'
-import type { Offer } from '@echo/model/types/offer'
-import type { OfferRole } from '@echo/model/types/offer-role'
+import type { Offer } from '@echo/model/types/offer/offer'
+import type { OfferRole } from '@echo/model/types/offer/offer-role'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { OfferDetailsSwapModal as Component } from '@echo/ui/components/offer/details/action/swap/offer-details-swap-modal'

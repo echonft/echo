@@ -1,5 +1,5 @@
 'use client'
-import type { SearchResultCategory } from '@echo/model/types/search-result-category'
+import type { SearchResultCategory } from '@echo/model/types/search/search-result-category'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'

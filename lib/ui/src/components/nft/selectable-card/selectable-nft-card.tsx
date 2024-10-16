@@ -1,5 +1,6 @@
 'use client'
-import type { OwnedNft } from '@echo/model/types/nft'
+
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import { SelectableNftCardButtonLayout } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-card-button-layout'
 import { SelectableNftCardLayout } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-card-layout'
 import { SelectableNftCardButton } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-button'

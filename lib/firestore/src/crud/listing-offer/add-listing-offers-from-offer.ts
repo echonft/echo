@@ -3,7 +3,7 @@ import { getListingOffersByOffer } from '@echo/firestore/crud/listing-offer/get-
 import { getListingOffersForOffer } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-offer'
 import { type ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
-import { type Offer } from '@echo/model/types/offer'
+import { type Offer } from '@echo/model/types/offer/offer'
 import { isIn } from '@echo/utils/fp/is-in'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { andThen, map, pipe, prop, propSatisfies, reject } from 'ramda'

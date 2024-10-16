@@ -4,7 +4,7 @@ import { mapCollectionToSearchResult } from '@echo/firestore/mappers/collection/
 import { mapUserToSearchResult } from '@echo/firestore/mappers/user/map-user-to-search-result'
 import { getAllUserDocumentDataMocks } from '@echo/firestore/mocks/user/get-all-user-document-data-mocks'
 import { getAllCollectionMocks } from '@echo/model/mocks/collection/get-all-collection-mocks'
-import type { SearchResult } from '@echo/model/types/search-result'
+import type { SearchResult } from '@echo/model/types/search/search-result'
 import { SearchResultsPanel } from '@echo/ui/components/base/search/search-results-panel'
 import { Combobox } from '@headlessui/react'
 import type { Meta, StoryObj } from '@storybook/react'

@@ -1,4 +1,4 @@
-import type { Swap } from '@echo/model/types/swap'
+import type { Swap } from '@echo/model/types/offer/swap'
 import { CardChainIcon } from '@echo/ui/components/base/card/card-chain-icon'
 import { CardStatus } from '@echo/ui/components/base/card/card-status'
 import { StackPictureLayout } from '@echo/ui/components/base/stack/layout/stack-picture-layout'

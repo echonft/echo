@@ -11,7 +11,7 @@ import {
 } from '@echo/model/constants/offer-states'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
-import type { Offer } from '@echo/model/types/offer'
+import type { Offer } from '@echo/model/types/offer/offer'
 import { describe, expect, it } from '@jest/globals'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { assoc, pipe, toUpper } from 'ramda'

@@ -1,7 +1,7 @@
 import type { OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
 import { READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
-import type { Offer } from '@echo/model/types/offer'
-import type { OfferState } from '@echo/model/types/offer-state'
+import type { Offer } from '@echo/model/types/offer/offer'
+import type { OfferState } from '@echo/model/types/offer/offer-state'
 import { isIn } from '@echo/utils/fp/is-in'
 import { always, assoc, converge, identity, pipe, prop } from 'ramda'
 

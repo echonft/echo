@@ -1,11 +1,11 @@
-import { apiPathProvider } from '@echo/api/routing/api/api-path-provider'
+import type { GetOfferByIdContractRequest } from '@echo/api/types/requests/get-offer-by-id-contract-request'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
-import type { Offer } from '@echo/model/types/offer'
+import { apiPathProvider } from '@echo/routing/api-path-provider'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import axios, { AxiosError } from 'axios'
 import { assoc, inc, modify, pipe } from 'ramda'
 
-interface FetchOfferArgs extends Pick<Offer, 'idContract'> {
+interface FetchOfferArgs extends GetOfferByIdContractRequest {
   retries: number
 }
 
@@ -27,6 +27,7 @@ async function fetchOffer(args: FetchOfferArgs): Promise<OfferResponse> {
     )(args)
   }
 }
-export function getOfferByIdContract(args: Pick<Offer, 'idContract'>) {
+
+export function getOfferByIdContract(args: GetOfferByIdContractRequest) {
   return pipe(assoc('retries', 0), fetchOffer)(args)
 }

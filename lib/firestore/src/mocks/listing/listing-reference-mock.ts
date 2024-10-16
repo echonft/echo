@@ -1,7 +1,7 @@
 import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
 import { type ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
-import type { Listing } from '@echo/model/types/listing'
+import type { Listing } from '@echo/model/types/listing/listing'
 import { DocumentReference } from 'firebase-admin/firestore'
 
 export function listingReferenceMock(): Record<string, DocumentReference<Listing, ListingDocumentData>> {

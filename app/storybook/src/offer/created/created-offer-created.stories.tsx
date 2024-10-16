@@ -2,8 +2,9 @@
 
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockFromJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
-import type { OwnedNft } from '@echo/model/types/nft'
-import type { Offer } from '@echo/model/types/offer'
+
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { Offer } from '@echo/model/types/offer/offer'
 import { CreatedOfferCreated } from '@echo/ui/components/offer/created/created-offer-created'
 import type { Meta, StoryObj } from '@storybook/react'
 import { always, equals, modify, type NonEmptyArray, pipe, take, when } from 'ramda'

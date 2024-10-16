@@ -7,9 +7,9 @@ import {
   OFFER_STATES,
   READ_ONLY_OFFER_STATES
 } from '@echo/model/constants/offer-states'
-import type { Offer } from '@echo/model/types/offer'
-import type { OfferRole } from '@echo/model/types/offer-role'
-import type { OfferState } from '@echo/model/types/offer-state'
+import type { Offer } from '@echo/model/types/offer/offer'
+import type { OfferRole } from '@echo/model/types/offer/offer-role'
+import type { OfferState } from '@echo/model/types/offer/offer-state'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'

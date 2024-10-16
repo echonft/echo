@@ -3,7 +3,7 @@ import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/g
 import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/crud/query/get-query-unique-document-snapshot'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import type { ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
-import type { Listing } from '@echo/model/types/listing'
+import type { Listing } from '@echo/model/types/listing/listing'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, pipe } from 'ramda'

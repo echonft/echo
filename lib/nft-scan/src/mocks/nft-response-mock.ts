@@ -1,3 +1,4 @@
+import { TokenType } from '@echo/model/constants/token-type'
 import type { NftResponse } from '@echo/nft-scan/types/response/nft-response'
 
 export function nftResponseMock(): Record<string, NftResponse> {
@@ -7,7 +8,7 @@ export function nftResponseMock(): Record<string, NftResponse> {
       contract_name: 'BlastPenguin',
       contract_token_id: '0x0000000000000000000000000000000000000000000000000000000000000b80',
       token_id: '2944',
-      erc_type: 'erc721',
+      erc_type: TokenType.Erc721,
       amount: '1',
       minter: '0x8eab75f97df4a5adb67bdf02aec8ecebe1f64898',
       owner: '0xf672715f2ba85794659a7150e8c21f8d157bfe1d',
@@ -71,7 +72,7 @@ export function nftResponseMock(): Record<string, NftResponse> {
       contract_name: 'PugLife',
       contract_token_id: '0x0000000000000000000000000000000000000000000000000000000000000d19',
       token_id: '3353',
-      erc_type: 'erc721',
+      erc_type: TokenType.Erc721,
       amount: '1',
       minter: '0xaaf740ef7ee990c784964b07113fe560c3b1ab76',
       owner: '0xf672715f2ba85794659a7150e8c21f8d157bfe1d',
@@ -115,7 +116,7 @@ export function nftResponseMock(): Record<string, NftResponse> {
       contract_name: 'PugLife',
       contract_token_id: '0x0000000000000000000000000000000000000000000000000000000000000d10',
       token_id: '3344',
-      erc_type: 'erc721',
+      erc_type: TokenType.Erc721,
       amount: '1',
       minter: '0xaaf740ef7ee990c784964b07113fe560c3b1ab76',
       owner: '0xf672715f2ba85794659a7150e8c21f8d157bfe1d',

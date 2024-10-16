@@ -1,5 +1,5 @@
 import { OFFER_STATE_EXPIRED } from '@echo/model/constants/offer-states'
-import type { OfferState } from '@echo/model/types/offer-state'
+import type { OfferState } from '@echo/model/types/offer/offer-state'
 import { StateLabel } from '@echo/ui/components/base/state-label'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'

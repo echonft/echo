@@ -1,4 +1,4 @@
-import { erc1155TokenType, erc721TokenType } from '@echo/model/constants/token-types'
+import { TokenType } from '@echo/model/constants/token-type'
 import { z } from 'zod'
 
-export const nftTokenTypeSchema = z.enum([erc721TokenType, erc1155TokenType])
+export const nftTokenTypeSchema = z.enum([TokenType.Erc721, TokenType.Erc1155])

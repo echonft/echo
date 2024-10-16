@@ -6,7 +6,7 @@ import {
   LISTING_STATE_OPEN,
   LISTING_STATE_PARTIALLY_FULFILLED
 } from '@echo/model/constants/listing-states'
-import type { Listing } from '@echo/model/types/listing'
+import type { Listing } from '@echo/model/types/listing/listing'
 import { COLOR_GREEN, COLOR_RED, COLOR_YELLOW } from '@echo/ui/constants/color'
 import type { CardStatusColor } from '@echo/ui/types/card-status-color'
 

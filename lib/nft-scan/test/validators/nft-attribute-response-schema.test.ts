@@ -1,4 +1,4 @@
-import type { NftAttribute } from '@echo/model/types/nft-attribute'
+import type { NftAttribute } from '@echo/model/types/nft/nft-attribute'
 import { attributesResponseMock } from '@echo/nft-scan/mocks/attributes-response-mock'
 import { nftAttributeResponseSchema } from '@echo/nft-scan/validators/nft-attribute-response-schema'
 import { describe, expect, it } from '@jest/globals'

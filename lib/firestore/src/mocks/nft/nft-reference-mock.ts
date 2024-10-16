@@ -1,6 +1,6 @@
 import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
 import type { NftDocumentData } from '@echo/firestore/types/model/nft-document-data'
-import type { Nft } from '@echo/model/types/nft'
+import type { Nft } from '@echo/model/types/nft/nft'
 import { DocumentReference } from 'firebase-admin/firestore'
 
 export function nftReferenceMock(): Record<string, DocumentReference<Nft, NftDocumentData>> {

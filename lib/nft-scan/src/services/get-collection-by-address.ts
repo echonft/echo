@@ -1,4 +1,4 @@
-import type { Collection } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection/collection'
 import { fetchCollection } from '@echo/nft-scan/fetchers/fetch-collection'
 import { getLogger } from '@echo/nft-scan/helpers/get-logger'
 import type { FetchCollectionRequest } from '@echo/nft-scan/types/request/fetch-collection-request'

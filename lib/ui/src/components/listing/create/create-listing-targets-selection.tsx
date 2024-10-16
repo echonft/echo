@@ -1,6 +1,6 @@
 'use client'
-import type { Collection } from '@echo/model/types/collection'
-import type { ListingTarget } from '@echo/model/types/listing-target'
+import type { Collection } from '@echo/model/types/collection/collection'
+import type { Listing } from '@echo/model/types/listing/listing'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { QuantityPicker } from '@echo/ui/components/base/quantity-picker'
 import { SearchBox } from '@echo/ui/components/base/search/search-box'
@@ -12,7 +12,7 @@ import { applySpec, isNil, pipe, prop } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 export interface CreateListingTargetsSelectionProps {
-  target: Nullable<ListingTarget>
+  target: Nullable<Listing['target']>
   onQtyChange?: (newQuantity: number) => void
   onRemove?: VoidFunction
   onSelect?: (selection: Collection) => void

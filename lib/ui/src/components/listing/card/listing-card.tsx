@@ -1,6 +1,6 @@
 'use client'
-import { getListingNftTokenItems } from '@echo/model/helpers/listing/get-listing-nft-token-items'
-import type { Listing } from '@echo/model/types/listing'
+import type { Listing } from '@echo/model/types/listing/listing'
+import { listingItems } from '@echo/model/types/listing/listing-items'
 import { CardFooter } from '@echo/ui/components/base/card/card-footer'
 import { CardLayout } from '@echo/ui/components/base/card/layout/card-layout'
 import { StackLayout } from '@echo/ui/components/base/stack/layout/stack-layout'
@@ -19,7 +19,7 @@ export interface ListingCardProps<T extends Listing> {
 }
 
 export const ListingCard = <T extends Listing>({ listing, options, onSelect }: ListingCardProps<T>) => {
-  const items = getListingNftTokenItems(listing)
+  const items = listingItems(listing)
   if (items.length > 1) {
     const stack = getNftStack(items, listing.creator)
     return (

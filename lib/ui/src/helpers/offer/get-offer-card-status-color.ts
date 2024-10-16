@@ -6,7 +6,7 @@ import {
   OFFER_STATE_OPEN,
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
-import type { Offer } from '@echo/model/types/offer'
+import type { Offer } from '@echo/model/types/offer/offer'
 import { COLOR_GREEN, COLOR_RED, COLOR_YELLOW } from '@echo/ui/constants/color'
 import type { CardStatusColor } from '@echo/ui/types/card-status-color'
 

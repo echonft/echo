@@ -1,8 +1,8 @@
 import { getNftsForOwnerAndCollection } from '@echo/firestore/crud/nft/get-nfts-for-owner-and-collection'
+import { nftIndex } from '@echo/model/helpers/nft/nft-index'
 import { collectionMockPxSlug, collectionMockSpiralSlug } from '@echo/model/mocks/collection/collection-mock'
 import { getNftMockByIndex } from '@echo/model/mocks/nft/get-nft-mock-by-index'
 import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
-import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import { describe, expect, it } from '@jest/globals'
 import { andThen, pipe } from 'ramda'
 
@@ -21,7 +21,7 @@ describe('CRUD - nft - getNftsForOwnerAndCollection', () => {
       andThen((nfts) => {
         expect(nfts.length).toEqual(2)
         for (const nft of nfts) {
-          expect(nft).toStrictEqual(getNftMockByIndex(getNftIndex(nft)))
+          expect(nft).toStrictEqual(getNftMockByIndex(nftIndex(nft)))
         }
       })
     )(userMockJohnnyUsername(), collectionMockPxSlug())
@@ -30,7 +30,7 @@ describe('CRUD - nft - getNftsForOwnerAndCollection', () => {
       andThen((nfts) => {
         expect(nfts.length).toEqual(1)
         for (const nft of nfts) {
-          expect(nft).toStrictEqual(getNftMockByIndex(getNftIndex(nft)))
+          expect(nft).toStrictEqual(getNftMockByIndex(nftIndex(nft)))
         }
       })
     )(userMockCrewUsername(), collectionMockPxSlug())
@@ -39,7 +39,7 @@ describe('CRUD - nft - getNftsForOwnerAndCollection', () => {
       andThen((nfts) => {
         expect(nfts.length).toEqual(2)
         for (const nft of nfts) {
-          expect(nft).toStrictEqual(getNftMockByIndex(getNftIndex(nft)))
+          expect(nft).toStrictEqual(getNftMockByIndex(nftIndex(nft)))
         }
       })
     )(userMockJohnnyUsername(), collectionMockSpiralSlug())
@@ -48,7 +48,7 @@ describe('CRUD - nft - getNftsForOwnerAndCollection', () => {
       andThen((nfts) => {
         expect(nfts.length).toEqual(1)
         for (const nft of nfts) {
-          expect(nft).toStrictEqual(getNftMockByIndex(getNftIndex(nft)))
+          expect(nft).toStrictEqual(getNftMockByIndex(nftIndex(nft)))
         }
       })
     )(userMockCrewUsername(), collectionMockSpiralSlug())

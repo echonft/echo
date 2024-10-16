@@ -1,4 +1,4 @@
-import type { Offer } from '@echo/model/types/offer'
+import type { Offer } from '@echo/model/types/offer/offer'
 import { EmptyViewContent } from '@echo/ui/components/base/navigation/empty-view-content'
 import { ListingDetailsOffersLayout } from '@echo/ui/components/listing/details/layout/listing-details-offers-layout'
 import { OfferCards } from '@echo/ui/components/offer/card/offer-cards'

@@ -1,4 +1,4 @@
-import type { BaseOffer } from '@echo/model/types/base-offer'
+import type { BaseOffer } from '@echo/model/types/offer/base-offer'
 
 export interface ContractCreateOfferArgs {
   offer: BaseOffer

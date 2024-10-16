@@ -5,7 +5,8 @@ import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
 import { getEscrowedNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-escrowed-nfts-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import type { EscrowedNftDocumentData } from '@echo/firestore/types/model/escrowed-nft-document-data'
-import type { OwnedNftIndex } from '@echo/model/types/nft'
+
+import type { OwnedNftIndex } from '@echo/model/types/nft/owned-nft'
 import { isNil } from 'ramda'
 
 export async function escrowNft(nft: OwnedNftIndex): Promise<string> {

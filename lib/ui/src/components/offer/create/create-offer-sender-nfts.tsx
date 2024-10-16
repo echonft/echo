@@ -1,5 +1,5 @@
 'use client'
-import { type OwnedNft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import { CreateOfferSenderNftsSelected } from '@echo/ui/components/offer/create/create-offer-sender-nfts-selected'
 import { CreateOfferSenderNftsSelection } from '@echo/ui/components/offer/create/create-offer-sender-nfts-selection'
 import type { FunctionComponent } from 'react'

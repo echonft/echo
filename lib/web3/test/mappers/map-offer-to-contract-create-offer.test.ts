@@ -1,7 +1,7 @@
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockPxJohnnyId, nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import { getUserMockByUsername, userMockCrewUsername } from '@echo/model/mocks/user/user-mock'
-import type { BaseOffer } from '@echo/model/types/base-offer' // import required types from respective modules
+import type { BaseOffer } from '@echo/model/types/offer/base-offer' // import required types from respective modules
 import { mapOfferToContractOffer } from '@echo/web3/mappers/map-offer-to-contract-offer'
 import type { ContractOffer } from '@echo/web3/types/contract-offer'
 import { ContractOfferState } from '@echo/web3/types/contract-offer-state'

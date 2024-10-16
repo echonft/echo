@@ -1,12 +1,12 @@
 'use client'
-import { pathProvider } from '@echo/api/routing/path-provider'
 import {
   SEARCH_RESULT_CATEGORY_COLLECTION,
   SEARCH_RESULT_CATEGORY_USER
 } from '@echo/model/constants/search-result-category'
-import type { SearchResult } from '@echo/model/types/search-result'
-import { SearchBox } from '@echo/ui/components/base/search/search-box'
+import type { SearchResult } from '@echo/model/types/search/search-result'
+import { pathProvider } from '@echo/routing/path-provider'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
+import { SearchBox } from '@echo/ui/components/base/search/search-box'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'

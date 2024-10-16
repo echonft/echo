@@ -1,6 +1,7 @@
 'use client'
-import { pathProvider } from '@echo/api/routing/path-provider'
-import type { OwnedNft } from '@echo/model/types/nft'
+
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import { pathProvider } from '@echo/routing/path-provider'
 import { SelectableNftsWithFilters } from '@echo/ui/components/nft/filters/selectable-nfts-with-filters'
 import { NFT_ACTION_LISTING } from '@echo/ui/constants/nft-actions'
 import { TabPanel } from '@headlessui/react'

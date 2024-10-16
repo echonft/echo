@@ -1,5 +1,5 @@
-import { apiPathProvider } from '@echo/api/routing/api/api-path-provider'
 import { type NonceResponse } from '@echo/api/types/responses/nonce-response'
+import { apiPathProvider } from '@echo/routing/api-path-provider'
 import axios from 'axios'
 import { prop } from 'ramda'
 

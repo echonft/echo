@@ -1,5 +1,5 @@
 'use client'
-import type { Offer } from '@echo/model/types/offer'
+import type { Offer } from '@echo/model/types/offer/offer'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ListingDetailsModalBody } from '@echo/ui/components/listing/details/listing-details-modal-body'
 import { getListingBackground } from '@echo/ui/helpers/listing/get-listing-background'

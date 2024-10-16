@@ -1,11 +1,12 @@
 'use client'
-import type { Erc20Token, Erc20TokenBalance } from '@echo/model/types/token'
+import type { Erc20Token } from '@echo/model/types/token/erc20-token'
+import type { TokenBalance } from '@echo/model/types/token/token-balance'
 import { TokenSelectorInfo } from '@echo/ui/components/base/token-selector/token-selector-info'
 import { TokenSelectorInput } from '@echo/ui/components/base/token-selector/token-selector-input'
 import { TokenSelectorInputLayout } from '@echo/ui/components/base/token-selector/token-selector-input-layout'
 import { TokenSelectorLayout } from '@echo/ui/components/base/token-selector/token-selector-layout'
 import { TokenSelectorMenu } from '@echo/ui/components/base/token-selector/token-selector-menu'
-import { useTokensBalance } from '@echo/ui/hooks/use-tokens-balance'
+import { useErc20TokenBalances } from '@echo/ui/hooks/use-erc20-token-balances'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -18,10 +19,10 @@ interface Props {
 
 export const TokenSelector: FunctionComponent<Props> = ({ onAddToken }) => {
   const t = useTranslations('tokenSelector')
-  const tokens = useTokensBalance()
+  const tokens = useErc20TokenBalances()
   const [selectedToken, setSelectedToken] = pipe<
-    [NonEmptyArray<Erc20TokenBalance>],
-    Erc20TokenBalance,
+    [NonEmptyArray<TokenBalance<Erc20Token>>],
+    TokenBalance<Erc20Token>,
     Erc20Token,
     [Erc20Token, Dispatch<SetStateAction<Erc20Token>>]
   >(
@@ -31,7 +32,7 @@ export const TokenSelector: FunctionComponent<Props> = ({ onAddToken }) => {
   )(tokens)
   const [quantity, setQuantity] = useState<number>()
   const selectedTokenBalance = nonNullableReturn(
-    find<Erc20TokenBalance>(pathEq(selectedToken.name, ['token', 'name']))
+    find<TokenBalance<Erc20Token>>(pathEq(selectedToken.name, ['token', 'name']))
   )(tokens)
 
   return (

@@ -1,5 +1,5 @@
-import { pathProvider } from '@echo/api/routing/path-provider'
-import { type User } from '@echo/model/types/user'
+import { type User } from '@echo/model/types/user/user'
+import { pathProvider } from '@echo/routing/path-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { ProfilePicture } from '@echo/ui/components/base/profile-picture'
 import { UserDetailsDiscordTagAndWalletLayout } from '@echo/ui/components/user/details/layout/user-details-discord-tag-and-wallet-layout'

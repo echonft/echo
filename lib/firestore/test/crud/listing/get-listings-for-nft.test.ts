@@ -15,7 +15,7 @@ import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-b
 import { listingMockId, listingMockSlug } from '@echo/model/mocks/listing/listing-mock'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockPxCrewId, nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
-import type { Listing } from '@echo/model/types/listing'
+import type { Listing } from '@echo/model/types/listing/listing'
 import { pastDate } from '@echo/utils/helpers/past-date'
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, pipe } from 'ramda'

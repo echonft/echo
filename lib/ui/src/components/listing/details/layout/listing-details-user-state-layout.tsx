@@ -1,5 +1,5 @@
 import { LISTING_ROLE_CREATOR } from '@echo/model/constants/listing-role'
-import type { ListingRole } from '@echo/model/types/listing-role'
+import type { ListingRole } from '@echo/model/types/listing/listing-role'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import type { FunctionComponent, PropsWithChildren } from 'react'

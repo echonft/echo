@@ -1,11 +1,12 @@
 'use client'
-import type { OwnedNft } from '@echo/model/types/nft'
+
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import type { Wallet } from '@echo/model/types/wallet'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import { OfferDetailsContractApprovalModalButton } from '@echo/ui/components/offer/details/offer-details-contract-approval-modal-button'
 import { OfferDetailsContractApprovalRow } from '@echo/ui/components/offer/details/offer-details-contract-approval-row'
-import { mapOfferItemsToContractApprovals } from '@echo/ui/mappers/map-offer-items-to-contract-approvals'
+import { offerItemsToContractApprovals } from '@echo/ui/mappers/offer-items-to-contract-approvals'
 import type { ContractApproval } from '@echo/ui/types/contract-approval'
 import { propIsNotNil } from '@echo/utils/fp/prop-is-not-nil'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
@@ -36,7 +37,7 @@ export const OfferDetailsContractApprovalModal: FunctionComponent<Props> = ({
   onSuccess,
   onClose
 }) => {
-  const [approvals, setApprovals] = useState<ContractApproval[]>(mapOfferItemsToContractApprovals(items))
+  const [approvals, setApprovals] = useState<ContractApproval[]>(offerItemsToContractApprovals(items))
   const [isLoading, setIsLoading] = useState(true)
   const contractToApprove = find<ContractApproval>(
     propEq(false, 'approved') as (contractApproval: ContractApproval) => boolean,

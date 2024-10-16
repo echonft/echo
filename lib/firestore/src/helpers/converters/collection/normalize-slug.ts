@@ -1,5 +1,5 @@
 import { toSlug } from '@echo/model/helpers/to-slug'
-import type { Collection } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection/collection'
 import type { WithSlug } from '@echo/model/types/with-slug'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { modify } from 'ramda'

@@ -1,4 +1,4 @@
-import type { ListingTarget } from '@echo/model/types/listing-target'
+import type { Listing } from '@echo/model/types/listing/listing'
 import { CollectionThumbnail } from '@echo/ui/components/collection/thumbnail/collection-thumbnail'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
@@ -7,7 +7,7 @@ import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  target: Nullable<ListingTarget>
+  target: Nullable<Listing['target']>
 }
 
 export const ListingDetailsTarget: FunctionComponent<Props> = ({ target }) => {

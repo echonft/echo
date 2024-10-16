@@ -1,10 +1,11 @@
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { Chain } from 'viem'
-import { blast, blastSepolia, mainnet, sepolia } from 'viem/chains'
+import { blast, blastSepolia, mainnet, sei, sepolia } from 'viem/chains'
 
 export const chains: Record<ChainName, Chain> = {
-  blast: blast,
+  blast,
   blast_sepolia: blastSepolia,
   ethereum: mainnet,
-  sepolia: sepolia
+  sepolia,
+  sei
 } as const

@@ -1,6 +1,6 @@
-import type { BaseOffer } from '@echo/model/types/base-offer'
-import type { Nft } from '@echo/model/types/nft'
-import type { User } from '@echo/model/types/user'
+import type { BaseOffer } from '@echo/model/types/offer/base-offer'
+import type { Nft } from '@echo/model/types/nft/nft'
+import type { User } from '@echo/model/types/user/user'
 import { generateOfferId } from '@echo/web3/helpers/generate-offer-id'
 import { describe, expect, test } from '@jest/globals'
 

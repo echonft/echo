@@ -1,4 +1,4 @@
-import type { Nft } from '@echo/model/types/nft'
+import type { Nft } from '@echo/model/types/nft/nft'
 import type { NftStack } from '@echo/ui/types/nft-stack'
 import { always, applySpec, head, pipe, prop } from 'ramda'
 

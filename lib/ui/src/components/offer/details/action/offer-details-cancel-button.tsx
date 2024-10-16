@@ -1,6 +1,7 @@
 'use client'
 import { OFFER_STATE_CANCELLED } from '@echo/model/constants/offer-states'
-import type { OwnedNft } from '@echo/model/types/nft'
+
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'

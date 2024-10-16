@@ -1,4 +1,4 @@
-import type { Listing } from '@echo/model/types/listing'
+import type { Listing } from '@echo/model/types/listing/listing'
 import { getAllListingMocks } from '@echo/model/mocks/listing/get-all-listing-mocks'
 import { find, isNil, propEq } from 'ramda'
 

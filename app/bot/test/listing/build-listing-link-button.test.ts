@@ -1,7 +1,7 @@
-import { pathProvider } from '@echo/api/routing/path-provider'
 import { buildListingLinkButton } from '@echo/bot/listing/build-listing-link-button'
 import { initializeTranslations } from '@echo/bot/messages/initialize-translations'
 import { getListingMock } from '@echo/model/mocks/listing/get-listing-mock'
+import { pathProvider } from '@echo/routing/path-provider'
 import { beforeAll, describe, expect, it } from '@jest/globals'
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 import i18next from 'i18next'

@@ -3,15 +3,15 @@ import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { queryWhereFilter } from '@echo/firestore/helpers/crud/query/query-where-filter'
 import { NOT_READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
-import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
-import type { NftIndex } from '@echo/model/types/nft'
-import { type Offer } from '@echo/model/types/offer'
+import { nftIndex } from '@echo/model/helpers/nft/nft-index'
+import type { NftIndex } from '@echo/model/types/nft/nft'
+import { type Offer } from '@echo/model/types/offer/offer'
 import { now } from '@echo/utils/helpers/now'
 import { Filter } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
 export function getOffersForNft(nft: NftIndex): Promise<Offer[]> {
-  const index = getNftIndex(nft)
+  const index = nftIndex(nft)
   return pipe(
     getOffersCollectionReference,
     queryWhere('state', 'in', NOT_READ_ONLY_OFFER_STATES),

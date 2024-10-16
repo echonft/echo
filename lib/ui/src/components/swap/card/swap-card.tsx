@@ -1,6 +1,6 @@
 'use client'
 import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
-import type { Swap } from '@echo/model/types/swap'
+import type { Swap } from '@echo/model/types/offer/swap'
 import { StackLayout } from '@echo/ui/components/base/stack/layout/stack-layout'
 import { StackFooter } from '@echo/ui/components/base/stack/stack-footer'
 import { SwapStackPicture } from '@echo/ui/components/swap/card/swap-stack-picture'

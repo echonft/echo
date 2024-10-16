@@ -5,7 +5,7 @@ import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
 import { unchecked_updateUser } from '@echo/firestore/utils/user/unchecked_update-user'
-import type { DiscordProfile } from '@echo/model/types/discord-profile'
+import type { UserDiscordProfile } from '@echo/model/types/user/user-discord-profile'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNotNil } from 'ramda'
@@ -27,7 +27,7 @@ describe('CRUD - user - addOrUpdateUser', () => {
   })
 
   it('adds the user if it does not exist in the database', async () => {
-    const discordProfile: DiscordProfile = {
+    const discordProfile: UserDiscordProfile = {
       id: 'discord-id',
       username: 'discord-username',
       avatarUrl: 'discord-avatar-url',
@@ -47,7 +47,7 @@ describe('CRUD - user - addOrUpdateUser', () => {
     const existingUser = await getUserById('6rECUMhevHfxABZ1VNOm')
     expect(existingUser).toBeDefined()
     updatedUsername = existingUser!.username
-    const discordProfile: DiscordProfile = {
+    const discordProfile: UserDiscordProfile = {
       id: existingUser!.discord.id,
       username: 'discord-username',
       avatarUrl: 'discord-avatar-url',

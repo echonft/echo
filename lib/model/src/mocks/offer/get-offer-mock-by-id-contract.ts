@@ -1,5 +1,5 @@
 import { getAllOfferMocks } from '@echo/model/mocks/offer/get-all-offer-mocks'
-import type { Offer } from '@echo/model/types/offer'
+import type { Offer } from '@echo/model/types/offer/offer'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { find, isNil, propEq } from 'ramda'
 

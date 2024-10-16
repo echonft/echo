@@ -9,7 +9,7 @@ import { type ListingOfferDocumentData } from '@echo/firestore/types/model/listi
 import { NOT_READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
 import { getOfferReceiverItemsIndexes } from '@echo/model/helpers/offer/get-offer-receiver-items-indexes'
 import { getOfferSenderItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-sender-items-collection-slugs'
-import { type Offer } from '@echo/model/types/offer'
+import { type Offer } from '@echo/model/types/offer/offer'
 import { now } from '@echo/utils/helpers/now'
 import { always, andThen, applySpec, invoker, isNil, juxt, map, pipe, prop, propEq, reject, uniqWith } from 'ramda'
 

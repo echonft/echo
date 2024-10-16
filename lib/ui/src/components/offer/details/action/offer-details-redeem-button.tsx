@@ -1,6 +1,7 @@
 'use client'
 import { OFFER_STATE_EXPIRED } from '@echo/model/constants/offer-states'
-import type { OwnedNft } from '@echo/model/types/nft'
+
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { isOfferRoleReceiver } from '@echo/ui/helpers/offer/is-offer-role-receiver'

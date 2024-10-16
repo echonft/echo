@@ -7,8 +7,8 @@ import { eqListingOffers } from '@echo/firestore/helpers/listing-offer/eq-listin
 import { getListingOfferFulfillingStatusForOffer } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status-for-offer'
 import { type ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer-document-data'
 import { NOT_READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
-import { getListingItemsIndex } from '@echo/model/helpers/listing/get-listing-items-index'
-import { type Listing } from '@echo/model/types/listing'
+import { type Listing } from '@echo/model/types/listing/listing'
+import { listingItemsIndexes } from '@echo/model/types/listing/listing-items-indexes'
 import { now } from '@echo/utils/helpers/now'
 import { always, andThen, applySpec, invoker, isNil, juxt, map, pipe, prop, propEq, reject, uniqWith } from 'ramda'
 
@@ -19,7 +19,7 @@ export async function getListingOffersForListing(listing: Listing): Promise<List
   }
   // get pending offers for which sender items contain the listing targets and receiver items intersect listing items
   // then filter out the ones that don't fill the listing
-  const listingItemIndexes = getListingItemsIndex(listing)
+  const listingItemIndexes = listingItemsIndexes(listing)
   return pipe(
     getOffersCollectionReference,
     queryWhere('expiresAt', '>', now()),

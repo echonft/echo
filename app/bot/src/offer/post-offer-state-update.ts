@@ -10,7 +10,7 @@ import {
   OFFER_STATE_OPEN,
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
-import type { Offer } from '@echo/model/types/offer'
+import type { Offer } from '@echo/model/types/offer/offer'
 import type { WithLogger } from '@echo/utils/types/with-logger'
 import { type AnyThreadChannel, userMention } from 'discord.js'
 import i18next from 'i18next'

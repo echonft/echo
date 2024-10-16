@@ -1,4 +1,4 @@
-import type { User } from '@echo/model/types/user'
+import type { User } from '@echo/model/types/user/user'
 import { eqBy, isNil, pick } from 'ramda'
 
 function internalFn(userA: User): (userB: User) => boolean {

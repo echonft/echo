@@ -1,4 +1,4 @@
-import { type Nft } from '@echo/model/types/nft'
+import { type Nft } from '@echo/model/types/nft/nft'
 import { CardsLayout } from '@echo/ui/components/base/card/layout/cards-layout'
 import { NftCard, type NftCardProps } from '@echo/ui/components/nft/card/nft-card'
 import { keyOf } from '@echo/ui/components/nft/key-of'

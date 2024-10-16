@@ -1,4 +1,4 @@
-import type { Collection } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection/collection'
 import { fetchContract } from '@echo/opensea/fetchers/fetch-contract'
 import { getLogger } from '@echo/opensea/helpers/get-logger'
 import { getCollection } from '@echo/opensea/services/get-collection'

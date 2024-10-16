@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@echo/model/*": ["../model/src/*"],
+      "@echo/routing/*": ["src/*"],
+      "@echo/utils/*": ["../utils/src/*"]
+    }
+  },
+  "include": ["src", "../../env.d.ts"],
+  "exclude": ["node_modules"]
+}

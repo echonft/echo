@@ -1,4 +1,4 @@
-import type { NftWithContract } from '@echo/model/types/nft'
+import type { NftWithContract } from '@echo/model/types/nft/nft'
 import type { Wallet } from '@echo/model/types/wallet'
 import { getClientForChain } from '@echo/web3/helpers/get-client-for-chain'
 import { formatWalletAddress } from '@echo/web3/utils/format-wallet-address'

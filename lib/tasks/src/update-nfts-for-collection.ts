@@ -1,4 +1,4 @@
-import type { Collection } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection/collection'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import { addOrUpdateNft } from '@echo/tasks/add-or-update-nft'
 import { fetchNftsByContract, type FetchNftsByContractArgs } from '@echo/tasks/fetch-nfts-by-contract'

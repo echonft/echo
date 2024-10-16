@@ -3,7 +3,7 @@ import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-u
 import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/wallet/map-wallet-document-data-to-wallet'
 import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
-import type { UserProfile } from '@echo/model/types/user-profile'
+import type { UserProfile } from '@echo/model/types/user/user-profile'
 import type { Wallet } from '@echo/model/types/wallet'
 import { andThen, assoc, map, mergeLeft, modify, omit, pick, pipe, prop } from 'ramda'
 

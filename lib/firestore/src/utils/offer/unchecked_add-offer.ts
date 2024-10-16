@@ -5,9 +5,10 @@ import type { NewDocument } from '@echo/firestore/types/new-document'
 import { Expiration } from '@echo/model/constants/expiration'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { expirationToDateNumber } from '@echo/model/helpers/expiration-to-date-number'
-import type { OwnedNft } from '@echo/model/types/nft'
-import { type Offer } from '@echo/model/types/offer'
-import type { User } from '@echo/model/types/user'
+
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import { type Offer } from '@echo/model/types/offer/offer'
+import type { User } from '@echo/model/types/user/user'
 import { nowMs } from '@echo/utils/helpers/now-ms'
 import { head, type NonEmptyArray, pipe, prop, toLower, toString } from 'ramda'
 

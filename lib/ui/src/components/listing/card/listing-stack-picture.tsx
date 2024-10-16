@@ -1,4 +1,4 @@
-import type { Listing } from '@echo/model/types/listing'
+import type { Listing } from '@echo/model/types/listing/listing'
 import { StackPictureLayout } from '@echo/ui/components/base/stack/layout/stack-picture-layout'
 import { StackImage } from '@echo/ui/components/base/stack/stack-image'
 import { ListingCardStatus } from '@echo/ui/components/listing/card/listing-card-status'

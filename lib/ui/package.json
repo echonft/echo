@@ -50,6 +50,7 @@
     "@echo/api": "workspace:*",
     "@echo/auth": "workspace:*",
     "@echo/model": "workspace:*",
+    "@echo/routing": "workspace:*",
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
     "@echo/web3-dom": "workspace:*",

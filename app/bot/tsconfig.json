@@ -4,10 +4,10 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "@echo/api/*": ["../../lib/api/src/*"],
       "@echo/bot/*": ["./src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
+      "@echo/routing/*": ["../../lib/routing/src/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"]
     },
     "noEmit": false,

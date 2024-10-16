@@ -1,6 +1,6 @@
 'use client'
-import { pathProvider } from '@echo/api/routing/path-provider'
 import type { User } from '@echo/auth/types/user'
+import { pathProvider } from '@echo/routing/path-provider'
 import { Login } from '@echo/ui/components/auth/login'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'

@@ -1,4 +1,4 @@
-import { getAuthUser } from '@echo/auth/get-auth-user'
+import { getAuthUser } from '@echo/auth/helpers/get-auth-user'
 import type { User } from '@echo/auth/types/user'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { getLogger } from '@echo/frontend/lib/helpers/get-logger'

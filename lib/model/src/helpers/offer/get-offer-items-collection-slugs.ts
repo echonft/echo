@@ -1,6 +1,6 @@
 import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
 import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
-import type { Offer } from '@echo/model/types/offer'
+import type { Offer } from '@echo/model/types/offer/offer'
 import type { Slug } from '@echo/model/types/slug'
 import { pipe } from 'ramda'
 

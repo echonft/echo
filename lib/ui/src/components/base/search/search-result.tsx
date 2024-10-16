@@ -2,7 +2,7 @@ import {
   SEARCH_RESULT_CATEGORY_COLLECTION,
   SEARCH_RESULT_CATEGORY_USER
 } from '@echo/model/constants/search-result-category'
-import type { SearchResult as SearchResultModel } from '@echo/model/types/search-result'
+import type { SearchResult as SearchResultModel } from '@echo/model/types/search/search-result'
 import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
 import { PICTURE_SIZE_XS } from '@echo/ui/constants/picture-size'
 import { clsx } from 'clsx'

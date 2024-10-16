@@ -1,5 +1,5 @@
 import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
-import type { Collection } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection/collection'
 import { __, either, eqProps, filter, groupWith, gt, length, pipe } from 'ramda'
 
 export async function getDuplicateCollections() {

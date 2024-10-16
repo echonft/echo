@@ -1,4 +1,4 @@
-import type { Listing } from '@echo/model/types/listing'
+import type { Listing } from '@echo/model/types/listing/listing'
 import { CardStatus } from '@echo/ui/components/base/card/card-status'
 import { getListingStatusColor } from '@echo/ui/helpers/listing/get-listing-status-color'
 import { useTranslations } from 'next-intl'

@@ -1,6 +1,6 @@
 import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
 import { SEARCH_RESULT_CATEGORY_USER } from '@echo/model/constants/search-result-category'
-import type { SearchResult } from '@echo/model/types/search-result'
+import type { SearchResult } from '@echo/model/types/search/search-result'
 import type { Username } from '@echo/model/types/username'
 import { always, applySpec, concat, path, pipe, prop } from 'ramda'
 

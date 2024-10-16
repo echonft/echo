@@ -1,8 +1,9 @@
 'use client'
 import { OFFER_ROLE_SENDER } from '@echo/model/constants/offer-role'
-import type { OwnedNft } from '@echo/model/types/nft'
-import type { Offer } from '@echo/model/types/offer'
-import type { User } from '@echo/model/types/user'
+
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { Offer } from '@echo/model/types/offer/offer'
+import type { User } from '@echo/model/types/user/user'
 import { CreateOffer } from '@echo/ui/components/offer/create/create-offer'
 import { CreatedOfferSwitch } from '@echo/ui/components/offer/created/created-offer-switch'
 import type { PageLayoutBackgroundPickerProps } from '@echo/ui/types/props/page-layout-background-picker-props'

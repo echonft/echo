@@ -1,5 +1,5 @@
-import { pathProvider } from '@echo/api/routing/path-provider'
 import type { Slug } from '@echo/model/types/slug'
+import { pathProvider } from '@echo/routing/path-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { PICTURE_SIZE_XL } from '@echo/ui/constants/picture-size'
 import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'

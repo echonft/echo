@@ -3,7 +3,7 @@ import { getUserProfile } from '@echo/firestore/crud/user/get-user-profile'
 import { userMockCrewId } from '@echo/firestore/mocks/user/user-document-data-mock'
 import { userMockCrewUsername } from '@echo/model/mocks/user/user-mock'
 import { getUserProfileMockByUsername } from '@echo/model/mocks/user/user-profile-mock'
-import { type UserProfile } from '@echo/model/types/user-profile'
+import { type UserProfile } from '@echo/model/types/user/user-profile'
 import { describe, expect, it } from '@jest/globals'
 import { pipe } from 'ramda'
 

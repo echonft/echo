@@ -1,4 +1,4 @@
-import type { Swap } from '@echo/model/types/swap'
+import type { Swap } from '@echo/model/types/offer/swap'
 import { HomeCollections } from '@echo/ui/pages/home/collection/home-collections'
 import { DiscordTile } from '@echo/ui/pages/home/discord/discord-tile'
 import { HomeHero } from '@echo/ui/pages/home/hero/home-hero'

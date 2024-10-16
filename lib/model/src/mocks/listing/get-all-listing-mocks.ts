@@ -1,4 +1,4 @@
-import { type Listing } from '@echo/model/types/listing'
+import { type Listing } from '@echo/model/types/listing/listing'
 import { listingMock } from '@echo/model/mocks/listing/listing-mock'
 import { type NonEmptyArray } from 'ramda'
 

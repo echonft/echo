@@ -1,3 +1,4 @@
+import { TokenType } from '@echo/model/constants/token-type'
 import { fetchNft, type FetchNftRequest } from '@echo/opensea/fetchers/fetch-nft'
 import { fetchNftsByContract } from '@echo/opensea/fetchers/fetch-nfts-by-contract'
 import { getLogger } from '@echo/opensea/helpers/get-logger'
@@ -37,7 +38,7 @@ async function handlePaging(
   const { next, nfts } = response
   const requests = pipe<[NftResponse[]], NftResponse[], FetchNftRequest[]>(
     // for now we only support ERC721
-    filter(propEq('erc721', 'token_standard')),
+    filter(propEq(TokenType.Erc721, 'token_standard')),
     map(
       applySpec<FetchNftRequest>({
         identifier: pipe(prop('identifier'), (identifier: number) => identifier.toString(10)),

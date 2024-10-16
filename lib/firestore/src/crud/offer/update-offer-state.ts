@@ -4,8 +4,8 @@ import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import type { OfferStateUpdateDocumentData } from '@echo/firestore/types/model/offer-update-document-data'
-import { assertOfferStateTransition } from '@echo/model/helpers/offer/assert/assert-offer-state-transition'
-import type { Offer } from '@echo/model/types/offer'
+import { assertOfferStateTransition } from '@echo/model/helpers/offer/assert-offer-state-transition'
+import type { Offer } from '@echo/model/types/offer/offer'
 import { dissoc, isNil } from 'ramda'
 
 export type UpdateOfferStateArgs = Record<'slug', string> & OfferStateUpdateDocumentData['update']['args']

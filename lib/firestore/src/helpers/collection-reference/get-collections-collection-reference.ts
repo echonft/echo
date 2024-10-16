@@ -2,7 +2,7 @@ import { CollectionReferenceName } from '@echo/firestore/constants/collection-re
 import { collectionDataConverter } from '@echo/firestore/converters/collection-data-converter'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { CollectionDocumentData } from '@echo/firestore/types/model/collection-document-data'
-import type { Collection } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection/collection'
 import type { CollectionReference } from 'firebase-admin/firestore'
 
 export function getCollectionsCollectionReference(): CollectionReference<Collection, CollectionDocumentData> {

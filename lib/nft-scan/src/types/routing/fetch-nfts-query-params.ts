@@ -1,4 +1,4 @@
-import type { QueryParams } from '@echo/api/types/routing/query-params/query-params'
+import type { QueryParams } from '@echo/routing/types/query-params/query-params'
 
 export interface FetchNftsQueryParams extends QueryParams {
   showAttribute?: boolean // To fetch NFT attributes. Default: true

@@ -1,4 +1,4 @@
-import type { Collection } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection/collection'
 
 export function getNftTokenIdLabel(
   data: Record<'tokenId', number> & Record<'collection', Pick<Collection, 'totalSupply'>>

@@ -6,7 +6,7 @@ import {
   OFFER_STATE_EXPIRED,
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
-import { assertOfferStateTransition } from '@echo/model/helpers/offer/assert/assert-offer-state-transition'
+import { assertOfferStateTransition } from '@echo/model/helpers/offer/assert-offer-state-transition'
 import { OfferDetailsAcceptButton } from '@echo/ui/components/offer/details/action/offer-details-accept-button'
 import { OfferDetailsCancelButton } from '@echo/ui/components/offer/details/action/offer-details-cancel-button'
 import { OfferDetailsRedeemButton } from '@echo/ui/components/offer/details/action/offer-details-redeem-button'

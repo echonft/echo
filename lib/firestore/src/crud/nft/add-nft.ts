@@ -3,7 +3,7 @@ import { getNftsCollectionReference } from '@echo/firestore/helpers/collection-r
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import type { NftDocumentData } from '@echo/firestore/types/model/nft-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
-import { type Nft } from '@echo/model/types/nft'
+import { type Nft } from '@echo/model/types/nft/nft'
 
 export async function addNft(nft: NftDocumentData): Promise<NewDocument<Nft>> {
   const id = await setReference({

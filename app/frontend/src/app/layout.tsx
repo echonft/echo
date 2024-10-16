@@ -1,5 +1,5 @@
 import '@echo/ui-css/index.css'
-import { METADATA_DESCRIPTION, METADATA_IMAGE_URL, METADATA_TITLE } from '@echo/frontend/lib/constants/metadata'
+import { metadataDescription, metadataImageUrl, metadataTitle } from '@echo/frontend/lib/constants/metadata'
 import { messages } from '@echo/ui/messages/en'
 import type { WithChildrenProps } from '@echo/ui/types/props/with-children-props'
 import { getBaseUrl } from '@echo/utils/helpers/get-base-url'
@@ -9,9 +9,9 @@ import { NextIntlClientProvider } from 'next-intl'
 
 // noinspection JSUnusedGlobalSymbols
 export const metadata: Metadata = {
-  title: METADATA_TITLE,
-  description: METADATA_DESCRIPTION,
-  applicationName: METADATA_TITLE,
+  title: metadataTitle,
+  description: metadataDescription,
+  applicationName: metadataTitle,
   icons: {
     icon: '/icon.png',
     apple: '/apple-icon.png',
@@ -39,13 +39,13 @@ export const metadata: Metadata = {
     ]
   },
   openGraph: {
-    title: METADATA_TITLE,
-    description: METADATA_DESCRIPTION,
+    title: metadataTitle,
+    description: metadataDescription,
     url: getBaseUrl(),
     siteName: 'Echo Beta',
     images: [
       {
-        url: METADATA_IMAGE_URL,
+        url: metadataImageUrl,
         width: 1200,
         height: 630
       }
@@ -71,9 +71,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: METADATA_TITLE,
-    description: METADATA_DESCRIPTION,
-    images: [METADATA_IMAGE_URL] // Must be an absolute URL
+    title: metadataTitle,
+    description: metadataDescription,
+    images: [metadataImageUrl] // Must be an absolute URL
   }
 }
 // noinspection JSUnusedGlobalSymbols

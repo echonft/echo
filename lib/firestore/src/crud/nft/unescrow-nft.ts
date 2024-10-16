@@ -6,7 +6,7 @@ import { getEscrowedNftsCollectionReference } from '@echo/firestore/helpers/coll
 import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
 import type { EscrowedNftDocumentData } from '@echo/firestore/types/model/escrowed-nft-document-data'
 import type { NftDocumentData } from '@echo/firestore/types/model/nft-document-data'
-import type { Nft } from '@echo/model/types/nft'
+import type { Nft } from '@echo/model/types/nft/nft'
 import { type DocumentReference, type DocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, invoker, isNil, pipe } from 'ramda'
 

@@ -12,12 +12,12 @@ import type { SwapDocumentData } from '@echo/firestore/types/model/swap-document
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { LISTING_STATE_FULFILLED, LISTING_STATE_PARTIALLY_FULFILLED } from '@echo/model/constants/listing-states'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
-import { getListingItemsIndex } from '@echo/model/helpers/listing/get-listing-items-index'
 import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
 import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
-import type { Nft } from '@echo/model/types/nft'
-import { type Offer } from '@echo/model/types/offer'
-import type { OfferState } from '@echo/model/types/offer-state'
+import { listingItemsIndexes } from '@echo/model/types/listing/listing-items-indexes'
+import type { Nft } from '@echo/model/types/nft/nft'
+import { type Offer } from '@echo/model/types/offer/offer'
+import type { OfferState } from '@echo/model/types/offer/offer-state'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { assoc, concat, filter, flatten, intersection, isNil, map, omit, pipe, prop, propEq, reject } from 'ramda'
 
@@ -71,7 +71,7 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
           flatten
         )(listingOffers)
         const offerItemIndexes = pipe(concat, getNftIndexForNfts)(offerItems, completedOffersItems)
-        const listingItemIndexes = getListingItemsIndex(listing)
+        const listingItemIndexes = listingItemsIndexes(listing)
         if (intersection(offerItemIndexes, listingItemIndexes).length === listingItemIndexes.length) {
           await updateListingState(listing.slug, LISTING_STATE_FULFILLED)
         } else {

@@ -1,7 +1,7 @@
 import { nftDocumentDataMock } from '@echo/firestore/mocks/nft/nft-document-data-mock'
 import { nftReferenceMock } from '@echo/firestore/mocks/nft/nft-reference-mock'
 import type { NftDocumentData } from '@echo/firestore/types/model/nft-document-data'
-import type { Nft } from '@echo/model/types/nft'
+import type { Nft } from '@echo/model/types/nft/nft'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 
 export function nftSnapshotMock(): Record<string, QueryDocumentSnapshot<Nft, NftDocumentData>> {

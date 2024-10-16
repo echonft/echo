@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { type Collection } from '@echo/model/types/collection'
 import { getAllCollectionMocks } from '@echo/model/mocks/collection/get-all-collection-mocks'
+import { type Collection } from '@echo/model/types/collection/collection'
 import { HomeCollections as Component } from '@echo/ui/pages/home/collection/home-collections'
 import type { CollectionWithRank } from '@echo/ui/types/collection-with-rank'
 import { type Meta, type StoryObj } from '@storybook/react'

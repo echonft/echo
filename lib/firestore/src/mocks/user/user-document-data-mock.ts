@@ -1,5 +1,5 @@
 import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
-import { getDiscordProfileMockByUsername } from '@echo/model/mocks/user/discord-profile-mock'
+import { getUserDiscordProfileMockByUsername } from '@echo/model/mocks/user/user-discord-profile-mock'
 import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { isNil, pipe } from 'ramda'
 
@@ -14,11 +14,11 @@ export function userDocumentDataMock(): Record<string, UserDocumentData> {
   return {
     '6rECUMhevHfxABZ1VNOm': {
       username: userMockCrewUsername(),
-      discord: pipe(userMockCrewUsername, getDiscordProfileMockByUsername)()
+      discord: pipe(userMockCrewUsername, getUserDiscordProfileMockByUsername)()
     },
     oE6yUEQBPn7PZ89yMjKn: {
       username: userMockJohnnyUsername(),
-      discord: pipe(userMockJohnnyUsername, getDiscordProfileMockByUsername)()
+      discord: pipe(userMockJohnnyUsername, getUserDiscordProfileMockByUsername)()
     }
   }
 }

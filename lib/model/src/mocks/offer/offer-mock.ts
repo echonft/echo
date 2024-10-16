@@ -2,7 +2,7 @@ import { OFFER_STATE_COMPLETED, OFFER_STATE_OPEN } from '@echo/model/constants/o
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockPxCrewId, nftMockSpiralJohnny2Id, nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
-import { type Offer } from '@echo/model/types/offer'
+import { type Offer } from '@echo/model/types/offer/offer'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { toLower } from 'ramda'
 

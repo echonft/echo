@@ -6,6 +6,7 @@
       "@echo/api/*": ["../api/src/*"],
       "@echo/model/*": ["../model/src/*"],
       "@echo/opensea/*": ["src/*"],
+      "@echo/routing/*": ["../routing/src/*"],
       "@echo/utils/*": ["../utils/src/*"]
     }
   },

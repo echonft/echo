@@ -1,4 +1,4 @@
-import type { Nft } from '@echo/model/types/nft'
+import type { Nft } from '@echo/model/types/nft/nft'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
 import type { ChainName } from '@echo/utils/types/chain-name'

@@ -1,7 +1,7 @@
 import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/wallet/map-wallet-document-data-to-wallet'
 import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
-import type { User } from '@echo/model/types/user'
+import type { User } from '@echo/model/types/user/user'
 import type { Wallet } from '@echo/model/types/wallet'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { applySpec, omit, path, pipe, prop } from 'ramda'

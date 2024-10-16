@@ -1,10 +1,10 @@
-import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
-import type { NftIndex } from '@echo/model/types/nft'
+import { nftIndex } from '@echo/model/helpers/nft/nft-index'
+import type { NftIndex } from '@echo/model/types/nft/nft'
 import { eqBy, isNil } from 'ramda'
 
 function internalFn(nftA: NftIndex): (nftB: NftIndex) => boolean {
   return function (nftB: NftIndex) {
-    return eqBy(getNftIndex, nftA, nftB)
+    return eqBy(nftIndex, nftA, nftB)
   }
 }
 

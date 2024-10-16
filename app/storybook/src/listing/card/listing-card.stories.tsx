@@ -2,13 +2,11 @@
 
 import { LISTING_STATE_OPEN, LISTING_STATES } from '@echo/model/constants/listing-states'
 import { getListingMock } from '@echo/model/mocks/listing/get-listing-mock'
-import type { Item, Items } from '@echo/model/types/item'
-import type { Listing } from '@echo/model/types/listing'
-import type { ListingState } from '@echo/model/types/listing-state'
-import type { Erc721Token } from '@echo/model/types/token'
+import type { Listing } from '@echo/model/types/listing/listing'
+import type { ListingState } from '@echo/model/types/listing/listing-state'
 import { ListingCard } from '@echo/ui/components/listing/card/listing-card'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { always, assoc, drop, modify, pipe, unless } from 'ramda'
+import { always, assoc, head, modify, pipe, unless } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
 
 type ComponentType = FunctionComponent<{
@@ -48,13 +46,7 @@ export const Default: StoryObj<ComponentType> = {
         pipe<never[], Listing, Listing, Listing>(
           getListingMock,
           assoc('state', state),
-          unless<Listing, Listing>(
-            always(stack),
-            modify<'items', Items, Items>(
-              'items',
-              modify<'erc721', Item<Erc721Token>[], Item<Erc721Token>[]>('erc721', drop(1))
-            )
-          )
+          unless<Listing, Listing>(always(stack), modify<'items', Listing['items'], Listing['items']>('items', head))
         )(),
       [state, stack]
     )

@@ -1,6 +1,7 @@
 import { generateBaseOffer } from '@echo/model/helpers/offer/generate-base-offer'
-import type { OwnedNft } from '@echo/model/types/nft'
-import type { User } from '@echo/model/types/user'
+
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { User } from '@echo/model/types/user/user'
 import { describe, expect, it } from '@jest/globals'
 import type { NonEmptyArray } from 'ramda'
 

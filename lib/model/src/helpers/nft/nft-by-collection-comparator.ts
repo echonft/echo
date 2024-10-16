@@ -1,5 +1,5 @@
 import { collectionByNameComparator } from '@echo/model/helpers/collection/collection-by-name-comparator'
-import type { Nft, NftCollection } from '@echo/model/types/nft'
+import type { Nft, NftCollection } from '@echo/model/types/nft/nft'
 
 export function nftByCollectionComparator<
   T extends Partial<Nft> &

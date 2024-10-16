@@ -1,4 +1,4 @@
-import type { Offer } from '@echo/model/types/offer'
+import type { Offer } from '@echo/model/types/offer/offer'
 import { CardStatus } from '@echo/ui/components/base/card/card-status'
 import { getOfferCardStatusColor } from '@echo/ui/helpers/offer/get-offer-card-status-color'
 import { useTranslations } from 'next-intl'

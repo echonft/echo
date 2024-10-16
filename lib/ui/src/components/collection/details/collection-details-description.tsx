@@ -1,5 +1,5 @@
 'use client'
-import type { Collection } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection/collection'
 import { ExternalLink } from '@echo/ui/components/base/external-link'
 import { PaddedLayout } from '@echo/ui/components/base/layout/padded-layout'
 import { clsx } from 'clsx'

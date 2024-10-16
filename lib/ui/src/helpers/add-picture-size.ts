@@ -1,4 +1,4 @@
-import { apiPathProvider } from '@echo/api/routing/api/api-path-provider'
+import { apiPathProvider } from '@echo/routing/api-path-provider'
 import { PICTURE_SIZE_MD, PICTURE_SIZES } from '@echo/ui/constants/picture-size'
 import type { PictureSize } from '@echo/ui/types/picture-size'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'

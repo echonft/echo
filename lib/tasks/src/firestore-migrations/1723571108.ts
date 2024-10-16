@@ -2,6 +2,7 @@ import { getAllCollections } from '@echo/firestore/crud/collection/get-all-colle
 import { getAllNfts } from '@echo/firestore/crud/nft/get-all-nfts'
 import { updateCollection } from '@echo/firestore/utils/collection/update-collection'
 import { updateNft } from '@echo/firestore/utils/nft/update-nft'
+import { TokenType } from '@echo/model/constants/token-type'
 import { getLogger } from '@echo/tasks/commands/get-logger'
 
 /**
@@ -14,11 +15,11 @@ async function migrate() {
   logger.info(`Starting migration ${id}...`)
   const nfts = await getAllNfts()
   for (const nft of nfts) {
-    await updateNft(nft, { type: 'erc721' })
+    await updateNft(nft, { type: TokenType.Erc721 })
   }
   const collections = await getAllCollections()
   for (const collection of collections) {
-    await updateCollection(collection.slug, { type: 'erc721' })
+    await updateCollection(collection.slug, { type: TokenType.Erc721 })
   }
   logger.info(`Migration ${id} completed`)
 }

@@ -1,4 +1,5 @@
-import type { Nft, OwnedNft } from '@echo/model/types/nft'
+import type { Nft } from '@echo/model/types/nft/nft'
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import { pathEq } from 'ramda'
 
 export function nftIsOwnedBy(username: string) {

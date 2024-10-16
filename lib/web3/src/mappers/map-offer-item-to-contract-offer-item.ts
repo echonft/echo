@@ -1,4 +1,4 @@
-import type { Nft } from '@echo/model/types/nft'
+import type { Nft } from '@echo/model/types/nft/nft'
 import type { ContractOfferItem } from '@echo/web3/types/contract-offer-item'
 import { applySpec, path, prop } from 'ramda'
 

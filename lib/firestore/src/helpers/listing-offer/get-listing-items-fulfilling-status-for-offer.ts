@@ -1,18 +1,19 @@
 import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing-offer-fulfilling-status'
-import { getListingItemsIndex } from '@echo/model/helpers/listing/get-listing-items-index'
-import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
-import type { Listing } from '@echo/model/types/listing'
-import type { NftIndex, OwnedNft } from '@echo/model/types/nft'
-import type { Offer } from '@echo/model/types/offer'
+import { nftIndex } from '@echo/model/helpers/nft/nft-index'
+import type { Listing } from '@echo/model/types/listing/listing'
+import { listingItemsIndexes } from '@echo/model/types/listing/listing-items-indexes'
+import type { NftIndex } from '@echo/model/types/nft/nft'
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { Offer } from '@echo/model/types/offer/offer'
 import { intersectionBy } from '@echo/utils/fp/intersection-by'
 import { length, pipe, prop } from 'ramda'
 
 export function getListingItemsFulfillingStatusForOffer(listing: Listing) {
-  const listingItemsIndex = getListingItemsIndex(listing)
+  const listingItemsIndex = listingItemsIndexes(listing)
   return function (offer: Offer): ListingOfferFulfillingStatus {
     return pipe<[Offer], OwnedNft[], NftIndex[], number, ListingOfferFulfillingStatus>(
       prop('receiverItems'),
-      intersectionBy(getNftIndex, listingItemsIndex),
+      intersectionBy(nftIndex, listingItemsIndex),
       length,
       (length: number) => {
         if (length === 0) {

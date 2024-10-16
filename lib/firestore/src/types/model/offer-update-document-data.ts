@@ -1,5 +1,5 @@
 import { OfferUpdateKind } from '@echo/firestore/constants/offer-update-kind'
-import type { OfferState } from '@echo/model/types/offer-state'
+import type { OfferState } from '@echo/model/types/offer/offer-state'
 
 export interface OfferUpdateDocumentData {
   offerId: string

@@ -1,6 +1,6 @@
-import type { BaseOffer } from '@echo/model/types/base-offer'
-import type { OwnedNft } from '@echo/model/types/nft'
-import type { User } from '@echo/model/types/user'
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { BaseOffer } from '@echo/model/types/offer/base-offer'
+import type { User } from '@echo/model/types/user/user'
 import { applySpec, head, type NonEmptyArray, pipe, prop } from 'ramda'
 
 interface GenerateBaseOfferArgs {

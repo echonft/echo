@@ -10,7 +10,7 @@ import type { OfferUpdateDocumentData } from '@echo/firestore/types/model/offer-
 import { OFFER_STATE_EXPIRED, OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockFromJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
-import type { Offer } from '@echo/model/types/offer'
+import type { Offer } from '@echo/model/types/offer/offer'
 import { afterEach, beforeAll, describe, expect, it, jest } from '@jest/globals'
 import type { AnyThreadChannel } from 'discord.js'
 import { assoc, assocPath } from 'ramda'

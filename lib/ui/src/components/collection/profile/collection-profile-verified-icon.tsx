@@ -1,4 +1,4 @@
-import type { Collection } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection/collection'
 import { VerifiedIconSvg } from '@echo/ui/components/base/svg/verified-icon-svg'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'

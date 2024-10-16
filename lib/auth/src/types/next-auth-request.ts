@@ -1,1 +1,6 @@
-export type { NextAuthRequest } from 'next-auth/lib'
+import type { Session } from 'next-auth'
+import type { NextRequest } from 'next/server'
+
+export interface NextAuthRequest extends NextRequest {
+  auth: Session | null
+}

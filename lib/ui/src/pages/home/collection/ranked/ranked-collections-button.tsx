@@ -1,4 +1,4 @@
-import { pathProvider } from '@echo/api/routing/path-provider'
+import { pathProvider } from '@echo/routing/path-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'

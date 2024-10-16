@@ -1,4 +1,4 @@
-import type { Nft } from '@echo/model/types/nft'
+import type { Nft } from '@echo/model/types/nft/nft'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
 import { mapOfferItemToContractOfferItem } from '@echo/web3/mappers/map-offer-item-to-contract-offer-item'

@@ -19,8 +19,9 @@ import { createOffer as contractCreateOffer } from '@echo/web3-dom/helpers/creat
 import { disconnectWallet } from '@echo/web3-dom/helpers/disconnect-wallet'
 import { executeOffer as contractExecuteOffer } from '@echo/web3-dom/helpers/execute-offer'
 import { getAccount } from '@echo/web3-dom/helpers/get-account'
-import { getAllTokensBalance } from '@echo/web3-dom/helpers/get-all-tokens-balance'
+import { getAllErc20TokenBalances } from '@echo/web3-dom/helpers/get-all-erc20-token-balances'
 import { getEchoTradingFees } from '@echo/web3-dom/helpers/get-echo-trading-fees'
+import { getErc20TokenBalance } from '@echo/web3-dom/helpers/get-erc20-token-balance'
 import { getErc721ContractApproval } from '@echo/web3-dom/helpers/get-erc721-contract-approval'
 import { redeemOffer as contractRedeemOffer } from '@echo/web3-dom/helpers/redeem-offer'
 import { signNonce } from '@echo/web3-dom/helpers/sign-nonce'
@@ -43,7 +44,8 @@ export const Dependencies: FunctionComponent<PropsWithChildren> = ({ children })
         createListing,
         disconnectWallet,
         getAccount,
-        getAllTokensBalance,
+        getErc20TokenBalance,
+        getAllErc20TokenBalances,
         getEchoTradingFees,
         getErc721ContractApproval,
         getNonce,

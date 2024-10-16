@@ -1,7 +1,8 @@
-import type { Item, Items } from '@echo/model/types/item'
-import type { Erc721Token } from '@echo/model/types/token'
-import { prop } from 'ramda'
+import { isErc721Item } from '@echo/model/helpers/item/is-erc721-item'
+import type { Erc721Item } from '@echo/model/types/item/erc721-item'
+import type { Item } from '@echo/model/types/item/item'
+import { filter } from 'ramda'
 
-export function erc721Items(items: Items): Item<Erc721Token>[] {
-  return prop('erc721', items)
+export function erc721Items(items: Item[]): Erc721Item[] {
+  return filter(isErc721Item, items)
 }

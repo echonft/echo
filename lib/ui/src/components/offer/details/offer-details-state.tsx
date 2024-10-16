@@ -1,5 +1,5 @@
 import { OFFER_STATE_EXPIRED } from '@echo/model/constants/offer-states'
-import type { Offer } from '@echo/model/types/offer'
+import type { Offer } from '@echo/model/types/offer/offer'
 import { StateExpiration } from '@echo/ui/components/base/state-expiration'
 import { OfferDetailsStateDetailsLayout } from '@echo/ui/components/offer/details/layout/offer-details-state-details-layout'
 import { OfferDetailsStateLayout } from '@echo/ui/components/offer/details/layout/offer-details-state-layout'

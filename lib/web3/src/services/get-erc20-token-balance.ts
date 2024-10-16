@@ -1,4 +1,4 @@
-import type { Erc20Token } from '@echo/model/types/token'
+import type { Erc20Token } from '@echo/model/types/token/erc20-token'
 import type { Wallet } from '@echo/model/types/wallet'
 import { getClientForChain } from '@echo/web3/helpers/get-client-for-chain'
 import { backOff } from 'exponential-backoff'

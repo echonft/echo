@@ -1,5 +1,5 @@
 'use client'
-import { type Nft } from '@echo/model/types/nft'
+import { type Nft } from '@echo/model/types/nft/nft'
 import { CardFooter } from '@echo/ui/components/base/card/card-footer'
 import { CardLayout } from '@echo/ui/components/base/card/layout/card-layout'
 import { NftCardPicture } from '@echo/ui/components/nft/card/nft-card-picture'

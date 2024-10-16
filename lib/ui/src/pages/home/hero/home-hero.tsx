@@ -1,4 +1,4 @@
-import type { CollectionWithSwapsCount } from '@echo/model/types/collection-with-swaps-count'
+import type { CollectionWithSwapsCount } from '@echo/model/types/collection/collection-with-swaps-count'
 import { CollectionTile } from '@echo/ui/components/collection/tile/collection-tile'
 import { SIZE_LG } from '@echo/ui/constants/size'
 import { HomeHeroLayout } from '@echo/ui/pages/home/hero/home-hero-layout'

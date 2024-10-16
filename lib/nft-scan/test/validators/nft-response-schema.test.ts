@@ -1,3 +1,4 @@
+import { TokenType } from '@echo/model/constants/token-type'
 import { attributesMock } from '@echo/nft-scan/mocks/attributes-mock'
 import { nftResponseMock } from '@echo/nft-scan/mocks/nft-response-mock'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
@@ -21,7 +22,7 @@ describe('validator - nftResponseSchema', () => {
     name: 'Blast Penguins #2944',
     attributes: attributesMock()['1'],
     metadataUrl: 'https://dweb.link/ipfs/bafybeier5k54xnsw26fhttl673vc57jmbddvkkjn4skiel26t5yawsi3x4/2944.json',
-    type: 'erc721'
+    type: TokenType.Erc721
   }
   it('maps correctly with ipfs image uri', () => {
     expect(nftResponseSchema(chain).parse(response)).toEqual(expectedResult)

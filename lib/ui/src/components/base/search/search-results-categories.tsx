@@ -1,5 +1,5 @@
-import type { SearchResult as SearchResultModel } from '@echo/model/types/search-result'
-import type { SearchResultCategory } from '@echo/model/types/search-result-category'
+import type { SearchResult as SearchResultModel } from '@echo/model/types/search/search-result'
+import type { SearchResultCategory } from '@echo/model/types/search/search-result-category'
 import { SearchResultCategories } from '@echo/ui/components/base/search/search-result-categories'
 import { mapSearchResultsToCategories } from '@echo/ui/helpers/search/map-search-results-to-categories'
 import type { Nullable } from '@echo/utils/types/nullable'

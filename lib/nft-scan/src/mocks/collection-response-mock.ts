@@ -1,3 +1,4 @@
+import { TokenType } from '@echo/model/constants/token-type'
 import type { CollectionResponse } from '@echo/nft-scan/types/response/collection-response'
 
 export function collectionResponseMock(): CollectionResponse {
@@ -20,7 +21,7 @@ export function collectionResponseMock(): CollectionResponse {
     featured_url: null,
     large_image_url: null,
     attributes: [],
-    erc_type: 'erc721',
+    erc_type: TokenType.Erc721,
     deploy_block_number: 414712,
     owner: '0x61e2198207f12b0fd094ca7043a7244fd5bfaae8',
     verified: false,

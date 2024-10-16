@@ -18,7 +18,7 @@ import {
   offerMockFromJohnnycageSlug,
   offerMockToJohnnycageId
 } from '@echo/model/mocks/offer/offer-mock'
-import type { Offer } from '@echo/model/types/offer'
+import type { Offer } from '@echo/model/types/offer/offer'
 import { pastDate } from '@echo/utils/helpers/past-date'
 import { beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, pipe } from 'ramda'

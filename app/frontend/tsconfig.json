@@ -3,13 +3,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@echo/api/*": ["../../lib/api/src/*"],
       "@echo/auth/*": ["../../lib/auth/src/*"],
+      "@echo/backend/*": ["../../lib/backend/src/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
       "@echo/frontend/*": ["src/*"],
       "@echo/nft-scan/*": ["../../lib/nft-scan/src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
       "@echo/opensea/*": ["../../lib/opensea/src/*"],
+      "@echo/routing/*": ["../../lib/routing/src/*"],
       "@echo/tasks/*": ["../../lib/tasks/src/*"],
       "@echo/ui/*": ["../../lib/ui/src/*"],
       "@echo/ui-css/*": ["../../lib/ui/dist/*"],
@@ -28,6 +29,6 @@
     // This improves issue grouping in Sentry.
     "sourceRoot": "/"
   },
-  "include": ["src", "next-env.d.ts", ".next/types/**/*.ts", "test", "sentry.*.config.ts", "../../env.d.ts"],
+  "include": ["src", "next-env.d.ts", ".next/types/**/*.ts", "sentry.*.config.ts", "../../env.d.ts"],
   "exclude": ["node_modules", ".next"]
 }

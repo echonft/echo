@@ -1,4 +1,4 @@
-import type { Listing } from '@echo/model/types/listing'
+import type { Listing } from '@echo/model/types/listing/listing'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { ListingDetailsButtonsLayout } from '@echo/ui/components/listing/details/layout/listing-details-buttons-layout'
 import { isListingRoleCreator } from '@echo/ui/helpers/listing/is-listing-role-creator'

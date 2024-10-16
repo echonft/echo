@@ -6,7 +6,7 @@ import {
   LISTING_STATE_OPEN,
   LISTING_STATE_PARTIALLY_FULFILLED
 } from '@echo/model/constants/listing-states'
-import type { Listing } from '@echo/model/types/listing'
+import type { Listing } from '@echo/model/types/listing/listing'
 import { BG_DEFAULT, BG_GREEN_GRADIENT, BG_RED_GRADIENT, BG_YELLOW_GRADIENT } from '@echo/ui/constants/background'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil } from 'ramda'

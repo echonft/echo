@@ -1,7 +1,7 @@
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import { LISTING_STATE_CANCELLED } from '@echo/model/constants/listing-states'
 import { getListingMock } from '@echo/model/mocks/listing/get-listing-mock'
-import type { Listing } from '@echo/model/types/listing'
+import type { Listing } from '@echo/model/types/listing/listing'
 import type { WithSlug } from '@echo/model/types/with-slug'
 import { toPromise } from '@echo/utils/fp/to-promise'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'

@@ -1,6 +1,6 @@
 import { deleteListingOffer } from '@echo/firestore/crud/listing-offer/delete-listing-offer'
 import { deleteListing } from '@echo/firestore/crud/listing/delete-listing'
-import { assertListingIsNotADuplicate } from '@echo/firestore/helpers/listing/assert/assert-listing-is-not-a-duplicate'
+import { assertListingIsNotADuplicate } from '@echo/firestore/helpers/listing/assert-listing-is-not-a-duplicate'
 import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
 import type { Nullable } from '@echo/utils/types/nullable'

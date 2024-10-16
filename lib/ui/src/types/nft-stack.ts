@@ -1,6 +1,7 @@
-import type { NftCollection } from '@echo/model/types/nft'
-import type { NftToken } from '@echo/model/types/token'
-import type { User } from '@echo/model/types/user'
+import type { NftCollection } from '@echo/model/types/nft/nft'
+import type { Erc1155Token } from '@echo/model/types/token/erc1155-token'
+import type { Erc721Token } from '@echo/model/types/token/erc721-token'
+import type { User } from '@echo/model/types/user/user'
 import type { NonEmptyArray } from 'ramda'
 
 export interface NftStack {
@@ -8,5 +9,5 @@ export interface NftStack {
   collection: NftCollection
   pictureUrl: string
   tokenId: string
-  nfts: NonEmptyArray<NftToken>
+  nfts: NonEmptyArray<Erc721Token | Erc1155Token>
 }

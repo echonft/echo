@@ -129,15 +129,15 @@ importers:
       '@babel/preset-typescript':
         specifier: 7.24.7
         version: 7.24.7(@babel/core@7.25.2)
-      '@echo/api':
-        specifier: workspace:*
-        version: link:../../lib/api
       '@echo/firestore':
         specifier: workspace:*
         version: link:../../lib/firestore
       '@echo/model':
         specifier: workspace:*
         version: link:../../lib/model
+      '@echo/routing':
+        specifier: workspace:*
+        version: link:../../lib/routing
       '@echo/utils':
         specifier: workspace:*
         version: link:../../lib/utils
@@ -208,18 +208,21 @@ importers:
       '@echo/auth':
         specifier: workspace:*
         version: link:../../lib/auth
+      '@echo/backend':
+        specifier: workspace:*
+        version: link:../../lib/backend
       '@echo/firestore':
         specifier: workspace:*
         version: link:../../lib/firestore
       '@echo/model':
         specifier: workspace:*
         version: link:../../lib/model
-      '@echo/nft-scan':
-        specifier: workspace:*
-        version: link:../../lib/nft-scan
       '@echo/opensea':
         specifier: workspace:*
         version: link:../../lib/opensea
+      '@echo/routing':
+        specifier: workspace:*
+        version: link:../../lib/routing
       '@echo/ui':
         specifier: workspace:*
         version: link:../../lib/ui
@@ -265,9 +268,6 @@ importers:
       tailwindcss:
         specifier: 3.4.7
         version: 3.4.7(ts-node@10.9.1(@swc/core@1.7.6(@swc/helpers@0.5.11))(@types/node@22.1.0)(typescript@5.5.4))
-      zod:
-        specifier: 3.23.8
-        version: 3.23.8
     devDependencies:
       '@sentry/cli':
         specifier: 2.33.1
@@ -411,6 +411,9 @@ importers:
 
   lib/api:
     dependencies:
+      '@sentry/nextjs':
+        specifier: 8.24.0
+        version: 8.24.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.25.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.52.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.25.1(@opentelemetry/api@1.9.0))(encoding@0.1.13)(next@14.2.5(@babel/core@7.25.2)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(webpack@5.93.0(@swc/core@1.7.6(@swc/helpers@0.5.11)))
       axios:
         specifier: 1.7.3
         version: 1.7.3
@@ -442,15 +445,24 @@ importers:
       '@babel/preset-typescript':
         specifier: 7.24.7
         version: 7.24.7(@babel/core@7.25.2)
+      '@echo/auth':
+        specifier: workspace:*
+        version: link:../auth
       '@echo/firestore':
         specifier: workspace:*
         version: link:../firestore
       '@echo/model':
         specifier: workspace:*
         version: link:../model
+      '@echo/routing':
+        specifier: workspace:*
+        version: link:../routing
       '@echo/utils':
         specifier: workspace:*
         version: link:../utils
+      '@echo/web3':
+        specifier: workspace:*
+        version: link:../web3
       '@jest/globals':
         specifier: 29.7.0
         version: 29.7.0
@@ -500,15 +512,15 @@ importers:
       '@babel/preset-typescript':
         specifier: 7.24.7
         version: 7.24.7(@babel/core@7.25.2)
-      '@echo/api':
-        specifier: workspace:*
-        version: link:../api
       '@echo/firestore':
         specifier: workspace:*
         version: link:../firestore
       '@echo/model':
         specifier: workspace:*
         version: link:../model
+      '@echo/routing':
+        specifier: workspace:*
+        version: link:../routing
       '@echo/utils':
         specifier: workspace:*
         version: link:../utils
@@ -521,6 +533,85 @@ importers:
       '@types/node':
         specifier: 22.1.0
         version: 22.1.0
+      '@types/ramda':
+        specifier: 0.30.1
+        version: 0.30.1
+      jest:
+        specifier: 29.7.0
+        version: 29.7.0(@types/node@22.1.0)(ts-node@10.9.1(@swc/core@1.7.6(@swc/helpers@0.5.11))(@types/node@22.1.0)(typescript@5.5.4))
+      jest-junit:
+        specifier: 16.0.0
+        version: 16.0.0
+      typescript:
+        specifier: 5.5.4
+        version: 5.5.4
+
+  lib/backend:
+    dependencies:
+      '@sentry/nextjs':
+        specifier: 8.24.0
+        version: 8.24.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.25.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.52.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.25.1(@opentelemetry/api@1.9.0))(encoding@0.1.13)(next@14.2.5(@babel/core@7.25.2)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(webpack@5.93.0(@swc/core@1.7.6(@swc/helpers@0.5.11)))
+      axios:
+        specifier: 1.7.3
+        version: 1.7.3
+      next:
+        specifier: 14.2.5
+        version: 14.2.5(@babel/core@7.25.2)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      path-to-regexp:
+        specifier: 7.1.0
+        version: 7.1.0
+      qs:
+        specifier: 6.13.0
+        version: 6.13.0
+      ramda:
+        specifier: 0.30.1
+        version: 0.30.1
+      siwe:
+        specifier: 2.3.2
+        version: 2.3.2(ethers@6.13.1(bufferutil@4.0.8)(utf-8-validate@5.0.10))
+      zod:
+        specifier: 3.23.8
+        version: 3.23.8
+    devDependencies:
+      '@babel/core':
+        specifier: 7.25.2
+        version: 7.25.2
+      '@babel/preset-env':
+        specifier: 7.25.3
+        version: 7.25.3(@babel/core@7.25.2)
+      '@babel/preset-typescript':
+        specifier: 7.24.7
+        version: 7.24.7(@babel/core@7.25.2)
+      '@echo/auth':
+        specifier: workspace:*
+        version: link:../auth
+      '@echo/firestore':
+        specifier: workspace:*
+        version: link:../firestore
+      '@echo/model':
+        specifier: workspace:*
+        version: link:../model
+      '@echo/routing':
+        specifier: workspace:*
+        version: link:../routing
+      '@echo/utils':
+        specifier: workspace:*
+        version: link:../utils
+      '@echo/web3':
+        specifier: workspace:*
+        version: link:../web3
+      '@jest/globals':
+        specifier: 29.7.0
+        version: 29.7.0
+      '@jest/types':
+        specifier: 29.6.3
+        version: 29.6.3
+      '@types/node':
+        specifier: 22.1.0
+        version: 22.1.0
+      '@types/qs':
+        specifier: 6.9.15
+        version: 6.9.15
       '@types/ramda':
         specifier: 0.30.1
         version: 0.30.1
@@ -653,12 +744,12 @@ importers:
       '@babel/preset-typescript':
         specifier: 7.24.7
         version: 7.24.7(@babel/core@7.25.2)
-      '@echo/api':
-        specifier: workspace:*
-        version: link:../api
       '@echo/model':
         specifier: workspace:*
         version: link:../model
+      '@echo/routing':
+        specifier: workspace:*
+        version: link:../routing
       '@echo/utils':
         specifier: workspace:*
         version: link:../utils
@@ -708,12 +799,12 @@ importers:
       '@babel/preset-typescript':
         specifier: 7.24.7
         version: 7.24.7(@babel/core@7.25.2)
-      '@echo/api':
-        specifier: workspace:*
-        version: link:../api
       '@echo/model':
         specifier: workspace:*
         version: link:../model
+      '@echo/routing':
+        specifier: workspace:*
+        version: link:../routing
       '@echo/utils':
         specifier: workspace:*
         version: link:../utils
@@ -738,6 +829,37 @@ importers:
       jest-junit:
         specifier: 16.0.0
         version: 16.0.0
+      typescript:
+        specifier: 5.5.4
+        version: 5.5.4
+
+  lib/routing:
+    dependencies:
+      path-to-regexp:
+        specifier: 7.1.0
+        version: 7.1.0
+      qs:
+        specifier: 6.13.0
+        version: 6.13.0
+      ramda:
+        specifier: 0.30.1
+        version: 0.30.1
+    devDependencies:
+      '@echo/model':
+        specifier: workspace:*
+        version: link:../model
+      '@echo/utils':
+        specifier: workspace:*
+        version: link:../utils
+      '@types/node':
+        specifier: 22.1.0
+        version: 22.1.0
+      '@types/qs':
+        specifier: 6.9.15
+        version: 6.9.15
+      '@types/ramda':
+        specifier: 0.30.1
+        version: 0.30.1
       typescript:
         specifier: 5.5.4
         version: 5.5.4
@@ -908,6 +1030,9 @@ importers:
       '@echo/model':
         specifier: workspace:*
         version: link:../model
+      '@echo/routing':
+        specifier: workspace:*
+        version: link:../routing
       '@echo/utils':
         specifier: workspace:*
         version: link:../utils
@@ -23391,7 +23516,7 @@ snapshots:
       '@next/env': 14.2.5
       '@swc/helpers': 0.5.5
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001641
+      caniuse-lite: 1.0.30001647
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.3.1

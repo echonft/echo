@@ -1,5 +1,5 @@
-import type { BaseOffer } from '@echo/model/types/base-offer'
-import type { Nft } from '@echo/model/types/nft'
+import type { BaseOffer } from '@echo/model/types/offer/base-offer'
+import type { Nft } from '@echo/model/types/nft/nft'
 import type { Wallet } from '@echo/model/types/wallet'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'

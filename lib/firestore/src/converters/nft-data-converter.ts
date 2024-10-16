@@ -2,7 +2,7 @@ import { getNftTokenIdLabel } from '@echo/firestore/helpers/converters/nft/get-n
 import { lowerOwnerWalletAddress } from '@echo/firestore/helpers/converters/nft/lower-owner-wallet-address'
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
 import type { NftDocumentData } from '@echo/firestore/types/model/nft-document-data'
-import type { Nft } from '@echo/model/types/nft'
+import type { Nft } from '@echo/model/types/nft/nft'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
 import { assoc, dissoc, has, pipe, unless } from 'ramda'

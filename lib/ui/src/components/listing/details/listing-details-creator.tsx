@@ -1,4 +1,4 @@
-import type { User } from '@echo/model/types/user'
+import type { User } from '@echo/model/types/user/user'
 import { UserDetails } from '@echo/ui/components/user/details/user-details'
 import type { FunctionComponent } from 'react'
 

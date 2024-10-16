@@ -1,9 +1,10 @@
+import { TokenType } from '@echo/model/constants/token-type'
 import { collectionMockSpiralSlug } from '@echo/model/mocks/collection/collection-mock'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import { walletMockCrewAddress, walletMockJohnnyAddress } from '@echo/model/mocks/wallet/wallet-mock'
-import type { Collection } from '@echo/model/types/collection'
-import type { Nft, NftCollection } from '@echo/model/types/nft'
+import type { Collection } from '@echo/model/types/collection/collection'
+import type { Nft, NftCollection } from '@echo/model/types/nft/nft'
 import type { PartialNft } from '@echo/opensea/types/partial-nft'
 import { nftExtendedResponseSchema } from '@echo/opensea/validators/nft-extended-response-schema'
 import { describe, expect, it } from '@jest/globals'
@@ -17,7 +18,7 @@ describe('validators - nftExtendedResponseSchema', () => {
       identifier: nftMock.tokenId.toString(),
       collection: collectionMockSpiralSlug(),
       contract: nftMock.collection.contract.address,
-      token_standard: 'erc721',
+      token_standard: TokenType.Erc721,
       name: nftMock.name,
       description: 'whatever',
       image_url: nftMock.pictureUrl,
@@ -57,7 +58,7 @@ describe('validators - nftExtendedResponseSchema', () => {
       identifier: nftMock.tokenId.toString(),
       collection: collectionMockSpiralSlug(),
       contract: nftMock.collection.contract.address,
-      token_standard: 'erc721',
+      token_standard: TokenType.Erc721,
       name: nftMock.name,
       description: 'whatever',
       image_url: undefined,
@@ -108,7 +109,7 @@ describe('validators - nftExtendedResponseSchema', () => {
       identifier: nftMock.tokenId.toString(),
       collection: collectionMockSpiralSlug(),
       contract: nftMock.collection.contract.address,
-      token_standard: 'erc721',
+      token_standard: TokenType.Erc721,
       name: nftMock.name,
       description: 'whatever',
       image_url: nftMock.pictureUrl,

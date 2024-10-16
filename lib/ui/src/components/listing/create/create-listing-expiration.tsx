@@ -1,5 +1,6 @@
 import { Expiration } from '@echo/model/constants/expiration'
-import type { Nft, OwnedNft } from '@echo/model/types/nft'
+import type { Nft } from '@echo/model/types/nft/nft'
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import { ExpirationButtonsLayout } from '@echo/ui/components/base/expiration/expiration-buttons-layout'
 import { ExpirationImage } from '@echo/ui/components/base/expiration/expiration-image'
 import { ExpirationLayout } from '@echo/ui/components/base/expiration/expiration-layout'

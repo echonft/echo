@@ -1,15 +1,16 @@
-import type { OfferSearchParams } from '@echo/api/types/routing/search-params/offer-search-params'
+import type { PropsWithAuthUser } from '@echo/auth/types/props-with-auth-user'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
-import { getNftIndexFromQueryParam } from '@echo/frontend/lib/helpers/nft/get-nft-index-from-query-param'
-import type { PropsWithAuthUser } from '@echo/frontend/lib/types/props-with-auth-user'
 import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
 import { eqOwnedNftOwner } from '@echo/model/helpers/nft/eq-owned-nft-owner'
 import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
-import type { Nft, OwnedNft } from '@echo/model/types/nft'
-import type { User } from '@echo/model/types/user'
+import type { Nft } from '@echo/model/types/nft/nft'
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { User } from '@echo/model/types/user/user'
+import { getNftIndexFromSearchParam } from '@echo/routing/search-params/get-nft-index-from-search-param'
+import type { OfferSearchParams } from '@echo/routing/types/search-params/offer-search-params'
 import { PageLayoutBackgroundPicker } from '@echo/ui/components/base/layout/page-layout-background-picker'
 import { CreateOfferManager } from '@echo/ui/components/offer/create/create-offer-manager'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
@@ -50,7 +51,7 @@ async function render({
   }
   const receiverNfts = await pipe(
     unless(is(Array), juxt([identity])),
-    map(getNftIndexFromQueryParam),
+    map(getNftIndexFromSearchParam),
     map(getNftByIndex),
     promiseAll,
     andThen<Nullable<Nft>[], OwnedNft[]>(

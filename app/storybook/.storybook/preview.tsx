@@ -13,8 +13,9 @@ import { contractRedeemOffer } from '@echo/storybook/mocks/contract-redeem-offer
 import { createListing } from '@echo/storybook/mocks/create-listing'
 import { disconnectWallet } from '@echo/storybook/mocks/disconnect-wallet'
 import { getAccount } from '@echo/storybook/mocks/get-account'
-import { getAllTokensBalance } from '@echo/storybook/mocks/get-all-tokens-balance'
+import { getAllErc20TokenBalances } from '@echo/storybook/mocks/get-all-erc20-token-balances'
 import { getEchoTradingFees } from '@echo/storybook/mocks/get-echo-trading-fees'
+import { getErc20TokenBalance } from '@echo/storybook/mocks/get-erc20-token-balance'
 import { getErc721ContractApproval } from '@echo/storybook/mocks/get-erc721-contract-approval'
 import { getNonce } from '@echo/storybook/mocks/get-nonce'
 import { getOfferByIdContract } from '@echo/storybook/mocks/get-offer-by-id-contract'
@@ -57,12 +58,14 @@ const preview: Preview = {
                 createListing,
                 disconnectWallet,
                 getAccount,
-                getAllTokensBalance,
+                getErc20TokenBalance,
+                getAllErc20TokenBalances,
                 getEchoTradingFees,
                 getErc721ContractApproval,
                 getNonce,
                 getOfferByIdContract,
                 getWallets,
+                logger: undefined,
                 login,
                 logout,
                 rejectOffer,

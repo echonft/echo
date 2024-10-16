@@ -1,4 +1,4 @@
-import type { Offer } from '@echo/model/types/offer'
+import type { Offer } from '@echo/model/types/offer/offer'
 import { CardChainIcon } from '@echo/ui/components/base/card/card-chain-icon'
 import { StackPictureLayout } from '@echo/ui/components/base/stack/layout/stack-picture-layout'
 import { StackImage } from '@echo/ui/components/base/stack/stack-image'

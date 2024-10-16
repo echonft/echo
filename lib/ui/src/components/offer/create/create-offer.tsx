@@ -1,7 +1,8 @@
 'use client'
-import type { OwnedNft } from '@echo/model/types/nft'
-import type { Offer } from '@echo/model/types/offer'
-import type { User } from '@echo/model/types/user'
+
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { Offer } from '@echo/model/types/offer/offer'
+import type { User } from '@echo/model/types/user/user'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { ProfilePicture } from '@echo/ui/components/base/profile-picture'
 import { NftCards } from '@echo/ui/components/nft/card/nft-cards'

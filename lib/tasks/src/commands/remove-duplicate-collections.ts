@@ -5,7 +5,7 @@ import { getCollectionsCollectionReference } from '@echo/firestore/helpers/colle
 import { getQueryDocumentSnapshots } from '@echo/firestore/helpers/crud/query/get-query-document-snapshots'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import type { Collection } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection/collection'
 import { getLogger } from '@echo/tasks/commands/get-logger'
 import { getDuplicateCollections } from '@echo/tasks/get-duplicate-collections'
 import { unlessNil } from '@echo/utils/fp/unless-nil'

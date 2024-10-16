@@ -1,4 +1,4 @@
-import { pathProvider } from '@echo/api/routing/path-provider'
+import { pathProvider } from '@echo/routing/path-provider'
 import type { CardDiscordTagProps } from '@echo/ui/components/base/card/card-discord-tag'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { type FunctionComponent, type PropsWithChildren } from 'react'

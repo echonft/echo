@@ -1,6 +1,7 @@
 import type { Expiration } from '@echo/model/constants/expiration'
-import type { OwnedNft } from '@echo/model/types/nft'
-import type { Offer } from '@echo/model/types/offer'
+
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { Offer } from '@echo/model/types/offer/offer'
 import { CreateOfferModalSwitch } from '@echo/ui/components/offer/create/create-offer-modal-switch'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'

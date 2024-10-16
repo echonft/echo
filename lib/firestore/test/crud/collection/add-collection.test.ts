@@ -5,7 +5,7 @@ import { deleteCollection } from '@echo/firestore/crud/collection/delete-collect
 import { getCollectionById } from '@echo/firestore/crud/collection/get-collection-by-id'
 import { collectionMockPxId } from '@echo/model/mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model/mocks/collection/get-collection-mock-by-id'
-import type { Collection } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection/collection'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, assocPath, isNil, pipe } from 'ramda'
