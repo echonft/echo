@@ -3,11 +3,16 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@echo/storybook/*": ["./src/*"],
       "@echo/api/*": ["../../lib/api/src/*"],
       "@echo/auth/*": ["../../lib/auth/src/*"],
+      "@echo/backend/*": ["../../lib/backend/src/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
-      "@echo/storybook/*": ["./src/*"],
+      "@echo/nft-scan/*": ["../../lib/nft-scan/src/*"],
+      "@echo/opensea/*": ["../../lib/opensea/src/*"],
+      "@echo/routing/*": ["../../lib/routing/src/*"],
+      "@echo/tasks/*": ["../../lib/tasks/src/*"],
       "@echo/ui/*": ["../../lib/ui/src/*"],
       "@echo/ui-css/*": ["../../lib/ui/dist/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"],

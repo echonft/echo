@@ -1,10 +1,7 @@
-// noinspection ES6UnusedImports
-// noinspection JSUnusedGlobalSymbols
-
-// import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
 import type { Awaitable } from '@echo/utils/types/awaitable'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import * as R from 'ramda'
+
+import 'ramda'
+import '@echo/auth/global'
 
 // declare module '@sentry/types' {
 //   // eslint-disable-next-line @typescript-eslint/no-empty-object-type

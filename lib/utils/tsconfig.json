@@ -3,7 +3,19 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@echo/utils/*": ["src/*"]
+      "@echo/utils/*": ["src/*"],
+      "@echo/api/*": ["../api/src/*"],
+      "@echo/auth/*": ["../auth/src/*"],
+      "@echo/backend/*": ["../backend/src/*"],
+      "@echo/firestore/*": ["../firestore/src/*"],
+      "@echo/model/*": ["../model/src/*"],
+      "@echo/nft-scan/*": ["../nft-scan/src/*"],
+      "@echo/opensea/*": ["../opensea/src/*"],
+      "@echo/routing/*": ["../routing/src/*"],
+      "@echo/tasks/*": ["../tasks/src/*"],
+      "@echo/ui/*": ["../ui/src/*"],
+      "@echo/web3/*": ["../web3/src/*"],
+      "@echo/web3-dom/*": ["../web3-dom/src/*"]
     }
   },
   "include": ["src", "test", "../../env.d.ts"],

@@ -202,9 +202,6 @@ importers:
 
   app/frontend:
     dependencies:
-      '@echo/api':
-        specifier: workspace:*
-        version: link:../../lib/api
       '@echo/auth':
         specifier: workspace:*
         version: link:../../lib/auth
@@ -217,9 +214,6 @@ importers:
       '@echo/model':
         specifier: workspace:*
         version: link:../../lib/model
-      '@echo/opensea':
-        specifier: workspace:*
-        version: link:../../lib/opensea
       '@echo/routing':
         specifier: workspace:*
         version: link:../../lib/routing
@@ -229,12 +223,6 @@ importers:
       '@echo/utils':
         specifier: workspace:*
         version: link:../../lib/utils
-      '@echo/web3':
-        specifier: workspace:*
-        version: link:../../lib/web3
-      '@echo/web3-dom':
-        specifier: workspace:*
-        version: link:../../lib/web3-dom
       '@next/bundle-analyzer':
         specifier: 14.2.5
         version: 14.2.5(bufferutil@4.0.8)(utf-8-validate@5.0.10)
@@ -262,9 +250,6 @@ importers:
       react-dom:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
-      siwe:
-        specifier: 2.3.2
-        version: 2.3.2(ethers@6.13.1(bufferutil@4.0.8)(utf-8-validate@5.0.10))
       tailwindcss:
         specifier: 3.4.7
         version: 3.4.7(ts-node@10.9.1(@swc/core@1.7.6(@swc/helpers@0.5.11))(@types/node@22.1.0)(typescript@5.5.4))
@@ -275,18 +260,9 @@ importers:
       '@swc/core':
         specifier: 1.7.6
         version: 1.7.6(@swc/helpers@0.5.11)
-      '@swc/jest':
-        specifier: 0.2.36
-        version: 0.2.36(@swc/core@1.7.6(@swc/helpers@0.5.11))
-      '@types/jest':
-        specifier: 29.5.12
-        version: 29.5.12
       '@types/node':
         specifier: 22.1.0
         version: 22.1.0
-      '@types/qs':
-        specifier: 6.9.15
-        version: 6.9.15
       '@types/ramda':
         specifier: 0.30.1
         version: 0.30.1
@@ -302,12 +278,6 @@ importers:
       '@typescript-eslint/parser':
         specifier: 8.0.1
         version: 8.0.1(eslint@9.8.0)(typescript@5.5.4)
-      jest:
-        specifier: 29.7.0
-        version: 29.7.0(@types/node@22.1.0)(ts-node@10.9.1(@swc/core@1.7.6(@swc/helpers@0.5.11))(@types/node@22.1.0)(typescript@5.5.4))
-      jest-junit:
-        specifier: 16.0.0
-        version: 16.0.0
       pino-pretty:
         specifier: 11.2.2
         version: 11.2.2
@@ -411,30 +381,12 @@ importers:
 
   lib/api:
     dependencies:
-      '@sentry/nextjs':
-        specifier: 8.24.0
-        version: 8.24.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.25.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.52.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.25.1(@opentelemetry/api@1.9.0))(encoding@0.1.13)(next@14.2.5(@babel/core@7.25.2)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(webpack@5.93.0(@swc/core@1.7.6(@swc/helpers@0.5.11)))
       axios:
         specifier: 1.7.3
         version: 1.7.3
-      next:
-        specifier: 14.2.5
-        version: 14.2.5(@babel/core@7.25.2)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      path-to-regexp:
-        specifier: 7.1.0
-        version: 7.1.0
-      qs:
-        specifier: 6.13.0
-        version: 6.13.0
       ramda:
         specifier: 0.30.1
         version: 0.30.1
-      siwe:
-        specifier: 2.3.2
-        version: 2.3.2(ethers@6.13.1(bufferutil@4.0.8)(utf-8-validate@5.0.10))
-      zod:
-        specifier: 3.23.8
-        version: 3.23.8
     devDependencies:
       '@babel/core':
         specifier: 7.25.2
@@ -445,12 +397,6 @@ importers:
       '@babel/preset-typescript':
         specifier: 7.24.7
         version: 7.24.7(@babel/core@7.25.2)
-      '@echo/auth':
-        specifier: workspace:*
-        version: link:../auth
-      '@echo/firestore':
-        specifier: workspace:*
-        version: link:../firestore
       '@echo/model':
         specifier: workspace:*
         version: link:../model
@@ -460,9 +406,6 @@ importers:
       '@echo/utils':
         specifier: workspace:*
         version: link:../utils
-      '@echo/web3':
-        specifier: workspace:*
-        version: link:../web3
       '@jest/globals':
         specifier: 29.7.0
         version: 29.7.0
@@ -472,9 +415,6 @@ importers:
       '@types/node':
         specifier: 22.1.0
         version: 22.1.0
-      '@types/qs':
-        specifier: 6.9.15
-        version: 6.9.15
       '@types/ramda':
         specifier: 0.30.1
         version: 0.30.1
@@ -493,6 +433,18 @@ importers:
       '@auth/core':
         specifier: 0.34.2
         version: 0.34.2
+      '@echo/firestore':
+        specifier: workspace:*
+        version: link:../firestore
+      '@echo/model':
+        specifier: workspace:*
+        version: link:../model
+      '@echo/routing':
+        specifier: workspace:*
+        version: link:../routing
+      '@echo/utils':
+        specifier: workspace:*
+        version: link:../utils
       next:
         specifier: 14.2.5
         version: 14.2.5(@babel/core@7.25.2)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -512,18 +464,6 @@ importers:
       '@babel/preset-typescript':
         specifier: 7.24.7
         version: 7.24.7(@babel/core@7.25.2)
-      '@echo/firestore':
-        specifier: workspace:*
-        version: link:../firestore
-      '@echo/model':
-        specifier: workspace:*
-        version: link:../model
-      '@echo/routing':
-        specifier: workspace:*
-        version: link:../routing
-      '@echo/utils':
-        specifier: workspace:*
-        version: link:../utils
       '@jest/globals':
         specifier: 29.7.0
         version: 29.7.0
@@ -582,6 +522,9 @@ importers:
       '@babel/preset-typescript':
         specifier: 7.24.7
         version: 7.24.7(@babel/core@7.25.2)
+      '@echo/api':
+        specifier: workspace:*
+        version: link:../api
       '@echo/auth':
         specifier: workspace:*
         version: link:../auth
@@ -594,6 +537,9 @@ importers:
       '@echo/routing':
         specifier: workspace:*
         version: link:../routing
+      '@echo/tasks':
+        specifier: workspace:*
+        version: link:../tasks
       '@echo/utils':
         specifier: workspace:*
         version: link:../utils
@@ -4284,12 +4230,6 @@ packages:
 
   '@swc/helpers@0.5.5':
     resolution: {integrity: sha512-KGYxvIOXcceOAbEk4bi/dVLEK9z8sZ0uBB3Il5b1rhfClSpcX0yfRO0KmTkqR2cnQDymwLB+25ZyMzICg/cm/A==}
-
-  '@swc/jest@0.2.36':
-    resolution: {integrity: sha512-8X80dp81ugxs4a11z1ka43FPhP+/e+mJNXJSxiNYk8gIX/jPBtY4gQTrKu/KIoco8bzKuPI5lUxjfLiGsfvnlw==}
-    engines: {npm: '>= 7.0.0'}
-    peerDependencies:
-      '@swc/core': '*'
 
   '@swc/types@0.1.12':
     resolution: {integrity: sha512-wBJA+SdtkbFhHjTMYH+dEH1y4VpfGdAc2Kw/LK09i9bXd/K6j6PkDcFCEzb6iVfZMkPRrl/q0e3toqTAJdkIVA==}
@@ -16749,13 +16689,6 @@ snapshots:
       '@swc/counter': 0.1.3
       tslib: 2.6.3
 
-  '@swc/jest@0.2.36(@swc/core@1.7.6(@swc/helpers@0.5.11))':
-    dependencies:
-      '@jest/create-cache-key-function': 29.7.0
-      '@swc/core': 1.7.6(@swc/helpers@0.5.11)
-      '@swc/counter': 0.1.3
-      jsonc-parser: 3.3.1
-
   '@swc/types@0.1.12':
     dependencies:
       '@swc/counter': 0.1.3
@@ -16973,6 +16906,7 @@ snapshots:
     dependencies:
       expect: 29.7.0
       pretty-format: 29.7.0
+    optional: true
 
   '@types/json-schema@7.0.15': {}
 

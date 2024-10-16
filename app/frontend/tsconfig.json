@@ -3,12 +3,13 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@echo/frontend/*": ["src/*"],
+      "@echo/api/*": ["../../lib/api/src/*"],
       "@echo/auth/*": ["../../lib/auth/src/*"],
       "@echo/backend/*": ["../../lib/backend/src/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
-      "@echo/frontend/*": ["src/*"],
-      "@echo/nft-scan/*": ["../../lib/nft-scan/src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
+      "@echo/nft-scan/*": ["../../lib/nft-scan/src/*"],
       "@echo/opensea/*": ["../../lib/opensea/src/*"],
       "@echo/routing/*": ["../../lib/routing/src/*"],
       "@echo/tasks/*": ["../../lib/tasks/src/*"],
@@ -23,7 +24,6 @@
         "name": "next"
       }
     ],
-    "types": ["jest"],
     // Set `sourceRoot` to  "/" to strip the build path prefix
     // from generated source code references.
     // This improves issue grouping in Sentry.

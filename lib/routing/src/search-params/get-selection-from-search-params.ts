@@ -2,9 +2,9 @@ import type { Listing } from '@echo/model/types/listing/listing'
 import type { Offer } from '@echo/model/types/offer/offer'
 import type { Swap } from '@echo/model/types/offer/swap'
 import type { SelectionSearchParams } from '@echo/routing/types/search-params/selection-search-params'
+import type { Selection } from '@echo/routing/types/selection'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { findIndex, isNil, propEq, toLower } from 'ramda'
-import type { Selection } from '../types/selection'
 
 interface GetPageSelectionArgs {
   listings: Listing[]
