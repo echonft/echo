@@ -6,7 +6,7 @@ import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
 import { deleteOffer } from '@echo/firestore/crud/offer/delete-offer'
 import { updateListing } from '@echo/firestore/utils/listing/update-listing'
 import { unchecked_addOffer } from '@echo/firestore/utils/offer/unchecked_add-offer'
-import { LISTING_STATE_OFFERS_PENDING, LISTING_STATE_OPEN } from '@echo/model/constants/listing-states'
+import { ListingState } from '@echo/model/constants/listing-state'
 import { listingMockId, listingMockSlug } from '@echo/model/mocks/listing/listing-mock'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockFromJohnnycageId, offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
@@ -77,7 +77,7 @@ describe('CRUD - listing-offer - addListingOffer', () => {
     expect(foundListingOffer).toStrictEqual(createdListingOfferNewDocument.data)
     // check if the listing state was correctly updated
     expect(newListingState).toEqual(
-      initialListingState === LISTING_STATE_OPEN ? LISTING_STATE_OFFERS_PENDING : initialListingState
+      initialListingState === ListingState.Open ? ListingState.OffersPending : initialListingState
     )
   })
 })

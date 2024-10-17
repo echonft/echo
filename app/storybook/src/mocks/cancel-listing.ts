@@ -1,5 +1,5 @@
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
-import { LISTING_STATE_CANCELLED } from '@echo/model/constants/listing-states'
+import { ListingState } from '@echo/model/constants/listing-state'
 import { getListingMock } from '@echo/model/mocks/listing/get-listing-mock'
 import type { Listing } from '@echo/model/types/listing/listing'
 import type { WithSlug } from '@echo/model/types/with-slug'
@@ -13,7 +13,7 @@ export function cancelListing(_args: WithSlug): Promise<ListingResponse> {
       applySpec<ListingResponse>({
         listing: pipe<[], Listing, Listing, Listing>(
           getListingMock,
-          assoc('state', LISTING_STATE_CANCELLED),
+          assoc('state', ListingState.Cancelled),
           assoc('readOnly', true)
         )
       }),

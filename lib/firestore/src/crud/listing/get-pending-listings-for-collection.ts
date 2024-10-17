@@ -3,7 +3,7 @@ import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { queryWhereFilter } from '@echo/firestore/helpers/crud/query/query-where-filter'
-import { NOT_READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
+import { notReadOnlyListingStates } from '@echo/model/constants/listing-state'
 import { type Listing } from '@echo/model/types/listing/listing'
 import { now } from '@echo/utils/helpers/now'
 import { Filter } from 'firebase-admin/firestore'
@@ -12,7 +12,7 @@ import { pipe } from 'ramda'
 export async function getPendingListingsForCollection(slug: string): Promise<Listing[]> {
   return pipe(
     getListingsCollectionReference,
-    queryWhere('state', 'in', NOT_READ_ONLY_LISTING_STATES),
+    queryWhere('state', 'in', notReadOnlyListingStates),
     queryWhere('expiresAt', '>', now()),
     queryOrderBy('expiresAt', 'desc'),
     queryWhereFilter(

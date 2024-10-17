@@ -6,7 +6,7 @@ import { cancelListingRequestHandler } from '@echo/backend/request-handlers/list
 import { cancelListing } from '@echo/firestore/crud/listing/cancel-listing'
 import { getListing } from '@echo/firestore/crud/listing/get-listing'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
-import { LISTING_STATE_CANCELLED } from '@echo/model/constants/listing-states'
+import { ListingState } from '@echo/model/constants/listing-state'
 import { getListingMockBySlug } from '@echo/model/mocks/listing/get-listing-mock-by-slug'
 import { listingMockSlug } from '@echo/model/mocks/listing/listing-mock'
 import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
@@ -55,7 +55,7 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
 
   it('returns a 200', async () => {
     jest.mocked(getListing).mockResolvedValueOnce(listing)
-    const updatedListing = assoc('state', LISTING_STATE_CANCELLED, listing)
+    const updatedListing = assoc('state', ListingState.Cancelled, listing)
     jest.mocked(cancelListing).mockResolvedValueOnce(updatedListing)
     const req = mockRequest()
     const res = await cancelListingRequestHandler({ user, req, params: { slug } })

@@ -13,7 +13,7 @@ import { resetListings } from '@echo/firestore/utils/listing/reset-listings'
 import { resetNft } from '@echo/firestore/utils/nft/reset-nft'
 import { resetOffers } from '@echo/firestore/utils/offer/reset-offers'
 import { updateOffer } from '@echo/firestore/utils/offer/update-offer'
-import { LISTING_STATE_PARTIALLY_FULFILLED } from '@echo/model/constants/listing-states'
+import { ListingState } from '@echo/model/constants/listing-state'
 import {
   OFFER_STATE_ACCEPTED,
   OFFER_STATE_CANCELLED,
@@ -148,7 +148,7 @@ describe('CRUD - offer - completeOffer', () => {
     expect(swap.offerId).toStrictEqual(offerId)
     expect(swap.transactionId).toStrictEqual(args.transactionId)
     // check if the listing state was updated properly
-    expect(updatedListing.state).toBe(LISTING_STATE_PARTIALLY_FULFILLED)
+    expect(updatedListing.state).toBe(ListingState.PartiallyFulfilled)
     // check the swaps counts
     expect(updatedSwapsCounts.length).toEqual(initialSwapsCounts.length)
     for (const updatedSwapsCount of updatedSwapsCounts) {

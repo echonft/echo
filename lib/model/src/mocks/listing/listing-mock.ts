@@ -1,4 +1,4 @@
-import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
+import { ListingState } from '@echo/model/constants/listing-state'
 import { TokenType } from '@echo/model/constants/token-type'
 import {
   collectionMockPxId,
@@ -60,7 +60,7 @@ export const listingMock: Record<string, Listing> = {
     ],
     readOnly: false,
     slug: listingMockSlug(),
-    state: LISTING_STATE_OFFERS_PENDING,
+    state: ListingState.OffersPending,
     target: {
       collection: getCollectionMockById(collectionMockPxId()),
       quantity: 3

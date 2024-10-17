@@ -1,4 +1,4 @@
-import { LISTING_STATE_EXPIRED } from '@echo/model/constants/listing-states'
+import { ListingState } from '@echo/model/constants/listing-state'
 import type { Listing } from '@echo/model/types/listing/listing'
 import { StateLabel } from '@echo/ui/components/base/state-label'
 import dayjs from 'dayjs'
@@ -14,7 +14,7 @@ interface Props {
 
 export const ListingDetailsState: FunctionComponent<Props> = ({ listing }) => {
   const t = useTranslations('listing.details')
-  const expired = listing.state === LISTING_STATE_EXPIRED
+  const expired = listing.state === ListingState.Expired
   const expiration = dayjs.unix(listing.expiresAt)
 
   if (expired || !listing.readOnly) {

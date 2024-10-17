@@ -7,7 +7,7 @@ import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
 import type { ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { Expiration } from '@echo/model/constants/expiration'
-import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
+import { ListingState } from '@echo/model/constants/listing-state'
 import { expirationToDate } from '@echo/model/helpers/expiration-to-date'
 import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
@@ -45,7 +45,7 @@ describe('CRUD - listing - addListing', () => {
     const newListing = (await getListingById(createdListingId))!
     expect(newListing.creator).toStrictEqual(creator)
     expect(newListing.items).toStrictEqual(items)
-    expect(newListing.state).toBe(LISTING_STATE_OFFERS_PENDING)
+    expect(newListing.state).toBe(ListingState.OffersPending)
     expect(newListing.target).toStrictEqual(newTarget)
     expect(dayjs.unix(newListing.expiresAt).isAfter(expirationDate.subtract(1, 'minute'))).toBeTruthy()
     expect(dayjs.unix(newListing.expiresAt).isBefore(expirationDate.add(1, 'minute'))).toBeTruthy()

@@ -10,7 +10,7 @@ import { addSwap } from '@echo/firestore/crud/swap/add-swap'
 import type { SwapDocumentData } from '@echo/firestore/types/model/swap-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
-import { LISTING_STATE_FULFILLED, LISTING_STATE_PARTIALLY_FULFILLED } from '@echo/model/constants/listing-states'
+import { ListingState } from '@echo/model/constants/listing-state'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import { listingItemsIndexes } from '@echo/model/helpers/listing/listing-items-indexes'
 import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
@@ -58,7 +58,7 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
     const listing = await getListingById(listingId)
     if (!isNil(listing) && !listing.readOnly) {
       if (fulfillingStatus === ListingOfferFulfillingStatus.Completely) {
-        await updateListingState(listingId, LISTING_STATE_FULFILLED)
+        await updateListingState(listingId, ListingState.Fulfilled)
       } else {
         // in this case, we need to check all the completed offers linked to this listing, and check if this one partially of completely fulfills it
         const offerItems = getOfferItems(offer)
@@ -73,9 +73,9 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
         const offerItemIndexes = pipe(concat, getNftIndexForNfts)(offerItems, completedOffersItems)
         const listingItemIndexes = listingItemsIndexes(listing)
         if (intersection(offerItemIndexes, listingItemIndexes).length === listingItemIndexes.length) {
-          await updateListingState(listing.slug, LISTING_STATE_FULFILLED)
+          await updateListingState(listing.slug, ListingState.Fulfilled)
         } else {
-          await updateListingState(listing.slug, LISTING_STATE_PARTIALLY_FULFILLED)
+          await updateListingState(listing.slug, ListingState.PartiallyFulfilled)
         }
       }
     }

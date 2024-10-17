@@ -1,7 +1,7 @@
 import { updateListingState } from '@echo/firestore/crud/listing/update-listing-state'
-import { LISTING_STATE_CANCELLED } from '@echo/model/constants/listing-states'
+import { ListingState } from '@echo/model/constants/listing-state'
 import type { Listing } from '@echo/model/types/listing/listing'
 
 export function cancelListing(slug: string): Promise<Listing> {
-  return updateListingState(slug, LISTING_STATE_CANCELLED)
+  return updateListingState(slug, ListingState.Cancelled)
 }

@@ -6,7 +6,7 @@ import { getListingOffersCollectionReference } from '@echo/firestore/helpers/col
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { type ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
-import { LISTING_STATE_OFFERS_PENDING, LISTING_STATE_OPEN } from '@echo/model/constants/listing-states'
+import { ListingState } from '@echo/model/constants/listing-state'
 import { isNil, omit } from 'ramda'
 
 export async function addListingOffer(
@@ -36,8 +36,8 @@ export async function addListingOffer(
     data: listingOffer
   })
   // update listing state if needed
-  if (listing.state === LISTING_STATE_OPEN) {
-    await updateListingState(listing.slug, LISTING_STATE_OFFERS_PENDING)
+  if (listing.state === ListingState.Open) {
+    await updateListingState(listing.slug, ListingState.OffersPending)
   }
   return { id, data: listingOffer }
 }

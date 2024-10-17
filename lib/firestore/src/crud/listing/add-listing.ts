@@ -5,7 +5,7 @@ import type { ListingDocumentData } from '@echo/firestore/types/model/listing-do
 import type { ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import type { Expiration } from '@echo/model/constants/expiration'
-import { LISTING_STATE_OPEN } from '@echo/model/constants/listing-states'
+import { ListingState } from '@echo/model/constants/listing-state'
 import { expirationToDateNumber } from '@echo/model/helpers/expiration-to-date-number'
 import { type Listing } from '@echo/model/types/listing/listing'
 import type { User } from '@echo/model/types/user/user'
@@ -31,7 +31,7 @@ export async function addListing(args: AddListingArgs): Promise<
     items,
     readOnly: false,
     slug: pipe(nowMs, toString, toLower<string>)(),
-    state: LISTING_STATE_OPEN,
+    state: ListingState.Open,
     target
   }
   const id = await setReference<Listing, ListingDocumentData>({

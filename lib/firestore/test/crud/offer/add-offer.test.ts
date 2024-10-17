@@ -11,7 +11,7 @@ import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { assertOfferIsNotADuplicate } from '@echo/firestore/helpers/offer/assert-offer-is-not-a-duplicate'
 import { resetListings } from '@echo/firestore/utils/listing/reset-listings'
 import { Expiration } from '@echo/model/constants/expiration'
-import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
+import { ListingState } from '@echo/model/constants/listing-state'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { expirationToDate } from '@echo/model/helpers/expiration-to-date'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
@@ -104,6 +104,6 @@ describe('CRUD - offer - addOffer', () => {
     expect(createdListingOffer.fulfillingStatus).toEqual(ListingOfferFulfillingStatus.Partially)
     // check if the listing state was updated
     const newListingState = (await getListingById(listingId))!.state
-    expect(newListingState).toEqual(LISTING_STATE_OFFERS_PENDING)
+    expect(newListingState).toEqual(ListingState.OffersPending)
   })
 })
