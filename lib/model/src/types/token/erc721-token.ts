@@ -2,10 +2,9 @@ import type { TokenType } from '@echo/model/constants/token-type'
 import type { Erc721Nft } from '@echo/model/types/nft/erc721-nft'
 import type { NftCollection, NftIndex } from '@echo/model/types/nft/nft'
 import type { Token } from '@echo/model/types/token/token'
-import type { Strict } from '@echo/utils/types/strict'
 
 export interface Erc721Token extends Omit<Token, 'type'>, Omit<Erc721Nft, 'attributes' | 'collection' | 'owner'> {
-  collection: Strict<Omit<NftCollection, 'contract'>, Omit<NftCollection, 'contract'>>
+  collection: Omit<NftCollection, 'contract'>
   type: TokenType.Erc721
 }
 

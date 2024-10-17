@@ -1,6 +1,5 @@
 import type { CollectionContract } from '@echo/model/types/collection/collection'
 import type { NftWithContract } from '@echo/model/types/nft/nft'
-import type { Strict } from '@echo/utils/types/strict'
 import { eqBy, isNil, modify, pick, pipe } from 'ramda'
 
 export function eqNftContract(nftA: NftWithContract, nftB: NftWithContract): boolean
@@ -9,7 +8,7 @@ export function eqNftContract(
   nftA: NftWithContract,
   nftB?: NftWithContract
 ): boolean | ((nftB: NftWithContract) => boolean) {
-  const predicate = pipe<[NftWithContract], NftWithContract, Strict<NftWithContract, NftWithContract>>(
+  const predicate = pipe<[NftWithContract], NftWithContract, NftWithContract>(
     pick(['tokenId', 'collection']),
     modify<'collection', CollectionContract, CollectionContract>('collection', pick(['contract']))
   )

@@ -3,14 +3,13 @@ import { type Collection, type CollectionContract, type CollectionIndex } from '
 import { type NftAttribute } from '@echo/model/types/nft/nft-attribute'
 import { type User } from '@echo/model/types/user/user'
 import type { Nullable } from '@echo/utils/types/nullable'
-import type { Strict } from '@echo/utils/types/strict'
 
 export type NftCollection = Pick<Collection, 'contract' | 'name' | 'slug' | 'totalSupply'>
 
 export interface Nft {
   animationUrl?: Nullable<string>
   attributes: NftAttribute[]
-  collection: Strict<NftCollection, NftCollection>
+  collection: NftCollection
   metadataUrl?: Nullable<string>
   name: string
   owner?: Nullable<User>
