@@ -1,11 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { LISTING_ROLE_CREATOR, LISTING_ROLE_TARGET } from '@echo/model/constants/listing-role'
+import { ListingRole } from '@echo/model/constants/listing-role'
 import { ListingState, readOnlyListingStates } from '@echo/model/constants/listing-state'
 import { getListingMock } from '@echo/model/mocks/listing/get-listing-mock'
 import { getAllOfferMocks } from '@echo/model/mocks/offer/get-all-offer-mocks'
 import type { Listing } from '@echo/model/types/listing/listing'
-import type { ListingRole } from '@echo/model/types/listing/listing-role'
 import type { Offer } from '@echo/model/types/offer/offer'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
@@ -65,10 +64,10 @@ export const Details: StoryObj<ComponentType> = {
     function setRole(role: Role) {
       return function (listing: Listing): ListingWithRole {
         if (role === 'Creator') {
-          return assoc<ListingRole, Listing, 'role'>('role', LISTING_ROLE_CREATOR, listing)
+          return assoc<ListingRole, Listing, 'role'>('role', ListingRole.Creator, listing)
         }
         if (role === 'Target') {
-          return assoc<ListingRole, Listing, 'role'>('role', LISTING_ROLE_TARGET, listing)
+          return assoc<ListingRole, Listing, 'role'>('role', ListingRole.Target, listing)
         }
         return assoc('role', undefined, listing)
       }
