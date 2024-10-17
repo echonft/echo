@@ -1,7 +1,7 @@
-import { type Listing } from '@echo/model/types/listing/listing'
 import { listingMock } from '@echo/model/mocks/listing/listing-mock'
-import { type NonEmptyArray } from 'ramda'
+import { type Listing } from '@echo/model/types/listing/listing'
+import { type NonEmptyArray, pipe, values } from 'ramda'
 
 export function getAllListingMocks() {
-  return Object.values(listingMock) as NonEmptyArray<Listing>
+  return pipe(listingMock, values)() as NonEmptyArray<Listing>
 }

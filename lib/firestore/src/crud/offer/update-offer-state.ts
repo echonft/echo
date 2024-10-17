@@ -6,9 +6,10 @@ import type { OfferStateUpdateDocumentData } from '@echo/firestore/types/model/o
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { assertOfferStateTransition } from '@echo/model/helpers/offer/assert-offer-state-transition'
 import type { Offer } from '@echo/model/types/offer/offer'
+import type { Slug } from '@echo/model/types/slug'
 import { dissoc, isNil } from 'ramda'
 
-export type UpdateOfferStateArgs = Record<'slug', string> & OfferStateUpdateDocumentData['update']['args']
+export type UpdateOfferStateArgs = Record<'slug', Slug> & OfferStateUpdateDocumentData['update']['args']
 
 export async function updateOfferState(args: UpdateOfferStateArgs): Promise<Offer> {
   const { slug, state } = args

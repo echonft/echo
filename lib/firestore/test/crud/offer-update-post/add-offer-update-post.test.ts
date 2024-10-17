@@ -41,7 +41,7 @@ describe('CRUD - offer-update-post - addOfferUpdatePost', () => {
   })
   it('throws if trying to add an offer update post that already exists', async () => {
     const { id } = await unchecked_addOfferUpdatePost('offer-update-post-id')
-    offerUpdateId = id
+    offerUpdatePostId = id
     await expect(addOfferUpdatePost('offer-update-post-id')).rejects.toBeDefined()
   })
   it('add an offer update pos', async () => {

@@ -39,9 +39,7 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
   it('throws if the listing is read only', async () => {
     jest.mocked(getListing).mockResolvedValueOnce(assoc('readOnly', true, listing))
     const req = mockRequest()
-    await expect(() => cancelListingRequestHandler({ user, req, params: { slug } })).rejects.toBeInstanceOf(
-      UnauthorizedError
-    )
+    await expect(cancelListingRequestHandler({ user, req, params: { slug } })).rejects.toBeInstanceOf(UnauthorizedError)
   })
 
   it('throws if the user is not the listing creator', async () => {
@@ -49,9 +47,7 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
       .mocked(getListing)
       .mockResolvedValueOnce(modify<Listing, 'creator', User>('creator', assoc('username', 'another-user'), listing))
     const req = mockRequest()
-    await expect(() => cancelListingRequestHandler({ user, req, params: { slug } })).rejects.toBeInstanceOf(
-      ForbiddenError
-    )
+    await expect(cancelListingRequestHandler({ user, req, params: { slug } })).rejects.toBeInstanceOf(ForbiddenError)
   })
 
   it('returns a 200', async () => {

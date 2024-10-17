@@ -3,7 +3,7 @@ import { getOfferStateUpdateSnapshot } from '@echo/firestore/crud/offer-update/g
 import { cancelOffer } from '@echo/firestore/crud/offer/cancel-offer'
 import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
 import type { UpdateOfferStateArgs } from '@echo/firestore/crud/offer/update-offer-state'
-import { resetOffers } from '@echo/firestore/utils/offer/reset-offers'
+import { resetOffer } from '@echo/firestore/utils/offer/reset-offer'
 import { updateOffer } from '@echo/firestore/utils/offer/update-offer'
 import {
   OFFER_STATE_ACCEPTED,
@@ -30,7 +30,7 @@ describe('CRUD - offer - cancelOffer', () => {
     createdStateUpdateId = undefined
   })
   afterEach(async () => {
-    await resetOffers()
+    await resetOffer(slug)
     if (!isNil(createdStateUpdateId)) {
       await deleteOfferUpdate(createdStateUpdateId)
     }

@@ -284,7 +284,7 @@ describe('validators - createListingRequestSchema', () => {
       return Promise.resolve(undefined)
     })
     const schema = await createListingRequestSchema(creatorUsername)
-    await expect(() => schema.parseAsync(validRequest)).rejects.toEqual(
+    await expect(schema.parseAsync(validRequest)).rejects.toEqual(
       ZodError.create([
         {
           code: ZodIssueCode.custom,
@@ -306,7 +306,7 @@ describe('validators - createListingRequestSchema', () => {
       return Promise.resolve(undefined)
     })
     const schema = await createListingRequestSchema(creatorUsername)
-    await expect(() => schema.parseAsync(validRequest)).rejects.toEqual(
+    await expect(schema.parseAsync(validRequest)).rejects.toEqual(
       ZodError.create([
         {
           code: ZodIssueCode.custom,
@@ -320,7 +320,7 @@ describe('validators - createListingRequestSchema', () => {
   it('invalid if an ERC1155 item token balance is smaller than the quantity', async () => {
     jest.mocked(getErc1155TokenBalance).mockResolvedValue(erc1155ItemQuantity - 1)
     const schema = await createListingRequestSchema(creatorUsername)
-    await expect(() => schema.parseAsync(validRequest)).rejects.toEqual(
+    await expect(schema.parseAsync(validRequest)).rejects.toEqual(
       ZodError.create([
         {
           code: ZodIssueCode.custom,
@@ -342,7 +342,7 @@ describe('validators - createListingRequestSchema', () => {
       return Promise.resolve(undefined)
     })
     const schema = await createListingRequestSchema(creatorUsername)
-    await expect(() => schema.parseAsync(validRequest)).rejects.toEqual(
+    await expect(schema.parseAsync(validRequest)).rejects.toEqual(
       ZodError.create([
         {
           code: ZodIssueCode.custom,
@@ -358,7 +358,7 @@ describe('validators - createListingRequestSchema', () => {
     jest
       .mocked(getListingsForCreatorAndTarget)
       .mockResolvedValueOnce([pipe(getListingMock, assoc('items', [expectedErc721Item, expectedErc1155Item]))()])
-    await expect(() => schema.parseAsync(validRequest)).rejects.toEqual(
+    await expect(schema.parseAsync(validRequest)).rejects.toEqual(
       ZodError.create([
         {
           code: ZodIssueCode.custom,

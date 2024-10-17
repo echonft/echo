@@ -39,7 +39,7 @@ function contractOfferItemsToNfts(items: ContractOfferItems): Promise<OwnedNft[]
   )(items)
 }
 
-export async function mapContractOfferToBaseOffer(contractOffer: ContractOffer): Promise<BaseOffer> {
+export async function contractOfferToBaseOffer(contractOffer: ContractOffer): Promise<BaseOffer> {
   const { senderItems: contractSenderItems, receiverItems: contractReceiverItems, expiration } = contractOffer
   const senderItems = await contractOfferItemsToNfts(contractSenderItems)
   if (!isNonEmptyArray(senderItems)) {

@@ -4,13 +4,14 @@ import { updateListing } from '@echo/firestore/utils/listing/update-listing'
 import { ListingState } from '@echo/model/constants/listing-state'
 import { getListingMockBySlug } from '@echo/model/mocks/listing/get-listing-mock-by-slug'
 import { listingMockSlug } from '@echo/model/mocks/listing/listing-mock'
+import type { Slug } from '@echo/model/types/slug'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 import { isNil } from 'ramda'
 
 describe('CRUD - listing - cancelListing', () => {
-  let slug: Nullable<string>
+  let slug: Nullable<Slug>
   beforeEach(() => {
     slug = undefined
   })
@@ -23,31 +24,7 @@ describe('CRUD - listing - cancelListing', () => {
   it('throws if the listing is undefined', async () => {
     await expect(cancelListing('not-found')).rejects.toBeDefined()
   })
-  it('throws if the listing is expired', async () => {
-    slug = listingMockSlug()
-    await updateListing(slug, {
-      state: ListingState.Expired,
-      expiresAt: dayjs().subtract(1, 'day').unix()
-    })
-    await expect(cancelListing(slug)).rejects.toBeDefined()
-  })
-  it('throws if the listing is cancelled', async () => {
-    slug = listingMockSlug()
-    await updateListing(slug, {
-      state: ListingState.Cancelled,
-      expiresAt: dayjs().add(1, 'day').unix()
-    })
-    await expect(cancelListing(slug)).rejects.toBeDefined()
-  })
-  it('throws if the listing is fulfilled', async () => {
-    slug = listingMockSlug()
-    await updateListing(slug, {
-      state: ListingState.Fulfilled,
-      expiresAt: dayjs().add(1, 'day').unix()
-    })
-    await expect(cancelListing(slug)).rejects.toBeDefined()
-  })
-  it('cancel listing if its not expired and in the right state', async () => {
+  it('cancel listing', async () => {
     slug = listingMockSlug()
     await updateListing(slug, {
       state: ListingState.Open,

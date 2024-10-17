@@ -4,11 +4,12 @@ import { getCollectionNftsCount } from '@echo/firestore/crud/collection-with-cou
 import { getCollectionOffersCount } from '@echo/firestore/crud/collection-with-counts/get-collection-offers-count'
 import { getCollectionById } from '@echo/firestore/crud/collection/get-collection-by-id'
 import type { CollectionWithCounts } from '@echo/model/types/collection/collection-with-counts'
+import type { Slug } from '@echo/model/types/slug'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { andThen, assoc, isNil, pipe } from 'ramda'
 
-export async function getCollectionWithCounts(collectionSlug: string): Promise<Nullable<CollectionWithCounts>> {
+export async function getCollectionWithCounts(collectionSlug: Slug): Promise<Nullable<CollectionWithCounts>> {
   const listingsCount = await getCollectionListingsCount(collectionSlug)
   const nftsCount = await getCollectionNftsCount(collectionSlug)
   const offersCount = await getCollectionOffersCount(collectionSlug)

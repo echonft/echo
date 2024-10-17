@@ -1,17 +1,17 @@
-import { mapContractOfferToBaseOffer } from '@echo/backend/mappers/map-contract-offer-to-base-offer'
+import { contractOfferToBaseOffer } from '@echo/backend/mappers/contract-offer-to-base-offer'
+import { getCollectionByAddress } from '@echo/firestore/crud/collection/get-collection-by-address'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getCollectionMock } from '@echo/model/mocks/collection/get-collection-mock'
 import { getNftMock } from '@echo/model/mocks/nft/get-nft-mock'
 import type { BaseOffer } from '@echo/model/types/offer/base-offer'
-import { getOrAddCollection } from '@echo/tasks/get-or-add-collection'
 import type { ContractOffer } from '@echo/web3/types/contract-offer'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
-jest.mock('@echo/tasks/get-or-add-collection')
+jest.mock('@echo/firestore/crud/collection/get-collection-by-address')
 jest.mock('@echo/firestore/crud/nft/get-nft-by-index')
 
-describe('mappers - mapContractOfferToBaseOffer', () => {
-  jest.mocked(getOrAddCollection).mockResolvedValue(getCollectionMock())
+describe('mappers - contractOfferToBaseOffer', () => {
+  jest.mocked(getCollectionByAddress).mockResolvedValue(getCollectionMock())
   jest.mocked(getNftByIndex).mockResolvedValue(getNftMock())
 
   beforeEach(() => {
@@ -72,7 +72,7 @@ describe('mappers - mapContractOfferToBaseOffer', () => {
       },
       senderItems: [getNftMock()]
     }
-    const result = await mapContractOfferToBaseOffer(contractOffer)
+    const result = await contractOfferToBaseOffer(contractOffer)
     expect(result).toStrictEqual(expected)
   })
 })

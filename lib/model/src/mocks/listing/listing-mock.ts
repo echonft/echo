@@ -16,54 +16,56 @@ export function listingMockId() {
 export function listingMockSlug(): Lowercase<string> {
   return toLower(listingMockId())
 }
-export const listingMock: Record<string, Listing> = {
-  jUzMtPGKM62mMhEcmbN4: {
-    creator: getUserMockByUsername(userMockJohnnyUsername()),
-    expiresAt: 2324074781,
-    items: [
-      {
-        token: {
-          contract: collectionMockSpiralContract(),
-          animationUrl: 'https://animation.url/',
-          collection: {
-            name: 'Spiral Frequencies',
-            slug: collectionMockSpiralSlug(),
-            totalSupply: 6315
+export function listingMock(): Record<string, Listing> {
+  return {
+    jUzMtPGKM62mMhEcmbN4: {
+      creator: getUserMockByUsername(userMockJohnnyUsername()),
+      expiresAt: 2324074781,
+      items: [
+        {
+          token: {
+            contract: collectionMockSpiralContract(),
+            animationUrl: 'https://animation.url/',
+            collection: {
+              name: 'Spiral Frequencies',
+              slug: collectionMockSpiralSlug(),
+              totalSupply: 6315
+            },
+            tokenIdLabel: '#0001',
+            name: 'Spiral Frequencies #1',
+            metadataUrl: 'https://metadata.url/',
+            pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
+            tokenId: 1,
+            type: TokenType.Erc721
           },
-          tokenIdLabel: '#0001',
-          name: 'Spiral Frequencies #1',
-          metadataUrl: 'https://metadata.url/',
-          pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
-          tokenId: 1,
-          type: TokenType.Erc721
+          quantity: 1
         },
-        quantity: 1
-      },
-      {
-        token: {
-          contract: collectionMockSpiralContract(),
-          animationUrl: 'https://animation.url/',
-          collection: {
-            name: 'Spiral Frequencies',
-            slug: collectionMockSpiralSlug(),
-            totalSupply: 6315
+        {
+          token: {
+            contract: collectionMockSpiralContract(),
+            animationUrl: 'https://animation.url/',
+            collection: {
+              name: 'Spiral Frequencies',
+              slug: collectionMockSpiralSlug(),
+              totalSupply: 6315
+            },
+            tokenIdLabel: '#0002',
+            name: 'Spiral Frequencies #2',
+            metadataUrl: 'https://metadata.url/',
+            pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/c8ced259cc0a40a5a42d22182e82f9de',
+            tokenId: 2,
+            type: TokenType.Erc721
           },
-          tokenIdLabel: '#0002',
-          name: 'Spiral Frequencies #2',
-          metadataUrl: 'https://metadata.url/',
-          pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/c8ced259cc0a40a5a42d22182e82f9de',
-          tokenId: 2,
-          type: TokenType.Erc721
-        },
-        quantity: 1
+          quantity: 1
+        }
+      ],
+      readOnly: false,
+      slug: listingMockSlug(),
+      state: ListingState.OffersPending,
+      target: {
+        collection: getCollectionMockById(collectionMockPxId()),
+        quantity: 3
       }
-    ],
-    readOnly: false,
-    slug: listingMockSlug(),
-    state: ListingState.OffersPending,
-    target: {
-      collection: getCollectionMockById(collectionMockPxId()),
-      quantity: 3
     }
   }
 }

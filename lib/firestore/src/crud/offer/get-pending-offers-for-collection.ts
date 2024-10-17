@@ -5,11 +5,12 @@ import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { queryWhereFilter } from '@echo/firestore/helpers/crud/query/query-where-filter'
 import { NOT_READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
 import { type Offer } from '@echo/model/types/offer/offer'
+import type { Slug } from '@echo/model/types/slug'
 import { now } from '@echo/utils/helpers/now'
 import { Filter } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
-export async function getPendingOffersForCollection(slug: string): Promise<Offer[]> {
+export async function getPendingOffersForCollection(slug: Slug): Promise<Offer[]> {
   return pipe(
     getOffersCollectionReference,
     queryWhere('state', 'in', NOT_READ_ONLY_OFFER_STATES),

@@ -4,9 +4,10 @@ import { updateReference } from '@echo/firestore/helpers/crud/reference/update-r
 import { ListingError } from '@echo/model/constants/errors/listing-error'
 import type { ListingState } from '@echo/model/constants/listing-state'
 import type { Listing } from '@echo/model/types/listing/listing'
+import type { Slug } from '@echo/model/types/slug'
 import { isNil } from 'ramda'
 
-export async function updateListingState(slug: string, state: ListingState): Promise<Listing> {
+export async function updateListingState(slug: Slug, state: ListingState): Promise<Listing> {
   const snapshot = await getListingSnapshot(slug)
   if (isNil(snapshot)) {
     return Promise.reject(Error(ListingError.NotFound))

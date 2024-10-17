@@ -53,7 +53,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
 
   it('throws if the request cannot be parsed', async () => {
     const req = mockRequest<CreateListingRequest>({} as CreateListingRequest)
-    await expect(() => createListingRequestHandler({ user, req })).rejects.toBeInstanceOf(BadRequestError)
+    await expect(createListingRequestHandler({ user, req })).rejects.toBeInstanceOf(BadRequestError)
   })
 
   it('returns 200 if the user owns all the items', async () => {

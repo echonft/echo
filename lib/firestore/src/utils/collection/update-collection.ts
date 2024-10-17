@@ -3,9 +3,10 @@ import { getCollectionsCollectionReference } from '@echo/firestore/helpers/colle
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import { CollectionError } from '@echo/model/constants/errors/collection-error'
 import type { Collection } from '@echo/model/types/collection/collection'
+import type { Slug } from '@echo/model/types/slug'
 import { isNil } from 'ramda'
 
-export async function updateCollection(slug: string, data: Partial<Collection>): Promise<Collection> {
+export async function updateCollection(slug: Slug, data: Partial<Collection>): Promise<Collection> {
   const snapshot = await getCollectionSnapshot(slug)
   if (isNil(snapshot)) {
     return Promise.reject(Error(CollectionError.NotFound))

@@ -2,12 +2,13 @@ import { getCollectionSwapsCountSnapshotByCollectionId } from '@echo/firestore/c
 import { getCollectionSnapshot } from '@echo/firestore/crud/collection/get-collection'
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
 import { type CollectionSwapsCountDocumentData } from '@echo/firestore/types/model/collection-swaps-count-document-data'
+import type { Slug } from '@echo/model/types/slug'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, isNil, pipe } from 'ramda'
 
 export async function getCollectionSwapsCountSnapshotByCollectionSlug(
-  slug: string
+  slug: Slug
 ): Promise<Nullable<QueryDocumentSnapshot<CollectionSwapsCountDocumentData, CollectionSwapsCountDocumentData>>> {
   const collectionSnapshot = await getCollectionSnapshot(slug)
   if (isNil(collectionSnapshot)) {
@@ -17,7 +18,7 @@ export async function getCollectionSwapsCountSnapshotByCollectionSlug(
 }
 
 export function getCollectionSwapsCountByCollectionSlug(
-  slug: string
+  slug: Slug
 ): Promise<Nullable<CollectionSwapsCountDocumentData>> {
   return pipe(getCollectionSwapsCountSnapshotByCollectionSlug, andThen(getDocumentSnapshotData))(slug)
 }

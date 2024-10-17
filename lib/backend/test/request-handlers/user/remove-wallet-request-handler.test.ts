@@ -33,7 +33,7 @@ describe('request-handlers - user - removeWalletRequestHandler', () => {
 
   it('throws if the request cannot be parsed', async () => {
     const req = mockRequest<RemoveWalletRequest>({} as RemoveWalletRequest)
-    await expect(() => removeWalletRequestHandler({ user, req })).rejects.toBeInstanceOf(BadRequestError)
+    await expect(removeWalletRequestHandler({ user, req })).rejects.toBeInstanceOf(BadRequestError)
   })
 
   it('returns a 200 if the request is valid', async () => {

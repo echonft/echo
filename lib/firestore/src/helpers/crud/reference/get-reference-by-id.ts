@@ -4,6 +4,9 @@ import type { CollectionReference, DocumentData, DocumentReference } from 'fireb
 export interface GetReferenceByIdArgs<AppModelType, DbModelType extends DocumentData> {
   readonly collectionReference: CollectionReference<AppModelType, DbModelType>
   readonly id: string
+  readonly options?: {
+    readonly skipExistsCheck?: boolean
+  }
 }
 
 export async function getReferenceById<AppModelType, DbModelType extends DocumentData>(
@@ -11,7 +14,7 @@ export async function getReferenceById<AppModelType, DbModelType extends Documen
 ): Promise<DocumentReference<AppModelType, DbModelType>> {
   const ref = args.collectionReference.doc(args.id)
   const snapshot = await ref.get()
-  if (!snapshot.exists) {
+  if (!snapshot.exists && !args.options?.skipExistsCheck) {
     throw Error(ReferenceError.NotFound)
   }
   return ref

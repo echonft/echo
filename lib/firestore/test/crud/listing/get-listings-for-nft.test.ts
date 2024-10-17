@@ -1,7 +1,7 @@
 import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
 import { getListingsForNft } from '@echo/firestore/crud/listing/get-listings-for-nft'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
-import { resetListings } from '@echo/firestore/utils/listing/reset-listings'
+import { resetListing } from '@echo/firestore/utils/listing/reset-listing'
 import { updateListing } from '@echo/firestore/utils/listing/update-listing'
 import { ListingState } from '@echo/model/constants/listing-state'
 import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
@@ -9,21 +9,30 @@ import { listingMockId, listingMockSlug } from '@echo/model/mocks/listing/listin
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockPxCrewId, nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import type { Listing } from '@echo/model/types/listing/listing'
+import type { Slug } from '@echo/model/types/slug'
 import { pastDate } from '@echo/utils/helpers/past-date'
-import { beforeEach, describe, expect, it } from '@jest/globals'
-import { assoc, pipe } from 'ramda'
+import type { Nullable } from '@echo/utils/types/nullable'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
+import { assoc, isNil, pipe } from 'ramda'
 
 describe('CRUD - listing - getListingsForNft', () => {
+  let slug: Nullable<Slug>
   function updateListingMockToStateOpen(listing: Listing): Listing {
     return pipe(assoc('state', ListingState.Open), assoc('readOnly', false))(listing)
   }
   beforeEach(async () => {
-    await resetListings()
+    slug = undefined
     const documents = await firestoreApp().collection(CollectionReferenceName.Listings).listDocuments()
     for (const document of documents) {
       await document.update({ state: ListingState.Open })
     }
   })
+  afterEach(async () => {
+    if (!isNil(slug)) {
+      await resetListing(slug)
+    }
+  })
+
   it('returns an empty array if there are no listings with the given NFT', async () => {
     const nft = pipe(nftMockPxCrewId, getNftMockById)()
     const listings = await getListingsForNft(nft)
@@ -38,7 +47,7 @@ describe('CRUD - listing - getListingsForNft', () => {
   })
   it('only returns the listings that are not read only', async () => {
     const nft = pipe(nftMockSpiralJohnnyId, getNftMockById)()
-    const slug = listingMockSlug()
+    slug = listingMockSlug()
     await updateListing(slug, { state: ListingState.Cancelled })
     await expect(getListingsForNft(nft)).resolves.toEqual([])
     await updateListing(slug, { state: ListingState.Fulfilled })
@@ -54,7 +63,8 @@ describe('CRUD - listing - getListingsForNft', () => {
   })
   it('only returns the listings that are not expired', async () => {
     const nft = pipe(nftMockSpiralJohnnyId, getNftMockById)()
-    await updateListing(listingMockSlug(), { expiresAt: pastDate() })
+    slug = listingMockSlug()
+    await updateListing(slug, { expiresAt: pastDate() })
     await expect(getListingsForNft(nft)).resolves.toEqual([])
   })
 })

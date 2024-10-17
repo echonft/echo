@@ -19,27 +19,29 @@ export function offerMockFromJohnnycageSlug(): Lowercase<string> {
   return toLower(offerMockFromJohnnycageId())
 }
 
-export const offerMock: Record<string, Offer> = {
-  LyCfl6Eg7JKuD7XJ6IPi: {
-    expiresAt: 2324074781,
-    readOnly: false,
-    idContract: toLower<HexString>('0xTEST'),
-    receiver: getUserMockByUsername(userMockJohnnyUsername()),
-    receiverItems: [getNftMockById(nftMockSpiralJohnnyId())],
-    sender: getUserMockByUsername(userMockCrewUsername()),
-    senderItems: [getNftMockById(nftMockPxCrewId())],
-    slug: offerMockToJohnnycageSlug(),
-    state: OFFER_STATE_OPEN
-  },
-  ASkFpKoHEHVH0gd69t1G: {
-    expiresAt: 2324074781,
-    idContract: toLower<HexString>('0xTEST'),
-    receiver: getUserMockByUsername(userMockCrewUsername()),
-    readOnly: true,
-    receiverItems: [getNftMockById(nftMockPxCrewId())],
-    sender: getUserMockByUsername(userMockJohnnyUsername()),
-    senderItems: [getNftMockById(nftMockSpiralJohnnyId()), getNftMockById(nftMockSpiralJohnny2Id())],
-    slug: offerMockFromJohnnycageSlug(),
-    state: OFFER_STATE_COMPLETED
+export function offerMock(): Record<string, Offer> {
+  return {
+    LyCfl6Eg7JKuD7XJ6IPi: {
+      expiresAt: 2324074781,
+      readOnly: false,
+      idContract: toLower<HexString>('0xTEST'),
+      receiver: getUserMockByUsername(userMockJohnnyUsername()),
+      receiverItems: [getNftMockById(nftMockSpiralJohnnyId())],
+      sender: getUserMockByUsername(userMockCrewUsername()),
+      senderItems: [getNftMockById(nftMockPxCrewId())],
+      slug: offerMockToJohnnycageSlug(),
+      state: OFFER_STATE_OPEN
+    },
+    ASkFpKoHEHVH0gd69t1G: {
+      expiresAt: 2324074781,
+      idContract: toLower<HexString>('0xTEST'),
+      receiver: getUserMockByUsername(userMockCrewUsername()),
+      readOnly: true,
+      receiverItems: [getNftMockById(nftMockPxCrewId())],
+      sender: getUserMockByUsername(userMockJohnnyUsername()),
+      senderItems: [getNftMockById(nftMockSpiralJohnnyId()), getNftMockById(nftMockSpiralJohnny2Id())],
+      slug: offerMockFromJohnnycageSlug(),
+      state: OFFER_STATE_COMPLETED
+    }
   }
 }

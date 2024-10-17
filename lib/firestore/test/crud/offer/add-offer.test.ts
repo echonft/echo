@@ -9,12 +9,12 @@ import { deleteOffer } from '@echo/firestore/crud/offer/delete-offer'
 import { getAllOffers } from '@echo/firestore/crud/offer/get-all-offers'
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { assertOfferIsNotADuplicate } from '@echo/firestore/helpers/offer/assert-offer-is-not-a-duplicate'
-import { resetListings } from '@echo/firestore/utils/listing/reset-listings'
+import { resetListing } from '@echo/firestore/utils/listing/reset-listing'
 import { Expiration } from '@echo/model/constants/expiration'
 import { ListingState } from '@echo/model/constants/listing-state'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { expirationToDate } from '@echo/model/helpers/expiration-to-date'
-import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
+import { listingMockId, listingMockSlug } from '@echo/model/mocks/listing/listing-mock'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockPxCrewId, nftMockSpiralJohnny2Id, nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import { getAllOfferMocks } from '@echo/model/mocks/offer/get-all-offer-mocks'
@@ -31,7 +31,6 @@ import dayjs from 'dayjs'
 import { head, isNil, type NonEmptyArray, pick, pipe } from 'ramda'
 
 describe('CRUD - offer - addOffer', () => {
-  const listingId = listingMockId()
   let createdOfferId: Nullable<string>
   let createdListingOfferId: Nullable<string>
   beforeEach(() => {
@@ -41,7 +40,7 @@ describe('CRUD - offer - addOffer', () => {
   afterEach(async () => {
     if (!isNil(createdOfferId)) {
       await deleteOffer(createdOfferId)
-      await resetListings()
+      await resetListing(listingMockSlug())
     }
     if (!isNil(createdListingOfferId)) {
       await deleteListingOffer(createdListingOfferId)
@@ -68,6 +67,7 @@ describe('CRUD - offer - addOffer', () => {
     expect(eqList(offers, getAllOfferMocks())).toBeTruthy()
   })
   it('add an offer', async () => {
+    const listingId = listingMockId()
     const expiresAt = expirationToDate(Expiration.OneDay)
     const senderItems: NonEmptyArray<OwnedNft> = [getNftMockById(nftMockPxCrewId())]
     const receiverItems: NonEmptyArray<OwnedNft> = [

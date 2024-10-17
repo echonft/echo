@@ -58,7 +58,7 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
     const listing = await getListingById(listingId)
     if (!isNil(listing) && !listing.readOnly) {
       if (fulfillingStatus === ListingOfferFulfillingStatus.Completely) {
-        await updateListingState(listingId, ListingState.Fulfilled)
+        await updateListingState(listing.slug, ListingState.Fulfilled)
       } else {
         // in this case, we need to check all the completed offers linked to this listing, and check if this one partially of completely fulfills it
         const offerItems = getOfferItems(offer)

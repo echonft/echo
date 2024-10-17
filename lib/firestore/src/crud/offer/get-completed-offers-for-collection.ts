@@ -5,10 +5,11 @@ import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { queryWhereFilter } from '@echo/firestore/helpers/crud/query/query-where-filter'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import { type Offer } from '@echo/model/types/offer/offer'
+import type { Slug } from '@echo/model/types/slug'
 import { Filter } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
-export async function getCompletedOffersForCollection(slug: string): Promise<Offer[]> {
+export async function getCompletedOffersForCollection(slug: Slug): Promise<Offer[]> {
   return pipe(
     getOffersCollectionReference,
     queryWhere('state', '==', OFFER_STATE_COMPLETED),

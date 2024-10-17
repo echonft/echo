@@ -42,21 +42,21 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
 
   it('throws if the request cannot be parsed', async () => {
     const req = mockRequest<AddWalletRequest>({} as AddWalletRequest)
-    await expect(() => addWalletRequestHandler({ user, req })).rejects.toBeInstanceOf(BadRequestError)
+    await expect(addWalletRequestHandler({ user, req })).rejects.toBeInstanceOf(BadRequestError)
   })
 
   it('throws if the nonce is not the same as the user nonce', async () => {
     jest.mocked(getUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById(userMockJohnnyId()))
     jest.mocked(getNonceForUser).mockResolvedValueOnce({ nonce: 'another-nonce', expired: false } as Nonce)
     const req = mockRequest<AddWalletRequest>(validRequest)
-    await expect(() => addWalletRequestHandler({ user, req })).rejects.toBeInstanceOf(ForbiddenError)
+    await expect(addWalletRequestHandler({ user, req })).rejects.toBeInstanceOf(ForbiddenError)
   })
 
   it('throws if the nonce is expired', async () => {
     jest.mocked(getUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById(userMockJohnnyId()))
     jest.mocked(getNonceForUser).mockResolvedValueOnce({ nonce, expired: true } as Nonce)
     const req = mockRequest<AddWalletRequest>(validRequest)
-    await expect(() => addWalletRequestHandler({ user, req })).rejects.toBeInstanceOf(ForbiddenError)
+    await expect(addWalletRequestHandler({ user, req })).rejects.toBeInstanceOf(ForbiddenError)
   })
 
   it('returns a 200 if the nonce is valid', async () => {

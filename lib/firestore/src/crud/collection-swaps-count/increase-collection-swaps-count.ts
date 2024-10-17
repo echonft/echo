@@ -5,9 +5,10 @@ import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import type { CollectionSwapsCountDocumentData } from '@echo/firestore/types/model/collection-swaps-count-document-data'
+import type { Slug } from '@echo/model/types/slug'
 import { inc, isNil, pipe } from 'ramda'
 
-export async function increaseCollectionSwapsCount(slug: string): Promise<CollectionSwapsCountDocumentData> {
+export async function increaseCollectionSwapsCount(slug: Slug): Promise<CollectionSwapsCountDocumentData> {
   const collectionSnapshot = await getCollectionSnapshot(slug)
   if (isNil(collectionSnapshot)) {
     return Promise.reject(

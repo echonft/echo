@@ -1,5 +1,6 @@
 import { escrowNft } from '@echo/firestore/crud/nft/escrow-nft'
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
+import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
 import { getEscrowedNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-escrowed-nfts-collection-reference'
 import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
 import { getReferenceById, type GetReferenceByIdArgs } from '@echo/firestore/helpers/crud/reference/get-reference-by-id'
@@ -19,6 +20,7 @@ describe('CRUD - nft - escrowNft', () => {
   let nftId: Nullable<string>
   beforeEach(() => {
     nftId = undefined
+    escrowedNftId = undefined
   })
   afterEach(async () => {
     if (!isNil(escrowedNftId)) {
@@ -35,6 +37,18 @@ describe('CRUD - nft - escrowNft', () => {
   it('throws if the NFT does not exist', async () => {
     const nft = pipe(getNftMock, assoc('tokenId', 0))()
     await expect(escrowNft(nft)).rejects.toEqual(Error(NftError.NotFound))
+  })
+  it('throws if the NFT is already in escrow', async () => {
+    nftId = nftMockSpiralJohnnyId()
+    const nft = getNftMockById(nftId)
+    escrowedNftId = await escrowNft(nft)
+    await expect(escrowNft(nft)).rejects.toEqual(Error(NftError.AlreadyInEscrow))
+  })
+  it('throws if the NFT does not have an owner', async () => {
+    nftId = nftMockSpiralJohnnyId()
+    const nft = getNftMockById(nftId)
+    await removeNftOwner(nft)
+    await expect(escrowNft(nft)).rejects.toEqual(Error(NftError.NoOwner))
   })
   it('adds the escrowed NFT and removes the NFT owner', async () => {
     nftId = nftMockSpiralJohnnyId()
@@ -56,11 +70,5 @@ describe('CRUD - nft - escrowNft', () => {
       nftId,
       owner: nft.owner
     })
-  })
-  it('throws if the NFT is already in escrow', async () => {
-    nftId = nftMockSpiralJohnnyId()
-    const nft = getNftMockById(nftId)
-    escrowedNftId = await escrowNft(nft)
-    await expect(escrowNft(nft)).rejects.toEqual(Error(NftError.AlreadyInEscrow))
   })
 })

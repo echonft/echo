@@ -1,5 +1,5 @@
 import { NotFoundError } from '@echo/backend/errors/not-found-error'
-import { mapContractOfferToBaseOffer } from '@echo/backend/mappers/map-contract-offer-to-base-offer'
+import { contractOfferToBaseOffer } from '@echo/backend/mappers/contract-offer-to-base-offer'
 import type { EchoEventHandlerArgs } from '@echo/backend/request-handlers/webhook/event-handlers/echo-event-handler'
 import { addOffer } from '@echo/firestore/crud/offer/add-offer'
 import { getEchoOffer } from '@echo/web3/services/get-echo-offer'
@@ -16,7 +16,7 @@ export async function offerCreatedEventHandler(args: EchoEventHandlerArgs) {
     return Promise.reject(new NotFoundError({ message: 'contract offer not found', severity: 'warning' }))
   }
   const offer = await pipe(
-    mapContractOfferToBaseOffer,
+    contractOfferToBaseOffer,
     andThen(pipe(objOf('baseOffer'), assoc('idContract', offerId), addOffer))
   )(contractOffer)
   logger?.info({ offer }, 'created offer')

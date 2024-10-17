@@ -91,21 +91,14 @@ export const listingDataConverter: FirestoreDataConverter<Listing, ListingDocume
   toFirestore(modelObject: WithFieldValue<Listing>): WithFieldValue<ListingDocumentData> {
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const boundDataConverter = bind(itemsDataConverter.toFirestore, itemsDataConverter)
-    return pipe<
-      [WithFieldValue<Listing>],
-      WithFieldValue<Listing>,
-      WithFieldValue<Omit<Listing, 'items'> & Pick<ListingDocumentData, 'items'>>,
-      WithFieldValue<Omit<ListingDocumentData, 'itemIndexes' | 'itemCollections'>>,
-      WithFieldValue<Omit<ListingDocumentData, 'itemCollections'>>,
-      WithFieldValue<ListingDocumentData>,
-      WithFieldValue<ListingDocumentData>
-    >(
+    return pipe(
       lowerCreatorWalletAddressIfExists,
-      unless(propIsNil('items'), modify('items', boundDataConverter)),
-      dissoc('readOnly'),
-      addListingItemsIndex,
-      addListingItemsCollectionSlug,
-      normalizeSlugIfExists
-    )(modelObject)
+      normalizeSlugIfExists,
+      unless(
+        propIsNil('items'),
+        pipe(modify('items', boundDataConverter), addListingItemsIndex, addListingItemsCollectionSlug)
+      ),
+      dissoc('readOnly')
+    )(modelObject) as WithFieldValue<ListingDocumentData>
   }
 }

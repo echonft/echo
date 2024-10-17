@@ -3,12 +3,12 @@ import { initializeFirestoreCollection } from '@echo/firestore/utils/initialize-
 
 export async function initializeDb() {
   const collectionsToInitialize = [
-    CollectionReferenceName.Listings,
-    CollectionReferenceName.ListingOffers,
-    CollectionReferenceName.ListingPosts,
     CollectionReferenceName.Collections,
     CollectionReferenceName.CollectionDiscordGuilds,
     CollectionReferenceName.CollectionSwapsCount,
+    CollectionReferenceName.Listings,
+    CollectionReferenceName.ListingOffers,
+    CollectionReferenceName.ListingPosts,
     CollectionReferenceName.Nfts,
     CollectionReferenceName.Offers,
     CollectionReferenceName.OfferThreads,

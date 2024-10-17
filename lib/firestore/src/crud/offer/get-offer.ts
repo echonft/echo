@@ -4,14 +4,15 @@ import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/crud/que
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import type { OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
 import type { Offer } from '@echo/model/types/offer/offer'
+import type { Slug } from '@echo/model/types/slug'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, pipe } from 'ramda'
 
-export function getOfferSnapshot(slug: string): Promise<Nullable<QueryDocumentSnapshot<Offer, OfferDocumentData>>> {
+export function getOfferSnapshot(slug: Slug): Promise<Nullable<QueryDocumentSnapshot<Offer, OfferDocumentData>>> {
   return pipe(getOffersCollectionReference, queryWhere('slug', '==', slug), getQueryUniqueDocumentSnapshot)()
 }
 
-export function getOffer(slug: string): Promise<Nullable<Offer>> {
+export function getOffer(slug: Slug): Promise<Nullable<Offer>> {
   return pipe(getOfferSnapshot, andThen(getDocumentSnapshotData))(slug)
 }

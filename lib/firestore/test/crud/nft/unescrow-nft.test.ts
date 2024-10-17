@@ -1,3 +1,4 @@
+import { ReferenceError } from '@echo/firestore/constants/errors/reference-error'
 import { escrowNft } from '@echo/firestore/crud/nft/escrow-nft'
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { unescrowNft } from '@echo/firestore/crud/nft/unescrow-nft'
@@ -25,7 +26,7 @@ describe('CRUD - nft - unescrowNft', () => {
     }
   })
   it('throws if the NFT does not exist', async () => {
-    await expect(unescrowNft('not-found')).rejects.toEqual(Error(NftError.NotFound))
+    await expect(unescrowNft('not-found')).rejects.toEqual(Error(ReferenceError.NotFound))
   })
   it('throws if the NFT is not in escrow', async () => {
     await expect(unescrowNft(nftMockSpiralJohnnyId())).rejects.toEqual(Error(NftError.NotInEscrow))
@@ -47,7 +48,11 @@ describe('CRUD - nft - unescrowNft', () => {
     >(
       getReferenceById,
       andThen(invoker(0, 'get'))
-    )({ collectionReference: getEscrowedNftsCollectionReference(), id: escrowedNftId })
+    )({
+      collectionReference: getEscrowedNftsCollectionReference(),
+      id: escrowedNftId,
+      options: { skipExistsCheck: true }
+    })
     expect(escrowedNftSnapshot.exists).toBeFalsy()
   })
 })
