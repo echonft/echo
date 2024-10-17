@@ -9,12 +9,10 @@ import { getNonceForUser } from '@echo/firestore/crud/nonce/get-nonce-for-user'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
-import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/wallet/map-wallet-document-data-to-wallet'
-import type { WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
 import type { Wallet } from '@echo/model/types/wallet'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import type { NextResponse } from 'next/server'
-import { andThen, isNil, map, objOf, pipe } from 'ramda'
+import { andThen, isNil, objOf, pipe } from 'ramda'
 
 export async function addWalletRequestHandler({ user: { username }, req }: AuthRequestHandlerArgs<AddWalletRequest>) {
   const { wallet, nonce: requestNonce } = await parseRequest(addWalletRequestSchema)(req)
@@ -27,8 +25,8 @@ export async function addWalletRequestHandler({ user: { username }, req }: AuthR
     return Promise.reject(new ForbiddenError())
   }
   await addWallet(foundUser.username, wallet)
-  return pipe<[string], Promise<WalletDocumentData[]>, Promise<NextResponse<Record<'wallets', Wallet[]>>>>(
+  return pipe<[string], Promise<Wallet[]>, Promise<NextResponse<Record<'wallets', Wallet[]>>>>(
     getWalletsForUser,
-    andThen(pipe(map(mapWalletDocumentDataToWallet), objOf('wallets'), toNextReponse))
+    andThen(pipe(objOf('wallets'), toNextReponse))
   )(username)
 }

@@ -51,6 +51,7 @@ describe('offer - postEscrowMessageIfNeeded', () => {
   afterEach(() => {
     jest.clearAllMocks()
   })
+
   it('if no escrow message are to be posted, sendToThread is not called', async () => {
     const openOffer = { ...offer, state: 'OPEN' } as Offer
     await postEscrowMessage({ offerThread, thread, offer: openOffer })

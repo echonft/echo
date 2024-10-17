@@ -1,7 +1,7 @@
-import { NftError } from '@echo/firestore/constants/errors/nft-error'
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
 import { resetNft } from '@echo/firestore/utils/nft/reset-nft'
+import { NftError } from '@echo/model/constants/errors/nft-error'
 import { nftIndex } from '@echo/model/helpers/nft/nft-index'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'

@@ -3,31 +3,16 @@ import { toNextReponse } from '@echo/backend/request-handlers/to-next-reponse'
 import type { AuthRequestHandlerArgs } from '@echo/backend/types/auth-request-handler'
 import { createListingRequestSchema } from '@echo/backend/validators/create-listing-request-schema'
 import { parseRequest } from '@echo/backend/validators/parse-request'
-import { getListingMock } from '@echo/model/mocks/listing/get-listing-mock'
+import { addListing } from '@echo/firestore/crud/listing/add-listing'
+import { andThen, objOf, pipe, prop } from 'ramda'
 
 export async function createListingRequestHandler({
-  // user: { username },
+  user: { username },
   req
 }: AuthRequestHandlerArgs<CreateListingRequest>) {
-  // TODO
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { items: requestItems, target: requestTarget, expiration } = await parseRequest(createListingRequestSchema)(req)
-  // const items = await getNftsFromIndexes(requestItems)
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-
-  // const target = await getListingTargetFromRequest(requestTarget)
-  // for (const item of items) {
-  //   if (item.owner?.username !== username) {
-  //     return Promise.reject(new ForbiddenError())
-  //   }
-  // }
-  // FIXME of course
-  return toNextReponse({ listing: getListingMock() })
-  // return pipe(
-  //   addListing,
-  //   andThen(pipe(prop('data'), objOf('listing'), toNextReponse))
-  // )({ items: items as NonEmptyArray<OwnedNft>, target, expiration })
+  const schema = await createListingRequestSchema(username)
+  return pipe(
+    parseRequest(schema),
+    andThen(pipe(addListing, andThen(pipe(prop('data'), objOf('listing'), toNextReponse))))
+  )(req)
 }

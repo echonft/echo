@@ -3,11 +3,6 @@ import type { Awaitable } from '@echo/utils/types/awaitable'
 import 'ramda'
 import '@echo/auth/global'
 
-// declare module '@sentry/types' {
-//   // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-//   interface User extends Pick<UserDocumentData, 'username'> {}
-// }
-
 declare module 'ramda' {
   export function otherwise<T>(onError: (error: unknown) => Awaitable<T | void>): <T>(promise: Promise<T>) => Promise<T>
   export function otherwise<T>(onError: (error: unknown) => Awaitable<T | void>, promise: Promise<T>): Promise<T>

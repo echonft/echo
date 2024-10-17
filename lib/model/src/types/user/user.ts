@@ -7,3 +7,5 @@ export interface User extends WithUsername {
   discord: Strict<Omit<UserDiscordProfile, 'id' | 'discriminator'>, Omit<UserDiscordProfile, 'id' | 'discriminator'>>
   wallet: Wallet
 }
+
+export type UserIndex = Pick<User, 'username' | 'wallet'>

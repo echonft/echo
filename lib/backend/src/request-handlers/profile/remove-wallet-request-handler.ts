@@ -7,11 +7,9 @@ import { removeWalletRequestSchema } from '@echo/backend/validators/remove-walle
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
-import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/wallet/map-wallet-document-data-to-wallet'
-import type { WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
 import type { Wallet } from '@echo/model/types/wallet'
 import type { NextResponse } from 'next/server'
-import { andThen, isNil, map, objOf, pipe } from 'ramda'
+import { andThen, isNil, objOf, pipe } from 'ramda'
 
 export async function removeWalletRequestHandler({
   user: { username },
@@ -23,8 +21,8 @@ export async function removeWalletRequestHandler({
     return Promise.reject(new NotFoundError())
   }
   await removeWallet(foundUser.username, wallet)
-  return pipe<[string], Promise<WalletDocumentData[]>, Promise<NextResponse<Record<'wallets', Wallet[]>>>>(
+  return pipe<[string], Promise<Wallet[]>, Promise<NextResponse<Record<'wallets', Wallet[]>>>>(
     getWalletsForUser,
-    andThen(pipe(map(mapWalletDocumentDataToWallet), objOf('wallets'), toNextReponse))
+    andThen(pipe(objOf('wallets'), toNextReponse))
   )(username)
 }

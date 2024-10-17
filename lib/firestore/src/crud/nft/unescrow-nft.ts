@@ -1,4 +1,3 @@
-import { NftError } from '@echo/firestore/constants/errors/nft-error'
 import { getEscrowedNftSnapshot } from '@echo/firestore/crud/nft/get-escrowed-nft-snapshot'
 import { getNftReferenceById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
@@ -6,6 +5,7 @@ import { getEscrowedNftsCollectionReference } from '@echo/firestore/helpers/coll
 import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
 import type { EscrowedNftDocumentData } from '@echo/firestore/types/model/escrowed-nft-document-data'
 import type { NftDocumentData } from '@echo/firestore/types/model/nft-document-data'
+import { NftError } from '@echo/model/constants/errors/nft-error'
 import type { Nft } from '@echo/model/types/nft/nft'
 import { type DocumentReference, type DocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, invoker, isNil, pipe } from 'ramda'

@@ -1,4 +1,3 @@
-import { NftError } from '@echo/firestore/constants/errors/nft-error'
 import { escrowNft } from '@echo/firestore/crud/nft/escrow-nft'
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { getEscrowedNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-escrowed-nfts-collection-reference'
@@ -6,6 +5,7 @@ import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-r
 import { getReferenceById, type GetReferenceByIdArgs } from '@echo/firestore/helpers/crud/reference/get-reference-by-id'
 import type { EscrowedNftDocumentData } from '@echo/firestore/types/model/escrowed-nft-document-data'
 import { resetNft } from '@echo/firestore/utils/nft/reset-nft'
+import { NftError } from '@echo/model/constants/errors/nft-error'
 import { getNftMock } from '@echo/model/mocks/nft/get-nft-mock'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'

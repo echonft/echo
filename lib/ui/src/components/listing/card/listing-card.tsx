@@ -1,6 +1,6 @@
 'use client'
+import { listingItems } from '@echo/model/helpers/listing/listing-items'
 import type { Listing } from '@echo/model/types/listing/listing'
-import { listingItems } from '@echo/model/types/listing/listing-items'
 import { CardFooter } from '@echo/ui/components/base/card/card-footer'
 import { CardLayout } from '@echo/ui/components/base/card/layout/card-layout'
 import { StackLayout } from '@echo/ui/components/base/stack/layout/stack-layout'

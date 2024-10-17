@@ -20,5 +20,10 @@ export interface Nft {
   type: TokenType.Erc721 | TokenType.Erc1155
 }
 
-export type NftIndex = Pick<Nft, 'tokenId'> & Record<'collection', CollectionIndex>
-export type NftWithContract = Omit<NftIndex, 'collection'> & Record<'collection', CollectionContract>
+export interface NftIndex extends Pick<Nft, 'tokenId'> {
+  collection: CollectionIndex
+}
+
+export interface NftWithContract extends Omit<NftIndex, 'collection'> {
+  collection: CollectionContract
+}

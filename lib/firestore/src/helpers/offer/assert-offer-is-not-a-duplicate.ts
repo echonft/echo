@@ -9,7 +9,7 @@ import { getOfferSenderItemsCollectionSlugs } from '@echo/model/helpers/offer/ge
 
 import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import type { Offer } from '@echo/model/types/offer/offer'
-import { eqListContent } from '@echo/utils/fp/eq-list-content'
+import { eqList } from '@echo/utils/fp/eq-list'
 import { now } from '@echo/utils/helpers/now'
 import { andThen, both, filter, type NonEmptyArray, pipe } from 'ramda'
 
@@ -26,8 +26,8 @@ export async function assertOfferIsNotADuplicate(args: {
     andThen(
       filter<Offer>(
         both(
-          pipe(getOfferReceiverItemsCollectionSlugs, eqListContent(getNftsCollectionSlugs(receiverItems))),
-          pipe(getOfferSenderItemsCollectionSlugs, eqListContent(getNftsCollectionSlugs(senderItems)))
+          pipe(getOfferReceiverItemsCollectionSlugs, eqList(getNftsCollectionSlugs(receiverItems))),
+          pipe(getOfferSenderItemsCollectionSlugs, eqList(getNftsCollectionSlugs(senderItems)))
         )
       )
     )

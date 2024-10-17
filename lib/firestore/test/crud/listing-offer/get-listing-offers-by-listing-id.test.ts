@@ -1,7 +1,7 @@
 import { getListingOffersByListingId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-listing-id'
 import { getListingOfferMocksByListingId } from '@echo/firestore/mocks/listing-offer/get-listing-offer-mocks-by-listing-id'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
-import { eqListContent } from '@echo/utils/fp/eq-list-content'
+import { eqList } from '@echo/utils/fp/eq-list'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - listing-offer - getListingOffersByListingId', () => {
@@ -13,6 +13,6 @@ describe('CRUD - listing-offer - getListingOffersByListingId', () => {
     const listingId = listingMockId()
     const documents = await getListingOffersByListingId(listingId)
     expect(documents.length).toBe(2)
-    expect(eqListContent(documents, getListingOfferMocksByListingId(listingId))).toBeTruthy()
+    expect(eqList(documents, getListingOfferMocksByListingId(listingId))).toBeTruthy()
   })
 })

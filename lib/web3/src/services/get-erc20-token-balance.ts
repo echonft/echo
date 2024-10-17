@@ -6,7 +6,7 @@ import { erc20Abi, formatUnits } from 'viem'
 import { readContract } from 'viem/actions'
 
 interface GetErc20TokenBalanceArgs {
-  token: Erc20Token
+  token: Pick<Erc20Token, 'contract' | 'decimals'>
   wallet: Wallet
 }
 

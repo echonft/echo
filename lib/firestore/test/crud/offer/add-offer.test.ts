@@ -24,7 +24,7 @@ import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } f
 import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import type { BaseOffer } from '@echo/model/types/offer/base-offer'
 import type { Offer } from '@echo/model/types/offer/offer'
-import { eqListContent } from '@echo/utils/fp/eq-list-content'
+import { eqList } from '@echo/utils/fp/eq-list'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
@@ -65,7 +65,7 @@ describe('CRUD - offer - addOffer', () => {
     )
     await expect(addOffer({ baseOffer, idContract: offerMock.idContract })).rejects.toBeDefined()
     const offers = await getAllOffers()
-    expect(eqListContent(offers, getAllOfferMocks())).toBeTruthy()
+    expect(eqList(offers, getAllOfferMocks())).toBeTruthy()
   })
   it('add an offer', async () => {
     const expiresAt = expirationToDate(Expiration.OneDay)
@@ -85,9 +85,9 @@ describe('CRUD - offer - addOffer', () => {
     createdOfferId = createdOffer.id
     const newOffer: Offer = (await getOfferById(createdOfferId))!
     expect(newOffer.receiver).toStrictEqual(getUserMockByUsername(userMockJohnnyUsername()))
-    expect(eqListContent(newOffer.receiverItems, receiverItems)).toBeTruthy()
+    expect(eqList(newOffer.receiverItems, receiverItems)).toBeTruthy()
     expect(newOffer.sender).toStrictEqual(getUserMockByUsername(userMockCrewUsername()))
-    expect(eqListContent(newOffer.senderItems, senderItems)).toBeTruthy()
+    expect(eqList(newOffer.senderItems, senderItems)).toBeTruthy()
     expect(newOffer.state).toBe(OFFER_STATE_OPEN)
     expect(newOffer.idContract).toBe('0xtest')
     expect(dayjs.unix(newOffer.expiresAt).isAfter(expiresAt.subtract(1, 'minute'))).toBeTruthy()

@@ -5,7 +5,7 @@ import { getNftMock } from '@echo/model/mocks/nft/get-nft-mock'
 import type { BaseOffer } from '@echo/model/types/offer/base-offer'
 import { getOrAddCollection } from '@echo/tasks/get-or-add-collection'
 import type { ContractOffer } from '@echo/web3/types/contract-offer'
-import { describe, expect, it, jest } from '@jest/globals'
+import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('@echo/tasks/get-or-add-collection')
 jest.mock('@echo/firestore/crud/nft/get-nft-by-index')
@@ -13,6 +13,11 @@ jest.mock('@echo/firestore/crud/nft/get-nft-by-index')
 describe('mappers - mapContractOfferToBaseOffer', () => {
   jest.mocked(getOrAddCollection).mockResolvedValue(getCollectionMock())
   jest.mocked(getNftByIndex).mockResolvedValue(getNftMock())
+
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
   it('maps correctly', async () => {
     const contractOffer: ContractOffer = {
       sender: '0x213be2f484ab480db4f18b0fe4c38e1c25877f09',

@@ -1,4 +1,5 @@
 'use client'
+import type { GetOfferByIdContractRequest } from '@echo/api/types/requests/get-offer-by-id-contract-request'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { Expiration } from '@echo/model/constants/expiration'
 import { expirationToDateNumber } from '@echo/model/helpers/expiration-to-date-number'
@@ -54,7 +55,7 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
   const idContract = useMemo(() => generateOfferId(baseOffer), [baseOffer])
   const { trigger: getOfferTrigger, isMutating: isGetOfferMutating } = useSWRTrigger<
     OfferResponse,
-    Pick<Offer, 'idContract'>
+    GetOfferByIdContractRequest
   >({
     key: SWRKeys.offer.getByIdContract(idContract),
     fetcher: getOfferByIdContract,

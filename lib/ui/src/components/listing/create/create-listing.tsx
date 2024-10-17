@@ -13,9 +13,10 @@ import { CreateListingTargets } from '@echo/ui/components/listing/create/create-
 import { CreateOfferSwapDirectionHeader } from '@echo/ui/components/offer/create/create-offer-swap-direction-header'
 import { SWAP_DIRECTION_IN, SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
+import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
-import { assoc, isEmpty, isNil } from 'ramda'
+import { assoc, isEmpty, isNil, type NonEmptyArray } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
@@ -24,7 +25,7 @@ interface Props {
   target: Nullable<Collection>
   loading?: boolean
   onCancel?: VoidFunction
-  onComplete?: (items: OwnedNft[], target: Listing['target'], expiration: Expiration) => void
+  onComplete?: (items: NonEmptyArray<OwnedNft>, target: Listing['target'], expiration: Expiration) => void
 }
 
 export const CreateListing: FunctionComponent<Props> = ({
@@ -56,7 +57,7 @@ export const CreateListing: FunctionComponent<Props> = ({
           setReviewing(false)
         }}
         onComplete={(expiration) => {
-          if (!isNil(targetSelection)) {
+          if (isNonEmptyArray(selection.nfts) && !isNil(targetSelection)) {
             onComplete?.(selection.nfts, targetSelection, expiration)
           }
         }}

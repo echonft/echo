@@ -1,4 +1,3 @@
-import { CollectionError } from '@echo/firestore/constants/errors/collection-error'
 import { addCollectionSwapsCount } from '@echo/firestore/crud/collection-swaps-count/add-collection-swaps-count'
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { getCollectionsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collections-collection-reference'
@@ -6,6 +5,7 @@ import { generateUniqueCollectionSlug } from '@echo/firestore/helpers/collection
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import type { CollectionSwapsCountDocumentData } from '@echo/firestore/types/model/collection-swaps-count-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
+import { CollectionError } from '@echo/model/constants/errors/collection-error'
 import { type Collection } from '@echo/model/types/collection/collection'
 import { assoc, isNil } from 'ramda'
 
