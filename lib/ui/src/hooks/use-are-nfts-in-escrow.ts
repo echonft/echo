@@ -1,7 +1,7 @@
 import type { Nft } from '@echo/model/types/nft/nft'
-import { errorCallback } from '@echo/ui/helpers/error-callback'
-import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
+import { SWRKeys } from '@echo/ui/constants/swr-keys'
+import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import useSWR from 'swr'
 

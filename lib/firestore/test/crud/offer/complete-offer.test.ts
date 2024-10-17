@@ -47,18 +47,7 @@ describe('CRUD - offer - completeOffer', () => {
     slug,
     transactionId: 'swap-transaction-id'
   }
-  // beforeAll(async () => {
-  //   await assertNfts()
-  //   await assertOffers()
-  //   await assertSwaps()
-  //   await assertCollectionSwapsCounts()
-  // })
-  // afterAll(async () => {
-  //   await assertNfts()
-  //   await assertOffers()
-  //   await assertSwaps()
-  //   await assertCollectionSwapsCounts()
-  // })
+
   beforeEach(() => {
     createdStateUpdateId = undefined
     createdSwapId = undefined

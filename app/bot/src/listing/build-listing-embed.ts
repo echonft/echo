@@ -24,7 +24,6 @@ function fields(items: Listing['items'], target: Listing['target']): APIEmbedFie
 }
 
 function listingItemsFields(items: Listing['items']): APIEmbedField[] {
-  // TODO add ERC-20 tokens
   const nfts = nftItems(items)
   const mapIndexed = addIndex<Erc721Item | Erc1155Item>(map)
   return mapIndexed(

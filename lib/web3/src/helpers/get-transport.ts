@@ -41,7 +41,6 @@ function alchemyChainName(chainId: number) {
 }
 
 async function alchemyTransportUrl(chainId: number) {
-  // TODO add logger
   const apiKey = await getSecret({ name: 'ALCHEMY_API_KEY' })
   if (isNil(apiKey)) {
     throw Error('could not fetch ALCHEMY_API_KEY')
@@ -53,7 +52,6 @@ export async function getTransport(chain: Chain): Promise<FallbackTransport<[Web
   const chainId = chain.id
   const config = { rank: true, retryCount: 10, retryDelay: 1200 }
   if (chainId === blastSepoliaChainId() || chainId === blastChainId()) {
-    // TODO add logger
     const endpoint = await getSecret({ name: 'QUICKNODE_BLAST_ENDPOINT' })
     return fallback([webSocket(`wss://${endpoint}`), http(`https://${endpoint}`)], config)
   }

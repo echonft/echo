@@ -1,6 +1,7 @@
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import { ForbiddenError } from '@echo/backend/errors/forbidden-error'
 import { NotFoundError } from '@echo/backend/errors/not-found-error'
+import { UnauthorizedError } from '@echo/backend/errors/unauthorized-error'
 import { mockRequest } from '@echo/backend/mocks/mock-request'
 import { cancelListingRequestHandler } from '@echo/backend/request-handlers/listing/cancel-listing-request-handler'
 import { cancelListing } from '@echo/firestore/crud/listing/cancel-listing'
@@ -35,11 +36,11 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
     ).rejects.toBeInstanceOf(NotFoundError)
   })
 
-  it('throws if the listing state is read only', async () => {
+  it('throws if the listing is read only', async () => {
     jest.mocked(getListing).mockResolvedValueOnce(assoc('readOnly', true, listing))
     const req = mockRequest()
     await expect(() => cancelListingRequestHandler({ user, req, params: { slug } })).rejects.toBeInstanceOf(
-      ForbiddenError
+      UnauthorizedError
     )
   })
 

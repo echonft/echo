@@ -2,11 +2,11 @@
 
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { WithSlug } from '@echo/model/types/with-slug'
+import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
-import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
+import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
-import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { useTranslations } from 'next-intl'

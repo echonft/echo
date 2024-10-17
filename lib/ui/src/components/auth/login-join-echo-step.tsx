@@ -12,7 +12,6 @@ interface Props {
   onSkip?: VoidFunction
 }
 
-// TODO get the user guilds and check if they already joined
 export const LoginJoinEchoStep: FunctionComponent<Props> = ({ username, onSkip }) => {
   const t = useTranslations('auth.step1')
   return (

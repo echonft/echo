@@ -39,13 +39,12 @@ export default metadata
 
 export const Modal: StoryObj<typeof Component> = {
   render: ({ onClose }) => {
-    // TODO We could add a modal manager to avoid this code here
     const [isOpen, setIsOpen] = useState(false)
     return (
       <div className={'h-screen'}>
         <div className={'flex flex-row justify-center items-center h-full'}>
           <button
-            className={'btn-gradient group w-[9.875rem] py-1.5 btn-size'}
+            className={'btn-gradient group btn-size-alt'}
             onClick={() => {
               setIsOpen(true)
             }}
@@ -78,7 +77,7 @@ export const CloseDisabled: StoryObj<typeof Component> = {
             onClick={() => {
               setIsOpen(true)
             }}
-            className={'btn-gradient group w-[9.875rem] py-1.5 btn-size'}
+            className={'btn-gradient group btn-size-alt'}
           >
             <span className={'prose-label-sm-semi btn-label-gradient'}>Open Modal</span>
           </button>
@@ -101,7 +100,7 @@ export const CloseAndBackDisabled: StoryObj<typeof Component> = {
             onClick={() => {
               setIsOpen(true)
             }}
-            className={'btn-gradient group w-[9.875rem] py-1.5 btn-size'}
+            className={'btn-gradient group btn-size-alt'}
           >
             <span className={'prose-label-sm-semi btn-label-gradient'}>Open Modal</span>
           </button>
@@ -130,7 +129,7 @@ export const BackEnabled: StoryObj<typeof Component> = {
             onClick={() => {
               setIsOpen(true)
             }}
-            className={'btn-gradient group w-[9.875rem] py-1.5 btn-size'}
+            className={'btn-gradient group btn-size-alt'}
           >
             <span className={'prose-label-sm-semi btn-label-gradient'}>Open Modal</span>
           </button>

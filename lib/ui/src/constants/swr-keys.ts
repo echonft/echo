@@ -5,17 +5,18 @@ import type { Wallet } from '@echo/model/types/wallet'
 import { keyOf } from '@echo/ui/components/nft/key-of'
 import { concat, join, map, pipe, prop } from 'ramda'
 
-// TODO add to the model interface
-function contractKey(contract: Wallet) {
-  return `${contract.address}-${contract.chain}`
-}
-
 export const SWRKeys = {
   contract: {
     areNftsInEscrow: pipe<[Nft[]], string[], string, string>(map(keyOf), join('-'), concat('are-nfts-in-escrow-')),
     getEchoTradingFees: 'get-echo-trading-fees',
-    getErc721approval: pipe<[Wallet], string, string>(contractKey, concat('get-erc721-approval-')),
-    approveErc721: pipe<[Wallet], string, string>(contractKey, concat('approve-erc721-')),
+    getErc721approval: pipe<[Wallet], string, string>(
+      (contract: Wallet) => `${contract.address}-${contract.chain}`,
+      concat('get-erc721-approval-')
+    ),
+    approveErc721: pipe<[Wallet], string, string>(
+      (contract: Wallet) => `${contract.address}-${contract.chain}`,
+      concat('approve-erc721-')
+    ),
     createOffer: pipe<[Offer], string, string>(prop('slug'), concat('create-offer-')),
     getAllTokensBalance: 'get-all-tokens-balance'
   },

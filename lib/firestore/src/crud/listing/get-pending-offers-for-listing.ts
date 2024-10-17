@@ -8,7 +8,7 @@ import { promiseAll } from '@echo/utils/fp/promise-all'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { andThen, isNil, map, pipe, prop, reject } from 'ramda'
 
-// TODO might be used depending on design
+// might be used depending on design
 // noinspection JSUnusedGlobalSymbols
 export function getPendingOffersForListing(listing: Listing): Promise<Offer[]> {
   return pipe(
