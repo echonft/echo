@@ -1,6 +1,5 @@
 import type { EvmAddress } from '@echo/model/types/evm-address'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { Log } from '@echo/web3/types/log'
@@ -29,7 +28,7 @@ export function transferEventLogSchema(chain: ChainName) {
                 },
                 from: {
                   address: pipe<[Log], HexString, HexString, EvmAddress>(
-                    nonNullableReturn(path(['topics', 1])),
+                    path(['topics', 1]),
                     trim<HexString>,
                     toLower<HexString>
                   ),
@@ -37,13 +36,13 @@ export function transferEventLogSchema(chain: ChainName) {
                 },
                 to: {
                   address: pipe<[Log], HexString, HexString, EvmAddress>(
-                    nonNullableReturn(path(['topics', 2])),
+                    path(['topics', 2]),
                     trim<HexString>,
                     toLower<HexString>
                   ),
                   chain: always(chain)
                 },
-                tokenId: pipe<[Log], HexString, number>(nonNullableReturn(path(['topics', 3])), hexToNumber)
+                tokenId: pipe<[Log], HexString, number>(path(['topics', 3]), hexToNumber)
               })
             )
           )

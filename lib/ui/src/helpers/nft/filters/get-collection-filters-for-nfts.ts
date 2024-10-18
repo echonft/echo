@@ -1,8 +1,8 @@
 import { collectionByNameComparator } from '@echo/model/helpers/collection/collection-by-name-comparator'
 import { type Nft, type NftCollection } from '@echo/model/types/nft/nft'
+import type { Slug } from '@echo/model/types/slug'
 import { type CollectionFilter } from '@echo/ui/types/collection-filter'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
-import { applySpec, collectBy, head, length, map, pipe, prop, sort } from 'ramda'
+import { applySpec, collectBy, head, length, map, type NonEmptyArray, pipe, prop, sort } from 'ramda'
 
 export function getCollectionFiltersForNfts(nfts: Nft[]): CollectionFilter[] {
   return pipe<[Nft[]], NftCollection[], NftCollection[], NftCollection[][], CollectionFilter[]>(
@@ -11,8 +11,8 @@ export function getCollectionFiltersForNfts(nfts: Nft[]): CollectionFilter[] {
     collectBy(prop('slug')),
     map<NftCollection[], CollectionFilter>(
       applySpec<CollectionFilter>({
-        id: pipe(nonNullableReturn(head), prop('slug')),
-        label: pipe(nonNullableReturn(head), prop('name')),
+        id: pipe<[NonEmptyArray<NftCollection>], NftCollection, Slug>(head, prop('slug')),
+        label: pipe<[NonEmptyArray<NftCollection>], NftCollection, string>(head, prop('name')),
         count: length
       })
     )

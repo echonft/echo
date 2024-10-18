@@ -15,9 +15,7 @@ import { PageLayoutBackgroundPicker } from '@echo/ui/components/base/layout/page
 import { CreateOfferManager } from '@echo/ui/components/offer/create/create-offer-manager'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { promiseAll } from '@echo/utils/fp/promise-all'
-import type { ChainName } from '@echo/utils/types/chain-name'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound } from 'next/navigation'
 import {
@@ -69,10 +67,7 @@ async function render({
     notFound()
   }
   const receiver = pipe<[OwnedNft[]], OwnedNft, User>(head, prop('owner'))(receiverNfts)
-  const receiverChain = pipe(
-    head,
-    nonNullableReturn(path<ChainName>(['collection', 'contract', 'chain']))
-  )(receiverNfts)
+  const receiverChain = pipe(head, path(['collection', 'contract', 'chain']))(receiverNfts)
   const senderNfts = await pipe(
     prop('username'),
     getNftsForOwner,

@@ -3,7 +3,6 @@ import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import { getLogger } from '@echo/tasks/commands/get-logger'
 import { fetchCollection } from '@echo/tasks/fetch-collection'
 import { fetchNftsByAccount } from '@echo/tasks/fetch-nfts-by-account'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { andThen, assoc, head, isEmpty, isNil, otherwise, path, pipe, tap } from 'ramda'
 
 export async function fetchNftsForWalletCommand(wallet: Wallet) {
@@ -23,10 +22,7 @@ export async function fetchNftsForWalletCommand(wallet: Wallet) {
     })
   )({ wallet, fetch, logger })
   for (const group of groups) {
-    const contract = pipe<[PartialNft[]], PartialNft, Wallet>(
-      head,
-      nonNullableReturn(path(['collection', 'contract']))
-    )(group)
+    const contract = pipe<[PartialNft[]], PartialNft, Wallet>(head, path(['collection', 'contract']))(group)
     const collection = await pipe(
       fetchCollection,
       andThen(

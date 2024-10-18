@@ -4,6 +4,7 @@
 import type { messages } from '@echo/bot/messages/en'
 import type { Logger } from '@echo/utils/types/logger'
 import type { Client } from 'discord.js'
+import '@echo/utils/global'
 
 declare module 'i18next' {
   // Extend CustomTypeOptions

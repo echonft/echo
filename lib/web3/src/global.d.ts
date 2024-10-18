@@ -5,6 +5,7 @@ import type {
   WatchContractEventOnLogsParameter,
   WatchContractEventParameters as viemWatchContractEventParameters
 } from 'viem'
+import '@echo/utils/global'
 
 declare module 'viem' {
   export interface WatchContractEventParameters<

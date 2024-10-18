@@ -1,4 +1,4 @@
-import { getListingItemsIndexes } from '@echo/firestore/helpers/listing/get-listing-items-indexes'
+import { listingItemsNftArrayIndexer } from '@echo/firestore/array-indexers/item/listing-items-nft-array-indexer'
 import type { ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { assoc, has, pipe, prop } from 'ramda'
@@ -14,7 +14,7 @@ export function addListingItemsIndex(
   modelObject: ModelObject
 ): WithFieldValue<Omit<ListingDocumentData, 'itemCollections'>> {
   if (hasItems(modelObject)) {
-    return assoc('itemIndexes', pipe(prop('items'), getListingItemsIndexes)(modelObject), modelObject)
+    return assoc('itemIndexes', pipe(prop('items'), listingItemsNftArrayIndexer)(modelObject), modelObject)
   }
   return assoc('itemIndexes', [], modelObject)
 }

@@ -7,7 +7,6 @@ import { TokenSelectorInputLayout } from '@echo/ui/components/base/token-selecto
 import { TokenSelectorLayout } from '@echo/ui/components/base/token-selector/token-selector-layout'
 import { TokenSelectorMenu } from '@echo/ui/components/base/token-selector/token-selector-menu'
 import { useErc20TokenBalances } from '@echo/ui/hooks/use-erc20-token-balances'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { find, gt, head, isNil, map, type NonEmptyArray, pathEq, pipe, prop } from 'ramda'
@@ -31,9 +30,8 @@ export const TokenSelector: FunctionComponent<Props> = ({ onAddToken }) => {
     useState<Erc20Token>
   )(tokens)
   const [quantity, setQuantity] = useState<number>()
-  const selectedTokenBalance = nonNullableReturn(
-    find<TokenBalance<Erc20Token>>(pathEq(selectedToken.name, ['token', 'name']))
-  )(tokens)
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const selectedTokenBalance = find<TokenBalance<Erc20Token>>(pathEq(selectedToken.name, ['token', 'name']))(tokens)!
 
   return (
     <TokenSelectorLayout>

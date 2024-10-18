@@ -1,5 +1,4 @@
 import type { Nft } from '@echo/model/types/nft/nft'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -25,7 +24,7 @@ function isEchoAddress(chain: ChainName) {
 
 export async function areNftsInEscrow(args: AreNftsInEscrowArgs): Promise<boolean> {
   const { nfts } = args
-  const chain = pipe<[Nft[]], Nft, ChainName>(head, nonNullableReturn(path(['collection', 'contract', 'chain'])))(nfts)
+  const chain = pipe<[Nft[]], Nft, ChainName>(head, path(['collection', 'contract', 'chain']))(nfts)
 
   const chainId = getChainId(chain)
   const contractCalls = mapNftsToIsOwnerContractCalls(nfts)

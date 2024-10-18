@@ -1,6 +1,6 @@
 import type { EvmAddress } from '@echo/model/types/evm-address'
+import type { OfferState } from '@echo/model/types/offer/offer-state'
 import { isIn } from '@echo/utils/fp/is-in'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { HexString } from '@echo/utils/types/hex-string'
@@ -21,16 +21,22 @@ export const echoEventLogSchema = array(blockDataSchema)
       map(
         pipe(
           prop('logs'),
-          filter<Log>(pipe(nonNullableReturn(path<HexString>(['topics', 0])), isIn(topicHashes))),
+          filter<Log>(pipe(path(['topics', 0]), isIn(topicHashes))),
           map<Log, EchoEvent>(
             applySpec<EchoEvent>({
               transactionHash: prop('transactionHash'),
               offerId: pipe<[Log], HexString, HexString, EvmAddress>(
-                nonNullableReturn(path(['topics', 1])),
+                path(['topics', 1]),
                 trim<HexString>,
                 toLower<HexString>
               ),
-              type: pipe(nonNullableReturn(path(['topics', 0])), prop(__, echoEventTypes)),
+              type: pipe<[Log], keyof typeof echoEventTypes, OfferState>(
+                path(['topics', 0]) as (log: Log) => keyof typeof echoEventTypes,
+                // FIXME
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                prop(__, echoEventTypes)
+              ),
               // In the case of a redeemed event, we need to check who's redeeming which is last part of the topic
               // It's unused otherwise
               from: pipe<[Log], Nullable<HexString>, Nullable<EvmAddress>>(

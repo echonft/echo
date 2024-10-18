@@ -4,7 +4,6 @@ import { nftTokenTypeSchema } from '@echo/model/validators/nft-token-type-schema
 import { slugSchema } from '@echo/model/validators/slug-schema'
 import type { CollectionResponse } from '@echo/nft-scan/types/response/collection-response'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
@@ -56,7 +55,7 @@ export function collectionResponseSchema(chain: ChainName) {
         slug: ifElse<[CollectionResponse], string, string>(
           propIsNil('opensea_slug'),
           pipe<[CollectionResponse], string, string>(prop('name'), toSlug),
-          nonNullableReturn(prop('opensea_slug'))
+          prop('opensea_slug') as (response: CollectionResponse) => string
         ),
         totalSupply: prop('items_total'),
         twitterUsername: pipe(prop('twitter'), removeNullOrEmptyString),

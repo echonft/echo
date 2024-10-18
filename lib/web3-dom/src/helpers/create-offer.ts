@@ -1,7 +1,6 @@
-import type { BaseOffer } from '@echo/model/types/offer/base-offer'
 import type { Nft } from '@echo/model/types/nft/nft'
+import type { BaseOffer } from '@echo/model/types/offer/base-offer'
 import type { Wallet } from '@echo/model/types/wallet'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
@@ -20,7 +19,7 @@ export async function createOffer(args: ContractCreateOfferArgs): Promise<HexStr
   const chain = pipe<[BaseOffer], Nft[], Nft, Wallet, ChainName>(
     prop('senderItems'),
     head,
-    nonNullableReturn(path(['collection', 'contract'])),
+    path(['collection', 'contract']),
     prop('chain')
   )(offer)
 

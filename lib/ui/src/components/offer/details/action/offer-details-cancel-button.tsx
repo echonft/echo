@@ -8,7 +8,6 @@ import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { HexString } from '@echo/utils/types/hex-string'
@@ -40,7 +39,7 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
   const chain = pipe<[OfferWithRole], NonEmptyArray<OwnedNft>, OwnedNft, ChainName>(
     prop('receiverItems'),
     head,
-    nonNullableReturn(path(['collection', 'contract', 'chain']))
+    path(['collection', 'contract', 'chain'])
   )(offer)
 
   const { trigger: triggerContractCancel } = useSWRTrigger<HexString, ContractUpdateOfferArgs>({

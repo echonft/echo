@@ -5,7 +5,6 @@ import { nftAttributeResponseSchema } from '@echo/nft-scan/validators/nft-attrib
 import { apiPathProvider } from '@echo/routing/api-path-provider'
 import { convertNullToUndefined } from '@echo/utils/fp/convert-null-to-undefined'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import type { ChainName } from '@echo/utils/types/chain-name'
@@ -62,7 +61,7 @@ export function nftResponseSchema(chain: ChainName) {
       name: ifElse<[NftResponse], string, string>(
         pipe(prop('name'), isNilOrEmpty),
         pipe(prop('token_id'), invoker(0, 'toString')),
-        nonNullableReturn(prop('name'))
+        prop('name') as (response: NftResponse) => string
       ),
       metadataUrl: pipe(prop('token_uri'), convertNullToUndefined),
       pictureUrl: pipe(prop('image_uri'), convertNullToUndefined),

@@ -11,7 +11,6 @@ import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { useEchoTradingFees } from '@echo/ui/hooks/use-echo-trading-fees'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { HexString } from '@echo/utils/types/hex-string'
@@ -35,7 +34,7 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ open, offer, o
   const chain = pipe<[OfferWithRole], NonEmptyArray<OwnedNft>, OwnedNft, ChainName>(
     prop('receiverItems'),
     head,
-    nonNullableReturn(path(['collection', 'contract', 'chain']))
+    path(['collection', 'contract', 'chain'])
   )(offer)
   const fees = useEchoTradingFees(chain)
   const { trigger, isMutating: isContractExecuteMutating } = useSWRTrigger<HexString, ContractUpdateOfferArgs>({

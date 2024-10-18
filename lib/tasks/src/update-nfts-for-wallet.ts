@@ -7,7 +7,6 @@ import { fetchNftsByAccount } from '@echo/tasks/fetch-nfts-by-account'
 import { getOrAddCollection } from '@echo/tasks/get-or-add-collection'
 import { updateNftOwner } from '@echo/tasks/update-nft-owner'
 import { isInWith } from '@echo/utils/fp/is-in-with'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { getNftOwner } from '@echo/web3/services/get-nft-owner'
@@ -34,10 +33,7 @@ export async function updateNftsForWallet(args: WithLoggerType<UpdateNftsForWall
   logger?.info({ wallet }, 'started updating NFTs for wallet')
   const nftGroups = await fetchNftsByAccount(args)
   for (const nftGroup of nftGroups) {
-    const contract = pipe<[PartialNft[]], PartialNft, Wallet>(
-      head,
-      nonNullableReturn(path(['collection', 'contract']))
-    )(nftGroup)
+    const contract = pipe<[PartialNft[]], PartialNft, Wallet>(head, path(['collection', 'contract']))(nftGroup)
     // Use a try to avoid the command from crashing in some cases (i.e. if collection is spam)
     try {
       const collection = await getOrAddCollection({ contract, fetch: args.fetch, logger })

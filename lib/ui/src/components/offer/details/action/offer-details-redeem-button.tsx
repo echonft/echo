@@ -8,7 +8,6 @@ import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { isOfferRoleReceiver } from '@echo/ui/helpers/offer/is-offer-role-receiver'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { now } from '@echo/utils/helpers/now'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
@@ -42,7 +41,7 @@ export const OfferDetailsRedeemButton: FunctionComponent<Props> = ({
   const chain = pipe<[OfferWithRole], NonEmptyArray<OwnedNft>, OwnedNft, ChainName>(
     prop('receiverItems'),
     head,
-    nonNullableReturn(path(['collection', 'contract', 'chain']))
+    path(['collection', 'contract', 'chain'])
   )(offer)
   const count = isOfferRoleReceiver(offer) ? offer.receiverItems.length : offer.senderItems.length
   const isRedeemable = offer.state === OFFER_STATE_EXPIRED || offer.expiresAt < now()
