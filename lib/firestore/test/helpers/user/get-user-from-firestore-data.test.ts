@@ -4,6 +4,7 @@ import { userMockJohnnyId } from '@echo/firestore/mocks/user/user-document-data-
 import { getWalletDocumentDataMockByUserId } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-user-id'
 import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { getWalletMockByUsername, walletMockJohnnyAddress } from '@echo/model/mocks/wallet/wallet-mock'
+import { Chain } from '@echo/utils/constants/chain'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
 
@@ -19,7 +20,7 @@ describe('helpers - user - getUserFromFirestoreData', () => {
       },
       username: userMockJohnnyUsername(),
       wallet: {
-        chain: 'ethereum',
+        chain: Chain.Ethereum,
         address: toLower(walletMockJohnnyAddress())
       }
     })
@@ -35,7 +36,7 @@ describe('helpers - user - getUserFromFirestoreData', () => {
       },
       username: userMockJohnnyUsername(),
       wallet: {
-        chain: 'ethereum',
+        chain: Chain.Ethereum,
         address: toLower(walletMockJohnnyAddress())
       }
     })

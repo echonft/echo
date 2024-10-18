@@ -1,13 +1,6 @@
 import { CalloutIcon } from '@echo/ui/components/base/callout/callout-icon'
-import {
-  CALLOUT_SEVERITY_ERROR,
-  CALLOUT_SEVERITY_INFO,
-  CALLOUT_SEVERITY_SUCCESS,
-  CALLOUT_SEVERITY_WARNING
-} from '@echo/ui/constants/callout-severity'
-import { CALLOUT_VARIANT_OUTLINE, CALLOUT_VARIANT_SOLID } from '@echo/ui/constants/callout-variant'
-import type { CalloutSeverity } from '@echo/ui/types/callout-severity'
-import type { CalloutVariant } from '@echo/ui/types/callout-variant'
+import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
+import { CalloutVariant } from '@echo/ui/constants/callout-variant'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import { type FunctionComponent, type MouseEventHandler } from 'react'
@@ -21,7 +14,7 @@ export interface CalloutProps {
 
 export const Callout: FunctionComponent<CalloutProps> = ({
   severity,
-  variant = CALLOUT_VARIANT_SOLID,
+  variant = CalloutVariant.Solid,
   onClick,
   children
 }) => {
@@ -36,26 +29,26 @@ export const Callout: FunctionComponent<CalloutProps> = ({
         'rounded-md',
         'gap-2.5',
         'w-80',
-        variant === CALLOUT_VARIANT_SOLID && [
-          severity === CALLOUT_SEVERITY_INFO && 'bg-purple-100',
-          severity === CALLOUT_SEVERITY_WARNING && 'bg-yellow-100',
-          severity === CALLOUT_SEVERITY_ERROR && 'bg-red-100',
-          severity === CALLOUT_SEVERITY_SUCCESS && 'bg-green-100'
+        variant === CalloutVariant.Solid && [
+          severity === CalloutSeverity.Info && 'bg-purple-100',
+          severity === CalloutSeverity.Warning && 'bg-yellow-100',
+          severity === CalloutSeverity.Error && 'bg-red-100',
+          severity === CalloutSeverity.Success && 'bg-green-100'
         ],
-        variant === CALLOUT_VARIANT_OUTLINE && [
+        variant === CalloutVariant.Outline && [
           'border',
           'border-solid',
-          severity === CALLOUT_SEVERITY_INFO && 'border-purple-500',
-          severity === CALLOUT_SEVERITY_WARNING && 'border-yellow-500',
-          severity === CALLOUT_SEVERITY_ERROR && 'border-red-500',
-          severity === CALLOUT_SEVERITY_SUCCESS && 'border-green-500'
+          severity === CalloutSeverity.Info && 'border-purple-500',
+          severity === CalloutSeverity.Warning && 'border-yellow-500',
+          severity === CalloutSeverity.Error && 'border-red-500',
+          severity === CalloutSeverity.Success && 'border-green-500'
         ],
         !isNil(onClick) && 'cursor-pointer'
       )}
       onClick={onClick}
     >
       <CalloutIcon severity={severity} variant={variant} />
-      <p className={clsx('prose-label-sm', variant === CALLOUT_VARIANT_SOLID ? 'text-dark-500' : 'text-purple-100')}>
+      <p className={clsx('prose-label-sm', variant === CalloutVariant.Solid ? 'text-dark-500' : 'text-purple-100')}>
         {children}
       </p>
     </div>

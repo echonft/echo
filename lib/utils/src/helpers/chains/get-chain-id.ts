@@ -1,16 +1,16 @@
-import type { ChainName } from '@echo/utils/types/chain-name'
+import { Chain } from '@echo/utils/constants/chain'
 
-export function getChainId(name: ChainName): number {
+export function getChainId(name: Chain): number {
   switch (name) {
-    case 'blast':
+    case Chain.Blast:
       return 81457
-    case 'blast_sepolia':
+    case Chain.BlastSepolia:
       return 168587773
-    case 'ethereum':
+    case Chain.Ethereum:
       return 1
-    case 'sepolia':
+    case Chain.Sepolia:
       return 11155111
-    case 'sei':
+    case Chain.Sei:
       return 1329
     default:
       throw Error(`chain not supported: ${name as string}`)

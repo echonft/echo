@@ -2,7 +2,7 @@ import { ExternalLink } from '@echo/ui/components/base/external-link'
 import { DiscordIcon } from '@echo/ui/components/base/icons/discord-icon'
 import { TwitterIcon } from '@echo/ui/components/base/icons/twitter-icon'
 import { WebsiteIcon } from '@echo/ui/components/base/icons/website-icon'
-import { SIZE_MD } from '@echo/ui/constants/size'
+import { Size } from '@echo/ui/constants/size'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
@@ -20,7 +20,7 @@ export const CollectionWebsite: FunctionComponent<Pick<CollectionLinksProps, 'we
   }
   return (
     <ExternalLink href={websiteUrl}>
-      <WebsiteIcon size={SIZE_MD} />
+      <WebsiteIcon size={Size.MD} />
     </ExternalLink>
   )
 }
@@ -30,7 +30,7 @@ const CollectionTwitter: FunctionComponent<Pick<CollectionLinksProps, 'twitterUs
   }
   return (
     <ExternalLink href={`https://twitter.com/${twitterUsername}`}>
-      <TwitterIcon size={SIZE_MD} />
+      <TwitterIcon size={Size.MD} />
     </ExternalLink>
   )
 }
@@ -40,7 +40,7 @@ const CollectionDiscord: FunctionComponent<Pick<CollectionLinksProps, 'discordUr
   }
   return (
     <ExternalLink href={discordUrl}>
-      <DiscordIcon size={SIZE_MD} />
+      <DiscordIcon size={Size.MD} />
     </ExternalLink>
   )
 }

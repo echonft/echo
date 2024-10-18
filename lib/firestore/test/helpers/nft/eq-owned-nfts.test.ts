@@ -5,6 +5,7 @@ import { offerMockFromJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 
 import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import type { Wallet } from '@echo/model/types/wallet'
+import { Chain } from '@echo/utils/constants/chain'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, pipe, toLower } from 'ramda'
 
@@ -27,7 +28,7 @@ describe('helpers - nft - eqOwnedNfts', () => {
           username: offerMockFromJohnnycageId(),
           wallet: {
             address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
-            chain: 'blast'
+            chain: Chain.Blast
           } as Wallet
         })
       )(nftMockSpiralJohnnyId()),

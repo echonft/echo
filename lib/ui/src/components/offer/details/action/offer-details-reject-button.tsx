@@ -4,7 +4,7 @@ import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { WithSlug } from '@echo/model/types/with-slug'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
-import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
+import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
@@ -40,7 +40,7 @@ export const OfferDetailsRejectButton: FunctionComponent<Props> = ({
       onSuccess?.(assoc('role', offer.role, response.offer))
     },
     onError: {
-      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('reject') },
+      alert: { severity: CalloutSeverity.Error, message: tError('reject') },
       onError,
       loggerContext: {
         component: OfferDetailsRejectButton.name,

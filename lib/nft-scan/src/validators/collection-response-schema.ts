@@ -7,7 +7,7 @@ import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
-import type { ChainName } from '@echo/utils/types/chain-name'
+import type { Chain } from '@echo/utils/constants/chain'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { evmAddressSchema } from '@echo/utils/validators/evm-address-schema'
 import { applySpec, assoc, F, ifElse, objOf, pipe, prop } from 'ramda'
@@ -18,7 +18,7 @@ export interface CollectionResponseSchemaReturn {
   isSpam: boolean
 }
 
-export function collectionResponseSchema(chain: ChainName) {
+export function collectionResponseSchema(chain: Chain) {
   function removeNullOrEmptyString(value: string | null): string | undefined {
     if (isNilOrEmpty(value)) {
       return undefined

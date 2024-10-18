@@ -5,7 +5,7 @@ import { OfferDetailsLayout } from '@echo/ui/components/offer/details/layout/off
 import { OfferDetailsUserInfoLayout } from '@echo/ui/components/offer/details/layout/offer-details-user-info-layout'
 import { OfferDetailsStateSkeleton } from '@echo/ui/components/offer/details/skeleton/offer-details-state-skeleton'
 import { UserDetailsSkeleton } from '@echo/ui/components/user/details/skeleton/user-details-skeleton'
-import { ALIGNMENT_LEFT } from '@echo/ui/constants/alignments'
+import { Alignment } from '@echo/ui/constants/alignments'
 import { type FunctionComponent } from 'react'
 
 export const OfferDetailsSkeleton: FunctionComponent = () => (
@@ -14,12 +14,12 @@ export const OfferDetailsSkeleton: FunctionComponent = () => (
     <OfferDetailsInfoLayout>
       <OfferDetailsUserInfoLayout>
         <UserDetailsSkeleton />
-        <CardsSkeleton alignment={ALIGNMENT_LEFT} />
+        <CardsSkeleton alignment={Alignment.Left} />
       </OfferDetailsUserInfoLayout>
       <ItemsSeparator />
       <OfferDetailsUserInfoLayout>
         <UserDetailsSkeleton />
-        <CardsSkeleton alignment={ALIGNMENT_LEFT} />
+        <CardsSkeleton alignment={Alignment.Left} />
       </OfferDetailsUserInfoLayout>
     </OfferDetailsInfoLayout>
   </OfferDetailsLayout>

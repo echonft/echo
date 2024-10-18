@@ -4,6 +4,7 @@ import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getCollectionMock } from '@echo/model/mocks/collection/get-collection-mock'
 import { getNftMock } from '@echo/model/mocks/nft/get-nft-mock'
 import type { BaseOffer } from '@echo/model/types/offer/base-offer'
+import { Chain } from '@echo/utils/constants/chain'
 import type { ContractOffer } from '@echo/web3/types/contract-offer'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
@@ -54,7 +55,7 @@ describe('mappers - contractOfferToBaseOffer', () => {
         username: 'johnnycagewins',
         wallet: {
           address: '0x1e3918dd44f427f056be6c8e132cf1b5f42de59e',
-          chain: 'ethereum'
+          chain: Chain.Ethereum
         }
       },
       receiverItems: [getNftMock()],
@@ -67,7 +68,7 @@ describe('mappers - contractOfferToBaseOffer', () => {
         username: 'johnnycagewins',
         wallet: {
           address: '0x1e3918dd44f427f056be6c8e132cf1b5f42de59e',
-          chain: 'ethereum'
+          chain: Chain.Ethereum
         }
       },
       senderItems: [getNftMock()]

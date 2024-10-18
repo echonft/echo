@@ -14,9 +14,9 @@ import { UserDetailsDiscordTagAndWalletLayout } from '@echo/ui/components/user/d
 import { UserDetailsLayout } from '@echo/ui/components/user/details/layout/user-details-layout'
 import { UserProfileWallets } from '@echo/ui/components/user/profile/user-profile-wallets'
 import { UserTag } from '@echo/ui/components/user/profile/user-tag'
-import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
-import { SIZE_MD } from '@echo/ui/constants/size'
-import { SWAP_DIRECTION_IN, SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
+import { Alignment } from '@echo/ui/constants/alignments'
+import { Size } from '@echo/ui/constants/size'
+import { SwapDirection } from '@echo/ui/constants/swap-direction'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
 import { clsx } from 'clsx'
 import { isEmpty, type NonEmptyArray } from 'ramda'
@@ -64,7 +64,7 @@ export const CreateOffer: FunctionComponent<Props> = ({
     <div className={clsx('flex', 'flex-col', 'gap-24')}>
       <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center')}>
         <UserDetailsLayout>
-          <ProfilePicture alt={username} pictureUrl={discord.avatarUrl} size={SIZE_MD} />
+          <ProfilePicture alt={username} pictureUrl={discord.avatarUrl} size={Size.MD} />
           <UserDetailsDiscordTagAndWalletLayout>
             <UserTag user={receiver} />
             <UserProfileWallets wallets={[wallet]} />
@@ -72,18 +72,18 @@ export const CreateOffer: FunctionComponent<Props> = ({
         </UserDetailsLayout>
       </div>
       <div className={clsx('flex', 'flex-col', 'gap-20')}>
-        <CreateOfferSwapDirectionHeader direction={SWAP_DIRECTION_IN} />
+        <CreateOfferSwapDirectionHeader direction={SwapDirection.In} />
         <div className={clsx('h-max', 'w-full', 'px-8')}>
           <NftCards
             nfts={receiverItems}
-            alignment={ALIGNMENT_CENTER}
+            alignment={Alignment.Center}
             cardOptions={{ style: { hideOpenSeaLink: true } }}
           />
         </div>
         <div className={clsx('pb-4')}>
           <ItemsSeparator />
         </div>
-        <CreateOfferSwapDirectionHeader direction={SWAP_DIRECTION_OUT} />
+        <CreateOfferSwapDirectionHeader direction={SwapDirection.Out} />
         <div className={clsx('flex', 'flex-row', 'justify-center', 'h-max', 'w-full', 'px-8')}>
           <CreateOfferSenderNfts
             nfts={nfts}

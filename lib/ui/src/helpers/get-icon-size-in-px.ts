@@ -1,13 +1,12 @@
-import { SIZE_LG, SIZE_MD, SIZE_SM } from '@echo/ui/constants/size'
-import { type IconSize } from '@echo/ui/types/icon-size'
+import { Size } from '@echo/ui/constants/size'
 
-export const getIconSizeInPx = (size: IconSize) => {
+export const getIconSizeInPx = (size: Size) => {
   switch (size) {
-    case SIZE_SM:
+    case Size.SM:
       return 24
-    case SIZE_MD:
+    case Size.MD:
       return 30
-    case SIZE_LG:
+    case Size.LG:
       return 40
     default:
       throw Error(`Wrong icon size`)

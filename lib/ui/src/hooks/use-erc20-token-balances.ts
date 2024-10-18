@@ -5,6 +5,7 @@ import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { useAccount } from '@echo/ui/hooks/use-account'
+import { Chain } from '@echo/utils/constants/chain'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { nonEmptyArrayMap } from '@echo/utils/fp/non-empty-array-map'
 import { supportedErc20Tokens } from '@echo/web3-dom/constants/supported-erc20-tokens'
@@ -41,7 +42,7 @@ export function useErc20TokenBalances(): NonEmptyArray<TokenBalance<Erc20Token>>
     return [
       {
         token: {
-          contract: { address: '0x0000000000000000000000000000000000000000', chain: 'blast' },
+          contract: { address: '0x0000000000000000000000000000000000000000', chain: Chain.Blast },
           name: 'WETH',
           decimals: 18,
           type: TokenType.Erc20

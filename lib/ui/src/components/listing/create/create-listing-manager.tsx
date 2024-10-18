@@ -11,7 +11,7 @@ import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import { pathProvider } from '@echo/routing/path-provider'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { CreateListing } from '@echo/ui/components/listing/create/create-listing'
-import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
+import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { nonEmptyArrayMap } from '@echo/utils/fp/non-empty-array-map'
@@ -40,7 +40,7 @@ export const CreateListingManager: FunctionComponent<Props> = ({ creatorNfts, it
       )
     },
     onError: {
-      alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('new') },
+      alert: { severity: CalloutSeverity.Error, message: t('new') },
       loggerContext: { component: CreateListingManager.name, fetcher: createListing.name }
     }
   })

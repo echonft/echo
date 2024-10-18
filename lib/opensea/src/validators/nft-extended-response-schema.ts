@@ -4,7 +4,7 @@ import { emptyStringToUndefined } from '@echo/opensea/helpers/empty-string-to-un
 import type { PartialNft } from '@echo/opensea/types/partial-nft'
 import { nftResponseAugmentation } from '@echo/opensea/validators/nft-response-schema'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
-import type { ChainName } from '@echo/utils/types/chain-name'
+import type { Chain } from '@echo/utils/constants/chain'
 import { evmAddressSchema } from '@echo/utils/validators/evm-address-schema'
 import { always, applySpec, ifElse, is, isNil, map, partialRight, pipe, prop, when } from 'ramda'
 import { boolean, nativeEnum, number, object, string } from 'zod'
@@ -25,7 +25,7 @@ const nftTraitSchema = object({
   value: string().or(number())
 })
 
-export function nftExtendedResponseSchema(chain: ChainName) {
+export function nftExtendedResponseSchema(chain: Chain) {
   const schema = object({
     animation_url: string()
       .or(string().url())
@@ -57,7 +57,7 @@ export function nftExtendedResponseSchema(chain: ChainName) {
       .nullable()
   }).extend(nftResponseAugmentation)
 
-  function transform(chain: ChainName) {
+  function transform(chain: Chain) {
     return function (response: typeof schema._output) {
       if (response.is_suspicious) {
         return undefined

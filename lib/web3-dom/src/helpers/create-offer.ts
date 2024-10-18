@@ -2,7 +2,7 @@ import type { Nft } from '@echo/model/types/nft/nft'
 import type { BaseOffer } from '@echo/model/types/offer/base-offer'
 import type { Wallet } from '@echo/model/types/wallet'
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
-import type { ChainName } from '@echo/utils/types/chain-name'
+import type { Chain } from '@echo/utils/constants/chain'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import type { ContractCreateOfferArgs } from '@echo/web3-dom/types/contract-create-offer-args'
@@ -16,7 +16,7 @@ export async function createOffer(args: ContractCreateOfferArgs): Promise<HexStr
   const { offer } = args
   // We take the chain from the first sender items as this is where the creation is executed
   // Also works for multichain
-  const chain = pipe<[BaseOffer], Nft[], Nft, Wallet, ChainName>(
+  const chain = pipe<[BaseOffer], Nft[], Nft, Wallet, Chain>(
     prop('senderItems'),
     head,
     path(['collection', 'contract']),

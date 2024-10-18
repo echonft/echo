@@ -10,6 +10,7 @@ import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/ge
 import { userMockJohnnyId } from '@echo/firestore/mocks/user/user-document-data-mock'
 import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import type { Wallet } from '@echo/model/types/wallet'
+import { Chain } from '@echo/utils/constants/chain'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { toLower } from 'ramda'
 
@@ -19,7 +20,7 @@ jest.mock('@echo/firestore/crud/wallet/get-wallets-for-user')
 
 describe('request-handlers - user - removeWalletRequestHandler', () => {
   const validWallet: Wallet = {
-    chain: 'blast',
+    chain: Chain.Blast,
     address: toLower('0x12c63bbD266dB84e117356e664f3604055166CEc')
   }
   const validRequest: RemoveWalletRequest = {

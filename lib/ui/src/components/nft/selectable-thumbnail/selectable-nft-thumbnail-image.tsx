@@ -3,7 +3,7 @@
 import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import { ImagePlaceholder } from '@echo/ui/components/base/image-placeholder'
 import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
-import { PICTURE_SIZE_MD } from '@echo/ui/constants/picture-size'
+import { PictureSize } from '@echo/ui/constants/picture-size'
 import { clsx } from 'clsx'
 import { type FunctionComponent, useState } from 'react'
 
@@ -42,8 +42,8 @@ export const SelectableNftThumbnailImage: FunctionComponent<Props> = ({ nft, onL
         )}
         src={nft.pictureUrl}
         alt={nft.tokenId.toString()}
-        width={PICTURE_SIZE_MD}
-        height={PICTURE_SIZE_MD}
+        width={PictureSize.MD}
+        height={PictureSize.MD}
         onLoad={() => {
           setLoaded(true)
           onLoadComplete?.()

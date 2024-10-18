@@ -1,10 +1,6 @@
-export const CALLOUT_SEVERITY_INFO = 'Info'
-export const CALLOUT_SEVERITY_WARNING = 'Warning'
-export const CALLOUT_SEVERITY_ERROR = 'Error'
-export const CALLOUT_SEVERITY_SUCCESS = 'Success'
-export const CALLOUT_SEVERITIES = [
-  CALLOUT_SEVERITY_INFO,
-  CALLOUT_SEVERITY_WARNING,
-  CALLOUT_SEVERITY_ERROR,
-  CALLOUT_SEVERITY_SUCCESS
-] as const
+export enum CalloutSeverity {
+  Info = 'Info',
+  Warning = 'Warning',
+  Error = 'Error',
+  Success = 'Success'
+}

@@ -11,7 +11,7 @@ import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalDescription } from '@echo/ui/components/base/modal/modal-description'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
-import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
+import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
@@ -77,7 +77,7 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
       void getOfferTrigger({ idContract })
     },
     onError: {
-      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('new') },
+      alert: { severity: CalloutSeverity.Error, message: tError('new') },
       loggerContext: { component: CreateOfferModal.name, fetcher: contractCreateOffer.name, offer: baseOffer }
     }
   })

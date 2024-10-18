@@ -1,3 +1,3 @@
-import type { CARD_STATUS_COLORS } from '@echo/ui/constants/card-status-colors'
+import { Color } from '@echo/ui/constants/color'
 
-export type CardStatusColor = (typeof CARD_STATUS_COLORS)[number]
+export type CardStatusColor = Color.Green | Color.Yellow | Color.Red

@@ -7,14 +7,14 @@ import { convertNullToUndefined } from '@echo/utils/fp/convert-null-to-undefined
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
-import type { ChainName } from '@echo/utils/types/chain-name'
+import type { Chain } from '@echo/utils/constants/chain'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { bigIntStringSchema } from '@echo/utils/validators/big-int-string-schema'
 import { evmAddressSchema } from '@echo/utils/validators/evm-address-schema'
 import { always, applySpec, ifElse, invoker, isNil, length, pipe, prop, reject, split } from 'ramda'
 import { object, string } from 'zod'
 
-export function nftResponseSchema(chain: ChainName) {
+export function nftResponseSchema(chain: Chain) {
   function updateIPFSUri(uri: Nullable<string>): Nullable<string> {
     if (isNil(uri)) {
       return uri

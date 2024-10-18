@@ -1,6 +1,6 @@
 import type { Nft } from '@echo/model/types/nft/nft'
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
-import type { ChainName } from '@echo/utils/types/chain-name'
+import type { Chain } from '@echo/utils/constants/chain'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { getWalletClient } from '@echo/web3-dom/helpers/get-wallet-client'
 import { mapNftsToIsOwnerContractCalls } from '@echo/web3-dom/mappers/map-nfts-to-is-owner-contract-calls'
@@ -13,7 +13,7 @@ export interface AreNftsInEscrowArgs {
   nfts: Nft[]
 }
 
-function isEchoAddress(chain: ChainName) {
+function isEchoAddress(chain: Chain) {
   return function (result: Nullable<string>) {
     if (isNil(result)) {
       return false
@@ -24,7 +24,7 @@ function isEchoAddress(chain: ChainName) {
 
 export async function areNftsInEscrow(args: AreNftsInEscrowArgs): Promise<boolean> {
   const { nfts } = args
-  const chain = pipe<[Nft[]], Nft, ChainName>(head, path(['collection', 'contract', 'chain']))(nfts)
+  const chain = pipe<[Nft[]], Nft, Chain>(head, path(['collection', 'contract', 'chain']))(nfts)
 
   const chainId = getChainId(chain)
   const contractCalls = mapNftsToIsOwnerContractCalls(nfts)

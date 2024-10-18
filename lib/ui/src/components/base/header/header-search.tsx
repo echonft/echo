@@ -1,8 +1,5 @@
 'use client'
-import {
-  SEARCH_RESULT_CATEGORY_COLLECTION,
-  SEARCH_RESULT_CATEGORY_USER
-} from '@echo/model/constants/search-result-category'
+import { SearchResultCategory } from '@echo/model/constants/search-result-category'
 import type { SearchResult } from '@echo/model/types/search/search-result'
 import { pathProvider } from '@echo/routing/path-provider'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
@@ -24,10 +21,10 @@ export const HeaderSearch: FunctionComponent = () => {
       <SearchBox
         resultsProvider={pipe(juxt([searchCollections, searchUsers]), promiseAll, andThen(flatten))}
         onSelect={(result: SearchResult<Lowercase<string>>) => {
-          if (result.category === SEARCH_RESULT_CATEGORY_COLLECTION) {
+          if (result.category === SearchResultCategory.Collection) {
             router.push(pathProvider.collection.default.get({ slug: result.value }))
           }
-          if (result.category === SEARCH_RESULT_CATEGORY_USER) {
+          if (result.category === SearchResultCategory.User) {
             router.push(pathProvider.user.default.get({ username: result.value }))
           }
         }}

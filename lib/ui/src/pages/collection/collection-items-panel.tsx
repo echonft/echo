@@ -7,7 +7,7 @@ import { TraitFilterPanel } from '@echo/ui/components/nft/filters/by-traits/trai
 import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panels-layout'
 import { NftsAndFiltersLayout } from '@echo/ui/components/nft/filters/layout/nfts-and-filters-layout'
 import { SelectableNfts } from '@echo/ui/components/nft/selectable/selectable-nfts'
-import { NFT_ACTION_LISTING, NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
+import { NftAction } from '@echo/ui/constants/nft-actions'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
 import { CollectionItemsButton } from '@echo/ui/pages/collection/collection-items-button'
 import { TabPanel } from '@headlessui/react'
@@ -41,7 +41,7 @@ export const CollectionItemsPanel: FunctionComponent<Props> = ({ collection, nft
 
   if (show) {
     const count = selection.nfts.length
-    const action = count > 0 ? NFT_ACTION_OFFER : NFT_ACTION_LISTING
+    const action = count > 0 ? NftAction.Offer : NftAction.Listing
     return (
       <TabPanel className={clsx('outline-none')}>
         <NftsAndFiltersLayout>
@@ -50,7 +50,7 @@ export const CollectionItemsPanel: FunctionComponent<Props> = ({ collection, nft
               action={action}
               count={count}
               onClick={() => {
-                if (action === NFT_ACTION_OFFER) {
+                if (action === NftAction.Offer) {
                   onCreateOffer()
                 } else {
                   onCreateListing()
@@ -66,7 +66,7 @@ export const CollectionItemsPanel: FunctionComponent<Props> = ({ collection, nft
           <SelectableNfts
             nfts={filteredByNfts.byTraits}
             selection={selection.nfts}
-            action={NFT_ACTION_OFFER}
+            action={NftAction.Offer}
             onAction={onCreateOffer}
             onSelect={selectNft}
             onUnselect={unselectNft}

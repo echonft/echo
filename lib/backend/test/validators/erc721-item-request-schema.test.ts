@@ -1,6 +1,7 @@
 import type { Erc721ItemRequest } from '@echo/api/types/requests/erc721-item-request'
 import { erc721ItemRequestSchema } from '@echo/backend/validators/erc721-item-request-schema'
 import { TokenType } from '@echo/model/constants/token-type'
+import { Chain } from '@echo/utils/constants/chain'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, assocPath, dissoc, dissocPath, forEach, pipe } from 'ramda'
 
@@ -61,7 +62,7 @@ describe('validators - erc721ItemRequestSchema', () => {
     expect(() => erc721ItemRequestSchema.parse(request)).toThrow()
     request = assocPath(
       ['token', 'collection'],
-      { contract: { address: '0x1234567890', chain: 'blast' } },
+      { contract: { address: '0x1234567890', chain: Chain.Blast } },
       erc721ItemRequest
     )
     expect(() => erc721ItemRequestSchema.parse(request)).toThrow()

@@ -2,7 +2,7 @@ import type { Collection } from '@echo/model/types/collection/collection'
 import { slugSchema } from '@echo/model/validators/slug-schema'
 import { emptyStringToUndefined } from '@echo/opensea/helpers/empty-string-to-undefined'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
-import type { ChainName } from '@echo/utils/types/chain-name'
+import type { Chain } from '@echo/utils/constants/chain'
 import type { Logger } from '@echo/utils/types/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { evmAddressSchema } from '@echo/utils/validators/evm-address-schema'
@@ -12,7 +12,7 @@ import { boolean, nativeEnum, number, object, string } from 'zod'
 type CollectionContract = ReturnType<typeof collectionContractSchema.parse>
 
 interface CollectionResponseSchemaArgs {
-  chain?: ChainName
+  chain?: Chain
   logger?: Nullable<Logger>
 }
 

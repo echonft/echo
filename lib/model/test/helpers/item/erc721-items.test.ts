@@ -9,6 +9,7 @@ import type { Erc20Item } from '@echo/model/types/item/erc20-item'
 import type { Erc721Item } from '@echo/model/types/item/erc721-item'
 import type { Erc1155Nft } from '@echo/model/types/nft/erc1155-nft'
 import type { Erc721Nft } from '@echo/model/types/nft/erc721-nft'
+import { Chain } from '@echo/utils/constants/chain'
 import { describe, expect, test } from '@jest/globals'
 import { assocPath, dissoc, pipe } from 'ramda'
 
@@ -89,9 +90,9 @@ describe('helpers - item - erc721Items', () => {
       type: TokenType.Erc20,
       contract: {
         address: '0xaddress',
-        chain: 'ethereum'
+        chain: Chain.Ethereum
       },
-      name: 'erc20'
+      name: 'erc20-token'
     }
   }
   test('only returns the erc721 items from an item list', () => {

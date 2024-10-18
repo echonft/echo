@@ -4,7 +4,7 @@ import { getAllCollectionMocks } from '@echo/model/mocks/collection/get-all-coll
 import { type Collection } from '@echo/model/types/collection/collection'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
-import { BG_COLLECTIONS } from '@echo/ui/constants/background'
+import { Background } from '@echo/ui/constants/background'
 import { CollectionsPage as Component } from '@echo/ui/pages/collections/collections-page'
 import { CollectionsPageSkeleton } from '@echo/ui/pages/collections/skeleton/collections-page-skeleton'
 import type { CollectionWithRank } from '@echo/ui/types/collection-with-rank'
@@ -16,7 +16,7 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   decorators: [
     (Story) => (
-      <PageLayout background={BG_COLLECTIONS} excludeProviders={true}>
+      <PageLayout background={Background.Collections} excludeProviders={true}>
         <SectionLayout>
           <Story />
         </SectionLayout>

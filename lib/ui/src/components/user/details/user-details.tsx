@@ -6,7 +6,7 @@ import { UserDetailsDiscordTagAndWalletLayout } from '@echo/ui/components/user/d
 import { UserDetailsLayout } from '@echo/ui/components/user/details/layout/user-details-layout'
 import { UserTag } from '@echo/ui/components/user/profile/user-tag'
 import { WalletConnectedButton } from '@echo/ui/components/wallet/wallet-connected-button'
-import { SIZE_MD } from '@echo/ui/constants/size'
+import { Size } from '@echo/ui/constants/size'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -26,7 +26,7 @@ export const UserDetails: FunctionComponent<Props> = ({ user, isAuthUser = false
   return (
     <UserDetailsLayout>
       <InternalLink path={pathProvider.user.default.get({ username }).toString()}>
-        <ProfilePicture alt={username} pictureUrl={avatarUrl} size={SIZE_MD} />
+        <ProfilePicture alt={username} pictureUrl={avatarUrl} size={Size.MD} />
       </InternalLink>
       <UserDetailsDiscordTagAndWalletLayout>
         <UserTag user={user} isAuthUser={isAuthUser} />

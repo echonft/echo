@@ -3,7 +3,7 @@
 import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import { pathProvider } from '@echo/routing/path-provider'
 import { SelectableNftsWithFilters } from '@echo/ui/components/nft/filters/selectable-nfts-with-filters'
-import { NFT_ACTION_LISTING } from '@echo/ui/constants/nft-actions'
+import { NftAction } from '@echo/ui/constants/nft-actions'
 import { TabPanel } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/navigation'
@@ -22,7 +22,7 @@ export const ProfileItemsPanel: FunctionComponent<Props> = ({ nfts, show }) => {
         <SelectableNftsWithFilters
           nfts={nfts}
           sortBy={'collection'}
-          action={NFT_ACTION_LISTING}
+          action={NftAction.Listing}
           onSelectionAction={(selection) => {
             router.push(pathProvider.listing.new.get({ items: selection }))
           }}

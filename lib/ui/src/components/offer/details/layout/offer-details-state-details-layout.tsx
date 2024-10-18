@@ -1,5 +1,4 @@
-import { ALIGNMENT_RIGHT } from '@echo/ui/constants/alignments'
-import type { Alignment } from '@echo/ui/types/alignment'
+import { Alignment } from '@echo/ui/constants/alignments'
 import { clsx } from 'clsx'
 import type { FunctionComponent, PropsWithChildren } from 'react'
 
@@ -8,7 +7,7 @@ interface Props {
 }
 
 export const OfferDetailsStateDetailsLayout: FunctionComponent<PropsWithChildren<Props>> = ({
-  alignment = ALIGNMENT_RIGHT,
+  alignment = Alignment.Right,
   children
 }) => {
   return (
@@ -18,7 +17,7 @@ export const OfferDetailsStateDetailsLayout: FunctionComponent<PropsWithChildren
         'flex-col',
         'grow',
         'basis-0',
-        alignment === ALIGNMENT_RIGHT ? 'items-end' : 'items-start'
+        alignment === Alignment.Right ? 'items-end' : 'items-start'
       )}
     >
       {children}

@@ -1,5 +1,4 @@
-import { NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
-import type { NftAction } from '@echo/ui/types/nft-action'
+import { NftAction } from '@echo/ui/constants/nft-actions'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -18,7 +17,7 @@ export const SelectableNftsActionButton: FunctionComponent<NftSelectionButtonPro
     return null
   }
 
-  const label = action === NFT_ACTION_OFFER ? t('offer') : t('listing')
+  const label = action === NftAction.Offer ? t('offer') : t('listing')
   return (
     <button
       disabled={count === 0}

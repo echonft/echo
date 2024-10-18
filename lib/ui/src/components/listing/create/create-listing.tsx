@@ -11,7 +11,7 @@ import { CreateListingNfts } from '@echo/ui/components/listing/create/create-lis
 import { CreateListingSwapDirectionHeader } from '@echo/ui/components/listing/create/create-listing-swap-direction-header'
 import { CreateListingTargets } from '@echo/ui/components/listing/create/create-listing-targets'
 import { CreateOfferSwapDirectionHeader } from '@echo/ui/components/offer/create/create-offer-swap-direction-header'
-import { SWAP_DIRECTION_IN, SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
+import { SwapDirection } from '@echo/ui/constants/swap-direction'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -69,7 +69,7 @@ export const CreateListing: FunctionComponent<Props> = ({
   return (
     <div className={clsx('flex', 'flex-col', 'gap-24')}>
       <div className={clsx('flex', 'flex-col', 'gap-20')}>
-        <CreateListingSwapDirectionHeader direction={SWAP_DIRECTION_IN} />
+        <CreateListingSwapDirectionHeader direction={SwapDirection.In} />
         <div className={clsx('flex', 'flex-row', 'justify-center', 'h-max', 'w-full', 'px-8')}>
           <div className={clsx('h-max', 'w-full', 'max-w-[40rem]')}>
             <CreateListingTargets
@@ -90,7 +90,7 @@ export const CreateListing: FunctionComponent<Props> = ({
         <div className={clsx('pb-4')}>
           <ItemsSeparator />
         </div>
-        <CreateOfferSwapDirectionHeader direction={SWAP_DIRECTION_OUT} />
+        <CreateOfferSwapDirectionHeader direction={SwapDirection.Out} />
         <div className={clsx('flex', 'flex-row', 'justify-center', 'h-max', 'w-full', 'px-8')}>
           <CreateListingNfts
             nfts={nfts}

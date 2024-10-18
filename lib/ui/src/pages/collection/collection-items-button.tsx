@@ -1,6 +1,5 @@
 import { SelectableNftsActionButton } from '@echo/ui/components/nft/selectable/selectable-nfts-action-button'
-import { NFT_ACTION_LISTING } from '@echo/ui/constants/nft-actions'
-import type { NftAction } from '@echo/ui/types/nft-action'
+import { NftAction } from '@echo/ui/constants/nft-actions'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent, MouseEventHandler } from 'react'
@@ -13,7 +12,7 @@ interface Props {
 
 export const CollectionItemsButton: FunctionComponent<Props> = ({ action, count, onClick }) => {
   const t = useTranslations('nft.action')
-  if (action === NFT_ACTION_LISTING) {
+  if (action === NftAction.Listing) {
     return (
       <button
         onClick={onClick}

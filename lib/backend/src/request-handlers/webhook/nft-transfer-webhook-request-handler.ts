@@ -3,7 +3,7 @@ import { nftTransferEventHandler } from '@echo/backend/request-handlers/webhook/
 import type { RequestHandlerArgsWithParams } from '@echo/backend/types/request-handler'
 import type { WebhookBlockRequest } from '@echo/backend/types/webhook-block-request'
 import { parseRequest } from '@echo/backend/validators/parse-request'
-import type { ChainName } from '@echo/utils/types/chain-name'
+import type { Chain } from '@echo/utils/constants/chain'
 import { transferEventLogSchema } from '@echo/web3/validators/transfer-event-log-schema'
 import { NextResponse } from 'next/server'
 import { andThen, pipe } from 'ramda'
@@ -12,7 +12,7 @@ export async function nftTransferWebhookRequestHandler({
   params,
   req,
   logger
-}: RequestHandlerArgsWithParams<{ chain: ChainName }, WebhookBlockRequest>) {
+}: RequestHandlerArgsWithParams<{ chain: Chain }, WebhookBlockRequest>) {
   const { chain } = params
   const transfers = await pipe(
     assertQuicknodeSignature,

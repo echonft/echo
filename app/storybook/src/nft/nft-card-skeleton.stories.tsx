@@ -1,29 +1,13 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { CardSkeleton as Component } from '@echo/ui/components/base/card/skeleton/card-skeleton'
-import { CARD_VARIANT_REDUCED } from '@echo/ui/constants/card-variants'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { type FunctionComponent } from 'react'
 
-type ComponentType = FunctionComponent<{ reduced: boolean }>
-
-const metadata: Meta<ComponentType> = {
+const metadata: Meta<typeof Component> = {
   title: 'NFT/Card',
-  args: {
-    reduced: false
-  },
-  argTypes: {
-    reduced: {
-      defaultValue: false,
-      control: 'boolean'
-    }
-  }
+  component: Component
 }
 
 export default metadata
 
-export const Skeleton: StoryObj<ComponentType> = {
-  render: ({ reduced }) => {
-    return <Component variant={reduced ? CARD_VARIANT_REDUCED : undefined} />
-  }
-}
+export const Skeleton: StoryObj<typeof Component> = {}

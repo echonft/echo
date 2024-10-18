@@ -5,7 +5,7 @@ import {
   SelectableNftCard,
   type SelectableNftCardProps
 } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
-import { NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
+import { NftAction } from '@echo/ui/constants/nft-actions'
 import { type Meta, type StoryObj } from '@storybook/react'
 import type { FunctionComponent } from 'react'
 
@@ -49,7 +49,7 @@ export const SelectableCard: StoryObj<ComponentType> = {
       <SelectableNftCard
         nft={getNftMock()}
         options={{ owner: { hide: hideOwner } }}
-        action={action ? NFT_ACTION_OFFER : undefined}
+        action={action ? NftAction.Offer : undefined}
         onSelect={onSelect}
         onAction={onAction}
       />

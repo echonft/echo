@@ -1,6 +1,6 @@
 'use client'
 import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
-import { DIRECTION_RIGHT } from '@echo/ui/constants/direction'
+import { Direction } from '@echo/ui/constants/direction'
 import { clsx } from 'clsx'
 import type { FunctionComponent, MouseEventHandler } from 'react'
 
@@ -19,7 +19,7 @@ export const LoginContinueButton: FunctionComponent<Props> = ({ label, disabled,
     >
       <span className={clsx('btn-label-secondary', 'prose-paragraph-sm', '!text-[0.9375rem]')}>{label}</span>
       <span className={clsx('btn-label-secondary')}>
-        <SideCaretSvg direction={DIRECTION_RIGHT} />
+        <SideCaretSvg direction={Direction.Right} />
       </span>
     </button>
   )

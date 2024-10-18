@@ -1,13 +1,12 @@
-import { SIZE_LG, SIZE_MD, SIZE_SM } from '@echo/ui/constants/size'
-import type { ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
+import { Size } from '@echo/ui/constants/size'
 
-export function getProfilePictureHeightInPx(size: ProfilePictureSize): number {
+export function getProfilePictureHeightInPx(size: Size): number {
   switch (size) {
-    case SIZE_LG:
+    case Size.LG:
       return 160
-    case SIZE_MD:
+    case Size.MD:
       return 112
-    case SIZE_SM:
+    case Size.SM:
       return 99
   }
 }

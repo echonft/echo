@@ -1,9 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { Callout as Component, type CalloutProps } from '@echo/ui/components/base/callout/callout'
-import { CALLOUT_SEVERITIES, CALLOUT_SEVERITY_INFO } from '@echo/ui/constants/callout-severity'
-import { CALLOUT_VARIANT_SOLID, CALLOUT_VARIANTS } from '@echo/ui/constants/callout-variant'
+import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
+import { CalloutVariant } from '@echo/ui/constants/callout-variant'
 import { type Meta, type StoryObj } from '@storybook/react'
+import { values } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 type ComponentType = FunctionComponent<
@@ -16,8 +17,8 @@ const metadata: Meta<ComponentType> = {
   title: 'Base/Callout',
   args: {
     clickable: false,
-    severity: CALLOUT_SEVERITY_INFO,
-    variant: CALLOUT_VARIANT_SOLID,
+    severity: CalloutSeverity.Info,
+    variant: CalloutVariant.Solid,
     text: 'Please connect your wallet to unlock the full experience'
   },
   argTypes: {
@@ -26,13 +27,13 @@ const metadata: Meta<ComponentType> = {
       control: { type: 'boolean' }
     },
     severity: {
-      defaultValue: CALLOUT_SEVERITY_INFO,
-      options: CALLOUT_SEVERITIES,
+      defaultValue: CalloutSeverity.Info,
+      options: values(CalloutSeverity),
       control: { type: 'radio' }
     },
     variant: {
-      defaultValue: CALLOUT_VARIANT_SOLID,
-      options: CALLOUT_VARIANTS,
+      defaultValue: CalloutVariant.Solid,
+      options: values(CalloutVariant),
       control: { type: 'radio' }
     },
     onClick: {

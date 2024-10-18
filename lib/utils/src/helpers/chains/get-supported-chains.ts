@@ -1,10 +1,10 @@
+import { Chain } from '@echo/utils/constants/chain'
 import { isTestnet } from '@echo/utils/constants/is-testnet'
-import type { ChainName } from '@echo/utils/types/chain-name'
 import { type NonEmptyArray } from 'ramda'
 
 export function getSupportedChains() {
   if (isTestnet) {
-    return ['blast_sepolia', 'sepolia'] as NonEmptyArray<ChainName>
+    return [Chain.BlastSepolia, Chain.Sepolia] as NonEmptyArray<Chain>
   }
-  return ['sei'] as NonEmptyArray<ChainName>
+  return [Chain.Sei] as NonEmptyArray<Chain>
 }

@@ -6,6 +6,7 @@ import { getCollectionById } from '@echo/firestore/crud/collection/get-collectio
 import { collectionMockPxId } from '@echo/model/mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model/mocks/collection/get-collection-mock-by-id'
 import type { Collection } from '@echo/model/types/collection/collection'
+import { Chain } from '@echo/utils/constants/chain'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, assocPath, isNil, pipe } from 'ramda'
@@ -30,7 +31,7 @@ describe('CRUD - collection - addCollection', () => {
     const originalCollection = getCollectionMockById(collectionMockPxId())
     const collectionToAdd = pipe<[Collection], Collection, Collection>(
       assoc('slug', 'slug'),
-      assocPath(['contract', 'chain'], 'sepolia')
+      assocPath(['contract', 'chain'], Chain.Sepolia)
     )(originalCollection)
     const newDocument = await addCollection(collectionToAdd)
     collectionId = newDocument.id

@@ -1,14 +1,14 @@
 import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
-import { SEARCH_RESULT_CATEGORY_USER } from '@echo/model/constants/search-result-category'
+import { SearchResultCategory } from '@echo/model/constants/search-result-category'
 import type { SearchResult } from '@echo/model/types/search/search-result'
 import type { Username } from '@echo/model/types/username'
 import { always, applySpec, concat, path, pipe, prop } from 'ramda'
 
 export function mapUserToSearchResult(user: UserDocumentData): SearchResult<Username> {
   return applySpec<SearchResult<Username>>({
-    category: always(SEARCH_RESULT_CATEGORY_USER),
+    category: always(SearchResultCategory.User),
     label: path(['discord', 'username']),
-    id: pipe<[UserDocumentData], string, string>(prop('username'), concat(`${SEARCH_RESULT_CATEGORY_USER}-`)),
+    id: pipe<[UserDocumentData], string, string>(prop('username'), concat(`${SearchResultCategory.User}-`)),
     pictureUrl: path(['discord', 'avatarUrl']),
     value: prop('username')
   })(user)

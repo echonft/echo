@@ -1,18 +1,19 @@
-import type { ChainName } from '@echo/utils/types/chain-name'
+import { Chain } from '@echo/utils/constants/chain'
+import { ChainError } from '@echo/web3/constants/errors/chain-error'
 
-export function getChain(id: number): ChainName {
+export function getChain(id: number): Chain {
   switch (id) {
     case 81457:
-      return 'blast'
+      return Chain.Blast
     case 168587773:
-      return 'blast_sepolia'
+      return Chain.BlastSepolia
     case 1:
-      return 'ethereum'
+      return Chain.Ethereum
     case 11155111:
-      return 'sepolia'
+      return Chain.Sepolia
     case 1329:
-      return 'sei'
+      return Chain.Sei
     default:
-      throw Error(`chain id not supported: ${id}`)
+      throw Error(ChainError.NotSupported)
   }
 }

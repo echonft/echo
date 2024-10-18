@@ -2,6 +2,7 @@ import { TokenType } from '@echo/model/constants/token-type'
 import { type Collection } from '@echo/model/types/collection/collection'
 import type { Slug } from '@echo/model/types/slug'
 import type { Wallet } from '@echo/model/types/wallet'
+import { Chain } from '@echo/utils/constants/chain'
 import { toLower } from 'ramda'
 
 export function collectionMockPxId() {
@@ -13,7 +14,7 @@ export function collectionMockPxSlug(): Slug {
 export function collectionMockPxContract(): Wallet {
   return {
     address: toLower('0x12c63bbD266dB84e117356e664f3604055166CEc'),
-    chain: 'ethereum'
+    chain: Chain.Ethereum
   }
 }
 export function collectionMockSpiralId() {
@@ -25,7 +26,7 @@ export function collectionMockSpiralSlug(): Slug {
 export function collectionMockSpiralContract(): Wallet {
   return {
     address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
-    chain: 'ethereum'
+    chain: Chain.Ethereum
   }
 }
 

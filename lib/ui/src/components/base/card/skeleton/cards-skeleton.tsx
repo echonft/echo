@@ -1,6 +1,6 @@
 import { CardsLayout } from '@echo/ui/components/base/card/layout/cards-layout'
 import { CardSkeleton } from '@echo/ui/components/base/card/skeleton/card-skeleton'
-import type { Alignment } from '@echo/ui/types/alignment'
+import type { Alignment } from '@echo/ui/constants/alignments'
 import { type FunctionComponent } from 'react'
 
 interface Props {

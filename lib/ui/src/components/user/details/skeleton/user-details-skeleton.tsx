@@ -3,13 +3,13 @@ import { UserDetailsDiscordTagAndWalletLayout } from '@echo/ui/components/user/d
 import { UserDetailsLayout } from '@echo/ui/components/user/details/layout/user-details-layout'
 import { UserDiscordTagSkeleton } from '@echo/ui/components/user/profile/skeleton/user-discord-tag-skeleton'
 import { WalletConnectedButtonSkeleton } from '@echo/ui/components/wallet/skeleton/wallet-connected-button-skeleton'
-import { SIZE_MD } from '@echo/ui/constants/size'
+import { Size } from '@echo/ui/constants/size'
 import { type FunctionComponent } from 'react'
 
 export const UserDetailsSkeleton: FunctionComponent = () => {
   return (
     <UserDetailsLayout>
-      <ProfilePictureSkeleton size={SIZE_MD} />
+      <ProfilePictureSkeleton size={Size.MD} />
       <UserDetailsDiscordTagAndWalletLayout>
         <UserDiscordTagSkeleton />
         <WalletConnectedButtonSkeleton />

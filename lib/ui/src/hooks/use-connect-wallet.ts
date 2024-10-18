@@ -3,7 +3,7 @@ import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
 import type { Wallet } from '@echo/model/types/wallet'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
-import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
+import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { captureAndLogError } from '@echo/ui/helpers/capture-and-log-error'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
@@ -67,7 +67,7 @@ export function useConnectWallet(account: AccountResult) {
     },
     onError: {
       alert: {
-        severity: CALLOUT_SEVERITY_ERROR,
+        severity: CalloutSeverity.Error,
         message: t('addWallet')
       },
       onError: () => {
@@ -89,7 +89,7 @@ export function useConnectWallet(account: AccountResult) {
     },
     onError: {
       alert: {
-        severity: CALLOUT_SEVERITY_ERROR,
+        severity: CalloutSeverity.Error,
         message: t('addWallet')
       },
       onError: () => {
@@ -115,7 +115,7 @@ export function useConnectWallet(account: AccountResult) {
     },
     onError: {
       alert: {
-        severity: CALLOUT_SEVERITY_ERROR,
+        severity: CalloutSeverity.Error,
         message: t('signing')
       },
       onError: () => {

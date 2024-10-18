@@ -1,6 +1,6 @@
+import { Chain } from '@echo/utils/constants/chain'
 import { isIn } from '@echo/utils/fp/is-in'
-import type { ChainName } from '@echo/utils/types/chain-name'
 
-export function isEvmChain(chain: ChainName) {
-  return isIn(['blast_sepolia', 'sepolia', 'ethereum', 'blast', 'sei'], chain)
+export function isEvmChain(chain: Chain) {
+  return isIn([Chain.Blast, Chain.BlastSepolia, Chain.Ethereum, Chain.Sepolia, Chain.Sei], chain)
 }

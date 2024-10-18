@@ -1,6 +1,6 @@
-import type { ChainName } from '@echo/utils/types/chain-name'
+import { Chain } from '@echo/utils/constants/chain'
 import type { NonEmptyArray } from 'ramda'
 
-export function getChains(): NonEmptyArray<ChainName> {
-  return ['blast_sepolia', 'sepolia', 'blast', 'ethereum', 'sei'] as const
+export function getChains(): NonEmptyArray<Chain> {
+  return [Chain.BlastSepolia, Chain.Sepolia, Chain.Blast, Chain.Ethereum, Chain.Sei] as const
 }

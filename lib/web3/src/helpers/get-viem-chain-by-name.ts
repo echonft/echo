@@ -1,20 +1,21 @@
-import type { ChainName } from '@echo/utils/types/chain-name'
-import type { Chain } from 'viem'
-import { blast, blastSepolia, mainnet, sepolia, sei } from 'viem/chains'
+import { Chain } from '@echo/utils/constants/chain'
+import { ChainError } from '@echo/web3/constants/errors/chain-error'
+import type { Chain as ViemChain } from 'viem'
+import { blast, blastSepolia, mainnet, sei, sepolia } from 'viem/chains'
 
-export function getViemChainByName(name: ChainName): Chain {
+export function getViemChainByName(name: Chain): ViemChain {
   switch (name) {
-    case 'blast':
+    case Chain.Blast:
       return blast
-    case 'blast_sepolia':
+    case Chain.BlastSepolia:
       return blastSepolia
-    case 'ethereum':
+    case Chain.Ethereum:
       return mainnet
-    case 'sepolia':
+    case Chain.Sepolia:
       return sepolia
-    case 'sei':
+    case Chain.Sei:
       return sei
     default:
-      throw Error(`chain ${name as string} not supported`)
+      throw Error(ChainError.NotSupported)
   }
 }

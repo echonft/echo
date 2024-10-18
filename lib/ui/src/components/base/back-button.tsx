@@ -1,5 +1,5 @@
 import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
-import { DIRECTION_LEFT } from '@echo/ui/constants/direction'
+import { Direction } from '@echo/ui/constants/direction'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
@@ -25,7 +25,7 @@ export const BackButton: FunctionComponent<Props> = ({ title, disabled = false, 
       onClick={onBack}
     >
       <span className={clsx('btn-label-secondary')}>
-        <SideCaretSvg direction={DIRECTION_LEFT} width={12} height={20} />
+        <SideCaretSvg direction={Direction.Left} width={12} height={20} />
       </span>
       <BackButtonTitle title={title} />
     </button>

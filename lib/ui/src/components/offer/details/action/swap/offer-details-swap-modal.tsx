@@ -6,12 +6,12 @@ import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalDescription } from '@echo/ui/components/base/modal/modal-description'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
-import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
+import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { useEchoTradingFees } from '@echo/ui/hooks/use-echo-trading-fees'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import type { ChainName } from '@echo/utils/types/chain-name'
+import type { Chain } from '@echo/utils/constants/chain'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { ContractUpdateOfferArgs } from '@echo/web3-dom/types/contract-update-offer-args'
@@ -31,7 +31,7 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ open, offer, o
   const t = useTranslations('offer.details.swapModal')
   const tError = useTranslations('error.offer')
   const { contractExecuteOffer } = useDependencies()
-  const chain = pipe<[OfferWithRole], NonEmptyArray<OwnedNft>, OwnedNft, ChainName>(
+  const chain = pipe<[OfferWithRole], NonEmptyArray<OwnedNft>, OwnedNft, Chain>(
     prop('receiverItems'),
     head,
     path(['collection', 'contract', 'chain'])
@@ -49,7 +49,7 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ open, offer, o
       )
     },
     onError: {
-      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('swap') },
+      alert: { severity: CalloutSeverity.Error, message: tError('swap') },
       onError: () => {
         onClose?.()
       },

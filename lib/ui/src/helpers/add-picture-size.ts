@@ -1,12 +1,11 @@
 import { apiPathProvider } from '@echo/routing/api-path-provider'
-import { PICTURE_SIZE_MD, PICTURE_SIZES } from '@echo/ui/constants/picture-size'
-import type { PictureSize } from '@echo/ui/types/picture-size'
+import { PictureSize } from '@echo/ui/constants/picture-size'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { getBaseUrl } from '@echo/utils/helpers/get-base-url'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import type { ImageProps } from 'next/image'
-import { concat, filter, isNil, length, lte, reduce } from 'ramda'
+import { concat, filter, isNil, length, lte, reduce, values } from 'ramda'
 
 /**
  * If src is pointing to our IPFS route but has another base URL, switch it to the current one
@@ -27,7 +26,8 @@ function getCurrentHostnameSrc(src: string): string {
   return src
 }
 function getSize(width: number): Nullable<PictureSize> {
-  const lteSizes: PictureSize[] = filter(lte(width), PICTURE_SIZES as unknown as PictureSize[])
+  const pictureSizes = values(PictureSize)
+  const lteSizes: PictureSize[] = filter(lte(width), pictureSizes)
   return reduce(
     (closest: Nullable<PictureSize>, current: PictureSize): PictureSize => {
       if (isNil(closest) || Math.abs(width - current) < Math.abs(width - closest)) {
@@ -49,7 +49,7 @@ export function addPictureSize(
 ): string {
   const size = getSize(args.width)
   if (isNilOrEmpty(args.src) || isNil(size)) {
-    if (!isNil(size) && size < PICTURE_SIZE_MD) {
+    if (!isNil(size) && size < PictureSize.MD) {
       return 'https://storage.googleapis.com/echo-dev-public/not-found-nft-small.png?alt=media'
     }
     return 'https://storage.googleapis.com/echo-dev-public/not-found-nft.png?alt=media'

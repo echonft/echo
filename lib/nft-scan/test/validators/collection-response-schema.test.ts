@@ -3,6 +3,7 @@ import type { Collection } from '@echo/model/types/collection/collection'
 import type { Wallet } from '@echo/model/types/wallet'
 import { collectionResponseMock } from '@echo/nft-scan/mocks/collection-response-mock'
 import { collectionResponseSchema } from '@echo/nft-scan/validators/collection-response-schema'
+import { Chain } from '@echo/utils/constants/chain'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, pipe } from 'ramda'
 
@@ -10,7 +11,7 @@ describe('validators - collectionResponseSchema', () => {
   const expectedResult: Collection = {
     contract: {
       address: '0xcfc4c2b14af5b1f8ed97e1717b009dca461d8461'.toLowerCase(),
-      chain: 'blast'
+      chain: Chain.Blast
     } as Wallet,
     name: 'BACGenesis',
     slug: 'bacgenesis',
@@ -27,27 +28,27 @@ describe('validators - collectionResponseSchema', () => {
   }
 
   it('maps correctly with no slug', () => {
-    const result = collectionResponseSchema('blast').parse(collectionResponseMock())
+    const result = collectionResponseSchema(Chain.Blast).parse(collectionResponseMock())
     expect(result).toEqual({ collection: expectedResult, isSpam: false })
   })
 
   it('maps correctly with no slug name with space', () => {
     const response = pipe(collectionResponseMock, assoc('name', 'Name With Space'))()
     const resultWithSlug = pipe(assoc('name', 'Name With Space'), assoc('slug', 'name-with-space'))(expectedResult)
-    const result = collectionResponseSchema('blast').parse(response)
+    const result = collectionResponseSchema(Chain.Blast).parse(response)
     expect(result).toEqual({ collection: resultWithSlug, isSpam: false })
   })
 
   it('maps correctly with slug', () => {
     const response = pipe(collectionResponseMock, assoc('opensea_slug', 'opensea-slug'))()
     const resultWithSlug = assoc('slug', 'opensea-slug', expectedResult)
-    const result = collectionResponseSchema('blast').parse(response)
+    const result = collectionResponseSchema(Chain.Blast).parse(response)
     expect(result).toEqual({ collection: resultWithSlug, isSpam: false })
   })
 
   it('returns isSpam true if the collection is a spam collection', () => {
     const response = pipe(collectionResponseMock, assoc('is_spam', true))()
-    const result = collectionResponseSchema('blast').parse(response)
+    const result = collectionResponseSchema(Chain.Blast).parse(response)
     expect(result).toEqual({ collection: undefined, isSpam: true })
   })
 })

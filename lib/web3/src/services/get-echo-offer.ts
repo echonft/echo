@@ -1,4 +1,4 @@
-import type { ChainName } from '@echo/utils/types/chain-name'
+import type { Chain } from '@echo/utils/constants/chain'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { echoAbi } from '@echo/web3/constants/echo-abi'
@@ -11,7 +11,7 @@ import { always, andThen, otherwise, pipe } from 'ramda'
 import { readContract } from 'viem/actions'
 
 export interface GetEchoOfferArgs {
-  chain: ChainName
+  chain: Chain
   offerId: HexString
 }
 

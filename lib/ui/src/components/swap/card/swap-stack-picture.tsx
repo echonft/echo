@@ -3,7 +3,7 @@ import { CardChainIcon } from '@echo/ui/components/base/card/card-chain-icon'
 import { CardStatus } from '@echo/ui/components/base/card/card-status'
 import { StackPictureLayout } from '@echo/ui/components/base/stack/layout/stack-picture-layout'
 import { StackImage } from '@echo/ui/components/base/stack/stack-image'
-import { COLOR_GREEN } from '@echo/ui/constants/color'
+import { Color } from '@echo/ui/constants/color'
 import type { NftStack } from '@echo/ui/types/nft-stack'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -22,7 +22,7 @@ export const SwapStackPicture: FunctionComponent<Props> = ({ stack, swap, scaleD
       <StackImage src={stack.pictureUrl} alt={stack.tokenId.toString()} scaleDisabled={scaleDisabled} />
       <CardChainIcon chain={stack.collection.contract.chain} />
       <div className={clsx('absolute', 'bottom-2', 'left-2', 'h-max', 'w-max')}>
-        <CardStatus label={t(swap.state)} color={COLOR_GREEN} />
+        <CardStatus label={t(swap.state)} color={Color.Green} />
       </div>
     </StackPictureLayout>
   )

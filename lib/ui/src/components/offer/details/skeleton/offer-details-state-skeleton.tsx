@@ -1,14 +1,14 @@
 import { OfferDetailsStateDetailsLayout } from '@echo/ui/components/offer/details/layout/offer-details-state-details-layout'
 import { OfferDetailsStateLayout } from '@echo/ui/components/offer/details/layout/offer-details-state-layout'
 import { OfferDetailsStateSeparator } from '@echo/ui/components/offer/details/offer-details-state-separator'
-import { ALIGNMENT_LEFT, ALIGNMENT_RIGHT } from '@echo/ui/constants/alignments'
+import { Alignment } from '@echo/ui/constants/alignments'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 export const OfferDetailsStateSkeleton: FunctionComponent = () => {
   return (
     <OfferDetailsStateLayout>
-      <OfferDetailsStateDetailsLayout alignment={ALIGNMENT_RIGHT}>
+      <OfferDetailsStateDetailsLayout alignment={Alignment.Right}>
         <div className={clsx('flex', 'flex-col', 'gap-1', 'items-center')}>
           <div className={clsx('loading-div')}>
             <h2
@@ -31,7 +31,7 @@ export const OfferDetailsStateSkeleton: FunctionComponent = () => {
         </div>
       </OfferDetailsStateDetailsLayout>
       <OfferDetailsStateSeparator readOnly={false} />
-      <OfferDetailsStateDetailsLayout alignment={ALIGNMENT_LEFT}>
+      <OfferDetailsStateDetailsLayout alignment={Alignment.Left}>
         <div className={clsx('loading-div')}>
           <h1 className={clsx('text-center', 'prose-header-lg-semi', 'invisible')}>{'Pending'}</h1>
         </div>

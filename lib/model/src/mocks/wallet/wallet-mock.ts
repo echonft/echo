@@ -1,6 +1,7 @@
 import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import type { EvmAddress } from '@echo/model/types/evm-address'
 import type { Wallet } from '@echo/model/types/wallet'
+import { Chain } from '@echo/utils/constants/chain'
 import { isNil, toLower } from 'ramda'
 
 export function walletMockCrewAddress(): EvmAddress {
@@ -13,11 +14,11 @@ export function walletMockJohnnyAddress(): EvmAddress {
 export function getWalletMockByUsername(username: string) {
   const walletMock: Record<string, Wallet> = {
     crewnft_: {
-      chain: 'ethereum',
+      chain: Chain.Ethereum,
       address: walletMockCrewAddress()
     },
     johnnycagewins: {
-      chain: 'ethereum',
+      chain: Chain.Ethereum,
       address: walletMockJohnnyAddress()
     }
   }

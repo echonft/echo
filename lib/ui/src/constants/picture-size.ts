@@ -1,15 +1,6 @@
-export const PICTURE_SIZE_XS = 32
-export const PICTURE_SIZE_SM = 64
-export const PICTURE_SIZE_MD = 128
-export const PICTURE_SIZE_LG = 256
-export const PICTURE_SIZE_XL = 512
-export const PICTURE_SIZE_XXL = 4096
-
-export const PICTURE_SIZES = [
-  PICTURE_SIZE_XS,
-  PICTURE_SIZE_SM,
-  PICTURE_SIZE_MD,
-  PICTURE_SIZE_LG,
-  PICTURE_SIZE_XL,
-  PICTURE_SIZE_XXL
-] as const
+export enum PictureSize {
+  SM = 32,
+  MD = 128,
+  LG = 512,
+  XXL = 4096
+}

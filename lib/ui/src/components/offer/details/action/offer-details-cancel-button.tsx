@@ -4,11 +4,11 @@ import { OfferState } from '@echo/model/constants/offer-state'
 import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
-import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
+import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import type { ChainName } from '@echo/utils/types/chain-name'
+import type { Chain } from '@echo/utils/constants/chain'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { ContractUpdateOfferArgs } from '@echo/web3-dom/types/contract-update-offer-args'
@@ -36,7 +36,7 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
   const t = useTranslations('offer.details.cancelBtn')
   const tError = useTranslations('error.offer')
   const { contractCancelOffer } = useDependencies()
-  const chain = pipe<[OfferWithRole], NonEmptyArray<OwnedNft>, OwnedNft, ChainName>(
+  const chain = pipe<[OfferWithRole], NonEmptyArray<OwnedNft>, OwnedNft, Chain>(
     prop('receiverItems'),
     head,
     path(['collection', 'contract', 'chain'])
@@ -54,7 +54,7 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
       )
     },
     onError: {
-      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('cancel') },
+      alert: { severity: CalloutSeverity.Error, message: tError('cancel') },
       onError,
       loggerContext: {
         component: OfferDetailsCancelButton.name,

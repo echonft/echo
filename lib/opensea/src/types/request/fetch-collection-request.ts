@@ -1,7 +1,7 @@
-import type { ChainName } from '@echo/utils/types/chain-name'
+import type { Chain } from '@echo/utils/constants/chain'
 import type { WithFetch } from '@echo/utils/types/with-fetch'
 
 export interface FetchCollectionRequest extends WithFetch {
   slug: string
-  chain: ChainName
+  chain: Chain
 }

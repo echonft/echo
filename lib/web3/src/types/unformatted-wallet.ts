@@ -1,6 +1,6 @@
-import type { ChainName } from '@echo/utils/types/chain-name'
+import type { Chain } from '@echo/utils/constants/chain'
 
 export interface UnformattedWallet {
   readonly address: string
-  readonly chain: ChainName
+  readonly chain: Chain
 }

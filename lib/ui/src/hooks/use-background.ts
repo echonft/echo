@@ -1,26 +1,17 @@
-import {
-  BG_COLLECTIONS,
-  BG_DEFAULT,
-  BG_GREEN_GRADIENT,
-  BG_HOME,
-  BG_RED_GRADIENT,
-  BG_SUCCESS,
-  BG_YELLOW_GRADIENT
-} from '@echo/ui/constants/background'
+import { Background } from '@echo/ui/constants/background'
 import { themeExtension } from '@echo/ui/helpers/theme/theme'
-import type { Background } from '@echo/ui/types/background'
 import { clsx } from 'clsx'
 
-export function useBackground(background: Background = BG_DEFAULT) {
+export function useBackground(background: Background = Background.Default) {
   const className = clsx(
-    background === BG_DEFAULT && 'bg-dark-500',
-    background === BG_HOME && ['bg-home', 'bg-[length:100%_41.4375rem]', 'bg-no-repeat'],
-    background === BG_COLLECTIONS && ['bg-home', 'bg-no-repeat'],
-    background === BG_GREEN_GRADIENT && ['bg-gradientGreen', 'bg-no-repeat'],
-    background === BG_YELLOW_GRADIENT && ['bg-gradientYellow', 'bg-no-repeat'],
-    background === BG_RED_GRADIENT && ['bg-gradientRed', 'bg-no-repeat']
+    background === Background.Default && 'bg-dark-500',
+    background === Background.Home && ['bg-home', 'bg-[length:100%_41.4375rem]', 'bg-no-repeat'],
+    background === Background.Collections && ['bg-home', 'bg-no-repeat'],
+    background === Background.GreenGradient && ['bg-gradientGreen', 'bg-no-repeat'],
+    background === Background.YellowGradient && ['bg-gradientYellow', 'bg-no-repeat'],
+    background === Background.RedGradient && ['bg-gradientRed', 'bg-no-repeat']
   )
-  if (background === BG_SUCCESS) {
+  if (background === Background.Success) {
     return {
       className,
       style: {

@@ -3,11 +3,11 @@ import {
   collectionResponseSchema,
   type CollectionResponseSchemaReturn
 } from '@echo/nft-scan/validators/collection-response-schema'
-import type { ChainName } from '@echo/utils/types/chain-name'
+import type { Chain } from '@echo/utils/constants/chain'
 import { isNil } from 'ramda'
 import { object } from 'zod'
 
-export function fetchCollectionResponseSchema(chain: ChainName) {
+export function fetchCollectionResponseSchema(chain: Chain) {
   return object({
     data: collectionResponseSchema(chain).nullable().optional()
   })

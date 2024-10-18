@@ -3,11 +3,12 @@ import { attributesMock } from '@echo/nft-scan/mocks/attributes-mock'
 import { nftResponseMock } from '@echo/nft-scan/mocks/nft-response-mock'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import { nftResponseSchema } from '@echo/nft-scan/validators/nft-response-schema'
+import { Chain } from '@echo/utils/constants/chain'
 import { describe, expect, it } from '@jest/globals'
 import { pipe, prop, toLower } from 'ramda'
 
 describe('validator - nftResponseSchema', () => {
-  const chain = 'blast'
+  const chain = Chain.Blast
   const response = pipe(nftResponseMock, prop('1'))()
   const expectedResult: PartialNft = {
     collection: {

@@ -1,6 +1,6 @@
 import { ListingState } from '@echo/model/constants/listing-state'
 import type { Listing } from '@echo/model/types/listing/listing'
-import { COLOR_GREEN, COLOR_RED, COLOR_YELLOW } from '@echo/ui/constants/color'
+import { Color } from '@echo/ui/constants/color'
 import type { CardStatusColor } from '@echo/ui/types/card-status-color'
 
 export const getListingStatusColor = (listing: Listing): CardStatusColor => {
@@ -8,11 +8,11 @@ export const getListingStatusColor = (listing: Listing): CardStatusColor => {
     case ListingState.Open:
     case ListingState.OffersPending:
     case ListingState.PartiallyFulfilled:
-      return COLOR_YELLOW
+      return Color.Yellow
     case ListingState.Fulfilled:
-      return COLOR_GREEN
+      return Color.Green
     case ListingState.Cancelled:
     case ListingState.Expired:
-      return COLOR_RED
+      return Color.Red
   }
 }

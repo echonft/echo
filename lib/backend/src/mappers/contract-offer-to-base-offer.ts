@@ -9,13 +9,13 @@ import type { BaseOffer } from '@echo/model/types/offer/base-offer'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { getChain } from '@echo/utils/helpers/chains/get-chain'
-import type { ChainName } from '@echo/utils/types/chain-name'
+import type { Chain } from '@echo/utils/constants/chain'
 import type { ContractOffer } from '@echo/web3/types/contract-offer'
 import type { ContractOfferItem } from '@echo/web3/types/contract-offer-item'
 import type { ContractOfferItems } from '@echo/web3/types/contract-offer-items'
 import { always, andThen, assoc, filter, isNil, map, otherwise, pipe, prop } from 'ramda'
 
-async function contractOfferItemToNft(item: ContractOfferItem & Record<'chain', ChainName>): Promise<Nft> {
+async function contractOfferItemToNft(item: ContractOfferItem & Record<'chain', Chain>): Promise<Nft> {
   const { chain, tokenAddress, tokenId } = item
   const collection = await getCollectionByAddress({ address: tokenAddress, chain })
   if (isNil(collection)) {

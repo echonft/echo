@@ -1,19 +1,19 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { WebsiteIcon as Component } from '@echo/ui/components/base/icons/website-icon'
-import { ICON_SIZES } from '@echo/ui/constants/icon-size'
-import { SIZE_MD } from '@echo/ui/constants/size'
+import { Size } from '@echo/ui/constants/size'
 import { type Meta, type StoryObj } from '@storybook/react'
+import { values } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'Base/Icons/Website',
   component: Component,
   args: {
-    size: SIZE_MD
+    size: Size.MD
   },
   argTypes: {
     size: {
-      options: ICON_SIZES,
+      options: values(Size),
       control: { type: 'radio' }
     }
   }

@@ -14,7 +14,7 @@ import { ListingDetailsCreator } from '@echo/ui/components/listing/details/listi
 import { ListingDetailsOffers } from '@echo/ui/components/listing/details/listing-details-offers'
 import { ListingDetailsState } from '@echo/ui/components/listing/details/listing-details-state'
 import { ListingDetailsTarget } from '@echo/ui/components/listing/details/listing-details-target'
-import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
+import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { isListingRoleCreator } from '@echo/ui/helpers/listing/is-listing-role-creator'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
@@ -42,7 +42,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, offers, onUp
       onUpdate?.(assoc('role', listing.role, response.listing))
     },
     onError: {
-      alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('cancel') },
+      alert: { severity: CalloutSeverity.Error, message: t('cancel') },
       loggerContext: { component: ListingDetails.name, fetcher: cancelListing.name, listing }
     }
   })

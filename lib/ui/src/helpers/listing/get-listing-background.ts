@@ -1,22 +1,22 @@
 import { ListingState } from '@echo/model/constants/listing-state'
 import type { Listing } from '@echo/model/types/listing/listing'
-import { BG_DEFAULT, BG_GREEN_GRADIENT, BG_RED_GRADIENT, BG_YELLOW_GRADIENT } from '@echo/ui/constants/background'
+import { Background } from '@echo/ui/constants/background'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil } from 'ramda'
 
 export function getListingBackground(listing: Nullable<Listing>) {
   if (isNil(listing)) {
-    return BG_DEFAULT
+    return Background.Default
   }
   switch (listing.state) {
     case ListingState.Open:
     case ListingState.OffersPending:
-      return BG_YELLOW_GRADIENT
+      return Background.YellowGradient
     case ListingState.PartiallyFulfilled:
     case ListingState.Fulfilled:
-      return BG_GREEN_GRADIENT
+      return Background.GreenGradient
     case ListingState.Cancelled:
     case ListingState.Expired:
-      return BG_RED_GRADIENT
+      return Background.RedGradient
   }
 }

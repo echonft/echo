@@ -2,7 +2,7 @@ import type { Nft } from '@echo/model/types/nft/nft'
 import type { BaseOffer } from '@echo/model/types/offer/base-offer'
 import type { Wallet } from '@echo/model/types/wallet'
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
-import type { ChainName } from '@echo/utils/types/chain-name'
+import type { Chain } from '@echo/utils/constants/chain'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { hashNfts } from '@echo/web3/helpers/hash-nfts'
 import { applySpec, head, juxt, partial, path, pipe, prop, toLower } from 'ramda'
@@ -34,7 +34,7 @@ export function generateOfferId(offer: BaseOffer): Lowercase<HexString> {
       applySpec<OfferAbiParameters>({
         sender: path(['sender', 'wallet', 'address']),
         receiver: path(['receiver', 'wallet', 'address']),
-        senderItemsChainId: pipe<[BaseOffer], Nft[], Nft, Wallet, ChainName, number>(
+        senderItemsChainId: pipe<[BaseOffer], Nft[], Nft, Wallet, Chain, number>(
           prop('senderItems'),
           head,
           path(['collection', 'contract']),
@@ -42,7 +42,7 @@ export function generateOfferId(offer: BaseOffer): Lowercase<HexString> {
           getChainId
         ),
         senderItems: pipe(prop('senderItems'), hashNfts),
-        receiverItemsChainId: pipe<[BaseOffer], Nft[], Nft, Wallet, ChainName, number>(
+        receiverItemsChainId: pipe<[BaseOffer], Nft[], Nft, Wallet, Chain, number>(
           prop('receiverItems'),
           head,
           path(['collection', 'contract']),

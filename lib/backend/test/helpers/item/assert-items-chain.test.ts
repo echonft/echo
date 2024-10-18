@@ -6,6 +6,7 @@ import { getCollectionMockById } from '@echo/model/mocks/collection/get-collecti
 import { getUserMockByUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import type { Erc721Item } from '@echo/model/types/item/erc721-item'
 import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import { Chain } from '@echo/utils/constants/chain'
 import { describe, expect, test } from '@jest/globals'
 import { assocPath, dissoc, pipe } from 'ramda'
 
@@ -54,7 +55,7 @@ describe('helpers - item - assertItemsChain', () => {
         erc721Item,
         erc721Item,
         erc721Item,
-        assocPath(['token', 'contract', 'chain'], 'sei', erc721Item)
+        assocPath(['token', 'contract', 'chain'], Chain.Sei, erc721Item)
       ])
     ).toThrow()
   })

@@ -1,15 +1,15 @@
 import { BlastIcon } from '@echo/ui/components/base/icons/blast-icon'
 import { EthereumIcon } from '@echo/ui/components/base/icons/ethereum-icon'
-import type { ChainName } from '@echo/utils/types/chain-name'
+import { Chain } from '@echo/utils/constants/chain'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  chain: ChainName
+  chain: Chain
 }
 
 const CardChainIconPicker: FunctionComponent<Props> = ({ chain }) => {
-  if (chain === 'blast' || chain === 'blast_sepolia') {
+  if (chain === Chain.Blast || chain === Chain.BlastSepolia) {
     return <BlastIcon />
   }
   return <EthereumIcon />

@@ -1,6 +1,7 @@
 import { nftResponseMock } from '@echo/nft-scan/mocks/nft-response-mock'
 import { fetchNftsResponseSchema } from '@echo/nft-scan/validators/fetch-nfts-response-schema'
 import { nftResponseSchema } from '@echo/nft-scan/validators/nft-response-schema'
+import { Chain } from '@echo/utils/constants/chain'
 import { describe, expect, it } from '@jest/globals'
 import { juxt, map, pipe, prop } from 'ramda'
 
@@ -15,10 +16,10 @@ describe('validators - fetchNftsResponseSchema', () => {
         content
       }
     }
-    const result = fetchNftsResponseSchema('blast').parse(response)
+    const result = fetchNftsResponseSchema(Chain.Blast).parse(response)
     expect(result).toEqual({
       next,
-      content: map((response) => nftResponseSchema('blast').parse(response), content)
+      content: map((response) => nftResponseSchema(Chain.Blast).parse(response), content)
     })
   })
 })

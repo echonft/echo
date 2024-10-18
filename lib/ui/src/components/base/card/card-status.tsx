@@ -1,4 +1,4 @@
-import { COLOR_GREEN, COLOR_RED, COLOR_YELLOW } from '@echo/ui/constants/color'
+import { Color } from '@echo/ui/constants/color'
 import type { CardStatusColor } from '@echo/ui/types/card-status-color'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
@@ -17,9 +17,9 @@ export const CardStatus: FunctionComponent<Props> = ({ label, color }) => {
         'rounded-lg',
         'py-0.25',
         'px-1.25',
-        color === COLOR_GREEN && 'bg-green-300',
-        color === COLOR_RED && 'bg-red-400',
-        color === COLOR_YELLOW && 'bg-yellow-500'
+        color === Color.Green && 'bg-green-300',
+        color === Color.Red && 'bg-red-400',
+        color === Color.Yellow && 'bg-yellow-500'
       )}
     >
       <span

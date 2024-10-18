@@ -5,7 +5,7 @@ import { OfferDetailsStateDetailsLayout } from '@echo/ui/components/offer/detail
 import { OfferDetailsStateLayout } from '@echo/ui/components/offer/details/layout/offer-details-state-layout'
 import { OfferDetailsStateLabel } from '@echo/ui/components/offer/details/offer-details-state-label'
 import { OfferDetailsStateSeparator } from '@echo/ui/components/offer/details/offer-details-state-separator'
-import { ALIGNMENT_LEFT, ALIGNMENT_RIGHT } from '@echo/ui/constants/alignments'
+import { Alignment } from '@echo/ui/constants/alignments'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -23,11 +23,11 @@ export const OfferDetailsState: FunctionComponent<Props> = ({ offer }) => {
   }
   return (
     <OfferDetailsStateLayout>
-      <OfferDetailsStateDetailsLayout alignment={ALIGNMENT_RIGHT}>
+      <OfferDetailsStateDetailsLayout alignment={Alignment.Right}>
         <StateExpiration expiresAt={expiresAt} readOnly={readOnly} state={state} />
       </OfferDetailsStateDetailsLayout>
       <OfferDetailsStateSeparator readOnly={readOnly} />
-      <OfferDetailsStateDetailsLayout alignment={ALIGNMENT_LEFT}>
+      <OfferDetailsStateDetailsLayout alignment={Alignment.Left}>
         <OfferDetailsStateLabel state={state} />
       </OfferDetailsStateDetailsLayout>
     </OfferDetailsStateLayout>

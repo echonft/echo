@@ -1,5 +1,5 @@
 'use client'
-import type { SearchResultCategory } from '@echo/model/types/search/search-result-category'
+import type { SearchResultCategory } from '@echo/model/constants/search-result-category'
 import { SearchResultCategoryPill } from '@echo/ui/components/base/search/search-result-category-pill'
 import type { SearchResultCategoryViewModel } from '@echo/ui/types/search-result-category-view-model'
 import type { Nullable } from '@echo/utils/types/nullable'

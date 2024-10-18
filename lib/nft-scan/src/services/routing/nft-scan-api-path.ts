@@ -3,7 +3,7 @@ import type { PathArgs } from '@echo/routing/types/path-args'
 import type { PathParams } from '@echo/routing/types/path-params'
 import type { QueryParams } from '@echo/routing/types/query-params/query-params'
 import type { SearchParams } from '@echo/routing/types/search-params/search-params'
-import type { ChainName } from '@echo/utils/types/chain-name'
+import { Chain } from '@echo/utils/constants/chain'
 import { compile } from 'path-to-regexp'
 import { assoc, concat, dissoc, isNil, pipe } from 'ramda'
 
@@ -22,7 +22,7 @@ export class NftScanApiPath<
       )(args)
     )
   }
-  getUrl(params: TParams & Record<'chain', ChainName>, queryParams?: TQueryParams) {
+  getUrl(params: TParams & Record<'chain', Chain>, queryParams?: TQueryParams) {
     const path = compile<TParams>(this.path, { encode: encodeURIComponent })(params)
     if (isNil(queryParams)) {
       return concat(this.getBaseUrl(params.chain), path)
@@ -30,13 +30,13 @@ export class NftScanApiPath<
     return concat(concat(this.getBaseUrl(params.chain), path), this.getQuery(queryParams))
   }
 
-  protected getBaseUrl(chain: ChainName) {
+  protected getBaseUrl(chain: Chain) {
     switch (chain) {
-      case 'blast':
+      case Chain.Blast:
         return 'https://blastapi.nftscan.com/api/v2'
-      case 'ethereum':
+      case Chain.Ethereum:
         return 'https://restapi.nftscan.com/api/v2'
-      case 'sei':
+      case Chain.Sei:
         return 'https://seiapi.nftscan.com/api/v2'
       default:
         throw new Error(`Unsupported chain for NFT Scan API: ${chain}`)

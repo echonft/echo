@@ -7,7 +7,7 @@ import { ListingDetailsTargetLayout } from '@echo/ui/components/listing/details/
 import { ListingDetailsUserStateLayout } from '@echo/ui/components/listing/details/layout/listing-details-user-state-layout'
 import { ListingDetailsTargetSkeleton } from '@echo/ui/components/listing/details/skeleton/listing-details-target-skeleton'
 import { UserDetailsSkeleton } from '@echo/ui/components/user/details/skeleton/user-details-skeleton'
-import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
+import { Alignment } from '@echo/ui/constants/alignments'
 import { type FunctionComponent } from 'react'
 
 export const ListingDetailsSkeleton: FunctionComponent = () => (
@@ -17,7 +17,7 @@ export const ListingDetailsSkeleton: FunctionComponent = () => (
     </ListingDetailsUserStateLayout>
     <ListingDetailsItemsAndTargetLayout>
       <ListingDetailsItemsLayout>
-        <CardsSkeleton alignment={ALIGNMENT_CENTER} />
+        <CardsSkeleton alignment={Alignment.Center} />
       </ListingDetailsItemsLayout>
       <ItemsSeparator />
       <ListingDetailsTargetLayout>

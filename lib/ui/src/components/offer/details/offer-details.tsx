@@ -9,7 +9,7 @@ import { OfferDetailsLayout } from '@echo/ui/components/offer/details/layout/off
 import { OfferDetailsUserInfoLayout } from '@echo/ui/components/offer/details/layout/offer-details-user-info-layout'
 import { OfferDetailsState } from '@echo/ui/components/offer/details/offer-details-state'
 import { UserDetails } from '@echo/ui/components/user/details/user-details'
-import { ALIGNMENT_LEFT } from '@echo/ui/constants/alignments'
+import { Alignment } from '@echo/ui/constants/alignments'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { FunctionComponent } from 'react'
 
@@ -26,12 +26,12 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, onUpdate }) => {
       <OfferDetailsInfoLayout>
         <OfferDetailsUserInfoLayout>
           <UserDetails user={sender} isAuthUser={offer.role === OfferRole.Sender} />
-          <NftCards nfts={senderItems} alignment={ALIGNMENT_LEFT} />
+          <NftCards nfts={senderItems} alignment={Alignment.Left} />
         </OfferDetailsUserInfoLayout>
         <ItemsSeparator />
         <OfferDetailsUserInfoLayout>
           <UserDetails user={receiver} isAuthUser={offer.role === OfferRole.Receiver} />
-          <NftCards nfts={receiverItems} alignment={ALIGNMENT_LEFT} />
+          <NftCards nfts={receiverItems} alignment={Alignment.Left} />
         </OfferDetailsUserInfoLayout>
       </OfferDetailsInfoLayout>
       <OfferDetailsItemsButtonsLayout>

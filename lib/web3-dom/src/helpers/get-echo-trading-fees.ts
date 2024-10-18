@@ -1,5 +1,5 @@
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
-import type { ChainName } from '@echo/utils/types/chain-name'
+import type { Chain } from '@echo/utils/constants/chain'
 import { getWalletClient } from '@echo/web3-dom/helpers/get-wallet-client'
 import { echoAbi } from '@echo/web3/constants/echo-abi'
 import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
@@ -8,7 +8,7 @@ import { pipe } from 'ramda'
 import { readContract } from 'viem/actions'
 
 export interface GetEchoTradingFeesArgs {
-  chain: ChainName
+  chain: Chain
 }
 
 export async function getEchoTradingFees(args: GetEchoTradingFeesArgs): Promise<bigint> {

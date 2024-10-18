@@ -1,3 +1,4 @@
-export const CALLOUT_VARIANT_SOLID = 'Solid'
-export const CALLOUT_VARIANT_OUTLINE = 'Outline'
-export const CALLOUT_VARIANTS = [CALLOUT_VARIANT_SOLID, CALLOUT_VARIANT_OUTLINE] as const
+export enum CalloutVariant {
+  Solid = 'Solid',
+  Outline = 'Outline'
+}

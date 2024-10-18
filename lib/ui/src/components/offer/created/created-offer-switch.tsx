@@ -6,7 +6,7 @@ import { CreatedOfferExecuted } from '@echo/ui/components/offer/created/created-
 import { CreatedOfferExpired } from '@echo/ui/components/offer/created/created-offer-expired'
 import { CreatedOfferRedeemed } from '@echo/ui/components/offer/created/created-offer-redeemed'
 import { CreatedOfferRejected } from '@echo/ui/components/offer/created/created-offer-rejected'
-import { BG_SUCCESS } from '@echo/ui/constants/background'
+import { Background } from '@echo/ui/constants/background'
 import { isOfferRoleReceiver } from '@echo/ui/helpers/offer/is-offer-role-receiver'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { PageLayoutBackgroundPickerProps } from '@echo/ui/types/props/page-layout-background-picker-props'
@@ -28,7 +28,7 @@ export const CreatedOfferSwitch: FunctionComponent<Props> = ({ offer, redeemed, 
     ) {
       onPageBackgroundUpdate?.(undefined)
     } else {
-      onPageBackgroundUpdate?.(BG_SUCCESS)
+      onPageBackgroundUpdate?.(Background.Success)
     }
   }, [onPageBackgroundUpdate, offer, redeemed])
 

@@ -5,6 +5,7 @@ import { setReference } from '@echo/firestore/helpers/crud/reference/set-referen
 import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
 import { walletMockJohnnyId } from '@echo/firestore/mocks/wallet/wallet-document-data-mock'
 import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
+import { Chain } from '@echo/utils/constants/chain'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil, pick, toLower } from 'ramda'
@@ -26,7 +27,7 @@ describe('CRUD - wallet - removeWallet', () => {
   it('throws if the wallet does not exists', async () => {
     await expect(
       removeWallet(userMockJohnnyUsername(), {
-        chain: 'ethereum',
+        chain: Chain.Ethereum,
         address: toLower('0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8')
       })
     ).rejects.toBeDefined()
@@ -34,7 +35,7 @@ describe('CRUD - wallet - removeWallet', () => {
   it('throws if the user does not exists', async () => {
     await expect(
       removeWallet('not-found', {
-        chain: 'ethereum',
+        chain: Chain.Ethereum,
         address: toLower('0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8')
       })
     ).rejects.toBeDefined()
@@ -42,7 +43,7 @@ describe('CRUD - wallet - removeWallet', () => {
   it('throws if the wallet is not associated with the userId', async () => {
     await expect(
       removeWallet('6rECUMhevHfxABZ1VNOm', {
-        chain: 'ethereum',
+        chain: Chain.Ethereum,
         address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E')
       })
     ).rejects.toBeDefined()

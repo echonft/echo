@@ -1,5 +1,5 @@
 'use client'
-import type { NftAction } from '@echo/ui/types/nft-action'
+import type { NftAction } from '@echo/ui/constants/nft-actions'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'

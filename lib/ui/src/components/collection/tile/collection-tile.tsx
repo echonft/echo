@@ -1,8 +1,8 @@
 import type { Slug } from '@echo/model/types/slug'
 import { pathProvider } from '@echo/routing/path-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
-import { PICTURE_SIZE_XL } from '@echo/ui/constants/picture-size'
-import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
+import { PictureSize } from '@echo/ui/constants/picture-size'
+import { Size } from '@echo/ui/constants/size'
 import { addPictureSize } from '@echo/ui/helpers/add-picture-size'
 import { themeExtension } from '@echo/ui/helpers/theme/theme'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -15,12 +15,12 @@ interface Props {
   pictureUrl: Nullable<string>
   name: string
   swapsCount: Nullable<number>
-  size: typeof SIZE_MD | typeof SIZE_LG
+  size: Size.MD | Size.LG
 }
 
 export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, name, swapsCount, size }) => {
   const t = useTranslations('collection')
-  const url = addPictureSize({ src: pictureUrl ?? '', width: PICTURE_SIZE_XL })
+  const url = addPictureSize({ src: pictureUrl ?? '', width: PictureSize.LG })
   return (
     <InternalLink path={pathProvider.collection.default.get({ slug })}>
       <div
@@ -32,8 +32,8 @@ export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, nam
           'flex',
           'flex-col',
           'justify-end',
-          size === SIZE_LG && ['w-[27rem]', 'h-[27rem]'],
-          size === SIZE_MD && ['w-[21rem]', 'h-[21rem]']
+          size === Size.LG && ['w-[27rem]', 'h-[27rem]'],
+          size === Size.MD && ['w-[21rem]', 'h-[21rem]']
         )}
         style={{
           backgroundImage: `${themeExtension.backgroundImage.collectionTitle}, url('${url}'), linear-gradient(0deg, ${themeExtension.colors.dark['500']}, ${themeExtension.colors.dark['500']})`

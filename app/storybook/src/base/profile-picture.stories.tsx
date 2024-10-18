@@ -2,9 +2,9 @@
 
 import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { ProfilePicture as Component } from '@echo/ui/components/base/profile-picture'
-import { PROFILE_PICTURE_SIZES } from '@echo/ui/constants/profile-picture-size'
-import { SIZE_LG } from '@echo/ui/constants/size'
+import { Size } from '@echo/ui/constants/size'
 import { type Meta, type StoryObj } from '@storybook/react'
+import { values } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'Base/Profile Picture',
@@ -15,8 +15,8 @@ const metadata: Meta<typeof Component> = {
       control: { type: 'boolean' }
     },
     size: {
-      defaultValue: SIZE_LG,
-      options: PROFILE_PICTURE_SIZES,
+      defaultValue: Size.LG,
+      options: values(Size),
       control: { type: 'radio' }
     }
   },
@@ -31,7 +31,7 @@ export default metadata
 
 export const Picture: StoryObj<typeof Component> = {
   args: {
-    size: SIZE_LG,
+    size: Size.LG,
     border: true,
     alt: userMockJohnnyUsername(),
     pictureUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png'
