@@ -4,6 +4,7 @@ import { offerCreatedEventHandler } from '@echo/backend/request-handlers/webhook
 import { offerExecutedEventHandler } from '@echo/backend/request-handlers/webhook/event-handlers/offer-executed-event-handler'
 import type { Chain } from '@echo/utils/constants/chain'
 import type { WithLogger } from '@echo/utils/types/with-logger'
+import { EchoEventType } from '@echo/web3/constants/echo-event-type'
 import type { EchoEvent } from '@echo/web3/types/echo-event'
 
 export interface EchoEventHandlerArgs extends WithLogger {
@@ -13,13 +14,13 @@ export interface EchoEventHandlerArgs extends WithLogger {
 
 export function echoEventHandler(args: EchoEventHandlerArgs) {
   switch (args.event.type) {
-    case 'OFFER_CREATED':
+    case EchoEventType.OfferCreated:
       return offerCreatedEventHandler(args)
-    case 'OFFER_EXECUTED':
+    case EchoEventType.OfferExecuted:
       return offerExecutedEventHandler(args)
-    case 'OFFER_ACCEPTED':
+    case EchoEventType.OfferAccepted:
       return offerAcceptedEventHandler(args)
-    case 'OFFER_CANCELLED':
+    case EchoEventType.OfferCancelled:
       return offerCancelledEventHandler(args)
     default:
       return

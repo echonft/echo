@@ -1,4 +1,4 @@
-import { getChains } from '@echo/utils/helpers/chains/get-chains'
+import { Chain } from '@echo/utils/constants/chain'
 import { chainSchema } from '@echo/utils/validators/chain-schema'
 import { describe, expect, it } from '@jest/globals'
 
@@ -11,6 +11,6 @@ describe('validators - chainSchema', () => {
     expect(() => chainSchema.parse('other-chain')).toThrow()
   })
   it('supported chain passes', () => {
-    expect(() => chainSchema.parse(getChains()[0])).not.toThrow()
+    expect(() => chainSchema.parse(Chain.Ethereum)).not.toThrow()
   })
 })

@@ -1,5 +1,5 @@
 import type { Collection } from '@echo/model/types/collection/collection'
-import { fetchInit } from '@echo/nft-scan/constants/fetch-init'
+import { fetchInit } from '@echo/nft-scan/helpers/fetch-init'
 import { nftScanApiPathProvider } from '@echo/nft-scan/services/routing/nft-scan-api-path-provider'
 import type { FetchCollectionRequest } from '@echo/nft-scan/types/request/fetch-collection-request'
 import type { CollectionResponseSchemaReturn } from '@echo/nft-scan/validators/collection-response-schema'

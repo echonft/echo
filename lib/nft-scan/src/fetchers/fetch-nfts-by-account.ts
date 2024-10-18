@@ -1,4 +1,4 @@
-import { fetchInit } from '@echo/nft-scan/constants/fetch-init'
+import { fetchInit } from '@echo/nft-scan/helpers/fetch-init'
 import { nftScanApiPathProvider } from '@echo/nft-scan/services/routing/nft-scan-api-path-provider'
 import type { FetchNftsByAccountRequest } from '@echo/nft-scan/types/request/fetch-nfts-by-account-request'
 import {

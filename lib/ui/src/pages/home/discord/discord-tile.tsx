@@ -1,6 +1,6 @@
 import { ExternalLink } from '@echo/ui/components/base/external-link'
 import { HomeDiscordIconSvg } from '@echo/ui/components/base/svg/home-discord-icon-svg'
-import { DISCORD_INVITE_LINK } from '@echo/utils/constants/discord-invite-link'
+import { discordInviteLink } from '@echo/utils/constants/discord-invite-link'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
@@ -36,7 +36,7 @@ export const DiscordTile: FunctionComponent = () => {
         >
           {t('title')}
         </h1>
-        <ExternalLink href={DISCORD_INVITE_LINK}>
+        <ExternalLink href={discordInviteLink}>
           <button className={clsx('btn-primary-reverse', 'btn-size', 'group')}>
             <span className={clsx('prose-label-md-semi', 'btn-label-primary-reverse')}>{t('btn')}</span>
           </button>

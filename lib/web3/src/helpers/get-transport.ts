@@ -1,14 +1,9 @@
-import {
-  blastChainId,
-  blastSepoliaChainId,
-  ethereumChainId,
-  seiChainId,
-  sepoliaChainId
-} from '@echo/utils/helpers/chains/chain-ids'
+import { Chain } from '@echo/utils/constants/chain'
+import { getChain } from '@echo/utils/helpers/chains/get-chain'
 import { getSecret } from '@echo/utils/services/secret-manager'
 import { isNil } from 'ramda'
 import {
-  type Chain,
+  type Chain as ViemChain,
   fallback,
   type FallbackTransport,
   http,
@@ -18,23 +13,12 @@ import {
 } from 'viem'
 
 function alchemyChainName(chainId: number) {
-  switch (chainId) {
-    case ethereumChainId():
+  const chain = getChain(chainId)
+  switch (chain) {
+    case Chain.Ethereum:
       return 'eth-mainnet'
-    case sepoliaChainId():
+    case Chain.Sepolia:
       return 'eth-sepolia'
-    case 137:
-      return 'polygon-mainnet'
-    case 80001:
-      return 'polygon-mumbai'
-    case 10:
-      return 'opt-mainnet'
-    case 420:
-      return 'opt-goerli'
-    case 42161:
-      return 'arb-mainnet'
-    case 592:
-      return 'astar-mainnet'
     default:
       throw Error(`chain id ${chainId} is not supported by Alchemy`)
   }
@@ -48,16 +32,16 @@ async function alchemyTransportUrl(chainId: number) {
   return `${alchemyChainName(chainId)}.g.alchemy.com/v2/${apiKey}`
 }
 
-export async function getTransport(chain: Chain): Promise<FallbackTransport<[WebSocketTransport, HttpTransport]>> {
-  const chainId = chain.id
+export async function getTransport(chain: ViemChain): Promise<FallbackTransport<[WebSocketTransport, HttpTransport]>> {
+  const chainName = getChain(chain.id)
   const config = { rank: true, retryCount: 10, retryDelay: 1200 }
-  if (chainId === blastSepoliaChainId() || chainId === blastChainId()) {
+  if (chainName == Chain.BlastSepolia || chainName == Chain.Blast) {
     const endpoint = await getSecret({ name: 'QUICKNODE_BLAST_ENDPOINT' })
     return fallback([webSocket(`wss://${endpoint}`), http(`https://${endpoint}`)], config)
   }
-  if (chainId === seiChainId()) {
+  if (chainName === Chain.Sepolia) {
     return fallback([webSocket('wss://evm-ws.sei-apis.com'), http('https://evm-rpc.sei-apis.com')], config)
   }
-  const transportUrl = await alchemyTransportUrl(chainId)
+  const transportUrl = await alchemyTransportUrl(chain.id)
   return fallback([webSocket(`wss://${transportUrl}`), http(`https://${transportUrl}`)], config)
 }

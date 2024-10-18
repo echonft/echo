@@ -11,13 +11,12 @@ import { updateUsersNftsCommand } from '@echo/tasks/commands/update-users-nfts-c
 import { updateWalletNftsCommand } from '@echo/tasks/commands/update-wallet-nfts-command'
 import { stringComparator } from '@echo/utils/comparators/string-comparator'
 import { Chain } from '@echo/utils/constants/chain'
-import { getChains } from '@echo/utils/helpers/chains/get-chains'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { formatWalletAddress } from '@echo/web3/utils/format-wallet-address'
 import { isAddress } from '@echo/web3/utils/is-address'
 import input from '@inquirer/input'
 import select from '@inquirer/select'
-import { applySpec, map, objOf, pipe, prop, sort, toLower } from 'ramda'
+import { applySpec, map, objOf, pipe, prop, sort, toLower, values } from 'ramda'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
@@ -38,7 +37,7 @@ await yargs(hideBin(process.argv))
       })
       const chain = await select({
         message: 'Chain:',
-        choices: pipe(getChains, sort(stringComparator), map(objOf('value')))(),
+        choices: pipe(values, sort(stringComparator), map(objOf('value')))(Chain),
         default: Chain.Ethereum
       })
       const contract: Wallet = applySpec<Wallet>({
@@ -65,7 +64,7 @@ await yargs(hideBin(process.argv))
       })
       const chain = await select({
         message: 'Collection chain:',
-        choices: pipe(getChains, sort(stringComparator), map(objOf('value')))(),
+        choices: pipe(values, sort(stringComparator), map(objOf('value')))(Chain),
         default: Chain.Ethereum
       })
       const tokenId = await input({
@@ -95,7 +94,7 @@ await yargs(hideBin(process.argv))
       })
       const chain = await select({
         message: 'Chain:',
-        choices: pipe(getChains, sort(stringComparator), map(objOf('value')))(),
+        choices: pipe(values, sort(stringComparator), map(objOf('value')))(Chain),
         default: Chain.Ethereum
       })
       const contract: Wallet = applySpec<Wallet>({
@@ -122,7 +121,7 @@ await yargs(hideBin(process.argv))
       })
       const chain = await select({
         message: 'Chain:',
-        choices: pipe(getChains, sort(stringComparator), map(objOf('value')))(),
+        choices: pipe(values, sort(stringComparator), map(objOf('value')))(Chain),
         default: Chain.Ethereum
       })
       const contract: Wallet = applySpec<Wallet>({
@@ -161,7 +160,7 @@ await yargs(hideBin(process.argv))
       })
       const chain = await select({
         message: 'Wallet chain:',
-        choices: pipe(getChains, sort(stringComparator), map(objOf('value')))(),
+        choices: pipe(values, sort(stringComparator), map(objOf('value')))(Chain),
         default: Chain.Ethereum
       })
       const wallet: Wallet = applySpec<Wallet>({

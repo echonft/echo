@@ -4,7 +4,7 @@ import type { RequestHandlerArgsWithParams } from '@echo/backend/types/request-h
 import type { WebhookBlockRequest } from '@echo/backend/types/webhook-block-request'
 import { parseRequest } from '@echo/backend/validators/parse-request'
 import type { Chain } from '@echo/utils/constants/chain'
-import { transferEventLogSchema } from '@echo/web3/validators/transfer-event-log-schema'
+import { erc721TransferEventSchemaBuilder } from '@echo/web3/validators/erc721-transfer-event-schema'
 import { NextResponse } from 'next/server'
 import { andThen, pipe } from 'ramda'
 
@@ -16,7 +16,7 @@ export async function nftTransferWebhookRequestHandler({
   const { chain } = params
   const transfers = await pipe(
     assertQuicknodeSignature,
-    andThen(parseRequest(transferEventLogSchema(chain)))
+    andThen(parseRequest(erc721TransferEventSchemaBuilder(chain)))
   )({ req, type: 'nft-transfer' })
   for (const transfer of transfers) {
     await nftTransferEventHandler({ transfer, logger })

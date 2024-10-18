@@ -4,7 +4,7 @@ import type { RequestHandlerArgsWithParams } from '@echo/backend/types/request-h
 import type { WebhookBlockRequest } from '@echo/backend/types/webhook-block-request'
 import { parseRequest } from '@echo/backend/validators/parse-request'
 import type { Chain } from '@echo/utils/constants/chain'
-import { echoEventLogSchema } from '@echo/web3/validators/echo-event-log-schema'
+import { echoEventSchema } from '@echo/web3/validators/echo-event-schema'
 import { NextResponse } from 'next/server'
 import { andThen, pipe } from 'ramda'
 
@@ -13,10 +13,7 @@ export async function echoWebhookRequestHandler({
   req,
   logger
 }: RequestHandlerArgsWithParams<{ chain: Chain }, WebhookBlockRequest>) {
-  const echoEvents = await pipe(
-    assertQuicknodeSignature,
-    andThen(parseRequest(echoEventLogSchema))
-  )({ req, type: 'echo' })
+  const echoEvents = await pipe(assertQuicknodeSignature, andThen(parseRequest(echoEventSchema)))({ req, type: 'echo' })
   for (const event of echoEvents) {
     await echoEventHandler({ event, logger, chain })
   }
