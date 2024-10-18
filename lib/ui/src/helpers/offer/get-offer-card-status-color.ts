@@ -1,25 +1,18 @@
-import {
-  OFFER_STATE_ACCEPTED,
-  OFFER_STATE_CANCELLED,
-  OFFER_STATE_COMPLETED,
-  OFFER_STATE_EXPIRED,
-  OFFER_STATE_OPEN,
-  OFFER_STATE_REJECTED
-} from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 import type { Offer } from '@echo/model/types/offer/offer'
 import { COLOR_GREEN, COLOR_RED, COLOR_YELLOW } from '@echo/ui/constants/color'
 import type { CardStatusColor } from '@echo/ui/types/card-status-color'
 
 export const getOfferCardStatusColor = (offer: Offer): CardStatusColor => {
   switch (offer.state) {
-    case OFFER_STATE_OPEN:
+    case OfferState.Open:
       return COLOR_YELLOW
-    case OFFER_STATE_COMPLETED:
-    case OFFER_STATE_ACCEPTED:
+    case OfferState.Completed:
+    case OfferState.Accepted:
       return COLOR_GREEN
-    case OFFER_STATE_CANCELLED:
-    case OFFER_STATE_REJECTED:
-    case OFFER_STATE_EXPIRED:
+    case OfferState.Cancelled:
+    case OfferState.Rejected:
+    case OfferState.Expired:
       return COLOR_RED
   }
 }

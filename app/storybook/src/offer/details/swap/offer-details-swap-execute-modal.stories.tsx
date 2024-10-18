@@ -1,10 +1,9 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { OFFER_ROLE_SENDER } from '@echo/model/constants/offer-role'
-import type { Offer } from '@echo/model/types/offer/offer'
-import type { OfferRole } from '@echo/model/types/offer/offer-role'
+import { OfferRole } from '@echo/model/constants/offer-role'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
+import type { Offer } from '@echo/model/types/offer/offer'
 import { OfferDetailsSwapModal as Component } from '@echo/ui/components/offer/details/action/swap/offer-details-swap-modal'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { Meta, StoryObj } from '@storybook/react'
@@ -35,7 +34,7 @@ export const Execute: StoryObj<ComponentType> = {
     <Component
       offer={pipe<[string], Offer, OfferWithRole>(
         getOfferMockById,
-        assoc<OfferRole, 'role'>('role', OFFER_ROLE_SENDER)
+        assoc<OfferRole, 'role'>('role', OfferRole.Sender)
       )(offerMockToJohnnycageId())}
       open={true}
       onClose={onClose}

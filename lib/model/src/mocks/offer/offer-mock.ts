@@ -1,4 +1,4 @@
-import { OFFER_STATE_COMPLETED, OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockPxCrewId, nftMockSpiralJohnny2Id, nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
@@ -30,7 +30,7 @@ export function offerMock(): Record<string, Offer> {
       sender: getUserMockByUsername(userMockCrewUsername()),
       senderItems: [getNftMockById(nftMockPxCrewId())],
       slug: offerMockToJohnnycageSlug(),
-      state: OFFER_STATE_OPEN
+      state: OfferState.Open
     },
     ASkFpKoHEHVH0gd69t1G: {
       expiresAt: 2324074781,
@@ -41,7 +41,7 @@ export function offerMock(): Record<string, Offer> {
       sender: getUserMockByUsername(userMockJohnnyUsername()),
       senderItems: [getNftMockById(nftMockSpiralJohnnyId()), getNftMockById(nftMockSpiralJohnny2Id())],
       slug: offerMockFromJohnnycageSlug(),
-      state: OFFER_STATE_COMPLETED
+      state: OfferState.Completed
     }
   }
 }

@@ -1,10 +1,4 @@
-import {
-  OFFER_STATE_ACCEPTED,
-  OFFER_STATE_CANCELLED,
-  OFFER_STATE_COMPLETED,
-  OFFER_STATE_OPEN,
-  OFFER_STATE_REJECTED
-} from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 import { assertOfferStateTransition } from '@echo/model/helpers/offer/assert-offer-state-transition'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
@@ -14,7 +8,7 @@ import { assoc } from 'ramda'
 describe('helpers - offer - assert - assertOfferStateTransition', () => {
   it('throws if the offer is undefined', () => {
     expect(() => {
-      assertOfferStateTransition(undefined, OFFER_STATE_ACCEPTED)
+      assertOfferStateTransition(undefined, OfferState.Accepted)
     }).toThrow()
   })
 })
@@ -24,19 +18,19 @@ describe('helpers - offer - assert - assertOfferStateTransition - to state ACCEP
   it('throws if the offer is read only', () => {
     const offer = assoc('readOnly', true, offerMock)
     expect(() => {
-      assertOfferStateTransition(offer, OFFER_STATE_ACCEPTED)
+      assertOfferStateTransition(offer, OfferState.Accepted)
     }).toThrow()
   })
   it('throws if the offer is accepted', () => {
-    const offer = assoc('state', OFFER_STATE_ACCEPTED, offerMock)
+    const offer = assoc('state', OfferState.Accepted, offerMock)
     expect(() => {
-      assertOfferStateTransition(offer, OFFER_STATE_ACCEPTED)
+      assertOfferStateTransition(offer, OfferState.Accepted)
     }).toThrow()
   })
   it('does not throws if the offer is open', () => {
-    const offer = assoc('state', OFFER_STATE_OPEN, offerMock)
+    const offer = assoc('state', OfferState.Open, offerMock)
     expect(() => {
-      assertOfferStateTransition(offer, OFFER_STATE_ACCEPTED)
+      assertOfferStateTransition(offer, OfferState.Accepted)
     }).not.toThrow()
   })
 })
@@ -46,19 +40,19 @@ describe('helpers - offer - assertOfferState - to state REJECTED', () => {
   it('throws if the offer is read only', () => {
     const offer = assoc('readOnly', true, offerMock)
     expect(() => {
-      assertOfferStateTransition(offer, OFFER_STATE_REJECTED)
+      assertOfferStateTransition(offer, OfferState.Rejected)
     }).toThrow()
   })
   it('throws if the offer is accepted', () => {
-    const offer = assoc('state', OFFER_STATE_ACCEPTED, offerMock)
+    const offer = assoc('state', OfferState.Accepted, offerMock)
     expect(() => {
-      assertOfferStateTransition(offer, OFFER_STATE_REJECTED)
+      assertOfferStateTransition(offer, OfferState.Rejected)
     }).toThrow()
   })
   it('does not throws if the offer is open', () => {
-    const offer = assoc('state', OFFER_STATE_OPEN, offerMock)
+    const offer = assoc('state', OfferState.Open, offerMock)
     expect(() => {
-      assertOfferStateTransition(offer, OFFER_STATE_REJECTED)
+      assertOfferStateTransition(offer, OfferState.Rejected)
     }).not.toThrow()
   })
 })
@@ -68,25 +62,25 @@ describe('helpers - offer - assertOfferState - to state CANCELLED', () => {
   it('throws if the offer is read only', () => {
     const offer = assoc('readOnly', true, offerMock)
     expect(() => {
-      assertOfferStateTransition(offer, OFFER_STATE_CANCELLED)
+      assertOfferStateTransition(offer, OfferState.Cancelled)
     }).toThrow()
   })
   it('throws if the offer is accepted', () => {
-    const offer = assoc('state', OFFER_STATE_ACCEPTED, offerMock)
+    const offer = assoc('state', OfferState.Accepted, offerMock)
     expect(() => {
-      assertOfferStateTransition(offer, OFFER_STATE_CANCELLED)
+      assertOfferStateTransition(offer, OfferState.Cancelled)
     }).toThrow()
   })
   it('throws if the offer is rejected', () => {
-    const offer = assoc('state', OFFER_STATE_REJECTED, offerMock)
+    const offer = assoc('state', OfferState.Rejected, offerMock)
     expect(() => {
-      assertOfferStateTransition(offer, OFFER_STATE_CANCELLED)
+      assertOfferStateTransition(offer, OfferState.Cancelled)
     }).toThrow()
   })
   it('does not throws if the offer is open', () => {
-    const offer = assoc('state', OFFER_STATE_OPEN, offerMock)
+    const offer = assoc('state', OfferState.Open, offerMock)
     expect(() => {
-      assertOfferStateTransition(offer, OFFER_STATE_CANCELLED)
+      assertOfferStateTransition(offer, OfferState.Cancelled)
     }).not.toThrow()
   })
 })
@@ -96,19 +90,19 @@ describe('helpers - offer - assertOfferState - to state COMPLETED', () => {
   it('throws if the offer is read only', () => {
     const offer = assoc('readOnly', true, offerMock)
     expect(() => {
-      assertOfferStateTransition(offer, OFFER_STATE_COMPLETED)
+      assertOfferStateTransition(offer, OfferState.Completed)
     }).toThrow()
   })
   it('does not throws if the offer is accepted', () => {
-    const offer = assoc('state', OFFER_STATE_ACCEPTED, offerMock)
+    const offer = assoc('state', OfferState.Accepted, offerMock)
     expect(() => {
-      assertOfferStateTransition(offer, OFFER_STATE_COMPLETED)
+      assertOfferStateTransition(offer, OfferState.Completed)
     }).not.toThrow()
   })
   it('throws if the offer is open', () => {
-    const offer = assoc('state', OFFER_STATE_OPEN, offerMock)
+    const offer = assoc('state', OfferState.Open, offerMock)
     expect(() => {
-      assertOfferStateTransition(offer, OFFER_STATE_COMPLETED)
+      assertOfferStateTransition(offer, OfferState.Completed)
     }).toThrow()
   })
 })
@@ -118,19 +112,19 @@ describe('helpers - offer - assertOfferState - to state OPEN', () => {
   it('throws if the offer is read only', () => {
     const offer = assoc('readOnly', true, offerMock)
     expect(() => {
-      assertOfferStateTransition(offer, OFFER_STATE_OPEN)
+      assertOfferStateTransition(offer, OfferState.Open)
     }).toThrow()
   })
   it('throws if the offer is accepted', () => {
-    const offer = assoc('state', OFFER_STATE_ACCEPTED, offerMock)
+    const offer = assoc('state', OfferState.Accepted, offerMock)
     expect(() => {
-      assertOfferStateTransition(offer, OFFER_STATE_OPEN)
+      assertOfferStateTransition(offer, OfferState.Open)
     }).toThrow()
   })
   it('throws if the offer is open', () => {
-    const offer = assoc('state', OFFER_STATE_OPEN, offerMock)
+    const offer = assoc('state', OfferState.Open, offerMock)
     expect(() => {
-      assertOfferStateTransition(offer, OFFER_STATE_OPEN)
+      assertOfferStateTransition(offer, OfferState.Open)
     }).toThrow()
   })
 })

@@ -12,7 +12,7 @@ import { assertOfferIsNotADuplicate } from '@echo/firestore/helpers/offer/assert
 import { resetListing } from '@echo/firestore/utils/listing/reset-listing'
 import { Expiration } from '@echo/model/constants/expiration'
 import { ListingState } from '@echo/model/constants/listing-state'
-import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 import { expirationToDate } from '@echo/model/helpers/expiration-to-date'
 import { listingMockId, listingMockSlug } from '@echo/model/mocks/listing/listing-mock'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
@@ -88,7 +88,7 @@ describe('CRUD - offer - addOffer', () => {
     expect(eqList(newOffer.receiverItems, receiverItems)).toBeTruthy()
     expect(newOffer.sender).toStrictEqual(getUserMockByUsername(userMockCrewUsername()))
     expect(eqList(newOffer.senderItems, senderItems)).toBeTruthy()
-    expect(newOffer.state).toBe(OFFER_STATE_OPEN)
+    expect(newOffer.state).toBe(OfferState.Open)
     expect(newOffer.idContract).toBe('0xtest')
     expect(dayjs.unix(newOffer.expiresAt).isAfter(expiresAt.subtract(1, 'minute'))).toBeTruthy()
     expect(dayjs.unix(newOffer.expiresAt).isBefore(expiresAt.add(1, 'minute'))).toBeTruthy()

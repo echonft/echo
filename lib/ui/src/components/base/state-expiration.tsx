@@ -1,5 +1,4 @@
-import { OFFER_STATE_EXPIRED } from '@echo/model/constants/offer-states'
-import type { OfferState } from '@echo/model/types/offer/offer-state'
+import { OfferState } from '@echo/model/constants/offer-state'
 import { StateLabel } from '@echo/ui/components/base/state-label'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -16,7 +15,7 @@ interface Props {
 
 export const StateExpiration: FunctionComponent<Props> = ({ expiresAt, readOnly, state }) => {
   const t = useTranslations('offer.details')
-  const expired = state === OFFER_STATE_EXPIRED
+  const expired = state === OfferState.Expired
   const expiration = dayjs.unix(expiresAt)
 
   if (expired || !readOnly) {

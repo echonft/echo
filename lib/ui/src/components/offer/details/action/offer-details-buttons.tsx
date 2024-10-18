@@ -1,11 +1,5 @@
 'use client'
-import {
-  OFFER_STATE_ACCEPTED,
-  OFFER_STATE_CANCELLED,
-  OFFER_STATE_COMPLETED,
-  OFFER_STATE_EXPIRED,
-  OFFER_STATE_REJECTED
-} from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 import { assertOfferStateTransition } from '@echo/model/helpers/offer/assert-offer-state-transition'
 import { OfferDetailsAcceptButton } from '@echo/ui/components/offer/details/action/offer-details-accept-button'
 import { OfferDetailsCancelButton } from '@echo/ui/components/offer/details/action/offer-details-cancel-button'
@@ -29,7 +23,7 @@ interface Props {
 
 function showAcceptButton(offer: OfferWithRole) {
   try {
-    assertOfferStateTransition(offer, OFFER_STATE_ACCEPTED)
+    assertOfferStateTransition(offer, OfferState.Accepted)
     return isOfferRoleReceiver(offer)
   } catch (_err) {
     return false
@@ -38,7 +32,7 @@ function showAcceptButton(offer: OfferWithRole) {
 
 function showCancelButton(offer: OfferWithRole) {
   try {
-    assertOfferStateTransition(offer, OFFER_STATE_CANCELLED)
+    assertOfferStateTransition(offer, OfferState.Cancelled)
     return isOfferRoleSender(offer)
   } catch (_err) {
     return false
@@ -47,7 +41,7 @@ function showCancelButton(offer: OfferWithRole) {
 
 function showRejectButton(offer: OfferWithRole) {
   try {
-    assertOfferStateTransition(offer, OFFER_STATE_REJECTED)
+    assertOfferStateTransition(offer, OfferState.Rejected)
     return isOfferRoleReceiver(offer)
   } catch (_err) {
     return false
@@ -56,7 +50,7 @@ function showRejectButton(offer: OfferWithRole) {
 
 function showSwapButton(offer: OfferWithRole) {
   try {
-    assertOfferStateTransition(offer, OFFER_STATE_COMPLETED)
+    assertOfferStateTransition(offer, OfferState.Completed)
     return isOfferRoleSender(offer)
   } catch (_err) {
     return false
@@ -78,7 +72,7 @@ function shouldShowButtons(offer: OfferWithRole, areNftsInEscrow: boolean | unde
 }
 
 export const OfferDetailsButtons: FunctionComponent<Props> = ({ offer, onSuccess }) => {
-  const shouldCheckForEscrow = offer.state === OFFER_STATE_REJECTED || offer.state === OFFER_STATE_EXPIRED
+  const shouldCheckForEscrow = offer.state === OfferState.Rejected || offer.state === OfferState.Expired
   const nftsToCheckForEscrow = isOfferRoleReceiver(offer) ? offer.receiverItems : offer.senderItems
   const areNftsInEscrow = useAreNftsInEscrow(shouldCheckForEscrow ? nftsToCheckForEscrow : undefined)
   const [buttonsDisabled, setButtonsDisabled] = useState(false)

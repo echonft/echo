@@ -6,7 +6,7 @@ import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { eqListingOffers } from '@echo/firestore/helpers/listing-offer/eq-listing-offers'
 import { getListingOfferFulfillingStatusForOffer } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status-for-offer'
 import { type ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer-document-data'
-import { NOT_READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
+import { notReadOnlyOfferStates } from '@echo/model/constants/offer-state'
 import { listingItemsIndexes } from '@echo/model/helpers/listing/listing-items-indexes'
 import { type Listing } from '@echo/model/types/listing/listing'
 import { now } from '@echo/utils/helpers/now'
@@ -23,7 +23,7 @@ export async function getListingOffersForListing(listing: Listing): Promise<List
   return pipe(
     getOffersCollectionReference,
     queryWhere('expiresAt', '>', now()),
-    queryWhere('state', 'in', NOT_READ_ONLY_OFFER_STATES),
+    queryWhere('state', 'in', notReadOnlyOfferStates),
     juxt([
       queryWhere('senderItemCollections', 'array-contains', listing.target.collection.slug),
       queryWhere('receiverItemIndexes', 'array-contains-any', listingItemIndexes)

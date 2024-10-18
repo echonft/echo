@@ -3,7 +3,7 @@ import { setReference } from '@echo/firestore/helpers/crud/reference/set-referen
 import type { OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { Expiration } from '@echo/model/constants/expiration'
-import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 import { expirationToDateNumber } from '@echo/model/helpers/expiration-to-date-number'
 
 import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
@@ -25,7 +25,7 @@ export async function unchecked_addOffer(
     sender: pipe<[NonEmptyArray<OwnedNft>], OwnedNft, User>(head, prop('owner'))(senderItems),
     senderItems,
     slug: pipe(nowMs, toString, toLower<string>)(),
-    state: OFFER_STATE_OPEN
+    state: OfferState.Open
   }
   const id = await setReference<Offer, OfferDocumentData>({
     collectionReference: getOffersCollectionReference(),

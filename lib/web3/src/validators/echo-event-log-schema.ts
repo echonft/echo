@@ -1,5 +1,5 @@
 import type { EvmAddress } from '@echo/model/types/evm-address'
-import type { OfferState } from '@echo/model/types/offer/offer-state'
+import type { OfferState } from '@echo/model/constants/offer-state'
 import { isIn } from '@echo/utils/fp/is-in'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { unlessNil } from '@echo/utils/fp/unless-nil'

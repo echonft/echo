@@ -1,7 +1,7 @@
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import { NOT_READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
+import { notReadOnlyOfferStates } from '@echo/model/constants/offer-state'
 import { eqOwnedNfts } from '@echo/model/helpers/nft/eq-owned-nfts'
 import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
 import { getOfferReceiverItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-receiver-items-collection-slugs'
@@ -20,7 +20,7 @@ export async function assertOfferIsNotADuplicate(args: {
   const { receiverItems, senderItems } = args
   const potentialDuplicates = await pipe(
     getOffersCollectionReference,
-    queryWhere('state', 'in', NOT_READ_ONLY_OFFER_STATES),
+    queryWhere('state', 'in', notReadOnlyOfferStates),
     queryWhere('expiresAt', '>', now()),
     getQueryData,
     andThen(

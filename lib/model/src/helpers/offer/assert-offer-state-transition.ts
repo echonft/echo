@@ -1,12 +1,5 @@
-import {
-  OFFER_STATE_ACCEPTED,
-  OFFER_STATE_CANCELLED,
-  OFFER_STATE_COMPLETED,
-  OFFER_STATE_OPEN,
-  OFFER_STATE_REJECTED
-} from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 import { type Offer } from '@echo/model/types/offer/offer'
-import { type OfferState } from '@echo/model/types/offer/offer-state'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil } from 'ramda'
 
@@ -22,21 +15,21 @@ export function assertOfferStateTransition(
   }
 
   switch (toState) {
-    case OFFER_STATE_OPEN:
+    case OfferState.Open:
       throw Error('offer cannot go back to OPEN state')
-    case OFFER_STATE_REJECTED:
-    case OFFER_STATE_ACCEPTED:
-      if (offer.state === OFFER_STATE_ACCEPTED) {
+    case OfferState.Rejected:
+    case OfferState.Accepted:
+      if (offer.state === OfferState.Accepted) {
         throw Error('offer has already been accepted')
       }
       break
-    case OFFER_STATE_CANCELLED:
-      if (offer.state !== OFFER_STATE_OPEN) {
+    case OfferState.Cancelled:
+      if (offer.state !== OfferState.Open) {
         throw Error('offer cannot be cancelled when it is not OPEN')
       }
       break
-    case OFFER_STATE_COMPLETED:
-      if (offer.state === OFFER_STATE_OPEN) {
+    case OfferState.Completed:
+      if (offer.state === OfferState.Open) {
         throw Error('offer needs to be accepted or rejected first')
       }
       break

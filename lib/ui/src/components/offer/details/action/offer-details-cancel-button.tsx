@@ -1,5 +1,5 @@
 'use client'
-import { OFFER_STATE_CANCELLED } from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 
 import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
@@ -48,7 +48,7 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
     onSuccess: (_response) => {
       onSuccess?.(
         pipe<[OfferWithRole], OfferWithRole, OfferWithRole>(
-          assoc('state', OFFER_STATE_CANCELLED),
+          assoc('state', OfferState.Cancelled),
           assoc('readOnly', true)
         )(offer)
       )

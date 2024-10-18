@@ -1,11 +1,4 @@
-import {
-  OFFER_STATE_ACCEPTED,
-  OFFER_STATE_CANCELLED,
-  OFFER_STATE_COMPLETED,
-  OFFER_STATE_EXPIRED,
-  OFFER_STATE_OPEN,
-  OFFER_STATE_REJECTED
-} from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 import { CreatedOfferAccepted } from '@echo/ui/components/offer/created/created-offer-accepted'
 import { CreatedOfferCancelled } from '@echo/ui/components/offer/created/created-offer-cancelled'
 import { CreatedOfferCreated } from '@echo/ui/components/offer/created/created-offer-created'
@@ -29,9 +22,9 @@ export const CreatedOfferSwitch: FunctionComponent<Props> = ({ offer, redeemed, 
   useEffect(() => {
     if (
       Boolean(redeemed) ||
-      offer.state === OFFER_STATE_EXPIRED ||
-      offer.state === OFFER_STATE_REJECTED ||
-      offer.state === OFFER_STATE_CANCELLED
+      offer.state === OfferState.Expired ||
+      offer.state === OfferState.Rejected ||
+      offer.state === OfferState.Cancelled
     ) {
       onPageBackgroundUpdate?.(undefined)
     } else {
@@ -47,26 +40,26 @@ export const CreatedOfferSwitch: FunctionComponent<Props> = ({ offer, redeemed, 
     )
   }
   switch (offer.state) {
-    case OFFER_STATE_OPEN:
+    case OfferState.Open:
       return <CreatedOfferCreated offer={offer} />
-    case OFFER_STATE_ACCEPTED:
+    case OfferState.Accepted:
       return <CreatedOfferAccepted count={offer.receiverItems.length} />
-    case OFFER_STATE_EXPIRED:
+    case OfferState.Expired:
       return (
         <CreatedOfferExpired
           count={isOfferRoleReceiver(offer) ? offer.receiverItems.length : offer.senderItems.length}
         />
       )
-    case OFFER_STATE_REJECTED:
+    case OfferState.Rejected:
       return <CreatedOfferRejected />
-    case OFFER_STATE_COMPLETED:
+    case OfferState.Completed:
       // We display the opposite items here since they're swapped
       return (
         <CreatedOfferExecuted
           count={isOfferRoleReceiver(offer) ? offer.senderItems.length : offer.receiverItems.length}
         />
       )
-    case OFFER_STATE_CANCELLED:
+    case OfferState.Cancelled:
       return <CreatedOfferCancelled count={offer.senderItems.length} />
   }
 }

@@ -1,5 +1,5 @@
 'use client'
-import { OFFER_ROLE_SENDER } from '@echo/model/constants/offer-role'
+import { OfferRole } from '@echo/model/constants/offer-role'
 
 import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import type { Offer } from '@echo/model/types/offer/offer'
@@ -42,7 +42,7 @@ export const CreateOfferManager: FunctionComponent<Props> = ({
 
   return (
     <CreatedOfferSwitch
-      offer={assoc('role', OFFER_ROLE_SENDER, createdOffer)}
+      offer={assoc('role', OfferRole.Sender, createdOffer)}
       onPageBackgroundUpdate={onPageBackgroundUpdate}
     />
   )

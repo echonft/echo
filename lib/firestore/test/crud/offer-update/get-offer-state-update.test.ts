@@ -3,13 +3,7 @@ import { deleteOfferUpdate } from '@echo/firestore/crud/offer-update/delete-offe
 import { getOfferStateUpdate } from '@echo/firestore/crud/offer-update/get-offer-state-update'
 import { getOfferUpdateById } from '@echo/firestore/crud/offer-update/get-offer-update-by-id'
 import { unchecked_addOfferStateUpdate } from '@echo/firestore/utils/offer-update/unchecked_add-offer-state-update'
-import {
-  OFFER_STATE_ACCEPTED,
-  OFFER_STATE_CANCELLED,
-  OFFER_STATE_COMPLETED,
-  OFFER_STATE_OPEN,
-  OFFER_STATE_REJECTED
-} from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
@@ -20,7 +14,7 @@ describe('CRUD - offer-update - getOfferStateUpdate', () => {
   const args: AddOfferStateUpdateArgs = {
     offerId,
     args: {
-      state: OFFER_STATE_REJECTED
+      state: OfferState.Rejected
     }
   }
   let offerUpdateId: Nullable<string>
@@ -37,20 +31,20 @@ describe('CRUD - offer-update - getOfferStateUpdate', () => {
   it('returns undefined if no document is found', async () => {
     const { id } = await unchecked_addOfferStateUpdate(args)
     offerUpdateId = id
-    let offerUpdate = await getOfferStateUpdate({ offerId, state: OFFER_STATE_ACCEPTED })
+    let offerUpdate = await getOfferStateUpdate({ offerId, state: OfferState.Accepted })
     expect(offerUpdate).toBeUndefined()
-    offerUpdate = await getOfferStateUpdate({ offerId, state: OFFER_STATE_OPEN })
+    offerUpdate = await getOfferStateUpdate({ offerId, state: OfferState.Open })
     expect(offerUpdate).toBeUndefined()
-    offerUpdate = await getOfferStateUpdate({ offerId, state: OFFER_STATE_CANCELLED })
+    offerUpdate = await getOfferStateUpdate({ offerId, state: OfferState.Cancelled })
     expect(offerUpdate).toBeUndefined()
-    offerUpdate = await getOfferStateUpdate({ offerId, state: OFFER_STATE_COMPLETED })
+    offerUpdate = await getOfferStateUpdate({ offerId, state: OfferState.Completed })
     expect(offerUpdate).toBeUndefined()
   })
   it('returns the proper document if found', async () => {
     const { id } = await unchecked_addOfferStateUpdate(args)
     offerUpdateId = id
     const newDocument = (await getOfferUpdateById(id))!
-    const foundDocument = await getOfferStateUpdate({ offerId, state: OFFER_STATE_REJECTED })
+    const foundDocument = await getOfferStateUpdate({ offerId, state: OfferState.Rejected })
     expect(foundDocument).toStrictEqual(newDocument)
   })
 })

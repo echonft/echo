@@ -3,7 +3,7 @@ import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { queryWhereFilter } from '@echo/firestore/helpers/crud/query/query-where-filter'
-import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 import { type Offer } from '@echo/model/types/offer/offer'
 import { Filter } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
@@ -19,7 +19,7 @@ export function getOffersForUser(username: string): Promise<Offer[]> {
     queryWhereFilter(
       Filter.or(Filter.where('sender.username', '==', username), Filter.where('receiver.username', '==', username))
     ),
-    queryWhere('state', '!=', OFFER_STATE_COMPLETED),
+    queryWhere('state', '!=', OfferState.Completed),
     queryOrderBy('expiresAt', 'desc'),
     getQueryData
   )()

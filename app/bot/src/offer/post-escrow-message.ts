@@ -3,7 +3,7 @@ import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import { getOfferUpdatesByOfferId } from '@echo/firestore/crud/offer-update/get-offer-updates-by-offer-id'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import type { OfferThreadDocumentData } from '@echo/firestore/types/model/offer-thread-document-data'
-import { OFFER_STATE_ACCEPTED, OFFER_STATE_EXPIRED, OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 import type { Offer } from '@echo/model/types/offer/offer'
 import type { WithLogger } from '@echo/utils/types/with-logger'
 import { type AnyThreadChannel, userMention } from 'discord.js'
@@ -20,7 +20,7 @@ async function getUserDiscordId(username: string) {
 
 function shouldPostEscrowMessage(offer: Offer) {
   // On a rejection or expiry, you need to take out escrow
-  return offer.state === OFFER_STATE_REJECTED || offer.state === OFFER_STATE_EXPIRED
+  return offer.state === OfferState.Rejected || offer.state === OfferState.Expired
 }
 
 interface AreBothPartiesInEscrowArgs extends WithLogger {
@@ -35,7 +35,7 @@ async function areBothPartiesInEscrow(args: AreBothPartiesInEscrowArgs) {
     return false
   }
   // If there was an accepted state update, it means both parties are in escrow
-  return any(pathEq(OFFER_STATE_ACCEPTED, ['update', 'args', 'state']))(updates)
+  return any(pathEq(OfferState.Accepted, ['update', 'args', 'state']))(updates)
 }
 
 interface PostEscrowMessageArgs extends WithLogger {

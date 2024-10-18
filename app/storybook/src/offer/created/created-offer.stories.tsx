@@ -1,14 +1,12 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { OFFER_ROLE_SENDER } from '@echo/model/constants/offer-role'
-import { OFFER_STATE_OPEN, OFFER_STATES } from '@echo/model/constants/offer-states'
+import { OfferRole } from '@echo/model/constants/offer-role'
+import { OfferState } from '@echo/model/constants/offer-state'
 import { getOfferMock } from '@echo/model/mocks/offer/get-offer-mock'
-import type { OfferRole } from '@echo/model/types/offer/offer-role'
-import type { OfferState } from '@echo/model/types/offer/offer-state'
 import { PageLayoutBackgroundPicker } from '@echo/ui/components/base/layout/page-layout-background-picker'
 import { CreatedOfferSwitch } from '@echo/ui/components/offer/created/created-offer-switch'
 import type { Meta, StoryObj } from '@storybook/react'
-import { assoc, pipe } from 'ramda'
+import { assoc, pipe, values } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
 
 type ComponentType = FunctionComponent<{
@@ -20,14 +18,14 @@ const metadata: Meta<ComponentType> = {
   title: 'Offer/Created',
   args: {
     redeemed: false,
-    state: OFFER_STATE_OPEN
+    state: OfferState.Open
   },
   argTypes: {
     redeemed: {
       control: { type: 'boolean' }
     },
     state: {
-      options: OFFER_STATES,
+      options: values(OfferState),
       control: { type: 'select' }
     }
   }
@@ -46,7 +44,7 @@ export const Switch: StoryObj<ComponentType> = {
     return (
       <PageLayoutBackgroundPicker layout={'padded'} excludeProviders={true}>
         <CreatedOfferSwitch
-          offer={pipe(getOfferMock, assoc('state', state), assoc('role', OFFER_ROLE_SENDER as OfferRole))()}
+          offer={pipe(getOfferMock, assoc('state', state), assoc('role', OfferRole.Sender))()}
           redeemed={redeemed}
         />
       </PageLayoutBackgroundPicker>

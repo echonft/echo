@@ -1,5 +1,5 @@
 'use client'
-import { OFFER_STATE_EXPIRED } from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 
 import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
@@ -44,7 +44,7 @@ export const OfferDetailsRedeemButton: FunctionComponent<Props> = ({
     path(['collection', 'contract', 'chain'])
   )(offer)
   const count = isOfferRoleReceiver(offer) ? offer.receiverItems.length : offer.senderItems.length
-  const isRedeemable = offer.state === OFFER_STATE_EXPIRED || offer.expiresAt < now()
+  const isRedeemable = offer.state === OfferState.Expired || offer.expiresAt < now()
   // In the case the offer is rejected (frontend only), user can redeem by cancelling.
   // Otherwise we use the redeem contract call
   const { trigger: triggerContractCancel } = useSWRTrigger<HexString, ContractUpdateOfferArgs>({

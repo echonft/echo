@@ -6,7 +6,7 @@ import { rejectOfferRequestHandler } from '@echo/backend/request-handlers/offer/
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { rejectOffer } from '@echo/firestore/crud/offer/reject-offer'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
-import { OFFER_STATE_ACCEPTED, OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 import { getOfferMockBySlug } from '@echo/model/mocks/offer/get-offer-mock-by-slug'
 import { offerMockToJohnnycageSlug } from '@echo/model/mocks/offer/offer-mock'
 import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
@@ -40,7 +40,7 @@ describe('request-handlers - offer - rejectOfferRequestHandler', () => {
   })
 
   it('throws if the offer state is not OPEN', async () => {
-    jest.mocked(getOffer).mockResolvedValueOnce(assoc('state', OFFER_STATE_ACCEPTED, offer))
+    jest.mocked(getOffer).mockResolvedValueOnce(assoc('state', OfferState.Accepted, offer))
     const req = mockRequest()
     await expect(rejectOfferRequestHandler({ user, req, params: { slug } })).rejects.toBeInstanceOf(ForbiddenError)
   })
@@ -55,7 +55,7 @@ describe('request-handlers - offer - rejectOfferRequestHandler', () => {
 
   it('returns a 200', async () => {
     jest.mocked(getOffer).mockResolvedValueOnce(offer)
-    const updatedOffer = assoc('state', OFFER_STATE_REJECTED, offer)
+    const updatedOffer = assoc('state', OfferState.Rejected, offer)
     jest.mocked(rejectOffer).mockResolvedValueOnce(updatedOffer)
     const req = mockRequest()
     const res = await rejectOfferRequestHandler({ user, req, params: { slug } })

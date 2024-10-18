@@ -1,5 +1,5 @@
 'use client'
-import { OFFER_STATE_ACCEPTED } from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 
 import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
@@ -44,7 +44,7 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open,
     key: SWRKeys.offer.contractAccept(offer),
     fetcher: contractAcceptOffer,
     onSuccess: () => {
-      onSuccess?.(assoc('state', OFFER_STATE_ACCEPTED, offer))
+      onSuccess?.(assoc('state', OfferState.Accepted, offer))
     },
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('accept') },

@@ -4,14 +4,7 @@ import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
 import { rejectOffer } from '@echo/firestore/crud/offer/reject-offer'
 import type { UpdateOfferStateArgs } from '@echo/firestore/crud/offer/update-offer-state'
 import { updateOffer } from '@echo/firestore/utils/offer/update-offer'
-import {
-  OFFER_STATE_ACCEPTED,
-  OFFER_STATE_CANCELLED,
-  OFFER_STATE_COMPLETED,
-  OFFER_STATE_EXPIRED,
-  OFFER_STATE_OPEN,
-  OFFER_STATE_REJECTED
-} from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 import { getOfferMockBySlug } from '@echo/model/mocks/offer/get-offer-mock-by-slug'
 import { offerMockToJohnnycageSlug } from '@echo/model/mocks/offer/offer-mock'
 import { futureDate } from '@echo/utils/helpers/future-date'
@@ -41,36 +34,36 @@ describe('CRUD - offer - rejectOffer', () => {
     await expect(pipe(assoc('slug', 'not-found'), rejectOffer)(args)).rejects.toBeDefined()
   })
   it('throws if the offer is expired', async () => {
-    await updateOffer(slug, { state: OFFER_STATE_EXPIRED, expiresAt: pastDate() })
+    await updateOffer(slug, { state: OfferState.Expired, expiresAt: pastDate() })
     await expect(rejectOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is cancelled', async () => {
-    await updateOffer(slug, { state: OFFER_STATE_CANCELLED, expiresAt: futureDate() })
+    await updateOffer(slug, { state: OfferState.Cancelled, expiresAt: futureDate() })
     await expect(rejectOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is accepted', async () => {
-    await updateOffer(slug, { state: OFFER_STATE_ACCEPTED, expiresAt: futureDate() })
+    await updateOffer(slug, { state: OfferState.Accepted, expiresAt: futureDate() })
     await expect(rejectOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is rejected', async () => {
-    await updateOffer(slug, { state: OFFER_STATE_REJECTED, expiresAt: futureDate() })
+    await updateOffer(slug, { state: OfferState.Rejected, expiresAt: futureDate() })
     await expect(rejectOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is completed', async () => {
-    await updateOffer(slug, { state: OFFER_STATE_COMPLETED, expiresAt: futureDate() })
+    await updateOffer(slug, { state: OfferState.Completed, expiresAt: futureDate() })
     await expect(rejectOffer(args)).rejects.toBeDefined()
   })
   it('reject offer if its not expired', async () => {
-    await updateOffer(slug, { state: OFFER_STATE_OPEN, expiresAt: futureDate() })
+    await updateOffer(slug, { state: OfferState.Open, expiresAt: futureDate() })
     await rejectOffer(args)
     const offerSnapshot = (await getOfferSnapshot(slug))!
     const updatedOffer = offerSnapshot.data()
     const stateUpdateSnapshot = (await getOfferStateUpdateSnapshot({
       offerId: offerSnapshot.id,
-      state: OFFER_STATE_REJECTED
+      state: OfferState.Rejected
     }))!
     createdStateUpdateId = stateUpdateSnapshot.id
-    expect(updatedOffer.state).toEqual(OFFER_STATE_REJECTED)
+    expect(updatedOffer.state).toEqual(OfferState.Rejected)
     expect(stateUpdateSnapshot).toBeDefined()
   })
 })

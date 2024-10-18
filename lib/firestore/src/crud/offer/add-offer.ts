@@ -5,10 +5,9 @@ import { assertOfferIsNotADuplicate } from '@echo/firestore/helpers/offer/assert
 import type { ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer-document-data'
 import type { OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
-import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 import type { BaseOffer } from '@echo/model/types/offer/base-offer'
 import { type Offer } from '@echo/model/types/offer/offer'
-import type { OfferState } from '@echo/model/types/offer/offer-state'
 import { nowMs } from '@echo/utils/helpers/now-ms'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { assoc, pipe, toLower, toString } from 'ramda'
@@ -33,7 +32,7 @@ export async function addOffer(args: AddOfferArgs): Promise<
     assoc('idContract', toLower(idContract)),
     assoc('readOnly', false),
     assoc('slug', pipe(nowMs, toString, toLower<string>)()),
-    assoc('state', OFFER_STATE_OPEN as OfferState)
+    assoc('state', OfferState.Open as OfferState)
   )(baseOffer)
   const id = await setReference<Offer, OfferDocumentData>({
     collectionReference: getOffersCollectionReference(),

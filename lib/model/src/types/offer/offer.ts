@@ -1,5 +1,5 @@
 import type { BaseOffer } from '@echo/model/types/offer/base-offer'
-import type { OfferState } from '@echo/model/types/offer/offer-state'
+import type { OfferState } from '@echo/model/constants/offer-state'
 import type { WithSlug } from '@echo/model/types/with-slug'
 import type { HexString } from '@echo/utils/types/hex-string'
 

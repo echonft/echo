@@ -1,14 +1,7 @@
 import { offerDataConverter } from '@echo/firestore/converters/offer-data-converter'
 import { offerDocumentDataMock } from '@echo/firestore/mocks/offer/offer-document-data-mock'
 import { offerSnapshotMock } from '@echo/firestore/mocks/offer/offer-snapshot-mock'
-import {
-  OFFER_STATE_ACCEPTED,
-  OFFER_STATE_CANCELLED,
-  OFFER_STATE_COMPLETED,
-  OFFER_STATE_EXPIRED,
-  OFFER_STATE_OPEN,
-  OFFER_STATE_REJECTED
-} from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import type { Offer } from '@echo/model/types/offer/offer'
@@ -27,31 +20,27 @@ describe('converters - offerDataConverter', () => {
 
   it('from Firestore conversion - read only', () => {
     expect(
-      offerDataConverter.fromFirestore(assoc('data', () => assoc('state', OFFER_STATE_OPEN, documentData), snapshot))
-    ).toStrictEqual(pipe(assoc('state', OFFER_STATE_OPEN), assoc('readOnly', false))(document))
+      offerDataConverter.fromFirestore(assoc('data', () => assoc('state', OfferState.Open, documentData), snapshot))
+    ).toStrictEqual(pipe(assoc('state', OfferState.Open), assoc('readOnly', false))(document))
+    expect(
+      offerDataConverter.fromFirestore(assoc('data', () => assoc('state', OfferState.Accepted, documentData), snapshot))
+    ).toStrictEqual(pipe(assoc('state', OfferState.Accepted), assoc('readOnly', false))(document))
     expect(
       offerDataConverter.fromFirestore(
-        assoc('data', () => assoc('state', OFFER_STATE_ACCEPTED, documentData), snapshot)
+        assoc('data', () => assoc('state', OfferState.Cancelled, documentData), snapshot)
       )
-    ).toStrictEqual(pipe(assoc('state', OFFER_STATE_ACCEPTED), assoc('readOnly', false))(document))
+    ).toStrictEqual(pipe(assoc('state', OfferState.Cancelled), assoc('readOnly', true))(document))
+    expect(
+      offerDataConverter.fromFirestore(assoc('data', () => assoc('state', OfferState.Rejected, documentData), snapshot))
+    ).toStrictEqual(pipe(assoc('state', OfferState.Rejected), assoc('readOnly', true))(document))
     expect(
       offerDataConverter.fromFirestore(
-        assoc('data', () => assoc('state', OFFER_STATE_CANCELLED, documentData), snapshot)
+        assoc('data', () => assoc('state', OfferState.Completed, documentData), snapshot)
       )
-    ).toStrictEqual(pipe(assoc('state', OFFER_STATE_CANCELLED), assoc('readOnly', true))(document))
+    ).toStrictEqual(pipe(assoc('state', OfferState.Completed), assoc('readOnly', true))(document))
     expect(
-      offerDataConverter.fromFirestore(
-        assoc('data', () => assoc('state', OFFER_STATE_REJECTED, documentData), snapshot)
-      )
-    ).toStrictEqual(pipe(assoc('state', OFFER_STATE_REJECTED), assoc('readOnly', true))(document))
-    expect(
-      offerDataConverter.fromFirestore(
-        assoc('data', () => assoc('state', OFFER_STATE_COMPLETED, documentData), snapshot)
-      )
-    ).toStrictEqual(pipe(assoc('state', OFFER_STATE_COMPLETED), assoc('readOnly', true))(document))
-    expect(
-      offerDataConverter.fromFirestore(assoc('data', () => assoc('state', OFFER_STATE_EXPIRED, documentData), snapshot))
-    ).toStrictEqual(pipe(assoc('state', OFFER_STATE_EXPIRED), assoc('readOnly', true))(document))
+      offerDataConverter.fromFirestore(assoc('data', () => assoc('state', OfferState.Expired, documentData), snapshot))
+    ).toStrictEqual(pipe(assoc('state', OfferState.Expired), assoc('readOnly', true))(document))
   })
 
   it('to Firestore conversion', () => {

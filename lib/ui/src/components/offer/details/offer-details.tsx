@@ -1,5 +1,5 @@
 'use client'
-import { OFFER_ROLE_RECEIVER, OFFER_ROLE_SENDER } from '@echo/model/constants/offer-role'
+import { OfferRole } from '@echo/model/constants/offer-role'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { NftCards } from '@echo/ui/components/nft/card/nft-cards'
 import { OfferDetailsButtons } from '@echo/ui/components/offer/details/action/offer-details-buttons'
@@ -25,12 +25,12 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, onUpdate }) => {
       <OfferDetailsState offer={offer} />
       <OfferDetailsInfoLayout>
         <OfferDetailsUserInfoLayout>
-          <UserDetails user={sender} isAuthUser={offer.role === OFFER_ROLE_SENDER} />
+          <UserDetails user={sender} isAuthUser={offer.role === OfferRole.Sender} />
           <NftCards nfts={senderItems} alignment={ALIGNMENT_LEFT} />
         </OfferDetailsUserInfoLayout>
         <ItemsSeparator />
         <OfferDetailsUserInfoLayout>
-          <UserDetails user={receiver} isAuthUser={offer.role === OFFER_ROLE_RECEIVER} />
+          <UserDetails user={receiver} isAuthUser={offer.role === OfferRole.Receiver} />
           <NftCards nfts={receiverItems} alignment={ALIGNMENT_LEFT} />
         </OfferDetailsUserInfoLayout>
       </OfferDetailsInfoLayout>

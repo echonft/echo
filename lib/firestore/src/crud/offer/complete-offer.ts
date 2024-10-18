@@ -11,13 +11,12 @@ import type { SwapDocumentData } from '@echo/firestore/types/model/swap-document
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { ListingState } from '@echo/model/constants/listing-state'
-import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 import { listingItemsIndexes } from '@echo/model/helpers/listing/listing-items-indexes'
 import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
 import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
 import type { Nft } from '@echo/model/types/nft/nft'
 import { type Offer } from '@echo/model/types/offer/offer'
-import type { OfferState } from '@echo/model/types/offer/offer-state'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { assoc, concat, filter, flatten, intersection, isNil, map, omit, pipe, prop, propEq, reject } from 'ramda'
 
@@ -37,7 +36,7 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
     Promise<Offer>
   >(
     omit(['transactionId']),
-    assoc<OfferState, 'state'>('state', OFFER_STATE_COMPLETED),
+    assoc<OfferState, 'state'>('state', OfferState.Completed),
     updateOfferState
   )(args)
   // add swap
@@ -66,7 +65,7 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
         const listingOffers = await Promise.all(map(pipe(prop('offerId'), getOfferById), listingListingOffers))
         const completedOffersItems = pipe<[Nullable<Offer>[]], Offer[], Offer[], Nft[][], Nft[]>(
           reject(isNil),
-          filter(propEq<OfferState, 'state'>(OFFER_STATE_COMPLETED, 'state')),
+          filter(propEq<OfferState, 'state'>(OfferState.Completed, 'state')),
           map(getOfferItems),
           flatten
         )(listingOffers)

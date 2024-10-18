@@ -67,6 +67,7 @@ function serializeOffer(offer: unknown) {
     when(propIsNotNil('sender'), modify('creator', serializeUser))
   )(offer)
 }
+
 export const modelLoggerSerializers: LoggerSerializer = {
   collection: serializeCollection,
   listing: serializeListing,

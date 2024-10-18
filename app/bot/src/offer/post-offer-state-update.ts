@@ -2,14 +2,7 @@ import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import type { OfferThreadDocumentData } from '@echo/firestore/types/model/offer-thread-document-data'
-import {
-  OFFER_STATE_ACCEPTED,
-  OFFER_STATE_CANCELLED,
-  OFFER_STATE_COMPLETED,
-  OFFER_STATE_EXPIRED,
-  OFFER_STATE_OPEN,
-  OFFER_STATE_REJECTED
-} from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 import type { Offer } from '@echo/model/types/offer/offer'
 import type { WithLogger } from '@echo/utils/types/with-logger'
 import { type AnyThreadChannel, userMention } from 'discord.js'
@@ -26,14 +19,14 @@ async function getOfferReceiverId(offer: Offer) {
 
 async function getMessage(offer: Offer) {
   switch (offer.state) {
-    case OFFER_STATE_OPEN:
+    case OfferState.Open:
       throw Error('There is no offer update for state OPEN')
-    case OFFER_STATE_COMPLETED:
-    case OFFER_STATE_CANCELLED:
-    case OFFER_STATE_EXPIRED:
+    case OfferState.Completed:
+    case OfferState.Cancelled:
+    case OfferState.Expired:
       return i18next.t(`offer.update.${offer.state}`)
-    case OFFER_STATE_ACCEPTED:
-    case OFFER_STATE_REJECTED: {
+    case OfferState.Accepted:
+    case OfferState.Rejected: {
       const receiverId = await getOfferReceiverId(offer)
       return i18next.t(`offer.update.${offer.state}`, {
         receiver: userMention(receiverId)

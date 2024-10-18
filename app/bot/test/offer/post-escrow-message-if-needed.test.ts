@@ -7,7 +7,7 @@ import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-usernam
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
 import type { OfferThreadDocumentData } from '@echo/firestore/types/model/offer-thread-document-data'
 import type { OfferUpdateDocumentData } from '@echo/firestore/types/model/offer-update-document-data'
-import { OFFER_STATE_EXPIRED, OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
+import { OfferState } from '@echo/model/constants/offer-state'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockFromJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import type { Offer } from '@echo/model/types/offer/offer'
@@ -70,21 +70,21 @@ describe('offer - postEscrowMessageIfNeeded', () => {
   })
 
   it('if one user is in escrow and offer is rejected, sendToThread is called once and getUserDiscordId once', async () => {
-    const rejectedOffer = assoc('state', OFFER_STATE_REJECTED, offer)
+    const rejectedOffer = assoc('state', OfferState.Rejected, offer)
     await postEscrowMessage({ offerThread, thread, offer: rejectedOffer })
     expect(sendToThread).toHaveBeenCalledTimes(1)
     expect(getUserByUsername).toHaveBeenCalledTimes(1)
   })
 
   it('if one user is in escrow and offer is expired, sendToThread is called once and getUserDiscordId once', async () => {
-    const expiredOffer = assoc('state', OFFER_STATE_EXPIRED, offer)
+    const expiredOffer = assoc('state', OfferState.Expired, offer)
     await postEscrowMessage({ offerThread, thread, offer: expiredOffer })
     expect(sendToThread).toHaveBeenCalledTimes(1)
     expect(getUserByUsername).toHaveBeenCalledTimes(1)
   })
 
   it('if both users are in escrow and offer is expired, sendToThread is called once and getUserDiscordId twice', async () => {
-    const expiredOffer = assoc('state', OFFER_STATE_EXPIRED, offer)
+    const expiredOffer = assoc('state', OfferState.Expired, offer)
     jest
       .mocked(getOfferUpdatesByOfferId)
       .mockResolvedValueOnce([offerUpdate, assocPath(['update', 'args', 'state'], 'ACCEPTED', offerUpdate)])
@@ -94,7 +94,7 @@ describe('offer - postEscrowMessageIfNeeded', () => {
   })
 
   it('if both users are in escrow and offer is rejected, sendToThread is called once and getUserDiscordId twice', async () => {
-    const rejectedOffer = assoc('state', OFFER_STATE_REJECTED, offer)
+    const rejectedOffer = assoc('state', OfferState.Rejected, offer)
     jest
       .mocked(getOfferUpdatesByOfferId)
       .mockResolvedValueOnce([offerUpdate, assocPath(['update', 'args', 'state'], 'ACCEPTED', offerUpdate)])
