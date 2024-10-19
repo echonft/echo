@@ -4,11 +4,11 @@ import { getReferenceData } from '@echo/firestore/helpers/crud/reference/get-ref
 import { type CollectionDiscordGuildDocumentData } from '@echo/firestore/types/model/collection-discord-guild-document-data'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { DocumentReference } from 'firebase-admin/firestore'
-import { andThen, pipe } from 'ramda'
+import { pipe } from 'ramda'
 
 export function getCollectionDiscordGuildReferenceById(
   id: string
-): Promise<DocumentReference<CollectionDiscordGuildDocumentData, CollectionDiscordGuildDocumentData>> {
+): DocumentReference<CollectionDiscordGuildDocumentData, CollectionDiscordGuildDocumentData> {
   return getReferenceById({
     collectionReference: getCollectionDiscordGuildsCollectionReference(),
     id
@@ -16,5 +16,5 @@ export function getCollectionDiscordGuildReferenceById(
 }
 
 export function getCollectionDiscordGuildById(id: string): Promise<Nullable<CollectionDiscordGuildDocumentData>> {
-  return pipe(getCollectionDiscordGuildReferenceById, andThen(getReferenceData))(id)
+  return pipe(getCollectionDiscordGuildReferenceById, getReferenceData)(id)
 }

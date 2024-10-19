@@ -1,3 +1,4 @@
+import { toSlug } from '@echo/model/helpers/to-slug'
 import type { Listing } from '@echo/model/types/listing/listing'
 import type { Offer } from '@echo/model/types/offer/offer'
 import type { Swap } from '@echo/model/types/offer/swap'
@@ -16,7 +17,7 @@ interface GetPageSelectionArgs {
 export function getSelectionFromSearchParams(args: GetPageSelectionArgs): Nullable<Selection> {
   const { listings, offers, swaps, searchParams } = args
   if (!isNil(searchParams.listing)) {
-    const index = findIndex(propEq(toLower(searchParams.listing), 'slug'), listings)
+    const index = findIndex(propEq(toSlug(searchParams.listing), 'slug'), listings)
     if (index === -1) {
       return undefined
     }

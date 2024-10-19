@@ -7,7 +7,7 @@ import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { useAccount } from '@echo/ui/hooks/use-account'
 import { Chain } from '@echo/utils/constants/chain'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { nonEmptyArrayMap } from '@echo/utils/fp/non-empty-array-map'
+import { nonEmptyMap } from '@echo/utils/fp/non-empty-map'
 import { supportedErc20Tokens } from '@echo/web3-dom/constants/supported-erc20-tokens'
 import { assoc, isNil, type NonEmptyArray, objOf, pipe, prop } from 'ramda'
 import useSWR from 'swr'
@@ -54,7 +54,7 @@ export function useErc20TokenBalances(): NonEmptyArray<TokenBalance<Erc20Token>>
   if (isNilOrEmpty(data)) {
     return pipe<[typeof supportedErc20Tokens], NonEmptyArray<Erc20Token>, NonEmptyArray<TokenBalance<Erc20Token>>>(
       prop(account.wallet.chain),
-      nonEmptyArrayMap(pipe(objOf('token'), assoc('balance', 0)))
+      nonEmptyMap(pipe(objOf('token'), assoc('balance', 0)))
     )(supportedErc20Tokens)
   }
   return data

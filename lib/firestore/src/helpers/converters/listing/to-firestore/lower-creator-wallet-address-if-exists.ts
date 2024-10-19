@@ -1,8 +1,10 @@
-import { lowerCreatorWalletAddress } from '@echo/firestore/helpers/converters/listing/lower-creator-wallet-address'
 import type { Listing } from '@echo/model/types/listing/listing'
-import { whenHas } from '@echo/utils/fp/when-has'
 import type { WithFieldValue } from 'firebase-admin/firestore'
+import { has, modifyPath, toLower } from 'ramda'
 
-export function lowerCreatorWalletAddressIfExists(listing: WithFieldValue<Listing>): WithFieldValue<Listing> {
-  return whenHas('creator', lowerCreatorWalletAddress, listing)
+export function lowerCreatorWalletAddressIfExists(modelObject: WithFieldValue<Listing>): WithFieldValue<Listing> {
+  if (has('creator', modelObject)) {
+    return modifyPath(['creator', 'wallet', 'address'], toLower, modelObject)
+  }
+  return modelObject
 }

@@ -1,8 +1,12 @@
-import { lowerAddress } from '@echo/firestore/helpers/converters/wallet/lower-address'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
-import { whenHas } from '@echo/utils/fp/when-has'
 import type { WithFieldValue } from 'firebase-admin/firestore'
+import { has, modify, toLower } from 'ramda'
 
-export function lowerAddressIfExists(wallet: WithFieldValue<WalletDocumentData>) {
-  return whenHas('address', lowerAddress<WithFieldValue<WalletDocumentData>>)(wallet)
+export function lowerAddressIfExists(
+  modelObject: WithFieldValue<WalletDocumentData>
+): WithFieldValue<WalletDocumentData> {
+  if (has('address', modelObject)) {
+    return modify('address', toLower, modelObject) as WithFieldValue<WalletDocumentData>
+  }
+  return modelObject
 }

@@ -1,13 +1,12 @@
 import { ForbiddenError } from '@echo/backend/errors/forbidden-error'
 import { NotFoundError } from '@echo/backend/errors/not-found-error'
+import { UnauthorizedError } from '@echo/backend/errors/unauthorized-error'
 import { toNextReponse } from '@echo/backend/request-handlers/to-next-reponse'
 import type { AuthRequestHandlerArgsWithParams } from '@echo/backend/types/auth-request-handler'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { rejectOffer } from '@echo/firestore/crud/offer/reject-offer'
-import { OfferState } from '@echo/model/constants/offer-state'
-import { assertOfferStateTransition } from '@echo/model/helpers/offer/assert-offer-state-transition'
 import type { WithSlug } from '@echo/model/types/with-slug'
-import { andThen, isNil, objOf, pipe, tryCatch } from 'ramda'
+import { andThen, isNil, objOf, pipe } from 'ramda'
 
 export async function rejectOfferRequestHandler({
   user: { username },
@@ -18,9 +17,9 @@ export async function rejectOfferRequestHandler({
   if (isNil(offer)) {
     return Promise.reject(new NotFoundError())
   }
-  tryCatch(assertOfferStateTransition, (err) => {
-    throw new ForbiddenError({ err })
-  })(offer, OfferState.Rejected)
+  if (offer.locked) {
+    return Promise.reject(new UnauthorizedError())
+  }
   if (offer.receiver.username !== username) {
     return Promise.reject(new ForbiddenError())
   }

@@ -1,3 +1,4 @@
+import { itemsNftArrayIndexer } from '@echo/firestore/array-indexers/item/items-nft-array-indexer'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing-offer-fulfilling-status'
 import { getListingSnapshot } from '@echo/firestore/crud/listing/get-listing'
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
@@ -6,10 +7,8 @@ import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { eqListingOffers } from '@echo/firestore/helpers/listing-offer/eq-listing-offers'
 import { getListingOfferFulfillingStatusForOffer } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status-for-offer'
 import { type ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer-document-data'
-import { notReadOnlyOfferStates } from '@echo/model/constants/offer-state'
-import { listingItemsIndexes } from '@echo/model/helpers/listing/listing-items-indexes'
+import { listingItems } from '@echo/model/helpers/listing/listing-items'
 import { type Listing } from '@echo/model/types/listing/listing'
-import { now } from '@echo/utils/helpers/now'
 import { always, andThen, applySpec, invoker, isNil, juxt, map, pipe, prop, propEq, reject, uniqWith } from 'ramda'
 
 export async function getListingOffersForListing(listing: Listing): Promise<ListingOfferDocumentData[]> {
@@ -19,14 +18,13 @@ export async function getListingOffersForListing(listing: Listing): Promise<List
   }
   // get pending offers for which sender items contain the listing targets and receiver items intersect listing items
   // then filter out the ones that don't fill the listing
-  const listingItemIndexes = listingItemsIndexes(listing)
+  const listingItemsNftArrayIndexer = pipe(listingItems, itemsNftArrayIndexer)(listing)
   return pipe(
     getOffersCollectionReference,
-    queryWhere('expiresAt', '>', now()),
-    queryWhere('state', 'in', notReadOnlyOfferStates),
+    queryWhere('locked', '==', false),
     juxt([
       queryWhere('senderItemCollections', 'array-contains', listing.target.collection.slug),
-      queryWhere('receiverItemIndexes', 'array-contains-any', listingItemIndexes)
+      queryWhere('receiverItemIndexes', 'array-contains-any', listingItemsNftArrayIndexer)
     ]),
     getQueriesSnapshots,
     andThen(

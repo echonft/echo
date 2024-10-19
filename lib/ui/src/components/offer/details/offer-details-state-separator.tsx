@@ -2,11 +2,11 @@ import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  readOnly: boolean
+  locked: boolean
 }
 
-export const OfferDetailsStateSeparator: FunctionComponent<Props> = ({ readOnly }) => {
-  if (readOnly) {
+export const OfferDetailsStateSeparator: FunctionComponent<Props> = ({ locked }) => {
+  if (locked) {
     return null
   }
 

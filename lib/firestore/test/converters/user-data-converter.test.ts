@@ -5,7 +5,7 @@ import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import type { Username } from '@echo/model/types/username'
 import { describe, expect, it } from '@jest/globals'
 import { QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
-import { assoc, modify, toUpper } from 'ramda'
+import { modify, toUpper } from 'ramda'
 
 describe('converters - userDataConverter', () => {
   const document: UserDocumentData = getUserDocumentDataMockByUsername(userMockJohnnyUsername())
@@ -17,9 +17,7 @@ describe('converters - userDataConverter', () => {
   } as QueryDocumentSnapshot<UserDocumentData, UserDocumentData>
 
   it('from Firestore conversion', () => {
-    expect(
-      userDataConverter.fromFirestore(assoc('data', () => modify('username', toUpper, documentData), snapshot))
-    ).toStrictEqual(document)
+    expect(userDataConverter.fromFirestore(snapshot)).toStrictEqual(document)
   })
   it('to Firestore conversion', () => {
     expect(

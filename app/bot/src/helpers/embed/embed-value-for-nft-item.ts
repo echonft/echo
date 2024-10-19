@@ -1,6 +1,5 @@
-import type { Erc1155Item } from '@echo/model/types/item/erc1155-item'
-import type { Erc721Item } from '@echo/model/types/item/erc721-item'
+import type { NftItem } from '@echo/model/types/item/nft-item'
 
-export function embedValueForNftItem(item: Erc721Item | Erc1155Item): string {
+export function embedValueForNftItem(item: NftItem): string {
   return `${item.token.collection.name} #${item.token.tokenId}`
 }

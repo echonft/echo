@@ -10,7 +10,7 @@ export function assertOfferStateTransition(
   if (isNil(offer)) {
     throw Error('offer is not defined')
   }
-  if (offer.readOnly) {
+  if (offer.locked) {
     throw Error('offer is read only')
   }
 

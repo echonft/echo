@@ -30,7 +30,7 @@ export const OfferDetailsStateSkeleton: FunctionComponent = () => {
           </div>
         </div>
       </OfferDetailsStateDetailsLayout>
-      <OfferDetailsStateSeparator readOnly={false} />
+      <OfferDetailsStateSeparator locked={false} />
       <OfferDetailsStateDetailsLayout alignment={Alignment.Left}>
         <div className={clsx('loading-div')}>
           <h1 className={clsx('text-center', 'prose-header-lg-semi', 'invisible')}>{'Pending'}</h1>

@@ -8,32 +8,25 @@ import type { Expiration } from '@echo/model/constants/expiration'
 import { ListingState } from '@echo/model/constants/listing-state'
 import { expirationToDateNumber } from '@echo/model/helpers/expiration-to-date-number'
 import { type Listing } from '@echo/model/types/listing/listing'
-import type { User } from '@echo/model/types/user/user'
 import { nowMs } from '@echo/utils/helpers/now-ms'
-import { pipe, toLower, toString } from 'ramda'
+import { assoc, pipe, toLower, toString } from 'ramda'
 
-interface AddListingArgs {
-  creator: User
-  expiration: Expiration
-  items: Listing['items']
-  target: Listing['target']
-}
-
-export async function addListing(args: AddListingArgs): Promise<
+export async function addListing(
+  args: Pick<Listing, 'creator' | 'items' | 'target'> & Record<'expiration', Expiration>
+): Promise<
   NewDocument<Listing> & {
     listingOffers: NewDocument<ListingOfferDocumentData>[]
   }
 > {
-  const { creator, items, target, expiration } = args
-  const data: Listing = {
-    creator,
-    expiresAt: expirationToDateNumber(expiration),
-    items,
-    readOnly: false,
-    slug: pipe(nowMs, toString, toLower<string>)(),
-    state: ListingState.Open,
-    target
-  }
+  // TODO check for duplicates
+  const expiresAt = expirationToDateNumber(args.expiration)
+  const slug = pipe(nowMs, toString, toLower<string>)()
+  const data = pipe(
+    assoc('expiresAt', expiresAt),
+    assoc('locked', false),
+    assoc('slug', slug),
+    assoc('state', ListingState.Open)
+  )(args)
   const id = await setReference<Listing, ListingDocumentData>({
     collectionReference: getListingsCollectionReference(),
     data

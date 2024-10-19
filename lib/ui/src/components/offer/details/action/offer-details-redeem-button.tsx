@@ -1,21 +1,6 @@
 'use client'
-import { OfferState } from '@echo/model/constants/offer-state'
-
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
-import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
-import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
-import { SWRKeys } from '@echo/ui/constants/swr-keys'
-import { isOfferRoleReceiver } from '@echo/ui/helpers/offer/is-offer-role-receiver'
-import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import { now } from '@echo/utils/helpers/now'
-import type { Chain } from '@echo/utils/constants/chain'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import type { HexString } from '@echo/utils/types/hex-string'
-import type { ContractUpdateOfferArgs } from '@echo/web3-dom/types/contract-update-offer-args'
-import { clsx } from 'clsx'
-import { useTranslations } from 'next-intl'
-import { head, type NonEmptyArray, path, pipe, prop } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -27,87 +12,89 @@ interface Props {
   onError?: EmptyFunction
 }
 
-export const OfferDetailsRedeemButton: FunctionComponent<Props> = ({
-  offer,
-  show,
-  disabled,
-  onClick,
-  onSuccess,
-  onError
-}) => {
-  const t = useTranslations('offer.details')
-  const tError = useTranslations('error.offer')
-  const { contractCancelOffer, contractRedeemOffer } = useDependencies()
-  const chain = pipe<[OfferWithRole], NonEmptyArray<OwnedNft>, OwnedNft, Chain>(
-    prop('receiverItems'),
-    head,
-    path(['collection', 'contract', 'chain'])
-  )(offer)
-  const count = isOfferRoleReceiver(offer) ? offer.receiverItems.length : offer.senderItems.length
-  const isRedeemable = offer.state === OfferState.Expired || offer.expiresAt < now()
-  // In the case the offer is rejected (frontend only), user can redeem by cancelling.
-  // Otherwise we use the redeem contract call
-  const { trigger: triggerContractCancel } = useSWRTrigger<HexString, ContractUpdateOfferArgs>({
-    key: SWRKeys.offer.contractCancel(offer),
-    fetcher: contractCancelOffer,
-    onSuccess: (_response) => {
-      onSuccess?.(offer)
-    },
-    onError: {
-      alert: {
-        severity: CalloutSeverity.Error,
-        message: tError('cancel', {
-          count
-        })
-      },
-      onError,
-      loggerContext: {
-        component: OfferDetailsRedeemButton.name,
-        fetcher: contractCancelOffer.name,
-        offer
-      }
-    }
-  })
-  const { trigger: triggerContractRedeem } = useSWRTrigger<HexString, ContractUpdateOfferArgs>({
-    key: SWRKeys.offer.contractRedeem(offer),
-    fetcher: contractRedeemOffer,
-    onSuccess: (_response) => {
-      onSuccess?.(offer)
-    },
-    onError: {
-      alert: {
-        severity: CalloutSeverity.Error,
-        message: tError('cancel', {
-          count
-        })
-      },
-      onError,
-      loggerContext: {
-        component: OfferDetailsRedeemButton.name,
-        fetcher: contractRedeemOffer.name,
-        offer
-      }
-    }
-  })
-  if (show) {
-    return (
-      <button
-        className={clsx('btn-gradient', 'btn-size', 'group', disabled && 'animate-pulse')}
-        disabled={disabled}
-        onClick={() => {
-          if (isRedeemable) {
-            void triggerContractRedeem({ offerId: offer.idContract, chain })
-          } else {
-            void triggerContractCancel({ offerId: offer.idContract, chain })
-          }
-          onClick?.()
-        }}
-      >
-        <span className={clsx('prose-label-lg', 'btn-label-gradient')}>
-          {t(disabled ? 'redeemBtn.loading' : 'redeemBtn.label', { count })}
-        </span>
-      </button>
-    )
-  }
+// TODO ERC20 + ERC1155
+export const OfferDetailsRedeemButton: FunctionComponent<Props> = () => {
+  // export const OfferDetailsRedeemButton: FunctionComponent<Props> = ({
+  //   offer,
+  //   show,
+  //   disabled,
+  //   onClick,
+  //   onSuccess,
+  //   onError
+  // }) => {
+  //   const t = useTranslations('offer.details')
+  //   const tError = useTranslations('error.offer')
+  //   const { contractCancelOffer, contractRedeemOffer } = useDependencies()
+  //   const chain = pipe<[OfferWithRole], NonEmptyArray<OwnedNft>, OwnedNft, Chain>(
+  //     prop('receiverItems'),
+  //     head,
+  //     path(['collection', 'contract', 'chain'])
+  //   )(offer)
+  //   const count = isOfferRoleReceiver(offer) ? offer.receiverItems.length : offer.senderItems.length
+  //   const isRedeemable = offer.state === OfferState.Expired || offer.expiresAt < now()
+  //   // In the case the offer is rejected (frontend only), user can redeem by cancelling.
+  //   // Otherwise we use the redeem contract call
+  //   const { trigger: triggerContractCancel } = useSWRTrigger<HexString, ContractUpdateOfferArgs>({
+  //     key: SWRKeys.offer.contractCancel(offer),
+  //     fetcher: contractCancelOffer,
+  //     onSuccess: (_response) => {
+  //       onSuccess?.(offer)
+  //     },
+  //     onError: {
+  //       alert: {
+  //         severity: CalloutSeverity.Error,
+  //         message: tError('cancel', {
+  //           count
+  //         })
+  //       },
+  //       onError,
+  //       loggerContext: {
+  //         component: OfferDetailsRedeemButton.name,
+  //         fetcher: contractCancelOffer.name,
+  //         offer
+  //       }
+  //     }
+  //   })
+  //   const { trigger: triggerContractRedeem } = useSWRTrigger<HexString, ContractUpdateOfferArgs>({
+  //     key: SWRKeys.offer.contractRedeem(offer),
+  //     fetcher: contractRedeemOffer,
+  //     onSuccess: (_response) => {
+  //       onSuccess?.(offer)
+  //     },
+  //     onError: {
+  //       alert: {
+  //         severity: CalloutSeverity.Error,
+  //         message: tError('cancel', {
+  //           count
+  //         })
+  //       },
+  //       onError,
+  //       loggerContext: {
+  //         component: OfferDetailsRedeemButton.name,
+  //         fetcher: contractRedeemOffer.name,
+  //         offer
+  //       }
+  //     }
+  //   })
+  //   if (show) {
+  //     return (
+  //       <button
+  //         className={clsx('btn-gradient', 'btn-size', 'group', disabled && 'animate-pulse')}
+  //         disabled={disabled}
+  //         onClick={() => {
+  //           if (isRedeemable) {
+  //             void triggerContractRedeem({ offerId: offer.idContract, chain })
+  //           } else {
+  //             void triggerContractCancel({ offerId: offer.idContract, chain })
+  //           }
+  //           onClick?.()
+  //         }}
+  //       >
+  //         <span className={clsx('prose-label-lg', 'btn-label-gradient')}>
+  //           {t(disabled ? 'redeemBtn.loading' : 'redeemBtn.label', { count })}
+  //         </span>
+  //       </button>
+  //     )
+  //   }
   return null
 }

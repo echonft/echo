@@ -17,7 +17,7 @@ export const ListingDetailsState: FunctionComponent<Props> = ({ listing }) => {
   const expired = listing.state === ListingState.Expired
   const expiration = dayjs.unix(listing.expiresAt)
 
-  if (expired || !listing.readOnly) {
+  if (expired || !listing.locked) {
     return (
       <StateLabel
         subtitle={expired ? expiration.fromNow(false) : expiration.toNow(true)}

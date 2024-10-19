@@ -12,10 +12,10 @@ import type { NewDocument } from '@echo/firestore/types/new-document'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { ListingState } from '@echo/model/constants/listing-state'
 import { OfferState } from '@echo/model/constants/offer-state'
+import { nftItemsIndex } from '@echo/model/helpers/item/nft-items-index'
 import { listingItemsIndexes } from '@echo/model/helpers/listing/listing-items-indexes'
-import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
-import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
-import type { Nft } from '@echo/model/types/nft/nft'
+import { offerNftItems } from '@echo/model/helpers/offer/offer-nft-items'
+import type { Item } from '@echo/model/types/item/item'
 import { type Offer } from '@echo/model/types/offer/offer'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { assoc, concat, filter, flatten, intersection, isNil, map, omit, pipe, prop, propEq, reject } from 'ramda'
@@ -55,21 +55,21 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
   for (const offerListingOffer of offerListingOffers) {
     const { listingId, fulfillingStatus } = offerListingOffer
     const listing = await getListingById(listingId)
-    if (!isNil(listing) && !listing.readOnly) {
+    if (!isNil(listing) && !listing.locked) {
       if (fulfillingStatus === ListingOfferFulfillingStatus.Completely) {
         await updateListingState(listing.slug, ListingState.Fulfilled)
       } else {
         // in this case, we need to check all the completed offers linked to this listing, and check if this one partially of completely fulfills it
-        const offerItems = getOfferItems(offer)
+        const items = offerNftItems(offer)
         const listingListingOffers = await getListingOffersForListing(listing)
         const listingOffers = await Promise.all(map(pipe(prop('offerId'), getOfferById), listingListingOffers))
-        const completedOffersItems = pipe<[Nullable<Offer>[]], Offer[], Offer[], Nft[][], Nft[]>(
+        const completedOffersItems = pipe<[Nullable<Offer>[]], Offer[], Offer[], Item[][], Item[]>(
           reject(isNil),
           filter(propEq<OfferState, 'state'>(OfferState.Completed, 'state')),
-          map(getOfferItems),
+          map(offerNftItems),
           flatten
         )(listingOffers)
-        const offerItemIndexes = pipe(concat, getNftIndexForNfts)(offerItems, completedOffersItems)
+        const offerItemIndexes = pipe(concat, nftItemsIndex)(items, completedOffersItems)
         const listingItemIndexes = listingItemsIndexes(listing)
         if (intersection(offerItemIndexes, listingItemIndexes).length === listingItemIndexes.length) {
           await updateListingState(listing.slug, ListingState.Fulfilled)

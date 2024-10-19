@@ -5,12 +5,12 @@ import type { NftDocumentData } from '@echo/firestore/types/model/nft-document-d
 import type { Nft } from '@echo/model/types/nft/nft'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { DocumentReference } from 'firebase-admin/firestore'
-import { andThen, pipe } from 'ramda'
+import { pipe } from 'ramda'
 
-export function getNftReferenceById(id: string): Promise<DocumentReference<Nft, NftDocumentData>> {
+export function getNftReferenceById(id: string): DocumentReference<Nft, NftDocumentData> {
   return getReferenceById({ collectionReference: getNftsCollectionReference(), id })
 }
 
 export function getNftById(id: string): Promise<Nullable<Nft>> {
-  return pipe(getNftReferenceById, andThen(getReferenceData))(id)
+  return pipe(getNftReferenceById, getReferenceData)(id)
 }

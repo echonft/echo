@@ -8,12 +8,12 @@ import { addOffer } from '@echo/firestore/crud/offer/add-offer'
 import { deleteOffer } from '@echo/firestore/crud/offer/delete-offer'
 import { getAllOffers } from '@echo/firestore/crud/offer/get-all-offers'
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
-import { assertOfferIsNotADuplicate } from '@echo/firestore/helpers/offer/assert-offer-is-not-a-duplicate'
 import { resetListing } from '@echo/firestore/utils/listing/reset-listing'
 import { Expiration } from '@echo/model/constants/expiration'
 import { ListingState } from '@echo/model/constants/listing-state'
 import { OfferState } from '@echo/model/constants/offer-state'
 import { expirationToDate } from '@echo/model/helpers/expiration-to-date'
+import { erc721NftToItem } from '@echo/model/mappers/nft/erc721-nft-to-item'
 import { listingMockId, listingMockSlug } from '@echo/model/mocks/listing/listing-mock'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockPxCrewId, nftMockSpiralJohnny2Id, nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
@@ -21,14 +21,16 @@ import { getAllOfferMocks } from '@echo/model/mocks/offer/get-all-offer-mocks'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { Item } from '@echo/model/types/item/item'
+import type { Erc721Nft } from '@echo/model/types/nft/erc721-nft'
 import type { BaseOffer } from '@echo/model/types/offer/base-offer'
 import type { Offer } from '@echo/model/types/offer/offer'
+import { castTo } from '@echo/utils/fp/cast-to'
 import { eqList } from '@echo/utils/fp/eq-list'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
-import { head, isNil, type NonEmptyArray, pick, pipe } from 'ramda'
+import { head, isNil, type NonEmptyArray, pick, pipe, prop } from 'ramda'
 
 describe('CRUD - offer - addOffer', () => {
   let createdOfferId: Nullable<string>
@@ -47,41 +49,36 @@ describe('CRUD - offer - addOffer', () => {
     }
   })
 
-  it('assertOfferIsNotADuplicate', async () => {
-    await expect(
-      pipe(
-        getOfferMockById,
-        pick(['senderItems', 'receiverItems']),
-        assertOfferIsNotADuplicate
-      )(offerMockToJohnnycageId())
-    ).rejects.toBeDefined()
-  })
   it('throws if the offer is a duplicate', async () => {
     const offerMock = getOfferMockById(offerMockToJohnnycageId())
     const baseOffer = pick(
       ['expiresAt', 'receiver', 'receiverItems', 'receiverItems', 'sender', 'senderItems'],
       offerMock
     )
-    await expect(addOffer({ baseOffer, idContract: offerMock.idContract })).rejects.toBeDefined()
+    await expect(addOffer({ ...baseOffer, idContract: offerMock.idContract })).rejects.toBeDefined()
     const offers = await getAllOffers()
     expect(eqList(offers, getAllOfferMocks())).toBeTruthy()
   })
+
   it('add an offer', async () => {
     const listingId = listingMockId()
     const expiresAt = expirationToDate(Expiration.OneDay)
-    const senderItems: NonEmptyArray<OwnedNft> = [getNftMockById(nftMockPxCrewId())]
-    const receiverItems: NonEmptyArray<OwnedNft> = [
-      getNftMockById(nftMockSpiralJohnnyId()),
-      getNftMockById(nftMockSpiralJohnny2Id())
+
+    const senderItems: NonEmptyArray<Item> = [
+      pipe(nftMockPxCrewId, getNftMockById, castTo<Erc721Nft>, erc721NftToItem)()
+    ]
+    const receiverItems: NonEmptyArray<Item> = [
+      pipe(nftMockSpiralJohnnyId, getNftMockById, castTo<Erc721Nft>, erc721NftToItem)(),
+      pipe(nftMockSpiralJohnny2Id, getNftMockById, castTo<Erc721Nft>, erc721NftToItem)()
     ]
     const baseOffer: BaseOffer = {
       expiresAt: expiresAt.unix(),
-      receiver: head(receiverItems).owner,
+      receiver: pipe(nftMockSpiralJohnnyId, getNftMockById, prop('owner'))(),
       receiverItems,
-      sender: head(senderItems).owner,
+      sender: pipe(nftMockPxCrewId, getNftMockById, prop('owner'))(),
       senderItems
     }
-    const createdOffer = await addOffer({ baseOffer, idContract: '0xtest' })
+    const createdOffer = await addOffer({ ...baseOffer, idContract: '0xtest' })
     createdOfferId = createdOffer.id
     const newOffer: Offer = (await getOfferById(createdOfferId))!
     expect(newOffer.receiver).toStrictEqual(getUserMockByUsername(userMockJohnnyUsername()))

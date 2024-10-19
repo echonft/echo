@@ -1,7 +1,7 @@
 import type { Erc20Token } from '@echo/model/types/token/erc20-token'
 import type { TokenBalance } from '@echo/model/types/token/token-balance'
 import type { Wallet } from '@echo/model/types/wallet'
-import { nonEmptyArrayMap } from '@echo/utils/fp/non-empty-array-map'
+import { nonEmptyMap } from '@echo/utils/fp/non-empty-map'
 import { nonEmptyPromiseAll } from '@echo/utils/fp/non-empty-promise-all'
 import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
 import { getErc20TokenBalance, type GetErc20TokenBalanceArgs } from '@echo/web3-dom/helpers/get-erc20-token-balance'
@@ -22,7 +22,7 @@ export async function getAllErc20TokenBalances(
   const chainId = getChainId(chain)
   const client = pipe(getViemChainById, getWalletClient)(chainId)
   return pipe(
-    nonEmptyArrayMap(
+    nonEmptyMap(
       pipe<
         [Erc20Token],
         Record<'token', Erc20Token>,

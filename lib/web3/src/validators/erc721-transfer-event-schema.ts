@@ -37,7 +37,7 @@ function erc721TransferEventLogSchema(chain: Chain) {
     )
 }
 
-export function erc721TransferEventSchemaBuilder(chain: Chain) {
+export function erc721TransferEventSchema(chain: Chain) {
   return blockDataSchema
     .array()
     .nonempty()

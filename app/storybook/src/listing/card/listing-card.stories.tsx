@@ -2,10 +2,11 @@
 
 import { ListingState } from '@echo/model/constants/listing-state'
 import { getListingMock } from '@echo/model/mocks/listing/get-listing-mock'
+import type { NftItem } from '@echo/model/types/item/nft-item'
 import type { Listing } from '@echo/model/types/listing/listing'
 import { ListingCard } from '@echo/ui/components/listing/card/listing-card'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { always, assoc, head, modify, pipe, unless, values } from 'ramda'
+import { always, assoc, head, modify, type NonEmptyArray, pipe, unless, values } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
 
 type ComponentType = FunctionComponent<{
@@ -45,7 +46,10 @@ export const Default: StoryObj<ComponentType> = {
         pipe<never[], Listing, Listing, Listing>(
           getListingMock,
           assoc('state', state),
-          unless<Listing, Listing>(always(stack), modify<'items', Listing['items'], Listing['items']>('items', head))
+          unless<Listing, Listing>(
+            always(stack),
+            modify<'items', NonEmptyArray<NftItem>, NonEmptyArray<NftItem>>('items', head)
+          )
         )(),
       [state, stack]
     )

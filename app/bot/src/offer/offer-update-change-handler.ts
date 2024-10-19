@@ -45,7 +45,7 @@ export async function offerUpdateChangeHandler(args: WithLoggerType<WithClientTy
         { offer: offerWithId, getOfferUpdatePost: assoc('id', offerUpdatePostId, offerUpdatePostData), offerThread },
         'added offer update post to Firestore'
       )
-      if (offer.readOnly && !isNil(offerThread)) {
+      if (offer.locked && !isNil(offerThread)) {
         // Archive thread if both users don't have anything in escrow
         await postEscrowMessage({ offer, offerThread, thread, logger })
         await archiveOfferThread({ offerThread, thread, logger })

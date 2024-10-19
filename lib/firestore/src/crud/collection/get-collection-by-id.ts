@@ -5,9 +5,9 @@ import type { CollectionDocumentData } from '@echo/firestore/types/model/collect
 import type { Collection } from '@echo/model/types/collection/collection'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { DocumentReference } from 'firebase-admin/firestore'
-import { andThen, pipe } from 'ramda'
+import { pipe } from 'ramda'
 
-export function getCollectionReferenceById(id: string): Promise<DocumentReference<Collection, CollectionDocumentData>> {
+export function getCollectionReferenceById(id: string): DocumentReference<Collection, CollectionDocumentData> {
   return getReferenceById({
     collectionReference: getCollectionsCollectionReference(),
     id
@@ -15,5 +15,5 @@ export function getCollectionReferenceById(id: string): Promise<DocumentReferenc
 }
 
 export function getCollectionById(id: string): Promise<Nullable<Collection>> {
-  return pipe(getCollectionReferenceById, andThen(getReferenceData))(id)
+  return pipe(getCollectionReferenceById, getReferenceData)(id)
 }

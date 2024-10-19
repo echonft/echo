@@ -6,7 +6,7 @@ import { getSwapById } from '@echo/firestore/crud/swap/get-swap-by-id'
 import type { CollectionSwapsCountDocumentData } from '@echo/firestore/types/model/collection-swaps-count-document-data'
 import type { SwapDocumentData } from '@echo/firestore/types/model/swap-document-data'
 import { unchecked_updateCollectionSwapCounts } from '@echo/firestore/utils/collection-swaps-count/unchecked_update-collection-swap-counts'
-import { getOfferItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-items-collection-slugs'
+import { offerItemsCollectionSlug } from '@echo/model/helpers/offer/offer-items-collection-slug'
 import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockFromJohnnycageId, offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { promiseAll } from '@echo/utils/fp/promise-all'
@@ -45,7 +45,7 @@ describe('CRUD - swap - addSwap', () => {
   it('add a swap', async () => {
     const offer = getOfferMockById(args.offerId)
     initialSwapsCounts = await pipe(
-      getOfferItemsCollectionSlugs,
+      offerItemsCollectionSlug,
       map(getCollectionSwapsCountByCollectionSlug),
       promiseAll,
       andThen<Nullable<CollectionSwapsCountDocumentData>[], CollectionSwapsCountDocumentData[]>(reject(isNil))

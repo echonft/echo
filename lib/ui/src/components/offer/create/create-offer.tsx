@@ -88,14 +88,14 @@ export const CreateOffer: FunctionComponent<Props> = ({
           <CreateOfferSenderNfts
             nfts={nfts}
             selection={selection.nfts}
-            readOnly={reviewing}
+            locked={reviewing}
             onSelect={selectNft}
             onUnselect={unselectNft}
           />
         </div>
         <div className={clsx('flex', 'flex-row', 'gap-8', 'justify-center', 'items-center', 'pb-5')}>
           <CreateOfferButtons
-            readOnly={reviewing}
+            locked={reviewing}
             disabled={!reviewing && isEmpty(selection.nfts)}
             loading={loading}
             onComplete={() => {

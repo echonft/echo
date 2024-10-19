@@ -65,7 +65,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, offers, onUp
           <ListingDetailsTargetLayout>
             <ListingDetailsTarget target={target} />
           </ListingDetailsTargetLayout>
-          <ListingDetailsOffers show={isCreator && !isEmpty(offers) && !listing.readOnly} offers={offers} />
+          <ListingDetailsOffers show={isCreator && !isEmpty(offers) && !listing.locked} offers={offers} />
         </div>
       </ListingDetailsItemsAndTargetLayout>
       <ListingDetailsButtons

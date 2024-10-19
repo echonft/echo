@@ -5,12 +5,12 @@ import type { OfferDocumentData } from '@echo/firestore/types/model/offer-docume
 import type { Offer } from '@echo/model/types/offer/offer'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { DocumentReference } from 'firebase-admin/firestore'
-import { andThen, pipe } from 'ramda'
+import { pipe } from 'ramda'
 
-export function getOfferReferenceById(id: string): Promise<DocumentReference<Offer, OfferDocumentData>> {
+export function getOfferReferenceById(id: string): DocumentReference<Offer, OfferDocumentData> {
   return getReferenceById({ collectionReference: getOffersCollectionReference(), id })
 }
 
 export function getOfferById(id: string): Promise<Nullable<Offer>> {
-  return pipe(getOfferReferenceById, andThen(getReferenceData))(id)
+  return pipe(getOfferReferenceById, getReferenceData)(id)
 }

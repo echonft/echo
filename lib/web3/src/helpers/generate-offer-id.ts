@@ -1,11 +1,10 @@
-import type { Nft } from '@echo/model/types/nft/nft'
+import type { Item } from '@echo/model/types/item/item'
 import type { BaseOffer } from '@echo/model/types/offer/base-offer'
-import type { Wallet } from '@echo/model/types/wallet'
-import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
 import type { Chain } from '@echo/utils/constants/chain'
+import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { hashNfts } from '@echo/web3/helpers/hash-nfts'
-import { applySpec, head, juxt, partial, path, pipe, prop, toLower } from 'ramda'
+import { applySpec, head, juxt, type NonEmptyArray, partial, path, pipe, prop, toLower } from 'ramda'
 import { encodeAbiParameters, keccak256, parseAbiParameters } from 'viem'
 
 interface OfferAbiParameters {
@@ -34,19 +33,17 @@ export function generateOfferId(offer: BaseOffer): Lowercase<HexString> {
       applySpec<OfferAbiParameters>({
         sender: path(['sender', 'wallet', 'address']),
         receiver: path(['receiver', 'wallet', 'address']),
-        senderItemsChainId: pipe<[BaseOffer], Nft[], Nft, Wallet, Chain, number>(
+        senderItemsChainId: pipe<[BaseOffer], NonEmptyArray<Item>, Item, Chain, number>(
           prop('senderItems'),
           head,
-          path(['collection', 'contract']),
-          prop('chain'),
+          path(['token', 'contract', 'chain']),
           getChainId
         ),
         senderItems: pipe(prop('senderItems'), hashNfts),
-        receiverItemsChainId: pipe<[BaseOffer], Nft[], Nft, Wallet, Chain, number>(
+        receiverItemsChainId: pipe<[BaseOffer], NonEmptyArray<Item>, Item, Chain, number>(
           prop('receiverItems'),
           head,
-          path(['collection', 'contract']),
-          prop('chain'),
+          path(['token', 'contract', 'chain']),
           getChainId
         ),
         receiverItems: pipe(prop('receiverItems'), hashNfts),

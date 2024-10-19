@@ -16,10 +16,10 @@ export interface UpdateReferenceArgs<AppModelType, DbModelType extends DocumentD
 export async function updateReference<AppModelType, DbModelType extends DocumentData>(
   args: UpdateReferenceArgs<AppModelType, DbModelType>
 ): Promise<AppModelType> {
-  const ref = await pipe<
+  const ref = pipe<
     [UpdateReferenceArgs<AppModelType, DbModelType>],
     GetReferenceByIdArgs<AppModelType, DbModelType>,
-    Promise<DocumentReference<AppModelType, DbModelType>>
+    DocumentReference<AppModelType, DbModelType>
   >(
     omit(['data']),
     getReferenceById

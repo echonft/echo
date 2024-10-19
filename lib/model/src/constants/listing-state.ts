@@ -7,7 +7,6 @@ export enum ListingState {
   Expired = 'EXPIRED'
 }
 
-export const notReadOnlyListingStates = [ListingState.Open, ListingState.OffersPending] as const
 export const readOnlyListingStates = [
   ListingState.PartiallyFulfilled,
   ListingState.Fulfilled,

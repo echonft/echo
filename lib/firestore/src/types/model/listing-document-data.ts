@@ -4,8 +4,9 @@ import type { Erc721ItemDocumentData } from '@echo/firestore/types/model/erc721-
 import type { Listing } from '@echo/model/types/listing/listing'
 import type { NonEmptyArray } from 'ramda'
 
-export interface ListingDocumentData extends Omit<Listing, 'items' | 'readOnly'> {
+export interface ListingDocumentData extends Omit<Listing, 'items'> {
   items: NonEmptyArray<Erc721ItemDocumentData | Erc1155ItemDocumentData>
   itemIndexes: ArrayIndexer
   itemCollections: ArrayIndexer
+  // signature: string
 }

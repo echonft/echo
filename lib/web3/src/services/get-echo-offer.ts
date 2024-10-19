@@ -15,7 +15,7 @@ export interface GetEchoOfferArgs {
   offerId: HexString
 }
 
-export async function getEchoOffer(args: GetEchoOfferArgs) {
+export async function getEchoOffer(args: GetEchoOfferArgs): Promise<Nullable<ContractOffer>> {
   const { chain, offerId } = args
   const echoAddress = getEchoAddress(chain)
   const client = await getClientForChain(chain)

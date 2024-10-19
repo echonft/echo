@@ -1,59 +1,33 @@
 import { BadRequestError } from '@echo/backend/errors/bad-request-error'
-import { getCollectionByAddress } from '@echo/firestore/crud/collection/get-collection-by-address'
-import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
-import { getNftsOwner } from '@echo/model/helpers/nft/get-nfts-owner'
-import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
-import type { Nft } from '@echo/model/types/nft/nft'
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import { contractOfferItemsToErc721Items } from '@echo/backend/mappers/contract-offer-items-to-erc721-items'
+import type { Erc721ItemWithOwner } from '@echo/backend/types/erc721-item-with-owner'
 import type { BaseOffer } from '@echo/model/types/offer/base-offer'
+import type { User } from '@echo/model/types/user/user'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
-import { promiseAll } from '@echo/utils/fp/promise-all'
-import { getChain } from '@echo/utils/helpers/chains/get-chain'
-import type { Chain } from '@echo/utils/constants/chain'
+import { nonEmptyMap } from '@echo/utils/fp/non-empty-map'
 import type { ContractOffer } from '@echo/web3/types/contract-offer'
-import type { ContractOfferItem } from '@echo/web3/types/contract-offer-item'
-import type { ContractOfferItems } from '@echo/web3/types/contract-offer-items'
-import { always, andThen, assoc, filter, isNil, map, otherwise, pipe, prop } from 'ramda'
-
-async function contractOfferItemToNft(item: ContractOfferItem & Record<'chain', Chain>): Promise<Nft> {
-  const { chain, tokenAddress, tokenId } = item
-  const collection = await getCollectionByAddress({ address: tokenAddress, chain })
-  if (isNil(collection)) {
-    return Promise.reject(Error(`could not add collection for contract ${tokenAddress}`))
-  }
-  const nft = await getNftByIndex({ collection, tokenId })
-  if (isNil(nft)) {
-    return Promise.reject(Error(`could not add collection for contract ${tokenAddress}`))
-  }
-  return nft
-}
-
-function contractOfferItemsToNfts(items: ContractOfferItems): Promise<OwnedNft[]> {
-  const chain = pipe(prop('chainId'), getChain)(items)
-  return pipe(
-    prop('items'),
-    map(pipe(assoc('chain', chain), contractOfferItemToNft)),
-    promiseAll,
-    andThen(filter(isOwnedNft)),
-    otherwise(always([]))
-  )(items)
-}
+import { dissoc, head, type NonEmptyArray, pipe, prop } from 'ramda'
 
 export async function contractOfferToBaseOffer(contractOffer: ContractOffer): Promise<BaseOffer> {
   const { senderItems: contractSenderItems, receiverItems: contractReceiverItems, expiration } = contractOffer
-  const senderItems = await contractOfferItemsToNfts(contractSenderItems)
+  const senderItems = await contractOfferItemsToErc721Items(contractSenderItems)
   if (!isNonEmptyArray(senderItems)) {
-    return Promise.reject(new BadRequestError({ message: 'sender items not found', severity: 'warning' }))
+    return Promise.reject(new BadRequestError({ severity: 'warning' }))
   }
-  const receiverItems = await contractOfferItemsToNfts(contractReceiverItems)
+  const receiverItems = await contractOfferItemsToErc721Items(contractReceiverItems)
   if (!isNonEmptyArray(receiverItems)) {
-    return Promise.reject(new BadRequestError({ message: 'receiver items not found', severity: 'warning' }))
+    return Promise.reject(new BadRequestError({ severity: 'warning' }))
   }
+  const receiver = pipe<[NonEmptyArray<Erc721ItemWithOwner>], Erc721ItemWithOwner, User>(
+    head,
+    prop('owner')
+  )(receiverItems)
+  const sender = pipe<[NonEmptyArray<Erc721ItemWithOwner>], Erc721ItemWithOwner, User>(head, prop('owner'))(senderItems)
   return {
     expiresAt: expiration,
-    receiver: getNftsOwner(receiverItems),
-    receiverItems,
-    sender: getNftsOwner(senderItems),
-    senderItems
+    receiver,
+    receiverItems: nonEmptyMap(dissoc('owner'), receiverItems),
+    sender,
+    senderItems: nonEmptyMap(dissoc('owner'), senderItems)
   }
 }

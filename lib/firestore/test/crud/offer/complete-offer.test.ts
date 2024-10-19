@@ -15,9 +15,9 @@ import { resetOffer } from '@echo/firestore/utils/offer/reset-offer'
 import { updateOffer } from '@echo/firestore/utils/offer/update-offer'
 import { ListingState } from '@echo/model/constants/listing-state'
 import { OfferState } from '@echo/model/constants/offer-state'
-import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
-import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
-import { getOfferItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-items-collection-slugs'
+import { nftItemsIndex } from '@echo/model/helpers/item/nft-items-index'
+import { offerItemsCollectionSlug } from '@echo/model/helpers/offer/offer-items-collection-slug'
+import { offerNftItems } from '@echo/model/helpers/offer/offer-nft-items'
 import { listingMockId, listingMockSlug } from '@echo/model/mocks/listing/listing-mock'
 import { offerMockToJohnnycageId, offerMockToJohnnycageSlug } from '@echo/model/mocks/offer/offer-mock'
 import type { NftIndex } from '@echo/model/types/nft/nft'
@@ -79,7 +79,7 @@ describe('CRUD - offer - completeOffer', () => {
     const offer = (await getOffer(slug))!
     expect(offer).toBeDefined()
     initialSwapsCounts = await pipe(
-      getOfferItemsCollectionSlugs,
+      offerItemsCollectionSlug,
       map(getCollectionSwapsCountByCollectionSlug),
       promiseAll,
       andThen<Nullable<CollectionSwapsCountDocumentData>[], CollectionSwapsCountDocumentData[]>(reject(isNil))
@@ -90,7 +90,7 @@ describe('CRUD - offer - completeOffer', () => {
     await completeOffer(args)
     listingSlug = listingMockSlug()
     const updatedOffer = (await getOffer(slug))!
-    updatedNftIndexes = pipe(getOfferItems, getNftIndexForNfts)(updatedOffer)
+    updatedNftIndexes = pipe(offerNftItems, nftItemsIndex)(updatedOffer)
     const updatedListing = (await getListingById(listingMockId()))!
     const swapSnapshot = (await getSwapSnapshot(slug))!
     createdSwapId = swapSnapshot.id

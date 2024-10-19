@@ -29,11 +29,14 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
+// FIXME
 export const ContractApproval: StoryObj<typeof Component> = {
   render: ({ onSuccess, onClose }) => {
     const t = useTranslations('offer.details.swapModal')
     return (
       <Component
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         items={getOfferMock().receiverItems}
         open={true}
         title={t('title')}

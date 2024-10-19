@@ -73,7 +73,7 @@ export const CreateListing: FunctionComponent<Props> = ({
         <div className={clsx('flex', 'flex-row', 'justify-center', 'h-max', 'w-full', 'px-8')}>
           <div className={clsx('h-max', 'w-full', 'max-w-[40rem]')}>
             <CreateListingTargets
-              readOnly={reviewing}
+              locked={reviewing}
               target={targetSelection}
               onQtyChange={(quantity) => {
                 setTargetSelection(assoc('quantity', quantity))
@@ -95,14 +95,14 @@ export const CreateListing: FunctionComponent<Props> = ({
           <CreateListingNfts
             nfts={nfts}
             selection={selection.nfts}
-            readOnly={reviewing}
+            locked={reviewing}
             onSelect={selectNft}
             onUnselect={unselectNft}
           />
         </div>
         <div className={clsx('flex', 'flex-row', 'gap-8', 'justify-center', 'items-center', 'pb-5')}>
           <CreateListingButtons
-            readOnly={reviewing}
+            locked={reviewing}
             disabled={!reviewing && (isEmpty(selection.nfts) || isNil(targetSelection))}
             loading={loading}
             onComplete={() => {

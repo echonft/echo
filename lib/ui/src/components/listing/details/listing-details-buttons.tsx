@@ -18,7 +18,7 @@ interface Props {
 export const ListingDetailsButtons: FunctionComponent<Props> = ({ listing, isMutating = false, onCancel, onFill }) => {
   const t = useTranslations('listing.details')
   // We don't show any buttons if the listing is final
-  if (listing.readOnly) {
+  if (listing.locked) {
     return null
   }
   if (isListingRoleCreator(listing)) {

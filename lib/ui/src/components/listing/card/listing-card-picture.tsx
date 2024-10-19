@@ -1,14 +1,14 @@
-import type { Erc1155Item } from '@echo/model/types/item/erc1155-item'
-import type { Erc721Item } from '@echo/model/types/item/erc721-item'
+import { itemToken } from '@echo/model/helpers/item/item-token'
+import { listingItems } from '@echo/model/helpers/listing/listing-items'
+import type { NftItem } from '@echo/model/types/item/nft-item'
 import type { Listing } from '@echo/model/types/listing/listing'
-import type { Erc1155Token } from '@echo/model/types/token/erc1155-token'
-import type { Erc721Token } from '@echo/model/types/token/erc721-token'
+import type { NftToken } from '@echo/model/types/token/nft-token'
 import { CardChainIcon } from '@echo/ui/components/base/card/card-chain-icon'
 import { CardImage } from '@echo/ui/components/base/card/card-image'
 import { CardPictureLayout } from '@echo/ui/components/base/card/layout/card-picture-layout'
 import { ListingCardStatus } from '@echo/ui/components/listing/card/listing-card-status'
 import { clsx } from 'clsx'
-import { head, pipe, prop } from 'ramda'
+import { head, type NonEmptyArray, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -17,11 +17,7 @@ interface Props {
 }
 
 export const ListingCardPicture: FunctionComponent<Props> = ({ listing, scaleDisabled }) => {
-  const token = pipe<[Listing], Listing['items'], Erc721Item | Erc1155Item, Erc721Token | Erc1155Token>(
-    prop('items'),
-    head,
-    prop('token')
-  )(listing)
+  const token = pipe<[Listing], NonEmptyArray<NftItem>, NftItem, NftToken>(listingItems, head, itemToken)(listing)
   return (
     <CardPictureLayout>
       <CardImage src={token.pictureUrl} alt={token.tokenId.toString()} scaleDisabled={scaleDisabled} />

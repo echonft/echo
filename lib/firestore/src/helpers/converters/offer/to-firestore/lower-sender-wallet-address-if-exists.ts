@@ -1,8 +1,9 @@
-import { lowerSenderWalletAddress } from '@echo/firestore/helpers/converters/offer/lower-sender-wallet-address'
 import type { Offer } from '@echo/model/types/offer/offer'
-import { whenHas } from '@echo/utils/fp/when-has'
-import type { WithFieldValue } from 'firebase-admin/firestore'
+import { has, modifyPath, toLower } from 'ramda'
 
-export function lowerSenderWalletAddressIfExists(offer: WithFieldValue<Offer>): WithFieldValue<Offer> {
-  return whenHas('sender', lowerSenderWalletAddress<WithFieldValue<Offer>>)(offer)
+export function lowerSenderWalletAddressIfExists(modelObject: Partial<Offer>): Partial<Offer> {
+  if (has('sender', modelObject)) {
+    return modifyPath(['sender', 'wallet', 'address'], toLower, modelObject)
+  }
+  return modelObject
 }

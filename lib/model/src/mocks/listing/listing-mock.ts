@@ -59,7 +59,7 @@ export function listingMock(): Record<string, Listing> {
           quantity: 1
         }
       ],
-      readOnly: false,
+      locked: false,
       slug: listingMockSlug(),
       state: ListingState.OffersPending,
       target: {

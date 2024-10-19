@@ -9,16 +9,16 @@ dayjs.extend(relativeTime)
 
 interface Props {
   expiresAt: number
-  readOnly: boolean
+  locked: boolean
   state: OfferState
 }
 
-export const StateExpiration: FunctionComponent<Props> = ({ expiresAt, readOnly, state }) => {
+export const StateExpiration: FunctionComponent<Props> = ({ expiresAt, locked, state }) => {
   const t = useTranslations('offer.details')
   const expired = state === OfferState.Expired
   const expiration = dayjs.unix(expiresAt)
 
-  if (expired || !readOnly) {
+  if (expired || !locked) {
     return (
       <StateLabel
         title={t(expired ? 'expiredAt' : 'expiresAt')}

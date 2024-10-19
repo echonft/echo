@@ -4,11 +4,11 @@ import { getReferenceData } from '@echo/firestore/helpers/crud/reference/get-ref
 import { type ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer-document-data'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { DocumentReference } from 'firebase-admin/firestore'
-import { andThen, pipe } from 'ramda'
+import { pipe } from 'ramda'
 
 export function getListingOfferReferenceById(
   id: string
-): Promise<DocumentReference<ListingOfferDocumentData, ListingOfferDocumentData>> {
+): DocumentReference<ListingOfferDocumentData, ListingOfferDocumentData> {
   return getReferenceById({
     collectionReference: getListingOffersCollectionReference(),
     id
@@ -16,5 +16,5 @@ export function getListingOfferReferenceById(
 }
 
 export function getListingOfferById(id: string): Promise<Nullable<ListingOfferDocumentData>> {
-  return pipe(getListingOfferReferenceById, andThen(getReferenceData))(id)
+  return pipe(getListingOfferReferenceById, getReferenceData)(id)
 }

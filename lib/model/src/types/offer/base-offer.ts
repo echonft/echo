@@ -1,11 +1,11 @@
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { Item } from '@echo/model/types/item/item'
 import { type User } from '@echo/model/types/user/user'
 import type { NonEmptyArray } from 'ramda'
 
 export interface BaseOffer {
   expiresAt: number
   receiver: User
-  receiverItems: NonEmptyArray<OwnedNft>
+  receiverItems: NonEmptyArray<Item>
   sender: User
-  senderItems: NonEmptyArray<OwnedNft>
+  senderItems: NonEmptyArray<Item>
 }

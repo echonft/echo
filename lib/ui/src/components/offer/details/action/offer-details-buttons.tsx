@@ -1,19 +1,7 @@
 'use client'
-import { OfferState } from '@echo/model/constants/offer-state'
-import { assertOfferStateTransition } from '@echo/model/helpers/offer/assert-offer-state-transition'
-import { OfferDetailsAcceptButton } from '@echo/ui/components/offer/details/action/offer-details-accept-button'
-import { OfferDetailsCancelButton } from '@echo/ui/components/offer/details/action/offer-details-cancel-button'
-import { OfferDetailsRedeemButton } from '@echo/ui/components/offer/details/action/offer-details-redeem-button'
-import { OfferDetailsRejectButton } from '@echo/ui/components/offer/details/action/offer-details-reject-button'
-import { OfferDetailsSwapButton } from '@echo/ui/components/offer/details/action/offer-details-swap-button'
-import { OfferDetailsButtonsLayout } from '@echo/ui/components/offer/details/layout/offer-details-buttons-layout'
-import { isOfferRoleReceiver } from '@echo/ui/helpers/offer/is-offer-role-receiver'
-import { isOfferRoleSender } from '@echo/ui/helpers/offer/is-offer-role-sender'
-import { useAreNftsInEscrow } from '@echo/ui/hooks/use-are-nfts-in-escrow'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import { anyPass, isNil } from 'ramda'
-import { type FunctionComponent, useState } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   offer: OfferWithRole
@@ -21,121 +9,123 @@ interface Props {
   onError?: EmptyFunction
 }
 
-function showAcceptButton(offer: OfferWithRole) {
-  try {
-    assertOfferStateTransition(offer, OfferState.Accepted)
-    return isOfferRoleReceiver(offer)
-  } catch (_err) {
-    return false
-  }
-}
+// function showAcceptButton(offer: OfferWithRole) {
+//   try {
+//     assertOfferStateTransition(offer, OfferState.Accepted)
+//     return isOfferRoleReceiver(offer)
+//   } catch (_err) {
+//     return false
+//   }
+// }
+//
+// function showCancelButton(offer: OfferWithRole) {
+//   try {
+//     assertOfferStateTransition(offer, OfferState.Cancelled)
+//     return isOfferRoleSender(offer)
+//   } catch (_err) {
+//     return false
+//   }
+// }
+//
+// function showRejectButton(offer: OfferWithRole) {
+//   try {
+//     assertOfferStateTransition(offer, OfferState.Rejected)
+//     return isOfferRoleReceiver(offer)
+//   } catch (_err) {
+//     return false
+//   }
+// }
+//
+// function showSwapButton(offer: OfferWithRole) {
+//   try {
+//     assertOfferStateTransition(offer, OfferState.Completed)
+//     return isOfferRoleSender(offer)
+//   } catch (_err) {
+//     return false
+//   }
+// }
+//
+// function showRedeemButton(areNftsInEscrow: boolean | undefined) {
+//   if (isNil(areNftsInEscrow)) {
+//     return false
+//   }
+//   return areNftsInEscrow
+// }
+// function shouldShowButtons(offer: OfferWithRole, areNftsInEscrow: boolean | undefined) {
+//   // FIXME could be cleaner
+//   return (
+//     anyPass([showAcceptButton, showCancelButton, showRejectButton, showSwapButton])(offer) ||
+//     showRedeemButton(areNftsInEscrow)
+//   )
+// }
 
-function showCancelButton(offer: OfferWithRole) {
-  try {
-    assertOfferStateTransition(offer, OfferState.Cancelled)
-    return isOfferRoleSender(offer)
-  } catch (_err) {
-    return false
-  }
-}
-
-function showRejectButton(offer: OfferWithRole) {
-  try {
-    assertOfferStateTransition(offer, OfferState.Rejected)
-    return isOfferRoleReceiver(offer)
-  } catch (_err) {
-    return false
-  }
-}
-
-function showSwapButton(offer: OfferWithRole) {
-  try {
-    assertOfferStateTransition(offer, OfferState.Completed)
-    return isOfferRoleSender(offer)
-  } catch (_err) {
-    return false
-  }
-}
-
-function showRedeemButton(areNftsInEscrow: boolean | undefined) {
-  if (isNil(areNftsInEscrow)) {
-    return false
-  }
-  return areNftsInEscrow
-}
-function shouldShowButtons(offer: OfferWithRole, areNftsInEscrow: boolean | undefined) {
-  // FIXME could be cleaner
-  return (
-    anyPass([showAcceptButton, showCancelButton, showRejectButton, showSwapButton])(offer) ||
-    showRedeemButton(areNftsInEscrow)
-  )
-}
-
-export const OfferDetailsButtons: FunctionComponent<Props> = ({ offer, onSuccess }) => {
-  const shouldCheckForEscrow = offer.state === OfferState.Rejected || offer.state === OfferState.Expired
-  const nftsToCheckForEscrow = isOfferRoleReceiver(offer) ? offer.receiverItems : offer.senderItems
-  const areNftsInEscrow = useAreNftsInEscrow(shouldCheckForEscrow ? nftsToCheckForEscrow : undefined)
-  const [buttonsDisabled, setButtonsDisabled] = useState(false)
-  const disable = () => {
-    setButtonsDisabled(true)
-  }
-  const enable = () => {
-    setButtonsDisabled(false)
-  }
-  const success = (offer: OfferWithRole) => {
-    setButtonsDisabled(false)
-    onSuccess?.(offer)
-  }
-  const error = () => {
-    setButtonsDisabled(false)
-  }
-
-  // Don't show anything if no buttons should be shown
-  if (shouldShowButtons(offer, areNftsInEscrow)) {
-    return (
-      <OfferDetailsButtonsLayout>
-        <OfferDetailsAcceptButton
-          offer={offer}
-          show={showAcceptButton(offer)}
-          onClick={disable}
-          onSuccess={success}
-          onCancel={enable}
-          disabled={buttonsDisabled}
-        />
-        <OfferDetailsSwapButton
-          offer={offer}
-          show={showSwapButton(offer)}
-          onClick={disable}
-          onSuccess={success}
-          onCancel={enable}
-          disabled={buttonsDisabled}
-        />
-        <OfferDetailsRejectButton
-          offer={offer}
-          show={showRejectButton(offer)}
-          onClick={disable}
-          onSuccess={success}
-          onError={error}
-          disabled={buttonsDisabled}
-        />
-        <OfferDetailsCancelButton
-          offer={offer}
-          show={showCancelButton(offer)}
-          onClick={disable}
-          onSuccess={success}
-          onError={error}
-          disabled={buttonsDisabled}
-        />
-        <OfferDetailsRedeemButton
-          offer={offer}
-          show={showRedeemButton(areNftsInEscrow)}
-          onClick={disable}
-          onSuccess={success}
-          onError={error}
-          disabled={buttonsDisabled}
-        />
-      </OfferDetailsButtonsLayout>
-    )
-  }
+// TODO ERC20 + ERC1155
+export const OfferDetailsButtons: FunctionComponent<Props> = () => {
+  // export const OfferDetailsButtons: FunctionComponent<Props> = ({ offer, onSuccess }) => {
+  // const shouldCheckForEscrow = offer.state === OfferState.Rejected || offer.state === OfferState.Expired
+  // const nftsToCheckForEscrow = isOfferRoleReceiver(offer) ? offer.receiverItems : offer.senderItems
+  // const areNftsInEscrow = useAreNftsInEscrow(shouldCheckForEscrow ? nftsToCheckForEscrow : undefined)
+  // const [buttonsDisabled, setButtonsDisabled] = useState(false)
+  // const disable = () => {
+  //   setButtonsDisabled(true)
+  // }
+  // const enable = () => {
+  //   setButtonsDisabled(false)
+  // }
+  // const success = (offer: OfferWithRole) => {
+  //   setButtonsDisabled(false)
+  //   onSuccess?.(offer)
+  // }
+  // const error = () => {
+  //   setButtonsDisabled(false)
+  // }
+  //
+  // // Don't show anything if no buttons should be shown
+  // if (shouldShowButtons(offer, areNftsInEscrow)) {
+  //   return (
+  //     <OfferDetailsButtonsLayout>
+  //       <OfferDetailsAcceptButton
+  //         offer={offer}
+  //         show={showAcceptButton(offer)}
+  //         onClick={disable}
+  //         onSuccess={success}
+  //         onCancel={enable}
+  //         disabled={buttonsDisabled}
+  //       />
+  //       <OfferDetailsSwapButton
+  //         offer={offer}
+  //         show={showSwapButton(offer)}
+  //         onClick={disable}
+  //         onSuccess={success}
+  //         onCancel={enable}
+  //         disabled={buttonsDisabled}
+  //       />
+  //       <OfferDetailsRejectButton
+  //         offer={offer}
+  //         show={showRejectButton(offer)}
+  //         onClick={disable}
+  //         onSuccess={success}
+  //         onError={error}
+  //         disabled={buttonsDisabled}
+  //       />
+  //       <OfferDetailsCancelButton
+  //         offer={offer}
+  //         show={showCancelButton(offer)}
+  //         onClick={disable}
+  //         onSuccess={success}
+  //         onError={error}
+  //         disabled={buttonsDisabled}
+  //       />
+  //       <OfferDetailsRedeemButton
+  //         offer={offer}
+  //         show={showRedeemButton(areNftsInEscrow)}
+  //         onClick={disable}
+  //         onSuccess={success}
+  //         onError={error}
+  //         disabled={buttonsDisabled}
+  //       />
+  //     </OfferDetailsButtonsLayout>
+  //   )
+  // }
   return null
 }

@@ -1,12 +1,15 @@
 import { contractOfferToBaseOffer } from '@echo/backend/mappers/contract-offer-to-base-offer'
 import { getCollectionByAddress } from '@echo/firestore/crud/collection/get-collection-by-address'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
+import { TokenType } from '@echo/model/constants/token-type'
+import { collectionMockSpiralSlug } from '@echo/model/mocks/collection/collection-mock'
 import { getCollectionMock } from '@echo/model/mocks/collection/get-collection-mock'
 import { getNftMock } from '@echo/model/mocks/nft/get-nft-mock'
 import type { BaseOffer } from '@echo/model/types/offer/base-offer'
 import { Chain } from '@echo/utils/constants/chain'
 import type { ContractOffer } from '@echo/web3/types/contract-offer'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
+import { toLower } from 'ramda'
 
 jest.mock('@echo/firestore/crud/collection/get-collection-by-address')
 jest.mock('@echo/firestore/crud/nft/get-nft-by-index')
@@ -58,7 +61,28 @@ describe('mappers - contractOfferToBaseOffer', () => {
           chain: Chain.Ethereum
         }
       },
-      receiverItems: [getNftMock()],
+      receiverItems: [
+        {
+          token: {
+            animationUrl: 'https://animation.url/',
+            contract: {
+              address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
+              chain: Chain.Ethereum
+            },
+            collection: {
+              name: 'Spiral Frequencies',
+              slug: collectionMockSpiralSlug(),
+              totalSupply: 6315
+            },
+            tokenIdLabel: '#0001',
+            name: 'Spiral Frequencies #1',
+            metadataUrl: 'https://metadata.url/',
+            pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
+            tokenId: 1,
+            type: TokenType.Erc721
+          }
+        }
+      ],
       sender: {
         discord: {
           avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
@@ -71,7 +95,28 @@ describe('mappers - contractOfferToBaseOffer', () => {
           chain: Chain.Ethereum
         }
       },
-      senderItems: [getNftMock()]
+      senderItems: [
+        {
+          token: {
+            animationUrl: 'https://animation.url/',
+            contract: {
+              address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
+              chain: Chain.Ethereum
+            },
+            collection: {
+              name: 'Spiral Frequencies',
+              slug: collectionMockSpiralSlug(),
+              totalSupply: 6315
+            },
+            tokenIdLabel: '#0001',
+            name: 'Spiral Frequencies #1',
+            metadataUrl: 'https://metadata.url/',
+            pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
+            tokenId: 1,
+            type: TokenType.Erc721
+          }
+        }
+      ]
     }
     const result = await contractOfferToBaseOffer(contractOffer)
     expect(result).toStrictEqual(expected)

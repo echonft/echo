@@ -7,17 +7,11 @@ import { ListingDetailsTarget } from '@echo/ui/components/listing/details/listin
 import type { FunctionComponent } from 'react'
 
 interface Props extends CreateListingTargetsSelectionProps {
-  readOnly: boolean
+  locked: boolean
 }
 
-export const CreateListingTargets: FunctionComponent<Props> = ({
-  readOnly,
-  target,
-  onQtyChange,
-  onRemove,
-  onSelect
-}) => {
-  if (readOnly) {
+export const CreateListingTargets: FunctionComponent<Props> = ({ locked, target, onQtyChange, onRemove, onSelect }) => {
+  if (locked) {
     return <ListingDetailsTarget target={target} />
   }
   return (

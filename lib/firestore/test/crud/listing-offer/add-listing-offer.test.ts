@@ -12,7 +12,7 @@ import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
 import { offerMockFromJohnnycageId, offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
-import { isNil } from 'ramda'
+import { isNil, pick, pipe } from 'ramda'
 
 describe('CRUD - listing-offer - addListingOffer', () => {
   let createdOfferId: Nullable<string>
@@ -61,8 +61,12 @@ describe('CRUD - listing-offer - addListingOffer', () => {
     const listingId = listingMockId()
     const slug = listingMockSlug()
     const initialListingState = (await getListingById(listingId))!.state
-    const { receiverItems, senderItems } = getOfferMockById(offerMockToJohnnycageId())
-    const createdOfferNewDocument = await unchecked_addOffer(receiverItems, senderItems)
+    const createdOfferNewDocument = await pipe(
+      offerMockToJohnnycageId,
+      getOfferMockById,
+      pick(['receiver', 'receiverItems', 'sender', 'senderItems']),
+      unchecked_addOffer
+    )()
     createdOfferId = createdOfferNewDocument.id
     const createdListingOfferNewDocument = await addListingOffer({
       listingId,

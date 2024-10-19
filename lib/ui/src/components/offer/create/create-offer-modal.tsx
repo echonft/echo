@@ -3,8 +3,7 @@ import type { GetOfferByIdContractRequest } from '@echo/api/types/requests/get-o
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { Expiration } from '@echo/model/constants/expiration'
 import { expirationToDateNumber } from '@echo/model/helpers/expiration-to-date-number'
-import { generateBaseOffer } from '@echo/model/helpers/offer/generate-base-offer'
-
+import { buildBaseOffer } from '@echo/model/helpers/offer/build-base-offer'
 import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import type { Offer } from '@echo/model/types/offer/offer'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
@@ -45,7 +44,7 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
   const { getOfferByIdContract, contractCreateOffer } = useDependencies()
   const baseOffer = useMemo(
     () =>
-      generateBaseOffer({
+      buildBaseOffer({
         receiverOfferItems: receiverItems,
         senderOfferItems: senderItems,
         expiresAt: expirationToDateNumber(expiration)

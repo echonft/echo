@@ -4,17 +4,17 @@ import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  readOnly: boolean
+  locked: boolean
   loading?: boolean
   disabled?: boolean
   onCancel?: VoidFunction
   onComplete?: VoidFunction
 }
 
-export const CreateOfferButtons: FunctionComponent<Props> = ({ readOnly, loading, disabled, onCancel, onComplete }) => {
+export const CreateOfferButtons: FunctionComponent<Props> = ({ locked, loading, disabled, onCancel, onComplete }) => {
   const t = useTranslations('offer.create')
 
-  if (readOnly) {
+  if (locked) {
     return (
       <>
         <button

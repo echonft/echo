@@ -8,16 +8,16 @@ import type { NftDocumentData } from '@echo/firestore/types/model/nft-document-d
 import { NftError } from '@echo/model/constants/errors/nft-error'
 import type { Nft } from '@echo/model/types/nft/nft'
 import { type DocumentReference, type DocumentSnapshot } from 'firebase-admin/firestore'
-import { andThen, invoker, isNil, pipe } from 'ramda'
+import { invoker, isNil, pipe } from 'ramda'
 
 export async function unescrowNft(nftId: string): Promise<Nft> {
   const snapshot = await pipe<
     [string],
-    Promise<DocumentReference<Nft, NftDocumentData>>,
+    DocumentReference<Nft, NftDocumentData>,
     Promise<DocumentSnapshot<Nft, NftDocumentData>>
   >(
     getNftReferenceById,
-    andThen(invoker(0, 'get'))
+    invoker(0, 'get')
   )(nftId)
   if (!snapshot.exists) {
     return Promise.reject(Error(NftError.NotFound))

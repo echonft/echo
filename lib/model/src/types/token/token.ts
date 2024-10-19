@@ -1,8 +1,5 @@
-import type { TokenType } from '@echo/model/constants/token-type'
-import type { Wallet } from '@echo/model/types/wallet'
+import type { Erc1155Token } from '@echo/model/types/token/erc1155-token'
+import type { Erc20Token } from '@echo/model/types/token/erc20-token'
+import type { Erc721Token } from '@echo/model/types/token/erc721-token'
 
-export interface Token {
-  contract: Wallet
-  name: string
-  type: TokenType
-}
+export type Token = Erc20Token | Erc721Token | Erc1155Token

@@ -2,13 +2,12 @@ import { embedSeparator } from '@echo/bot/helpers/embed/embed-separator'
 import { embedValueForNftItem } from '@echo/bot/helpers/embed/embed-value-for-nft-item'
 import { type UserDocumentData } from '@echo/firestore/types/model/user-document-data'
 import { nftItems } from '@echo/model/helpers/item/nft-items'
-import type { Erc1155Item } from '@echo/model/types/item/erc1155-item'
-import type { Erc721Item } from '@echo/model/types/item/erc721-item'
+import type { NftItem } from '@echo/model/types/item/nft-item'
 import { type Listing } from '@echo/model/types/listing/listing'
 import { pathProvider } from '@echo/routing/path-provider'
 import { type APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import i18next from 'i18next'
-import { addIndex, flatten, map } from 'ramda'
+import { addIndex, flatten, map, type NonEmptyArray } from 'ramda'
 
 export function buildListingEmbed(listing: Listing, creator: UserDocumentData) {
   return new EmbedBuilder()
@@ -19,15 +18,15 @@ export function buildListingEmbed(listing: Listing, creator: UserDocumentData) {
     .setURL(pathProvider.collection.default.getUrl({ slug: listing.target.collection.slug }, { listing: listing }))
 }
 
-function fields(items: Listing['items'], target: Listing['target']): APIEmbedField[] {
+function fields(items: NonEmptyArray<NftItem>, target: Listing['target']): APIEmbedField[] {
   return flatten([embedSeparator(), listingItemsFields(items), embedSeparator(), listingTargetFields(target)])
 }
 
-function listingItemsFields(items: Listing['items']): APIEmbedField[] {
+function listingItemsFields(items: NonEmptyArray<NftItem>): APIEmbedField[] {
   const nfts = nftItems(items)
-  const mapIndexed = addIndex<Erc721Item | Erc1155Item>(map)
+  const mapIndexed = addIndex<NftItem>(map)
   return mapIndexed(
-    (item: Erc721Item | Erc1155Item, index: number) => ({
+    (item: NftItem, index: number) => ({
       name: index === 0 ? i18next.t('listing.embed.items.name') : '\u200b',
       value: embedValueForNftItem(item),
       inline: true

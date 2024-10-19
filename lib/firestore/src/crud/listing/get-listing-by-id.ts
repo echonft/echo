@@ -5,12 +5,12 @@ import type { ListingDocumentData } from '@echo/firestore/types/model/listing-do
 import type { Listing } from '@echo/model/types/listing/listing'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { DocumentReference } from 'firebase-admin/firestore'
-import { andThen, pipe } from 'ramda'
+import { pipe } from 'ramda'
 
-export function getListingReferenceById(id: string): Promise<DocumentReference<Listing, ListingDocumentData>> {
+export function getListingReferenceById(id: string): DocumentReference<Listing, ListingDocumentData> {
   return getReferenceById({ collectionReference: getListingsCollectionReference(), id })
 }
 
 export function getListingById(id: string): Promise<Nullable<Listing>> {
-  return pipe(getListingReferenceById, andThen(getReferenceData))(id)
+  return pipe(getListingReferenceById, getReferenceData)(id)
 }

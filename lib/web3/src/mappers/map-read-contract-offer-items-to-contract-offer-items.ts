@@ -6,7 +6,7 @@ import { applySpec, map, pipe, prop } from 'ramda'
 export function mapReadContractOfferItemsToContractOfferItems(
   readContractOfferItems: ReadContractOfferItems
 ): ContractOfferItems {
-  return applySpec({
+  return applySpec<ContractOfferItems>({
     chainId: pipe(prop('chainId'), Number),
     items: pipe(prop('items'), map(mapReadContractOfferItemToContractOfferItem))
   })(readContractOfferItems)

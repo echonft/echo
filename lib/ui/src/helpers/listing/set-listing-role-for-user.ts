@@ -1,5 +1,5 @@
 import type { User } from '@echo/auth/types/user'
-import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
+import { nftsCollectionSlug } from '@echo/model/helpers/nft/nfts-collection-slug'
 import type { Listing } from '@echo/model/types/listing/listing'
 import type { Nft } from '@echo/model/types/nft/nft'
 import { setListingRoleCreator } from '@echo/ui/helpers/listing/set-listing-role-creator'
@@ -18,7 +18,7 @@ export function setListingRoleForUser(user: Nullable<User>, nfts: Nft[]) {
     if (listing.creator.username === username) {
       return setListingRoleCreator(listing)
     }
-    if (pipe<[Nft[]], string[], boolean>(getNftsCollectionSlugs, any(equals(listing.target.collection.slug)))(nfts)) {
+    if (pipe<[Nft[]], string[], boolean>(nftsCollectionSlug, any(equals(listing.target.collection.slug)))(nfts)) {
       return setListingRoleTarget(listing)
     }
     return setListingRoleUndefined(listing)

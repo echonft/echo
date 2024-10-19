@@ -52,26 +52,15 @@ export function listingDocumentDataMock(): Record<string, ListingDocumentData> {
         }
       ],
       itemCollections: [collectionMockSpiralSlug()],
-      itemIndexes: [''],
-      //   {
-      //     collection: {
-      //       slug: collectionMockSpiralSlug()
-      //     },
-      //     tokenId: 1
-      //   },
-      //   {
-      //     collection: {
-      //       slug: collectionMockSpiralSlug()
-      //     },
-      //     tokenId: 2
-      //   }
-      // ],
+      itemIndexes: [`${collectionMockSpiralSlug()}.1`, `${collectionMockSpiralSlug()}.2`],
+      locked: false,
       slug: listingMockSlug(),
       state: ListingState.OffersPending,
       target: {
         collection: getCollectionMockById(collectionMockPxId()),
         quantity: 3
       }
+      // signature: 'signature'
     }
   }
 }

@@ -36,8 +36,8 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
     ).rejects.toBeInstanceOf(NotFoundError)
   })
 
-  it('throws if the listing is read only', async () => {
-    jest.mocked(getListing).mockResolvedValueOnce(assoc('readOnly', true, listing))
+  it('throws if the listing is locked', async () => {
+    jest.mocked(getListing).mockResolvedValueOnce(assoc('locked', true, listing))
     const req = mockRequest()
     await expect(cancelListingRequestHandler({ user, req, params: { slug } })).rejects.toBeInstanceOf(UnauthorizedError)
   })

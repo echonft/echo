@@ -1,5 +1,5 @@
 import { Chain } from '@echo/utils/constants/chain'
-import { erc721TransferEventSchemaBuilder } from '@echo/web3/validators/erc721-transfer-event-schema'
+import { erc721TransferEventSchema } from '@echo/web3/validators/erc721-transfer-event-schema'
 import { describe, expect, it } from '@jest/globals'
 import { assoc } from 'ramda'
 
@@ -77,11 +77,11 @@ describe('validators - erc721TransferEventSchema', () => {
 
   it('throws if data is not valid', () => {
     expect(() => {
-      erc721TransferEventSchemaBuilder(Chain.BlastSepolia).parse(assoc('data', undefined, validRequest))
+      erc721TransferEventSchema(Chain.BlastSepolia).parse(assoc('data', undefined, validRequest))
     }).toThrow()
   })
   it('valid', () => {
-    expect(erc721TransferEventSchemaBuilder(Chain.BlastSepolia).parse(validRequest)).toStrictEqual([
+    expect(erc721TransferEventSchema(Chain.BlastSepolia).parse(validRequest)).toStrictEqual([
       {
         contract: {
           address: '0x43be93945e168a205d708f1a41a124fa302e1f76',

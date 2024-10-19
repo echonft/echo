@@ -17,7 +17,7 @@ export async function cancelListingRequestHandler({
   if (isNil(listing)) {
     return Promise.reject(new NotFoundError())
   }
-  if (listing.readOnly) {
+  if (listing.locked) {
     return Promise.reject(new UnauthorizedError())
   }
   if (listing.creator.username !== username) {

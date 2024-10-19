@@ -14,7 +14,7 @@ import { CreateListing } from '@echo/ui/components/listing/create/create-listing
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
-import { nonEmptyArrayMap } from '@echo/utils/fp/non-empty-array-map'
+import { nonEmptyMap } from '@echo/utils/fp/non-empty-map'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
@@ -54,7 +54,7 @@ export const CreateListingManager: FunctionComponent<Props> = ({ creatorNfts, it
       onComplete={(items: NonEmptyArray<OwnedNft>, target: Listing['target'], expiration: Expiration) => {
         void trigger({
           // TODO add ERC1155
-          items: nonEmptyArrayMap<Erc721Nft, Erc721Item>(erc721NftToItem, items as NonEmptyArray<Erc721Nft>),
+          items: nonEmptyMap<Erc721Nft, Erc721Item>(erc721NftToItem, items as NonEmptyArray<Erc721Nft>),
           target: target,
           expiration
         })

@@ -1,5 +1,5 @@
 import { getNftTokenIdLabel } from '@echo/firestore/helpers/converters/nft/get-nft-token-id-label'
-import { lowerOwnerWalletAddress } from '@echo/firestore/helpers/converters/nft/lower-owner-wallet-address'
+import { lowerOwnerWalletAddressIfExists } from '@echo/firestore/helpers/converters/nft/lower-owner-wallet-address-if-exists'
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
 import type { NftDocumentData } from '@echo/firestore/types/model/nft-document-data'
 import type { Nft } from '@echo/model/types/nft/nft'
@@ -10,9 +10,7 @@ import { assoc, dissoc, has, pipe, unless } from 'ramda'
 export const nftDataConverter: FirestoreDataConverter<Nft, NftDocumentData> &
   Record<'fromDocumentData', (data: NftDocumentData) => Nft> = {
   fromDocumentData(data: NftDocumentData): Nft {
-    return pipe<[NftDocumentData], NftDocumentData, Omit<Nft, 'tokenIdLabel'>, Nft>(
-      // lower the owner wallet address (in case it wasn't)
-      lowerOwnerWalletAddress,
+    return pipe<[NftDocumentData], Omit<Nft, 'tokenIdLabel'>, Nft>(
       // add the owner prop if it is not present
       unless<NftDocumentData, NftDocumentData>(has('owner'), assoc('owner', undefined)),
       // set the token id label
@@ -26,6 +24,6 @@ export const nftDataConverter: FirestoreDataConverter<Nft, NftDocumentData> &
     )(snapshot)
   },
   toFirestore(modelObject: WithFieldValue<Nft>): WithFieldValue<NftDocumentData> {
-    return pipe(lowerOwnerWalletAddress, dissoc('tokenIdLabel'))(modelObject)
+    return pipe(lowerOwnerWalletAddressIfExists, dissoc('tokenIdLabel'))(modelObject)
   }
 }

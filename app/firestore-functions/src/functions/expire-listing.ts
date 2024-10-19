@@ -1,7 +1,6 @@
 import { getLogger } from '@echo/firestore-functions/helper/get-logger'
 import { setMaxInstances } from '@echo/firestore-functions/helper/set-max-instances'
-import { updateListingState } from '@echo/firestore/crud/listing/update-listing-state'
-import { ListingState } from '@echo/model/constants/listing-state'
+import { expireListing as firestoreExpireListing } from '@echo/firestore/crud/listing/expire-listing'
 import { withSlugSchema } from '@echo/model/validators/slug-schema'
 import { onTaskDispatched } from 'firebase-functions/v2/tasks'
 
@@ -20,7 +19,7 @@ export const expireListing = onTaskDispatched(
     try {
       const { slug } = withSlugSchema.parse(req.data)
       try {
-        await updateListingState(slug, ListingState.Expired)
+        await firestoreExpireListing(slug)
       } catch (err) {
         logger.error({ err, listing: { slug } }, 'error setting listing state to expired')
       }

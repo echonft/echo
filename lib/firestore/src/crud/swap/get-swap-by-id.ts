@@ -4,9 +4,9 @@ import { getReferenceData } from '@echo/firestore/helpers/crud/reference/get-ref
 import { type SwapDocumentData } from '@echo/firestore/types/model/swap-document-data'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { DocumentReference } from 'firebase-admin/firestore'
-import { andThen, pipe } from 'ramda'
+import { pipe } from 'ramda'
 
-export function getSwapReferenceById(id: string): Promise<DocumentReference<SwapDocumentData, SwapDocumentData>> {
+export function getSwapReferenceById(id: string): DocumentReference<SwapDocumentData, SwapDocumentData> {
   return getReferenceById({
     collectionReference: getSwapsCollectionReference(),
     id
@@ -14,5 +14,5 @@ export function getSwapReferenceById(id: string): Promise<DocumentReference<Swap
 }
 
 export function getSwapById(id: string): Promise<Nullable<SwapDocumentData>> {
-  return pipe(getSwapReferenceById, andThen(getReferenceData))(id)
+  return pipe(getSwapReferenceById, getReferenceData)(id)
 }

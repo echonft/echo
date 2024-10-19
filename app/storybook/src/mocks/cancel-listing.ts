@@ -14,7 +14,7 @@ export function cancelListing(_args: WithSlug): Promise<ListingResponse> {
         listing: pipe<[], Listing, Listing, Listing>(
           getListingMock,
           assoc('state', ListingState.Cancelled),
-          assoc('readOnly', true)
+          assoc('locked', true)
         )
       }),
       toPromise

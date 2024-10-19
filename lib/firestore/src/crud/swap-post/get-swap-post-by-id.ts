@@ -4,11 +4,9 @@ import { getReferenceData } from '@echo/firestore/helpers/crud/reference/get-ref
 import type { SwapPostDocumentData } from '@echo/firestore/types/model/swap-post-document-data'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { DocumentReference } from 'firebase-admin/firestore'
-import { andThen, pipe } from 'ramda'
+import { pipe } from 'ramda'
 
-export function getSwapPostReferenceById(
-  id: string
-): Promise<DocumentReference<SwapPostDocumentData, SwapPostDocumentData>> {
+export function getSwapPostReferenceById(id: string): DocumentReference<SwapPostDocumentData, SwapPostDocumentData> {
   return getReferenceById({
     collectionReference: getSwapPostsCollectionReference(),
     id
@@ -16,5 +14,5 @@ export function getSwapPostReferenceById(
 }
 
 export function getSwapPostById(id: string): Promise<Nullable<SwapPostDocumentData>> {
-  return pipe(getSwapPostReferenceById, andThen(getReferenceData))(id)
+  return pipe(getSwapPostReferenceById, getReferenceData)(id)
 }

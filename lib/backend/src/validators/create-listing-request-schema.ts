@@ -5,6 +5,7 @@ import { assertItemsChain } from '@echo/backend/helpers/item/assert-items-chain'
 import { assertUniqErc1155Items } from '@echo/backend/helpers/item/assert-uniq-erc1155-items'
 import { assertUniqErc721Items } from '@echo/backend/helpers/item/assert-uniq-erc721-items'
 import { assertNftsEqOwner } from '@echo/backend/helpers/nft/assert-nfts-eq-owner'
+import type { NftItemWithOwner } from '@echo/backend/types/nft-item-with-owner'
 import { erc1155ItemRequestSchema } from '@echo/backend/validators/erc1155-item-request-schema'
 import { erc721ItemRequestSchema } from '@echo/backend/validators/erc721-item-request-schema'
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
@@ -24,8 +25,7 @@ import { erc721Items } from '@echo/model/helpers/item/erc721-items'
 import { isErc721Item } from '@echo/model/helpers/item/is-erc721-item'
 import { erc1155NftToItem } from '@echo/model/mappers/nft/erc1155-nft-to-item'
 import { erc721NftToItem } from '@echo/model/mappers/nft/erc721-nft-to-item'
-import type { Erc1155Item } from '@echo/model/types/item/erc1155-item'
-import type { Erc721Item } from '@echo/model/types/item/erc721-item'
+import type { NftItem } from '@echo/model/types/item/nft-item'
 import type { Listing } from '@echo/model/types/listing/listing'
 import type { Erc1155Nft } from '@echo/model/types/nft/erc1155-nft'
 import type { Erc721Nft } from '@echo/model/types/nft/erc721-nft'
@@ -49,6 +49,8 @@ interface Erc1155ItemRequestWithNft extends Erc1155ItemRequest {
   nft: Erc1155Nft
 }
 
+type NftItemRequestWithNft = Erc721ItemRequestWithNft | Erc1155ItemRequestWithNft
+
 interface Erc721ItemRequestWithOwnedNft extends Erc721ItemRequest {
   nft: OwnedErc721Nft
 }
@@ -57,17 +59,7 @@ interface Erc1155ItemRequestWithOwnedNft extends Erc1155ItemRequest {
   nft: OwnedErc1155Nft
 }
 
-interface Erc721ItemWithOwner extends Erc721Item {
-  owner: User
-}
-
-interface Erc721ItemWithOwner extends Erc721Item {
-  owner: User
-}
-
-interface Erc1155ItemWithOwner extends Erc1155Item {
-  owner: User
-}
+type NftItemRequestWithOwnedNft = Erc721ItemRequestWithOwnedNft | Erc1155ItemRequestWithOwnedNft
 
 export async function createListingRequestSchema(username: string) {
   const user = await getUserByUsername(username)
@@ -80,9 +72,7 @@ export async function createListingRequestSchema(username: string) {
       .array()
       .nonempty()
       .transform(async (requests, ctx) => {
-        async function addNft(
-          request: Erc721ItemRequest | Erc1155ItemRequest
-        ): Promise<Erc721ItemRequestWithNft | Erc1155ItemRequestWithNft> {
+        async function addNft(request: Erc721ItemRequest | Erc1155ItemRequest): Promise<NftItemRequestWithNft> {
           const nft = await getNftByIndex(request.token)
           // Ensure the NFT exists
           if (isNil(nft)) {
@@ -133,12 +123,10 @@ export async function createListingRequestSchema(username: string) {
           })
           return NEVER
         }
-        return requests as (Erc721ItemRequestWithOwnedNft | Erc1155ItemRequestWithOwnedNft)[]
+        return requests as NftItemRequestWithOwnedNft[]
       })
       .transform(async (params, ctx) => {
-        async function mapItemRequest(
-          request: Erc721ItemRequestWithOwnedNft | Erc1155ItemRequestWithOwnedNft
-        ): Promise<Erc721ItemWithOwner | Erc1155ItemWithOwner> {
+        async function mapItemRequest(request: NftItemRequestWithOwnedNft): Promise<NftItemWithOwner> {
           if (request.token.type === TokenType.Erc721) {
             return pipe(erc721NftToItem, assoc('owner', request.nft.owner))(request.nft as Erc721Nft)
           } else {
@@ -196,20 +184,16 @@ export async function createListingRequestSchema(username: string) {
     }),
     expiration: nativeEnum(Expiration)
   }).transform(async (params, ctx) => {
-    function removeItemOwner(item: Erc721ItemWithOwner | Erc1155ItemWithOwner): Erc721Item | Erc1155Item {
+    function removeItemOwner(item: NftItemWithOwner): NftItem {
       if (isErc721Item(item)) {
         return dissoc('owner', item)
       }
       return dissoc('owner', item)
     }
-    const creator = pipe<
-      [NonEmptyArray<Erc721ItemWithOwner | Erc1155ItemWithOwner>],
-      Erc721ItemWithOwner | Erc1155ItemWithOwner,
-      User
-    >(
+    const creator = pipe<[NonEmptyArray<NftItemWithOwner>], NftItemWithOwner, User>(
       head,
       prop('owner')
-    )(params.items as NonEmptyArray<Erc721ItemWithOwner | Erc1155ItemWithOwner>)
+    )(params.items as NonEmptyArray<NftItemWithOwner>)
     const items = pipe(map(removeItemOwner), toNonEmptyArray)(params.items)
     // Ensure listing is not a duplicate
     const creatorListings = await getListingsForCreatorAndTarget({ creator, target: params.target })

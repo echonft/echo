@@ -16,7 +16,7 @@ export function rejectOffer(_args: WithSlug): Promise<OfferResponse> {
         offer: pipe<[string], Offer, Offer, Offer>(
           getOfferMockById,
           assoc('state', OfferState.Rejected),
-          assoc('readOnly', true)
+          assoc('locked', true)
         )
       }),
       toPromise

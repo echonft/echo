@@ -5,24 +5,23 @@ import type { NewDocument } from '@echo/firestore/types/new-document'
 import { Expiration } from '@echo/model/constants/expiration'
 import { OfferState } from '@echo/model/constants/offer-state'
 import { expirationToDateNumber } from '@echo/model/helpers/expiration-to-date-number'
-
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import { type Offer } from '@echo/model/types/offer/offer'
-import type { User } from '@echo/model/types/user/user'
 import { nowMs } from '@echo/utils/helpers/now-ms'
-import { head, type NonEmptyArray, pipe, prop, toLower, toString } from 'ramda'
+import { pipe, toLower, toString } from 'ramda'
 
-export async function unchecked_addOffer(
-  senderItems: NonEmptyArray<OwnedNft>,
-  receiverItems: NonEmptyArray<OwnedNft>
-): Promise<NewDocument<Offer>> {
+export async function unchecked_addOffer({
+  receiver,
+  receiverItems,
+  sender,
+  senderItems
+}: Pick<Offer, 'receiver' | 'receiverItems' | 'sender' | 'senderItems'>): Promise<NewDocument<Offer>> {
   const data: Offer = {
     expiresAt: expirationToDateNumber(Expiration.OneDay),
     idContract: toLower('0xwhatever'),
-    readOnly: false,
-    receiver: pipe<[NonEmptyArray<OwnedNft>], OwnedNft, User>(head, prop('owner'))(receiverItems),
+    locked: false,
+    receiver,
     receiverItems,
-    sender: pipe<[NonEmptyArray<OwnedNft>], OwnedNft, User>(head, prop('owner'))(senderItems),
+    sender,
     senderItems,
     slug: pipe(nowMs, toString, toLower<string>)(),
     state: OfferState.Open

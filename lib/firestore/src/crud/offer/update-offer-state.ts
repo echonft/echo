@@ -4,7 +4,7 @@ import { getOffersCollectionReference } from '@echo/firestore/helpers/collection
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import type { OfferStateUpdateDocumentData } from '@echo/firestore/types/model/offer-update-document-data'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
-import { assertOfferStateTransition } from '@echo/model/helpers/offer/assert-offer-state-transition'
+import { shouldLockOffer } from '@echo/model/helpers/offer/should-lock-offer'
 import type { Offer } from '@echo/model/types/offer/offer'
 import type { Slug } from '@echo/model/types/slug'
 import { dissoc, isNil } from 'ramda'
@@ -18,11 +18,16 @@ export async function updateOfferState(args: UpdateOfferStateArgs): Promise<Offe
     return Promise.reject(Error(OfferError.NotFound))
   }
   const offer = snapshot.data()
-  assertOfferStateTransition(offer, state)
+  if (offer.state === state) {
+    return offer
+  }
+  if (offer.locked) {
+    return Promise.reject(Error(OfferError.Locked))
+  }
   const updatedOffer = await updateReference({
     collectionReference: getOffersCollectionReference(),
     id: snapshot.id,
-    data: { state }
+    data: { state, locked: shouldLockOffer(state) }
   })
   await addOfferStateUpdate({ offerId: snapshot.id, args: dissoc('slug', args) })
   return updatedOffer

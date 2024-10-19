@@ -7,19 +7,13 @@ import type { FunctionComponent } from 'react'
 interface Props {
   nfts: OwnedNft[]
   selection: OwnedNft[]
-  readOnly: boolean
+  locked: boolean
   onSelect?: (nft: OwnedNft) => unknown
   onUnselect?: (nft: OwnedNft) => unknown
 }
 
-export const CreateOfferSenderNfts: FunctionComponent<Props> = ({
-  nfts,
-  selection,
-  readOnly,
-  onSelect,
-  onUnselect
-}) => {
-  if (readOnly) {
+export const CreateOfferSenderNfts: FunctionComponent<Props> = ({ nfts, selection, locked, onSelect, onUnselect }) => {
+  if (locked) {
     return <CreateOfferSenderNftsSelected nfts={selection} />
   }
   return (

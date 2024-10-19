@@ -18,7 +18,7 @@ import { assoc, isNil, pipe } from 'ramda'
 describe('CRUD - listing - getListingsForNft', () => {
   let slug: Nullable<Slug>
   function updateListingMockToStateOpen(listing: Listing): Listing {
-    return pipe(assoc('state', ListingState.Open), assoc('readOnly', false))(listing)
+    return pipe(assoc('state', ListingState.Open), assoc('locked', false))(listing)
   }
   beforeEach(async () => {
     slug = undefined
@@ -45,21 +45,11 @@ describe('CRUD - listing - getListingsForNft', () => {
     const mock = pipe(listingMockId, getListingMockById, updateListingMockToStateOpen)()
     expect(listings[0]).toStrictEqual(mock)
   })
-  it('only returns the listings that are not read only', async () => {
+  it('only returns the listings that are not locked', async () => {
     const nft = pipe(nftMockSpiralJohnnyId, getNftMockById)()
     slug = listingMockSlug()
-    await updateListing(slug, { state: ListingState.Cancelled })
+    await updateListing(slug, { locked: true })
     await expect(getListingsForNft(nft)).resolves.toEqual([])
-    await updateListing(slug, { state: ListingState.Fulfilled })
-    await expect(getListingsForNft(nft)).resolves.toEqual([])
-    await updateListing(slug, { state: ListingState.Expired })
-    await expect(getListingsForNft(nft)).resolves.toEqual([])
-    await updateListing(slug, { state: ListingState.PartiallyFulfilled })
-    await expect(getListingsForNft(nft)).resolves.toEqual([])
-    await updateListing(slug, { state: ListingState.OffersPending })
-    const listings = await getListingsForNft(nft)
-    expect(listings.length).toBe(1)
-    expect(listings[0]).toStrictEqual(getListingMockById(listingMockId()))
   })
   it('only returns the listings that are not expired', async () => {
     const nft = pipe(nftMockSpiralJohnnyId, getNftMockById)()
