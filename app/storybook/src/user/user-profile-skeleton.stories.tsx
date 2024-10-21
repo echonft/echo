@@ -4,7 +4,7 @@ import { UserProfileSkeleton as Component } from '@echo/ui/components/user/profi
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'User/Profile ',
+  title: 'User/Profile',
   component: Component
 }
 

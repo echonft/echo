@@ -1,4 +1,5 @@
 import { clsx } from 'clsx'
+import { useTranslations } from 'next-intl'
 import { map, range } from 'ramda'
 import type { FunctionComponent } from 'react'
 
@@ -9,6 +10,7 @@ export interface LoginStepIndicatorProps {
 }
 
 export const TradeStepIndicator: FunctionComponent<LoginStepIndicatorProps> = ({ step, totalSteps, subtitles }) => {
+  const t = useTranslations('trade')
   return (
     <div className={clsx('flex', 'flex-row')}>
       {map(
@@ -52,14 +54,14 @@ export const TradeStepIndicator: FunctionComponent<LoginStepIndicatorProps> = ({
                       'from-yellow-500',
                       'to-transparent'
                     ],
-                  index < step && index < totalSteps ? 'bg-yellow-500' : 'transparent'
+                  index < step && index < totalSteps - 1 ? 'bg-yellow-500' : 'transparent'
                 )}
               />
             </div>
             <div className={clsx('flex', 'flex-col', 'pr-6')}>
-              <span
-                className={clsx('text-label-xxs', index > step ? 'text-white/30' : 'text-white/50')}
-              >{`STEP ${index}`}</span>
+              <span className={clsx('text-label-xxs', index > step ? 'text-white/30' : 'text-white/50')}>
+                {t('stepIndicator', { step: index + 1 })}
+              </span>
               <span className={clsx('prose-label-xs-semi', index > step ? 'text-white/50' : 'text-white')}>
                 {subtitles[index]}
               </span>

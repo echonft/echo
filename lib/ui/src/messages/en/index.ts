@@ -394,7 +394,8 @@ Don't worry, its safe with us.`
     create: {
       backBtn: 'Back',
       nextBtn: 'Next'
-    }
+    },
+    stepIndicator: 'Step {step}'
   },
   user: {
     authUser: 'You',

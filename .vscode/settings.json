@@ -2,6 +2,8 @@
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
-  }
+    "source.fixAll": "explicit",
+    "source.organizeImports": "always",
+  },
+  "javascript.preferences.importModuleSpecifier": "non-relative"
 }
