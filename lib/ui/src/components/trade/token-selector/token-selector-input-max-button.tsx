@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const TokenSelectorInputMaxButton: FunctionComponent<Props> = ({ tokenBalance, quantity, onClick }) => {
-  const t = useTranslations('tokenSelector')
+  const t = useTranslations('trade.tokenSelector')
   const { balance } = tokenBalance
 
   if (balance === 0) {

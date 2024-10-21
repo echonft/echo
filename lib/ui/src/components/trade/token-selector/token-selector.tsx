@@ -1,11 +1,11 @@
 'use client'
 import type { Erc20Token } from '@echo/model/types/token/erc20-token'
 import type { TokenBalance } from '@echo/model/types/token/token-balance'
-import { TokenSelectorInfo } from '@echo/ui/components/base/token-selector/token-selector-info'
-import { TokenSelectorInput } from '@echo/ui/components/base/token-selector/token-selector-input'
-import { TokenSelectorInputLayout } from '@echo/ui/components/base/token-selector/token-selector-input-layout'
-import { TokenSelectorLayout } from '@echo/ui/components/base/token-selector/token-selector-layout'
-import { TokenSelectorMenu } from '@echo/ui/components/base/token-selector/token-selector-menu'
+import { TokenSelectorInfo } from '@echo/ui/components/trade/token-selector/token-selector-info'
+import { TokenSelectorInput } from '@echo/ui/components/trade/token-selector/token-selector-input'
+import { TokenSelectorInputLayout } from '@echo/ui/components/trade/token-selector/token-selector-input-layout'
+import { TokenSelectorLayout } from '@echo/ui/components/trade/token-selector/token-selector-layout'
+import { TokenSelectorMenu } from '@echo/ui/components/trade/token-selector/token-selector-menu'
 import { useErc20TokenBalances } from '@echo/ui/hooks/use-erc20-token-balances'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const TokenSelector: FunctionComponent<Props> = ({ onAddToken }) => {
-  const t = useTranslations('tokenSelector')
+  const t = useTranslations('trade.tokenSelector')
   const tokens = useErc20TokenBalances()
   const [selectedToken, setSelectedToken] = pipe<
     [NonEmptyArray<TokenBalance<Erc20Token>>],

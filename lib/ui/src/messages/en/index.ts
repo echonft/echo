@@ -378,24 +378,30 @@ Don't worry, its safe with us.`
     },
     emptyResults: 'No results'
   },
-  tokenSelector: {
-    title: 'Add tokens',
-    subtitle: 'Optional',
-    placeholder: 'Amount',
-    max: 'Max',
-    balance: 'Balance: {balance}',
-    btn: 'Add'
-  },
+
   trade: {
     details: {
       expiredAt: 'Expired',
       expiresAt: 'Expires in'
     },
+    collectionSelector: {
+      subtitle: 'How many NFTs do you want in exchange?',
+      placeholder: 'Amount',
+      btn: 'Add'
+    },
     create: {
       backBtn: 'Back',
       nextBtn: 'Next'
     },
-    stepIndicator: 'Step {step}'
+    stepIndicator: 'Step {step}',
+    tokenSelector: {
+      title: 'Add tokens',
+      subtitle: 'Optional',
+      placeholder: 'Amount',
+      max: 'Max',
+      balance: 'Balance: {balance}',
+      btn: 'Add'
+    }
   },
   user: {
     authUser: 'You',

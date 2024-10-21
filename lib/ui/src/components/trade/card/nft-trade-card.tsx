@@ -1,17 +1,21 @@
-import type { Nft } from '@echo/model/types/nft/nft'
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import { EmptyTradeCard } from '@echo/ui/components/trade/card/empty-trade-card'
 import { TradeCardLayout } from '@echo/ui/components/trade/card/layout/trade-card-layout'
 import { NftTradeCards } from '@echo/ui/components/trade/card/nft-trade-cards'
 import { TradeCardPicture } from '@echo/ui/components/trade/card/trade-card-picture'
 import type { SwapDirection } from '@echo/ui/constants/swap-direction'
-import { head, type NonEmptyArray } from 'ramda'
+import { head, isEmpty } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  items: NonEmptyArray<Nft>
+  items: OwnedNft[]
   direction: SwapDirection
 }
 
 export const NftTradeCard: FunctionComponent<Props> = ({ items, direction }) => {
+  if (isEmpty(items)) {
+    return <EmptyTradeCard />
+  }
   const item = head(items)
   if (items.length > 1) {
     return (

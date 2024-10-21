@@ -1,12 +1,12 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { accountStatusStore } from '@echo/storybook/mocks/stores/account-status-store'
-import { TokenSelector as Component } from '@echo/ui/components/base/token-selector/token-selector'
+import { TokenSelector as Component } from '@echo/ui/components/trade/token-selector/token-selector'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { useEffect } from 'react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Base/Token Selector',
+  title: 'Trade/Token Selector',
   argTypes: {
     onAddToken: {
       table: {

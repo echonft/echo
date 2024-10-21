@@ -1,7 +1,7 @@
-import type { ListingTarget } from '@echo/model/types/listing-target'
-import type { OwnedNft } from '@echo/model/types/nft'
+import type { Collection } from '@echo/model/types/collection/collection'
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
-import { SelectableNftThumbnails } from '@echo/ui/components/nft/selectable-thumbnail/selectable-nft-thumbnails'
+import { CreateTradeBottomBarItems } from '@echo/ui/components/trade/create-trade-bottom-bar-items'
 import { CreateTradeBottomBarButtonLayout } from '@echo/ui/components/trade/layout/create-trade-bottom-bar-button-layout'
 import { CreateTradeBottomBarItemsLayout } from '@echo/ui/components/trade/layout/create-trade-bottom-bar-items-layout'
 import { CreateTradeBottomBarLayout } from '@echo/ui/components/trade/layout/create-trade-bottom-bar-layout'
@@ -14,8 +14,8 @@ import type { FunctionComponent } from 'react'
 interface Props {
   loading: boolean
   items: OwnedNft[]
-  onUnselect: (item: OwnedNft) => void
-  target?: ListingTarget
+  targetCollection?: Collection
+  targetQuantity?: number
   counterpartyItems?: OwnedNft[]
   nextBtnLabel?: string
   cancelBtnLabel?: string
@@ -26,7 +26,15 @@ interface Props {
   onCancel?: () => void
 }
 
-export const CreateTradeBottomBar: FunctionComponent<Props> = ({ loading, items, onUnselect, onNext, onBack }) => {
+export const CreateTradeBottomBar: FunctionComponent<Props> = ({
+  loading,
+  items,
+  targetCollection,
+  targetQuantity,
+  counterpartyItems,
+  onNext,
+  onBack
+}) => {
   const t = useTranslations('trade.create')
   return (
     <CreateTradeBottomBarLayout>
@@ -54,7 +62,12 @@ export const CreateTradeBottomBar: FunctionComponent<Props> = ({ loading, items,
         </button>
       </CreateTradeBottomBarButtonLayout>
       <CreateTradeBottomBarItemsLayout>
-        <SelectableNftThumbnails nfts={items} onRemove={onUnselect} />
+        <CreateTradeBottomBarItems
+          items={items}
+          targetCollection={targetCollection}
+          targetQuantity={targetQuantity}
+          counterpartyItems={counterpartyItems}
+        />
       </CreateTradeBottomBarItemsLayout>
       <CreateTradeBottomBarButtonLayout>
         <button

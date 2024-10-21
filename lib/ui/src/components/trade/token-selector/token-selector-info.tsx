@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
 export const TokenSelectorInfo: FunctionComponent = () => {
-  const t = useTranslations('tokenSelector')
+  const t = useTranslations('trade.tokenSelector')
 
   return (
     <div className={clsx('flex', 'flex-col', 'gap-1')}>
