@@ -14,12 +14,12 @@ export const OfferDetailsSkeleton: FunctionComponent = () => (
     <TradeDetailsInfoLayout>
       <TradeDetailsUserInfoLayout>
         <UserDetailsSkeleton />
-        <CardsSkeleton alignment={ALIGNMENT_LEFT} />
+        <CardsSkeleton alignment={Alignment.Left} />
       </TradeDetailsUserInfoLayout>
       <ItemsSeparator />
       <TradeDetailsUserInfoLayout>
         <UserDetailsSkeleton />
-        <CardsSkeleton alignment={ALIGNMENT_LEFT} />
+        <CardsSkeleton alignment={Alignment.Left} />
       </TradeDetailsUserInfoLayout>
     </TradeDetailsInfoLayout>
   </TradeDetailsLayout>

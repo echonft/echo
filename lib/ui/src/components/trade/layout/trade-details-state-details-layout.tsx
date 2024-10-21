@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const TradeDetailsStateDetailsLayout: FunctionComponent<PropsWithChildren<Props>> = ({
-  alignment = ALIGNMENT_RIGHT,
+  alignment = Alignment.Right,
   children
 }) => {
   return (

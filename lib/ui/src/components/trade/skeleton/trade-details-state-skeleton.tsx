@@ -1,14 +1,14 @@
 import { TradeDetailsStateDetailsLayout } from '@echo/ui/components/trade/layout/trade-details-state-details-layout'
 import { TradeDetailsStateLayout } from '@echo/ui/components/trade/layout/trade-details-state-layout'
 import { TradeDetailsStateSeparator } from '@echo/ui/components/trade/trade-details-state-separator'
-import { ALIGNMENT_LEFT, ALIGNMENT_RIGHT } from '@echo/ui/constants/alignments'
+import { Alignment } from '@echo/ui/constants/alignments'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 export const TradeDetailsStateSkeleton: FunctionComponent = () => {
   return (
     <TradeDetailsStateLayout>
-      <TradeDetailsStateDetailsLayout alignment={ALIGNMENT_RIGHT}>
+      <TradeDetailsStateDetailsLayout alignment={Alignment.Right}>
         <div className={clsx('flex', 'flex-col', 'gap-1', 'items-center')}>
           <div className={clsx('loading-div')}>
             <h2
@@ -30,8 +30,8 @@ export const TradeDetailsStateSkeleton: FunctionComponent = () => {
           </div>
         </div>
       </TradeDetailsStateDetailsLayout>
-      <TradeDetailsStateSeparator readOnly={false} />
-      <TradeDetailsStateDetailsLayout alignment={ALIGNMENT_LEFT}>
+      <TradeDetailsStateSeparator locked={false} />
+      <TradeDetailsStateDetailsLayout alignment={Alignment.Left}>
         <div className={clsx('loading-div')}>
           <h1 className={clsx('text-center', 'prose-header-lg-semi', 'invisible')}>{'Pending'}</h1>
         </div>

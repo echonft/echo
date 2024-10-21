@@ -1,6 +1,6 @@
 'use client'
-import { OFFER_ROLE_RECEIVER, OFFER_ROLE_SENDER } from '@echo/model/constants/offer-role'
-import { OFFER_STATE_EXPIRED } from '@echo/model/constants/offer-states'
+import { OfferRole } from '@echo/model/constants/offer-role'
+import { OfferState } from '@echo/model/constants/offer-state'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { NftCards } from '@echo/ui/components/nft/card/nft-cards'
 import { OfferDetailsButtons } from '@echo/ui/components/offer/details/action/offer-details-buttons'
@@ -10,7 +10,7 @@ import { TradeDetailsLayout } from '@echo/ui/components/trade/layout/trade-detai
 import { TradeDetailsUserInfoLayout } from '@echo/ui/components/trade/layout/trade-details-user-info-layout'
 import { TradeDetailsState } from '@echo/ui/components/trade/trade-details-state'
 import { UserDetails } from '@echo/ui/components/user/details/user-details'
-import { ALIGNMENT_LEFT } from '@echo/ui/constants/alignments'
+import { Alignment } from '@echo/ui/constants/alignments'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { FunctionComponent } from 'react'
 
@@ -20,7 +20,7 @@ interface Props {
 }
 
 export const OfferDetails: FunctionComponent<Props> = ({ offer, onUpdate }) => {
-  const { sender, receiver, senderItems, receiverItems, state, readOnly, expiresAt } = offer
+  const { sender, receiver, senderItems, receiverItems, state, locked, expiresAt } = offer
   const { discord } = receiver
   const { avatarUrl } = discord
   return (
@@ -28,19 +28,19 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, onUpdate }) => {
       <TradeDetailsState
         isOffer={true}
         state={state}
-        expired={state === OFFER_STATE_EXPIRED}
+        expired={state === OfferState.Expired}
         expiresAt={expiresAt}
-        readOnly={readOnly}
+        locked={locked}
       />
       <TradeDetailsInfoLayout>
         <TradeDetailsUserInfoLayout>
-          <UserDetails user={sender} isAuthUser={offer.role === OFFER_ROLE_SENDER} />
-          <NftCards nfts={senderItems} alignment={ALIGNMENT_LEFT} />
+          <UserDetails user={sender} isAuthUser={offer.role === OfferRole.Sender} />
+          <NftCards nfts={senderItems} alignment={Alignment.Left} />
         </TradeDetailsUserInfoLayout>
         <ItemsSeparator />
         <TradeDetailsUserInfoLayout>
-          <UserDetails user={receiver} isAuthUser={offer.role === OFFER_ROLE_RECEIVER} />
-          <NftCards nfts={receiverItems} alignment={ALIGNMENT_LEFT} />
+          <UserDetails user={receiver} isAuthUser={offer.role === OfferRole.Receiver} />
+          <NftCards nfts={receiverItems} alignment={Alignment.Left} />
         </TradeDetailsUserInfoLayout>
       </TradeDetailsInfoLayout>
       <OfferDetailsItemsButtonsLayout>

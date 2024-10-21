@@ -5,7 +5,7 @@ import { SelectableNftThumbnails } from '@echo/ui/components/nft/selectable-thum
 import { CreateTradeBottomBarButtonLayout } from '@echo/ui/components/trade/layout/create-trade-bottom-bar-button-layout'
 import { CreateTradeBottomBarItemsLayout } from '@echo/ui/components/trade/layout/create-trade-bottom-bar-items-layout'
 import { CreateTradeBottomBarLayout } from '@echo/ui/components/trade/layout/create-trade-bottom-bar-layout'
-import { DIRECTION_LEFT } from '@echo/ui/constants/direction'
+import { Direction } from '@echo/ui/constants/direction'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
@@ -48,7 +48,7 @@ export const CreateTradeBottomBar: FunctionComponent<Props> = ({ loading, items,
           }}
         >
           <span className={clsx('btn-label-primary')}>
-            <SideCaretSvg direction={DIRECTION_LEFT} />
+            <SideCaretSvg direction={Direction.Left} />
           </span>
           <span className={clsx('prose-label-lg', 'btn-label-primary')}>{t('backBtn')}</span>
         </button>

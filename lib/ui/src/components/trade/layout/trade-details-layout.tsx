@@ -1,4 +1,4 @@
-import { PICTURE_SIZE_XXL } from '@echo/ui/constants/picture-size'
+import { PictureSize } from '@echo/ui/constants/picture-size'
 import { addPictureSize } from '@echo/ui/helpers/add-picture-size'
 import { themeExtension } from '@echo/ui/helpers/theme/theme'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const TradeDetailsLayout: FunctionComponent<PropsWithChildren<Props>> = ({ backgroundPictureUrl, children }) => {
-  const url = addPictureSize({ src: backgroundPictureUrl, width: PICTURE_SIZE_XXL })
+  const url = addPictureSize({ src: backgroundPictureUrl, width: PictureSize.XXL })
   const isBackgroundUrlNilOrEmpty = isNilOrEmpty(backgroundPictureUrl)
   function getStyle() {
     if (isBackgroundUrlNilOrEmpty) {

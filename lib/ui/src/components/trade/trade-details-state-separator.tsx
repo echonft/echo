@@ -5,7 +5,7 @@ interface Props {
   locked: boolean
 }
 
-export const OfferDetailsStateSeparator: FunctionComponent<Props> = ({ locked }) => {
+export const TradeDetailsStateSeparator: FunctionComponent<Props> = ({ locked }) => {
   if (locked) {
     return null
   }

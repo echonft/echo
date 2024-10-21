@@ -5,25 +5,25 @@ import { TradeDetailsStateLayout } from '@echo/ui/components/trade/layout/trade-
 import { TradeDetailsStateLabel } from '@echo/ui/components/trade/trade-details-state-label'
 import { TradeDetailsStateSeparator } from '@echo/ui/components/trade/trade-details-state-separator'
 import { TradeStateExpiration } from '@echo/ui/components/trade/trade-state-expiration'
-import { ALIGNMENT_LEFT, ALIGNMENT_RIGHT } from '@echo/ui/constants/alignments'
+import { Alignment } from '@echo/ui/constants/alignments'
 import { type FunctionComponent } from 'react'
 
 interface Props {
   expiresAt: number
   expired: boolean
   isOffer: boolean
-  readOnly: boolean
+  locked: boolean
   state: OfferState | ListingState
 }
 
-export const TradeDetailsState: FunctionComponent<Props> = ({ expiresAt, expired, isOffer, readOnly, state }) => {
+export const TradeDetailsState: FunctionComponent<Props> = ({ expiresAt, expired, isOffer, locked, state }) => {
   if (expired) {
     return (
       <TradeDetailsStateLayout>
-        <TradeStateExpiration expiresAt={expiresAt} readOnly={readOnly} expired={expired} />
+        <TradeStateExpiration expiresAt={expiresAt} locked={locked} expired={expired} />
       </TradeDetailsStateLayout>
     )
-  } else if (readOnly) {
+  } else if (locked) {
     return (
       <TradeDetailsStateLayout>
         <TradeDetailsStateLabel state={state} expired={expired} isOffer={isOffer} />
@@ -32,11 +32,11 @@ export const TradeDetailsState: FunctionComponent<Props> = ({ expiresAt, expired
   }
   return (
     <TradeDetailsStateLayout>
-      <TradeDetailsStateDetailsLayout alignment={ALIGNMENT_RIGHT}>
-        <TradeStateExpiration expiresAt={expiresAt} readOnly={readOnly} expired={expired} />
+      <TradeDetailsStateDetailsLayout alignment={Alignment.Right}>
+        <TradeStateExpiration expiresAt={expiresAt} locked={locked} expired={expired} />
       </TradeDetailsStateDetailsLayout>
-      <TradeDetailsStateSeparator readOnly={readOnly} />
-      <TradeDetailsStateDetailsLayout alignment={ALIGNMENT_LEFT}>
+      <TradeDetailsStateSeparator locked={locked} />
+      <TradeDetailsStateDetailsLayout alignment={Alignment.Left}>
         <TradeDetailsStateLabel state={state} expired={expired} isOffer={isOffer} />
       </TradeDetailsStateDetailsLayout>
     </TradeDetailsStateLayout>

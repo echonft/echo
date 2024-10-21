@@ -7,7 +7,7 @@ import { TradeDetailsLayout } from '@echo/ui/components/trade/layout/trade-detai
 import { TradeDetailsUserInfoLayout } from '@echo/ui/components/trade/layout/trade-details-user-info-layout'
 import { TradeDetailsStateSkeleton } from '@echo/ui/components/trade/skeleton/trade-details-state-skeleton'
 import { UserDetailsSkeleton } from '@echo/ui/components/user/details/skeleton/user-details-skeleton'
-import { ALIGNMENT_LEFT } from '@echo/ui/constants/alignments'
+import { Alignment } from '@echo/ui/constants/alignments'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
@@ -17,7 +17,7 @@ export const ListingDetailsSkeleton: FunctionComponent = () => (
     <TradeDetailsInfoLayout>
       <TradeDetailsUserInfoLayout>
         <UserDetailsSkeleton />
-        <CardsSkeleton alignment={ALIGNMENT_LEFT} />
+        <CardsSkeleton alignment={Alignment.Left} />
       </TradeDetailsUserInfoLayout>
       <ItemsSeparator />
       {/*FIXME should be a layout, waiting on design */}
