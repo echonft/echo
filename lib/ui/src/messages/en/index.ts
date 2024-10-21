@@ -213,25 +213,30 @@ export const messages = {
       homepageBtn: 'Back to the homepage'
     },
     create: {
+      steps: {
+        1: 'Counter party',
+        2: 'Your Offer',
+        3: 'Review',
+        4: 'Offer Done!'
+      },
       assets: {
         in: 'Requesting',
         out: 'Offering'
       },
+      backBtn: 'Back',
+      nextBtn: 'Next',
+      createBtn: 'Create Offer',
       cancelBtn: 'Cancel',
       cancelBtnMessage: 'Hold to cancel',
-      createBtn: 'Create',
       editBtn: 'Edit',
       reviewBtn: 'Review',
       expiration: {
-        title: 'One <yellow>last step</yellow>\n before you let it\n go!',
-        subtitle: 'Set the expiration date to:',
+        title: 'Set the expiration date to:',
         selector: {
           '1d': '1 day',
           '3d': '3 days',
           '7d': '7 days'
-        },
-        finalizeBtn: 'Finalize Offer',
-        editBtn: 'Edit'
+        }
       },
       modal: {
         approval: {

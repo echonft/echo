@@ -18,12 +18,9 @@ interface Props {
   targetQuantity?: number
   counterpartyItems?: OwnedNft[]
   nextBtnLabel?: string
-  cancelBtnLabel?: string
   nextDisabled?: boolean
-  cancelDisabled?: boolean
   onBack?: () => void
   onNext?: () => void
-  onCancel?: () => void
 }
 
 export const CreateTradeBottomBar: FunctionComponent<Props> = ({

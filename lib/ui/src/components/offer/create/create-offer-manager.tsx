@@ -1,10 +1,10 @@
 'use client'
 import { OfferRole } from '@echo/model/constants/offer-role'
-
 import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import type { Offer } from '@echo/model/types/offer/offer'
 import type { User } from '@echo/model/types/user/user'
-import { CreateOffer } from '@echo/ui/components/offer/create/create-offer'
+import type { UserProfile } from '@echo/model/types/user/user-profile'
+import { CreateOfferFlow } from '@echo/ui/components/offer/create/create-offer-flow'
 import { CreatedOfferSwitch } from '@echo/ui/components/offer/created/created-offer-switch'
 import type { PageLayoutBackgroundPickerProps } from '@echo/ui/types/props/page-layout-background-picker-props'
 import { useRouter } from 'next/navigation'
@@ -13,13 +13,16 @@ import { type FunctionComponent, useState } from 'react'
 
 interface Props extends PageLayoutBackgroundPickerProps {
   receiver: User
-  receiverItems: NonEmptyArray<OwnedNft>
+  receiverNfts: OwnedNft[]
+  receiverNftsSelection: NonEmptyArray<OwnedNft>
+  sender: UserProfile
   senderNfts: OwnedNft[]
 }
 
 export const CreateOfferManager: FunctionComponent<Props> = ({
+  sender,
   receiver,
-  receiverItems,
+  receiverNftsSelection,
   senderNfts,
   onPageBackgroundUpdate
 }) => {
@@ -28,14 +31,17 @@ export const CreateOfferManager: FunctionComponent<Props> = ({
 
   if (isNil(createdOffer)) {
     return (
-      <CreateOffer
+      // FIXME Need to adjust the values here
+      <CreateOfferFlow
         receiver={receiver}
-        receiverItems={receiverItems}
+        receiverNfts={receiverNftsSelection}
+        // FIXME Need to streamline this model
+        sender={{ ...sender, wallet: sender.wallets[0]! }}
         senderNfts={senderNfts}
-        onComplete={setCreatedOffer}
         onCancel={() => {
           router.back()
         }}
+        loading={false}
       />
     )
   }

@@ -1,6 +1,7 @@
 import type { PropsWithAuthUser } from '@echo/auth/types/props-with-auth-user'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
+import { getUserProfile } from '@echo/firestore/crud/user/get-user-profile'
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
@@ -47,7 +48,11 @@ async function render({
   if (isNilOrEmpty(items)) {
     notFound()
   }
-  const receiverNfts = await pipe(
+  const profile = await pipe(getUserProfile, otherwise(pipe(captureAndLogError, always(undefined))))(user)
+  if (isNil(profile)) {
+    notFound()
+  }
+  const receiverNftsSelection = await pipe(
     unless(is(Array), juxt([identity])),
     map(getNftIndexFromSearchParam),
     map(getNftByIndex),
@@ -63,11 +68,17 @@ async function render({
     ),
     otherwise(pipe(captureAndLogError, always([])))
   )(items)
-  if (!isNonEmptyArray(receiverNfts)) {
+  if (!isNonEmptyArray(receiverNftsSelection)) {
     notFound()
   }
-  const receiver = pipe<[OwnedNft[]], OwnedNft, User>(head, prop('owner'))(receiverNfts)
-  const receiverChain = pipe(head, path(['collection', 'contract', 'chain']))(receiverNfts)
+  const receiver = pipe<[OwnedNft[]], OwnedNft, User>(head, prop('owner'))(receiverNftsSelection)
+  const receiverChain = pipe(head, path(['collection', 'contract', 'chain']))(receiverNftsSelection)
+  const receiverNfts = await pipe(
+    prop('username'),
+    getNftsForOwner,
+    andThen(filter(pathSatisfies(equals(receiverChain), ['collection', 'contract', 'chain']))),
+    otherwise(pipe(captureAndLogError, always([])))
+  )(receiver)
   const senderNfts = await pipe(
     prop('username'),
     getNftsForOwner,
@@ -88,7 +99,12 @@ async function render({
 
   return (
     <PageLayoutBackgroundPicker user={user} layout={'padded'}>
-      <CreateOfferManager receiverItems={receiverNfts} receiver={receiver} senderNfts={senderNfts} />
+      <CreateOfferManager
+        receiverItems={receiverNftsSelection}
+        receiver={receiver}
+        senderNfts={senderNfts}
+        sender={profile}
+      />
     </PageLayoutBackgroundPicker>
   )
 }
