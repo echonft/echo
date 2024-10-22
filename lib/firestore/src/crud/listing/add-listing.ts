@@ -1,8 +1,6 @@
-import { addListingOffersFromListing } from '@echo/firestore/crud/listing-offer/add-listing-offers-from-listing'
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import type { ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
-import type { ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import type { Expiration } from '@echo/model/constants/expiration'
 import { ListingState } from '@echo/model/constants/listing-state'
@@ -13,11 +11,7 @@ import { assoc, pipe, toLower, toString } from 'ramda'
 
 export async function addListing(
   args: Pick<Listing, 'creator' | 'items' | 'target'> & Record<'expiration', Expiration>
-): Promise<
-  NewDocument<Listing> & {
-    listingOffers: NewDocument<ListingOfferDocumentData>[]
-  }
-> {
+): Promise<NewDocument<Listing>> {
   // TODO check for duplicates
   const expiresAt = expirationToDateNumber(args.expiration)
   const slug = pipe(nowMs, toString, toLower<string>)()
@@ -31,7 +25,5 @@ export async function addListing(
     collectionReference: getListingsCollectionReference(),
     data
   })
-  // add listing offers (if any)
-  const listingOffers = await addListingOffersFromListing(data)
-  return { id, data, listingOffers }
+  return { id, data }
 }

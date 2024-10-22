@@ -7,7 +7,6 @@ import type { FunctionComponent } from 'react'
 
 export const ListingDetailsModalBody: FunctionComponent<Omit<ListingDetailsModalProps, 'onClose'>> = ({
   listing,
-  offers,
   onUpdate
 }) => {
   if (isNil(listing)) {
@@ -15,7 +14,7 @@ export const ListingDetailsModalBody: FunctionComponent<Omit<ListingDetailsModal
   }
   return (
     <div className={clsx('w-[66vw]', 'h-max', 'max-w-[70rem]', 'p-4', 'px-8')}>
-      <ListingDetails listing={listing} offers={offers} onUpdate={onUpdate} />
+      <ListingDetails listing={listing} onUpdate={onUpdate} />
     </div>
   )
 }

@@ -1,4 +1,3 @@
-import type { SelectionSearchParams } from '@echo/api/types/routing/search-params/selection-search-params'
 import { getCollectionCounts } from '@echo/firestore/crud/collection-with-counts/get-collection-counts'
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { getPendingListingsForCollection } from '@echo/firestore/crud/listing/get-pending-listings-for-collection'

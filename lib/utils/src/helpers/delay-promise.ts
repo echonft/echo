@@ -6,12 +6,9 @@ function delay(milliseconds: number): Promise<void> {
   })
 }
 
-export function delayPromise<TArgs extends unknown[], TResult>(
-  fn: (...args: TArgs) => Promise<TResult>,
-  milliseconds = 2000
-): (...args: TArgs) => Promise<TResult> {
-  return async function (...args: TArgs): Promise<TResult> {
+export function delayPromise<T>(milliseconds = 2000): (promise: Promise<T>) => Promise<T> {
+  return async function (promise: Promise<T>): Promise<T> {
     await delay(milliseconds)
-    return await fn(...args)
+    return await promise
   }
 }

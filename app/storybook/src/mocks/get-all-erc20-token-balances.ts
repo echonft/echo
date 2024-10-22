@@ -10,5 +10,5 @@ import { type NonEmptyArray, pipe, prop } from 'ramda'
 export async function getAllErc20TokenBalances(
   args: GetAllTokensBalanceArgs
 ): Promise<NonEmptyArray<TokenBalance<Erc20Token>>> {
-  return delayPromise(pipe(prop('tokens'), nonEmptyMap(getErc20TokenBalance), nonEmptyPromiseAll), 800)(args)
+  return pipe(prop('tokens'), nonEmptyMap(getErc20TokenBalance), nonEmptyPromiseAll, delayPromise(800))(args)
 }

@@ -1,6 +1,6 @@
 'use client'
-import type { Offer } from '@echo/model/types/offer/offer'
 import { Modal } from '@echo/ui/components/base/modal/modal'
+import type { ListingDetailsProps } from '@echo/ui/components/listing/details/listing-details'
 import { ListingDetailsModalBody } from '@echo/ui/components/listing/details/listing-details-modal-body'
 import { getListingBackground } from '@echo/ui/helpers/listing/get-listing-background'
 import { useBackground } from '@echo/ui/hooks/use-background'
@@ -10,23 +10,17 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
-export interface ListingDetailsModalProps {
+// TODO remove nfts
+export interface ListingDetailsModalProps extends Omit<ListingDetailsProps, 'listing'> {
   listing: Nullable<ListingWithRole>
-  offers: Offer[]
   onClose?: EmptyFunction
-  onUpdate?: (listing: ListingWithRole) => unknown
 }
 
-export const ListingDetailsModal: FunctionComponent<ListingDetailsModalProps> = ({
-  listing,
-  offers,
-  onClose,
-  onUpdate
-}) => {
+export const ListingDetailsModal: FunctionComponent<ListingDetailsModalProps> = ({ listing, onClose, onUpdate }) => {
   const { className } = useBackground(getListingBackground(listing))
   return (
     <Modal open={!isNil(listing)} onClose={onClose} className={className} backButton={{ onBack: onClose }}>
-      <ListingDetailsModalBody listing={listing} offers={offers} onUpdate={onUpdate} />
+      <ListingDetailsModalBody listing={listing} onUpdate={onUpdate} />
     </Modal>
   )
 }

@@ -13,6 +13,7 @@ interface Props {
   direction: SwapDirection
 }
 
+// TODO use the same logic as NftStack to pass the entire NFT set instead and decide here how to display them
 export const NftTradeCards: FunctionComponent<Props> = ({ pictureURL, alt, count, direction }) => {
   return (
     <TradeCardsLayout>

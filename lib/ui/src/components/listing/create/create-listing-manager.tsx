@@ -23,6 +23,7 @@ import type { FunctionComponent } from 'react'
 
 interface Props {
   creatorNfts: OwnedNft[]
+  // TODO replace with items
   items: Nullable<OwnedNft[]>
   target: Nullable<Collection>
 }

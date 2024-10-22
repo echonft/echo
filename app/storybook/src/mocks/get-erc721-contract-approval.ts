@@ -5,5 +5,5 @@ import type { GetErc721ContractApprovalArgs } from '@echo/web3-dom/types/get-erc
 import { pipe, prop } from 'ramda'
 
 export function getErc721ContractApproval(_args: GetErc721ContractApprovalArgs): Promise<boolean> {
-  return delayPromise(pipe(prop('approved'), toPromise), 800)(contractApprovalStore.getState())
+  return pipe(prop('approved'), toPromise, delayPromise(800))(contractApprovalStore.getState())
 }

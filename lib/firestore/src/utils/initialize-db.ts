@@ -7,7 +7,6 @@ export async function initializeDb() {
     CollectionReferenceName.CollectionDiscordGuilds,
     CollectionReferenceName.CollectionSwapsCount,
     CollectionReferenceName.Listings,
-    CollectionReferenceName.ListingOffers,
     CollectionReferenceName.ListingPosts,
     CollectionReferenceName.Nfts,
     CollectionReferenceName.Offers,

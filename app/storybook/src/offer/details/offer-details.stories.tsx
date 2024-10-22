@@ -8,33 +8,43 @@ import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import type { Offer } from '@echo/model/types/offer/offer'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
-import { OfferDetails as Component } from '@echo/ui/components/offer/details/offer-details'
+import { OfferDetails as Component, type OfferDetailsProps } from '@echo/ui/components/offer/details/offer-details'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { assoc, pipe, values } from 'ramda'
+import { append, assoc, pipe, values } from 'ramda'
 import { type FunctionComponent } from 'react'
 
-type Role = 'Sender' | 'Receiver' | 'None'
-type ComponentType = FunctionComponent<{
+interface Props extends Pick<OfferDetailsProps, 'onUpdate'> {
   state: OfferState
-  role: Role
-}>
+  role: OfferRole | 'none'
+}
+
+type ComponentType = FunctionComponent<Props>
+
 const metadata: Meta<ComponentType> = {
   title: 'Offer/Details',
   args: {
     state: OfferState.Open,
-    role: 'Sender'
+    role: OfferRole.Sender
   },
   argTypes: {
     state: {
-      defaultValue: OfferState.Open,
       options: values(OfferState),
       control: { type: 'select' }
     },
     role: {
-      defaultValue: 'Sender',
-      options: ['Sender', 'Receiver', 'None'],
+      options: pipe(values, append('none'))(OfferRole),
       control: { type: 'radio' }
+    },
+    onUpdate: {
+      table: {
+        disable: true
+      }
+    }
+  },
+  parameters: {
+    controls: {
+      exclude: ['onUpdate']
     }
   }
 }
@@ -54,21 +64,21 @@ export const Details: StoryObj<ComponentType> = {
     }
 
     function setRole(offer: Offer): OfferWithRole {
-      if (role === 'Sender') {
-        return assoc<OfferRole, Offer, 'role'>('role', OfferRole.Sender, offer)
+      if (role === OfferRole.Sender) {
+        return assoc('role', OfferRole.Sender, offer)
       }
-      if (role === 'Receiver') {
-        return assoc<OfferRole, Offer, 'role'>('role', OfferRole.Receiver, offer)
+      if (role === OfferRole.Receiver) {
+        return assoc('role', OfferRole.Receiver, offer)
       }
       return assoc('role', undefined, offer)
     }
 
-    const renderedOffer = pipe<[string], Offer, Offer, Offer, OfferWithRole>(
-      getOfferMockById,
+    const offer = pipe(offerMockToJohnnycageId, getOfferMockById)()
+    const renderedOffer = pipe<[Offer], Offer, Offer, OfferWithRole>(
       assoc('state', state),
       setExpirationAndLocked,
       setRole
-    )(offerMockToJohnnycageId())
+    )(offer)
     return <Component offer={renderedOffer} />
   }
 }

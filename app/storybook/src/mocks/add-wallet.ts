@@ -5,20 +5,12 @@ import { errorStore } from '@echo/storybook/mocks/stores/error-store'
 import { toPromise } from '@echo/utils/fp/to-promise'
 import { toRejectedPromise } from '@echo/utils/fp/to-rejected-promise'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
-import { applySpec, juxt, pipe } from 'ramda'
+import { identity, juxt, objOf, pipe } from 'ramda'
 
 export function addWallet(_args: AddWalletRequest): Promise<WalletsResponse> {
   const error = errorStore.getState().addWalletError
   if (error) {
-    return delayPromise(toRejectedPromise, 800)()
+    return pipe(toRejectedPromise, delayPromise(800))()
   }
-  return delayPromise(
-    pipe(
-      applySpec<WalletsResponse>({
-        wallets: juxt([getWalletMock])
-      }),
-      toPromise
-    ),
-    800
-  )()
+  return pipe(getWalletMock, juxt([identity]), objOf('wallets'), toPromise, delayPromise(800))()
 }

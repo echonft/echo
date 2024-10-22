@@ -18,14 +18,13 @@ export const ListingsPanel: FunctionComponent<Props> = ({ listings, selection, s
   const [listing, setListing] = useState<Nullable<ListingWithRole>>(
     isNil(selection) ? undefined : nth(selection, listings)
   )
+  // TODO remove nfts prop
   if (show) {
     return (
       <TabPanel className={clsx('outline-none')}>
         <ListingCards listings={listings} onSelect={setListing} />
-        {/*TODO grab offers*/}
         <ListingDetailsModal
           listing={listing}
-          offers={[]}
           onUpdate={setListing}
           onClose={() => {
             setListing(undefined)

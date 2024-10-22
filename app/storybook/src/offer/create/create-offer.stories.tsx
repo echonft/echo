@@ -2,9 +2,11 @@
 
 import { getNftMocksByUsername } from '@echo/model/mocks/nft/get-nft-mocks-by-username'
 import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
+import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { Username } from '@echo/model/types/username'
 import { CreateOfferFlow as Component } from '@echo/ui/components/offer/create/create-offer-flow'
 import type { Meta, StoryObj } from '@storybook/react'
-import { pipe, take } from 'ramda'
+import { type NonEmptyArray, pipe, take } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/Create',
@@ -13,9 +15,11 @@ const metadata: Meta<typeof Component> = {
     loading: false,
     receiver: getUserMockByUsername(userMockCrewUsername()),
     receiverNfts: getNftMocksByUsername(userMockCrewUsername()),
-    receiverNftsSelection: pipe<OwnedNft[], NonEmptyArray<OwnedNft>>(take(1))(
-      getNftMocksByUsername(userMockCrewUsername())
-    ),
+    receiverNftsSelection: pipe<[], Username, NonEmptyArray<OwnedNft>, NonEmptyArray<OwnedNft>>(
+      userMockCrewUsername,
+      getNftMocksByUsername,
+      take(1) as unknown as (val: NonEmptyArray<OwnedNft>) => NonEmptyArray<OwnedNft>
+    )(),
     sender: getUserMockByUsername(userMockJohnnyUsername()),
     senderNfts: getNftMocksByUsername(userMockJohnnyUsername())
   },

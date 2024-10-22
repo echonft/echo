@@ -1,12 +1,12 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { MessagesType } from '@echo/ui/types/messages'
+import type { messages } from '@echo/ui/messages/en'
 import '@echo/auth/global'
 import '@echo/utils/global'
 
 declare global {
   // get typings on translation keys
-  interface IntlMessages extends MessagesType {}
+  type IntlMessages = typeof messages
 }
 
 export {}

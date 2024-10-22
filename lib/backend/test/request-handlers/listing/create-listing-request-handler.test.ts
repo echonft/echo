@@ -48,7 +48,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
       )
     jest.mocked(getCollection).mockImplementation(pipe(getCollectionMockBySlug, toPromise))
     jest.mocked(getErc1155TokenBalance).mockResolvedValue(200)
-    jest.mocked(addListing).mockResolvedValue({ id: listingMockId(), data: listing, listingOffers: [] })
+    jest.mocked(addListing).mockResolvedValue({ id: listingMockId(), data: listing })
   })
 
   it('throws if the request cannot be parsed', async () => {
@@ -70,7 +70,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
       },
       expiration: Expiration.OneDay
     }
-    jest.mocked(addListing).mockResolvedValue({ id: listingMockId(), data: listing, listingOffers: [] })
+    jest.mocked(addListing).mockResolvedValue({ id: listingMockId(), data: listing })
     const req = mockRequest<CreateListingRequest>(validRequest)
     const res = await createListingRequestHandler({ user, req })
     expect(addListing).toHaveBeenCalledTimes(1)

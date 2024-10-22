@@ -14,6 +14,7 @@ export function searchCollections(query: string): Promise<SearchResult<Slug>[]> 
     getAllCollectionMocks,
     filter(either(propSatisfies(search, 'name'), propSatisfies(search, 'slug'))),
     map(pipe(mapCollectionToSearchResult, toPromise)),
-    delayPromise(promiseAll, 1000)
+    promiseAll,
+    delayPromise(1000)
   )()
 }

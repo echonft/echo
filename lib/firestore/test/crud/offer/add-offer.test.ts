@@ -1,20 +1,13 @@
-import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing-offer-fulfilling-status'
-import { deleteListingOffer } from '@echo/firestore/crud/listing-offer/delete-listing-offer'
-import { getListingOfferSnapshot } from '@echo/firestore/crud/listing-offer/get-listing-offer'
-import { getListingOffersByOfferId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-offer-id'
-import { getListingOffersForOffer } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-offer'
-import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
 import { addOffer } from '@echo/firestore/crud/offer/add-offer'
 import { deleteOffer } from '@echo/firestore/crud/offer/delete-offer'
 import { getAllOffers } from '@echo/firestore/crud/offer/get-all-offers'
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { resetListing } from '@echo/firestore/utils/listing/reset-listing'
 import { Expiration } from '@echo/model/constants/expiration'
-import { ListingState } from '@echo/model/constants/listing-state'
 import { OfferState } from '@echo/model/constants/offer-state'
 import { expirationToDate } from '@echo/model/helpers/expiration-to-date'
 import { erc721NftToItem } from '@echo/model/mappers/nft/erc721-nft-to-item'
-import { listingMockId, listingMockSlug } from '@echo/model/mocks/listing/listing-mock'
+import { listingMockSlug } from '@echo/model/mocks/listing/listing-mock'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockPxCrewId, nftMockSpiralJohnny2Id, nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import { getAllOfferMocks } from '@echo/model/mocks/offer/get-all-offer-mocks'
@@ -30,22 +23,17 @@ import { eqList } from '@echo/utils/fp/eq-list'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
-import { head, isNil, type NonEmptyArray, pick, pipe, prop } from 'ramda'
+import { isNil, type NonEmptyArray, pick, pipe, prop } from 'ramda'
 
 describe('CRUD - offer - addOffer', () => {
   let createdOfferId: Nullable<string>
-  let createdListingOfferId: Nullable<string>
   beforeEach(() => {
     createdOfferId = undefined
-    createdListingOfferId = undefined
   })
   afterEach(async () => {
     if (!isNil(createdOfferId)) {
       await deleteOffer(createdOfferId)
       await resetListing(listingMockSlug())
-    }
-    if (!isNil(createdListingOfferId)) {
-      await deleteListingOffer(createdListingOfferId)
     }
   })
 
@@ -61,9 +49,7 @@ describe('CRUD - offer - addOffer', () => {
   })
 
   it('add an offer', async () => {
-    const listingId = listingMockId()
     const expiresAt = expirationToDate(Expiration.OneDay)
-
     const senderItems: NonEmptyArray<Item> = [
       pipe(nftMockPxCrewId, getNftMockById, castTo<Erc721Nft>, erc721NftToItem)()
     ]
@@ -78,7 +64,7 @@ describe('CRUD - offer - addOffer', () => {
       sender: pipe(nftMockPxCrewId, getNftMockById, prop('owner'))(),
       senderItems
     }
-    const createdOffer = await addOffer({ ...baseOffer, idContract: '0xtest' })
+    const createdOffer = await addOffer({ ...baseOffer, idContract: '0xaddoffertest' })
     createdOfferId = createdOffer.id
     const newOffer: Offer = (await getOfferById(createdOfferId))!
     expect(newOffer.receiver).toStrictEqual(getUserMockByUsername(userMockJohnnyUsername()))
@@ -89,18 +75,5 @@ describe('CRUD - offer - addOffer', () => {
     expect(newOffer.idContract).toBe('0xtest')
     expect(dayjs.unix(newOffer.expiresAt).isAfter(expiresAt.subtract(1, 'minute'))).toBeTruthy()
     expect(dayjs.unix(newOffer.expiresAt).isBefore(expiresAt.add(1, 'minute'))).toBeTruthy()
-    // check if offer has been added to tied listings
-    const listingOffers = await getListingOffersForOffer(newOffer)
-    expect(listingOffers.length).toBe(1)
-    const foundListingOffers = await getListingOffersByOfferId(createdOfferId)
-    expect(foundListingOffers.length).toBe(1)
-    const createdListingOffer = head(foundListingOffers)!
-    createdListingOfferId = (await getListingOfferSnapshot({ listingId, offerId: createdOfferId }))!.id
-    expect(createdListingOffer.offerId).toEqual(createdOfferId)
-    expect(createdListingOffer.listingId).toEqual(listingId)
-    expect(createdListingOffer.fulfillingStatus).toEqual(ListingOfferFulfillingStatus.Partially)
-    // check if the listing state was updated
-    const newListingState = (await getListingById(listingId))!.state
-    expect(newListingState).toEqual(ListingState.OffersPending)
   })
 })

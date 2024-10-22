@@ -55,7 +55,7 @@ export function listingDocumentDataMock(): Record<string, ListingDocumentData> {
       itemIndexes: [`${collectionMockSpiralSlug()}.1`, `${collectionMockSpiralSlug()}.2`],
       locked: false,
       slug: listingMockSlug(),
-      state: ListingState.OffersPending,
+      state: ListingState.Open,
       target: {
         collection: getCollectionMockById(collectionMockPxId()),
         quantity: 3

@@ -6,5 +6,5 @@ import { ListingState } from '@echo/model/constants/listing-state'
  * @param toState
  */
 export function shouldLockListing(toState: ListingState): boolean {
-  return toState !== ListingState.OffersPending && toState !== ListingState.Open
+  return toState !== ListingState.Open
 }

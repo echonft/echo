@@ -1,8 +1,6 @@
-import { addListingOffersFromOffer } from '@echo/firestore/crud/listing-offer/add-listing-offers-from-offer'
 import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import type { ListingOfferDocumentData } from '@echo/firestore/types/model/listing-offer-document-data'
 import type { OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
@@ -12,11 +10,7 @@ import { type Offer } from '@echo/model/types/offer/offer'
 import { nowMs } from '@echo/utils/helpers/now-ms'
 import { assoc, isNil, pipe, toLower, toString } from 'ramda'
 
-export async function addOffer(args: BaseOffer & Pick<Offer, 'idContract'>): Promise<
-  NewDocument<Offer> & {
-    listingOffers: NewDocument<ListingOfferDocumentData>[]
-  }
-> {
+export async function addOffer(args: BaseOffer & Pick<Offer, 'idContract'>): Promise<NewDocument<Offer>> {
   const duplicate = await getOfferByIdContract(args.idContract)
   if (!isNil(duplicate)) {
     return Promise.reject(Error(OfferError.Duplicate))
@@ -27,7 +21,5 @@ export async function addOffer(args: BaseOffer & Pick<Offer, 'idContract'>): Pro
     collectionReference: getOffersCollectionReference(),
     data
   })
-  // add listing offers (if any)
-  const listingOffers = await addListingOffersFromOffer(data)
-  return { id, data, listingOffers }
+  return { id, data }
 }

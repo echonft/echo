@@ -40,6 +40,7 @@ import {
   unless
 } from 'ramda'
 
+// TODO create a layout and split this between steps
 async function render({
   searchParams: { items, target },
   user
@@ -57,6 +58,7 @@ async function render({
     map(getNftIndexFromSearchParam),
     map(getNftByIndex),
     promiseAll,
+    // TODO use a validator schema instead
     andThen<Nullable<Nft>[], OwnedNft[]>(
       pipe<[Nullable<Nft>[]], Nft[], OwnedNft[], OwnedNft[][], OwnedNft[]>(
         reject(isNil),
@@ -100,7 +102,8 @@ async function render({
   return (
     <PageLayoutBackgroundPicker user={user} layout={'padded'}>
       <CreateOfferManager
-        receiverItems={receiverNftsSelection}
+        receiverNfts={receiverNfts}
+        receiverNftsSelection={receiverNftsSelection}
         receiver={receiver}
         senderNfts={senderNfts}
         sender={profile}

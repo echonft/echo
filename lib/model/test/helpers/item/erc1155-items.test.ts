@@ -1,6 +1,6 @@
 import { TokenType } from '@echo/model/constants/token-type'
 import { erc1155Items } from '@echo/model/helpers/item/erc1155-items'
-import { nftCollection } from '@echo/model/mappers/nft/nft-collection'
+import { toNftCollection } from '@echo/model/mappers/collection/to-nft-collection'
 import { collectionMockSpiralId } from '@echo/model/mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model/mocks/collection/get-collection-mock-by-id'
 import { getUserMockByUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
@@ -26,7 +26,7 @@ describe('helpers - item - erc1155Items', () => {
       { value: '#complement', trait: 'Background' }
     ],
     animationUrl: 'https://animation.url/',
-    collection: pipe(collectionMockSpiralId, getCollectionMockById, nftCollection)(),
+    collection: pipe(collectionMockSpiralId, getCollectionMockById, toNftCollection)(),
     tokenIdLabel: '#0001',
     name: 'Spiral Frequencies #1',
     owner: pipe(userMockJohnnyUsername, getUserMockByUsername)(),
@@ -60,7 +60,7 @@ describe('helpers - item - erc1155Items', () => {
       { value: '#complement', trait: 'Background' }
     ],
     animationUrl: 'https://animation.url/',
-    collection: pipe(collectionMockSpiralId, getCollectionMockById, nftCollection)(),
+    collection: pipe(collectionMockSpiralId, getCollectionMockById, toNftCollection)(),
     tokenIdLabel: '#0001',
     name: 'Spiral Frequencies #1',
     owner: pipe(userMockJohnnyUsername, getUserMockByUsername)(),

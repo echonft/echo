@@ -5,12 +5,12 @@ import type { SearchParams } from '@echo/routing/types/search-params/search-para
 import { filter, flatten, map, pipe, propEq, values } from 'ramda'
 
 export function isPathSecure(path: string) {
-  const securePaths = pipe(
-    values,
-    map(values),
-    flatten,
-    filter(propEq(true, 'secure'))
-  )(pathProvider) as unknown as AbstractPath<QueryParams, SearchParams>[]
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const securePaths = pipe(values, map(values), flatten, filter(propEq(true, 'secure')))(pathProvider) as AbstractPath<
+    QueryParams,
+    SearchParams
+  >[]
   for (const securePath of securePaths) {
     if (securePath.test(path)) {
       return true

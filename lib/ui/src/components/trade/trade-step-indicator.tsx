@@ -3,13 +3,13 @@ import { useTranslations } from 'next-intl'
 import { map, range } from 'ramda'
 import type { FunctionComponent } from 'react'
 
-export interface LoginStepIndicatorProps {
+export interface TradeStepIndicatorProps {
   step: number
   totalSteps: number
   subtitles: string[]
 }
 
-export const TradeStepIndicator: FunctionComponent<LoginStepIndicatorProps> = ({ step, totalSteps, subtitles }) => {
+export const TradeStepIndicator: FunctionComponent<TradeStepIndicatorProps> = ({ step, totalSteps, subtitles }) => {
   const t = useTranslations('trade')
   return (
     <div className={clsx('flex', 'flex-row')}>

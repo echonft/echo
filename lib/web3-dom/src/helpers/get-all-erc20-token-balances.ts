@@ -14,7 +14,7 @@ export interface GetAllTokensBalanceArgs {
   tokens: NonEmptyArray<Erc20Token>
 }
 
-export async function getAllErc20TokenBalances(
+export function getAllErc20TokenBalances(
   args: GetAllTokensBalanceArgs
 ): Promise<NonEmptyArray<TokenBalance<Erc20Token>>> {
   const { wallet, tokens } = args

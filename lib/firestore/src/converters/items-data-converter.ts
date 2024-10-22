@@ -29,7 +29,6 @@ export const itemsDataConverter = {
       }
       return erc1155ItemDataConverter.fromFirestore(item) as T extends Erc721ItemDocumentData ? Erc721Item : Erc1155Item
     }
-
     return nonEmptyMap(mapItem, documentData)
   },
   toFirestore(modelObject: WithFieldValue<Items> | FieldValue): ItemsDocumentData {

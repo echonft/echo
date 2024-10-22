@@ -10,10 +10,6 @@ export function getListingBackground(listing: Nullable<Listing>) {
   }
   switch (listing.state) {
     case ListingState.Open:
-    case ListingState.OffersPending:
-      return Background.YellowGradient
-    case ListingState.PartiallyFulfilled:
-    case ListingState.Fulfilled:
       return Background.GreenGradient
     case ListingState.Cancelled:
     case ListingState.Expired:

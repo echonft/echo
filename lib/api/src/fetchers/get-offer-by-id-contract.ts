@@ -21,9 +21,10 @@ async function fetchOffer(args: FetchOfferArgs): Promise<OfferResponse> {
     if (args.retries === 10 || axiosError.response?.status !== 404) {
       return Promise.reject(axiosError)
     }
-    return await delayPromise(
-      pipe<[FetchOfferArgs], FetchOfferArgs, Promise<OfferResponse>>(modify('retries', inc), fetchOffer),
-      2000
+    return await pipe<[FetchOfferArgs], FetchOfferArgs, Promise<OfferResponse>, Promise<OfferResponse>>(
+      modify('retries', inc),
+      fetchOffer,
+      delayPromise(2000)
     )(args)
   }
 }

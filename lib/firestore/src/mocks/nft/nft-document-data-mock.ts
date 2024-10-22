@@ -1,6 +1,6 @@
 import type { NftDocumentData } from '@echo/firestore/types/model/nft-document-data'
 import { TokenType } from '@echo/model/constants/token-type'
-import { nftCollection } from '@echo/model/mappers/nft/nft-collection'
+import { toNftCollection } from '@echo/model/mappers/collection/to-nft-collection'
 import { collectionMockPxId, collectionMockSpiralId } from '@echo/model/mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model/mocks/collection/get-collection-mock-by-id'
 import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
@@ -20,7 +20,7 @@ export function nftDocumentDataMock(): Record<string, NftDocumentData> {
         { value: '#complement', trait: 'Background' }
       ],
       animationUrl: 'https://animation.url/',
-      collection: pipe(collectionMockSpiralId, getCollectionMockById, nftCollection)(),
+      collection: pipe(collectionMockSpiralId, getCollectionMockById, toNftCollection)(),
       name: 'Spiral Frequencies #1',
       owner: getUserMockByUsername(userMockJohnnyUsername()),
       metadataUrl: 'https://metadata.url/',
@@ -64,7 +64,7 @@ export function nftDocumentDataMock(): Record<string, NftDocumentData> {
         }
       ],
       animationUrl: 'https://animation.url/',
-      collection: pipe(collectionMockSpiralId, getCollectionMockById, nftCollection)(),
+      collection: pipe(collectionMockSpiralId, getCollectionMockById, toNftCollection)(),
       name: 'Spiral Frequencies #2',
       owner: getUserMockByUsername(userMockJohnnyUsername()),
       metadataUrl: 'https://metadata.url/',
@@ -108,7 +108,7 @@ export function nftDocumentDataMock(): Record<string, NftDocumentData> {
         }
       ],
       animationUrl: 'https://animation.url/',
-      collection: pipe(collectionMockSpiralId, getCollectionMockById, nftCollection)(),
+      collection: pipe(collectionMockSpiralId, getCollectionMockById, toNftCollection)(),
       name: 'Spiral Frequencies #3',
       owner: getUserMockByUsername(userMockCrewUsername()),
       metadataUrl: 'https://metadata.url/',
@@ -167,7 +167,7 @@ export function nftDocumentDataMock(): Record<string, NftDocumentData> {
           trait: 'Halo'
         }
       ],
-      collection: pipe(collectionMockPxId, getCollectionMockById, nftCollection)(),
+      collection: pipe(collectionMockPxId, getCollectionMockById, toNftCollection)(),
       name: 'Creative Demigod #1',
       owner: getUserMockByUsername(userMockJohnnyUsername()),
       animationUrl: 'https://animation.url/',
@@ -215,7 +215,7 @@ export function nftDocumentDataMock(): Record<string, NftDocumentData> {
           trait: 'Tattoo'
         }
       ],
-      collection: pipe(collectionMockPxId, getCollectionMockById, nftCollection)(),
+      collection: pipe(collectionMockPxId, getCollectionMockById, toNftCollection)(),
       name: 'Water Elemental #2',
       owner: getUserMockByUsername(userMockJohnnyUsername()),
       animationUrl: 'https://animation.url/',
@@ -267,7 +267,7 @@ export function nftDocumentDataMock(): Record<string, NftDocumentData> {
           trait: 'Beard'
         }
       ],
-      collection: pipe(collectionMockPxId, getCollectionMockById, nftCollection)(),
+      collection: pipe(collectionMockPxId, getCollectionMockById, toNftCollection)(),
       name: 'Creative Demigod #3',
       owner: getUserMockByUsername(userMockCrewUsername()),
       animationUrl: 'https://animation.url/',

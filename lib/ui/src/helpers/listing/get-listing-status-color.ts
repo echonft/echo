@@ -6,10 +6,6 @@ import type { CardStatusColor } from '@echo/ui/types/card-status-color'
 export const getListingStatusColor = (listing: Listing): CardStatusColor => {
   switch (listing.state) {
     case ListingState.Open:
-    case ListingState.OffersPending:
-    case ListingState.PartiallyFulfilled:
-      return Color.Yellow
-    case ListingState.Fulfilled:
       return Color.Green
     case ListingState.Cancelled:
     case ListingState.Expired:

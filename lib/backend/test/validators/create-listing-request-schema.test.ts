@@ -12,7 +12,7 @@ import { ListingError } from '@echo/model/constants/errors/listing-error'
 import { NftError } from '@echo/model/constants/errors/nft-error'
 import { Expiration } from '@echo/model/constants/expiration'
 import { TokenType } from '@echo/model/constants/token-type'
-import { nftCollection } from '@echo/model/mappers/nft/nft-collection'
+import { toNftCollection } from '@echo/model/mappers/collection/to-nft-collection'
 import {
   collectionMockPxContract,
   collectionMockPxSlug,
@@ -58,7 +58,7 @@ describe('validators - createListingRequestSchema', () => {
       { value: '#complement', trait: 'Background' }
     ],
     animationUrl: 'https://animation.url/',
-    collection: pipe(collectionMockSpiralId, getCollectionMockById, nftCollection)(),
+    collection: pipe(collectionMockSpiralId, getCollectionMockById, toNftCollection)(),
     tokenIdLabel: '#0001',
     name: 'Spiral Frequencies #1',
     owner: getUserMockByUsername(creatorUsername),
@@ -103,7 +103,7 @@ describe('validators - createListingRequestSchema', () => {
       }
     ],
     animationUrl: 'https://animation.url/',
-    collection: pipe(collectionMockSpiralId, getCollectionMockById, nftCollection)(),
+    collection: pipe(collectionMockSpiralId, getCollectionMockById, toNftCollection)(),
     tokenIdLabel: '#0002',
     name: 'Spiral Frequencies #2',
     owner: getUserMockByUsername(creatorUsername),

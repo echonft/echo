@@ -14,6 +14,7 @@ export function searchUsers(query: string): Promise<SearchResult<Username>[]> {
     getAllUserDocumentDataMocks,
     filter(pathSatisfies(search, ['discord', 'username'])),
     map(pipe(mapUserToSearchResult, toPromise)),
-    delayPromise(promiseAll, 1000)
+    promiseAll,
+    delayPromise(1000)
   )()
 }

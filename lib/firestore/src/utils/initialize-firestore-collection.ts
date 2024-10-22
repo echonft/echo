@@ -1,7 +1,6 @@
 import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
 import { collectionDiscordGuildMock } from '@echo/firestore/mocks/collection-discord-guild/collection-discord-guild-mock'
 import { collectionSwapsCountMock } from '@echo/firestore/mocks/collection-swaps-count/collection-swaps-count-mock'
-import { listingOfferMock } from '@echo/firestore/mocks/listing-offer/listing-offer-mock'
 import { listingPostMock } from '@echo/firestore/mocks/listing-post/listing-post-mock'
 import { listingDocumentDataMock } from '@echo/firestore/mocks/listing/listing-document-data-mock'
 import { nftDocumentDataMock } from '@echo/firestore/mocks/nft/nft-document-data-mock'
@@ -28,8 +27,6 @@ function getMock(collectionReferenceName: CollectionReferenceName) {
       return collectionSwapsCountMock() as Record<string, DocumentData>
     case CollectionReferenceName.Listings:
       return listingDocumentDataMock() as Record<string, DocumentData>
-    case CollectionReferenceName.ListingOffers:
-      return listingOfferMock() as Record<string, DocumentData>
     case CollectionReferenceName.ListingPosts:
       return listingPostMock() as Record<string, DocumentData>
     case CollectionReferenceName.Nfts:
@@ -62,7 +59,7 @@ export async function initializeFirestoreCollection(collectionReferenceName: Col
           firestoreApp().collection(collectionReferenceName).doc(id).set(mock)
         ),
         values,
-        promiseAll
+        promiseAll<WriteResult>
       )
     )
   )(collectionReferenceName)

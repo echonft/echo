@@ -61,7 +61,7 @@ export function listingMock(): Record<string, Listing> {
       ],
       locked: false,
       slug: listingMockSlug(),
-      state: ListingState.OffersPending,
+      state: ListingState.Open,
       target: {
         collection: getCollectionMockById(collectionMockPxId()),
         quantity: 3

@@ -29,9 +29,10 @@ async function tryFetch(args: TryFetchArgs): Promise<Response> {
     if (response.status === 429) {
       logger?.warn(`request throttled by Opensea. Retrying in ${waitTime / 1000} seconds....`)
       // Opensea throttled the request, wait 1 minute and retry
-      return await delayPromise(
-        pipe<[TryFetchArgs], TryFetchArgs, Promise<Response>>(modify('retries', inc), tryFetch),
-        waitTime
+      return await pipe<[TryFetchArgs], TryFetchArgs, Promise<Response>, Promise<Response>>(
+        modify('retries', inc),
+        tryFetch,
+        delayPromise(waitTime)
       )(args)
     } else {
       logger?.error({ response: pick(['status'], response) }, 'error fetching request')

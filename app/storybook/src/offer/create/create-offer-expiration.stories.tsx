@@ -1,19 +1,17 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { getNftMocksByUsername } from '@echo/model/mocks/nft/get-nft-mocks-by-username'
-import { userMockCrewUsername } from '@echo/model/mocks/user/user-mock'
-
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { CreateOfferExpiration as Component } from '@echo/ui/components/offer/create/create-offer-expiration'
 import type { Meta, StoryObj } from '@storybook/react'
-import type { NonEmptyArray } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/Create',
   component: Component,
   args: {
     loading: false,
-    receiverItems: getNftMocksByUsername(userMockCrewUsername()) as NonEmptyArray<OwnedNft>
+    receiverItems: getNftMocksByUsername(userMockCrewUsername()),
+    senderItems: getNftMocksByUsername(userMockJohnnyUsername())
   },
   argTypes: {
     onCancel: {
@@ -29,7 +27,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['receiverItems']
+      exclude: ['receiverItems', 'senderItems', 'onCancel', 'onComplete', 'loading']
     }
   }
 }

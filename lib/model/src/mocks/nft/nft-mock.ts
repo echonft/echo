@@ -1,5 +1,5 @@
 import { TokenType } from '@echo/model/constants/token-type'
-import { nftCollection } from '@echo/model/mappers/nft/nft-collection'
+import { toNftCollection } from '@echo/model/mappers/collection/to-nft-collection'
 import { collectionMockPxId, collectionMockSpiralId } from '@echo/model/mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model/mocks/collection/get-collection-mock-by-id'
 import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
@@ -41,7 +41,7 @@ export function nftMock(): Record<string, OwnedNft> {
         { value: '#complement', trait: 'Background' }
       ],
       animationUrl: 'https://animation.url/',
-      collection: pipe(collectionMockSpiralId, getCollectionMockById, nftCollection)(),
+      collection: pipe(collectionMockSpiralId, getCollectionMockById, toNftCollection)(),
       tokenIdLabel: '#0001',
       name: 'Spiral Frequencies #1',
       owner: getUserMockByUsername(userMockJohnnyUsername()),
@@ -86,7 +86,7 @@ export function nftMock(): Record<string, OwnedNft> {
         }
       ],
       animationUrl: 'https://animation.url/',
-      collection: pipe(collectionMockSpiralId, getCollectionMockById, nftCollection)(),
+      collection: pipe(collectionMockSpiralId, getCollectionMockById, toNftCollection)(),
       tokenIdLabel: '#0002',
       name: 'Spiral Frequencies #2',
       owner: getUserMockByUsername(userMockJohnnyUsername()),
@@ -131,7 +131,7 @@ export function nftMock(): Record<string, OwnedNft> {
         }
       ],
       animationUrl: 'https://animation.url/',
-      collection: pipe(collectionMockSpiralId, getCollectionMockById, nftCollection)(),
+      collection: pipe(collectionMockSpiralId, getCollectionMockById, toNftCollection)(),
       tokenIdLabel: '#0003',
       name: 'Spiral Frequencies #3',
       owner: getUserMockByUsername(userMockCrewUsername()),
@@ -191,7 +191,7 @@ export function nftMock(): Record<string, OwnedNft> {
           trait: 'Halo'
         }
       ],
-      collection: pipe(collectionMockPxId, getCollectionMockById, nftCollection)(),
+      collection: pipe(collectionMockPxId, getCollectionMockById, toNftCollection)(),
       tokenIdLabel: '#0001',
       name: 'Creative Demigod #1',
       owner: getUserMockByUsername(userMockJohnnyUsername()),
@@ -240,7 +240,7 @@ export function nftMock(): Record<string, OwnedNft> {
           trait: 'Tattoo'
         }
       ],
-      collection: pipe(collectionMockPxId, getCollectionMockById, nftCollection)(),
+      collection: pipe(collectionMockPxId, getCollectionMockById, toNftCollection)(),
       tokenIdLabel: '#0002',
       name: 'Water Elemental #2',
       owner: getUserMockByUsername(userMockJohnnyUsername()),
@@ -293,7 +293,7 @@ export function nftMock(): Record<string, OwnedNft> {
           trait: 'Beard'
         }
       ],
-      collection: pipe(collectionMockPxId, getCollectionMockById, nftCollection)(),
+      collection: pipe(collectionMockPxId, getCollectionMockById, toNftCollection)(),
       tokenIdLabel: '#0003',
       name: 'Creative Demigod #3',
       owner: getUserMockByUsername(userMockCrewUsername()),

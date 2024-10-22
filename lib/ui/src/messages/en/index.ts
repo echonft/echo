@@ -154,7 +154,7 @@ export const messages = {
       expiration: {
         title: 'One <yellow>last step</yellow>\n before we create the listing!',
         subtitle: 'Set the expiration date to:',
-        finalizeBtn: 'Finalize Listing',
+        finalizeBtn: 'Finalize',
         editBtn: 'Edit'
       }
     },
@@ -180,10 +180,7 @@ export const messages = {
     state: {
       CANCELLED: 'Cancelled',
       EXPIRED: 'Expired',
-      FULFILLED: 'Fulfilled',
-      OFFERS_PENDING: 'Offers pending',
-      OPEN: 'Awaiting offers',
-      PARTIALLY_FULFILLED: 'Partially fulfilled'
+      OPEN: 'Active'
     }
   },
   nft: {
@@ -214,10 +211,10 @@ export const messages = {
     },
     create: {
       steps: {
-        1: 'Counter party',
-        2: 'Your Offer',
-        3: 'Review',
-        4: 'Offer Done!'
+        counterparty: 'Counter party',
+        offer: 'Your Offer',
+        review: 'Review',
+        done: 'Offer Done!'
       },
       assets: {
         in: 'Requesting',
@@ -231,12 +228,15 @@ export const messages = {
       editBtn: 'Edit',
       reviewBtn: 'Review',
       expiration: {
-        title: 'Set the expiration date to:',
+        title: 'One <yellow>last step</yellow>\n before we create the offer!',
         selector: {
           '1d': '1 day',
           '3d': '3 days',
           '7d': '7 days'
-        }
+        },
+        subtitle: 'Set the expiration date to:',
+        finalizeBtn: 'Finalize',
+        editBtn: 'Edit'
       },
       modal: {
         approval: {
@@ -383,7 +383,6 @@ Don't worry, its safe with us.`
     },
     emptyResults: 'No results'
   },
-
   trade: {
     details: {
       expiredAt: 'Expired',

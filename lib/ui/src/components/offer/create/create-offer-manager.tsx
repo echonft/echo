@@ -8,35 +8,43 @@ import { CreateOfferFlow } from '@echo/ui/components/offer/create/create-offer-f
 import { CreatedOfferSwitch } from '@echo/ui/components/offer/created/created-offer-switch'
 import type { PageLayoutBackgroundPickerProps } from '@echo/ui/types/props/page-layout-background-picker-props'
 import { useRouter } from 'next/navigation'
-import { assoc, isNil, type NonEmptyArray } from 'ramda'
+import { assoc, dissoc, isNil, type NonEmptyArray, pipe } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props extends PageLayoutBackgroundPickerProps {
   receiver: User
+  // TODO replace with items
   receiverNfts: OwnedNft[]
   receiverNftsSelection: NonEmptyArray<OwnedNft>
+  // TODO set this to Omit<User, 'wallet'> and get the connected wallet
   sender: UserProfile
+  // TODO replace with items
   senderNfts: OwnedNft[]
 }
 
 export const CreateOfferManager: FunctionComponent<Props> = ({
   sender,
   receiver,
+  receiverNfts,
   receiverNftsSelection,
   senderNfts,
   onPageBackgroundUpdate
 }) => {
   const router = useRouter()
-  const [createdOffer, setCreatedOffer] = useState<Offer>()
-
+  const [createdOffer] = useState<Offer>()
+  // TODO
+  // const [createdOffer, setCreatedOffer] = useState<Offer>()
+  // TODO get the connected wallet from the hook
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const wallet = sender.wallets[0]!
   if (isNil(createdOffer)) {
     return (
       // FIXME Need to adjust the values here
       <CreateOfferFlow
         receiver={receiver}
-        receiverNfts={receiverNftsSelection}
-        // FIXME Need to streamline this model
-        sender={{ ...sender, wallet: sender.wallets[0]! }}
+        receiverNfts={receiverNfts}
+        receiverNftsSelection={receiverNftsSelection}
+        sender={pipe(dissoc('wallets'), assoc('wallet', wallet))(sender)}
         senderNfts={senderNfts}
         onCancel={() => {
           router.back()

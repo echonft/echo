@@ -6,7 +6,6 @@ import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { getNftMocksByUsername } from '@echo/model/mocks/nft/get-nft-mocks-by-username'
 import { nftMockPxJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import { userMockCrewUsername } from '@echo/model/mocks/user/user-mock'
-import type { OwnedNft } from '@echo/model/types/nft'
 import { CreateTradeBottomBar as Component } from '@echo/ui/components/trade/create-trade-bottom-bar'
 import type { Meta, StoryObj } from '@storybook/react'
 import { reverse } from 'ramda'
@@ -16,12 +15,20 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   args: {
     loading: false,
-    items: getNftMocksByUsername(userMockCrewUsername()) as NonEmptyArray<OwnedNft>,
-    onBack: () => {},
-    onNext: () => {}
+    items: getNftMocksByUsername(userMockCrewUsername())
   },
   argTypes: {
-    loading: { control: 'boolean' }
+    loading: { control: 'boolean' },
+    onBack: {
+      table: {
+        disable: true
+      }
+    },
+    onNext: {
+      table: {
+        disable: true
+      }
+    }
   },
   parameters: {
     controls: {

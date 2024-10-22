@@ -9,7 +9,6 @@ export enum CollectionReferenceName {
   OfferUpdatePosts = 'offer-update-posts',
   OfferUpdates = 'offer-updates',
   Offers = 'offers',
-  ListingOffers = 'listing-offers',
   ListingPosts = 'listing-posts',
   Listings = 'listings',
   Swaps = 'swaps',

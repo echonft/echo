@@ -1,24 +1,12 @@
-import { ListingOfferFulfillingStatus } from '@echo/firestore/constants/listing-offer-fulfilling-status'
-import { getListingOffersByOfferId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-offer-id'
-import { getListingOffersForListing } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-listing'
-import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
-import { updateListingState } from '@echo/firestore/crud/listing/update-listing-state'
 import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
-import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { updateOfferState, type UpdateOfferStateArgs } from '@echo/firestore/crud/offer/update-offer-state'
 import { addSwap } from '@echo/firestore/crud/swap/add-swap'
 import type { SwapDocumentData } from '@echo/firestore/types/model/swap-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
-import { ListingState } from '@echo/model/constants/listing-state'
 import { OfferState } from '@echo/model/constants/offer-state'
-import { nftItemsIndex } from '@echo/model/helpers/item/nft-items-index'
-import { listingItemsIndexes } from '@echo/model/helpers/listing/listing-items-indexes'
-import { offerNftItems } from '@echo/model/helpers/offer/offer-nft-items'
-import type { Item } from '@echo/model/types/item/item'
 import { type Offer } from '@echo/model/types/offer/offer'
-import type { Nullable } from '@echo/utils/types/nullable'
-import { assoc, concat, filter, flatten, intersection, isNil, map, omit, pipe, prop, propEq, reject } from 'ramda'
+import { assoc, isNil, omit, pipe } from 'ramda'
 
 export interface CompleteOfferArgs extends Omit<UpdateOfferStateArgs, 'state'> {
   transactionId: string
@@ -50,34 +38,5 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
     assoc('offerId', snapshot.id),
     addSwap
   )(args)
-  // update the status of tied listings, if any
-  const offerListingOffers = await getListingOffersByOfferId(snapshot.id)
-  for (const offerListingOffer of offerListingOffers) {
-    const { listingId, fulfillingStatus } = offerListingOffer
-    const listing = await getListingById(listingId)
-    if (!isNil(listing) && !listing.locked) {
-      if (fulfillingStatus === ListingOfferFulfillingStatus.Completely) {
-        await updateListingState(listing.slug, ListingState.Fulfilled)
-      } else {
-        // in this case, we need to check all the completed offers linked to this listing, and check if this one partially of completely fulfills it
-        const items = offerNftItems(offer)
-        const listingListingOffers = await getListingOffersForListing(listing)
-        const listingOffers = await Promise.all(map(pipe(prop('offerId'), getOfferById), listingListingOffers))
-        const completedOffersItems = pipe<[Nullable<Offer>[]], Offer[], Offer[], Item[][], Item[]>(
-          reject(isNil),
-          filter(propEq<OfferState, 'state'>(OfferState.Completed, 'state')),
-          map(offerNftItems),
-          flatten
-        )(listingOffers)
-        const offerItemIndexes = pipe(concat, nftItemsIndex)(items, completedOffersItems)
-        const listingItemIndexes = listingItemsIndexes(listing)
-        if (intersection(offerItemIndexes, listingItemIndexes).length === listingItemIndexes.length) {
-          await updateListingState(listing.slug, ListingState.Fulfilled)
-        } else {
-          await updateListingState(listing.slug, ListingState.PartiallyFulfilled)
-        }
-      }
-    }
-  }
   return offer
 }
