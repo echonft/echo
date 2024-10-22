@@ -1,4 +1,4 @@
-import type { Swap } from '@echo/model/types/offer/swap'
+import type { Swap } from '@echo/model/types/swap/swap'
 import { SwapCards } from '@echo/ui/components/swap/card/swap-cards'
 import { HomeSectionLayout } from '@echo/ui/pages/home/layout/home-section-layout'
 import { useTranslations } from 'next-intl'

@@ -93,25 +93,12 @@ export default tseslint.config(
               message: 'Do not import from process'
             },
             {
-              group: [
-                '@echo/**/src/*',
-                '@echo/**/test/mocks/*',
-                '@echo/**/test-utils/*',
-                'lib/*',
-                'src/*',
-                './*',
-                '../*'
-              ],
+              group: ['@echo/**/src/*', 'lib/*', 'src/*', './*', '../*'],
               message: 'Use path mapping instead'
             },
             {
               group: ['firebase-admin/lib/*'],
               message: 'Nothing is exported from firebase-admin/lib/. Please use firebase-admin/[package] instead'
-            },
-            {
-              group: ['firebase-functions/lib/*'],
-              message:
-                'Nothing is exported from firebase-functions/lib/. Please use firebase-functions/[package] instead'
             }
           ]
         }
@@ -167,6 +154,23 @@ export default tseslint.config(
     }
   },
   {
+    name: '@echo/firestore configuration',
+    files: ['app/firestore/**/*.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['firebase-admin/lib/*'],
+              message: 'Nothing is exported from firebase-admin/lib/. Please use firebase-admin/[package] instead'
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
     name: '@echo/storybook configuration',
     files: ['app/storybook/**/*.stories.@(ts|tsx|js|jsx|mjs|cjs)', 'app/storybook/**/*.story.@(ts|tsx|js|jsx|mjs|cjs)'],
     ...eslintPluginReactRecommended,
@@ -184,22 +188,7 @@ export default tseslint.config(
       ...eslintPluginReactRecommended.rules,
       ...eslintPluginStorybook.configs.recommended.overrides[0].rules,
       'react/react-in-jsx-scope': 'off',
-      'no-restricted-imports': [
-        'error',
-        {
-          patterns: [
-            {
-              group: [
-                '@echo/api/fetchers/*',
-                '@echo/api/providers/*',
-                '@echo/web3/helpers/wagmi/fetchers/*',
-                '@echo/web3/helpers/wagmi/providers/*'
-              ],
-              message: 'Use mocks instead'
-            }
-          ]
-        }
-      ]
+      '@typescript-eslint/no-non-null-assertion': 'off'
     },
     settings: {
       react: {
@@ -215,7 +204,23 @@ export default tseslint.config(
       ecmaVersion: 6
     },
     rules: {
-      'require-jsdoc': 'off'
+      'require-jsdoc': 'off',
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['firebase-admin/lib/*'],
+              message: 'Nothing is exported from firebase-admin/lib/. Please use firebase-admin/[package] instead'
+            },
+            {
+              group: ['firebase-functions/lib/*'],
+              message:
+                'Nothing is exported from firebase-functions/lib/. Please use firebase-functions/[package] instead'
+            }
+          ]
+        }
+      ]
     }
   },
   {

@@ -19,6 +19,7 @@ type ItemsDocumentData = NonEmptyArray<Erc721ItemDocumentData | Erc1155ItemDocum
 function isErc721ItemDocumentData(item: ItemDocumentData): item is Erc721ItemDocumentData {
   return pipe(itemToken, isErc721Token)(item)
 }
+
 export const itemsDataConverter = {
   fromFirestore(documentData: ItemsDocumentData): Items {
     function mapItem<T extends ItemDocumentData>(item: T): T extends Erc721ItemDocumentData ? Erc721Item : Erc1155Item {

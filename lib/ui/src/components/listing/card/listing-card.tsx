@@ -28,8 +28,14 @@ export const ListingCard = <T extends Listing>({ listing, options, onSelect }: L
           onSelect?.(listing)
         }}
       >
-        <ListingStackPicture stack={stack} listing={listing} scaleDisabled={options?.scaleDisabled} />
-        <StackFooter title={stack.collection.name} subtitle={stack.tokenId} />
+        <ListingStackPicture
+          chain={stack.collection.contract.chain}
+          pictureUrl={stack.pictureUrl}
+          state={listing.state}
+          tokenIdLabel={stack.tokenIdLabel}
+          scaleDisabled={options?.scaleDisabled}
+        />
+        <StackFooter title={stack.collection.name} subtitle={stack.tokenIdLabel} />
       </StackLayout>
     )
   }
@@ -40,7 +46,13 @@ export const ListingCard = <T extends Listing>({ listing, options, onSelect }: L
         onSelect?.(listing)
       }}
     >
-      <ListingCardPicture listing={listing} scaleDisabled={options?.scaleDisabled} />
+      <ListingCardPicture
+        chain={item.token.contract.chain}
+        pictureUrl={item.token.pictureUrl}
+        state={listing.state}
+        tokenIdLabel={item.token.tokenIdLabel}
+        scaleDisabled={options?.scaleDisabled}
+      />
       <CardFooter title={item.token.collection.name} subtitle={item.token.tokenIdLabel} />
     </CardLayout>
   )

@@ -9,7 +9,6 @@ export async function initializeDb() {
     CollectionReferenceName.Listings,
     CollectionReferenceName.Nfts,
     CollectionReferenceName.Offers,
-    CollectionReferenceName.Swaps,
     CollectionReferenceName.Users,
     CollectionReferenceName.Wallets
   ]

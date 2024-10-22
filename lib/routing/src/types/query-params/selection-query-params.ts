@@ -1,9 +1,8 @@
-import type { QueryParams } from '@echo/routing/types/query-params/query-params'
-import type { Offer } from '@echo/model/types/offer/offer'
 import type { WithSlug } from '@echo/model/types/with-slug'
+import type { QueryParams } from '@echo/routing/types/query-params/query-params'
 
 export interface SelectionQueryParams extends QueryParams {
-  offer?: Pick<Offer, 'idContract'>
+  offer?: WithSlug
   listing?: WithSlug
-  swap?: Pick<Offer, 'idContract'>
+  swap?: WithSlug
 }

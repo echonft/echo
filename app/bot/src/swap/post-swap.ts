@@ -1,34 +1,27 @@
 import { sendToEchoChannel } from '@echo/bot/helpers/send-to-echo-channel'
 import { buildSwapEmbed } from '@echo/bot/swap/build-swap-embed'
-import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
+import type { Offer } from '@echo/model/types/offer/offer'
 import type { WithLogger } from '@echo/utils/types/with-logger'
 import type { Client } from 'discord.js'
-import { assoc, isNil } from 'ramda'
+import { isNil } from 'ramda'
 
 interface PostSwapArgs extends WithLogger {
   client: Client
-  offerId: string
+  offer: Offer
 }
 
 export async function postSwap(args: PostSwapArgs) {
-  const { client, offerId, logger } = args
-  const fn = 'postSwap'
-  const offer = await getOfferById(offerId)
-  if (isNil(offer)) {
-    logger?.error({ offer: { id: offerId }, fn }, 'offer not found')
-    return
-  }
-  const offerWithId = assoc('id', offerId, offer)
+  const { client, offer, logger } = args
   const { sender, receiver } = offer
   const foundSender = await getUserByUsername(sender.username)
   if (isNil(foundSender)) {
-    logger?.error({ offer: offerWithId, fn }, 'sender not found')
+    logger?.error({ offer }, 'sender not found')
     return
   }
   const foundReceiver = await getUserByUsername(receiver.username)
   if (isNil(foundReceiver)) {
-    logger?.error({ offer: offerWithId, fn }, 'receiver not found')
+    logger?.error({ offer }, 'receiver not found')
     return
   }
   await sendToEchoChannel({
@@ -38,11 +31,10 @@ export async function postSwap(args: PostSwapArgs) {
     },
     logger
   })
-  logger?.info({ offer: offerWithId }, 'posted swap to echo channel')
+  logger?.info({ offer }, 'posted swap to echo channel')
   // FIXME
   // if (offer.locked && !isNil(offerThread)) {
   //   // Archive thread if both users don't have anything in escrow
   //   await postEscrowMessage({ offer, offerThread, thread, logger })
-  //   await archiveOfferThread({ offerThread, thread, logger })
   // }
 }

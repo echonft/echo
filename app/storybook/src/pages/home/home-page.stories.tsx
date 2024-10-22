@@ -3,7 +3,7 @@
 import { getAllCollectionMocks } from '@echo/model/mocks/collection/get-all-collection-mocks'
 import { getAllOfferMocks } from '@echo/model/mocks/offer/get-all-offer-mocks'
 import { type Collection } from '@echo/model/types/collection/collection'
-import type { Swap } from '@echo/model/types/offer/swap'
+import type { Swap } from '@echo/model/types/swap/swap'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { Background } from '@echo/ui/constants/background'
 import { HomePage as Component } from '@echo/ui/pages/home/home-page'

@@ -7,6 +7,6 @@ export interface NftStack {
   owner: User
   collection: NftCollection
   pictureUrl: string
-  tokenId: string
+  tokenIdLabel: string
   nfts: NonEmptyArray<NftToken>
 }

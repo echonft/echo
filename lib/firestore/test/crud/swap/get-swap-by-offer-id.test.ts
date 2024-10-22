@@ -1,16 +1,31 @@
 import { getSwapByOfferId } from '@echo/firestore/crud/swap/get-swap-by-offer-id'
-import { offerMockFromJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
-import { describe, expect, it } from '@jest/globals'
+import { swapMock } from '@echo/model/mocks/swap/swap-mock'
+import { addSwap } from '@echo/test/firestore/crud/swap/add-swap'
+import { deleteSwap } from '@echo/test/firestore/crud/swap/delete-swap'
+import type { Nullable } from '@echo/utils/types/nullable'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
+import { assoc, dissoc, isNil, pipe } from 'ramda'
 
 describe('CRUD - swap - getSwapByOfferId', () => {
-  it('returns undefined if the document does not exist', async () => {
-    const document = await getSwapByOfferId('not-found')
-    expect(document).toBeUndefined()
+  const data = pipe(swapMock, assoc('offerId', 'offer-id'))()
+  let swapId: Nullable<string>
+
+  beforeEach(() => {
+    swapId = undefined
   })
+  afterEach(async () => {
+    if (!isNil(swapId)) {
+      await deleteSwap(swapId)
+    }
+  })
+
+  it('returns undefined if the document does not exist', async () => {
+    await expect(getSwapByOfferId('not-found')).resolves.toBeUndefined()
+  })
+
   it('returns the document found', async () => {
-    const offerId = offerMockFromJohnnycageId()
-    const document = (await getSwapByOfferId(offerId))!
-    expect(document.offerId).toStrictEqual(offerId)
-    expect(document.transactionId).toStrictEqual('0xb384a4949fe643aa638827e381e62513e412af409b0744a37065dd59b0a5309b')
+    swapId = await addSwap(data)
+    const document = await getSwapByOfferId(data.offerId)
+    expect(document).toStrictEqual(dissoc('offerId', data))
   })
 })

@@ -15,7 +15,7 @@ export function getNftStack(items: NonEmptyArray<NftItem>, owner: User): NftStac
       owner: always(owner),
       collection: nftTokenCollection,
       pictureUrl: prop('pictureUrl'),
-      tokenId: prop('tokenIdLabel'),
+      tokenIdLabel: prop('tokenIdLabel'),
       nfts: always(tokens)
     })
   )(tokens)

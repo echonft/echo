@@ -3,7 +3,6 @@ import { walletDataConverter } from '@echo/firestore/converters/wallet-data-conv
 import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
 import { walletMockJohnnyId } from '@echo/firestore/mocks/wallet/wallet-document-data-mock'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
-import type { Wallet } from '@echo/model/types/wallet'
 import { describe, expect, it } from '@jest/globals'
 import { DocumentReference, QueryDocumentSnapshot } from 'firebase-admin/firestore'
 
@@ -16,11 +15,11 @@ describe('converters - walletDataConverter', () => {
       ref: {
         id,
         path: `${CollectionReferenceName.Wallets}/${id}`
-      } as unknown as DocumentReference<Wallet, WalletDocumentData>,
+      } as unknown as DocumentReference<WalletDocumentData, WalletDocumentData>,
       id,
       exists: true,
       data: () => document
-    } as unknown as QueryDocumentSnapshot<Wallet, WalletDocumentData>
+    } as unknown as QueryDocumentSnapshot<WalletDocumentData, WalletDocumentData>
     expect(walletDataConverter.fromFirestore(snapshot)).toStrictEqual(document)
   })
 

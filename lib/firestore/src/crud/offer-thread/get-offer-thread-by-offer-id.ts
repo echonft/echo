@@ -7,7 +7,7 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, pipe } from 'ramda'
 
-export function getOfferThreadSnapshot(
+export function getOfferThreadSnapshotByOfferId(
   offerId: string
 ): Promise<Nullable<QueryDocumentSnapshot<OfferThreadDocumentData, OfferThreadDocumentData>>> {
   return pipe(
@@ -17,6 +17,6 @@ export function getOfferThreadSnapshot(
   )()
 }
 
-export function getOfferThread(offerId: string): Promise<Nullable<OfferThreadDocumentData>> {
-  return pipe(getOfferThreadSnapshot, andThen(getDocumentSnapshotData))(offerId)
+export function getOfferThreadByOfferId(offerId: string): Promise<Nullable<OfferThreadDocumentData>> {
+  return pipe(getOfferThreadSnapshotByOfferId, andThen(getDocumentSnapshotData))(offerId)
 }

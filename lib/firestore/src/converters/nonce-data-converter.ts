@@ -3,10 +3,10 @@ import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/g
 import { type Nonce } from '@echo/firestore/types/model/nonce'
 import { type NonceDocumentData } from '@echo/firestore/types/model/nonce-document-data'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
-import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
+import { QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
 import { dissoc, pipe } from 'ramda'
 
-export const nonceDataConverter: FirestoreDataConverter<Nonce, NonceDocumentData> = {
+export const nonceDataConverter = {
   fromFirestore(snapshot: QueryDocumentSnapshot<NonceDocumentData, NonceDocumentData>): Nonce {
     return pipe(
       nonNullableReturn(getDocumentSnapshotData<NonceDocumentData, NonceDocumentData>),

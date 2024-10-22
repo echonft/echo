@@ -1,7 +1,7 @@
 import { getListingsForCreator } from '@echo/firestore/crud/listing/get-listings-for-creator'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
-import { getCompletedOffersForUser } from '@echo/firestore/crud/offer/get-completed-offers-for-user'
 import { getPendingOffersForUser } from '@echo/firestore/crud/offer/get-pending-offers-for-user'
+import { getSwapsForUser } from '@echo/firestore/crud/swap/get-swaps-for-user'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { getUserProfile } from '@echo/firestore/crud/user/get-user-profile'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
@@ -9,7 +9,6 @@ import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-e
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
 import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
-import type { Swap } from '@echo/model/types/offer/swap'
 import type { WithUsername } from '@echo/model/types/with-username'
 import { getSelectionFromSearchParams } from '@echo/routing/search-params/get-selection-from-search-params'
 import type { SelectionSearchParams } from '@echo/routing/types/search-params/selection-search-params'
@@ -48,10 +47,7 @@ async function render({
     andThen(map(setOfferRoleForUser(authUser))),
     otherwise(pipe(captureAndLogError, always([])))
   )(username)
-  const swaps = (await pipe(
-    getCompletedOffersForUser,
-    otherwise(pipe(captureAndLogError, always([])))
-  )(username)) as Swap[]
+  const swaps = await pipe(getSwapsForUser, otherwise(pipe(captureAndLogError, always([]))))(username)
   const selection = getSelectionFromSearchParams({ listings, offers, swaps, searchParams })
 
   return (

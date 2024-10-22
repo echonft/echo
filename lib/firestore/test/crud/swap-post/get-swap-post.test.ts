@@ -1,5 +1,4 @@
 import { getSwapPost } from '@echo/firestore/crud/swap-post/get-swap-post'
-import { swapMockId } from '@echo/firestore/mocks/swap/swap-mock'
 import { addSwapPost } from '@echo/test/firestore/crud/swap-post/add-swap-post'
 import { deleteSwapPost } from '@echo/test/firestore/crud/swap-post/delete-swap-post'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -7,7 +6,7 @@ import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
 
 describe('CRUD - swap-post - getSwapPost', () => {
-  const data = { swapId: swapMockId(), guild: { id: 'discordId', channelId: 'channelId' } }
+  const data = { swapId: 'swap-id', guild: { id: 'discordId', channelId: 'channelId' } }
   let swapPostId: Nullable<string>
   beforeEach(() => {
     swapPostId = undefined

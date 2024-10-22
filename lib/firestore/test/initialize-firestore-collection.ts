@@ -4,7 +4,6 @@ import { collectionSwapsCountMock } from '@echo/firestore/mocks/collection-swaps
 import { listingDocumentDataMock } from '@echo/firestore/mocks/listing/listing-document-data-mock'
 import { nftDocumentDataMock } from '@echo/firestore/mocks/nft/nft-document-data-mock'
 import { offerDocumentDataMock } from '@echo/firestore/mocks/offer/offer-document-data-mock'
-import { swapMock } from '@echo/firestore/mocks/swap/swap-mock'
 import { userDocumentDataMock } from '@echo/firestore/mocks/user/user-document-data-mock'
 import { walletDocumentDataMock } from '@echo/firestore/mocks/wallet/wallet-document-data-mock'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
@@ -28,8 +27,6 @@ function getMock(collectionReferenceName: CollectionReferenceName) {
       return nftDocumentDataMock() as Record<string, DocumentData>
     case CollectionReferenceName.Offers:
       return offerDocumentDataMock() as Record<string, DocumentData>
-    case CollectionReferenceName.Swaps:
-      return swapMock() as Record<string, DocumentData>
     case CollectionReferenceName.Users:
       return userDocumentDataMock() as Record<string, DocumentData>
     case CollectionReferenceName.Wallets:

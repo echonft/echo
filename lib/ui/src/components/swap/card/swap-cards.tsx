@@ -1,5 +1,5 @@
 'use client'
-import type { Swap } from '@echo/model/types/offer/swap'
+import type { Swap } from '@echo/model/types/swap/swap'
 import { CardsLayout } from '@echo/ui/components/base/card/layout/cards-layout'
 import { SwapCard, type SwapCardProps } from '@echo/ui/components/swap/card/swap-card'
 import { map } from 'ramda'

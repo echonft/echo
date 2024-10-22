@@ -1,18 +1,18 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getAllNftMocks } from '@echo/model/mocks/nft/get-all-nft-mocks'
+import { erc721NftToToken } from '@echo/model/mappers/nft/erc721-nft-to-token'
+import { getNftMock } from '@echo/model/mocks/nft/get-nft-mock'
+import type { Erc721Nft } from '@echo/model/types/nft/erc721-nft'
 import { NftStack as Component } from '@echo/ui/components/nft/stack/nft-stack'
-import { getNftStackFromNfts } from '@echo/ui/helpers/nft/get-nft-stack-from-nfts'
+import type { NftStack } from '@echo/ui/types/nft-stack'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'NFT/Stack',
   component: Component,
   args: {
     hideOwner: false,
-    scaleDisabled: false,
-    stack: pipe(getAllNftMocks, getNftStackFromNfts)()
+    scaleDisabled: false
   },
   argTypes: {
     hideOwner: {
@@ -33,4 +33,16 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-export const Default: StoryObj<typeof Component> = {}
+export const Default: StoryObj<typeof Component> = {
+  render: ({ hideOwner, scaleDisabled }) => {
+    const nft = getNftMock()
+    const stack: NftStack = {
+      owner: nft.owner,
+      collection: nft.collection,
+      pictureUrl: nft.pictureUrl!,
+      tokenIdLabel: nft.tokenIdLabel,
+      nfts: [erc721NftToToken(nft as Erc721Nft)]
+    }
+    return <Component stack={stack} hideOwner={hideOwner} scaleDisabled={scaleDisabled} />
+  }
+}

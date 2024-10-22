@@ -4,6 +4,7 @@ import { initializeDb } from '@echo/test/firestore/initialize-db'
 import { beforeAll, expect } from '@jest/globals'
 import dayjs from 'dayjs'
 import type { ServiceAccount } from 'firebase-admin/app'
+import { always, ifElse, isNil, partialRight, pipe, when } from 'ramda'
 
 beforeAll(async () => {
   const clientEmail: string = global.clientEmail
@@ -16,14 +17,25 @@ beforeAll(async () => {
 })
 
 expect.extend({
-  toBeNow(received: number) {
-    const before = dayjs().subtract(1, 'minute')
-    const after = dayjs().add(1, 'minute')
-    const pass = dayjs.unix(received).isAfter(before) && dayjs.unix(received).isBefore(after)
+  toBeMsSlug(received: string) {
+    const date = pipe(
+      partialRight(parseInt, [10]),
+      ifElse(
+        isNaN,
+        always(undefined),
+        pipe(
+          (date) => dayjs(date),
+          when((date) => !date.isValid(), always(undefined))
+        )
+      )
+    )(received)
+    const before = dayjs().subtract(1, 'minute').valueOf()
+    const after = dayjs().add(1, 'minute').valueOf()
+    const pass = !isNil(date) && date.isAfter(before) && date.isBefore(after)
     return {
       pass,
       message: () =>
-        `expected ${received} to${pass ? ' not' : ''} be ~now: between ${before.unix()} and ${after.unix()}`
+        `expected ${received} to${pass ? ' not' : ''} be ~now: between ${before.valueOf()} and ${after.valueOf()}`
     }
   }
 })

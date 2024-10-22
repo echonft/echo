@@ -1,10 +1,9 @@
-import { getThreadOnEchoChannel } from '@echo/bot/helpers/get-thread-on-echo-channel'
 import { createOfferThread } from '@echo/bot/offer/create-offer-thread'
 import { postOfferUpdate } from '@echo/bot/offer/post-offer-update'
 import type { WithClientType } from '@echo/bot/types/with-client'
 import { addOfferThread } from '@echo/firestore/crud/offer-thread/add-offer-thread'
 import { archiveOfferThread } from '@echo/firestore/crud/offer-thread/archive-offer-thread'
-import { getOfferThread } from '@echo/firestore/crud/offer-thread/get-offer-thread'
+import { getOfferThreadByOfferId } from '@echo/firestore/crud/offer-thread/get-offer-thread-by-offer-id'
 import { addOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/add-offer-update-post'
 import { getOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/get-offer-update-post'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
@@ -18,9 +17,8 @@ export async function offerChangeHandler(args: WithLoggerType<WithClientType<Off
   const { id } = snapshot
   if (changeType === 'added') {
     logger?.info({ offer: { id } }, 'offer was added')
-    const offerThread = await getOfferThread(id)
+    const offerThread = await getOfferThreadByOfferId(id)
     if (isNil(offerThread)) {
-      logger?.info({ offer: { id } }, 'offer thread does not exist, creating....')
       const offer = snapshot.data()
       const offerWithId = assoc('id', id, offer)
       const sender = await getUserByUsername(offer.sender.username)
@@ -55,19 +53,13 @@ export async function offerChangeHandler(args: WithLoggerType<WithClientType<Off
     const postArgs = { offerId: id, state: offer.state }
     const post = await getOfferUpdatePost(postArgs)
     if (isNil(post)) {
-      logger?.info({ offer: { id } }, 'update post does not exist, creating...')
       const offerWithId = assoc('id', id, offer)
-      const offerThread = await getOfferThread(id)
+      const offerThread = await getOfferThreadByOfferId(id)
       if (isNil(offerThread)) {
         logger?.error({ offer: offerWithId }, 'offer thread not found')
         return
       }
-      const thread = await getThreadOnEchoChannel({ client, threadId: offerThread.guild.threadId, logger })
-      if (isNil(thread)) {
-        logger?.error({ offer: offerWithId, offerThread }, 'tried to post update to offer thread but it does not exist')
-        return
-      }
-      await postOfferUpdate({ offer, offerThread, thread, logger })
+      await postOfferUpdate({ client, offer, offerThread, logger })
       const { id: offerUpdatePostId, data: offerUpdatePostData } = await addOfferUpdatePost(postArgs)
       logger?.info(
         { offer: offerWithId, getOfferUpdatePost: assoc('id', offerUpdatePostId, offerUpdatePostData), offerThread },

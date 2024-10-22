@@ -1,5 +1,12 @@
 'use client'
-import type { Swap } from '@echo/model/types/offer/swap'
+import { swapSenderNftItems } from '@echo/model/helpers/swap/swap-sender-nft-items'
+import type { NftItem } from '@echo/model/types/item/nft-item'
+import type { Swap } from '@echo/model/types/swap/swap'
+import { StackLayout } from '@echo/ui/components/base/stack/layout/stack-layout'
+import { StackFooter } from '@echo/ui/components/base/stack/stack-footer'
+import { SwapStackPicture } from '@echo/ui/components/swap/card/swap-stack-picture'
+import { clsx } from 'clsx'
+import { head, type NonEmptyArray, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 export interface SwapCardProps {
@@ -11,20 +18,22 @@ export interface SwapCardProps {
   onSelect?: (swap: Swap) => unknown
 }
 
-// TODO ERC20 + ERC1155
-export const SwapCard: FunctionComponent<SwapCardProps> = () => {
-  // export const SwapCard: FunctionComponent<SwapCardProps> = ({ swap, options, onSelect }) => {
-  // const stack = pipe(offerItems, getNftStackFromNfts)(swap)
-  // return (
-  //   <StackLayout
-  //     className={clsx(options?.asLink && 'group-hover:border-yellow-500')}
-  //     onClick={() => {
-  //       onSelect?.(swap)
-  //     }}
-  //   >
-  //     <SwapStackPicture stack={stack} swap={swap} scaleDisabled={options?.scaleDisabled} />
-  //     <StackFooter title={stack.collection.name} subtitle={stack.tokenId} />
-  //   </StackLayout>
-  // )
-  return null
+export const SwapCard: FunctionComponent<SwapCardProps> = ({ swap, options, onSelect }) => {
+  const item = pipe<[Swap], NonEmptyArray<NftItem>, NftItem>(swapSenderNftItems, head)(swap)
+  return (
+    <StackLayout
+      className={clsx(options?.asLink && 'group-hover:border-yellow-500')}
+      onClick={() => {
+        onSelect?.(swap)
+      }}
+    >
+      <SwapStackPicture
+        chain={item.token.contract.chain}
+        pictureUrl={item.token.pictureUrl}
+        tokenIdLabel={item.token.tokenIdLabel}
+        scaleDisabled={options?.scaleDisabled}
+      />
+      <StackFooter title={item.token.collection.name} subtitle={item.token.tokenIdLabel} />
+    </StackLayout>
+  )
 }

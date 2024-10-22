@@ -11,7 +11,7 @@ declare global {
 
 declare module '@jest/expect' {
   interface Matchers<R, T> {
-    toBeNow(): T extends number ? R : never
+    toBeMsSlug(): R
   }
 }
 

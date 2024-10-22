@@ -1,10 +1,9 @@
 import { OfferState } from '@echo/model/constants/offer-state'
-import type { Offer } from '@echo/model/types/offer/offer'
 import { Color } from '@echo/ui/constants/color'
 import type { CardStatusColor } from '@echo/ui/types/card-status-color'
 
-export const getOfferCardStatusColor = (offer: Offer): CardStatusColor => {
-  switch (offer.state) {
+export const getOfferCardStatusColor = (state: OfferState): CardStatusColor => {
+  switch (state) {
     case OfferState.Open:
       return Color.Yellow
     case OfferState.Completed:

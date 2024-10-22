@@ -1,6 +1,5 @@
 import { itemsCollectionArrayIndexer } from '@echo/firestore/array-indexers/item/items-collection-array-indexer'
-import { nftItems } from '@echo/model/helpers/item/nft-items'
-import { offerReceiverItems } from '@echo/model/helpers/offer/offer-receiver-items'
+import { offerReceiverNftItems } from '@echo/model/helpers/offer/offer-receiver-nft-items'
 import type { Offer } from '@echo/model/types/offer/offer'
 import { assoc, has, pipe, uniq } from 'ramda'
 
@@ -8,7 +7,7 @@ export function addReceiverItemsCollectionSlug(modelObject: Partial<Offer>): Par
   if (has('receiverItems', modelObject)) {
     return assoc(
       'receiverItemCollections',
-      pipe(offerReceiverItems, nftItems, itemsCollectionArrayIndexer, uniq)(modelObject as Offer),
+      pipe(offerReceiverNftItems, itemsCollectionArrayIndexer, uniq)(modelObject as Offer),
       modelObject
     )
   }

@@ -1,6 +1,6 @@
 import { OfferThreadState } from '@echo/firestore/constants/offer-thread-state'
 import { archiveOfferThread } from '@echo/firestore/crud/offer-thread/archive-offer-thread'
-import { getOfferThread } from '@echo/firestore/crud/offer-thread/get-offer-thread'
+import { getOfferThreadByOfferId } from '@echo/firestore/crud/offer-thread/get-offer-thread-by-offer-id'
 import type { OfferThreadDocumentData } from '@echo/firestore/types/model/offer-thread-document-data'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
@@ -36,7 +36,7 @@ describe('CRUD - offer-thread - addOfferThread', () => {
     }
     offerThreadId = await addOfferThread(data)
     await archiveOfferThread(data.offerId)
-    const document = await getOfferThread(data.offerId)
+    const document = await getOfferThreadByOfferId(data.offerId)
     expect(document).toStrictEqual(assoc('state', OfferThreadState.Archived, data))
   })
 })

@@ -2,13 +2,12 @@ import type { PropsWithAuthUser } from '@echo/auth/types/props-with-auth-user'
 import { getListingsForCreator } from '@echo/firestore/crud/listing/get-listings-for-creator'
 import { getPendingListingsForUser } from '@echo/firestore/crud/listing/get-pending-listings-for-user'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
-import { getCompletedOffersForUser } from '@echo/firestore/crud/offer/get-completed-offers-for-user'
 import { getOffersForUser } from '@echo/firestore/crud/offer/get-offers-for-user'
+import { getSwapsForUser } from '@echo/firestore/crud/swap/get-swaps-for-user'
 import { getUserProfile } from '@echo/firestore/crud/user/get-user-profile'
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
-import type { Swap } from '@echo/model/types/offer/swap'
 import { pathProvider } from '@echo/routing/path-provider'
 import { getSelectionFromSearchParams } from '@echo/routing/search-params/get-selection-from-search-params'
 import type { SelectionSearchParams } from '@echo/routing/types/search-params/selection-search-params'
@@ -46,11 +45,7 @@ async function render({ searchParams, user }: PropsWithAuthUser<WithSearchParams
     andThen(map(setOfferRoleForUser(user))),
     otherwise(pipe(captureAndLogError, always([])))
   )(user)
-  const swaps = (await pipe(
-    prop('username'),
-    getCompletedOffersForUser,
-    otherwise(pipe(captureAndLogError, always([])))
-  )(user)) as Swap[]
+  const swaps = await pipe(prop('username'), getSwapsForUser, otherwise(pipe(captureAndLogError, always([]))))(user)
   const selection = getSelectionFromSearchParams({ listings, offers, swaps, searchParams })
 
   return (

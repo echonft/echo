@@ -14,7 +14,7 @@ export const NftStack: FunctionComponent<Props> = ({ stack, hideOwner, scaleDisa
   return (
     <StackLayout>
       <NftStackPicture stack={stack} hideOwner={hideOwner} scaleDisabled={scaleDisabled} />
-      <StackFooter title={stack.collection.name} subtitle={stack.tokenId} />
+      <StackFooter title={stack.collection.name} subtitle={stack.tokenIdLabel} />
     </StackLayout>
   )
 }

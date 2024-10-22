@@ -2,14 +2,13 @@ import { getCollectionCounts } from '@echo/firestore/crud/collection-with-counts
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { getPendingListingsForCollection } from '@echo/firestore/crud/listing/get-pending-listings-for-collection'
 import { getNftsForCollection } from '@echo/firestore/crud/nft/get-nfts-for-collection'
-import { getCompletedOffersForCollection } from '@echo/firestore/crud/offer/get-completed-offers-for-collection'
 import { getPendingOffersForCollection } from '@echo/firestore/crud/offer/get-pending-offers-for-collection'
+import { getSwapsForCollection } from '@echo/firestore/crud/swap/get-swaps-for-collection'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
 import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
-import type { Swap } from '@echo/model/types/offer/swap'
 import type { WithSlug } from '@echo/model/types/with-slug'
 import { getSelectionFromSearchParams } from '@echo/routing/search-params/get-selection-from-search-params'
 import type { SelectionSearchParams } from '@echo/routing/types/search-params/selection-search-params'
@@ -46,10 +45,7 @@ async function render({
     andThen(map(setOfferRoleForUser(user))),
     otherwise(pipe(captureAndLogError, always([])))
   )(slug)
-  const swaps = (await pipe(
-    getCompletedOffersForCollection,
-    otherwise(pipe(captureAndLogError, always([])))
-  )(slug)) as Swap[]
+  const swaps = await pipe(getSwapsForCollection, otherwise(pipe(captureAndLogError, always([]))))(slug)
   const selection = getSelectionFromSearchParams({ listings, offers, swaps, searchParams })
 
   return (

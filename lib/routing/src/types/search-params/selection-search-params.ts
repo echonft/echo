@@ -3,6 +3,6 @@ import type { SearchParams } from '@echo/routing/types/search-params/search-para
 
 export interface SelectionSearchParams extends SearchParams {
   offer?: string // idContract
-  listing?: Slug // slug
-  swap?: string // idContract
+  listing?: Slug
+  swap?: Slug
 }

@@ -1,14 +1,14 @@
-import type { Listing } from '@echo/model/types/listing/listing'
+import type { ListingState } from '@echo/model/constants/listing-state'
 import { CardStatus } from '@echo/ui/components/base/card/card-status'
 import { getListingStatusColor } from '@echo/ui/helpers/listing/get-listing-status-color'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  listing: Listing
+  state: ListingState
 }
 
-export const ListingCardStatus: FunctionComponent<Props> = ({ listing }) => {
+export const ListingCardStatus: FunctionComponent<Props> = ({ state }) => {
   const t = useTranslations('listing.state')
-  return <CardStatus label={t(listing.state)} color={getListingStatusColor(listing)} />
+  return <CardStatus label={t(state)} color={getListingStatusColor(state)} />
 }

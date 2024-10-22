@@ -2,7 +2,7 @@
 import type { Collection } from '@echo/model/types/collection/collection'
 
 import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
-import type { Swap } from '@echo/model/types/offer/swap'
+import type { Swap } from '@echo/model/types/swap/swap'
 import type { Selection } from '@echo/routing/types/selection'
 import { ListingsPanel } from '@echo/ui/components/base/navigation/panels/listings-panel'
 import { OffersPanel } from '@echo/ui/components/base/navigation/panels/offers-panel'

@@ -7,11 +7,15 @@ import { type SwapDocumentData } from '@echo/firestore/types/model/swap-document
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { SwapError } from '@echo/model/constants/errors/swap-error'
-import { offerItemsCollectionSlug } from '@echo/model/helpers/offer/offer-items-collection-slug'
-import { isNil } from 'ramda'
+import { swapItemsCollectionSlug } from '@echo/model/helpers/swap/swap-items-collection-slug'
+import type { Swap } from '@echo/model/types/swap/swap'
+import { nowMs } from '@echo/utils/helpers/now-ms'
+import { assoc, dissoc, isNil, pipe, toLower, toString } from 'ramda'
 
-export async function addSwap(swap: SwapDocumentData): Promise<NewDocument<SwapDocumentData>> {
-  const { offerId } = swap
+export async function addSwap(
+  args: Omit<Swap, 'slug'> & Pick<SwapDocumentData, 'offerId'>
+): Promise<NewDocument<Swap>> {
+  const { offerId } = args
   const offer = await getOfferById(offerId)
   if (isNil(offer)) {
     return Promise.reject(Error(OfferError.NotFound))
@@ -20,14 +24,16 @@ export async function addSwap(swap: SwapDocumentData): Promise<NewDocument<SwapD
   if (!isNil(foundSwap)) {
     return Promise.reject(Error(SwapError.Exists))
   }
-  const id = await setReference<SwapDocumentData, SwapDocumentData>({
+  const slug = pipe(nowMs, toString, toLower<string>)()
+  const data = assoc('slug', slug, args)
+  const id = await setReference<Swap, SwapDocumentData>({
     collectionReference: getSwapsCollectionReference(),
-    data: swap
+    data
   })
   // increase the swaps count for receiver and sender items
-  const collectionSlugs = offerItemsCollectionSlug(offer)
+  const collectionSlugs = swapItemsCollectionSlug(data)
   for (const slug of collectionSlugs) {
     await increaseCollectionSwapsCount(slug)
   }
-  return { id, data: swap }
+  return { id, data: dissoc('offerId', data) }
 }
