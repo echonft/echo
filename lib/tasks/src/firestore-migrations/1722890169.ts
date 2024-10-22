@@ -1,5 +1,5 @@
 import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
-import { dumpDb } from '@echo/firestore/utils/dump-db'
+import { dumpDb } from '@echo/firestore/services/dump-db'
 import { getLogger } from '@echo/tasks/commands/get-logger'
 import { updateNftsForCollection } from '@echo/tasks/update-nfts-for-collection'
 

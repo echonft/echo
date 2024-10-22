@@ -21,6 +21,6 @@ export async function offerAcceptedEventHandler(args: EchoEventHandlerArgs) {
       })
     )
   }
-  await acceptOffer({ slug: offer.slug })
+  await acceptOffer(offer.slug)
   args.logger?.info({ offer }, 'accepted offer')
 }

@@ -7,10 +7,15 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, pipe } from 'ramda'
 
-export function getListingPostSnapshot(
-  listingId: string,
+interface GetListingPostArgs {
+  listingId: string
   guildId: string
-): Promise<Nullable<QueryDocumentSnapshot<ListingPostDocumentData, ListingPostDocumentData>>> {
+}
+
+export function getListingPostSnapshot({
+  listingId,
+  guildId
+}: GetListingPostArgs): Promise<Nullable<QueryDocumentSnapshot<ListingPostDocumentData, ListingPostDocumentData>>> {
   return pipe(
     getListingPostsCollectionReference,
     queryWhere('listingId', '==', listingId),
@@ -19,6 +24,6 @@ export function getListingPostSnapshot(
   )()
 }
 
-export function getListingPost(listingId: string, guildId: string): Promise<Nullable<ListingPostDocumentData>> {
-  return pipe(getListingPostSnapshot, andThen(getDocumentSnapshotData))(listingId, guildId)
+export function getListingPost(args: GetListingPostArgs): Promise<Nullable<ListingPostDocumentData>> {
+  return pipe(getListingPostSnapshot, andThen(getDocumentSnapshotData))(args)
 }

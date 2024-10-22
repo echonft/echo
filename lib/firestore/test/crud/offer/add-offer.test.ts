@@ -1,8 +1,6 @@
 import { addOffer } from '@echo/firestore/crud/offer/add-offer'
-import { deleteOffer } from '@echo/firestore/crud/offer/delete-offer'
 import { getAllOffers } from '@echo/firestore/crud/offer/get-all-offers'
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
-import { resetListing } from '@echo/firestore/utils/listing/reset-listing'
 import { Expiration } from '@echo/model/constants/expiration'
 import { OfferState } from '@echo/model/constants/offer-state'
 import { expirationToDate } from '@echo/model/helpers/expiration-to-date'
@@ -18,6 +16,8 @@ import type { Item } from '@echo/model/types/item/item'
 import type { Erc721Nft } from '@echo/model/types/nft/erc721-nft'
 import type { BaseOffer } from '@echo/model/types/offer/base-offer'
 import type { Offer } from '@echo/model/types/offer/offer'
+import { resetListing } from '@echo/test/firestore/crud/listing/reset-listing'
+import { deleteOffer } from '@echo/test/firestore/crud/offer/delete-offer'
 import { castTo } from '@echo/utils/fp/cast-to'
 import { eqList } from '@echo/utils/fp/eq-list'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -64,7 +64,8 @@ describe('CRUD - offer - addOffer', () => {
       sender: pipe(nftMockPxCrewId, getNftMockById, prop('owner'))(),
       senderItems
     }
-    const createdOffer = await addOffer({ ...baseOffer, idContract: '0xaddoffertest' })
+    const idContract = '0xaddoffertest'
+    const createdOffer = await addOffer({ ...baseOffer, idContract })
     createdOfferId = createdOffer.id
     const newOffer: Offer = (await getOfferById(createdOfferId))!
     expect(newOffer.receiver).toStrictEqual(getUserMockByUsername(userMockJohnnyUsername()))
@@ -72,7 +73,7 @@ describe('CRUD - offer - addOffer', () => {
     expect(newOffer.sender).toStrictEqual(getUserMockByUsername(userMockCrewUsername()))
     expect(eqList(newOffer.senderItems, senderItems)).toBeTruthy()
     expect(newOffer.state).toBe(OfferState.Open)
-    expect(newOffer.idContract).toBe('0xtest')
+    expect(newOffer.idContract).toBe(idContract)
     expect(dayjs.unix(newOffer.expiresAt).isAfter(expiresAt.subtract(1, 'minute'))).toBeTruthy()
     expect(dayjs.unix(newOffer.expiresAt).isBefore(expiresAt.add(1, 'minute'))).toBeTruthy()
   })

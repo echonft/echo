@@ -41,7 +41,7 @@ interface PostOfferStateUpdateArgs extends WithLogger {
   offer: Offer
 }
 
-export async function postOfferStateUpdate(args: PostOfferStateUpdateArgs) {
+export async function postOfferUpdate(args: PostOfferStateUpdateArgs) {
   const { offerThread, thread, offer, logger } = args
   const content = await getMessage(offer)
   await sendToThread(thread, {

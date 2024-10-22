@@ -10,9 +10,8 @@ import { andThen, isNil, objOf, pipe } from 'ramda'
 
 export async function rejectOfferRequestHandler({
   user: { username },
-  params
+  params: { slug }
 }: AuthRequestHandlerArgsWithParams<WithSlug>) {
-  const { slug } = params
   const offer = await getOffer(slug)
   if (isNil(offer)) {
     return Promise.reject(new NotFoundError())
@@ -23,5 +22,5 @@ export async function rejectOfferRequestHandler({
   if (offer.receiver.username !== username) {
     return Promise.reject(new ForbiddenError())
   }
-  return pipe(rejectOffer, andThen(pipe(objOf('offer'), toNextReponse)))(params)
+  return pipe(rejectOffer, andThen(pipe(objOf('offer'), toNextReponse)))(slug)
 }

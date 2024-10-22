@@ -1,6 +1,4 @@
-import type { DocumentData } from 'firebase-admin/firestore'
-
-export interface SwapDocumentData extends DocumentData {
+export interface SwapDocumentData {
   offerId: string
   transactionId: string
 }

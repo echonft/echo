@@ -4,5 +4,4 @@ export interface ListingPostDocumentData {
     channelId: string
     id: string
   }
-  postedAt: number
 }

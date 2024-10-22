@@ -6,7 +6,7 @@ import type { UserDocumentData } from '@echo/firestore/types/model/user-document
 import type { UserDiscordProfile } from '@echo/model/types/user/user-discord-profile'
 import { isNil } from 'ramda'
 
-export async function unchecked_updateUser(
+export async function updateUser(
   username: string,
   data: Omit<UserDocumentData, 'discord'> & Record<'discord', Partial<UserDiscordProfile>>
 ): Promise<UserDocumentData> {

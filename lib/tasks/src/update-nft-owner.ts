@@ -27,7 +27,7 @@ async function cancelTiedListings(nft: NftIndex) {
 async function cancelTiedOffers(nft: NftIndex) {
   const offers = await getOffersForNft(nft)
   for (const offer of offers) {
-    await cancelOffer({ slug: offer.slug, reason: 'onwership of one or more items changed' })
+    await cancelOffer(offer.slug)
   }
 }
 

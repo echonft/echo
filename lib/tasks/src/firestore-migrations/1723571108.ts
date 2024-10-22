@@ -1,7 +1,7 @@
 import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
+import { updateCollection } from '@echo/firestore/crud/collection/update-collection'
 import { getAllNfts } from '@echo/firestore/crud/nft/get-all-nfts'
-import { updateCollection } from '@echo/firestore/utils/collection/update-collection'
-import { updateNft } from '@echo/firestore/utils/nft/update-nft'
+import { updateNft } from '@echo/firestore/crud/nft/update-nft'
 import { TokenType } from '@echo/model/constants/token-type'
 import { getLogger } from '@echo/tasks/commands/get-logger'
 

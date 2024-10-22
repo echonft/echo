@@ -1,5 +1,5 @@
 import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
-import { initializeFirestoreCollection } from '@echo/firestore/utils/initialize-firestore-collection'
+import { initializeFirestoreCollection } from '@echo/test/firestore/initialize-firestore-collection'
 
 export async function initializeDb() {
   const collectionsToInitialize = [
@@ -7,12 +7,9 @@ export async function initializeDb() {
     CollectionReferenceName.CollectionDiscordGuilds,
     CollectionReferenceName.CollectionSwapsCount,
     CollectionReferenceName.Listings,
-    CollectionReferenceName.ListingPosts,
     CollectionReferenceName.Nfts,
     CollectionReferenceName.Offers,
-    CollectionReferenceName.OfferThreads,
     CollectionReferenceName.Swaps,
-    CollectionReferenceName.SwapPosts,
     CollectionReferenceName.Users,
     CollectionReferenceName.Wallets
   ]

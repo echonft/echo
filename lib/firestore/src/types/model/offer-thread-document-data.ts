@@ -1,3 +1,5 @@
+import { OfferThreadState } from '@echo/firestore/constants/offer-thread-state'
+
 export interface OfferThreadDocumentData {
   offerId: string
   guild: {
@@ -5,6 +7,5 @@ export interface OfferThreadDocumentData {
     id: string
     threadId: string
   }
-  postedAt: number
-  state: 'ACTIVE' | 'ARCHIVED'
+  state: OfferThreadState
 }

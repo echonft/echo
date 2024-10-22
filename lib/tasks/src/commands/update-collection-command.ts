@@ -1,5 +1,5 @@
+import { updateCollection } from '@echo/firestore/crud/collection/update-collection'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { updateCollection } from '@echo/firestore/utils/collection/update-collection'
 import type { Wallet } from '@echo/model/types/wallet'
 import { getLogger } from '@echo/tasks/commands/get-logger'
 import { fetchCollection } from '@echo/tasks/fetch-collection'

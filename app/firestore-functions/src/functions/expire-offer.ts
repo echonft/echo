@@ -19,9 +19,7 @@ export const expireOffer = onTaskDispatched(
     try {
       const { slug } = withSlugSchema.parse(req.data)
       try {
-        await firestoreExpireOffer({
-          slug
-        })
+        await firestoreExpireOffer(slug)
       } catch (err) {
         logger.error({ err, offer: { slug } }, 'error setting offer state to expired')
       }

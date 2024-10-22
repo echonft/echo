@@ -27,6 +27,7 @@
     "@babel/preset-typescript": "7.24.7",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
+    "@jest/expect": "29.7.0",
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
     "@types/node": "22.1.0",

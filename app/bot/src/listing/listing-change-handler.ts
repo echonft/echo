@@ -15,11 +15,11 @@ export async function listingChangeHandler(args: WithLoggerType<WithClientType<L
     const listingWithId = assoc('id', listingId, listing)
     logger?.info({ listing: listingWithId }, 'listing was added')
     const echoGuild = getEchoDiscordGuild()
-    const post = await getListingPost(snapshot.id, echoGuild.id)
+    const post = await getListingPost({ listingId: snapshot.id, guildId: echoGuild.id })
     if (isNil(post)) {
       logger?.info({ listing: listingWithId }, 'listing post does not exist, creating...')
       await postListing({ client, listing: listingWithId, logger })
-      const { id } = await addListingPost(listingId, echoGuild)
+      const { id } = await addListingPost({ listingId, guild: echoGuild })
       logger?.info({ listing: listingWithId, listingPost: assoc('id', id, post) }, `post ${id} added to Firestore`)
     } else {
       logger?.info({ listing: listingWithId }, 'listing post already exists, nothing to do')

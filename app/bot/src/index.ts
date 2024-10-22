@@ -3,10 +3,8 @@ import { initializeSentry } from '@echo/bot/helpers/initialize-sentry'
 import { listingChangeHandler } from '@echo/bot/listing/listing-change-handler'
 import { initializeTranslations } from '@echo/bot/messages/initialize-translations'
 import { offerChangeHandler } from '@echo/bot/offer/offer-change-handler'
-import { offerUpdateChangeHandler } from '@echo/bot/offer/offer-update-change-handler'
 import { swapChangeHandler } from '@echo/bot/swap/swap-change-handler'
 import { listenToListings } from '@echo/firestore/listeners/listen-to-listings'
-import { listenToOfferUpdates } from '@echo/firestore/listeners/listen-to-offer-updates'
 import { listenToOffers } from '@echo/firestore/listeners/listen-to-offers'
 import { listenToSwaps } from '@echo/firestore/listeners/listen-to-swaps'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
@@ -37,14 +35,6 @@ client.once(Events.ClientReady, (client) => {
   )
   listenToOffers(
     pipe(assoc('client', client), assoc('logger', global.logger), offerChangeHandler, otherwise(captureAndLogException))
-  )
-  listenToOfferUpdates(
-    pipe(
-      assoc('client', client),
-      assoc('logger', global.logger),
-      offerUpdateChangeHandler,
-      otherwise(captureAndLogException)
-    )
   )
   listenToSwaps(
     pipe(assoc('client', client), assoc('logger', global.logger), swapChangeHandler, otherwise(captureAndLogException))

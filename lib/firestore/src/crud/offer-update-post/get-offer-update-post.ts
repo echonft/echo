@@ -5,10 +5,11 @@ import type { OfferUpdatePostDocumentData } from '@echo/firestore/types/model/of
 import type { Nullable } from '@echo/utils/types/nullable'
 import { pipe } from 'ramda'
 
-export function getOfferUpdatePost(offerUpdateId: string): Promise<Nullable<OfferUpdatePostDocumentData>> {
+export function getOfferUpdatePost(args: OfferUpdatePostDocumentData): Promise<Nullable<OfferUpdatePostDocumentData>> {
   return pipe(
     getOfferUpdatePostsCollectionReference,
-    queryWhere('offerUpdateId', '==', offerUpdateId),
+    queryWhere('offerId', '==', args.offerId),
+    queryWhere('state', '==', args.state),
     getQueryUniqueData
   )()
 }

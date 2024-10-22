@@ -1,6 +1,4 @@
 import { getOffersForNft } from '@echo/firestore/crud/offer/get-offers-for-nft'
-import { resetOffer } from '@echo/firestore/utils/offer/reset-offer'
-import { updateOffer } from '@echo/firestore/utils/offer/update-offer'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
 import { nftMockPxCrewId, nftMockPxJohnny2Id, nftMockSpiralJohnny2Id } from '@echo/model/mocks/nft/nft-mock'
 import { getAllOfferMocks } from '@echo/model/mocks/offer/get-all-offer-mocks'
@@ -10,6 +8,8 @@ import {
   offerMockFromJohnnycageSlug,
   offerMockToJohnnycageId
 } from '@echo/model/mocks/offer/offer-mock'
+import { resetOffer } from '@echo/test/firestore/crud/offer/reset-offer'
+import { updateOffer } from '@echo/test/firestore/crud/offer/update-offer'
 import { afterEach, describe, expect, it } from '@jest/globals'
 import { head, last, omit, pipe } from 'ramda'
 

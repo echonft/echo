@@ -1,6 +1,6 @@
-import type { DocumentData } from 'firebase-admin/firestore'
+import type { OfferState } from '@echo/model/constants/offer-state'
 
-export interface OfferUpdatePostDocumentData extends DocumentData {
-  offerUpdateId: string
-  postedAt: number
+export interface OfferUpdatePostDocumentData {
+  offerId: string
+  state: OfferState
 }

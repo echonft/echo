@@ -21,6 +21,6 @@ export async function offerCancelledEventHandler(args: EchoEventHandlerArgs) {
       })
     )
   }
-  await cancelOffer({ slug: offer.slug })
+  await cancelOffer(offer.slug)
   logger?.info({ offer }, 'cancelled offer')
 }

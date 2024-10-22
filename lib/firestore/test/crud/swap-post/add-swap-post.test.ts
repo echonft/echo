@@ -1,32 +1,38 @@
 import { addSwapPost } from '@echo/firestore/crud/swap-post/add-swap-post'
-import { deleteSwapPost } from '@echo/firestore/crud/swap-post/delete-swap-post'
-import { getSwapPostById } from '@echo/firestore/crud/swap-post/get-swap-post-by-id'
+import { getSwapPost } from '@echo/firestore/crud/swap-post/get-swap-post'
 import { swapMockId } from '@echo/firestore/mocks/swap/swap-mock'
-import type { SwapPostDocumentData } from '@echo/firestore/types/model/swap-post-document-data'
+import { SwapError } from '@echo/model/constants/errors/swap-error'
+import { deleteSwapPost } from '@echo/test/firestore/crud/swap-post/delete-swap-post'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
-import dayjs from 'dayjs'
-import { isNil } from 'ramda'
+import { assoc, isNil } from 'ramda'
 
 describe('CRUD - swap-post - addSwapPost', () => {
-  const guild: SwapPostDocumentData['guild'] = { id: 'discordId', channelId: 'channelId' }
-  let createdSwapPostId: Nullable<string>
+  const data = { swapId: swapMockId(), guild: { id: 'discordId', channelId: 'channelId' } }
+  let swapPostId: Nullable<string>
   beforeEach(() => {
-    createdSwapPostId = undefined
+    swapPostId = undefined
   })
   afterEach(async () => {
-    if (!isNil(createdSwapPostId)) {
-      await deleteSwapPost(createdSwapPostId)
+    if (!isNil(swapPostId)) {
+      await deleteSwapPost(swapPostId)
     }
   })
+
+  it('throws if the swap does not exist', async () => {
+    await expect(addSwapPost(assoc('swapId', 'not-found', data))).rejects.toEqual(Error(SwapError.NotFound))
+  })
+
+  it('throws if the swap post already exists', async () => {
+    const { id } = await addSwapPost(data)
+    swapPostId = id
+    await expect(addSwapPost(data)).rejects.toEqual(Error(SwapError.PostExists))
+  })
+
   it('add a swap post', async () => {
-    const swapId = swapMockId
-    const { id } = await addSwapPost({ swapId: swapId(), guild })
-    createdSwapPostId = id
-    const newDocument = (await getSwapPostById(id))!
-    expect(newDocument.swapId).toStrictEqual(swapId())
-    expect(newDocument.guild).toStrictEqual(guild)
-    expect(dayjs.unix(newDocument.postedAt).isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
-    expect(dayjs.unix(newDocument.postedAt).isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
+    const { id } = await addSwapPost(data)
+    swapPostId = id
+    const document = await getSwapPost({ swapId: data.swapId, guildId: data.guild.id })
+    expect(document).toStrictEqual(data)
   })
 })

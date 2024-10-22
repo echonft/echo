@@ -4,8 +4,8 @@ import { getUserSnapshotByDiscordId } from '@echo/firestore/crud/user/get-user-b
 import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
-import { unchecked_updateUser } from '@echo/firestore/utils/user/unchecked_update-user'
 import type { UserDiscordProfile } from '@echo/model/types/user/user-discord-profile'
+import { updateUser } from '@echo/test/firestore/crud/user/update-user'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNotNil } from 'ramda'
@@ -19,7 +19,7 @@ describe('CRUD - user - addOrUpdateUser', () => {
   })
   afterEach(async () => {
     if (isNotNil(updatedUsername)) {
-      await unchecked_updateUser(updatedUsername, getUserDocumentDataMockByUsername(updatedUsername))
+      await updateUser(updatedUsername, getUserDocumentDataMockByUsername(updatedUsername))
     }
     if (isNotNil(newUserId)) {
       await deleteUser(newUserId)

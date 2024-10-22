@@ -247,9 +247,18 @@ export default tseslint.config(
     }
   },
   {
-    name: 'global.d.ts rules',
+    name: 'global.d.ts',
     files: ['**/global.d.ts'],
     rules: {
+      '@typescript-eslint/no-empty-object-type': 'off'
+    }
+  },
+  {
+    name: 'jest.d.ts',
+    files: ['**/test/jest.d.ts'],
+    rules: {
+      'no-var': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-empty-object-type': 'off'
     }
   }

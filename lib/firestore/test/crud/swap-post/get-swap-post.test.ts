@@ -1,17 +1,32 @@
 import { getSwapPost } from '@echo/firestore/crud/swap-post/get-swap-post'
-import { describe, expect, it } from '@jest/globals'
+import { swapMockId } from '@echo/firestore/mocks/swap/swap-mock'
+import { addSwapPost } from '@echo/test/firestore/crud/swap-post/add-swap-post'
+import { deleteSwapPost } from '@echo/test/firestore/crud/swap-post/delete-swap-post'
+import type { Nullable } from '@echo/utils/types/nullable'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
+import { isNil } from 'ramda'
 
 describe('CRUD - swap-post - getSwapPost', () => {
+  const data = { swapId: swapMockId(), guild: { id: 'discordId', channelId: 'channelId' } }
+  let swapPostId: Nullable<string>
+  beforeEach(() => {
+    swapPostId = undefined
+  })
+  afterEach(async () => {
+    if (!isNil(swapPostId)) {
+      await deleteSwapPost(swapPostId)
+    }
+  })
+
   it('returns undefined if the document does not exist', async () => {
-    const document = await getSwapPost({ swapId: 'not-found', guildId: 'not-found' })
-    expect(document).toBeUndefined()
+    await expect(getSwapPost({ swapId: 'not-found', guildId: 'not-found' })).resolves.toBeUndefined()
+    swapPostId = await addSwapPost(data)
+    await expect(getSwapPost({ swapId: data.swapId, guildId: 'not-found' })).resolves.toBeUndefined()
+    await expect(getSwapPost({ swapId: 'not-found', guildId: data.guild.id })).resolves.toBeUndefined()
   })
   it('returns the document found', async () => {
-    const swapId = '2ipuV3drjQlzEgkUkW7q'
-    const guildId = '1'
-    const document = await getSwapPost({ swapId, guildId })
-    expect(document!.swapId).toStrictEqual(swapId)
-    expect(document!.guild.id).toStrictEqual('1')
-    expect(document!.guild.channelId).toStrictEqual('1')
+    swapPostId = await addSwapPost(data)
+    const document = await getSwapPost({ swapId: data.swapId, guildId: data.guild.id })
+    expect(document).toStrictEqual(data)
   })
 })

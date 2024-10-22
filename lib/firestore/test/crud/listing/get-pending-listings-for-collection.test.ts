@@ -1,8 +1,8 @@
 import { getPendingListingsForCollection } from '@echo/firestore/crud/listing/get-pending-listings-for-collection'
-import { updateListing } from '@echo/firestore/utils/listing/update-listing'
 import { collectionMockPxSlug, collectionMockSpiralSlug } from '@echo/model/mocks/collection/collection-mock'
 import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
 import { listingMockId, listingMockSlug } from '@echo/model/mocks/listing/listing-mock'
+import { updateListing } from '@echo/test/firestore/crud/listing/update-listing'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - listing - getPendingListingsForCollection', () => {

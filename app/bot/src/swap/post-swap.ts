@@ -39,4 +39,10 @@ export async function postSwap(args: PostSwapArgs) {
     logger
   })
   logger?.info({ offer: offerWithId }, 'posted swap to echo channel')
+  // FIXME
+  // if (offer.locked && !isNil(offerThread)) {
+  //   // Archive thread if both users don't have anything in escrow
+  //   await postEscrowMessage({ offer, offerThread, thread, logger })
+  //   await archiveOfferThread({ offerThread, thread, logger })
+  // }
 }

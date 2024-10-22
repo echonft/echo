@@ -4,6 +4,7 @@
     "baseUrl": ".",
     "paths": {
       "@echo/firestore/*": ["src/*"],
+      "@echo/test/firestore/*": ["test/*"],
       "@echo/api/*": ["../api/src/*"],
       "@echo/auth/*": ["../auth/src/*"],
       "@echo/backend/*": ["../backend/src/*"],

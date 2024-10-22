@@ -4,5 +4,4 @@ export interface SwapPostDocumentData {
     channelId: string
     id: string
   }
-  postedAt: number
 }

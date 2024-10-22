@@ -1,11 +1,14 @@
-import { deleteOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/delete-offer-update-post'
 import { getOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/get-offer-update-post'
-import { unchecked_addOfferUpdatePost } from '@echo/firestore/utils/offer-update-post/unchecked_add-offer-update-post'
+import { OfferState } from '@echo/model/constants/offer-state'
+import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
+import { addOfferUpdatePost } from '@echo/test/firestore/crud/offer-update-post/add-offer-update-post'
+import { deleteOfferUpdatePost } from '@echo/test/firestore/crud/offer-update-post/delete-offer-update-post'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
-import { isNil } from 'ramda'
+import { assoc, isNil, pipe } from 'ramda'
 
 describe('CRUD - offer-update-post - getOfferUpdatePost', () => {
+  const data = { offerId: offerMockToJohnnycageId(), state: OfferState.Accepted }
   let offerUpdatePostId: Nullable<string>
 
   beforeEach(() => {
@@ -17,14 +20,15 @@ describe('CRUD - offer-update-post - getOfferUpdatePost', () => {
       offerUpdatePostId = undefined
     }
   })
-  it('returns undefined if no document is found', async () => {
-    const foundDocument = await getOfferUpdatePost('not-found')
-    expect(foundDocument).toBeUndefined()
-  })
+
   it('returns the proper document if found', async () => {
-    const newDocument = await unchecked_addOfferUpdatePost('id')
-    offerUpdatePostId = newDocument.id
-    const foundDocument = await getOfferUpdatePost('id')
-    expect(foundDocument).toStrictEqual(newDocument.data)
+    offerUpdatePostId = await addOfferUpdatePost(data)
+    const document = await getOfferUpdatePost(data)
+    expect(document).toStrictEqual(data)
+  })
+  it('returns undefined if no document is found', async () => {
+    offerUpdatePostId = await addOfferUpdatePost(data)
+    await expect(pipe(assoc('offerId', 'not-found'), getOfferUpdatePost)(data)).resolves.toBeUndefined()
+    await expect(pipe(assoc('state', OfferState.Cancelled), getOfferUpdatePost)(data)).resolves.toBeUndefined()
   })
 })

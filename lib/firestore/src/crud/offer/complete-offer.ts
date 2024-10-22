@@ -1,14 +1,12 @@
 import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
-import { updateOfferState, type UpdateOfferStateArgs } from '@echo/firestore/crud/offer/update-offer-state'
+import { updateOfferState } from '@echo/firestore/crud/offer/update-offer-state'
 import { addSwap } from '@echo/firestore/crud/swap/add-swap'
-import type { SwapDocumentData } from '@echo/firestore/types/model/swap-document-data'
-import type { NewDocument } from '@echo/firestore/types/new-document'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { OfferState } from '@echo/model/constants/offer-state'
 import { type Offer } from '@echo/model/types/offer/offer'
-import { assoc, isNil, omit, pipe } from 'ramda'
+import { isNil } from 'ramda'
 
-export interface CompleteOfferArgs extends Omit<UpdateOfferStateArgs, 'state'> {
+export interface CompleteOfferArgs extends Pick<Offer, 'slug'> {
   transactionId: string
 }
 
@@ -17,26 +15,8 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
   if (isNil(snapshot)) {
     return Promise.reject(Error(OfferError.NotFound))
   }
-  const offer = await pipe<
-    [CompleteOfferArgs],
-    Omit<CompleteOfferArgs, 'transactionId'>,
-    UpdateOfferStateArgs,
-    Promise<Offer>
-  >(
-    omit(['transactionId']),
-    assoc<OfferState, 'state'>('state', OfferState.Completed),
-    updateOfferState
-  )(args)
+  const offer = await updateOfferState({ slug: args.slug, state: OfferState.Completed })
   // add swap
-  await pipe<
-    [CompleteOfferArgs],
-    Omit<CompleteOfferArgs, 'reason'>,
-    SwapDocumentData,
-    Promise<NewDocument<SwapDocumentData>>
-  >(
-    omit(['reason']),
-    assoc('offerId', snapshot.id),
-    addSwap
-  )(args)
+  await addSwap({ offerId: snapshot.id, transactionId: args.transactionId })
   return offer
 }
