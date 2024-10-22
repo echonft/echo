@@ -2,6 +2,7 @@ import type { Address } from '@echo/model/types/address'
 import type { User } from '@echo/model/types/user'
 import { LogoutButtonManager } from '@echo/ui/components/auth/logout-button-manager'
 import { CountsDetails } from '@echo/ui/components/base/counts-details'
+import { PaddedLayout } from '@echo/ui/components/base/layout/padded-layout'
 import { ProfileLayout } from '@echo/ui/components/base/layout/profile-layout'
 import { Profile } from '@echo/ui/components/base/profile'
 import { UserProfileDetailsLayout } from '@echo/ui/components/user/profile/layout/user-profile-details-layout'
@@ -31,15 +32,17 @@ export const AuthUserProfile: FunctionComponent<Props> = ({
   const { username, avatarUrl } = discord
   return (
     <ProfileLayout bannerUrl={avatarUrl}>
-      <Profile picture={{ pictureUrl: avatarUrl, alt: username }}>
-        <UserProfileDetailsLayout>
-          <UserTag user={user} />
-          <div className={clsx('flex', 'flex-row', 'h-max', 'w-max', 'gap-2.5')}>
-            <WalletConnectedButton address={address} />
-            <LogoutButtonManager />
-          </div>
-        </UserProfileDetailsLayout>
-      </Profile>
+      <PaddedLayout>
+        <Profile picture={{ pictureUrl: avatarUrl, alt: username }}>
+          <UserProfileDetailsLayout>
+            <UserTag user={profile} />
+            <div className={clsx('flex', 'flex-row', 'h-max', 'w-max', 'gap-2.5')}>
+              <UserProfileWallets wallets={wallets} />
+              <LogoutButtonManager />
+            </div>
+          </UserProfileDetailsLayout>
+        </Profile>
+      </PaddedLayout>
       <CountsDetails
         listingsCount={listingsCount}
         nftsCount={nftsCount}

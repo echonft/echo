@@ -6,10 +6,11 @@ import { SelectableNftCardButton } from '@echo/ui/components/nft/selectable-card
 import { SelectableNftCardFooter } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-footer'
 import { SelectableNftCardPicture } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-picture'
 import type { NftAction } from '@echo/ui/constants/nft-actions'
+import type { WithClassNameProps } from '@echo/ui/types/props/with-class-name-props'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { type FunctionComponent } from 'react'
 
-export interface SelectableNftCardProps {
+export interface SelectableNftCardProps extends WithClassNameProps {
   nft: OwnedNft
   options?: {
     owner?: {
@@ -17,23 +18,24 @@ export interface SelectableNftCardProps {
     }
   }
   action?: Nullable<NftAction>
+  selected?: boolean
   onSelect?: (nft: OwnedNft) => unknown
+  onUnselect?: (nft: OwnedNft) => unknown
   onAction?: (nft: OwnedNft) => unknown
 }
 
 export const SelectableNftCard: FunctionComponent<SelectableNftCardProps> = ({
+  className,
   nft,
   action,
   options,
+  selected,
   onSelect,
+  onUnselect,
   onAction
 }) => {
   return (
-    <SelectableNftCardLayout
-      onClick={() => {
-        onSelect?.(nft)
-      }}
-    >
+    <SelectableNftCardLayout className={className} onClick={() => (selected ? onUnselect?.(nft) : onSelect?.(nft))}>
       <SelectableNftCardPicture nft={nft} options={options} />
       <SelectableNftCardFooter nft={nft} action={action} />
       <SelectableNftCardButtonLayout>

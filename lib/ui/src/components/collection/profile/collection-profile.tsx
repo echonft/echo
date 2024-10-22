@@ -1,4 +1,5 @@
 import type { Collection } from '@echo/model/types/collection'
+import { PaddedLayout } from '@echo/ui/components/base/layout/padded-layout'
 import { Profile } from '@echo/ui/components/base/profile'
 import { CollectionLinks, type CollectionLinksProps } from '@echo/ui/components/collection/profile/collection-links'
 import { CollectionProfileSupply } from '@echo/ui/components/collection/profile/collection-profile-supply'
@@ -23,17 +24,19 @@ export const CollectionProfile: FunctionComponent<CollectionProfileProps> = ({
   verified
 }) => {
   return (
-    <Profile picture={{ pictureUrl: pictureUrl, alt: name }}>
-      <CollectionProfileDetailsLayout>
-        <CollectionProfileTitleLayout>
-          <h1 className={clsx('text-white', 'prose-display-lg-bold', 'uppercase', 'truncate')}>{name}</h1>
-          <CollectionProfileVerifiedIcon verified={verified} />
-        </CollectionProfileTitleLayout>
-        <CollectionProfileSupplyAndLinksLayout>
-          <CollectionProfileSupply totalSupply={totalSupply} />
-          <CollectionLinks twitterUsername={twitterUsername} discordUrl={discordUrl} websiteUrl={websiteUrl} />
-        </CollectionProfileSupplyAndLinksLayout>
-      </CollectionProfileDetailsLayout>
-    </Profile>
+    <PaddedLayout>
+      <Profile picture={{ pictureUrl: pictureUrl, alt: name }}>
+        <CollectionProfileDetailsLayout>
+          <CollectionProfileTitleLayout>
+            <h1 className={clsx('text-white', 'prose-display-lg-bold', 'uppercase', 'truncate')}>{name}</h1>
+            <CollectionProfileVerifiedIcon verified={verified} />
+          </CollectionProfileTitleLayout>
+          <CollectionProfileSupplyAndLinksLayout>
+            <CollectionProfileSupply totalSupply={totalSupply} />
+            <CollectionLinks twitterUsername={twitterUsername} discordUrl={discordUrl} websiteUrl={websiteUrl} />
+          </CollectionProfileSupplyAndLinksLayout>
+        </CollectionProfileDetailsLayout>
+      </Profile>
+    </PaddedLayout>
   )
 }

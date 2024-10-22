@@ -6,5 +6,9 @@
     "source.organizeImports": "always",
   },
   "javascript.preferences.importModuleSpecifier": "non-relative",
-  "typescriptHero.imports.organizeOnSave": true
+  "javascript.experimental.updateImportsOnPaste": true,
+  "typescript.experimental.updateImportsOnPaste": true,
+  "javascript.preferences.organizeImports": {
+    "typeOrder": "auto"
+  }
 }

@@ -2,6 +2,7 @@ import type { Chain } from '@echo/model/constants/chain'
 import type { Address } from '@echo/model/types/address'
 import type { User } from '@echo/model/types/user'
 import { CountsDetails } from '@echo/ui/components/base/counts-details'
+import { PaddedLayout } from '@echo/ui/components/base/layout/padded-layout'
 import { ProfileLayout } from '@echo/ui/components/base/layout/profile-layout'
 import { Profile } from '@echo/ui/components/base/profile'
 import { UserProfileDetailsLayout } from '@echo/ui/components/user/profile/layout/user-profile-details-layout'
@@ -32,12 +33,14 @@ export const UserProfile: FunctionComponent<Props> = ({
   const { username, avatarUrl } = discord
   return (
     <ProfileLayout bannerUrl={avatarUrl}>
-      <Profile picture={{ pictureUrl: avatarUrl, alt: username }}>
-        <UserProfileDetailsLayout>
-          <UserTag user={user} />
-          <WalletConnectedButton address={address} chain={chain} />
-        </UserProfileDetailsLayout>
-      </Profile>
+      <PaddedLayout>
+        <Profile picture={{ pictureUrl: avatarUrl, alt: username }}>
+          <UserProfileDetailsLayout>
+            <UserTag user={profile} />
+            <UserProfileWallets wallets={wallets} />
+          </UserProfileDetailsLayout>
+        </Profile>
+      </PaddedLayout>
       <CountsDetails
         listingsCount={listingsCount}
         nftsCount={nftsCount}

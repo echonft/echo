@@ -3,7 +3,7 @@
 import type { OwnedNft } from '@echo/model/types/owned-nft'
 import type { User } from '@echo/model/types/user'
 import { Profile } from '@echo/ui/components/base/profile'
-import { SelectableNfts } from '@echo/ui/components/nft/selectable/selectable-nfts'
+import { SelectableNftsWithoutThumbnail } from '@echo/ui/components/nft/selectable/selectable-nfts-without-thumbnail'
 import { UserProfileDetailsLayout } from '@echo/ui/components/user/profile/layout/user-profile-details-layout'
 import { UserTag } from '@echo/ui/components/user/profile/user-tag'
 import clsx from 'clsx'
@@ -37,7 +37,7 @@ export const CreateOfferUserNftsSelection: FunctionComponent<Props> = ({
           {/*<WalletConnectedButton address={address} chain={chain} />*/}
         </UserProfileDetailsLayout>
       </Profile>
-      <SelectableNfts
+      <SelectableNftsWithoutThumbnail
         nfts={nfts}
         selection={selection}
         options={{ owner: { hide: true } }}
