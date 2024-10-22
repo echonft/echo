@@ -1,7 +1,6 @@
 import { archiveOfferThread } from '@echo/bot/offer/archive-offer-thread'
 import { postSwap } from '@echo/bot/swap/post-swap'
 import type { WithClientType } from '@echo/bot/types/with-client'
-import { getOfferThreadByOfferSlug } from '@echo/firestore/crud/offer-thread/get-offer-thread-by-offer-slug'
 import { addSwapPost } from '@echo/firestore/crud/swap-post/add-swap-post'
 import { getSwapPost } from '@echo/firestore/crud/swap-post/get-swap-post'
 import { getSwapOffer } from '@echo/firestore/crud/swap/get-swap-offer'
@@ -18,7 +17,7 @@ export async function swapChangeHandler(args: WithLoggerType<WithClientType<Swap
     const swapWithId = assoc('id', swapId, swap)
     const offer = await getSwapOffer(swap.slug)
     if (isNil(offer)) {
-      logger?.info({ swap: swapWithId }, 'swap was added, but offer is nil. Nothing to do')
+      logger?.warn({ swap: swapWithId }, 'swap was added, but offer is nil. Nothing to do')
       return
     }
     logger?.info({ offer, swap: swapWithId }, 'swap was added')
@@ -28,12 +27,7 @@ export async function swapChangeHandler(args: WithLoggerType<WithClientType<Swap
       await postSwap({ client, offer, logger })
       const { id, data } = await addSwapPost({ swapId, guild: echoGuild })
       logger?.info({ offer, swap: swapWithId, swapPost: assoc('id', id, data) }, 'added swap post to Firestore')
-    } else {
-      logger?.info({ offer, swap: swapWithId }, 'swap post already exists, nothing to do')
-    }
-    const offerThread = await getOfferThreadByOfferSlug(offer.slug)
-    if (!isNil(offerThread)) {
-      await archiveOfferThread({ client, offerThread, logger })
+      await archiveOfferThread({ client, offer, logger })
     }
   }
 }

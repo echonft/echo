@@ -1,8 +1,8 @@
-import { getUserCounts } from '@echo/firestore/crud/user-counts/get-user-counts'
+import { getUserCounts } from '@echo/firestore/crud/user/counts/get-user-counts'
 import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
 import { describe, expect, it } from '@jest/globals'
 
-describe('getUserCounts', () => {
+describe('CRUD - user - counts - getUserCounts', () => {
   it('returns the counts for the user', async () => {
     const username = userMockJohnnyUsername()
     const userCounts = await getUserCounts(username)

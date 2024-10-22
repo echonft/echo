@@ -2,7 +2,6 @@ import { OfferState } from '@echo/model/constants/offer-state'
 import { CreatedOfferAccepted } from '@echo/ui/components/offer/created/created-offer-accepted'
 import { CreatedOfferCancelled } from '@echo/ui/components/offer/created/created-offer-cancelled'
 import { CreatedOfferCreated } from '@echo/ui/components/offer/created/created-offer-created'
-import { CreatedOfferExecuted } from '@echo/ui/components/offer/created/created-offer-executed'
 import { CreatedOfferExpired } from '@echo/ui/components/offer/created/created-offer-expired'
 import { CreatedOfferRedeemed } from '@echo/ui/components/offer/created/created-offer-redeemed'
 import { CreatedOfferRejected } from '@echo/ui/components/offer/created/created-offer-rejected'
@@ -52,13 +51,6 @@ export const CreatedOfferSwitch: FunctionComponent<Props> = ({ offer, redeemed, 
       )
     case OfferState.Rejected:
       return <CreatedOfferRejected />
-    case OfferState.Completed:
-      // We display the opposite items here since they're swapped
-      return (
-        <CreatedOfferExecuted
-          count={isOfferRoleReceiver(offer) ? offer.senderItems.length : offer.receiverItems.length}
-        />
-      )
     case OfferState.Cancelled:
       return <CreatedOfferCancelled count={offer.senderItems.length} />
   }

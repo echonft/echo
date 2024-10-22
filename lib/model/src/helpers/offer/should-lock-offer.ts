@@ -6,5 +6,5 @@ import { OfferState } from '@echo/model/constants/offer-state'
  * @param toState
  */
 export function shouldLockOffer(toState: OfferState): boolean {
-  return toState !== OfferState.Accepted && toState !== OfferState.Open
+  return toState !== OfferState.Open
 }

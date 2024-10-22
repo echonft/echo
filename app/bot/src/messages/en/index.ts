@@ -38,9 +38,7 @@ export const messages = {
       ACCEPTED: '@here {{- receiver}} accepted the offer! You can now execute the swap.',
       CANCELLED: '@here The offer was canceled.',
       EXPIRED: '@here The offer expired.',
-      REDEEMED: '@here ',
-      REJECTED: '@here {{- receiver}} rejected the offer.',
-      COMPLETED: '@here The swap is now completed. Congratulations to the both of you!'
+      REJECTED: '@here {{- receiver}} rejected the offer.'
     }
   },
   swap: {
@@ -49,6 +47,7 @@ export const messages = {
       description: 'Between {{- creator}} and {{- counterparty}}',
       senderItems: 'Swapped',
       receiverItems: 'For'
-    }
+    },
+    update: '@here The swap is now completed. Congratulations to the both of you!'
   }
 }

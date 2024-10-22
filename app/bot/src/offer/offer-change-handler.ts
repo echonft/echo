@@ -1,13 +1,15 @@
+import { archiveOfferThread } from '@echo/bot/offer/archive-offer-thread'
 import { createOfferThread } from '@echo/bot/offer/create-offer-thread'
+import { postEscrowMessage } from '@echo/bot/offer/post-escrow-message'
 import { postOfferUpdate } from '@echo/bot/offer/post-offer-update'
 import type { WithClientType } from '@echo/bot/types/with-client'
 import { addOfferThread } from '@echo/firestore/crud/offer-thread/add-offer-thread'
-import { archiveOfferThread } from '@echo/firestore/crud/offer-thread/archive-offer-thread'
+import { archiveOfferThread as firestoreArchiveOfferThread } from '@echo/firestore/crud/offer-thread/archive-offer-thread'
 import { getOfferThreadByOfferId } from '@echo/firestore/crud/offer-thread/get-offer-thread-by-offer-id'
-import { addOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/add-offer-update-post'
 import { getOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/get-offer-update-post'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import type { OfferChangeHandlerArgs } from '@echo/firestore/types/change-handler/offer-change-handler'
+import { OfferState } from '@echo/model/constants/offer-state'
 import { getEchoDiscordGuild } from '@echo/utils/helpers/get-echo-discord-guild'
 import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { assoc, isNil } from 'ramda'
@@ -38,7 +40,7 @@ export async function offerChangeHandler(args: WithLoggerType<WithClientType<Off
         const offerThread = assoc('id', offerThreadId, data)
         logger?.info({ offer: offerWithId, offerThread }, 'added offer thread to Firestore')
         if (archive) {
-          await archiveOfferThread(id)
+          await firestoreArchiveOfferThread(id)
           logger?.info({ offer: offerWithId, offerThread }, 'archived offer thread in Firestore')
         }
       } catch (err) {
@@ -53,24 +55,17 @@ export async function offerChangeHandler(args: WithLoggerType<WithClientType<Off
     const postArgs = { offerId: id, state: offer.state }
     const post = await getOfferUpdatePost(postArgs)
     if (isNil(post)) {
-      const offerWithId = assoc('id', id, offer)
-      const offerThread = await getOfferThreadByOfferId(id)
-      if (isNil(offerThread)) {
-        logger?.error({ offer: offerWithId }, 'offer thread not found')
+      await postOfferUpdate({ client, offer, logger })
+      if (offer.state === OfferState.Rejected || offer.state === OfferState.Cancelled) {
+        await archiveOfferThread({ client, offer, logger })
         return
       }
-      await postOfferUpdate({ client, offer, offerThread, logger })
-      const { id: offerUpdatePostId, data: offerUpdatePostData } = await addOfferUpdatePost(postArgs)
-      logger?.info(
-        { offer: offerWithId, getOfferUpdatePost: assoc('id', offerUpdatePostId, offerUpdatePostData), offerThread },
-        'added offer update post to Firestore'
-      )
-      // FIXME
-      // if (offer.state === OfferState.Rejected || offer.state === OfferState.Expired) {
-      //
-      // }
-    } else {
-      logger?.info({ offer: { id } }, 'update post already exists, nothing to do')
+      if (offer.state === OfferState.Expired) {
+        const args = { client, offer, logger }
+        await postEscrowMessage(args)
+        await archiveOfferThread(args)
+        return
+      }
     }
   }
 }

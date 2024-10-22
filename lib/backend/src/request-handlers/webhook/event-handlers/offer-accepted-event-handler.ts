@@ -11,7 +11,7 @@ export async function offerAcceptedEventHandler(args: EchoEventHandlerArgs) {
   const { offerId } = event
   const offer = await getOfferByIdContract(offerId)
   if (isNil(offer)) {
-    return Promise.reject(new NotFoundError({ message: 'offer not found', severity: 'warning' }))
+    return Promise.reject(new NotFoundError({ message: OfferError.NotFound, severity: 'warning' }))
   }
   if (offer.locked) {
     return Promise.reject(

@@ -124,7 +124,7 @@ export function offerDocumentDataMock(): Record<string, OfferDocumentData> {
       senderItemCollections: [collectionMockSpiralSlug()],
       senderItemIndexes: [`${collectionMockSpiralSlug()}.1`, `${collectionMockSpiralSlug()}.2`],
       slug: offerMockFromJohnnycageSlug(),
-      state: OfferState.Completed
+      state: OfferState.Accepted
     }
   }
 }

@@ -1,26 +1,21 @@
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
-import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
 import { queryWhereFilter } from '@echo/firestore/helpers/crud/query/query-where-filter'
 import type { OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
 import { type Offer } from '@echo/model/types/offer/offer'
+import type { Slug } from '@echo/model/types/slug'
 import { Filter, type Query } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
-/**
- * Returns all offers for a user, that is if the user is either the sender or the receiver
- * @param username
- */
-export function getOffersForUserQuery(username: string): Query<Offer, OfferDocumentData> {
+export function getOffersForCollectionQuery(slug: Slug): Query<Offer, OfferDocumentData> {
   return pipe(
     getOffersCollectionReference,
+    queryOrderBy('expiresAt', 'desc'),
     queryWhereFilter(
-      Filter.or(Filter.where('sender.username', '==', username), Filter.where('receiver.username', '==', username))
-    ),
-    queryOrderBy('expiresAt', 'desc')
+      Filter.or(
+        Filter.where('receiverItemCollections', 'array-contains', slug),
+        Filter.where('senderItemCollections', 'array-contains', slug)
+      )
+    )
   )()
-}
-
-export function getOffersForUser(username: string): Promise<Offer[]> {
-  return pipe(getOffersForUserQuery, getQueryData)(username)
 }

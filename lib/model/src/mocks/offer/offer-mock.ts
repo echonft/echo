@@ -134,7 +134,7 @@ export function offerMock(): Record<string, Offer> {
         }
       ],
       slug: offerMockFromJohnnycageSlug(),
-      state: OfferState.Completed
+      state: OfferState.Accepted
     }
   }
 }

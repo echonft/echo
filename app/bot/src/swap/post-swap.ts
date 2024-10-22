@@ -1,9 +1,12 @@
 import { sendToEchoChannel } from '@echo/bot/helpers/send-to-echo-channel'
+import { sendToThread } from '@echo/bot/helpers/send-to-thread'
+import { getOfferThreadOnEchoChannel } from '@echo/bot/offer/get-offer-thread-on-echo-channel'
 import { buildSwapEmbed } from '@echo/bot/swap/build-swap-embed'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import type { Offer } from '@echo/model/types/offer/offer'
 import type { WithLogger } from '@echo/utils/types/with-logger'
 import type { Client } from 'discord.js'
+import i18next from 'i18next'
 import { isNil } from 'ramda'
 
 interface PostSwapArgs extends WithLogger {
@@ -32,9 +35,11 @@ export async function postSwap(args: PostSwapArgs) {
     logger
   })
   logger?.info({ offer }, 'posted swap to echo channel')
-  // FIXME
-  // if (offer.locked && !isNil(offerThread)) {
-  //   // Archive thread if both users don't have anything in escrow
-  //   await postEscrowMessage({ offer, offerThread, thread, logger })
-  // }
+  const { offerThread, thread } = await getOfferThreadOnEchoChannel(args)
+  if (!isNil(thread) && !isNil(offerThread)) {
+    await sendToThread(thread, {
+      content: i18next.t('swap.update')
+    })
+    logger?.info({ offer, offerThread }, 'posted update to thread')
+  }
 }

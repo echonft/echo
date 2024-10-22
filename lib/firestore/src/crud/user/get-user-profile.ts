@@ -1,4 +1,4 @@
-import { getUserCounts } from '@echo/firestore/crud/user-counts/get-user-counts'
+import { getUserCounts } from '@echo/firestore/crud/user/counts/get-user-counts'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
 import type { UserProfile } from '@echo/model/types/user/user-profile'
