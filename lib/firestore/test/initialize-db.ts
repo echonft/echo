@@ -5,7 +5,6 @@ export async function initializeDb() {
   const collectionsToInitialize = [
     CollectionReferenceName.Collections,
     CollectionReferenceName.CollectionDiscordGuilds,
-    CollectionReferenceName.CollectionSwapsCount,
     CollectionReferenceName.Listings,
     CollectionReferenceName.Nfts,
     CollectionReferenceName.Offers,

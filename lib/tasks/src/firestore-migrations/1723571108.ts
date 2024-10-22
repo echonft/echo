@@ -1,4 +1,4 @@
-import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
+import { getCollections } from '@echo/firestore/crud/collection/get-collections'
 import { updateCollection } from '@echo/firestore/crud/collection/update-collection'
 import { getAllNfts } from '@echo/firestore/crud/nft/get-all-nfts'
 import { updateNft } from '@echo/firestore/crud/nft/update-nft'
@@ -17,7 +17,7 @@ async function migrate() {
   for (const nft of nfts) {
     await updateNft(nft, { type: TokenType.Erc721 })
   }
-  const collections = await getAllCollections()
+  const collections = await getCollections()
   for (const collection of collections) {
     await updateCollection(collection.slug, { type: TokenType.Erc721 })
   }

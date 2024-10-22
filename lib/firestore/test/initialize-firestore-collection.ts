@@ -1,6 +1,5 @@
 import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
 import { collectionDiscordGuildMock } from '@echo/firestore/mocks/collection-discord-guild/collection-discord-guild-mock'
-import { collectionSwapsCountMock } from '@echo/firestore/mocks/collection-swaps-count/collection-swaps-count-mock'
 import { listingDocumentDataMock } from '@echo/firestore/mocks/listing/listing-document-data-mock'
 import { nftDocumentDataMock } from '@echo/firestore/mocks/nft/nft-document-data-mock'
 import { offerDocumentDataMock } from '@echo/firestore/mocks/offer/offer-document-data-mock'
@@ -19,8 +18,6 @@ function getMock(collectionReferenceName: CollectionReferenceName) {
       return collectionMock() as Record<string, DocumentData>
     case CollectionReferenceName.CollectionDiscordGuilds:
       return collectionDiscordGuildMock() as Record<string, DocumentData>
-    case CollectionReferenceName.CollectionSwapsCount:
-      return collectionSwapsCountMock() as Record<string, DocumentData>
     case CollectionReferenceName.Listings:
       return listingDocumentDataMock() as Record<string, DocumentData>
     case CollectionReferenceName.Nfts:

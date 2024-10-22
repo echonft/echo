@@ -1,7 +1,6 @@
 export enum CollectionReferenceName {
   Collections = 'collections',
   CollectionDiscordGuilds = 'collection-discord-guilds',
-  CollectionSwapsCount = 'collection-swaps-count',
   EscrowedNfts = 'escrowed-nfts',
   Nfts = 'nfts',
   Nonces = 'nonces',

@@ -1,30 +1,22 @@
-import { addCollectionSwapsCount } from '@echo/firestore/crud/collection-swaps-count/add-collection-swaps-count'
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { getCollectionsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collections-collection-reference'
 import { generateUniqueCollectionSlug } from '@echo/firestore/helpers/collection/generate-unique-collection-slug'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import type { CollectionSwapsCountDocumentData } from '@echo/firestore/types/model/collection-swaps-count-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { CollectionError } from '@echo/model/constants/errors/collection-error'
 import { type Collection } from '@echo/model/types/collection/collection'
 import { assoc, isNil } from 'ramda'
 
-export async function addCollection(data: Collection): Promise<
-  NewDocument<Collection> & {
-    swapsCount: NewDocument<CollectionSwapsCountDocumentData>
-  }
-> {
-  const uniqueSlug = await generateUniqueCollectionSlug(data.slug)
+export async function addCollection(args: Collection): Promise<NewDocument<Collection>> {
+  const uniqueSlug = await generateUniqueCollectionSlug(args.slug)
   const collectionBySlug = await getCollection(uniqueSlug)
   if (!isNil(collectionBySlug)) {
     return Promise.reject(Error(CollectionError.Exists))
   }
-  const newData = assoc('slug', uniqueSlug, data)
-  const collectionId = await setReference({
+  const data = assoc('slug', uniqueSlug, args)
+  const id = await setReference({
     collectionReference: getCollectionsCollectionReference(),
-    data: newData
+    data
   })
-  // add swaps count (to 0) in the database
-  const swapsCount = await addCollectionSwapsCount(collectionId)
-  return { id: collectionId, data: newData, swapsCount }
+  return { id, data }
 }
