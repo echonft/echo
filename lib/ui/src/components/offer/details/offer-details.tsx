@@ -10,12 +10,9 @@ import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { NftCards } from '@echo/ui/components/nft/card/nft-cards'
 import { OfferDetailsButtons } from '@echo/ui/components/offer/details/action/offer-details-buttons'
 import { OfferDetailsItemsButtonsLayout } from '@echo/ui/components/offer/details/layout/offer-details-items-buttons-layout'
-import { TradeDetailsInfoLayout } from '@echo/ui/components/trade/layout/trade-details-info-layout'
 import { TradeDetailsLayout } from '@echo/ui/components/trade/layout/trade-details-layout'
-import { TradeDetailsUserInfoLayout } from '@echo/ui/components/trade/layout/trade-details-user-info-layout'
+import { TradeDetailsItems } from '@echo/ui/components/trade/trade-details-items'
 import { TradeDetailsOfferState } from '@echo/ui/components/trade/trade-details-offer-state'
-import { UserDetails } from '@echo/ui/components/user/details/user-details'
-import { Alignment } from '@echo/ui/constants/alignments'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { nonEmptyMap } from '@echo/utils/fp/non-empty-map'
 import { assoc, head, type NonEmptyArray, path, pipe } from 'ramda'
@@ -43,33 +40,14 @@ export const OfferDetails: FunctionComponent<OfferDetailsProps> = ({ offer, onUp
   return (
     <TradeDetailsLayout backgroundPictureUrl={avatarUrl}>
       <TradeDetailsOfferState trade={offer} />
-      <TradeDetailsInfoLayout>
-        <TradeDetailsUserInfoLayout>
-          <UserDetails
-            user={sender}
-            chain={pipe<[Offer], NonEmptyArray<NftItem>, NftItem, Chain>(
-              offerSenderNftItems,
-              head,
-              path(['token', 'contract', 'chain'])
-            )(offer)}
-            isAuthUser={offer.role === OfferRole.Sender}
-          />
-          <NftCards nfts={senderNfts} alignment={Alignment.Left} />
-        </TradeDetailsUserInfoLayout>
-        <ItemsSeparator />
-        <TradeDetailsUserInfoLayout>
-          <UserDetails
-            user={receiver}
-            chain={pipe<[Offer], NonEmptyArray<NftItem>, NftItem, Chain>(
-              offerReceiverNftItems,
-              head,
-              path(['token', 'contract', 'chain'])
-            )(offer)}
-            isAuthUser={offer.role === OfferRole.Receiver}
-          />
-          <NftCards nfts={receiverNfts} alignment={Alignment.Left} />
-        </TradeDetailsUserInfoLayout>
-      </TradeDetailsInfoLayout>
+      <TradeDetailsItems
+        sender={sender}
+        senderNfts={senderNfts}
+        receiver={receiver}
+        receiverNfts={receiverNfts}
+        isSender={offer.role === OfferRole.Sender}
+        isReceiver={offer.role === OfferRole.Receiver}
+      />
       <OfferDetailsItemsButtonsLayout>
         <OfferDetailsButtons offer={offer} onSuccess={onUpdate} />
       </OfferDetailsItemsButtonsLayout>

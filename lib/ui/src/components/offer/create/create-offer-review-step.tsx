@@ -1,51 +1,55 @@
 import { Expiration } from '@echo/model/constants/expiration'
 import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import type { User } from '@echo/model/types/user/user'
-import { ExpirationLayout } from '@echo/ui/components/trade/expiration-selector/expiration-layout'
-import { ExpirationSelectorLayout } from '@echo/ui/components/trade/expiration-selector/expiration-selector-layout'
-import { ExpirationTitle } from '@echo/ui/components/trade/expiration-selector/expiration-title'
-import { clsx } from 'clsx'
+import { CreateTradeReviewTitle } from '@echo/ui/components/trade/create-trade-review-title'
+import { ExpirationSelector } from '@echo/ui/components/trade/expiration-selector/expiration-selector'
+import { CreateTradeExpirationLayout } from '@echo/ui/components/trade/layout/create-trade-expiration-layout'
+import { CreateTradeReviewStepLayout } from '@echo/ui/components/trade/layout/create-trade-review-step-layout'
+import { TradeDetailsItems } from '@echo/ui/components/trade/trade-details-items'
+import clsx from 'clsx'
 import { useTranslations } from 'next-intl'
-import { map, pipe, values, type NonEmptyArray } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
   selectedExpiration: Expiration
-  onSelect?: (selected: Expiration) => void
+  onSelectExpiration?: (selected: Expiration) => void
   loading?: boolean
   sender: User
-  senderNftsSelection: NonEmptyArray<OwnedNft>
+  senderNftsSelection: OwnedNft[]
   receiver: User
-  receiverNftsSelection: NonEmptyArray<OwnedNft>
+  receiverNftsSelection: OwnedNft[]
 }
 
-export const ExpirationSelector: FunctionComponent<Props> = ({ selectedExpiration, onSelect, loading }) => {
-  const t = useTranslations('trade.expiration')
+export const CreateOfferReviewStep: FunctionComponent<Props> = ({
+  selectedExpiration,
+  onSelectExpiration,
+  loading,
+  sender,
+  senderNftsSelection,
+  receiver,
+  receiverNftsSelection
+}) => {
+  const t = useTranslations('offer.create')
   return (
-    <ExpirationLayout>
-      <ExpirationTitle>{t('title')}</ExpirationTitle>
-      <ExpirationSelectorLayout>
-        {pipe(
-          values,
-          map((expiration) => (
-            <button
-              className={clsx(
-                'flex',
-                'px-6',
-                'py-3',
-                'rounded-lg',
-                expiration === selectedExpiration && 'bg-white/5',
-                expiration !== selectedExpiration && 'enabled:hover:bg-white/[0.02]'
-              )}
-              disabled={loading ?? expiration === selectedExpiration}
-              onClick={() => onSelect?.(expiration)}
-              key={expiration}
-            >
-              <span className={clsx('prose-label-md', 'text-white')}>{t(expiration)}</span>
-            </button>
-          ))
-        )(Expiration)}
-      </ExpirationSelectorLayout>
-    </ExpirationLayout>
+    <CreateTradeReviewStepLayout>
+      <CreateTradeExpirationLayout>
+        <CreateTradeReviewTitle>{t('reviewTitle')}</CreateTradeReviewTitle>
+        <ExpirationSelector
+          selectedExpiration={selectedExpiration}
+          onSelectExpiration={onSelectExpiration}
+          loading={loading}
+        />
+      </CreateTradeExpirationLayout>
+      <div className={clsx('w-full', 'px-32')}>
+        <TradeDetailsItems
+          sender={sender}
+          senderNfts={senderNftsSelection}
+          receiver={receiver}
+          receiverNfts={receiverNftsSelection}
+          isSender={true}
+          isReceiver={false}
+        />
+      </div>
+    </CreateTradeReviewStepLayout>
   )
 }

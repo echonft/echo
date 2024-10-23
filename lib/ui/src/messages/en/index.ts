@@ -223,10 +223,12 @@ export const messages = {
       backBtn: 'Back',
       nextBtn: 'Next',
       createBtn: 'Create Offer',
+      approveBtn: 'Approve Asssets',
       cancelBtn: 'Cancel',
       cancelBtnMessage: 'Hold to cancel',
       editBtn: 'Edit',
       reviewBtn: 'Review',
+      reviewTitle: 'Review your offer',
       modal: {
         approval: {
           subtitle: 'To create the offer, you first need to approve the Echo contract to escrow your NFTs'
