@@ -34,7 +34,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-export const CreateTradeBottomBar: StoryObj<typeof Component> = {}
+export const Default: StoryObj<typeof Component> = {}
 
 export const Loading: StoryObj<typeof Component> = {
   args: {

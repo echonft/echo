@@ -6,14 +6,12 @@ import type { Listing } from '@echo/model/types/listing'
 import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { CreateListingButtons } from '@echo/ui/components/listing/create/create-listing-buttons'
-import { CreateListingExpiration } from '@echo/ui/components/listing/create/create-listing-expiration'
 import { CreateListingNfts } from '@echo/ui/components/listing/create/create-listing-nfts'
 import { CreateListingSwapDirectionHeader } from '@echo/ui/components/listing/create/create-listing-swap-direction-header'
 import { CreateListingTargets } from '@echo/ui/components/listing/create/create-listing-targets'
 import { CreateOfferSwapDirectionHeader } from '@echo/ui/components/offer/create/create-offer-swap-direction-header'
 import { SwapDirection } from '@echo/ui/constants/swap-direction'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
-import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { assoc, isEmpty, isNil, type NonEmptyArray } from 'ramda'
@@ -49,21 +47,7 @@ export const CreateListing: FunctionComponent<Props> = ({
   const [settingExpiration, setSettingExpiration] = useState(false)
 
   if (settingExpiration) {
-    return (
-      <CreateListingExpiration
-        items={selection.nfts}
-        onCancel={() => {
-          setSettingExpiration(false)
-          setReviewing(false)
-        }}
-        onComplete={(expiration) => {
-          if (isNonEmptyArray(selection.nfts) && !isNil(targetSelection)) {
-            onComplete?.(selection.nfts, targetSelection, expiration)
-          }
-        }}
-        loading={loading}
-      />
-    )
+    return null
   }
 
   return (

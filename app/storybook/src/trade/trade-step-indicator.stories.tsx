@@ -19,4 +19,4 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-export const TradeStepIndicator: StoryObj<typeof Component> = {}
+export const StepIndicator: StoryObj<typeof Component> = {}

@@ -227,17 +227,6 @@ export const messages = {
       cancelBtnMessage: 'Hold to cancel',
       editBtn: 'Edit',
       reviewBtn: 'Review',
-      expiration: {
-        title: 'One <yellow>last step</yellow>\n before we create the offer!',
-        selector: {
-          '1d': '1 day',
-          '3d': '3 days',
-          '7d': '7 days'
-        },
-        subtitle: 'Set the expiration date to:',
-        finalizeBtn: 'Finalize',
-        editBtn: 'Edit'
-      },
       modal: {
         approval: {
           subtitle: 'To create the offer, you first need to approve the Echo contract to escrow your NFTs'
@@ -396,6 +385,14 @@ Don't worry, its safe with us.`
     create: {
       backBtn: 'Back',
       nextBtn: 'Next'
+    },
+    expiration: {
+      selector: {
+        '1d': '1 day',
+        '3d': '3 days',
+        '7d': '7 days'
+      },
+      title: 'Set the expiration date to:'
     },
     stepIndicator: 'Step {step}',
     tokenSelector: {
