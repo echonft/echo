@@ -1,10 +1,9 @@
 import { escrowNft } from '@echo/firestore/crud/nft/escrow-nft'
+import { getEscrowedNftById } from '@echo/firestore/crud/nft/get-escrowed-nft-by-id'
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
 import { getEscrowedNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-escrowed-nfts-collection-reference'
 import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
-import { getReferenceById, type GetReferenceByIdArgs } from '@echo/firestore/helpers/crud/reference/get-reference-by-id'
-import type { EscrowedNftDocumentData } from '@echo/firestore/types/model/escrowed-nft-document-data'
 import { NftError } from '@echo/model/constants/errors/nft-error'
 import { getNftMock } from '@echo/model/mocks/nft/get-nft-mock'
 import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
@@ -12,8 +11,7 @@ import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
 import { resetNft } from '@echo/test/firestore/crud/nft/reset-nft'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
-import type { DocumentReference, DocumentSnapshot } from 'firebase-admin/firestore'
-import { assoc, invoker, isNil, pipe } from 'ramda'
+import { assoc, isNil, pipe } from 'ramda'
 
 describe('CRUD - nft - escrowNft', () => {
   let escrowedNftId: Nullable<string>
@@ -57,16 +55,8 @@ describe('CRUD - nft - escrowNft', () => {
     const updatedNft = await getNftById(nftId)
     expect(updatedNft).toBeDefined()
     expect(updatedNft).toStrictEqual(assoc('owner', undefined, nft))
-    const escrowedNft = await pipe<
-      [GetReferenceByIdArgs<EscrowedNftDocumentData, EscrowedNftDocumentData>],
-      DocumentReference<EscrowedNftDocumentData, EscrowedNftDocumentData>,
-      Promise<DocumentSnapshot<EscrowedNftDocumentData, EscrowedNftDocumentData>>
-    >(
-      getReferenceById,
-      invoker(0, 'get')
-    )({ collectionReference: getEscrowedNftsCollectionReference(), id: escrowedNftId })
-    expect(escrowedNft.exists).toBeTruthy()
-    expect(escrowedNft.data()).toStrictEqual({
+    const escrowedNft = await getEscrowedNftById(escrowedNftId)
+    expect(escrowedNft).toStrictEqual({
       nftId,
       owner: nft.owner
     })

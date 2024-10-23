@@ -1,7 +1,7 @@
 import { Expiration } from '@echo/model/constants/expiration'
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 
-export function expirationToDate(expiration: Expiration) {
+export function expirationToDate(expiration: Expiration): Dayjs {
   switch (expiration) {
     case Expiration.OneDay:
       return dayjs().add(1, 'day')

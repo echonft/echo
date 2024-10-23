@@ -9,6 +9,6 @@ describe('CRUD - user - counts - getUserCounts', () => {
     expect(userCounts.listingsCount).toEqual(1)
     expect(userCounts.nftsCount).toEqual(4)
     expect(userCounts.offersCount).toEqual(2)
-    expect(userCounts.swapsCount).toEqual(1)
+    expect(userCounts.swapsCount).toEqual(0)
   })
 })

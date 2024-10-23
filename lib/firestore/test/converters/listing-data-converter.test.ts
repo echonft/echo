@@ -2,11 +2,12 @@ import { listingDataConverter } from '@echo/firestore/converters/listing-data-co
 import { listingDocumentDataMock } from '@echo/firestore/mocks/listing/listing-document-data-mock'
 import { listingSnapshotMock } from '@echo/firestore/mocks/listing/listing-snapshot-mock'
 import type { ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
+import { listingSignature } from '@echo/model/helpers/listing/listing-signature'
 import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
 import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
 import { describe, expect, it } from '@jest/globals'
 import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'
-import { pipe, prop } from 'ramda'
+import { assoc, pipe, prop } from 'ramda'
 
 describe('converters - listingDataConverter', () => {
   const id = listingMockId()
@@ -22,6 +23,7 @@ describe('converters - listingDataConverter', () => {
   })
 
   it('to Firestore conversion', () => {
-    expect(listingDataConverter.toFirestore(document)).toStrictEqual(documentData)
+    const signature = listingSignature(document)
+    expect(listingDataConverter.toFirestore(assoc('signature', signature, document))).toStrictEqual(documentData)
   })
 })

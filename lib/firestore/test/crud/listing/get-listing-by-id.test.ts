@@ -6,8 +6,7 @@ import { pipe } from 'ramda'
 
 describe('CRUD - listing - getListingById', () => {
   it('returns undefined if the listing is not found', async () => {
-    const listing = await getListingById('not-found')
-    expect(listing).toBeUndefined()
+    await expect(getListingById('not-found')).resolves.toBeUndefined()
   })
   it('returns the listing with the given id', async () => {
     const listing = await pipe(listingMockId, getListingById)()

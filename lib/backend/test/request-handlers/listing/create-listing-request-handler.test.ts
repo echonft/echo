@@ -5,7 +5,7 @@ import { mockRequest } from '@echo/backend/mocks/mock-request'
 import { createListingRequestHandler } from '@echo/backend/request-handlers/listing/create-listing-request-handler'
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { addListing } from '@echo/firestore/crud/listing/add-listing'
-import { getListingsForCreatorAndTarget } from '@echo/firestore/crud/listing/get-listings-for-creator-and-target'
+import { getListingBySignature } from '@echo/firestore/crud/listing/get-listing-by-signature'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
@@ -30,7 +30,7 @@ jest.mock('@echo/firestore/crud/nft/get-nft-by-index')
 jest.mock('@echo/firestore/crud/collection/get-collection')
 jest.mock('@echo/web3/services/get-erc1155-token-balance')
 jest.mock('@echo/firestore/crud/user/get-user-by-username')
-jest.mock('@echo/firestore/crud/listing/get-listings-for-creator-and-target')
+jest.mock('@echo/firestore/crud/listing/get-listing-by-signature')
 jest.mock('@echo/firestore/crud/listing/add-listing')
 
 describe('request-handlers - listing - createListingRequestHandler', () => {
@@ -40,7 +40,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     jest.mocked(getUserByUsername).mockResolvedValue(user)
-    jest.mocked(getListingsForCreatorAndTarget).mockResolvedValue([])
+    jest.mocked(getListingBySignature).mockResolvedValue(undefined)
     jest
       .mocked(getNftByIndex)
       .mockImplementation((index: NftIndex) =>

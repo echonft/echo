@@ -2,9 +2,9 @@ import { getSwaps } from '@echo/firestore/crud/swap/get-swaps'
 import { swapMock } from '@echo/model/mocks/swap/swap-mock'
 import { addSwap } from '@echo/test/firestore/crud/swap/add-swap'
 import { deleteSwap } from '@echo/test/firestore/crud/swap/delete-swap'
-import { nowMs } from '@echo/utils/helpers/now-ms'
+import { nowMsSlug } from '@echo/utils/helpers/now-ms-slug'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
-import { assoc, dissoc, pipe, toLower, toString } from 'ramda'
+import { assoc, dissoc, pipe } from 'ramda'
 
 describe('CRUD - offer - getSwapsForUser', () => {
   let swapIds: string[]
@@ -19,8 +19,7 @@ describe('CRUD - offer - getSwapsForUser', () => {
   })
 
   function getSwap() {
-    const slug = pipe(nowMs, toString, toLower<string>)()
-    return pipe(swapMock, assoc('slug', slug), assoc('offerId', 'offer-id'))()
+    return pipe(swapMock, assoc('slug', nowMsSlug()), assoc('offerId', 'offer-id'))()
   }
 
   it('return an empty array if there are no swaps', async () => {

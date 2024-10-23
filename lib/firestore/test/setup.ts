@@ -37,5 +37,18 @@ expect.extend({
       message: () =>
         `expected ${received} to${pass ? ' not' : ''} be ~now: between ${before.valueOf()} and ${after.valueOf()}`
     }
+  },
+  toBeUnixTimestampCloseTo(received: number, expected: number) {
+    const expectedDate = dayjs.unix(received)
+    if (!expectedDate.isValid()) {
+      throw Error(`invalid expected value: ${expected}`)
+    }
+    const min = expectedDate.subtract(1, 'minute').unix()
+    const max = expectedDate.add(1, 'minute').unix()
+    const pass = received >= min && received <= max
+    return {
+      pass,
+      message: () => `expected ${received} to${pass ? ' not' : ''} be between ${min} and ${max}`
+    }
   }
 })

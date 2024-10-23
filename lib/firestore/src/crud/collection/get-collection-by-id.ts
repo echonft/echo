@@ -7,7 +7,7 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import type { DocumentReference } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
-export function getCollectionReferenceById(id: string): DocumentReference<Collection, CollectionDocumentData> {
+function getCollectionReferenceById(id: string): DocumentReference<Collection, CollectionDocumentData> {
   return getReferenceById({
     collectionReference: getCollectionsCollectionReference(),
     id

@@ -11,9 +11,9 @@ import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } f
 import type { Swap } from '@echo/model/types/swap/swap'
 import { addSwap } from '@echo/test/firestore/crud/swap/add-swap'
 import { deleteSwap } from '@echo/test/firestore/crud/swap/delete-swap'
-import { nowMs } from '@echo/utils/helpers/now-ms'
+import { nowMsSlug } from '@echo/utils/helpers/now-ms-slug'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
-import { assoc, dissoc, pipe, toLower, toString } from 'ramda'
+import { assoc, dissoc } from 'ramda'
 
 describe('CRUD - offer - getSwapsForUser', () => {
   let swapIds: string[]
@@ -26,10 +26,6 @@ describe('CRUD - offer - getSwapsForUser', () => {
       await deleteSwap(swapId)
     }
   })
-
-  function slug() {
-    return pipe(nowMs, toString, toLower<string>)()
-  }
 
   it('return an empty array if the user does not exist', async () => {
     await expect(getSwapsForUser('not-found')).resolves.toEqual([])
@@ -171,7 +167,7 @@ describe('CRUD - offer - getSwapsForUser', () => {
       offerId: 'offer-id'
     }
 
-    const bothSwap = assoc('slug', slug(), bothData)
+    const bothSwap = assoc('slug', nowMsSlug(), bothData)
     const bothId = await addSwap(bothSwap)
     swapIds = [bothId]
     let documents = await getSwapsForUser(johnny.username)
@@ -180,7 +176,7 @@ describe('CRUD - offer - getSwapsForUser', () => {
     documents = await getSwapsForUser(crew.username)
     expect(documents.length).toBe(1)
     expect(documents[0]).toStrictEqual(dissoc('offerId', bothSwap))
-    const johnnySwap = assoc('slug', slug(), johnnyData)
+    const johnnySwap = assoc('slug', nowMsSlug(), johnnyData)
     const johnnySwapId = await addSwap(johnnySwap)
     swapIds.push(johnnySwapId)
     documents = await getSwapsForUser(johnny.username)
@@ -190,7 +186,7 @@ describe('CRUD - offer - getSwapsForUser', () => {
     documents = await getSwapsForUser(crew.username)
     expect(documents.length).toBe(1)
     expect(documents[0]).toStrictEqual(dissoc('offerId', bothSwap))
-    const crewSwap = assoc('slug', slug(), crewData)
+    const crewSwap = assoc('slug', nowMsSlug(), crewData)
     const crewSwapId = await addSwap(crewSwap)
     swapIds.push(crewSwapId)
     documents = await getSwapsForUser(johnny.username)

@@ -12,6 +12,7 @@ declare global {
 declare module '@jest/expect' {
   interface Matchers<R, T> {
     toBeMsSlug(): R
+    toBeUnixTimestampCloseTo(expected: number): R
   }
 }
 

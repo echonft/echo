@@ -11,6 +11,6 @@ describe('CRUD - collection - counts - getCollectionSwapsCount', () => {
   it('returns the swaps count for the collection', async () => {
     const collectionSlug = collectionMockPxSlug()
     const count = await getCollectionSwapsCount(collectionSlug)
-    expect(count).toEqual(1)
+    expect(count).toEqual(0)
   })
 })

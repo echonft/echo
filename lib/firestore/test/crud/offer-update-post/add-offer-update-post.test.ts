@@ -1,8 +1,9 @@
+import { addOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/add-offer-update-post'
 import { getOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/get-offer-update-post'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { OfferState } from '@echo/model/constants/offer-state'
 import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
-import { addOfferUpdatePost } from '@echo/test/firestore/crud/offer-update-post/add-offer-update-post'
+import { addOfferUpdatePost as testAddOfferUpdatePost } from '@echo/test/firestore/crud/offer-update-post/add-offer-update-post'
 import { deleteOfferUpdatePost } from '@echo/test/firestore/crud/offer-update-post/delete-offer-update-post'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
@@ -26,11 +27,11 @@ describe('CRUD - offer-update-post - addOfferUpdatePost', () => {
     )
   })
   it('throws if offer update post already exists', async () => {
-    offerUpdatePostId = await addOfferUpdatePost(data)
+    offerUpdatePostId = await testAddOfferUpdatePost(data)
     await expect(addOfferUpdatePost(data)).rejects.toEqual(Error(OfferError.UpdatePostExists))
   })
   it('add an offer update post', async () => {
-    offerUpdatePostId = await addOfferUpdatePost(data)
+    offerUpdatePostId = await testAddOfferUpdatePost(data)
     const document = await getOfferUpdatePost(data)
     expect(document).toStrictEqual(data)
   })

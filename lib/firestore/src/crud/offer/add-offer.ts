@@ -7,16 +7,15 @@ import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { OfferState } from '@echo/model/constants/offer-state'
 import type { BaseOffer } from '@echo/model/types/offer/base-offer'
 import { type Offer } from '@echo/model/types/offer/offer'
-import { nowMs } from '@echo/utils/helpers/now-ms'
-import { assoc, isNil, pipe, toLower, toString } from 'ramda'
+import { nowMsSlug } from '@echo/utils/helpers/now-ms-slug'
+import { assoc, isNil, pipe } from 'ramda'
 
 export async function addOffer(args: BaseOffer & Pick<Offer, 'idContract'>): Promise<NewDocument<Offer>> {
-  const duplicate = await getOfferByIdContract(args.idContract)
-  if (!isNil(duplicate)) {
-    return Promise.reject(Error(OfferError.Duplicate))
+  const offer = await getOfferByIdContract(args.idContract)
+  if (!isNil(offer)) {
+    return Promise.reject(Error(OfferError.Exists))
   }
-  const slug = pipe(nowMs, toString, toLower<string>)()
-  const data: Offer = pipe(assoc('locked', false), assoc('slug', slug), assoc('state', OfferState.Open))(args)
+  const data: Offer = pipe(assoc('locked', false), assoc('slug', nowMsSlug()), assoc('state', OfferState.Open))(args)
   const id = await setReference<Offer, OfferDocumentData>({
     collectionReference: getOffersCollectionReference(),
     data

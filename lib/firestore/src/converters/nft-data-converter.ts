@@ -5,20 +5,24 @@ import type { NftDocumentData } from '@echo/firestore/types/model/nft-document-d
 import type { Nft } from '@echo/model/types/nft/nft'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
-import { assoc, dissoc, has, pipe, unless } from 'ramda'
+import { assoc, bind, dissoc, has, pipe, unless } from 'ramda'
 
 export const nftDataConverter = {
   fromDocumentData(data: NftDocumentData): Nft {
+    const tokenIdLabel = getNftTokenIdLabel(data)
     return pipe<[NftDocumentData], Omit<Nft, 'tokenIdLabel'>, Nft>(
       // add the owner prop if it is not present
       unless<NftDocumentData, NftDocumentData>(has('owner'), assoc('owner', undefined)),
       // set the token id label
-      assoc('tokenIdLabel', getNftTokenIdLabel(data))
+      assoc('tokenIdLabel', tokenIdLabel)
     )(data)
   },
   fromFirestore(snapshot: QueryDocumentSnapshot<NftDocumentData, NftDocumentData>): Nft {
-    return pipe(nonNullableReturn(getDocumentSnapshotData<NftDocumentData, NftDocumentData>), (documentData) =>
-      this.fromDocumentData(documentData)
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    const boundFromDocumentData = bind(this.fromDocumentData, this)
+    return pipe(
+      nonNullableReturn(getDocumentSnapshotData<NftDocumentData, NftDocumentData>),
+      boundFromDocumentData
     )(snapshot)
   },
   toFirestore(modelObject: WithFieldValue<Nft>): WithFieldValue<NftDocumentData> {

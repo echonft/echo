@@ -1,15 +1,14 @@
 import { addListing } from '@echo/firestore/crud/listing/add-listing'
-import { deleteListing } from '@echo/firestore/crud/listing/delete-listing'
 import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
+import { ListingError } from '@echo/model/constants/errors/listing-error'
 import { Expiration } from '@echo/model/constants/expiration'
-import { ListingState } from '@echo/model/constants/listing-state'
-import { expirationToDate } from '@echo/model/helpers/expiration-to-date'
-import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
-import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
+import { expirationToDateNumber } from '@echo/model/helpers/expiration-to-date-number'
+import { getListingMock } from '@echo/model/mocks/listing/get-listing-mock'
+import type { Listing } from '@echo/model/types/listing/listing'
+import { deleteListing } from '@echo/test/firestore/crud/listing/delete-listing'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
-import dayjs from 'dayjs'
-import { assoc, isNil } from 'ramda'
+import { assoc, isNil, modify, omit, pipe } from 'ramda'
 
 describe('CRUD - listing - addListing', () => {
   let createdListingId: Nullable<string>
@@ -22,18 +21,24 @@ describe('CRUD - listing - addListing', () => {
     }
   })
 
+  it('throws if the listing is a duplicate', async () => {
+    const args = pipe(getListingMock, assoc('expiration', Expiration.OneDay))()
+    await expect(addListing(args)).rejects.toEqual(Error(ListingError.Exists))
+  })
+
   it('add a listing', async () => {
-    const { creator, items, target } = getListingMockById(listingMockId())
-    const expirationDate = expirationToDate(Expiration.OneDay)
-    const newTarget = assoc('amount', 1, target)
-    const newDocument = await addListing({ creator, items, target: newTarget, expiration: Expiration.OneDay })
-    createdListingId = newDocument.id
-    const newListing = (await getListingById(createdListingId))!
-    expect(newListing.creator).toStrictEqual(creator)
-    expect(newListing.items).toStrictEqual(items)
-    expect(newListing.state).toBe(ListingState.Open)
-    expect(newListing.target).toStrictEqual(newTarget)
-    expect(dayjs.unix(newListing.expiresAt).isAfter(expirationDate.subtract(1, 'minute'))).toBeTruthy()
-    expect(dayjs.unix(newListing.expiresAt).isBefore(expirationDate.add(1, 'minute'))).toBeTruthy()
+    const expiration = Expiration.OneDay
+    const args = pipe(
+      getListingMock,
+      modify<'target', Listing['target'], Listing['target']>('target', assoc('quantity', 20)),
+      assoc('expiration', expiration)
+    )()
+    const { id } = await addListing(args)
+    const expirationDate = expirationToDateNumber(expiration)
+    createdListingId = id
+    const listing = await getListingById(createdListingId)
+    expect(omit(['slug', 'expiresAt'], listing!)).toStrictEqual(omit(['slug', 'expiresAt', 'expiration'], args))
+    expect(listing?.slug).toBeMsSlug()
+    expect(listing?.expiresAt).toBeUnixTimestampCloseTo(expirationDate)
   })
 })

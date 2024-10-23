@@ -3,7 +3,7 @@ import { type CreateListingRequest } from '@echo/api/types/requests/create-listi
 import { UnauthorizedError } from '@echo/backend/errors/unauthorized-error'
 import { createListingRequestSchema } from '@echo/backend/validators/create-listing-request-schema'
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
-import { getListingsForCreatorAndTarget } from '@echo/firestore/crud/listing/get-listings-for-creator-and-target'
+import { getListingBySignature } from '@echo/firestore/crud/listing/get-listing-by-signature'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
@@ -24,13 +24,12 @@ import { getUserMockByUsername, userMockJohnnyUsername } from '@echo/model/mocks
 import type { Collection } from '@echo/model/types/collection/collection'
 import type { Erc1155Item } from '@echo/model/types/item/erc1155-item'
 import type { Erc721Item } from '@echo/model/types/item/erc721-item'
-import type { NftItem } from '@echo/model/types/item/nft-item'
 import type { Listing } from '@echo/model/types/listing/listing'
 import type { NftIndex } from '@echo/model/types/nft/nft'
 import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import { getErc1155TokenBalance } from '@echo/web3/services/get-erc1155-token-balance'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
-import { assoc, assocPath, dissoc, head, type NonEmptyArray, pipe, prop } from 'ramda'
+import { assoc, assocPath, dissoc, head, pipe, prop } from 'ramda'
 import { ZodError, ZodIssueCode } from 'zod'
 
 interface ExpectedReturn extends Pick<Listing, 'items' | 'target' | 'creator'> {
@@ -41,7 +40,7 @@ jest.mock('@echo/firestore/crud/nft/get-nft-by-index')
 jest.mock('@echo/firestore/crud/collection/get-collection')
 jest.mock('@echo/web3/services/get-erc1155-token-balance')
 jest.mock('@echo/firestore/crud/user/get-user-by-username')
-jest.mock('@echo/firestore/crud/listing/get-listings-for-creator-and-target')
+jest.mock('@echo/firestore/crud/listing/get-listing-by-signature')
 
 describe('validators - createListingRequestSchema', () => {
   const creatorUsername = userMockJohnnyUsername()
@@ -207,7 +206,7 @@ describe('validators - createListingRequestSchema', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     jest.mocked(getUserByUsername).mockResolvedValue(getUserDocumentDataMockByUsername(creatorUsername))
-    jest.mocked(getListingsForCreatorAndTarget).mockResolvedValue([])
+    jest.mocked(getListingBySignature).mockResolvedValue(undefined)
     jest.mocked(getNftByIndex).mockImplementation((index: NftIndex) => {
       if (index.tokenId === erc721Nft.tokenId) {
         return Promise.resolve(erc721Nft)
@@ -357,8 +356,8 @@ describe('validators - createListingRequestSchema', () => {
   it('invalid if the listing already exists', async () => {
     const schema = await createListingRequestSchema(creatorUsername)
     jest
-      .mocked(getListingsForCreatorAndTarget)
-      .mockResolvedValueOnce([pipe(getListingMock, assoc('items', [expectedErc721Item, expectedErc1155Item]))()])
+      .mocked(getListingBySignature)
+      .mockResolvedValueOnce(pipe(getListingMock, assoc('items', [expectedErc721Item, expectedErc1155Item]))())
     await expect(schema.parseAsync(validRequest)).rejects.toEqual(
       ZodError.create([
         {
@@ -368,19 +367,6 @@ describe('validators - createListingRequestSchema', () => {
         }
       ])
     )
-    jest.mocked(getListingsForCreatorAndTarget).mockResolvedValue([getListingMock()])
-    const valid = await schema.parseAsync(validRequest)
-    expect(valid).toBeDefined()
-    jest
-      .mocked(getListingsForCreatorAndTarget)
-      .mockResolvedValue([pipe(getListingMock, assoc('items', [expectedErc1155Item] as NonEmptyArray<NftItem>))()])
-    const valid2 = await schema.parseAsync(validRequest)
-    expect(valid2).toBeDefined()
-    jest
-      .mocked(getListingsForCreatorAndTarget)
-      .mockResolvedValue([pipe(getListingMock, assoc('items', [expectedErc721Item] as NonEmptyArray<NftItem>))()])
-    const valid3 = await schema.parseAsync(validRequest)
-    expect(valid3).toBeDefined()
   })
 
   it('throws if the user is not found', async () => {

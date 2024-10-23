@@ -7,7 +7,7 @@ export function countsMockCrew(): WithCounts {
     listingsCount: 0,
     nftsCount: 2,
     offersCount: 2,
-    swapsCount: 1
+    swapsCount: 0
   }
 }
 export function countsMockJohnny(): WithCounts {
@@ -15,7 +15,7 @@ export function countsMockJohnny(): WithCounts {
     listingsCount: 1,
     nftsCount: 4,
     offersCount: 2,
-    swapsCount: 1
+    swapsCount: 0
   }
 }
 

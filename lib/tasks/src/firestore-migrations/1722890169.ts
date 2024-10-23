@@ -1,4 +1,4 @@
-import { getCollections } from '@echo/firestore/crud/collection/get-collections'
+import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
 import { dumpDb } from '@echo/firestore/services/dump-db'
 import { getLogger } from '@echo/tasks/commands/get-logger'
 import { updateNftsForCollection } from '@echo/tasks/update-nfts-for-collection'
@@ -16,7 +16,7 @@ async function migrate() {
   const logger = getLogger(`migration-${id}`)
   logger.info(`Starting migration ${id}...`)
   await dumpDb(`${id}-before.json`, logger)
-  const collections = await getCollections()
+  const collections = await getAllCollections()
   for (const collection of collections) {
     await updateNftsForCollection({ collection, fetch, logger })
   }

@@ -1,5 +1,5 @@
 import { getCollectionSwapsCount } from '@echo/firestore/crud/collection/counts/get-collection-swaps-count'
-import { getCollections } from '@echo/firestore/crud/collection/get-collections'
+import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
 import type { Collection } from '@echo/model/types/collection/collection'
 import type { CollectionWithSwapsCount } from '@echo/model/types/collection/collection-with-swaps-count'
 import type { CollectionWithRank } from '@echo/ui/types/collection-with-rank'
@@ -32,7 +32,7 @@ function addRank(collections: CollectionWithSwapsCount[]): CollectionWithRank[] 
 
 export function getRankedCollections(limit?: number): Promise<CollectionWithRank[]> {
   return pipe<[], Promise<Collection[]>, Promise<CollectionWithRank[]>>(
-    getCollections,
+    getAllCollections,
     andThen(
       pipe(
         map(collectionWithSwapsCount),

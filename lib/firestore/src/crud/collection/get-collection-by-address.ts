@@ -9,7 +9,7 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, pipe } from 'ramda'
 
-export function getCollectionByAddressSnapshot(
+function getCollectionByAddressSnapshot(
   wallet: Wallet
 ): Promise<Nullable<QueryDocumentSnapshot<Collection, CollectionDocumentData>>> {
   return pipe(

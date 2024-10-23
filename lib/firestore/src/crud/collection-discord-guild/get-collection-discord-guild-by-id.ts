@@ -6,7 +6,7 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import type { DocumentReference } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
-export function getCollectionDiscordGuildReferenceById(
+function getCollectionDiscordGuildReferenceById(
   id: string
 ): DocumentReference<CollectionDiscordGuildDocumentData, CollectionDiscordGuildDocumentData> {
   return getReferenceById({

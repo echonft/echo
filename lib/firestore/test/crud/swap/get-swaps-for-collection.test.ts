@@ -11,9 +11,9 @@ import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } f
 import type { Swap } from '@echo/model/types/swap/swap'
 import { addSwap } from '@echo/test/firestore/crud/swap/add-swap'
 import { deleteSwap } from '@echo/test/firestore/crud/swap/delete-swap'
-import { nowMs } from '@echo/utils/helpers/now-ms'
+import { nowMsSlug } from '@echo/utils/helpers/now-ms-slug'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
-import { assoc, dissoc, pipe, toLower, toString } from 'ramda'
+import { assoc, dissoc } from 'ramda'
 
 describe('CRUD - offer - getSwapsForCollection', () => {
   let swapIds: string[]
@@ -26,10 +26,6 @@ describe('CRUD - offer - getSwapsForCollection', () => {
       await deleteSwap(swapId)
     }
   })
-
-  function slug() {
-    return pipe(nowMs, toString, toLower<string>)()
-  }
 
   it('return an empty array if the collection does not exist', async () => {
     await expect(getSwapsForCollection('not-found')).resolves.toEqual([])
@@ -169,7 +165,7 @@ describe('CRUD - offer - getSwapsForCollection', () => {
       offerId: 'offer-id'
     }
 
-    const bothSwap = assoc('slug', slug(), bothData)
+    const bothSwap = assoc('slug', nowMsSlug(), bothData)
     const bothId = await addSwap(bothSwap)
     swapIds = [bothId]
     let documents = await getSwapsForCollection(collectionMockPxSlug())
@@ -178,7 +174,7 @@ describe('CRUD - offer - getSwapsForCollection', () => {
     documents = await getSwapsForCollection(collectionMockSpiralSlug())
     expect(documents.length).toBe(1)
     expect(documents[0]).toStrictEqual(dissoc('offerId', bothSwap))
-    const spiralSwap = assoc('slug', slug(), spiralData)
+    const spiralSwap = assoc('slug', nowMsSlug(), spiralData)
     const spiralId = await addSwap(spiralSwap)
     swapIds.push(spiralId)
     documents = await getSwapsForCollection(collectionMockPxSlug())
@@ -188,7 +184,7 @@ describe('CRUD - offer - getSwapsForCollection', () => {
     expect(documents.length).toBe(2)
     expect(documents[0]).toStrictEqual(dissoc('offerId', spiralSwap))
     expect(documents[1]).toStrictEqual(dissoc('offerId', bothSwap))
-    const pxSwap = assoc('slug', slug(), pxData)
+    const pxSwap = assoc('slug', nowMsSlug(), pxData)
     const pxDataId = await addSwap(pxSwap)
     swapIds.push(pxDataId)
     documents = await getSwapsForCollection(collectionMockPxSlug())

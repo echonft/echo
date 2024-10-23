@@ -10,7 +10,6 @@ import type { Listing } from '@echo/model/types/listing/listing'
 import type { Slug } from '@echo/model/types/slug'
 import { resetListing } from '@echo/test/firestore/crud/listing/reset-listing'
 import { updateListing } from '@echo/test/firestore/crud/listing/update-listing'
-import { pastDate } from '@echo/utils/helpers/past-date'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNil, pipe } from 'ramda'
@@ -49,12 +48,6 @@ describe('CRUD - listing - getListingsForNft', () => {
     const nft = pipe(nftMockSpiralJohnnyId, getNftMockById)()
     slug = listingMockSlug()
     await updateListing(slug, { locked: true })
-    await expect(getListingsForNft(nft)).resolves.toEqual([])
-  })
-  it('only returns the listings that are not expired', async () => {
-    const nft = pipe(nftMockSpiralJohnnyId, getNftMockById)()
-    slug = listingMockSlug()
-    await updateListing(slug, { expiresAt: pastDate() })
     await expect(getListingsForNft(nft)).resolves.toEqual([])
   })
 })

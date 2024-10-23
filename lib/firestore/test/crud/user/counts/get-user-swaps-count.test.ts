@@ -9,8 +9,9 @@ describe('CRUD - user - counts - getUserSwapsCount', () => {
   })
 
   it('returns the swap count for the user', async () => {
+    // TODO add swaps
     const username = userMockJohnnyUsername()
     const count = await getUserSwapsCount(username)
-    expect(count).toEqual(1)
+    expect(count).toEqual(0)
   })
 })

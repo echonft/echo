@@ -59,8 +59,8 @@ export function listingDocumentDataMock(): Record<string, ListingDocumentData> {
       target: {
         collection: getCollectionMockById(collectionMockPxId()),
         quantity: 3
-      }
-      // signature: 'signature'
+      },
+      signature: '784d86d54465c2e002f1b54cdf9759da91cb9f78'
     }
   }
 }

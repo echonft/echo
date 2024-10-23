@@ -12,7 +12,7 @@ interface GetListingPostArgs {
   guildId: string
 }
 
-export function getListingPostSnapshot({
+function getListingPostSnapshot({
   listingId,
   guildId
 }: GetListingPostArgs): Promise<Nullable<QueryDocumentSnapshot<ListingPostDocumentData, ListingPostDocumentData>>> {

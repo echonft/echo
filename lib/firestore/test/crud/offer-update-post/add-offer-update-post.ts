@@ -2,7 +2,7 @@ import { getOfferUpdatePostsCollectionReference } from '@echo/firestore/helpers/
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import type { OfferUpdatePostDocumentData } from '@echo/firestore/types/model/offer-update-post-document-data'
 
-export async function addOfferUpdatePost(data: OfferUpdatePostDocumentData): Promise<string> {
+export function addOfferUpdatePost(data: OfferUpdatePostDocumentData): Promise<string> {
   return setReference({
     collectionReference: getOfferUpdatePostsCollectionReference(),
     data

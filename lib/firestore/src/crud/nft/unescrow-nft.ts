@@ -3,22 +3,14 @@ import { getNftReferenceById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { getEscrowedNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-escrowed-nfts-collection-reference'
 import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
+import { getReferenceDocumentSnapshot } from '@echo/firestore/helpers/crud/reference/get-reference-document-snapshot'
 import type { EscrowedNftDocumentData } from '@echo/firestore/types/model/escrowed-nft-document-data'
-import type { NftDocumentData } from '@echo/firestore/types/model/nft-document-data'
 import { NftError } from '@echo/model/constants/errors/nft-error'
 import type { Nft } from '@echo/model/types/nft/nft'
-import { type DocumentReference, type DocumentSnapshot } from 'firebase-admin/firestore'
-import { invoker, isNil, pipe } from 'ramda'
+import { isNil, pipe } from 'ramda'
 
 export async function unescrowNft(nftId: string): Promise<Nft> {
-  const snapshot = await pipe<
-    [string],
-    DocumentReference<Nft, NftDocumentData>,
-    Promise<DocumentSnapshot<Nft, NftDocumentData>>
-  >(
-    getNftReferenceById,
-    invoker(0, 'get')
-  )(nftId)
+  const snapshot = await pipe(getNftReferenceById, getReferenceDocumentSnapshot)(nftId)
   if (!snapshot.exists) {
     return Promise.reject(Error(NftError.NotFound))
   }

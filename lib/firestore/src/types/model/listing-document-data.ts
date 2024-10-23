@@ -8,5 +8,5 @@ export interface ListingDocumentData extends Omit<Listing, 'items'> {
   items: NonEmptyArray<Erc721ItemDocumentData | Erc1155ItemDocumentData>
   itemIndexes: ArrayIndexer
   itemCollections: ArrayIndexer
-  // signature: string
+  signature: string
 }

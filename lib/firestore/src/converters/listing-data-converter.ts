@@ -19,11 +19,13 @@ export const listingDataConverter = {
       ListingDocumentData,
       Omit<ListingDocumentData, 'itemIndexes'>,
       Omit<ListingDocumentData, 'itemIndexes' | 'itemCollections'>,
+      Omit<ListingDocumentData, 'itemIndexes' | 'itemCollections' | 'signature'>,
       Listing
     >(
       nonNullableReturn(getDocumentSnapshotData),
       dissoc('itemIndexes'),
       dissoc('itemCollections'),
+      dissoc('signature'),
       modify('items', boundDataConverter)
     )(snapshot)
   },

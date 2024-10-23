@@ -9,7 +9,7 @@ import type { NftItemWithOwner } from '@echo/backend/types/nft-item-with-owner'
 import { erc1155ItemRequestSchema } from '@echo/backend/validators/erc1155-item-request-schema'
 import { erc721ItemRequestSchema } from '@echo/backend/validators/erc721-item-request-schema'
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
-import { getListingsForCreatorAndTarget } from '@echo/firestore/crud/listing/get-listings-for-creator-and-target'
+import { getListingBySignature } from '@echo/firestore/crud/listing/get-listing-by-signature'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { CollectionError } from '@echo/model/constants/errors/collection-error'
@@ -18,11 +18,8 @@ import { ListingError } from '@echo/model/constants/errors/listing-error'
 import { NftError } from '@echo/model/constants/errors/nft-error'
 import { Expiration } from '@echo/model/constants/expiration'
 import { TokenType } from '@echo/model/constants/token-type'
-import { eqErc1155Item } from '@echo/model/helpers/item/eq-erc1155-item'
-import { eqErc721Item } from '@echo/model/helpers/item/eq-erc721-item'
-import { erc1155Items } from '@echo/model/helpers/item/erc1155-items'
-import { erc721Items } from '@echo/model/helpers/item/erc721-items'
 import { isErc721Item } from '@echo/model/helpers/item/is-erc721-item'
+import { listingSignature } from '@echo/model/helpers/listing/listing-signature'
 import { erc1155NftToItem } from '@echo/model/mappers/nft/erc1155-nft-to-item'
 import { erc721NftToItem } from '@echo/model/mappers/nft/erc721-nft-to-item'
 import type { NftItem } from '@echo/model/types/item/nft-item'
@@ -34,11 +31,10 @@ import type { OwnedErc721Nft } from '@echo/model/types/nft/owned-erc721-nft'
 import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
 import type { User } from '@echo/model/types/user/user'
 import { withSlugSchema } from '@echo/model/validators/slug-schema'
-import { eqListWith } from '@echo/utils/fp/eq-list-with'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { toNonEmptyArray } from '@echo/utils/fp/to-non-empty-array'
 import { getErc1155TokenBalance } from '@echo/web3/services/get-erc1155-token-balance'
-import { and, assoc, dissoc, equals, head, isNil, map, type NonEmptyArray, pipe, prop } from 'ramda'
+import { assoc, dissoc, equals, head, isNil, map, type NonEmptyArray, pipe, prop } from 'ramda'
 import { nativeEnum, NEVER, number, object, ZodIssueCode } from 'zod'
 
 interface Erc721ItemRequestWithNft extends Erc721ItemRequest {
@@ -196,21 +192,23 @@ export async function createListingRequestSchema(username: string) {
     )(params.items as NonEmptyArray<NftItemWithOwner>)
     const items = pipe(map(removeItemOwner), toNonEmptyArray)(params.items)
     // Ensure listing is not a duplicate
-    const creatorListings = await getListingsForCreatorAndTarget({ creator, target: params.target })
-    for (const listing of creatorListings) {
-      if (
-        and(
-          eqListWith(eqErc721Item, erc721Items(listing.items), erc721Items(items)),
-          eqListWith(eqErc1155Item, erc1155Items(listing.items), erc1155Items(items))
-        )
-      ) {
-        ctx.addIssue({
-          code: ZodIssueCode.custom,
-          message: ListingError.Exists
-        })
-        return NEVER
-      }
+    const listingWithExpiration = pipe(assoc('items', items), assoc('creator', creator))(params)
+    const signature = pipe<
+      [Pick<Listing, 'creator' | 'items' | 'target'> & Record<'expiration', Expiration>],
+      Pick<Listing, 'creator' | 'items' | 'target'>,
+      string
+    >(
+      dissoc('expiration'),
+      listingSignature
+    )(listingWithExpiration)
+    const existingListing = await getListingBySignature(signature)
+    if (!isNil(existingListing)) {
+      ctx.addIssue({
+        code: ZodIssueCode.custom,
+        message: ListingError.Exists
+      })
+      return NEVER
     }
-    return pipe(assoc('items', items), assoc('creator', creator))(params)
+    return listingWithExpiration
   })
 }
