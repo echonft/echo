@@ -1,5 +1,5 @@
 import { getSwapsForUserQuery } from '@echo/firestore/crud/swap/get-swaps-for-user'
-import { getQueryCount } from '@echo/firestore/helpers/crud/query/get-query-count'
+import { getQueryCount } from '@echo/firestore/helpers/query/get-query-count'
 import type { Username } from '@echo/model/types/username'
 import { pipe } from 'ramda'
 

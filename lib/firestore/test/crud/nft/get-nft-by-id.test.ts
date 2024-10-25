@@ -1,5 +1,6 @@
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
-import { nftMockSpiral1 } from '@echo/model/mocks/nft-mock'
+import { nftDocumentMockSpiral1 } from '@echo/firestore/mocks/nft-document-mock'
+import { nftDocumentMockSpiral1Id } from '@echo/test/firestore/initialize-db'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - nft - getNftById', () => {
@@ -8,7 +9,7 @@ describe('CRUD - nft - getNftById', () => {
     expect(nft).toBeUndefined()
   })
   it('returns the nft with the given id', async () => {
-    const nft = await getNftById('BhHFadIrrooORfTOLkBg')
-    expect(nft).toStrictEqual(nftMockSpiral1)
+    const nft = await getNftById(nftDocumentMockSpiral1Id)
+    expect(nft).toStrictEqual(nftDocumentMockSpiral1)
   })
 })

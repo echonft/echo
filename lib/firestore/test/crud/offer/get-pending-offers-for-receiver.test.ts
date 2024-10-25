@@ -1,5 +1,5 @@
 import { getPendingOffersForReceiver } from '@echo/firestore/crud/offer/get-pending-offers-for-receiver'
-import { offerMockToJohnnycage } from '@echo/model/mocks/offer-mock'
+import { offerDocumentMockToJohnnycage } from '@echo/firestore/mocks/offer-document-mock'
 import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
 import { describe, expect, it } from '@jest/globals'
 
@@ -13,6 +13,6 @@ describe('CRUD - offer - getPendingOffersForReceiver', () => {
     expect(documents).toEqual([])
     documents = await getPendingOffersForReceiver(userMockJohnny.username)
     expect(documents.length).toBe(1)
-    expect(documents[0]).toStrictEqual(offerMockToJohnnycage)
+    expect(documents[0]).toStrictEqual(offerDocumentMockToJohnnycage)
   })
 })

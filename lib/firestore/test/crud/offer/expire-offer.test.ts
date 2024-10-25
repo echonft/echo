@@ -1,20 +1,19 @@
 import { expireOffer } from '@echo/firestore/crud/offer/expire-offer'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
-import * as updateReferenceModule from '@echo/firestore/helpers/crud/reference/update-reference'
-import type { ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
+import * as updateReferenceModule from '@echo/firestore/helpers/reference/update-reference'
+import type { OfferDocument } from '@echo/firestore/types/model/offer-document'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { OfferState } from '@echo/model/constants/offer-state'
-import { offerMockToJohnnycageSlug } from '@echo/model/mocks/offer-mock'
-import type { Listing } from '@echo/model/types/listing'
+import { offerMockToJohnnycage } from '@echo/model/mocks/offer-mock'
 import { resetOffer } from '@echo/test/firestore/crud/offer/reset-offer'
 import { updateOffer } from '@echo/test/firestore/crud/offer/update-offer'
 import { futureDate } from '@echo/utils/helpers/future-date'
 import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 describe('CRUD - offer - expireOffer', () => {
-  type SpiedFn = typeof updateReferenceModule.updateReference<Listing, ListingDocumentData>
+  type SpiedFn = typeof updateReferenceModule.updateReference<OfferDocument>
   let updateReferenceSpy: jest.MockedFunction<SpiedFn>
-  const slug = offerMockToJohnnycageSlug()
+  const slug = offerMockToJohnnycage.slug
 
   beforeEach(() => {
     updateReferenceSpy = jest.spyOn(updateReferenceModule, 'updateReference') as jest.MockedFunction<SpiedFn>

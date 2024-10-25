@@ -1,17 +1,17 @@
 import { nftArrayIndex } from '@echo/firestore/array-indexers/nft/nft-array-index'
-import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
-import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
-import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import { queryWhereFilter } from '@echo/firestore/helpers/crud/query/query-where-filter'
+import { offersCollection } from '@echo/firestore/helpers/collection/collections'
+import { getQueryData } from '@echo/firestore/helpers/query/get-query-data'
+import { queryWhere } from '@echo/firestore/helpers/query/query-where'
+import { queryWhereFilter } from '@echo/firestore/helpers/query/query-where-filter'
+import type { OfferDocument } from '@echo/firestore/types/model/offer-document'
 import type { NftIndex } from '@echo/model/types/nft'
-import { type Offer } from '@echo/model/types/offer'
 import { Filter } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
-export function getOffersForNft(nft: NftIndex): Promise<Offer[]> {
+export function getOffersForNft(nft: NftIndex): Promise<OfferDocument[]> {
   const arrayIndex = nftArrayIndex(nft)
   return pipe(
-    getOffersCollectionReference,
+    offersCollection,
     queryWhere('locked', '==', false),
     queryWhereFilter(
       Filter.or(

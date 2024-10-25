@@ -1,5 +1,5 @@
 import { getOffersForCollectionQuery } from '@echo/firestore/crud/offer/get-offers-for-collection'
-import { getQueryCount } from '@echo/firestore/helpers/crud/query/get-query-count'
+import { getQueryCount } from '@echo/firestore/helpers/query/get-query-count'
 import type { Slug } from '@echo/model/types/slug'
 import { pipe } from 'ramda'
 

@@ -1,16 +1,16 @@
-import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
-import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
-import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
-import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import { queryWhereFilter } from '@echo/firestore/helpers/crud/query/query-where-filter'
-import { type Offer } from '@echo/model/types/offer'
+import { offersCollection } from '@echo/firestore/helpers/collection/collections'
+import { getQueryData } from '@echo/firestore/helpers/query/get-query-data'
+import { queryOrderBy } from '@echo/firestore/helpers/query/query-order-by'
+import { queryWhere } from '@echo/firestore/helpers/query/query-where'
+import { queryWhereFilter } from '@echo/firestore/helpers/query/query-where-filter'
+import type { OfferDocument } from '@echo/firestore/types/model/offer-document'
 import type { Username } from '@echo/model/types/username'
 import { Filter } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
-export function getPendingOffersForUser(username: Username): Promise<Offer[]> {
+export function getPendingOffersForUser(username: Username): Promise<OfferDocument[]> {
   return pipe(
-    getOffersCollectionReference,
+    offersCollection,
     queryWhereFilter(
       Filter.or(Filter.where('sender.username', '==', username), Filter.where('receiver.username', '==', username))
     ),

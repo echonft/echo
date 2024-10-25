@@ -1,20 +1,18 @@
-import { getCollectionDiscordGuildsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collection-discord-guilds-collection-reference'
-import { getReferenceById } from '@echo/firestore/helpers/crud/reference/get-reference-by-id'
-import { getReferenceData } from '@echo/firestore/helpers/crud/reference/get-reference-data'
-import { type CollectionDiscordGuildDocumentData } from '@echo/firestore/types/model/collection-discord-guild-document-data'
+import { collectionDiscordGuildsCollection } from '@echo/firestore/helpers/collection/collections'
+import { getReferenceById } from '@echo/firestore/helpers/reference/get-reference-by-id'
+import { getReferenceData } from '@echo/firestore/helpers/reference/get-reference-data'
+import { type CollectionDiscordGuildDocument } from '@echo/firestore/types/model/collection-discord-guild-document'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { DocumentReference } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
-function getCollectionDiscordGuildReferenceById(
-  id: string
-): DocumentReference<CollectionDiscordGuildDocumentData, CollectionDiscordGuildDocumentData> {
+function getCollectionDiscordGuildReferenceById(id: string): DocumentReference<CollectionDiscordGuildDocument> {
   return getReferenceById({
-    collectionReference: getCollectionDiscordGuildsCollectionReference(),
+    collectionReference: collectionDiscordGuildsCollection(),
     id
   })
 }
 
-export function getCollectionDiscordGuildById(id: string): Promise<Nullable<CollectionDiscordGuildDocumentData>> {
+export function getCollectionDiscordGuildById(id: string): Promise<Nullable<CollectionDiscordGuildDocument>> {
   return pipe(getCollectionDiscordGuildReferenceById, getReferenceData)(id)
 }

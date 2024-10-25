@@ -1,12 +1,12 @@
 import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
-import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
-import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
+import { offersCollection } from '@echo/firestore/helpers/collection/collections'
+import { updateReference } from '@echo/firestore/helpers/reference/update-reference'
+import type { OfferDocument } from '@echo/firestore/types/model/offer-document'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { shouldLockOffer } from '@echo/model/helpers/offer/should-lock-offer'
-import type { Offer } from '@echo/model/types/offer'
 import { isNil } from 'ramda'
 
-export async function updateOfferState(args: Pick<Offer, 'slug' | 'state'>): Promise<Offer> {
+export async function updateOfferState(args: Pick<OfferDocument, 'slug' | 'state'>): Promise<OfferDocument> {
   const { slug, state } = args
   const snapshot = await getOfferSnapshot(slug)
   if (isNil(snapshot)) {
@@ -20,7 +20,7 @@ export async function updateOfferState(args: Pick<Offer, 'slug' | 'state'>): Pro
     return Promise.reject(Error(OfferError.Locked))
   }
   return updateReference({
-    collectionReference: getOffersCollectionReference(),
+    collectionReference: offersCollection(),
     id: snapshot.id,
     data: { state, locked: shouldLockOffer(state) }
   })

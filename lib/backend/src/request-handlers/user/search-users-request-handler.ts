@@ -2,7 +2,7 @@ import { getSearchParam } from '@echo/backend/request-handlers/get-search-param'
 import { toNextReponse } from '@echo/backend/request-handlers/to-next-reponse'
 import type { RequestHandlerArgs } from '@echo/backend/types/request-handler'
 import { getUsersSearchData } from '@echo/firestore/crud/user/get-users-search-data'
-import { mapUserToSearchResult } from '@echo/firestore/mappers/user/map-user-to-search-result'
+import { userToSearchResult } from '@echo/model/mappers/user/user-to-search-result'
 import { andThen, filter, map, objOf, pipe, propSatisfies, test, toLower } from 'ramda'
 
 export function searchUsersRequestHandler({ req }: RequestHandlerArgs) {
@@ -11,8 +11,6 @@ export function searchUsersRequestHandler({ req }: RequestHandlerArgs) {
   const search = pipe(toLower, test(regex))
   return pipe(
     getUsersSearchData,
-    andThen(
-      pipe(filter(propSatisfies(search, 'username')), map(mapUserToSearchResult), objOf('results'), toNextReponse)
-    )
+    andThen(pipe(filter(propSatisfies(search, 'username')), map(userToSearchResult), objOf('results'), toNextReponse))
   )()
 }

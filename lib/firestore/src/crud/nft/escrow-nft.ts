@@ -1,8 +1,8 @@
 import { getEscrowedNftSnapshot } from '@echo/firestore/crud/nft/get-escrowed-nft-snapshot'
 import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
 import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
-import { getEscrowedNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-escrowed-nfts-collection-reference'
-import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
+import { escrowedNftsCollection } from '@echo/firestore/helpers/collection/collections'
+import { setReference } from '@echo/firestore/helpers/reference/set-reference'
 import { NftError } from '@echo/model/constants/errors/nft-error'
 import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
 import type { Nft } from '@echo/model/types/nft'
@@ -26,7 +26,7 @@ export async function escrowNft(nft: OwnedNftIndex): Promise<string> {
   await removeNftOwner(nft)
   // add escrowed NFT
   return setReference({
-    collectionReference: getEscrowedNftsCollectionReference(),
+    collectionReference: escrowedNftsCollection(),
     data: {
       nftId: snapshot.id,
       owner: nft.owner

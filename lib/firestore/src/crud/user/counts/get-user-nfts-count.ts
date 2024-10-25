@@ -1,5 +1,5 @@
 import { getNftsForOwnerQuery } from '@echo/firestore/crud/nft/get-nfts-for-owner'
-import { getQueryCount } from '@echo/firestore/helpers/crud/query/get-query-count'
+import { getQueryCount } from '@echo/firestore/helpers/query/get-query-count'
 import type { Username } from '@echo/model/types/username'
 import { pipe } from 'ramda'
 

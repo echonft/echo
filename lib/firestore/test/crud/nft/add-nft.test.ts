@@ -1,7 +1,9 @@
 import { addNft } from '@echo/firestore/crud/nft/add-nft'
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
+import { nftDocumentMockSpiral1 } from '@echo/firestore/mocks/nft-document-mock'
 import { NftError } from '@echo/model/constants/errors/nft-error'
 import { nftMockSpiral1 } from '@echo/model/mocks/nft-mock'
+import type { Nft } from '@echo/model/types/nft'
 import { deleteNft } from '@echo/test/firestore/crud/nft/delete-nft'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
@@ -23,10 +25,10 @@ describe('CRUD - nft - addNft', () => {
   })
 
   it('adds the nft', async () => {
-    const data = assoc('tokenId', 999, nftMockSpiral1)
-    const document = await addNft(data)
+    const data = assoc('tokenId', 999, nftDocumentMockSpiral1)
+    const document = await addNft(data as Nft)
     nftId = document.id
-    const nft = (await getNftById(nftId))!
+    const nft = await getNftById(nftId)
     expect(nft).toStrictEqual(data)
   })
 })

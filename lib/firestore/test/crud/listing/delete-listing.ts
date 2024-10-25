@@ -1,9 +1,9 @@
-import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
-import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
+import { listingsCollection } from '@echo/firestore/helpers/collection/collections'
+import { deleteReference } from '@echo/firestore/helpers/reference/delete-reference'
 
 export function deleteListing(id: string): Promise<string> {
   return deleteReference({
-    collectionReference: getListingsCollectionReference(),
+    collectionReference: listingsCollection(),
     id
   })
 }

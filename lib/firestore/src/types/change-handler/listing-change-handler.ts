@@ -1,6 +1,5 @@
 import type { ChangeHandler, ChangeHandlerArgs } from '@echo/firestore/types/change-handler/change-handler'
-import type { ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
-import type { Listing } from '@echo/model/types/listing'
+import type { ListingDocument } from '@echo/firestore/types/model/listing-document'
 
-export type ListingChangeHandlerArgs = ChangeHandlerArgs<Listing, ListingDocumentData>
-export type ListingChangeHandler = ChangeHandler<Listing, ListingDocumentData>
+export type ListingChangeHandlerArgs = ChangeHandlerArgs<ListingDocument>
+export type ListingChangeHandler = ChangeHandler<ListingDocument>

@@ -1,15 +1,14 @@
-import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
-import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
-import { queryWhereFilter } from '@echo/firestore/helpers/crud/query/query-where-filter'
-import type { OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
-import { type Offer } from '@echo/model/types/offer'
+import { offersCollection } from '@echo/firestore/helpers/collection/collections'
+import { queryOrderBy } from '@echo/firestore/helpers/query/query-order-by'
+import { queryWhereFilter } from '@echo/firestore/helpers/query/query-where-filter'
+import type { OfferDocument } from '@echo/firestore/types/model/offer-document'
 import type { Slug } from '@echo/model/types/slug'
 import { Filter, type Query } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
-export function getOffersForCollectionQuery(slug: Slug): Query<Offer, OfferDocumentData> {
+export function getOffersForCollectionQuery(slug: Slug): Query<OfferDocument> {
   return pipe(
-    getOffersCollectionReference,
+    offersCollection,
     queryOrderBy('expiresAt', 'desc'),
     queryWhereFilter(
       Filter.or(

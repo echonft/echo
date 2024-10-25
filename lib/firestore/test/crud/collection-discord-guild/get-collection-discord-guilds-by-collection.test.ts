@@ -1,14 +1,14 @@
 import { getCollectionDiscordGuildsByCollection } from '@echo/firestore/crud/collection-discord-guild/get-collection-discord-guilds-by-collection'
 import { deleteCollection } from '@echo/firestore/crud/collection/delete-collection'
-import { collectionMockPxId } from '@echo/firestore/mocks/db-model/collection-document-data-mock'
 import { addCollectionDiscordGuild } from '@echo/test/firestore/crud/collection-discord-guild/add-collection-discord-guild'
 import { deleteCollectionDiscordGuild } from '@echo/test/firestore/crud/collection-discord-guild/delete-collection-discord-guild'
+import { collectionDocumentMockPxId } from '@echo/test/firestore/initialize-db'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
 
 describe('CRUD - collection-discord-guild - getCollectionDiscordGuildsByCollection', () => {
-  const collectionId = collectionMockPxId()
+  const collectionId = collectionDocumentMockPxId
   const guildData = {
     collectionId,
     guild: {

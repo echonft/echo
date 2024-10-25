@@ -2,7 +2,7 @@ import { getSearchParam } from '@echo/backend/request-handlers/get-search-param'
 import { toNextReponse } from '@echo/backend/request-handlers/to-next-reponse'
 import type { RequestHandlerArgs } from '@echo/backend/types/request-handler'
 import { getCollectionsSearchData } from '@echo/firestore/crud/collection/get-collections-search-data'
-import { mapCollectionToSearchResult } from '@echo/firestore/mappers/collection/map-collection-to-search-result'
+import { collectionToSearchResult } from '@echo/model/mappers/collection/collection-to-search-result'
 import { andThen, either, filter, map, objOf, pipe, propSatisfies, test, toLower } from 'ramda'
 
 export async function searchCollectionsRequestHandler({ req }: RequestHandlerArgs) {
@@ -14,7 +14,7 @@ export async function searchCollectionsRequestHandler({ req }: RequestHandlerArg
     andThen(
       pipe(
         filter(either(propSatisfies(search, 'name'), propSatisfies(search, 'slug'))),
-        map(mapCollectionToSearchResult),
+        map(collectionToSearchResult),
         objOf('results'),
         toNextReponse
       )

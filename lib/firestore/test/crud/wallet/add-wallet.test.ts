@@ -2,16 +2,20 @@ import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
 
 import { deleteWallet } from '@echo/firestore/crud/wallet/delete-wallet'
 import { getWalletById } from '@echo/firestore/crud/wallet/get-wallet-by-id'
-import { userMockJohnnyId } from '@echo/firestore/mocks/db-model/user/user-document-data-mock'
-import { Chain } from '@echo/model/constants/chain'
-import { userMockCrew, userMockJohnnyUsername } from '@echo/model/mocks/user-mock'
+import { userDocumentMockCrew } from '@echo/firestore/mocks/user-document-mock'
+import { walletDocumentMockCrew } from '@echo/firestore/mocks/wallet-document-mock'
+import { UserError } from '@echo/model/constants/errors/user-error'
+import { WalletError } from '@echo/model/constants/errors/wallet-error'
+import { VirtualMachine } from '@echo/model/constants/virtual-machine'
+import { collectionMockSpiral } from '@echo/model/mocks/collection-mock'
+import { userMockJohnny } from '@echo/model/mocks/user-mock'
 import { walletMockCrew } from '@echo/model/mocks/wallet-mock'
-import { addUser } from '@echo/test/firestore/crud/user/add-or-update-user'
 import { deleteUser } from '@echo/test/firestore/crud/user/delete-user'
 import { addWallet as testAddWallet } from '@echo/test/firestore/crud/wallet/add-wallet'
+import { userDocumentMockCrewId, userDocumentMockJohnnyId } from '@echo/test/firestore/initialize-db'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
-import { assoc, isNil, pick, pipe, toLower } from 'ramda'
+import { assoc, isNil } from 'ramda'
 
 describe('CRUD - wallet - addWallet', () => {
   let addedUserId: Nullable<string>
@@ -30,29 +34,26 @@ describe('CRUD - wallet - addWallet', () => {
   })
 
   it('throws if the user does not exists', async () => {
-    await expect(
-      addWallet('not-found', { address: toLower('0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8'), chain: Chain.Ethereum })
-    ).rejects.toBeDefined()
+    await expect(addWallet('not-found', walletMockCrew)).rejects.toEqual(Error(UserError.NotFound))
   })
 
   it('add wallet', async () => {
-    addedUserId = await addUser(userMockCrew)
-    // const data =
-    const { id } = await addWallet(userMockJohnnyUsername(), {
-      address,
-      chain: Chain.Ethereum
+    // TODO add user
+    const { id } = await addWallet(userMockJohnny.username, {
+      address: collectionMockSpiral.contract.address,
+      vm: VirtualMachine.Evm
     })
     addedWalletId = id
     const wallet = (await getWalletById(id))!
-    expect(wallet.userId).toEqual(userMockJohnnyId())
-    expect(wallet.chain).toEqual(Chain.Ethereum)
-    expect(wallet.address).toEqual(address)
+    expect(wallet.userId).toEqual(userDocumentMockJohnnyId)
+    expect(wallet.address).toEqual(collectionMockSpiral.contract.address)
+    expect(wallet.vm).toEqual(VirtualMachine.Evm)
   })
 
   it('throws if the wallet already exists', async () => {
-    const wallet = walletMockCrew
-    addedWalletId = await testAddWallet(wallet)
-    const otherEvmChainWallet = pipe(pick(['address', 'chain']), assoc('chain', Chain.Blast))(wallet)
-    await expect(addWallet(userMockJohnnyUsername(), otherEvmChainWallet)).rejects.toBeDefined()
+    addedWalletId = await testAddWallet(assoc('userId', userDocumentMockCrewId, walletDocumentMockCrew))
+    await expect(addWallet(userDocumentMockCrew.username, walletDocumentMockCrew)).rejects.toEqual(
+      Error(WalletError.Exists)
+    )
   })
 })

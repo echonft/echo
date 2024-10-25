@@ -1,8 +1,8 @@
-import { getNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-nfts-collection-reference'
-import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
-import type { Nft } from '@echo/model/types/nft'
+import { nftsCollection } from '@echo/firestore/helpers/collection/collections'
+import { getQueryData } from '@echo/firestore/helpers/query/get-query-data'
+import type { NftDocument } from '@echo/firestore/types/model/nft-document'
 import { pipe } from 'ramda'
 
-export function getAllNfts(): Promise<Nft[]> {
-  return pipe(getNftsCollectionReference, getQueryData)()
+export function getAllNfts(): Promise<NftDocument[]> {
+  return pipe(nftsCollection, getQueryData)()
 }

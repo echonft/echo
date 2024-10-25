@@ -4,6 +4,6 @@ import type { NftItem } from '@echo/model/types/nft-item'
 import type { Swap } from '@echo/model/types/swap'
 import { type NonEmptyArray, pipe } from 'ramda'
 
-export function swapReceiverNftItems(swap: Swap): NonEmptyArray<NftItem> {
+export function swapReceiverNftItems(swap: Pick<Swap, 'receiverItems'>): NonEmptyArray<NftItem> {
   return pipe(swapReceiverItems, nftItems)(swap)
 }

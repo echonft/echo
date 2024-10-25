@@ -1,4 +1,3 @@
-import { collectionMockSpiralId } from '@echo/firestore/mocks/db-model/collection-document-data-mock'
 import { TokenType } from '@echo/model/constants/token-type'
 import { toNftCollection } from '@echo/model/mappers/collection/to-nft-collection'
 import { erc721TokenToNft } from '@echo/model/mappers/token/erc721-token-to-nft'

@@ -1,16 +1,16 @@
 import { CollectionGuildError } from '@echo/firestore/constants/errors/collection-guild-error'
 import { getCollectionDiscordGuildsByCollection } from '@echo/firestore/crud/collection-discord-guild/get-collection-discord-guilds-by-collection'
 import { getCollectionById } from '@echo/firestore/crud/collection/get-collection-by-id'
-import { getCollectionDiscordGuildsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collection-discord-guilds-collection-reference'
-import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import type { CollectionDiscordGuildDocumentData } from '@echo/firestore/types/model/collection-discord-guild-document-data'
+import { collectionDiscordGuildsCollection } from '@echo/firestore/helpers/collection/collections'
+import { setReference } from '@echo/firestore/helpers/reference/set-reference'
+import type { CollectionDiscordGuildDocument } from '@echo/firestore/types/model/collection-discord-guild-document'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { CollectionError } from '@echo/model/constants/errors/collection-error'
 import { includes, isNil, map, pipe, prop } from 'ramda'
 
 export async function addCollectionDiscordGuild(
-  collectionGuild: CollectionDiscordGuildDocumentData
-): Promise<NewDocument<CollectionDiscordGuildDocumentData>> {
+  collectionGuild: CollectionDiscordGuildDocument
+): Promise<NewDocument<CollectionDiscordGuildDocument>> {
   const { collectionId, guild } = collectionGuild
   const collection = await getCollectionById(collectionId)
   if (isNil(collection)) {
@@ -20,7 +20,7 @@ export async function addCollectionDiscordGuild(
   const discordGuilds = await getCollectionDiscordGuildsByCollection(collectionId)
   if (
     pipe(
-      map<CollectionDiscordGuildDocumentData, CollectionDiscordGuildDocumentData['guild']>(prop('guild')),
+      map<CollectionDiscordGuildDocument, CollectionDiscordGuildDocument['guild']>(prop('guild')),
       includes(guild)
     )(discordGuilds)
   ) {
@@ -28,7 +28,7 @@ export async function addCollectionDiscordGuild(
   }
 
   const id = await setReference({
-    collectionReference: getCollectionDiscordGuildsCollectionReference(),
+    collectionReference: collectionDiscordGuildsCollection(),
     data: collectionGuild
   })
   return { id, data: collectionGuild }

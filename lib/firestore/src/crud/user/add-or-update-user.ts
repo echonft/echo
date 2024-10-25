@@ -1,27 +1,25 @@
 import { getUserSnapshotByDiscordId } from '@echo/firestore/crud/user/get-user-by-discord-id'
-import { getUsersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-users-collection-reference'
-import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
-import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
-import type { User } from '@echo/model/types/user'
-import type { UserDiscordProfile } from '@echo/model/types/user/user-discord-profile'
+import { usersCollection } from '@echo/firestore/helpers/collection/collections'
+import { setReference } from '@echo/firestore/helpers/reference/set-reference'
+import { updateReference } from '@echo/firestore/helpers/reference/update-reference'
+import type { UserDocument } from '@echo/firestore/types/model/user-document'
 import { applySpec, identity, isNil, pipe, prop, toLower } from 'ramda'
 
-export async function addOrUpdateUser(discordProfile: UserDiscordProfile): Promise<User> {
+export async function addOrUpdateUser(discordProfile: UserDocument['discord']): Promise<UserDocument> {
   const snapshot = await getUserSnapshotByDiscordId(discordProfile.id)
   if (isNil(snapshot)) {
-    const user = applySpec<UserDocumentData>({
+    const user = applySpec<UserDocument>({
       username: pipe(prop('username'), toLower),
       discord: identity
     })(discordProfile)
     await setReference({
-      collectionReference: getUsersCollectionReference(),
+      collectionReference: usersCollection(),
       data: user
     })
     return user
   }
   return updateReference({
-    collectionReference: getUsersCollectionReference(),
+    collectionReference: usersCollection(),
     id: snapshot.id,
     data: { discord: discordProfile }
   })

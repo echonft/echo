@@ -1,7 +1,7 @@
 import { deleteCollection } from '@echo/firestore/crud/collection/delete-collection'
-import { getCollectionsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collections-collection-reference'
-import { getQueryDocumentSnapshots } from '@echo/firestore/helpers/crud/query/get-query-document-snapshots'
-import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
+import { collectionsCollection } from '@echo/firestore/helpers/collection/collections'
+import { getQueryDocumentSnapshots } from '@echo/firestore/helpers/query/get-query-document-snapshots'
+import { queryWhere } from '@echo/firestore/helpers/query/query-where'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import type { Collection } from '@echo/model/types/collection'
 import { getLogger } from '@echo/tasks/commands/get-logger'
@@ -15,7 +15,7 @@ export async function removeDuplicateCollections(): Promise<void> {
   for (const collections of groups) {
     const collection = head(collections as NonEmptyArray<Collection>)
     const snapshots = await pipe(
-      getCollectionsCollectionReference,
+      collectionsCollection,
       queryWhere('slug', '==', collection.slug),
       getQueryDocumentSnapshots
     )()

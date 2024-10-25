@@ -1,6 +1,6 @@
 import { embedSeparator } from '@echo/bot/helpers/embed/embed-separator'
 import { embedValueForNftItem } from '@echo/bot/helpers/embed/embed-value-for-nft-item'
-import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
+import type { UserDocument } from '@echo/firestore/types/model/user-document'
 import { nftItems } from '@echo/model/helpers/item/nft-items'
 import { offerReceiverItems } from '@echo/model/helpers/offer/offer-receiver-items'
 import { offerSenderItems } from '@echo/model/helpers/offer/offer-sender-items'
@@ -10,7 +10,7 @@ import { type APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import i18next from 'i18next'
 import { addIndex, flatten, map, pipe } from 'ramda'
 
-export function buildSwapEmbed(offer: Offer, creator: UserDocumentData, counterparty: UserDocumentData) {
+export function buildSwapEmbed(offer: Offer, creator: UserDocument, counterparty: UserDocument) {
   return (
     new EmbedBuilder()
       .setTitle(i18next.t('swap.embed.title'))

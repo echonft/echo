@@ -1,7 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/db-model/user/get-user-document-data-mock-by-username'
-import { userMockJohnnyUsername } from '@echo/model/mocks/user-mock'
+import { userMockJohnny } from '@echo/model/mocks/user-mock'
 import { HeaderLoggedIn as Component } from '@echo/ui/components/base/header/header-logged-in'
 import { type Meta, type StoryObj } from '@storybook/react'
 
@@ -25,6 +24,6 @@ export default metadata
 
 export const LoggedIn: StoryObj<typeof Component> = {
   args: {
-    user: getUserDocumentDataMockByUsername(userMockJohnnyUsername())
+    user: userMockJohnny
   }
 }

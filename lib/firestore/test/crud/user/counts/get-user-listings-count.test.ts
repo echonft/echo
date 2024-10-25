@@ -1,5 +1,5 @@
 import { getUserListingsCount } from '@echo/firestore/crud/user/counts/get-user-listings-count'
-import { userMockJohnnyUsername } from '@echo/model/mocks/user-mock'
+import { userMockJohnny } from '@echo/model/mocks/user-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - user - counts - getUserListingsCount', () => {
@@ -9,7 +9,7 @@ describe('CRUD - user - counts - getUserListingsCount', () => {
   })
 
   it('returns the listing count for the user', async () => {
-    const username = userMockJohnnyUsername()
+    const username = userMockJohnny.username
     const count = await getUserListingsCount(username)
     expect(count).toEqual(1)
   })

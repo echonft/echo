@@ -1,4 +1,3 @@
-import { collectionMockSpiralId } from '@echo/firestore/mocks/db-model/collection-document-data-mock'
 import { Chain } from '@echo/model/constants/chain'
 import { TokenType } from '@echo/model/constants/token-type'
 import { erc20Items } from '@echo/model/helpers/item/erc20-items'

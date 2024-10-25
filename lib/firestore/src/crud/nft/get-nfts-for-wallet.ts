@@ -1,17 +1,11 @@
-import { getNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-nfts-collection-reference'
-import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
-import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import { nftsCollection } from '@echo/firestore/helpers/collection/collections'
+import { getQueryData } from '@echo/firestore/helpers/query/get-query-data'
+import { queryWhere } from '@echo/firestore/helpers/query/query-where'
+import type { NftDocument } from '@echo/firestore/types/model/nft-document'
 import type { Wallet } from '@echo/model/types/wallet'
 import { pipe } from 'ramda'
 
-export function getNftsForWallet(args: Record<'wallet', Wallet>): Promise<OwnedNft[]> {
+export function getNftsForWallet(args: Record<'wallet', Wallet>): Promise<NftDocument[]> {
   const { wallet } = args
-  return pipe(
-    getNftsCollectionReference,
-    queryWhere('owner.wallet.chain', '==', wallet.chain),
-    queryWhere('owner.wallet.address', '==', wallet.address),
-    getQueryData
-  )() as Promise<OwnedNft[]>
+  return pipe(nftsCollection, queryWhere('owner.wallet', '==', wallet.address), getQueryData)()
 }

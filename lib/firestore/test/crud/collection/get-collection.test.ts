@@ -1,5 +1,5 @@
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
-import { collectionMockPx } from '@echo/model/mocks/collection-mock'
+import { collectionDocumentMockPx } from '@echo/firestore/mocks/collection-document-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - collection - getCollection', () => {
@@ -8,7 +8,7 @@ describe('CRUD - collection - getCollection', () => {
     expect(collection).toBeUndefined()
   })
   it('returns the collection with the given slug', async () => {
-    const collection = await getCollection(collectionMockPx.slug)
-    expect(collection).toStrictEqual(collectionMockPx)
+    const collection = await getCollection(collectionDocumentMockPx.slug)
+    expect(collection).toStrictEqual(collectionDocumentMockPx)
   })
 })

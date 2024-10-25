@@ -8,7 +8,8 @@ import { addListing } from '@echo/firestore/crud/listing/add-listing'
 import { getListingBySignature } from '@echo/firestore/crud/listing/get-listing-by-signature'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
-import { listingMockId } from '@echo/firestore/mocks/db-model/listing-document-data-mock'
+
+import { listingDocumentMockId } from '@echo/firestore/test/initialize-db'
 import { Expiration } from '@echo/model/constants/expiration'
 import { listingItemsIndexes } from '@echo/model/helpers/listing/listing-items-indexes'
 import { eqNft } from '@echo/model/helpers/nft/eq-nft'
@@ -51,7 +52,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
       .mocked(getCollection)
       .mockImplementation((slug: Slug) => pipe(find<Collection>(propEq(slug, 'slug')), toPromise)(collectionMocks))
     jest.mocked(getErc1155TokenBalance).mockResolvedValue(200)
-    jest.mocked(addListing).mockResolvedValue({ id: listingMockId(), data: listingMock })
+    jest.mocked(addListing).mockResolvedValue({ id: listingDocumentMockId(), data: listingMock })
   })
 
   it('throws if the request cannot be parsed', async () => {
@@ -73,7 +74,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
       },
       expiration: Expiration.OneDay
     }
-    jest.mocked(addListing).mockResolvedValue({ id: listingMockId(), data: listingMock })
+    jest.mocked(addListing).mockResolvedValue({ id: listingDocumentMockId(), data: listingMock })
     const req = mockRequest<CreateListingRequest>(validRequest)
     const res = await createListingRequestHandler({ user, req })
     expect(addListing).toHaveBeenCalledTimes(1)

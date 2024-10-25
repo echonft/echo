@@ -1,9 +1,9 @@
-import { getSwapPostsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-swap-posts-collection-reference'
-import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
+import { swapPostsCollection } from '@echo/firestore/helpers/collection/collections'
+import { deleteReference } from '@echo/firestore/helpers/reference/delete-reference'
 
 export function deleteSwapPost(id: string): Promise<string> {
   return deleteReference({
-    collectionReference: getSwapPostsCollectionReference(),
+    collectionReference: swapPostsCollection(),
     id
   })
 }

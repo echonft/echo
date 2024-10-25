@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { mapCollectionToSearchResult } from '@echo/firestore/mappers/collection/map-collection-to-search-result'
-import { mapUserToSearchResult } from '@echo/firestore/mappers/user/map-user-to-search-result'
+import { collectionToSearchResult } from '@echo/model/mappers/collection/collection-to-search-result'
+import { userToSearchResult } from '@echo/model/mappers/user/user-to-search-result'
 import { collectionMockPx, collectionMockSpiral } from '@echo/model/mocks/collection-mock'
 import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
 import type { SearchResult } from '@echo/model/types/search-result'
@@ -48,11 +48,11 @@ export const Default: StoryObj<ComponentType> = {
     const results = useMemo(() => {
       if (showCategories) {
         return concat<SearchResult<string>, SearchResult<string>>(
-          map(mapCollectionToSearchResult, collections),
-          map(mapUserToSearchResult, users)
+          map(collectionToSearchResult, collections),
+          map(userToSearchResult, users)
         )
       }
-      return map(mapCollectionToSearchResult, collections)
+      return map(collectionToSearchResult, collections)
     }, [showCategories])
 
     return (

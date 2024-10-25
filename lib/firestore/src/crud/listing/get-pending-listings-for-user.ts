@@ -1,17 +1,16 @@
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
-import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
-import { getQueriesDocuments } from '@echo/firestore/helpers/crud/query/get-queries-documents'
-import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
-import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import type { ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
+import { listingsCollection } from '@echo/firestore/helpers/collection/collections'
+import { getQueriesDocuments } from '@echo/firestore/helpers/query/get-queries-documents'
+import { queryOrderBy } from '@echo/firestore/helpers/query/query-order-by'
+import { queryWhere } from '@echo/firestore/helpers/query/query-where'
+import type { ListingDocument } from '@echo/firestore/types/model/listing-document'
 import { nftsCollectionSlug } from '@echo/model/helpers/nft/nfts-collection-slug'
-import { type Listing } from '@echo/model/types/listing'
 import type { Nft } from '@echo/model/types/nft'
 import type { Username } from '@echo/model/types/username'
 import type { CollectionReference, Query } from 'firebase-admin/firestore'
 import { eqProps, isEmpty, juxt, map, partial, partialRight, pipe, splitEvery } from 'ramda'
 
-export async function getPendingListingsForUser(username: Username): Promise<Listing[]> {
+export async function getPendingListingsForUser(username: Username): Promise<ListingDocument[]> {
   const nfts = await getNftsForOwner(username)
   if (isEmpty(nfts)) {
     return []
@@ -20,20 +19,20 @@ export async function getPendingListingsForUser(username: Username): Promise<Lis
   const collectionSlugs = pipe<[Nft[]], string[], string[][]>(nftsCollectionSlug, splitEvery(30))(nfts)
   return pipe<
     [],
-    CollectionReference<Listing, ListingDocumentData>,
-    Query<Listing, ListingDocumentData>,
-    Query<Listing, ListingDocumentData>,
-    Query<Listing, ListingDocumentData>,
-    Query<Listing, ListingDocumentData>,
-    Query<Listing, ListingDocumentData>[],
-    Promise<Listing[]>
+    CollectionReference<ListingDocument>,
+    Query<ListingDocument>,
+    Query<ListingDocument>,
+    Query<ListingDocument>,
+    Query<ListingDocument>,
+    Query<ListingDocument>[],
+    Promise<ListingDocument[]>
   >(
-    getListingsCollectionReference,
+    listingsCollection,
     queryWhere('creator.username', '!=', username),
     queryWhere('locked', '==', false),
     queryOrderBy('creator.username'),
     queryOrderBy('expiresAt', 'desc'),
-    juxt(map(partial(queryWhere<Listing, ListingDocumentData>, ['target.collection.slug', 'in']), collectionSlugs)),
-    partialRight(getQueriesDocuments<Listing, ListingDocumentData>, [eqProps('slug')])
+    juxt(map(partial(queryWhere<ListingDocument>, ['target.collection.slug', 'in']), collectionSlugs)),
+    partialRight(getQueriesDocuments<ListingDocument>, [eqProps('slug')])
   )()
 }

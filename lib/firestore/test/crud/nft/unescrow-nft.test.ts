@@ -2,10 +2,11 @@ import { escrowNft } from '@echo/firestore/crud/nft/escrow-nft'
 import { getEscrowedNftById } from '@echo/firestore/crud/nft/get-escrowed-nft-by-id'
 import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { unescrowNft } from '@echo/firestore/crud/nft/unescrow-nft'
+import { nftDocumentMockSpiral1 } from '@echo/firestore/mocks/nft-document-mock'
 import { NftError } from '@echo/model/constants/errors/nft-error'
-import { nftMockSpiral1 } from '@echo/model/mocks/nft-mock'
 import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { resetNft } from '@echo/test/firestore/crud/nft/reset-nft'
+import { nftDocumentMockSpiral1Id } from '@echo/test/firestore/initialize-db'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
@@ -24,15 +25,15 @@ describe('CRUD - nft - unescrowNft', () => {
     await expect(unescrowNft('not-found')).rejects.toEqual(Error(NftError.NotFound))
   })
   it('throws if the NFT is not in escrow', async () => {
-    await expect(unescrowNft('BhHFadIrrooORfTOLkBg')).rejects.toEqual(Error(NftError.NotInEscrow))
+    await expect(unescrowNft(nftDocumentMockSpiral1Id)).rejects.toEqual(Error(NftError.NotInEscrow))
   })
   it('deletes the escrowed NFT and sets back the original NFT owner', async () => {
     // add the escrowed nft
-    nft = nftMockSpiral1
+    nft = nftDocumentMockSpiral1 as OwnedNft
     const escrowedNftId = await escrowNft(nft)
     // remove the NFT from escrow
-    await unescrowNft('BhHFadIrrooORfTOLkBg')
-    const updatedNft = await getNftById('BhHFadIrrooORfTOLkBg')
+    await unescrowNft(nftDocumentMockSpiral1Id)
+    const updatedNft = await getNftById(nftDocumentMockSpiral1Id)
     expect(updatedNft).toBeDefined()
     expect(updatedNft).toStrictEqual(nft)
     const escrowedNftSnapshot = await getEscrowedNftById(escrowedNftId)

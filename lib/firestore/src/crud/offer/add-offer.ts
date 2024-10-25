@@ -1,22 +1,60 @@
+import { addOfferArrayIndexers } from '@echo/firestore/array-indexers/offer/add-offer-array-indexers'
 import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
-import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
-import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
+import { offersCollection } from '@echo/firestore/helpers/collection/collections'
+import { setReference } from '@echo/firestore/helpers/reference/set-reference'
+import type { OfferDocument } from '@echo/firestore/types/model/offer-document'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { OfferState } from '@echo/model/constants/offer-state'
-import type { BaseOffer } from '@echo/model/types/base-offer'
-import { type Offer } from '@echo/model/types/offer'
 import { nowMsSlug } from '@echo/utils/helpers/now-ms-slug'
 import { assoc, isNil, pipe } from 'ramda'
 
-export async function addOffer(args: BaseOffer & Pick<Offer, 'idContract'>): Promise<NewDocument<Offer>> {
+export async function addOffer(
+  args: Pick<OfferDocument, 'expiresAt' | 'idContract' | 'receiver' | 'receiverItems' | 'sender' | 'senderItems'>
+): Promise<NewDocument<OfferDocument>> {
   const offer = await getOfferByIdContract(args.idContract)
   if (!isNil(offer)) {
     return Promise.reject(Error(OfferError.Exists))
   }
-  const data: Offer = pipe(assoc('locked', false), assoc('slug', nowMsSlug()), assoc('state', OfferState.Open))(args)
+  const data = pipe<
+    [
+      Omit<
+        OfferDocument,
+        | 'locked'
+        | 'slug'
+        | 'state'
+        | 'receiverItemCollections'
+        | 'receiverItemIndexes'
+        | 'senderItemCollections'
+        | 'senderItemIndexes'
+      >
+    ],
+    Omit<
+      OfferDocument,
+      | 'slug'
+      | 'state'
+      | 'receiverItemCollections'
+      | 'receiverItemIndexes'
+      | 'senderItemCollections'
+      | 'senderItemIndexes'
+    >,
+    Omit<
+      OfferDocument,
+      'state' | 'receiverItemCollections' | 'receiverItemIndexes' | 'senderItemCollections' | 'senderItemIndexes'
+    >,
+    Omit<
+      OfferDocument,
+      'receiverItemCollections' | 'receiverItemIndexes' | 'senderItemCollections' | 'senderItemIndexes'
+    >,
+    OfferDocument
+  >(
+    assoc('locked', false),
+    assoc('slug', nowMsSlug()),
+    assoc('state', OfferState.Open),
+    addOfferArrayIndexers
+  )(args)
   const id = await setReference({
-    collectionReference: getOffersCollectionReference(),
+    collectionReference: offersCollection(),
     data
   })
   return { id, data }

@@ -1,5 +1,6 @@
 import { addListing } from '@echo/firestore/crud/listing/add-listing'
 import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
+import { listingDocumentMock } from '@echo/firestore/mocks/listing-document-mock'
 import { ListingError } from '@echo/model/constants/errors/listing-error'
 import { Expiration } from '@echo/model/constants/expiration'
 import { expirationToDateNumber } from '@echo/model/helpers/expiration-to-date-number'
@@ -31,12 +32,14 @@ describe('CRUD - listing - addListing', () => {
     const args = pipe(
       modify<'target', Listing['target'], Listing['target']>('target', assoc('quantity', 20)),
       assoc('expiration', expiration)
-    )(listingMock)
+    )(listingDocumentMock)
     const { id } = await addListing(args)
     const expirationDate = expirationToDateNumber(expiration)
     createdListingId = id
     const listing = await getListingById(createdListingId)
-    expect(omit(['slug', 'expiresAt'], listing!)).toStrictEqual(omit(['slug', 'expiresAt', 'expiration'], args))
+    expect(omit(['slug', 'expiresAt', 'signature'], listing!)).toStrictEqual(
+      omit(['slug', 'expiresAt', 'expiration', 'signature'], args)
+    )
     expect(listing?.slug).toBeMsSlug()
     expect(listing?.expiresAt).toBeUnixTimestampCloseTo(expirationDate)
   })

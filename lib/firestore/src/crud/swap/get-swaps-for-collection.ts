@@ -1,16 +1,15 @@
-import { getSwapsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-swaps-collection-reference'
-import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
-import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
-import { queryWhereFilter } from '@echo/firestore/helpers/crud/query/query-where-filter'
-import type { SwapDocumentData } from '@echo/firestore/types/model/swap-document-data'
+import { swapsCollection } from '@echo/firestore/helpers/collection/collections'
+import { getQueryData } from '@echo/firestore/helpers/query/get-query-data'
+import { queryOrderBy } from '@echo/firestore/helpers/query/query-order-by'
+import { queryWhereFilter } from '@echo/firestore/helpers/query/query-where-filter'
+import type { SwapDocument } from '@echo/firestore/types/model/swap-document'
 import type { Slug } from '@echo/model/types/slug'
-import type { Swap } from '@echo/model/types/swap'
 import { Filter, type Query } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
-export function getSwapsForCollectionQuery(slug: Slug): Query<Swap, SwapDocumentData> {
+export function getSwapsForCollectionQuery(slug: Slug): Query<SwapDocument> {
   return pipe(
-    getSwapsCollectionReference,
+    swapsCollection,
     queryOrderBy('slug', 'desc'),
     queryWhereFilter(
       Filter.or(
@@ -21,6 +20,6 @@ export function getSwapsForCollectionQuery(slug: Slug): Query<Swap, SwapDocument
   )()
 }
 
-export async function getSwapsForCollection(slug: Slug): Promise<Swap[]> {
+export async function getSwapsForCollection(slug: Slug): Promise<SwapDocument[]> {
   return pipe(getSwapsForCollectionQuery, getQueryData)(slug)
 }

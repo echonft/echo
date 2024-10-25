@@ -1,18 +1,18 @@
 import { addSwapPost } from '@echo/firestore/crud/swap-post/add-swap-post'
 import { getSwapPost } from '@echo/firestore/crud/swap-post/get-swap-post'
-import { offerMockToJohnnycageId } from '@echo/firestore/mocks/db-model/offer-document-data-mock'
+import { swapDocumentMock } from '@echo/firestore/mocks/swap-document-mock'
 import { SwapError } from '@echo/model/constants/errors/swap-error'
-import { swapMock } from '@echo/model/mocks/swap-mock'
 import { addSwapPost as testAddSwapPost } from '@echo/test/firestore/crud/swap-post/add-swap-post'
 import { deleteSwapPost } from '@echo/test/firestore/crud/swap-post/delete-swap-post'
 import { addSwap } from '@echo/test/firestore/crud/swap/add-swap'
 import { deleteSwap } from '@echo/test/firestore/crud/swap/delete-swap'
+import { offerDocumentMockToJohnnycageId } from '@echo/test/firestore/initialize-db'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNil, pipe } from 'ramda'
 
 describe('CRUD - swap-post - addSwapPost', () => {
-  const swapData = assoc('offerId', offerMockToJohnnycageId(), swapMock)
+  const swapData = assoc('offerId', offerDocumentMockToJohnnycageId, swapDocumentMock)
   const swapPostData = { guild: { id: 'discordId', channelId: 'channelId' } }
   let swapId: Nullable<string>
   let swapPostId: Nullable<string>

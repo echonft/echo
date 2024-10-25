@@ -2,17 +2,17 @@ import { CollectionGuildError } from '@echo/firestore/constants/errors/collectio
 import { addCollectionDiscordGuild } from '@echo/firestore/crud/collection-discord-guild/add-collection-discord-guild'
 import { getCollectionDiscordGuildById } from '@echo/firestore/crud/collection-discord-guild/get-collection-discord-guild-by-id'
 import { deleteCollection } from '@echo/firestore/crud/collection/delete-collection'
-import { collectionMockPxId } from '@echo/firestore/mocks/db-model/collection-document-data-mock'
 import { CollectionError } from '@echo/model/constants/errors/collection-error'
 import { addCollectionDiscordGuild as testAddCollectionDiscordGuild } from '@echo/test/firestore/crud/collection-discord-guild/add-collection-discord-guild'
 import { deleteCollectionDiscordGuild } from '@echo/test/firestore/crud/collection-discord-guild/delete-collection-discord-guild'
+import { collectionDocumentMockPxId } from '@echo/test/firestore/initialize-db'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
 
 describe('CRUD - collection-discord-guild - addCollectionDiscordGuild', () => {
   const guildData = {
-    collectionId: collectionMockPxId(),
+    collectionId: collectionDocumentMockPxId,
     guild: {
       id: '100',
       channelId: '100'

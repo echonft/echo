@@ -1,4 +1,4 @@
-import { mapCollectionToSearchResult } from '@echo/firestore/mappers/collection/map-collection-to-search-result'
+import { collectionToSearchResult } from '@echo/model/mappers/collection/collection-to-search-result'
 import { collectionMocks } from '@echo/model/mocks/collection-mock'
 import type { SearchResult } from '@echo/model/types/search-result'
 import type { Slug } from '@echo/model/types/slug'
@@ -12,7 +12,7 @@ export function searchCollections(query: string): Promise<SearchResult<Slug>[]> 
   const search = pipe(toLower, test(regex))
   return pipe(
     filter(either(propSatisfies(search, 'name'), propSatisfies(search, 'slug'))),
-    map(pipe(mapCollectionToSearchResult, toPromise)),
+    map(pipe(collectionToSearchResult, toPromise)),
     promiseAll,
     delayPromise(1000)
   )(collectionMocks)

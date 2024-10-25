@@ -1,19 +1,15 @@
+import { addSwapArrayIndexers } from '@echo/firestore/array-indexers/swap/add-swap-array-indexers'
 import { getSwapsForCollection } from '@echo/firestore/crud/swap/get-swaps-for-collection'
-import type { SwapDocumentData } from '@echo/firestore/types/model/swap-document-data'
+import type { SwapDocument } from '@echo/firestore/types/model/swap-document'
 import { TokenType } from '@echo/model/constants/token-type'
-import {
-  collectionMockPxContract,
-  collectionMockPxSlug,
-  collectionMockSpiralContract,
-  collectionMockSpiralSlug
-} from '@echo/model/mocks/collection-mock'
-import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user-mock'
-import type { Swap } from '@echo/model/types/swap'
+import { collectionMockPx, collectionMockSpiral } from '@echo/model/mocks/collection-mock'
+import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
 import { addSwap } from '@echo/test/firestore/crud/swap/add-swap'
 import { deleteSwap } from '@echo/test/firestore/crud/swap/delete-swap'
 import { nowMsSlug } from '@echo/utils/helpers/now-ms-slug'
+import { removeNilProps } from '@echo/utils/helpers/remove-nil-props'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
-import { assoc, dissoc } from 'ramda'
+import { assoc } from 'ramda'
 
 describe('CRUD - offer - getSwapsForCollection', () => {
   let swapIds: string[]
@@ -31,16 +27,17 @@ describe('CRUD - offer - getSwapsForCollection', () => {
     await expect(getSwapsForCollection('not-found')).resolves.toEqual([])
   })
 
-  it('returns the completed offers for which the collection is included in the receiver or sender items', async () => {
-    const spiralData: Omit<Swap, 'slug'> & Pick<SwapDocumentData, 'offerId'> = {
-      receiver: getUserMockByUsername(userMockJohnnyUsername()),
+  it('returns the swaps for which the collection is included in the receiver or sender items', async () => {
+    const spiralData: SwapDocument = addSwapArrayIndexers({
+      slug: '',
+      receiver: userMockJohnny,
       receiverItems: [
         {
           token: {
-            contract: collectionMockSpiralContract(),
+            contract: collectionMockSpiral.contract,
             collection: {
               name: 'Spiral Frequencies',
-              slug: collectionMockSpiralSlug(),
+              slug: collectionMockSpiral.slug,
               totalSupply: 6315
             },
             name: 'Spiral Frequencies #1',
@@ -50,14 +47,14 @@ describe('CRUD - offer - getSwapsForCollection', () => {
           }
         }
       ],
-      sender: getUserMockByUsername(userMockCrewUsername()),
+      sender: userMockCrew,
       senderItems: [
         {
           token: {
-            contract: collectionMockSpiralContract(),
+            contract: collectionMockSpiral.contract,
             collection: {
               name: 'pxMythics Genesis',
-              slug: collectionMockSpiralSlug(),
+              slug: collectionMockSpiral.slug,
               totalSupply: 1077
             },
             name: 'Creative Demigod #3',
@@ -69,16 +66,17 @@ describe('CRUD - offer - getSwapsForCollection', () => {
       ],
       transactionId: '0xb384a4949fe643aa638827e381e62513e412af409b0744a37065dd59b0a5309b',
       offerId: 'offer-id'
-    }
-    const pxData: Omit<Swap, 'slug'> & Pick<SwapDocumentData, 'offerId'> = {
-      receiver: getUserMockByUsername(userMockJohnnyUsername()),
+    })
+    const pxData: SwapDocument = addSwapArrayIndexers({
+      slug: '',
+      receiver: userMockJohnny,
       receiverItems: [
         {
           token: {
-            contract: collectionMockPxContract(),
+            contract: collectionMockPx.contract,
             collection: {
               name: 'Spiral Frequencies',
-              slug: collectionMockPxSlug(),
+              slug: collectionMockPx.slug,
               totalSupply: 6315
             },
             name: 'Spiral Frequencies #1',
@@ -88,14 +86,14 @@ describe('CRUD - offer - getSwapsForCollection', () => {
           }
         }
       ],
-      sender: getUserMockByUsername(userMockCrewUsername()),
+      sender: userMockCrew,
       senderItems: [
         {
           token: {
-            contract: collectionMockPxContract(),
+            contract: collectionMockPx.contract,
             collection: {
               name: 'pxMythics Genesis',
-              slug: collectionMockPxSlug(),
+              slug: collectionMockPx.slug,
               totalSupply: 1077
             },
             name: 'Creative Demigod #3',
@@ -107,16 +105,17 @@ describe('CRUD - offer - getSwapsForCollection', () => {
       ],
       transactionId: '0xb384a4949fe643aa638827e381e62513e412af409b0744a37065dd59b0a5309b',
       offerId: 'offer-id'
-    }
-    const bothData: Omit<Swap, 'slug'> & Pick<SwapDocumentData, 'offerId'> = {
-      receiver: getUserMockByUsername(userMockJohnnyUsername()),
+    })
+    const bothData: SwapDocument = addSwapArrayIndexers({
+      slug: '',
+      receiver: userMockJohnny,
       receiverItems: [
         {
           token: {
-            contract: collectionMockPxContract(),
+            contract: collectionMockPx.contract,
             collection: {
               name: 'Spiral Frequencies',
-              slug: collectionMockPxSlug(),
+              slug: collectionMockPx.slug,
               totalSupply: 6315
             },
             name: 'Spiral Frequencies #1',
@@ -126,14 +125,14 @@ describe('CRUD - offer - getSwapsForCollection', () => {
           }
         }
       ],
-      sender: getUserMockByUsername(userMockCrewUsername()),
+      sender: userMockCrew,
       senderItems: [
         {
           token: {
-            contract: collectionMockSpiralContract(),
+            contract: collectionMockSpiral.contract,
             collection: {
               name: 'pxMythics Genesis',
-              slug: collectionMockSpiralSlug(),
+              slug: collectionMockSpiral.slug,
               totalSupply: 1077
             },
             name: 'Creative Demigod #3',
@@ -145,38 +144,38 @@ describe('CRUD - offer - getSwapsForCollection', () => {
       ],
       transactionId: '0xb384a4949fe643aa638827e381e62513e412af409b0744a37065dd59b0a5309b',
       offerId: 'offer-id'
-    }
+    })
 
     const bothSwap = assoc('slug', nowMsSlug(), bothData)
     const bothId = await addSwap(bothSwap)
     swapIds = [bothId]
-    let documents = await getSwapsForCollection(collectionMockPxSlug())
+    let documents = await getSwapsForCollection(collectionMockPx.slug)
     expect(documents.length).toBe(1)
-    expect(documents[0]).toStrictEqual(dissoc('offerId', bothSwap))
-    documents = await getSwapsForCollection(collectionMockSpiralSlug())
+    expect(documents[0]).toStrictEqual(removeNilProps(bothSwap))
+    documents = await getSwapsForCollection(collectionMockSpiral.slug)
     expect(documents.length).toBe(1)
-    expect(documents[0]).toStrictEqual(dissoc('offerId', bothSwap))
+    expect(documents[0]).toStrictEqual(removeNilProps(bothSwap))
     const spiralSwap = assoc('slug', nowMsSlug(), spiralData)
-    const spiralId = await addSwap(spiralSwap)
+    const spiralId = await addSwap(removeNilProps(spiralSwap))
     swapIds.push(spiralId)
-    documents = await getSwapsForCollection(collectionMockPxSlug())
+    documents = await getSwapsForCollection(collectionMockPx.slug)
     expect(documents.length).toBe(1)
-    expect(documents[0]).toStrictEqual(dissoc('offerId', bothSwap))
-    documents = await getSwapsForCollection(collectionMockSpiralSlug())
+    expect(documents[0]).toStrictEqual(removeNilProps(bothSwap))
+    documents = await getSwapsForCollection(collectionMockSpiral.slug)
     expect(documents.length).toBe(2)
-    expect(documents[0]).toStrictEqual(dissoc('offerId', spiralSwap))
-    expect(documents[1]).toStrictEqual(dissoc('offerId', bothSwap))
+    expect(documents[0]).toStrictEqual(removeNilProps(spiralSwap))
+    expect(documents[1]).toStrictEqual(removeNilProps(bothSwap))
     const pxSwap = assoc('slug', nowMsSlug(), pxData)
     const pxDataId = await addSwap(pxSwap)
     swapIds.push(pxDataId)
-    documents = await getSwapsForCollection(collectionMockPxSlug())
+    documents = await getSwapsForCollection(collectionMockPx.slug)
     expect(documents.length).toBe(2)
-    expect(documents[0]).toStrictEqual(dissoc('offerId', pxSwap))
-    expect(documents[1]).toStrictEqual(dissoc('offerId', bothSwap))
-    documents = await getSwapsForCollection(collectionMockSpiralSlug())
+    expect(documents[0]).toStrictEqual(removeNilProps(pxSwap))
+    expect(documents[1]).toStrictEqual(removeNilProps(bothSwap))
+    documents = await getSwapsForCollection(collectionMockSpiral.slug)
     expect(documents.length).toBe(2)
-    expect(documents[0]).toStrictEqual(dissoc('offerId', spiralSwap))
-    expect(documents[1]).toStrictEqual(dissoc('offerId', bothSwap))
+    expect(documents[0]).toStrictEqual(removeNilProps(spiralSwap))
+    expect(documents[1]).toStrictEqual(removeNilProps(bothSwap))
     expect(swapIds.length).toBe(3)
   })
 })

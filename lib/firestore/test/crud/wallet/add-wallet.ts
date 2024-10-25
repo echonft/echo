@@ -1,10 +1,10 @@
-import { getWalletsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-wallets-collection-reference'
-import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import type { WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
+import { walletsCollection } from '@echo/firestore/helpers/collection/collections'
+import { setReference } from '@echo/firestore/helpers/reference/set-reference'
+import type { WalletDocument } from '@echo/firestore/types/model/wallet-document'
 
-export async function addWallet(data: WalletDocumentData): Promise<string> {
+export async function addWallet(data: WalletDocument): Promise<string> {
   return setReference({
-    collectionReference: getWalletsCollectionReference(),
+    collectionReference: walletsCollection(),
     data
   })
 }

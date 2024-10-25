@@ -2,24 +2,25 @@ import { addOrUpdateUser } from '@echo/firestore/crud/user/add-or-update-user'
 import { getUserSnapshotByDiscordId } from '@echo/firestore/crud/user/get-user-by-discord-id'
 import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
-import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/db-model/user/get-user-document-data-mock-by-username'
-import type { UserDiscordProfile } from '@echo/model/types/user/user-discord-profile'
+import type { UserDocument } from '@echo/firestore/types/model/user-document'
+import type { Username } from '@echo/model/types/username'
 import { deleteUser } from '@echo/test/firestore/crud/user/delete-user'
-import { updateUser } from '@echo/test/firestore/crud/user/update-user'
+import { resetUser } from '@echo/test/firestore/crud/user/reset-user'
+import { userDocumentMockJohnnyId } from '@echo/test/firestore/initialize-db'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNotNil } from 'ramda'
 
 describe('CRUD - user - addOrUpdateUser', () => {
   let newUserId: Nullable<string>
-  let updatedUsername: Nullable<string>
+  let updatedUsername: Nullable<Username>
   beforeEach(() => {
     newUserId = undefined
     updatedUsername = undefined
   })
   afterEach(async () => {
     if (isNotNil(updatedUsername)) {
-      await updateUser(updatedUsername, getUserDocumentDataMockByUsername(updatedUsername))
+      await resetUser(updatedUsername)
     }
     if (isNotNil(newUserId)) {
       await deleteUser(newUserId)
@@ -27,12 +28,11 @@ describe('CRUD - user - addOrUpdateUser', () => {
   })
 
   it('adds the user if it does not exist in the database', async () => {
-    const discordProfile: UserDiscordProfile = {
+    const discordProfile: UserDocument['discord'] = {
       id: 'discord-id',
       username: 'discord-username',
       avatarUrl: 'discord-avatar-url',
-      bannerColor: '#ffffff',
-      discriminator: '0'
+      globalName: 'globalName'
     }
     await addOrUpdateUser(discordProfile)
     const snapshot = (await getUserSnapshotByDiscordId('discord-id'))!
@@ -44,15 +44,13 @@ describe('CRUD - user - addOrUpdateUser', () => {
   })
 
   it('updates the user if it exists in the database', async () => {
-    const existingUser = await getUserById('6rECUMhevHfxABZ1VNOm')
+    const existingUser = await getUserById(userDocumentMockJohnnyId)
     expect(existingUser).toBeDefined()
     updatedUsername = existingUser!.username
-    const discordProfile: UserDiscordProfile = {
+    const discordProfile: UserDocument['discord'] = {
       id: existingUser!.discord.id,
       username: 'discord-username',
-      avatarUrl: 'discord-avatar-url',
-      bannerColor: '#ffffff',
-      discriminator: '0'
+      avatarUrl: 'discord-avatar-url'
     }
     await addOrUpdateUser(discordProfile)
     const foundUser = (await getUserByUsername(updatedUsername))!

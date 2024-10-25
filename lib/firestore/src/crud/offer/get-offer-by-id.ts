@@ -1,16 +1,15 @@
-import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
-import { getReferenceById } from '@echo/firestore/helpers/crud/reference/get-reference-by-id'
-import { getReferenceData } from '@echo/firestore/helpers/crud/reference/get-reference-data'
-import type { OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
-import type { Offer } from '@echo/model/types/offer'
+import { offersCollection } from '@echo/firestore/helpers/collection/collections'
+import { getReferenceById } from '@echo/firestore/helpers/reference/get-reference-by-id'
+import { getReferenceData } from '@echo/firestore/helpers/reference/get-reference-data'
+import type { OfferDocument } from '@echo/firestore/types/model/offer-document'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { DocumentReference } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
-export function getOfferReferenceById(id: string): DocumentReference<Offer, OfferDocumentData> {
-  return getReferenceById({ collectionReference: getOffersCollectionReference(), id })
+export function getOfferReferenceById(id: string): DocumentReference<OfferDocument> {
+  return getReferenceById({ collectionReference: offersCollection(), id })
 }
 
-export function getOfferById(id: string): Promise<Nullable<Offer>> {
+export function getOfferById(id: string): Promise<Nullable<OfferDocument>> {
   return pipe(getOfferReferenceById, getReferenceData)(id)
 }

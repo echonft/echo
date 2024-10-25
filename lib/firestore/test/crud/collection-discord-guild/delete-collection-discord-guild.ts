@@ -1,9 +1,9 @@
-import { getCollectionDiscordGuildsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collection-discord-guilds-collection-reference'
-import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
+import { collectionDiscordGuildsCollection } from '@echo/firestore/helpers/collection/collections'
+import { deleteReference } from '@echo/firestore/helpers/reference/delete-reference'
 
 export function deleteCollectionDiscordGuild(id: string): Promise<string> {
   return deleteReference({
-    collectionReference: getCollectionDiscordGuildsCollectionReference(),
+    collectionReference: collectionDiscordGuildsCollection(),
     id
   })
 }

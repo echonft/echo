@@ -1,5 +1,5 @@
 import { getListingsForCreator } from '@echo/firestore/crud/listing/get-listings-for-creator'
-import { listingMock } from '@echo/model/mocks/listing-mock'
+import { listingDocumentMock } from '@echo/firestore/mocks/listing-document-mock'
 import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
 import { describe, expect, it } from '@jest/globals'
 
@@ -13,6 +13,6 @@ describe('CRUD - listing - getListingsForCreator', () => {
     expect(listings).toEqual([])
     listings = await getListingsForCreator(userMockJohnny.username)
     expect(listings.length).toBe(1)
-    expect(listings[0]).toStrictEqual([listingMock])
+    expect(listings).toEqualList([listingDocumentMock])
   })
 })

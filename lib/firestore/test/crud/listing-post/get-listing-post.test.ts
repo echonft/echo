@@ -1,14 +1,14 @@
 import { getListingPost } from '@echo/firestore/crud/listing-post/get-listing-post'
-import { listingMockId } from '@echo/firestore/mocks/db-model/listing-document-data-mock'
 import { addListingPost } from '@echo/test/firestore/crud/listing-post/add-listing-post'
 import { deleteListingPost } from '@echo/test/firestore/crud/listing-post/delete-listing-post'
+import { listingDocumentMockId } from '@echo/test/firestore/initialize-db'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
 
 describe('CRUD - listing-post - getListingPost', () => {
   let listingPostId: Nullable<string>
-  const data = { listingId: listingMockId(), guild: { id: 'discordId', channelId: 'channelId' } }
+  const data = { listingId: listingDocumentMockId, guild: { id: 'discordId', channelId: 'channelId' } }
 
   beforeEach(() => {
     listingPostId = undefined

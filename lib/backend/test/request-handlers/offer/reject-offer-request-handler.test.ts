@@ -2,18 +2,17 @@ import { NotFoundError } from '@echo/backend/errors/not-found-error'
 import { mockRequest } from '@echo/backend/mocks/mock-request'
 import { rejectOfferRequestHandler } from '@echo/backend/request-handlers/offer/reject-offer-request-handler'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
-import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/db-model/user/get-user-document-data-mock-by-username'
-import { offerMockToJohnnycageSlug } from '@echo/model/mocks/offer-mock'
-import { userMockJohnnyUsername } from '@echo/model/mocks/user-mock'
+import { offerMockToJohnnycage } from '@echo/model/mocks/offer-mock'
+import { userMockJohnny } from '@echo/model/mocks/user-mock'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('@echo/firestore/crud/offer/get-offer')
 jest.mock('@echo/firestore/crud/offer/reject-offer')
 
 describe('request-handlers - offer - rejectOfferRequestHandler', () => {
-  const slug = offerMockToJohnnycageSlug()
+  const slug = offerMockToJohnnycage.slug
   // const offer = getOfferMockBySlug(slug)
-  const user = getUserDocumentDataMockByUsername(userMockJohnnyUsername())
+  const user = userMockJohnny
 
   beforeEach(() => {
     jest.clearAllMocks()

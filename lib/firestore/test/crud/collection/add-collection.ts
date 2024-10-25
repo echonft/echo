@@ -1,10 +1,10 @@
-import { getCollectionsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collections-collection-reference'
-import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import { type Collection } from '@echo/model/types/collection'
+import { collectionsCollection } from '@echo/firestore/helpers/collection/collections'
+import { setReference } from '@echo/firestore/helpers/reference/set-reference'
+import type { CollectionDocument } from '@echo/firestore/types/model/collection-document'
 
-export function addCollection(data: Collection): Promise<string> {
+export function addCollection(data: CollectionDocument): Promise<string> {
   return setReference({
-    collectionReference: getCollectionsCollectionReference(),
+    collectionReference: collectionsCollection(),
     data
   })
 }

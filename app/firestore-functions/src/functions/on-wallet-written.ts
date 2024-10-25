@@ -4,8 +4,8 @@ import { walletDataConverter } from '@echo/firestore/converters/wallet-data-conv
 import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
 import { getNftsForWallet } from '@echo/firestore/crud/nft/get-nfts-for-wallet'
 import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
-import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
-import type { WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
+import { getDocumentSnapshotData } from '@echo/firestore/helpers/document/get-document-snapshot-data'
+import type { WalletDocument } from '@echo/firestore/types/model/wallet-document'
 import { updateNftOwner } from '@echo/tasks/update-nft-owner'
 import { updateNftsForWallet } from '@echo/tasks/update-nfts-for-wallet'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
@@ -21,7 +21,7 @@ export const onWalletWritten = onDocumentWritten(
     if (!isNil(change)) {
       if (change.after.exists) {
         // wallet was created
-        const wallet = getDocumentSnapshotData(change.after as DocumentSnapshot<WalletDocumentData, WalletDocumentData>)
+        const wallet = getDocumentSnapshotData(change.after as DocumentSnapshot<WalletDocument, WalletDocument>)
         if (!isNil(wallet)) {
           logger.info({ wallet }, 'wallet was added')
           const foundUser = await pipe(
@@ -41,9 +41,7 @@ export const onWalletWritten = onDocumentWritten(
         }
       } else if (change.before.exists) {
         // wallet was deleted
-        const wallet = getDocumentSnapshotData(
-          change.before as DocumentSnapshot<WalletDocumentData, WalletDocumentData>
-        )
+        const wallet = getDocumentSnapshotData(change.before as DocumentSnapshot<WalletDocument, WalletDocument>)
         if (!isNil(wallet)) {
           logger.info({ wallet }, 'wallet was deleted')
           try {

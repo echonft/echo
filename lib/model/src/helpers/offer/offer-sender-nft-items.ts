@@ -4,6 +4,6 @@ import type { NftItem } from '@echo/model/types/nft-item'
 import { type Offer } from '@echo/model/types/offer'
 import { type NonEmptyArray, pipe } from 'ramda'
 
-export function offerSenderNftItems(offer: Offer): NonEmptyArray<NftItem> {
+export function offerSenderNftItems(offer: Pick<Offer, 'senderItems'>): NonEmptyArray<NftItem> {
   return pipe(offerSenderItems, nftItems)(offer)
 }

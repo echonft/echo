@@ -1,10 +1,10 @@
-import { getOfferUpdatePostsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-update-posts-collection-reference'
-import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import type { OfferUpdatePostDocumentData } from '@echo/firestore/types/model/offer-update-post-document-data'
+import { offerUpdatePostsCollection } from '@echo/firestore/helpers/collection/collections'
+import { setReference } from '@echo/firestore/helpers/reference/set-reference'
+import type { OfferUpdatePostDocument } from '@echo/firestore/types/model/offer-update-post-document'
 
-export function addOfferUpdatePost(data: OfferUpdatePostDocumentData): Promise<string> {
+export function addOfferUpdatePost(data: OfferUpdatePostDocument): Promise<string> {
   return setReference({
-    collectionReference: getOfferUpdatePostsCollectionReference(),
+    collectionReference: offerUpdatePostsCollection(),
     data
   })
 }

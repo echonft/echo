@@ -1,5 +1,6 @@
 import { assertItemsChain } from '@echo/backend/helpers/item/assert-items-chain'
-import { collectionMockSpiralId } from '@echo/firestore/mocks/db-model/collection-document-data-mock'
+
+import { collectionMockSpiralId } from '@echo/firestore/test/initialize-db'
 import { Chain } from '@echo/model/constants/chain'
 import { TokenType } from '@echo/model/constants/token-type'
 import { toNftCollection } from '@echo/model/mappers/collection/to-nft-collection'

@@ -1,18 +1,18 @@
 import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
-import { getWalletsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-wallets-collection-reference'
-import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
-import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import type { User } from '@echo/model/types/user'
+import { walletsCollection } from '@echo/firestore/helpers/collection/collections'
+import { getQueryUniqueData } from '@echo/firestore/helpers/query/get-query-unique-data'
+import { queryWhere } from '@echo/firestore/helpers/query/query-where'
+import type { UserDocument } from '@echo/firestore/types/model/user-document'
 import type { Wallet } from '@echo/model/types/wallet'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { andThen, pipe, prop } from 'ramda'
 
-export function getUserByWallet(wallet: Wallet): Promise<Nullable<User>> {
+export function getUserByWallet(wallet: Wallet): Promise<Nullable<UserDocument>> {
   return pipe(
-    getWalletsCollectionReference,
+    walletsCollection,
     queryWhere('address', '==', wallet.address),
-    queryWhere('chain', '==', wallet.chain),
+    queryWhere('vm', '==', wallet.vm),
     getQueryUniqueData,
     andThen(unlessNil(pipe(prop('userId'), getUserById)))
   )()

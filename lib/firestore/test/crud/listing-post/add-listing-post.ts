@@ -1,10 +1,10 @@
-import { getListingPostsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listing-posts-collection-reference'
-import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import type { ListingPostDocumentData } from '@echo/firestore/types/model/listing-post-document-data'
+import { listingPostsCollection } from '@echo/firestore/helpers/collection/collections'
+import { setReference } from '@echo/firestore/helpers/reference/set-reference'
+import type { ListingPostDocument } from '@echo/firestore/types/model/listing-post-document'
 
-export function addListingPost(data: ListingPostDocumentData): Promise<string> {
+export function addListingPost(data: ListingPostDocument): Promise<string> {
   return setReference({
-    collectionReference: getListingPostsCollectionReference(),
+    collectionReference: listingPostsCollection(),
     data
   })
 }

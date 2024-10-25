@@ -1,14 +1,14 @@
-import { getSwapPostsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-swap-posts-collection-reference'
-import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
-import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import type { SwapPostDocumentData } from '@echo/firestore/types/model/swap-post-document-data'
+import { swapPostsCollection } from '@echo/firestore/helpers/collection/collections'
+import { getQueryUniqueData } from '@echo/firestore/helpers/query/get-query-unique-data'
+import { queryWhere } from '@echo/firestore/helpers/query/query-where'
+import type { SwapPostDocument } from '@echo/firestore/types/model/swap-post-document'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { pipe } from 'ramda'
 
-export function getSwapPost(args: { swapId: string; guildId: string }): Promise<Nullable<SwapPostDocumentData>> {
+export function getSwapPost(args: { swapId: string; guildId: string }): Promise<Nullable<SwapPostDocument>> {
   const { swapId, guildId } = args
   return pipe(
-    getSwapPostsCollectionReference,
+    swapPostsCollection,
     queryWhere('swapId', '==', swapId),
     queryWhere('guild.id', '==', guildId),
     getQueryUniqueData

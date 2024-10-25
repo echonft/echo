@@ -1,10 +1,11 @@
-import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
+import { CollectionPath } from '@echo/firestore/constants/collection-path'
 import { getListingsForNft } from '@echo/firestore/crud/listing/get-listings-for-nft'
+import { listingDocumentMock } from '@echo/firestore/mocks/listing-document-mock'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
+import type { ListingDocument } from '@echo/firestore/types/model/listing-document'
 import { ListingState } from '@echo/model/constants/listing-state'
 import { listingMock } from '@echo/model/mocks/listing-mock'
 import { nftMockPx3, nftMockSpiral1, nftMockSpiral2 } from '@echo/model/mocks/nft-mock'
-import type { Listing } from '@echo/model/types/listing'
 import type { Slug } from '@echo/model/types/slug'
 import { resetListing } from '@echo/test/firestore/crud/listing/reset-listing'
 import { updateListing } from '@echo/test/firestore/crud/listing/update-listing'
@@ -14,12 +15,12 @@ import { assoc, isNil, pipe } from 'ramda'
 
 describe('CRUD - listing - getListingsForNft', () => {
   let slug: Nullable<Slug>
-  function updateListingMockToStateOpen(listing: Listing): Listing {
+  function updateListingMockToStateOpen(listing: ListingDocument): ListingDocument {
     return pipe(assoc('state', ListingState.Open), assoc('locked', false))(listing)
   }
   beforeEach(async () => {
     slug = undefined
-    const documents = await firestoreApp().collection(CollectionReferenceName.Listings).listDocuments()
+    const documents = await firestoreApp().collection(CollectionPath.Listings).listDocuments()
     for (const document of documents) {
       await document.update({ state: ListingState.Open })
     }
@@ -37,7 +38,7 @@ describe('CRUD - listing - getListingsForNft', () => {
   it('returns the listings with the given NFT as an item', async () => {
     const listings = await getListingsForNft(nftMockSpiral1)
     expect(listings.length).toBe(1)
-    const mock = updateListingMockToStateOpen(listingMock)
+    const mock = updateListingMockToStateOpen(listingDocumentMock)
     expect(listings[0]).toStrictEqual(mock)
   })
   it('only returns the listings that are not locked', async () => {

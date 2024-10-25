@@ -7,11 +7,9 @@ import { getNonceForUser } from '@echo/firestore/crud/nonce/get-nonce-for-user'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
-import { getUserDocumentDataMockById } from '@echo/firestore/mocks/db-model/user/get-user-document-data-mock-by-id'
-import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/db-model/user/get-user-document-data-mock-by-username'
-import { userMockJohnnyId } from '@echo/firestore/mocks/db-model/user/user-document-data-mock'
-import { userMockJohnnyUsername } from '@echo/model/mocks/user-mock'
-import { walletMockCrew } from '@echo/model/mocks/wallet-mock'
+import { userDocumentMockJohnny } from '@echo/firestore/mocks/user-document-mock'
+import { userMockJohnny } from '@echo/model/mocks/user-mock'
+import { walletMockCrew, walletMockJohnny } from '@echo/model/mocks/wallet-mock'
 import { type Nonce } from '@echo/model/types/nonce'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
@@ -32,7 +30,7 @@ describe('addWalletRequestHandler', () => {
       '0x89eb5dc2993d982fe4d261b06d8433dcdacb9fe22aac1623fe9d444668bb7d3509ee29b54a01278b325c71438849f9d052f2ead93e3614d8e19449a9376e74351c',
     wallet
   }
-  const user = getUserDocumentDataMockByUsername(userMockJohnnyUsername())
+  const user = userMockJohnny
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -44,26 +42,25 @@ describe('addWalletRequestHandler', () => {
   })
 
   it('throws if the nonce is not the same as the user nonce', async () => {
-    jest.mocked(getUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById(userMockJohnnyId()))
+    jest.mocked(getUserByUsername).mockResolvedValueOnce(userDocumentMockJohnny)
     jest.mocked(getNonceForUser).mockResolvedValueOnce({ nonce: 'another-nonce', expired: false } as Nonce)
     const req = mockRequest<AddWalletRequest>(validRequest)
     await expect(addWalletRequestHandler({ user, req })).rejects.toBeInstanceOf(ForbiddenError)
   })
 
   it('throws if the nonce is expired', async () => {
-    jest.mocked(getUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById(userMockJohnnyId()))
+    jest.mocked(getUserByUsername).mockResolvedValueOnce(userDocumentMockJohnny)
     jest.mocked(getNonceForUser).mockResolvedValueOnce({ nonce, expired: true } as Nonce)
     const req = mockRequest<AddWalletRequest>(validRequest)
     await expect(addWalletRequestHandler({ user, req })).rejects.toBeInstanceOf(ForbiddenError)
   })
 
   it('returns a 200 if the nonce is valid', async () => {
-    const id = walletMockJohnnyId()
-    jest.mocked(getUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById(userMockJohnnyId()))
+    jest.mocked(getUserByUsername).mockResolvedValueOnce(userDocumentMockJohnny)
     jest.mocked(getNonceForUser).mockResolvedValueOnce({ nonce, expired: false } as Nonce)
     jest.mocked(addWallet).mockResolvedValueOnce({
       id,
-      data: getWalletDocumentDataMockById(id)
+      data: walletMockJohnny
     })
     jest.mocked(getWalletsForUser).mockResolvedValueOnce([])
     const req = mockRequest<AddWalletRequest>(validRequest)

@@ -1,16 +1,16 @@
 import { addOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/add-offer-update-post'
 import { getOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/get-offer-update-post'
-import { offerMockToJohnnycageId } from '@echo/firestore/mocks/db-model/offer-document-data-mock'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { OfferState } from '@echo/model/constants/offer-state'
 import { addOfferUpdatePost as testAddOfferUpdatePost } from '@echo/test/firestore/crud/offer-update-post/add-offer-update-post'
 import { deleteOfferUpdatePost } from '@echo/test/firestore/crud/offer-update-post/delete-offer-update-post'
+import { offerDocumentMockToJohnnycageId } from '@echo/test/firestore/initialize-db'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
 
 describe('CRUD - offer-update-post - addOfferUpdatePost', () => {
-  const data = { offerId: offerMockToJohnnycageId(), state: OfferState.Accepted }
+  const data = { offerId: offerDocumentMockToJohnnycageId, state: OfferState.Accepted }
   let offerUpdatePostId: Nullable<string>
 
   beforeEach(() => {

@@ -2,7 +2,7 @@ import { deleteThread } from '@echo/bot/helpers/delete-thread'
 import { getEchoChannel } from '@echo/bot/helpers/get-echo-channel'
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
-import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
+import type { UserDocument } from '@echo/firestore/types/model/user-document'
 import type { Offer } from '@echo/model/types/offer'
 import { now } from '@echo/utils/helpers/now'
 import { ChannelType, type Client, ThreadAutoArchiveDuration, userMention } from 'discord.js'
@@ -11,8 +11,8 @@ import i18next from 'i18next'
 interface CreateOfferThreadArgs {
   client: Client
   offer: Offer
-  sender: UserDocumentData
-  receiver: UserDocumentData
+  sender: UserDocument
+  receiver: UserDocument
 }
 
 export async function createOfferThread(args: CreateOfferThreadArgs): Promise<{

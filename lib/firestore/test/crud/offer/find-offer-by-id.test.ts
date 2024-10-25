@@ -1,5 +1,6 @@
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
-import { offerMockToJohnnycage } from '@echo/model/mocks/offer-mock'
+import { offerDocumentMockToJohnnycage } from '@echo/firestore/mocks/offer-document-mock'
+import { offerDocumentMockToJohnnycageId } from '@echo/test/firestore/initialize-db'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - offer - findOfferById', () => {
@@ -8,7 +9,7 @@ describe('CRUD - offer - findOfferById', () => {
     expect(offer).toBeUndefined()
   })
   it('returns the offer with the given id', async () => {
-    const offer = await getOfferById('LyCfl6Eg7JKuD7XJ6IPi')
-    expect(offer).toStrictEqual(offerMockToJohnnycage)
+    const offer = await getOfferById(offerDocumentMockToJohnnycageId)
+    expect(offer).toStrictEqual(offerDocumentMockToJohnnycage)
   })
 })

@@ -1,24 +1,31 @@
+import { deleteWallet } from '@echo/firestore/crud/wallet/delete-wallet'
 import { getWallet } from '@echo/firestore/crud/wallet/get-wallet'
-import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
-import { walletMockJohnnyId } from '@echo/firestore/mocks/wallet/wallet-document-data-mock'
-import { Chain } from '@echo/model/constants/chain'
-import { describe, expect, it } from '@jest/globals'
-import { toLower } from 'ramda'
+import { walletDocumentMockCrew } from '@echo/firestore/mocks/wallet-document-mock'
+import { walletMockCrew, walletMockJohnny } from '@echo/model/mocks/wallet-mock'
+import { addWallet } from '@echo/test/firestore/crud/wallet/add-wallet'
+import { userDocumentMockCrewId } from '@echo/test/firestore/initialize-db'
+import type { Nullable } from '@echo/utils/types/nullable'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
+import { assoc, isNil } from 'ramda'
 
 describe('CRUD - wallet - getWalletByAddress', () => {
+  let addedWalletId: Nullable<string>
+  beforeEach(() => {
+    addedWalletId = undefined
+  })
+  afterEach(async () => {
+    if (!isNil(addedWalletId)) {
+      await deleteWallet(addedWalletId)
+    }
+  })
+
   it('returns undefined if the wallet is not found', async () => {
-    const wallet = await getWallet({
-      chain: Chain.Ethereum,
-      address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7')
-    })
+    const wallet = await getWallet(walletMockJohnny)
     expect(wallet).toBeUndefined()
   })
-  it('returns undefined if the wallet if it exists', async () => {
-    const walletMock = getWalletDocumentDataMockById(walletMockJohnnyId())
-    const wallet = await getWallet({
-      chain: walletMock.chain,
-      address: toLower(walletMock.address)
-    })
-    expect(wallet).toStrictEqual(walletMock)
+  it('returns the wallet if it exists', async () => {
+    const walletCrew = assoc('userId', userDocumentMockCrewId, walletDocumentMockCrew)
+    addedWalletId = await addWallet(walletCrew)
+    await expect(getWallet(walletMockCrew)).resolves.toStrictEqual(walletCrew)
   })
 })

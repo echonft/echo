@@ -1,11 +1,11 @@
 import { OfferThreadState } from '@echo/firestore/constants/offer-thread-state'
 import { archiveOfferThread } from '@echo/firestore/crud/offer-thread/archive-offer-thread'
 import { getOfferThreadByOfferId } from '@echo/firestore/crud/offer-thread/get-offer-thread-by-offer-id'
-import { offerMockToJohnnycageId } from '@echo/firestore/mocks/db-model/offer-document-data-mock'
-import type { OfferThreadDocumentData } from '@echo/firestore/types/model/offer-thread-document-data'
+import type { OfferThreadDocument } from '@echo/firestore/types/model/offer-thread-document'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { addOfferThread } from '@echo/test/firestore/crud/offer-thread/add-offer-thread'
 import { deleteOfferThread } from '@echo/test/firestore/crud/offer-thread/delete-offer-thread'
+import { offerDocumentMockToJohnnycageId } from '@echo/test/firestore/initialize-db'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNil } from 'ramda'
@@ -26,13 +26,14 @@ describe('CRUD - offer-thread - addOfferThread', () => {
     await expect(archiveOfferThread('not-found')).rejects.toEqual(Error(OfferError.ThreadNotFound))
   })
   it('archive the offer thread', async () => {
-    const data: Omit<OfferThreadDocumentData, 'state'> = {
-      offerId: offerMockToJohnnycageId(),
+    const data: OfferThreadDocument = {
+      offerId: offerDocumentMockToJohnnycageId,
       guild: {
         channelId: 'channelId',
         id: 'discordId',
         threadId: 'threadId'
-      }
+      },
+      state: OfferThreadState.Active
     }
     offerThreadId = await addOfferThread(data)
     await archiveOfferThread(data.offerId)

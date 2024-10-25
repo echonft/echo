@@ -1,10 +1,10 @@
-import { getSwapPostsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-swap-posts-collection-reference'
-import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import type { SwapPostDocumentData } from '@echo/firestore/types/model/swap-post-document-data'
+import { swapPostsCollection } from '@echo/firestore/helpers/collection/collections'
+import { setReference } from '@echo/firestore/helpers/reference/set-reference'
+import type { SwapPostDocument } from '@echo/firestore/types/model/swap-post-document'
 
-export async function addSwapPost(data: SwapPostDocumentData): Promise<string> {
+export async function addSwapPost(data: SwapPostDocument): Promise<string> {
   return setReference({
-    collectionReference: getSwapPostsCollectionReference(),
+    collectionReference: swapPostsCollection(),
     data
   })
 }

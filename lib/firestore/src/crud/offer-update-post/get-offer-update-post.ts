@@ -1,13 +1,13 @@
-import { getOfferUpdatePostsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-update-posts-collection-reference'
-import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
-import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import type { OfferUpdatePostDocumentData } from '@echo/firestore/types/model/offer-update-post-document-data'
+import { offerUpdatePostsCollection } from '@echo/firestore/helpers/collection/collections'
+import { getQueryUniqueData } from '@echo/firestore/helpers/query/get-query-unique-data'
+import { queryWhere } from '@echo/firestore/helpers/query/query-where'
+import type { OfferUpdatePostDocument } from '@echo/firestore/types/model/offer-update-post-document'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { pipe } from 'ramda'
 
-export function getOfferUpdatePost(args: OfferUpdatePostDocumentData): Promise<Nullable<OfferUpdatePostDocumentData>> {
+export function getOfferUpdatePost(args: OfferUpdatePostDocument): Promise<Nullable<OfferUpdatePostDocument>> {
   return pipe(
-    getOfferUpdatePostsCollectionReference,
+    offerUpdatePostsCollection,
     queryWhere('offerId', '==', args.offerId),
     queryWhere('state', '==', args.state),
     getQueryUniqueData

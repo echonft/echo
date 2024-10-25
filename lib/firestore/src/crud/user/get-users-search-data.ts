@@ -1,9 +1,9 @@
-import { getUsersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-users-collection-reference'
-import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
-import { querySelect } from '@echo/firestore/helpers/crud/query/query-select'
-import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
+import { usersCollection } from '@echo/firestore/helpers/collection/collections'
+import { getQueryData } from '@echo/firestore/helpers/query/get-query-data'
+import { querySelect } from '@echo/firestore/helpers/query/query-select'
+import type { UserDocument } from '@echo/firestore/types/model/user-document'
 import { pipe } from 'ramda'
 
-export function getUsersSearchData(): Promise<UserDocumentData[]> {
-  return pipe(getUsersCollectionReference, querySelect('username', 'discord'), getQueryData)()
+export function getUsersSearchData(): Promise<UserDocument[]> {
+  return pipe(usersCollection, querySelect('username', 'discord'), getQueryData)()
 }

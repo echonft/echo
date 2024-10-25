@@ -1,6 +1,6 @@
 import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
-import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/db-model/user/get-user-document-data-mock-by-username'
-import { userMockJohnnyId } from '@echo/firestore/mocks/db-model/user/user-document-data-mock'
+import { userDocumentMockJohnny } from '@echo/firestore/mocks/user-document-mock'
+import { userDocumentMockJohnnyId } from '@echo/test/firestore/initialize-db'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - user - findUserById', () => {
@@ -9,8 +9,8 @@ describe('CRUD - user - findUserById', () => {
     expect(user).toBeUndefined()
   })
   it('returns the user with the given id', async () => {
-    const user = await getUserById(userMockJohnnyId())
+    const user = await getUserById(userDocumentMockJohnnyId)
     expect(user).toBeDefined()
-    expect(user).toStrictEqual(getUserDocumentDataMockByUsername(user!.username))
+    expect(user).toStrictEqual(userDocumentMockJohnny)
   })
 })

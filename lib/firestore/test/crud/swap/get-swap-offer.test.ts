@@ -1,16 +1,16 @@
 import { getSwapOffer } from '@echo/firestore/crud/swap/get-swap-offer'
-import { offerMockToJohnnycageId } from '@echo/firestore/mocks/db-model/offer-document-data-mock'
+import { offerDocumentMockToJohnnycage } from '@echo/firestore/mocks/offer-document-mock'
+import { swapDocumentMock } from '@echo/firestore/mocks/swap-document-mock'
 import { SwapError } from '@echo/model/constants/errors/swap-error'
-import { offerMockToJohnnycage } from '@echo/model/mocks/offer-mock'
-import { swapMock } from '@echo/model/mocks/swap-mock'
 import { addSwap } from '@echo/test/firestore/crud/swap/add-swap'
 import { deleteSwap } from '@echo/test/firestore/crud/swap/delete-swap'
+import { offerDocumentMockToJohnnycageId } from '@echo/test/firestore/initialize-db'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNil } from 'ramda'
 
 describe('CRUD - swap - getSwap', () => {
-  const data = assoc('offerId', offerMockToJohnnycageId(), swapMock)
+  const data = assoc('offerId', offerDocumentMockToJohnnycageId, swapDocumentMock)
   let swapId: Nullable<string>
 
   beforeEach(() => {
@@ -29,6 +29,6 @@ describe('CRUD - swap - getSwap', () => {
   it('returns the offer tied to the swap', async () => {
     swapId = await addSwap(data)
     const document = await getSwapOffer(data.slug)
-    expect(document).toStrictEqual(offerMockToJohnnycage)
+    expect(document).toStrictEqual(offerDocumentMockToJohnnycage)
   })
 })

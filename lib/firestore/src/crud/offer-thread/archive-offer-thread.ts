@@ -1,13 +1,13 @@
 import { OfferThreadState } from '@echo/firestore/constants/offer-thread-state'
 import { getOfferThreadSnapshotByOfferId } from '@echo/firestore/crud/offer-thread/get-offer-thread-by-offer-id'
-import { getOfferThreadsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-threads-collection-reference'
-import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
-import type { OfferThreadDocumentData } from '@echo/firestore/types/model/offer-thread-document-data'
+import { offerThreadsCollection } from '@echo/firestore/helpers/collection/collections'
+import { updateReference } from '@echo/firestore/helpers/reference/update-reference'
+import type { OfferThreadDocument } from '@echo/firestore/types/model/offer-thread-document'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil } from 'ramda'
 
-export async function archiveOfferThread(offerId: string): Promise<Nullable<OfferThreadDocumentData>> {
+export async function archiveOfferThread(offerId: string): Promise<Nullable<OfferThreadDocument>> {
   const snapshot = await getOfferThreadSnapshotByOfferId(offerId)
   if (isNil(snapshot)) {
     return Promise.reject(Error(OfferError.ThreadNotFound))
@@ -17,7 +17,7 @@ export async function archiveOfferThread(offerId: string): Promise<Nullable<Offe
     return thread
   }
   return updateReference({
-    collectionReference: getOfferThreadsCollectionReference(),
+    collectionReference: offerThreadsCollection(),
     id: snapshot.id,
     data: { state: OfferThreadState.Archived }
   })

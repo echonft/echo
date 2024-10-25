@@ -1,4 +1,4 @@
-import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
+import { getDocumentSnapshotData } from '@echo/firestore/helpers/document/get-document-snapshot-data'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { type DocumentData } from 'firebase-admin/firestore'

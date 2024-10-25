@@ -1,9 +1,8 @@
-import { getCollectionsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collections-collection-reference'
-import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
-import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/crud/query/get-query-unique-document-snapshot'
-import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import type { CollectionDocumentData } from '@echo/firestore/types/model/collection-document-data'
-import type { Collection } from '@echo/model/types/collection'
+import { collectionsCollection } from '@echo/firestore/helpers/collection/collections'
+import { getDocumentSnapshotData } from '@echo/firestore/helpers/document/get-document-snapshot-data'
+import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/query/get-query-unique-document-snapshot'
+import { queryWhere } from '@echo/firestore/helpers/query/query-where'
+import type { CollectionDocument } from '@echo/firestore/types/model/collection-document'
 import type { Contract } from '@echo/model/types/contract'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
@@ -11,15 +10,15 @@ import { andThen, pipe } from 'ramda'
 
 function getCollectionByAddressSnapshot(
   contract: Contract
-): Promise<Nullable<QueryDocumentSnapshot<Collection, CollectionDocumentData>>> {
+): Promise<Nullable<QueryDocumentSnapshot<CollectionDocument>>> {
   return pipe(
-    getCollectionsCollectionReference,
+    collectionsCollection,
     queryWhere('contract.address', '==', contract.address),
     queryWhere('contract.chain', '==', contract.chain),
     getQueryUniqueDocumentSnapshot
   )()
 }
 
-export function getCollectionByAddress(contract: Contract): Promise<Nullable<Collection>> {
+export function getCollectionByAddress(contract: Contract): Promise<Nullable<CollectionDocument>> {
   return pipe(getCollectionByAddressSnapshot, andThen(getDocumentSnapshotData))(contract)
 }

@@ -1,8 +1,8 @@
-import { getCollectionsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collections-collection-reference'
-import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
-import type { Collection } from '@echo/model/types/collection'
+import { collectionsCollection } from '@echo/firestore/helpers/collection/collections'
+import { getQueryData } from '@echo/firestore/helpers/query/get-query-data'
+import type { CollectionDocument } from '@echo/firestore/types/model/collection-document'
 import { pipe } from 'ramda'
 
-export function getAllCollections(): Promise<Collection[]> {
-  return pipe(getCollectionsCollectionReference, getQueryData)()
+export function getAllCollections(): Promise<CollectionDocument[]> {
+  return pipe(collectionsCollection, getQueryData)()
 }

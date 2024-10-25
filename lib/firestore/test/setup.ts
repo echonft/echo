@@ -1,6 +1,7 @@
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { clearDb } from '@echo/test/firestore/clear-db'
 import { initializeDb } from '@echo/test/firestore/initialize-db'
+import { eqList } from '@echo/utils/fp/eq-list'
 import { beforeAll, expect } from '@jest/globals'
 import dayjs from 'dayjs'
 import type { ServiceAccount } from 'firebase-admin/app'
@@ -17,6 +18,13 @@ beforeAll(async () => {
 })
 
 expect.extend({
+  toEqualList(listA: unknown[], listB: unknown[]) {
+    const pass = eqList(listA, listB)
+    return {
+      pass,
+      message: () => `expected lists to${pass ? ' not' : ''} be equal`
+    }
+  },
   toBeMsSlug(received: string) {
     const date = pipe(
       partialRight(parseInt, [10]),

@@ -1,13 +1,13 @@
 import { getSwapPost } from '@echo/firestore/crud/swap-post/get-swap-post'
 import { getSwapById } from '@echo/firestore/crud/swap/get-swap-by-id'
-import { getSwapPostsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-swap-posts-collection-reference'
-import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import type { SwapPostDocumentData } from '@echo/firestore/types/model/swap-post-document-data'
+import { swapPostsCollection } from '@echo/firestore/helpers/collection/collections'
+import { setReference } from '@echo/firestore/helpers/reference/set-reference'
+import type { SwapPostDocument } from '@echo/firestore/types/model/swap-post-document'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { SwapError } from '@echo/model/constants/errors/swap-error'
 import { isNil } from 'ramda'
 
-export async function addSwapPost(data: SwapPostDocumentData): Promise<NewDocument<SwapPostDocumentData>> {
+export async function addSwapPost(data: SwapPostDocument): Promise<NewDocument<SwapPostDocument>> {
   const swap = await getSwapById(data.swapId)
   if (isNil(swap)) {
     return Promise.reject(Error(SwapError.NotFound))
@@ -17,7 +17,7 @@ export async function addSwapPost(data: SwapPostDocumentData): Promise<NewDocume
     return Promise.reject(Error(SwapError.PostExists))
   }
   const id = await setReference({
-    collectionReference: getSwapPostsCollectionReference(),
+    collectionReference: swapPostsCollection(),
     data
   })
   return { id, data }

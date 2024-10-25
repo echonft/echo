@@ -1,13 +1,13 @@
 import { getListingPost } from '@echo/firestore/crud/listing-post/get-listing-post'
 import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
-import { getListingPostsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listing-posts-collection-reference'
-import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import type { ListingPostDocumentData } from '@echo/firestore/types/model/listing-post-document-data'
+import { listingPostsCollection } from '@echo/firestore/helpers/collection/collections'
+import { setReference } from '@echo/firestore/helpers/reference/set-reference'
+import type { ListingPostDocument } from '@echo/firestore/types/model/listing-post-document'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { ListingError } from '@echo/model/constants/errors/listing-error'
 import { isNil } from 'ramda'
 
-export async function addListingPost(data: ListingPostDocumentData): Promise<NewDocument<ListingPostDocumentData>> {
+export async function addListingPost(data: ListingPostDocument): Promise<NewDocument<ListingPostDocument>> {
   const listing = await getListingById(data.listingId)
   if (isNil(listing)) {
     return Promise.reject(Error(ListingError.NotFound))
@@ -17,7 +17,7 @@ export async function addListingPost(data: ListingPostDocumentData): Promise<New
     return Promise.reject(Error(ListingError.PostExists))
   }
   const id = await setReference({
-    collectionReference: getListingPostsCollectionReference(),
+    collectionReference: listingPostsCollection(),
     data
   })
   return { id, data }

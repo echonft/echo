@@ -1,5 +1,5 @@
 import { getCollectionOffersCount } from '@echo/firestore/crud/collection/counts/get-collection-offers-count'
-import { collectionMockPxSlug } from '@echo/model/mocks/collection-mock'
+import { collectionMockPx } from '@echo/model/mocks/collection-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - collection - counts - getCollectionOffersCount', () => {
@@ -9,7 +9,7 @@ describe('CRUD - collection - counts - getCollectionOffersCount', () => {
   })
 
   it('returns the offer count for the collection', async () => {
-    const collectionSlug = collectionMockPxSlug()
+    const collectionSlug = collectionMockPx.slug
     const count = await getCollectionOffersCount(collectionSlug)
     expect(count).toEqual(2)
   })

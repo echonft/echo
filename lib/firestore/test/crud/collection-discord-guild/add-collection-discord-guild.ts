@@ -1,10 +1,10 @@
-import { getCollectionDiscordGuildsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collection-discord-guilds-collection-reference'
-import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import type { CollectionDiscordGuildDocumentData } from '@echo/firestore/types/model/collection-discord-guild-document-data'
+import { collectionDiscordGuildsCollection } from '@echo/firestore/helpers/collection/collections'
+import { setReference } from '@echo/firestore/helpers/reference/set-reference'
+import type { CollectionDiscordGuildDocument } from '@echo/firestore/types/model/collection-discord-guild-document'
 
-export function addCollectionDiscordGuild(data: CollectionDiscordGuildDocumentData): Promise<string> {
+export function addCollectionDiscordGuild(data: CollectionDiscordGuildDocument): Promise<string> {
   return setReference({
-    collectionReference: getCollectionDiscordGuildsCollectionReference(),
+    collectionReference: collectionDiscordGuildsCollection(),
     data
   })
 }

@@ -10,9 +10,15 @@ declare global {
 }
 
 declare module '@jest/expect' {
+  // interface Expect {
+  //   toBeEqualLists(listA: unknown[], listB: unknown[]): [unknown[], unknown[]]
+  //   toBeMsSlug(): number
+  // }
+
   interface Matchers<R, T> {
-    toBeMsSlug(): R
     toBeUnixTimestampCloseTo(expected: number): R
+    toEqualList(expected: T): R
+    toBeMsSlug(): R
   }
 }
 

@@ -1,9 +1,9 @@
-import { getWalletsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-wallets-collection-reference'
-import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
+import { walletsCollection } from '@echo/firestore/helpers/collection/collections'
+import { deleteReference } from '@echo/firestore/helpers/reference/delete-reference'
 
 export function deleteWallet(id: string): Promise<string> {
   return deleteReference({
-    collectionReference: getWalletsCollectionReference(),
+    collectionReference: walletsCollection(),
     id
   })
 }

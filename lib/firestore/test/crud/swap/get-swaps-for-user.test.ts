@@ -1,19 +1,14 @@
+import { addSwapArrayIndexers } from '@echo/firestore/array-indexers/swap/add-swap-array-indexers'
 import { getSwapsForUser } from '@echo/firestore/crud/swap/get-swaps-for-user'
-import type { SwapDocumentData } from '@echo/firestore/types/model/swap-document-data'
 import { TokenType } from '@echo/model/constants/token-type'
-import {
-  collectionMockPxContract,
-  collectionMockPxSlug,
-  collectionMockSpiralContract,
-  collectionMockSpiralSlug
-} from '@echo/model/mocks/collection-mock'
-import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user-mock'
-import type { Swap } from '@echo/model/types/swap'
+import { collectionMockPx, collectionMockSpiral } from '@echo/model/mocks/collection-mock'
+import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
 import { addSwap } from '@echo/test/firestore/crud/swap/add-swap'
 import { deleteSwap } from '@echo/test/firestore/crud/swap/delete-swap'
 import { nowMsSlug } from '@echo/utils/helpers/now-ms-slug'
+import { removeNilProps } from '@echo/utils/helpers/remove-nil-props'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
-import { assoc, dissoc } from 'ramda'
+import { assoc } from 'ramda'
 
 describe('CRUD - offer - getSwapsForUser', () => {
   let swapIds: string[]
@@ -31,18 +26,19 @@ describe('CRUD - offer - getSwapsForUser', () => {
     await expect(getSwapsForUser('not-found')).resolves.toEqual([])
   })
 
-  it('returns the completed offers for which the user is the receiver or the sender', async () => {
-    const johnny = getUserMockByUsername(userMockJohnnyUsername())
-    const crew = getUserMockByUsername(userMockCrewUsername())
-    const johnnyData: Omit<Swap, 'slug'> & Pick<SwapDocumentData, 'offerId'> = {
+  it('returns the swaps for which the user is the receiver or the sender', async () => {
+    const johnny = userMockJohnny
+    const crew = userMockCrew
+    const johnnyData = addSwapArrayIndexers({
+      slug: '',
       receiver: johnny,
       receiverItems: [
         {
           token: {
-            contract: collectionMockSpiralContract(),
+            contract: collectionMockSpiral.contract,
             collection: {
               name: 'Spiral Frequencies',
-              slug: collectionMockSpiralSlug(),
+              slug: collectionMockSpiral.slug,
               totalSupply: 6315
             },
             name: 'Spiral Frequencies #1',
@@ -56,10 +52,10 @@ describe('CRUD - offer - getSwapsForUser', () => {
       senderItems: [
         {
           token: {
-            contract: collectionMockSpiralContract(),
+            contract: collectionMockSpiral.contract,
             collection: {
               name: 'pxMythics Genesis',
-              slug: collectionMockSpiralSlug(),
+              slug: collectionMockSpiral.slug,
               totalSupply: 1077
             },
             name: 'Creative Demigod #3',
@@ -71,16 +67,17 @@ describe('CRUD - offer - getSwapsForUser', () => {
       ],
       transactionId: '0xb384a4949fe643aa638827e381e62513e412af409b0744a37065dd59b0a5309b',
       offerId: 'offer-id'
-    }
-    const crewData: Omit<Swap, 'slug'> & Pick<SwapDocumentData, 'offerId'> = {
+    })
+    const crewData = addSwapArrayIndexers({
+      slug: '',
       receiver: assoc('username', 'another-user', crew),
       receiverItems: [
         {
           token: {
-            contract: collectionMockPxContract(),
+            contract: collectionMockPx.contract,
             collection: {
               name: 'Spiral Frequencies',
-              slug: collectionMockPxSlug(),
+              slug: collectionMockPx.slug,
               totalSupply: 6315
             },
             name: 'Spiral Frequencies #1',
@@ -94,10 +91,10 @@ describe('CRUD - offer - getSwapsForUser', () => {
       senderItems: [
         {
           token: {
-            contract: collectionMockPxContract(),
+            contract: collectionMockPx.contract,
             collection: {
               name: 'pxMythics Genesis',
-              slug: collectionMockPxSlug(),
+              slug: collectionMockPx.slug,
               totalSupply: 1077
             },
             name: 'Creative Demigod #3',
@@ -109,16 +106,17 @@ describe('CRUD - offer - getSwapsForUser', () => {
       ],
       transactionId: '0xb384a4949fe643aa638827e381e62513e412af409b0744a37065dd59b0a5309b',
       offerId: 'offer-id'
-    }
-    const bothData: Omit<Swap, 'slug'> & Pick<SwapDocumentData, 'offerId'> = {
+    })
+    const bothData = addSwapArrayIndexers({
+      slug: '',
       receiver: johnny,
       receiverItems: [
         {
           token: {
-            contract: collectionMockPxContract(),
+            contract: collectionMockPx.contract,
             collection: {
               name: 'Spiral Frequencies',
-              slug: collectionMockPxSlug(),
+              slug: collectionMockPx.slug,
               totalSupply: 6315
             },
             name: 'Spiral Frequencies #1',
@@ -132,10 +130,10 @@ describe('CRUD - offer - getSwapsForUser', () => {
       senderItems: [
         {
           token: {
-            contract: collectionMockSpiralContract(),
+            contract: collectionMockSpiral.contract,
             collection: {
               name: 'pxMythics Genesis',
-              slug: collectionMockSpiralSlug(),
+              slug: collectionMockSpiral.slug,
               totalSupply: 1077
             },
             name: 'Creative Demigod #3',
@@ -147,38 +145,38 @@ describe('CRUD - offer - getSwapsForUser', () => {
       ],
       transactionId: '0xb384a4949fe643aa638827e381e62513e412af409b0744a37065dd59b0a5309b',
       offerId: 'offer-id'
-    }
+    })
 
     const bothSwap = assoc('slug', nowMsSlug(), bothData)
     const bothId = await addSwap(bothSwap)
     swapIds = [bothId]
     let documents = await getSwapsForUser(johnny.username)
     expect(documents.length).toBe(1)
-    expect(documents[0]).toStrictEqual(dissoc('offerId', bothSwap))
+    expect(documents[0]).toStrictEqual(removeNilProps(bothSwap))
     documents = await getSwapsForUser(crew.username)
     expect(documents.length).toBe(1)
-    expect(documents[0]).toStrictEqual(dissoc('offerId', bothSwap))
+    expect(documents[0]).toStrictEqual(removeNilProps(bothSwap))
     const johnnySwap = assoc('slug', nowMsSlug(), johnnyData)
     const johnnySwapId = await addSwap(johnnySwap)
     swapIds.push(johnnySwapId)
     documents = await getSwapsForUser(johnny.username)
     expect(documents.length).toBe(2)
-    expect(documents[0]).toStrictEqual(dissoc('offerId', johnnySwap))
-    expect(documents[1]).toStrictEqual(dissoc('offerId', bothSwap))
+    expect(documents[0]).toStrictEqual(removeNilProps(johnnySwap))
+    expect(documents[1]).toStrictEqual(removeNilProps(bothSwap))
     documents = await getSwapsForUser(crew.username)
     expect(documents.length).toBe(1)
-    expect(documents[0]).toStrictEqual(dissoc('offerId', bothSwap))
+    expect(documents[0]).toStrictEqual(removeNilProps(bothSwap))
     const crewSwap = assoc('slug', nowMsSlug(), crewData)
     const crewSwapId = await addSwap(crewSwap)
     swapIds.push(crewSwapId)
     documents = await getSwapsForUser(johnny.username)
     expect(documents.length).toBe(2)
-    expect(documents[0]).toStrictEqual(dissoc('offerId', johnnySwap))
-    expect(documents[1]).toStrictEqual(dissoc('offerId', bothSwap))
+    expect(documents[0]).toStrictEqual(removeNilProps(johnnySwap))
+    expect(documents[1]).toStrictEqual(removeNilProps(bothSwap))
     documents = await getSwapsForUser(crew.username)
     expect(documents.length).toBe(2)
-    expect(documents[0]).toStrictEqual(dissoc('offerId', crewSwap))
-    expect(documents[1]).toStrictEqual(dissoc('offerId', bothSwap))
+    expect(documents[0]).toStrictEqual(removeNilProps(crewSwap))
+    expect(documents[1]).toStrictEqual(removeNilProps(bothSwap))
     expect(swapIds.length).toBe(3)
   })
 })

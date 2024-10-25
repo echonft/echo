@@ -1,8 +1,8 @@
 import type { User } from '@echo/auth/types/user'
-import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/db-model/user/get-user-document-data-mock-by-username'
+import { userMocks } from '@echo/model/mocks/user-mock'
 import type { Username } from '@echo/model/types/username'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { assoc } from 'ramda'
+import { assoc, find, propEq } from 'ramda'
 import { create } from 'zustand'
 
 interface AuthUserStore {
@@ -11,10 +11,13 @@ interface AuthUserStore {
   signOut: () => void
 }
 
+function getUserByUsername(username: Username) {
+  return find(propEq(username, 'username'), userMocks)
+}
 export const authUserStore = create<AuthUserStore>((set) => ({
   user: undefined,
   signIn: (username: Username) => {
-    set(assoc('user', getUserDocumentDataMockByUsername(username)))
+    set(assoc('user', getUserByUsername(username)))
   },
   signOut: () => {
     set(assoc('user', undefined))

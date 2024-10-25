@@ -1,5 +1,6 @@
 import { assertUniqErc1155Items } from '@echo/backend/helpers/item/assert-uniq-erc1155-items'
-import { collectionMockSpiralId } from '@echo/firestore/mocks/db-model/collection-document-data-mock'
+
+import { collectionMockSpiralId } from '@echo/firestore/test/initialize-db'
 import { TokenType } from '@echo/model/constants/token-type'
 import { toNftCollection } from '@echo/model/mappers/collection/to-nft-collection'
 import { getCollectionMockById } from '@echo/model/mocks/collection/get-collection-mock-by-id'

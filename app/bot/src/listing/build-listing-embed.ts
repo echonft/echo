@@ -1,6 +1,6 @@
 import { embedSeparator } from '@echo/bot/helpers/embed/embed-separator'
 import { embedValueForNftItem } from '@echo/bot/helpers/embed/embed-value-for-nft-item'
-import { type UserDocumentData } from '@echo/firestore/types/model/user-document-data'
+import { type UserDocument } from '@echo/firestore/types/model/user-document'
 import { nftItems } from '@echo/model/helpers/item/nft-items'
 import type { NftItem } from '@echo/model/types/nft-item'
 import { type Listing } from '@echo/model/types/listing'
@@ -9,7 +9,7 @@ import { type APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import i18next from 'i18next'
 import { addIndex, flatten, map, type NonEmptyArray } from 'ramda'
 
-export function buildListingEmbed(listing: Listing, creator: UserDocumentData) {
+export function buildListingEmbed(listing: Listing, creator: UserDocument) {
   return new EmbedBuilder()
     .setTitle(i18next.t('listing.embed.title'))
     .setDescription(i18next.t('listing.embed.description', { user: userMention(creator.discord.id) }))

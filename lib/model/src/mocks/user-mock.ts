@@ -17,3 +17,5 @@ export const userMockJohnny: User = {
     globalName: undefined
   }
 }
+
+export const userMocks = [userMockCrew, userMockJohnny]

@@ -1,11 +1,10 @@
 import { expireListing } from '@echo/firestore/crud/listing/expire-listing'
 import { getListing } from '@echo/firestore/crud/listing/get-listing'
-import * as updateReferenceModule from '@echo/firestore/helpers/crud/reference/update-reference'
-import type { ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
+import * as updateReferenceModule from '@echo/firestore/helpers/reference/update-reference'
+import type { ListingDocument } from '@echo/firestore/types/model/listing-document'
 import { ListingError } from '@echo/model/constants/errors/listing-error'
 import { ListingState } from '@echo/model/constants/listing-state'
 import { listingMock } from '@echo/model/mocks/listing-mock'
-import type { Listing } from '@echo/model/types/listing'
 import type { Slug } from '@echo/model/types/slug'
 import { resetListing } from '@echo/test/firestore/crud/listing/reset-listing'
 import { updateListing } from '@echo/test/firestore/crud/listing/update-listing'
@@ -14,7 +13,7 @@ import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals
 import dayjs from 'dayjs'
 import { isNil } from 'ramda'
 
-type SpiedFn = typeof updateReferenceModule.updateReference<Listing, ListingDocumentData>
+type SpiedFn = typeof updateReferenceModule.updateReference<ListingDocument>
 describe('CRUD - listing - expireListing', () => {
   let slug: Nullable<Slug>
   let updateReferenceSpy: jest.MockedFunction<SpiedFn>
