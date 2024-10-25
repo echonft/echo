@@ -1,8 +1,8 @@
-import type { Chain } from '@echo/utils/constants/chain'
+import type { Chain } from '@echo/model/constants/chain'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { echoAbi } from '@echo/web3/constants/echo-abi'
-import { getClientForChain } from '@echo/web3/helpers/get-client-for-chain'
+import { getClient } from '@echo/web3/helpers/get-client'
 import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
 import { mapReadContractOfferToContractOffer } from '@echo/web3/mappers/map-read-contract-offer-to-contract-offer'
 import type { ContractOffer } from '@echo/web3/types/contract-offer'
@@ -18,7 +18,7 @@ export interface GetEchoOfferArgs {
 export async function getEchoOffer(args: GetEchoOfferArgs): Promise<Nullable<ContractOffer>> {
   const { chain, offerId } = args
   const echoAddress = getEchoAddress(chain)
-  const client = await getClientForChain(chain)
+  const client = await getClient(chain)
   const parameters = {
     abi: echoAbi,
     functionName: 'offers' as const,

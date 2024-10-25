@@ -9,7 +9,8 @@ import { StackLayout } from '@echo/ui/components/base/stack/layout/stack-layout'
 import { StackFooter } from '@echo/ui/components/base/stack/stack-footer'
 import { OfferCardPicture } from '@echo/ui/components/offer/card/offer-card-picture'
 import { OfferStackPicture } from '@echo/ui/components/offer/card/offer-stack-picture'
-import { getNftStack } from '@echo/ui/helpers/nft/get-nft-stack'
+import { buildNftStack } from '@echo/ui/helpers/nft/build-nft-stack'
+import { nftLabel } from '@echo/ui/helpers/nft/nft-label'
 import { isOfferRoleSender } from '@echo/ui/helpers/offer/is-offer-role-sender'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
@@ -31,7 +32,7 @@ export const OfferCard: FunctionComponent<OfferCardProps> = ({ offer, options, o
   const owner = ifElse(isOfferRoleSender, offerSender, offerReceiver)(offer)
   if (isNonEmptyArray(items)) {
     if (items.length > 1) {
-      const stack = getNftStack(items, owner)
+      const stack = buildNftStack(items, owner)
       return (
         <StackLayout
           className={clsx(options?.asLink && 'group-hover:border-yellow-500')}
@@ -42,11 +43,11 @@ export const OfferCard: FunctionComponent<OfferCardProps> = ({ offer, options, o
           <OfferStackPicture
             chain={stack.collection.contract.chain}
             pictureUrl={stack.pictureUrl}
-            tokenIdLabel={stack.tokenIdLabel}
+            label={stack.label}
             state={offer.state}
             scaleDisabled={options?.scaleDisabled}
           />
-          <StackFooter title={stack.collection.name} subtitle={stack.tokenIdLabel} />
+          <StackFooter title={stack.collection.name} subtitle={stack.label} />
         </StackLayout>
       )
     }
@@ -61,11 +62,11 @@ export const OfferCard: FunctionComponent<OfferCardProps> = ({ offer, options, o
         <OfferCardPicture
           chain={item.token.contract.chain}
           pictureUrl={item.token.pictureUrl}
-          tokenIdLabel={item.token.tokenIdLabel}
+          label={nftLabel(item.token)}
           state={offer.state}
           scaleDisabled={options?.scaleDisabled}
         />
-        <CardFooter title={item.token.collection.name} subtitle={item.token.tokenIdLabel} />
+        <CardFooter title={item.token.collection.name} subtitle={nftLabel(item.token)} />
       </CardLayout>
     )
   }

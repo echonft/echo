@@ -1,24 +1,23 @@
-import type { PropsWithAuthUser } from '@echo/auth/types/props-with-auth-user'
+import type { User } from '@echo/auth/types/user'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { getUserProfile } from '@echo/firestore/crud/user/get-user-profile'
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
-import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
 import { eqOwnedNftOwner } from '@echo/model/helpers/nft/eq-owned-nft-owner'
 import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
-import type { Nft } from '@echo/model/types/nft/nft'
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
-import type { User } from '@echo/model/types/user/user'
+import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { Slug } from '@echo/model/types/slug'
 import { getNftIndexFromSearchParam } from '@echo/routing/search-params/get-nft-index-from-search-param'
-import type { OfferSearchParams } from '@echo/routing/types/search-params/offer-search-params'
-import { PageLayoutBackgroundPicker } from '@echo/ui/components/base/layout/page-layout-background-picker'
+import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { CreateOfferManager } from '@echo/ui/components/offer/create/create-offer-manager'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound } from 'next/navigation'
+
 import {
   always,
   andThen,
@@ -40,11 +39,15 @@ import {
   unless
 } from 'ramda'
 
-// TODO create a layout and split this between steps
-async function render({
-  searchParams: { items, target },
-  user
-}: PropsWithAuthUser<WithSearchParamsProps<OfferSearchParams>>) {
+interface Props {
+  searchParams: {
+    items: string[] | string
+    target?: Slug
+  }
+  user: User
+}
+
+async function render({ searchParams: { items, target }, user }: Props) {
   // Cannot go to that page without previously selected data
   if (isNilOrEmpty(items)) {
     notFound()
@@ -73,7 +76,7 @@ async function render({
   if (!isNonEmptyArray(receiverNftsSelection)) {
     notFound()
   }
-  const receiver = pipe<[OwnedNft[]], OwnedNft, User>(head, prop('owner'))(receiverNftsSelection)
+  const receiver = pipe(head, prop('owner'))(receiverNftsSelection)
   const receiverChain = pipe(head, path(['collection', 'contract', 'chain']))(receiverNftsSelection)
   const receiverNfts = await pipe(
     prop('username'),
@@ -100,7 +103,7 @@ async function render({
   }
 
   return (
-    <PageLayoutBackgroundPicker user={user} layout={'padded'}>
+    <PageLayout user={user}>
       <CreateOfferManager
         receiverNfts={receiverNfts}
         receiverNftsSelection={receiverNftsSelection}
@@ -108,7 +111,7 @@ async function render({
         senderNfts={senderNfts}
         sender={profile}
       />
-    </PageLayoutBackgroundPicker>
+    </PageLayout>
   )
 }
 

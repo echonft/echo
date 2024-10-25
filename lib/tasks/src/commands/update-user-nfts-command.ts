@@ -1,10 +1,11 @@
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import type { Username } from '@echo/model/types/username'
 import { getLogger } from '@echo/tasks/commands/get-logger'
 import { updateNftsForUser } from '@echo/tasks/update-nfts-for-user'
 import { andThen, isNil, otherwise, pipe, tap } from 'ramda'
 
-export async function updateUserNftsCommand(username: string) {
+export async function updateUserNftsCommand(username: Username) {
   const logger = getLogger(updateUserNftsCommand.name)
   await initializeFirebase()
   const user = await pipe(

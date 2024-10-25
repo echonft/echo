@@ -1,29 +1,32 @@
-import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
 import { walletDataConverter } from '@echo/firestore/converters/wallet-data-converter'
-import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
-import { walletMockJohnnyId } from '@echo/firestore/mocks/wallet/wallet-document-data-mock'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
+import { VirtualMachine } from '@echo/model/constants/virtual-machine'
+import { walletMockCrew } from '@echo/model/mocks/wallet-mock'
 import { describe, expect, it } from '@jest/globals'
-import { DocumentReference, QueryDocumentSnapshot } from 'firebase-admin/firestore'
+import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 
 describe('converters - walletDataConverter', () => {
-  const id = walletMockJohnnyId()
-  const document = getWalletDocumentDataMockById(id)
+  const document = walletMockCrew
+  const documentData: WalletDocumentData = {
+    address: '0xf672715f2ba85794659a7150e8c21f8d157bfe1d',
+    vm: VirtualMachine.Evm,
+    userId: 'userId'
+  }
 
   it('from Firestore conversion', () => {
     const snapshot = {
-      ref: {
-        id,
-        path: `${CollectionReferenceName.Wallets}/${id}`
-      } as unknown as DocumentReference<WalletDocumentData, WalletDocumentData>,
-      id,
+      id: 'walletId',
       exists: true,
-      data: () => document
+      data: () => documentData
     } as unknown as QueryDocumentSnapshot<WalletDocumentData, WalletDocumentData>
     expect(walletDataConverter.fromFirestore(snapshot)).toStrictEqual(document)
   })
 
   it('to Firestore conversion', () => {
     expect(walletDataConverter.toFirestore(document)).toStrictEqual(document)
+  })
+
+  it('to Firestore conversion - keeps userId when we pass it', () => {
+    expect(walletDataConverter.toFirestore(documentData)).toStrictEqual(documentData)
   })
 })

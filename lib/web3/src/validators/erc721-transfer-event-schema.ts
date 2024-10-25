@@ -1,7 +1,7 @@
-import type { Chain } from '@echo/utils/constants/chain'
+import type { Chain } from '@echo/model/constants/chain'
+import { evmAddressSchema } from '@echo/model/validators/evm-address-schema'
+import { hexStringSchema } from '@echo/model/validators/hex-string-schema'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { evmAddressSchema } from '@echo/utils/validators/evm-address-schema'
-import { hexStringSchema } from '@echo/utils/validators/hex-string-schema'
 import type { NftTransferEvent } from '@echo/web3/types/nft-transfer-event'
 import { blockDataSchema } from '@echo/web3/validators/block-data-schema'
 import { hexNumberSchema } from '@echo/web3/validators/hex-number-schema'
@@ -12,7 +12,12 @@ import { object, tuple, unknown } from 'zod'
 function erc721TransferEventLogSchema(chain: Chain) {
   return object({
     address: evmAddressSchema,
-    topics: tuple([unknown(), topicSchema.pipe(evmAddressSchema), topicSchema.pipe(evmAddressSchema), hexNumberSchema]),
+    topics: tuple([
+      unknown().readonly(),
+      topicSchema.pipe(evmAddressSchema),
+      topicSchema.pipe(evmAddressSchema),
+      hexNumberSchema
+    ]).readonly(),
     transactionHash: hexStringSchema
   })
     .array()
@@ -35,6 +40,7 @@ function erc721TransferEventLogSchema(chain: Chain) {
         })
       )
     )
+    .readonly()
 }
 
 export function erc721TransferEventSchema(chain: Chain) {
@@ -48,4 +54,5 @@ export function erc721TransferEventSchema(chain: Chain) {
     .transform((args) => {
       return pipe((log) => erc721TransferEventLogSchema(chain).array().parse(log), flatten)(args)
     })
+    .readonly()
 }

@@ -4,7 +4,7 @@ import { generateUniqueCollectionSlug } from '@echo/firestore/helpers/collection
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { CollectionError } from '@echo/model/constants/errors/collection-error'
-import { type Collection } from '@echo/model/types/collection/collection'
+import { type Collection } from '@echo/model/types/collection'
 import { assoc, isNil } from 'ramda'
 
 export async function addCollection(args: Collection): Promise<NewDocument<Collection>> {

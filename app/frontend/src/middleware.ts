@@ -1,12 +1,12 @@
 import { auth } from '@echo/auth/auth'
 import type { NextAuthRequest } from '@echo/auth/types/next-auth-request'
 import { UnauthorizedError } from '@echo/backend/errors/unauthorized-error'
-import { isApiPath } from '@echo/routing/is-api-path'
-import { isApiPathSecure } from '@echo/routing/is-api-path-secure'
-import { isApiWebhookPath } from '@echo/routing/is-api-webhook-path'
-import { isPathSecure } from '@echo/routing/is-path-secure'
-import { pathProvider } from '@echo/routing/path-provider'
-import { getBaseUrl } from '@echo/utils/helpers/get-base-url'
+import { baseUrl } from '@echo/routing/helpers/base-url'
+import { isApiPath } from '@echo/routing/path/is-api-path'
+import { isApiPathSecure } from '@echo/routing/path/is-api-path-secure'
+import { isApiWebhookPath } from '@echo/routing/path/is-api-webhook-path'
+import { isPathSecure } from '@echo/routing/path/is-path-secure'
+import { pathProvider } from '@echo/routing/path/path-provider'
 import { NextResponse } from 'next/server'
 import { isNil } from 'ramda'
 
@@ -25,7 +25,7 @@ export default auth((req): void | Response | Promise<void | Response> => {
     }
     if (!isApiWebhookPath(path)) {
       // set CORS headers
-      const allowedOrigins = [getBaseUrl()]
+      const allowedOrigins = [baseUrl()]
       const corsOptions = {
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization'

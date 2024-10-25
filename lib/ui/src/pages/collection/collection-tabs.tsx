@@ -1,8 +1,8 @@
 'use client'
-import type { Collection } from '@echo/model/types/collection/collection'
+import type { Collection } from '@echo/model/types/collection'
 
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
-import type { Swap } from '@echo/model/types/swap/swap'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { Swap } from '@echo/model/types/swap'
 import type { Selection } from '@echo/routing/types/selection'
 import { ListingsPanel } from '@echo/ui/components/base/navigation/panels/listings-panel'
 import { OffersPanel } from '@echo/ui/components/base/navigation/panels/offers-panel'

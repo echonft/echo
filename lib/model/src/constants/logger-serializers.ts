@@ -1,4 +1,4 @@
-import type { WithUsername } from '@echo/model/types/with-username'
+import type { User } from '@echo/model/types/user'
 import { propIsNotNil } from '@echo/utils/fp/prop-is-not-nil'
 import type { LoggerSerializer } from '@echo/utils/types/logger-serializer'
 import { map, modify, pick, pipe, when } from 'ramda'
@@ -8,7 +8,7 @@ function serializeCollection(collection: unknown) {
   // @ts-ignore
   return pick(['id', 'contract', 'slug'], collection)
 }
-function serializeUserDiscordProfile(profile: WithUsername) {
+function serializeUserDiscordProfile(profile: User['discord']) {
   return pick(['username'], profile)
 }
 function serializeUser(user: unknown) {

@@ -6,7 +6,7 @@ import { type SwapDocumentData } from '@echo/firestore/types/model/swap-document
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { SwapError } from '@echo/model/constants/errors/swap-error'
-import type { Swap } from '@echo/model/types/swap/swap'
+import type { Swap } from '@echo/model/types/swap'
 import { nowMsSlug } from '@echo/utils/helpers/now-ms-slug'
 import { assoc, dissoc, isNil } from 'ramda'
 
@@ -23,7 +23,7 @@ export async function addSwap(
     return Promise.reject(Error(SwapError.Exists))
   }
   const data = assoc('slug', nowMsSlug(), args)
-  const id = await setReference<Swap, SwapDocumentData>({
+  const id = await setReference({
     collectionReference: getSwapsCollectionReference(),
     data
   })

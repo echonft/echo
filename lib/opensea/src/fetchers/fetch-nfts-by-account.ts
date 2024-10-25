@@ -1,20 +1,23 @@
+import { FetchError } from '@echo/opensea/constants/errors/fetch-error'
+import { error } from '@echo/opensea/helpers/logger'
 import { throttleFetch } from '@echo/opensea/helpers/throttle-fetch'
 import { openseaApiPathProvider } from '@echo/opensea/services/routing/opensea-api-path-provider'
 import type { FetchNftsByAccountRequest } from '@echo/opensea/types/request/fetch-nfts-by-account-request'
 import type { FetchNftsResponse } from '@echo/opensea/types/response/fetch-nfts-response'
 import { fetchNftsResponseSchema } from '@echo/opensea/validators/fetch-nfts-response-schema'
-import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { parseResponse } from '@echo/utils/validators/parse-response'
 import { pick } from 'ramda'
 
-export async function fetchNftsByAccount(args: WithLoggerType<FetchNftsByAccountRequest>): Promise<FetchNftsResponse> {
-  const { wallet, fetch } = args
-  const url = openseaApiPathProvider.nfts.fetchByAccount.getUrl(wallet, pick(['next', 'limit'], args))
-  const logger = args.logger?.child({ url, fetcher: fetchNftsByAccount.name })
-  const response = await throttleFetch({ fetch, url, logger })
+export async function fetchNftsByAccount({
+  contract,
+  next,
+  limit
+}: FetchNftsByAccountRequest): Promise<FetchNftsResponse> {
+  const url = openseaApiPathProvider.nfts.fetchByAccount.getUrl(contract, { next, limit })
+  const response = await throttleFetch(url)
   if (!response.ok) {
-    logger?.error({ wallet, url, response: pick(['status'], response) }, 'error fetching NFTs by account')
-    return Promise.reject(Error('error fetching NFTs by account'))
+    error({ contract, url, response: pick(['status'], response) }, FetchError.Nfts)
+    return Promise.reject(Error(FetchError.Nfts))
   }
   return parseResponse(fetchNftsResponseSchema)(response)
 }

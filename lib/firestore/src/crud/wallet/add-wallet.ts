@@ -1,33 +1,26 @@
 import { getUserSnapshotByUsername } from '@echo/firestore/crud/user/get-user-by-username'
-import { getWalletSnapshotByAddress } from '@echo/firestore/crud/wallet/get-wallet-by-address'
+import { getWalletSnapshot } from '@echo/firestore/crud/wallet/get-wallet'
 import { getWalletsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-wallets-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import { type WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
+import { UserError } from '@echo/model/constants/errors/user-error'
+import { WalletError } from '@echo/model/constants/errors/wallet-error'
+import type { Username } from '@echo/model/types/username'
 import { type Wallet } from '@echo/model/types/wallet'
-import { isEvmChain } from '@echo/utils/helpers/chains/is-evm-chain'
-import { assoc, isNil, pipe } from 'ramda'
+import { assoc, isNil } from 'ramda'
 
-export async function addWallet(username: string, wallet: Wallet): Promise<NewDocument<WalletDocumentData>> {
-  const walletSnapshot = await getWalletSnapshotByAddress(wallet)
+export async function addWallet(username: Username, wallet: Wallet): Promise<NewDocument<Wallet>> {
+  const walletSnapshot = await getWalletSnapshot(wallet)
   const userSnapshot = await getUserSnapshotByUsername(username)
   if (isNil(userSnapshot)) {
-    return Promise.reject(Error(`user with username ${username} not found`))
+    return Promise.reject(Error(UserError.NotFound))
   }
   if (!isNil(walletSnapshot)) {
-    const existingWallet = walletSnapshot.data()
-    if (existingWallet.isEvm) {
-      if (existingWallet.userId !== userSnapshot.id) {
-        return Promise.reject(Error(`wallet already associated with another user`))
-      }
-      return { id: walletSnapshot.id, data: assoc('chain', wallet.chain, existingWallet) }
-    }
-    return Promise.reject(Error(`wallet already exists`))
+    return Promise.reject(Error(WalletError.Exists))
   }
-  const data = pipe(assoc('userId', userSnapshot.id), assoc('isEvm', isEvmChain(wallet.chain)))(wallet)
-  const id = await setReference<WalletDocumentData, WalletDocumentData>({
+  const id = await setReference({
     collectionReference: getWalletsCollectionReference(),
-    data
+    data: assoc('userId', userSnapshot.id, wallet)
   })
-  return { id, data }
+  return { id, data: wallet }
 }

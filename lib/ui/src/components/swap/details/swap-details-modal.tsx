@@ -1,5 +1,5 @@
 'use client'
-import type { Swap } from '@echo/model/types/swap/swap'
+import type { Swap } from '@echo/model/types/swap'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { SwapDetailsModalBody } from '@echo/ui/components/swap/details/swap-details-modal-body'
 import { Background } from '@echo/ui/constants/background'

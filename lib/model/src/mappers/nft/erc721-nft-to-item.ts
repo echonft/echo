@@ -1,6 +1,6 @@
 import { erc721NftToToken } from '@echo/model/mappers/nft/erc721-nft-to-token'
-import type { Erc721Item } from '@echo/model/types/item/erc721-item'
-import type { Erc721Nft } from '@echo/model/types/nft/erc721-nft'
+import type { Erc721Item } from '@echo/model/types/erc721-item'
+import type { Erc721Nft } from '@echo/model/types/erc721-nft'
 import { objOf, pipe } from 'ramda'
 
 export function erc721NftToItem(nft: Erc721Nft): Erc721Item {

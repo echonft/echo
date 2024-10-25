@@ -1,37 +1,55 @@
+import { CollectionGuildError } from '@echo/firestore/constants/errors/collection-guild-error'
 import { addCollectionDiscordGuild } from '@echo/firestore/crud/collection-discord-guild/add-collection-discord-guild'
 import { getCollectionDiscordGuildById } from '@echo/firestore/crud/collection-discord-guild/get-collection-discord-guild-by-id'
-import { collectionMockPxId } from '@echo/model/mocks/collection/collection-mock'
+import { deleteCollection } from '@echo/firestore/crud/collection/delete-collection'
+import { collectionMockPxId } from '@echo/firestore/mocks/db-model/collection-document-data-mock'
+import { CollectionError } from '@echo/model/constants/errors/collection-error'
+import { addCollectionDiscordGuild as testAddCollectionDiscordGuild } from '@echo/test/firestore/crud/collection-discord-guild/add-collection-discord-guild'
 import { deleteCollectionDiscordGuild } from '@echo/test/firestore/crud/collection-discord-guild/delete-collection-discord-guild'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
 
 describe('CRUD - collection-discord-guild - addCollectionDiscordGuild', () => {
-  let collectionDiscordGuildId: Nullable<string>
+  const guildData = {
+    collectionId: collectionMockPxId(),
+    guild: {
+      id: '100',
+      channelId: '100'
+    }
+  }
+  // const collectionData = collectionMockPx()
+  let addedCollectionId: Nullable<string>
+  let addedGuildId: Nullable<string>
+
   beforeEach(() => {
-    collectionDiscordGuildId = undefined
+    addedCollectionId = undefined
+    addedGuildId = undefined
   })
   afterEach(async () => {
-    if (!isNil(collectionDiscordGuildId)) {
-      await deleteCollectionDiscordGuild(collectionDiscordGuildId)
+    if (!isNil(addedCollectionId)) {
+      await deleteCollection(addedCollectionId)
+    }
+    if (!isNil(addedGuildId)) {
+      await deleteCollectionDiscordGuild(addedGuildId)
     }
   })
-  it('throws if trying to add a guild for a collection that does not exist', async () => {
+
+  it('throws if collection does not exist', async () => {
     await expect(
       addCollectionDiscordGuild({ collectionId: 'not-found', guild: { id: 'new', channelId: 'new' } })
-    ).rejects.toBeDefined()
+    ).rejects.toEqual(Error(CollectionError.NotFound))
   })
-  it('throws if trying to add a guild that already exists to a collection', async () => {
-    await expect(
-      addCollectionDiscordGuild({ collectionId: collectionMockPxId(), guild: { id: '100', channelId: '100' } })
-    ).rejects.toBeDefined()
+  it('throws if collection guild already exists', async () => {
+    addedGuildId = await testAddCollectionDiscordGuild(guildData)
+    await expect(addCollectionDiscordGuild(guildData)).rejects.toEqual(Error(CollectionGuildError.Exists))
   })
   it('add a discord guild to an nft collection', async () => {
-    const newDocumentData = { collectionId: collectionMockPxId(), guild: { id: 'new', channelId: 'new' } }
-    const { id, data } = await addCollectionDiscordGuild(newDocumentData)
-    collectionDiscordGuildId = id
-    expect(data).toStrictEqual(newDocumentData)
-    const newGuild = (await getCollectionDiscordGuildById(id))!
-    expect(newGuild).toStrictEqual(newDocumentData)
+    // TODO
+    // addedCollectionId = await addCollection(collectionData)
+    const { id } = await addCollectionDiscordGuild(guildData)
+    addedGuildId = id
+    const newGuild = await getCollectionDiscordGuildById(id)
+    expect(newGuild).toStrictEqual(guildData)
   })
 })

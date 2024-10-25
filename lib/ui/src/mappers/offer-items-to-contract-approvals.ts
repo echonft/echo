@@ -1,4 +1,4 @@
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { offerItemToContractApproval } from '@echo/ui/mappers/offer-item-to-contract-approval'
 import type { ContractApproval } from '@echo/ui/types/contract-approval'
 import { map, type NonEmptyArray, pipe, uniq } from 'ramda'

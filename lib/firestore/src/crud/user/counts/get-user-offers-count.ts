@@ -1,7 +1,8 @@
 import { getOffersForUserQuery } from '@echo/firestore/crud/offer/get-offers-for-user'
 import { getQueryCount } from '@echo/firestore/helpers/crud/query/get-query-count'
+import type { Username } from '@echo/model/types/username'
 import { pipe } from 'ramda'
 
-export function getUserOffersCount(username: string): Promise<number> {
+export function getUserOffersCount(username: Username): Promise<number> {
   return pipe(getOffersForUserQuery, getQueryCount)(username)
 }

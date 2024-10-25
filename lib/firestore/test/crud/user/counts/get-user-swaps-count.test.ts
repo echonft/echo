@@ -1,5 +1,5 @@
 import { getUserSwapsCount } from '@echo/firestore/crud/user/counts/get-user-swaps-count'
-import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
+import { userMockJohnnyUsername } from '@echo/model/mocks/user-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - user - counts - getUserSwapsCount', () => {

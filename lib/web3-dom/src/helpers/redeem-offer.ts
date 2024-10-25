@@ -1,4 +1,4 @@
-import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
+import { chainId } from '@echo/model/helpers/chain/chain-id'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import type { ContractUpdateOfferArgs } from '@echo/web3-dom/types/contract-update-offer-args'
 import { echoAbi } from '@echo/web3/constants/echo-abi'
@@ -8,12 +8,11 @@ import { simulateContract, waitForTransactionReceipt, writeContract } from 'wagm
 export async function redeemOffer(args: ContractUpdateOfferArgs) {
   const { offerId, chain } = args
   const address = getEchoAddress(chain)
-  const chainId = getChainId(chain)
   const { request } = await simulateContract(wagmiConfig, {
     abi: echoAbi,
     functionName: 'redeemOffer',
     address,
-    chainId,
+    chainId: chainId(chain),
     args: [offerId]
   })
   const hash = await writeContract(wagmiConfig, request)

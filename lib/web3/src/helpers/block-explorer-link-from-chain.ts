@@ -1,5 +1,5 @@
 import type { Wallet } from '@echo/model/types/wallet'
-import { Chain } from '@echo/utils/constants/chain'
+import { Chain } from '@echo/model/constants/chain'
 import { ChainError } from '@echo/web3/constants/errors/chain-error'
 
 export function blockExplorerLinkFromChain(wallet: Wallet): string {

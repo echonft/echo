@@ -1,19 +1,20 @@
+import type { Chain } from '@echo/model/constants/chain'
+import { bigIntStringSchema } from '@echo/model/validators/big-int-string-schema'
+import { evmAddressSchema } from '@echo/model/validators/evm-address-schema'
 import { nftTokenTypeSchema } from '@echo/model/validators/nft-token-type-schema'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import type { NftResponse } from '@echo/nft-scan/types/response/nft-response'
 import { nftAttributeResponseSchema } from '@echo/nft-scan/validators/nft-attribute-response-schema'
-import { apiPathProvider } from '@echo/routing/api-path-provider'
+import { apiPathProvider } from '@echo/routing/path/api-path-provider'
 import { convertNullToUndefined } from '@echo/utils/fp/convert-null-to-undefined'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
-import type { Chain } from '@echo/utils/constants/chain'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { bigIntStringSchema } from '@echo/utils/validators/big-int-string-schema'
-import { evmAddressSchema } from '@echo/utils/validators/evm-address-schema'
 import { always, applySpec, ifElse, invoker, isNil, length, pipe, prop, reject, split } from 'ramda'
-import { object, string } from 'zod'
+import { object, string, z } from 'zod'
 
+type NftAttributeResponse = z.infer<typeof nftAttributeResponseSchema>
 export function nftResponseSchema(chain: Chain) {
   function updateIPFSUri(uri: Nullable<string>): Nullable<string> {
     if (isNil(uri)) {
@@ -34,39 +35,43 @@ export function nftResponseSchema(chain: Chain) {
     return uri
   }
 
-  const schema = object({
+  return object({
     attributes: nftAttributeResponseSchema
       .array()
       .nullable()
-      .transform(ifElse(isNil, always([]), reject(isNil))),
+      .transform((attributes) =>
+        isNil(attributes) ? ([] as NftAttributeResponse[]) : reject<NftAttributeResponse>(isNil)
+      )
+      .readonly(),
     contract_address: evmAddressSchema,
     erc_type: nftTokenTypeSchema,
     image_uri: string()
       .nullable()
       .optional()
-      .transform(unlessNil(pipe(updateIPFSUri, removeQueryFromUrl))),
-    name: string().nullable().optional(),
+      .transform(unlessNil(pipe(updateIPFSUri, removeQueryFromUrl)))
+      .readonly(),
+    name: string().nullable().optional().readonly(),
     token_id: bigIntStringSchema,
-    token_uri: string().nullable().optional().transform(updateIPFSUri)
+    token_uri: string().nullable().optional().transform(updateIPFSUri).readonly()
   })
-  return schema.transform<PartialNft>(
-    applySpec<PartialNft>({
-      attributes: prop('attributes'),
-      collection: applySpec({
-        contract: {
-          address: prop('contract_address'),
-          chain: always(chain)
-        }
-      }),
-      name: ifElse<[NftResponse], string, string>(
-        pipe(prop('name'), isNilOrEmpty),
-        pipe(prop('token_id'), invoker(0, 'toString')),
-        prop('name') as (response: NftResponse) => string
-      ),
-      metadataUrl: pipe(prop('token_uri'), convertNullToUndefined),
-      pictureUrl: pipe(prop('image_uri'), convertNullToUndefined),
-      tokenId: prop('token_id'),
-      type: prop('erc_type')
-    })
-  )
+    .transform<PartialNft>(
+      applySpec<PartialNft>({
+        attributes: prop('attributes'),
+        collection: applySpec({
+          contract: {
+            address: prop('contract_address'),
+            chain: always(chain)
+          }
+        }),
+        name: ifElse<[NftResponse], string, string>(
+          pipe(prop('name'), isNilOrEmpty),
+          pipe(prop('token_id'), invoker(0, 'toString')),
+          prop('name') as (response: NftResponse) => string
+        ),
+        pictureUrl: pipe(prop('image_uri'), convertNullToUndefined),
+        tokenId: prop('token_id'),
+        type: prop('erc_type')
+      })
+    )
+    .readonly()
 }

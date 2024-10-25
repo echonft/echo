@@ -1,5 +1,4 @@
-import type { Wallet } from '@echo/model/types/wallet'
+import type { removeWalletRequestSchema } from '@echo/api/validators/remove-wallet-request-schema'
+import { z } from 'zod'
 
-export interface RemoveWalletRequest {
-  readonly wallet: Wallet
-}
+export type RemoveWalletRequest = z.infer<typeof removeWalletRequestSchema>

@@ -1,5 +1,5 @@
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
-import { apiPathProvider } from '@echo/routing/api-path-provider'
+import { apiPathProvider } from '@echo/routing/path/api-path-provider'
 import axios from 'axios'
 import { prop } from 'ramda'
 

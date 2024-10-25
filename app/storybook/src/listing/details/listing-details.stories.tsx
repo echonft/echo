@@ -3,8 +3,8 @@
 import { ListingRole } from '@echo/model/constants/listing-role'
 import { ListingState } from '@echo/model/constants/listing-state'
 import { shouldLockListing } from '@echo/model/helpers/listing/should-lock-listing'
-import { getListingMock } from '@echo/model/mocks/listing/get-listing-mock'
-import type { Listing } from '@echo/model/types/listing/listing'
+import { listingMock } from '@echo/model/mocks/listing-mock'
+import type { Listing } from '@echo/model/types/listing'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
 import {
@@ -77,12 +77,11 @@ export const Details: StoryObj<ComponentType> = {
       }
     }
 
-    const listing = getListingMock()
     const renderedListing = pipe<[Listing], Listing, Listing, ListingWithRole>(
       assoc('state', state),
       setExpirationAndLocked,
       setRole(role)
-    )(listing)
+    )(listingMock)
     return <Component listing={renderedListing} onUpdate={onUpdate} />
   }
 }

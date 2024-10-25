@@ -1,7 +1,7 @@
 'use client'
 
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
-import type { User } from '@echo/model/types/user/user'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { User } from '@echo/model/types/user'
 import { Profile } from '@echo/ui/components/base/profile'
 import { SelectableNfts } from '@echo/ui/components/nft/selectable/selectable-nfts'
 import { UserProfileDetailsLayout } from '@echo/ui/components/user/profile/layout/user-profile-details-layout'

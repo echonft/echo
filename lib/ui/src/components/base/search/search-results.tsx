@@ -1,4 +1,4 @@
-import type { SearchResult as SearchResultModel } from '@echo/model/types/search/search-result'
+import type { SearchResult as SearchResultModel } from '@echo/model/types/search-result'
 import { SearchResult, type SearchResultProps } from '@echo/ui/components/base/search/search-result'
 import { SearchResultEmpty } from '@echo/ui/components/base/search/search-result-empty'
 import type { Nullable } from '@echo/utils/types/nullable'

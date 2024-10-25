@@ -1,5 +1,5 @@
-import type { Erc20Token } from '@echo/model/types/token/erc20-token'
-import type { TokenBalance } from '@echo/model/types/token/token-balance'
+import type { Erc20Token } from '@echo/model/types/erc20-token'
+import type { TokenBalance } from '@echo/model/types/token-balance'
 import { getErc20TokenBalance } from '@echo/storybook/mocks/get-erc20-token-balance'
 import { nonEmptyMap } from '@echo/utils/fp/non-empty-map'
 import { nonEmptyPromiseAll } from '@echo/utils/fp/non-empty-promise-all'

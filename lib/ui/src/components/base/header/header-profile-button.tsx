@@ -1,4 +1,4 @@
-import { pathProvider } from '@echo/routing/path-provider'
+import { pathProvider } from '@echo/routing/path/path-provider'
 import type { HeaderLoggedInProps } from '@echo/ui/components/base/header/header-logged-in'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { SizeableImage } from '@echo/ui/components/base/sizeable-image'

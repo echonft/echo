@@ -1,4 +1,4 @@
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { EmptyTradeCard } from '@echo/ui/components/trade/card/empty-trade-card'
 import { TradeCardLayout } from '@echo/ui/components/trade/card/layout/trade-card-layout'
 import { NftTradeCards } from '@echo/ui/components/trade/card/nft-trade-cards'

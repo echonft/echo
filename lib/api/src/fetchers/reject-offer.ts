@@ -1,10 +1,10 @@
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
-import type { WithSlug } from '@echo/model/types/with-slug'
-import { apiPathProvider } from '@echo/routing/api-path-provider'
+import type { Slug } from '@echo/model/types/slug'
+import { apiPathProvider } from '@echo/routing/path/api-path-provider'
 import axios from 'axios'
 import { prop } from 'ramda'
 
-export function rejectOffer(args: WithSlug) {
+export function rejectOffer(args: Record<'slug', Slug>) {
   return axios
     .post<OfferResponse>(apiPathProvider.offer.reject.getUrl(args), undefined, {
       withCredentials: true

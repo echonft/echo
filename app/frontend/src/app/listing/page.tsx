@@ -1,15 +1,14 @@
-import type { PropsWithAuthUser } from '@echo/auth/types/props-with-auth-user'
+import type { User } from '@echo/auth/types/user'
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
-import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
 import { nftIsOwnedBy } from '@echo/model/helpers/nft/nft-is-owned-by'
-import type { Nft } from '@echo/model/types/nft/nft'
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { Slug } from '@echo/model/types/slug'
 import { getNftIndexFromSearchParam } from '@echo/routing/search-params/get-nft-index-from-search-param'
-import type { ListingSearchParams } from '@echo/routing/types/search-params/listing-search-params'
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { CreateListingManager } from '@echo/ui/components/listing/create/create-listing-manager'
@@ -35,10 +34,15 @@ import {
   unless
 } from 'ramda'
 
-async function render({
-  searchParams: { items, target },
-  user
-}: PropsWithAuthUser<WithSearchParamsProps<ListingSearchParams>>) {
+interface Props {
+  searchParams: {
+    items?: string[] | string
+    target?: Slug
+  }
+  user: User
+}
+
+async function render({ searchParams: { items, target }, user }: Props) {
   // Cannot go to that page without previously selected data
   if (isNilOrEmpty(items) && isNilOrEmpty(target)) {
     notFound()

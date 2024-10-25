@@ -1,6 +1,5 @@
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import type { WithId } from '@echo/model/types/with-id'
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import type { Logger } from 'pino'
@@ -13,10 +12,10 @@ export async function dumpDb(filename: string, logger?: Logger) {
   const folderPath = path.join(__dirname, '../../dist')
   await initializeFirebase()
   const collections = await firestoreApp().listCollections()
-  let data: Record<string, WithId[]> = {}
+  let data: Record<string, Record<'id', string>[]> = {}
   for (const collection of collections) {
     const snapshot = await collection.get()
-    const collectionData: WithId[] = []
+    const collectionData: Record<'id', string>[] = []
     snapshot.forEach((doc) => {
       collectionData.push({ id: doc.id, ...doc.data() })
     })

@@ -1,7 +1,7 @@
 import { Icon } from '@echo/ui/components/base/icons/icon'
 import { IconColor } from '@echo/ui/components/base/icons/icon-color'
 import { Size } from '@echo/ui/constants/size'
-import { Chain } from '@echo/utils/constants/chain'
+import { Chain } from '@echo/model/constants/chain'
 import Image from 'next/image'
 import { type FunctionComponent } from 'react'
 

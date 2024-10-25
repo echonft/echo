@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getNftMock } from '@echo/model/mocks/nft/get-nft-mock'
+import { nftMockSpiral1 } from '@echo/model/mocks/nft-mock'
 import {
   SelectableNftCard,
   type SelectableNftCardProps
@@ -47,7 +47,7 @@ export const SelectableCard: StoryObj<ComponentType> = {
   render: ({ action, hideOwner, onSelect, onAction }) => {
     return (
       <SelectableNftCard
-        nft={getNftMock()}
+        nft={nftMockSpiral1}
         options={{ owner: { hide: hideOwner } }}
         action={action ? NftAction.Offer : undefined}
         onSelect={onSelect}

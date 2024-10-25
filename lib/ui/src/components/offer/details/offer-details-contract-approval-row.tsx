@@ -1,5 +1,5 @@
 'use client'
-import type { Wallet } from '@echo/model/types/wallet'
+import type { Contract } from '@echo/model/types/contract'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { OfferDetailsContractApprovalRowIcon } from '@echo/ui/components/offer/details/offer-details-contract-approval-row-icon'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
@@ -13,10 +13,10 @@ import useSWR from 'swr'
 
 interface Props {
   collectionName: string
-  contract: Wallet
+  contract: Contract
   owner: HexString
   approved?: boolean
-  onSuccess?: (contract: Wallet, approved: boolean) => unknown
+  onSuccess?: (contract: Contract, approved: boolean) => unknown
 }
 
 export const OfferDetailsContractApprovalRow: FunctionComponent<Props> = ({
@@ -26,7 +26,7 @@ export const OfferDetailsContractApprovalRow: FunctionComponent<Props> = ({
   approved,
   onSuccess
 }) => {
-  const { getErc721ContractApproval, logger } = useDependencies()
+  const { getErc721ContractApproval } = useDependencies()
   useSWR<boolean, Error, (GetErc721ContractApprovalArgs & Record<'name', string>) | undefined>(
     isNil(approved) ? { name: SWRKeys.contract.getErc721approval(contract), contract, owner } : undefined,
     getErc721ContractApproval,
@@ -38,7 +38,6 @@ export const OfferDetailsContractApprovalRow: FunctionComponent<Props> = ({
         onError: () => {
           onSuccess?.(contract, false)
         },
-        logger,
         loggerContext: { component: OfferDetailsContractApprovalRow.name, fetcher: getErc721ContractApproval.name }
       }),
       errorRetryCount: 3,

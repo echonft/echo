@@ -1,7 +1,8 @@
-import type { Item } from '@echo/model/types/item/item'
-import type { BaseOffer } from '@echo/model/types/offer/base-offer'
-import type { Chain } from '@echo/utils/constants/chain'
-import { getChainId } from '@echo/utils/helpers/chains/get-chain-id'
+import type { Chain } from '@echo/model/constants/chain'
+import { chainId } from '@echo/model/helpers/chain/chain-id'
+import type { ChainId } from '@echo/model/types/chain'
+import type { Item } from '@echo/model/types/item'
+import type { BaseOffer } from '@echo/model/types/base-offer'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { hashNfts } from '@echo/web3/helpers/hash-nfts'
 import { applySpec, head, juxt, type NonEmptyArray, partial, path, pipe, prop, toLower } from 'ramda'
@@ -33,18 +34,18 @@ export function generateOfferId(offer: BaseOffer): Lowercase<HexString> {
       applySpec<OfferAbiParameters>({
         sender: path(['sender', 'wallet', 'address']),
         receiver: path(['receiver', 'wallet', 'address']),
-        senderItemsChainId: pipe<[BaseOffer], NonEmptyArray<Item>, Item, Chain, number>(
+        senderItemsChainId: pipe<[BaseOffer], NonEmptyArray<Item>, Item, Chain, ChainId>(
           prop('senderItems'),
           head,
           path(['token', 'contract', 'chain']),
-          getChainId
+          chainId
         ),
         senderItems: pipe(prop('senderItems'), hashNfts),
-        receiverItemsChainId: pipe<[BaseOffer], NonEmptyArray<Item>, Item, Chain, number>(
+        receiverItemsChainId: pipe<[BaseOffer], NonEmptyArray<Item>, Item, Chain, ChainId>(
           prop('receiverItems'),
           head,
           path(['token', 'contract', 'chain']),
-          getChainId
+          chainId
         ),
         receiverItems: pipe(prop('receiverItems'), hashNfts),
         expiration: prop('expiresAt')

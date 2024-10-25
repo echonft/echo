@@ -1,5 +1,5 @@
-import type { Wallet } from '@echo/model/types/wallet'
+import type { Contract } from '@echo/model/types/contract'
 
 export interface ApproveErc721ContractArgs {
-  contract: Wallet
+  contract: Contract
 }

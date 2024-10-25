@@ -1,4 +1,4 @@
-import type { UserProfile as UserProfileModel } from '@echo/model/types/user/user-profile'
+import type { UserProfile as UserProfileModel } from '@echo/model/types/user-profile'
 import { CountsDetails } from '@echo/ui/components/base/counts-details'
 import { ProfileLayout } from '@echo/ui/components/base/layout/profile-layout'
 import { Profile } from '@echo/ui/components/base/profile'

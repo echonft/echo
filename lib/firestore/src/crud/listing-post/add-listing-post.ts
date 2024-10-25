@@ -16,7 +16,7 @@ export async function addListingPost(data: ListingPostDocumentData): Promise<New
   if (!isNil(listingPost)) {
     return Promise.reject(Error(ListingError.PostExists))
   }
-  const id = await setReference<ListingPostDocumentData, ListingPostDocumentData>({
+  const id = await setReference({
     collectionReference: getListingPostsCollectionReference(),
     data
   })

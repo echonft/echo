@@ -6,10 +6,10 @@ import { cancelOffer } from '@echo/firestore/crud/offer/cancel-offer'
 import { getOffersForNft } from '@echo/firestore/crud/offer/get-offers-for-nft'
 import { getUserByWallet } from '@echo/firestore/crud/user/get-user-by-wallet'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
-import type { Nft, NftIndex } from '@echo/model/types/nft/nft'
+import type { Nft, NftIndex } from '@echo/model/types/nft'
 import type { Wallet } from '@echo/model/types/wallet'
+import { error, info } from '@echo/tasks/helpers/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
-import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { andThen, equals, isNil, otherwise, pipe, tap } from 'ramda'
 
 export interface UpdateNftOwnerArgs {
@@ -37,8 +37,8 @@ async function cancelTiedOffers(nft: NftIndex) {
  * Else, it removes the owner
  * @param args
  */
-export async function updateNftOwner(args: WithLoggerType<UpdateNftOwnerArgs>): Promise<Nft> {
-  const { nft, wallet, logger } = args
+export async function updateNftOwner(args: UpdateNftOwnerArgs): Promise<Nft> {
+  const { nft, wallet } = args
   if (equals(args.wallet, nft.owner?.wallet)) {
     // NFT owner is already set to the right value in Firestore, return it
     return nft as Nft
@@ -50,7 +50,7 @@ export async function updateNftOwner(args: WithLoggerType<UpdateNftOwnerArgs>): 
       removeNftOwner,
       andThen(
         tap((nft) => {
-          logger?.info({ nft }, 'removed NFT owner')
+          info({ nft }, 'removed NFT owner')
         })
       )
     )(nft)
@@ -58,7 +58,7 @@ export async function updateNftOwner(args: WithLoggerType<UpdateNftOwnerArgs>): 
   const user = await pipe(
     getUserByWallet,
     otherwise((err) => {
-      logger?.error({ err, wallet }, 'could not get wallet owner')
+      error({ err, wallet }, 'could not get wallet owner')
       return undefined
     })
   )(wallet)
@@ -67,7 +67,7 @@ export async function updateNftOwner(args: WithLoggerType<UpdateNftOwnerArgs>): 
       removeNftOwner,
       andThen(
         tap((nft) => {
-          logger?.info({ nft }, 'removed NFT owner')
+          info({ nft }, 'removed NFT owner')
         })
       )
     )(nft)
@@ -77,7 +77,7 @@ export async function updateNftOwner(args: WithLoggerType<UpdateNftOwnerArgs>): 
       setNftOwner,
       andThen(
         tap((nft) => {
-          logger?.info({ nft }, 'updated NFT owner')
+          info({ nft }, 'updated NFT owner')
         })
       )
     )({ nft, owner })

@@ -1,9 +1,9 @@
+import { Chain } from '@echo/model/constants/chain'
 import { TokenType } from '@echo/model/constants/token-type'
-import type { Collection } from '@echo/model/types/collection/collection'
-import type { Wallet } from '@echo/model/types/wallet'
+import type { Collection } from '@echo/model/types/collection'
+import type { Contract } from '@echo/model/types/contract'
 import { collectionResponseMock } from '@echo/nft-scan/mocks/collection-response-mock'
 import { collectionResponseSchema } from '@echo/nft-scan/validators/collection-response-schema'
-import { Chain } from '@echo/utils/constants/chain'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, pipe } from 'ramda'
 
@@ -12,7 +12,7 @@ describe('validators - collectionResponseSchema', () => {
     contract: {
       address: '0xcfc4c2b14af5b1f8ed97e1717b009dca461d8461'.toLowerCase(),
       chain: Chain.Blast
-    } as Wallet,
+    } as Contract,
     name: 'BACGenesis',
     slug: 'bacgenesis',
     totalSupply: 3000,
@@ -21,7 +21,6 @@ describe('validators - collectionResponseSchema', () => {
     websiteUrl: 'https://bacgame.io/',
     description:
       'Blast Auto Club, the first Web3 game built on Blast blockchain. BAC is a\nlight educational, HTML5 racing club game. BAC(Blast Auto Club) is the\n1st game of a series of Web3 casual games on Blast. BAC use a team\nbattler combat model called “Group to Earn”, which is the most unique\nfeature of the game.',
-    bannerUrl: undefined,
     twitterUsername: 'BAC_Web3',
     type: TokenType.Erc721,
     verified: false

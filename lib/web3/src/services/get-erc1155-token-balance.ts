@@ -1,11 +1,12 @@
+import type { Contract } from '@echo/model/types/contract'
 import type { Wallet } from '@echo/model/types/wallet'
-import { getClientForChain } from '@echo/web3/helpers/get-client-for-chain'
+import { getClient } from '@echo/web3/helpers/get-client'
 import { backOff } from 'exponential-backoff'
 import { erc20Abi } from 'viem'
 import { readContract } from 'viem/actions'
 
 interface GetErc1155TokenBalanceArgs {
-  contract: Wallet
+  contract: Contract
   wallet: Wallet
 }
 
@@ -14,7 +15,7 @@ export async function getErc1155TokenBalance(args: GetErc1155TokenBalanceArgs): 
     contract,
     wallet: { address, chain }
   } = args
-  const client = await getClientForChain(chain)
+  const client = await getClient(chain)
 
   const balance = await backOff(
     () =>

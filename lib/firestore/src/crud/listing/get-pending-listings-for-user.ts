@@ -5,12 +5,13 @@ import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import type { ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
 import { nftsCollectionSlug } from '@echo/model/helpers/nft/nfts-collection-slug'
-import { type Listing } from '@echo/model/types/listing/listing'
-import type { Nft } from '@echo/model/types/nft/nft'
+import { type Listing } from '@echo/model/types/listing'
+import type { Nft } from '@echo/model/types/nft'
+import type { Username } from '@echo/model/types/username'
 import type { CollectionReference, Query } from 'firebase-admin/firestore'
 import { eqProps, isEmpty, juxt, map, partial, partialRight, pipe, splitEvery } from 'ramda'
 
-export async function getPendingListingsForUser(username: string): Promise<Listing[]> {
+export async function getPendingListingsForUser(username: Username): Promise<Listing[]> {
   const nfts = await getNftsForOwner(username)
   if (isEmpty(nfts)) {
     return []

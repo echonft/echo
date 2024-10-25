@@ -1,75 +1,64 @@
-import type { Collection } from '@echo/model/types/collection/collection'
+import type { Chain } from '@echo/model/constants/chain'
+import type { Collection } from '@echo/model/types/collection'
+import { evmAddressSchema } from '@echo/model/validators/evm-address-schema'
 import { slugSchema } from '@echo/model/validators/slug-schema'
 import { emptyStringToUndefined } from '@echo/opensea/helpers/empty-string-to-undefined'
+import { warn } from '@echo/opensea/helpers/logger'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
-import type { Chain } from '@echo/utils/constants/chain'
-import type { Logger } from '@echo/utils/types/logger'
-import type { Nullable } from '@echo/utils/types/nullable'
-import { evmAddressSchema } from '@echo/utils/validators/evm-address-schema'
-import { always, applySpec, assoc, chain, F, find, ifElse, isEmpty, isNil, pipe, prop, propEq } from 'ramda'
+import { always, applySpec, assoc, F, find, ifElse, isEmpty, isNil, pipe, prop, propEq } from 'ramda'
 import { boolean, nativeEnum, number, object, string } from 'zod'
-
-type CollectionContract = ReturnType<typeof collectionContractSchema.parse>
-
-interface CollectionResponseSchemaArgs {
-  chain?: Chain
-  logger?: Nullable<Logger>
-}
 
 export const collectionContractSchema = object({
   address: evmAddressSchema,
-  chain: string()
-})
-export function collectionResponseSchema(args?: CollectionResponseSchemaArgs) {
-  const schema = object({
+  chain: string().readonly()
+}).readonly()
+
+export function collectionResponseSchema(chain: Chain) {
+  return object({
     collection: slugSchema,
-    name: string(),
-    description: string().nullable().optional().transform(emptyStringToUndefined),
+    name: string().readonly(),
+    description: string().nullable().optional().transform(emptyStringToUndefined).readonly(),
     image_url: string()
       .or(string().url())
       .nullable()
       .optional()
-      .transform(pipe(emptyStringToUndefined, removeQueryFromUrl)),
+      .transform(pipe(emptyStringToUndefined, removeQueryFromUrl))
+      .readonly(),
     banner_image_url: string()
       .or(string().url())
       .nullable()
       .optional()
-      .transform(pipe(emptyStringToUndefined, removeQueryFromUrl)),
-    owner: string(),
+      .transform(pipe(emptyStringToUndefined, removeQueryFromUrl))
+      .readonly(),
+    owner: string().readonly(),
     safelist_status: nativeEnum({
       notRequested: 'not_requested',
       requested: 'requested',
       approved: 'approved',
       verified: 'verified',
       disabledTopTrending: 'disabled_top_trending'
-    }),
-    category: string(),
-    is_disabled: boolean(),
-    is_nsfw: boolean(),
-    opensea_url: string().url(),
-    project_url: string().or(string().url()).nullable().optional().transform(emptyStringToUndefined),
-    discord_url: string().or(string().url()).nullable().optional().transform(emptyStringToUndefined),
-    twitter_username: string().nullable().optional().transform(emptyStringToUndefined),
-    instagram_username: string().nullable().optional().transform(emptyStringToUndefined),
-    contracts: collectionContractSchema.array(),
-    total_supply: number().nullable().optional()
+    }).readonly(),
+    category: string().readonly(),
+    is_disabled: boolean().readonly(),
+    is_nsfw: boolean().readonly(),
+    opensea_url: string().url().readonly(),
+    project_url: string().or(string().url()).nullable().optional().transform(emptyStringToUndefined).readonly(),
+    discord_url: string().or(string().url()).nullable().optional().transform(emptyStringToUndefined).readonly(),
+    twitter_username: string().nullable().optional().transform(emptyStringToUndefined).readonly(),
+    instagram_username: string().nullable().optional().transform(emptyStringToUndefined).readonly(),
+    contracts: collectionContractSchema.array().readonly(),
+    total_supply: number().nullable().optional().readonly()
   })
-
-  function transform(args?: CollectionResponseSchemaArgs) {
-    return function (response: typeof schema._output) {
-      const contract =
-        isNil(args) || isNil(args.chain)
-          ? undefined
-          : pipe<[typeof schema._output], CollectionContract[], CollectionContract | undefined>(
-              prop('contracts'),
-              ifElse(isEmpty, always(undefined), find<CollectionContract>(propEq(args.chain as string, 'chain')))
-            )(response)
-      if (!isNil(args?.chain) && isNil(contract)) {
-        args.logger?.info({ schema: collectionResponseSchema.name, response, chain }, 'no contract found for chain')
+    .transform((response) => {
+      const contract = pipe(
+        prop('contracts'),
+        ifElse(isEmpty, always(undefined), find(propEq(chain, 'chain')))
+      )(response)
+      if (isNil(contract)) {
+        warn({ response, chain }, 'no contract found for chain')
         return undefined
       }
       return applySpec<Omit<Collection, 'type'>>({
-        bannerUrl: prop('banner_image_url'),
         contract: prop('contract'),
         description: prop('description'),
         discordUrl: prop('discord_url'),
@@ -79,7 +68,6 @@ export function collectionResponseSchema(args?: CollectionResponseSchemaArgs) {
         totalSupply: prop('total_supply'),
         verified: F
       })(assoc('contract', contract, response))
-    }
-  }
-  return schema.transform(transform(args))
+    })
+    .readonly()
 }

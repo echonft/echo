@@ -1,7 +1,7 @@
 import { OfferThreadState } from '@echo/firestore/constants/offer-thread-state'
 import { getOfferThreadByOfferId } from '@echo/firestore/crud/offer-thread/get-offer-thread-by-offer-id'
+import { offerMockToJohnnycageId } from '@echo/firestore/mocks/db-model/offer-document-data-mock'
 import type { OfferThreadDocumentData } from '@echo/firestore/types/model/offer-thread-document-data'
-import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { addOfferThread } from '@echo/test/firestore/crud/offer-thread/add-offer-thread'
 import { deleteOfferThread } from '@echo/test/firestore/crud/offer-thread/delete-offer-thread'
 import type { Nullable } from '@echo/utils/types/nullable'

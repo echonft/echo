@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getNftMock } from '@echo/model/mocks/nft/get-nft-mock'
+import { nftMockSpiral1 } from '@echo/model/mocks/nft-mock'
 import { NftCard as Component } from '@echo/ui/components/nft/card/nft-card'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { type FunctionComponent } from 'react'
@@ -45,7 +45,7 @@ export const Default: StoryObj<ComponentType> = {
   render: ({ hideOwner, hideOpenSeaLink, scaleDisabled }) => {
     return (
       <Component
-        nft={getNftMock()}
+        nft={nftMockSpiral1}
         options={{
           owner: {
             hide: hideOwner

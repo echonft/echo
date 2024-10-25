@@ -1,5 +1,5 @@
 import { eqUser } from '@echo/model/helpers/user/eq-user'
-import { getUserMockByUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
+import { getUserMockByUsername, userMockJohnnyUsername } from '@echo/model/mocks/user-mock'
 import { describe, expect, test } from '@jest/globals'
 import { assoc, assocPath, dissoc } from 'ramda'
 

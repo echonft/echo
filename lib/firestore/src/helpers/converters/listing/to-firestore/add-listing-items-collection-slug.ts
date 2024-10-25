@@ -1,6 +1,6 @@
 import { itemsCollectionArrayIndexer } from '@echo/firestore/array-indexers/item/items-collection-array-indexer'
 import { listingItems } from '@echo/model/helpers/listing/listing-items'
-import type { Listing } from '@echo/model/types/listing/listing'
+import type { Listing } from '@echo/model/types/listing'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { assoc, has, pipe, uniq } from 'ramda'
 

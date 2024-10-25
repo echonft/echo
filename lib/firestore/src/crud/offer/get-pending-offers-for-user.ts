@@ -3,11 +3,12 @@ import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { queryWhereFilter } from '@echo/firestore/helpers/crud/query/query-where-filter'
-import { type Offer } from '@echo/model/types/offer/offer'
+import { type Offer } from '@echo/model/types/offer'
+import type { Username } from '@echo/model/types/username'
 import { Filter } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
-export function getPendingOffersForUser(username: string): Promise<Offer[]> {
+export function getPendingOffersForUser(username: Username): Promise<Offer[]> {
   return pipe(
     getOffersCollectionReference,
     queryWhereFilter(

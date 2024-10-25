@@ -16,7 +16,7 @@ export async function addSwapPost(data: SwapPostDocumentData): Promise<NewDocume
   if (!isNil(swapPost)) {
     return Promise.reject(Error(SwapError.PostExists))
   }
-  const id = await setReference<SwapPostDocumentData, SwapPostDocumentData>({
+  const id = await setReference({
     collectionReference: getSwapPostsCollectionReference(),
     data
   })

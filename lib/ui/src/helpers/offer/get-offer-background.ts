@@ -1,4 +1,4 @@
-import type { Offer } from '@echo/model/types/offer/offer'
+import type { Offer } from '@echo/model/types/offer'
 import { Background } from '@echo/ui/constants/background'
 import { getBackgroundGradientFromColor } from '@echo/ui/helpers/get-background-gradient-from-color'
 import { getOfferBackgroundColor } from '@echo/ui/helpers/offer/get-offer-background-color'

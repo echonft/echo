@@ -1,6 +1,6 @@
 import { ExternalLink } from '@echo/ui/components/base/external-link'
 import { HomeDiscordIconSvg } from '@echo/ui/components/base/svg/home-discord-icon-svg'
-import { discordInviteLink } from '@echo/utils/constants/discord-invite-link'
+import { discordInviteLink } from '@echo/ui/constants/discord-invite-link'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'

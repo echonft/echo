@@ -1,8 +1,8 @@
 import '@echo/ui-css/index.css'
 import { metadataDescription, metadataImageUrl, metadataTitle } from '@echo/frontend/lib/constants/metadata'
+import { baseUrl } from '@echo/routing/helpers/base-url'
 import { messages } from '@echo/ui/messages/en'
 import type { WithChildrenProps } from '@echo/ui/types/props/with-children-props'
-import { getBaseUrl } from '@echo/utils/helpers/get-base-url'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { type Metadata, type Viewport } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: metadataTitle,
     description: metadataDescription,
-    url: getBaseUrl(),
+    url: baseUrl(),
     siteName: 'Echo Beta',
     images: [
       {

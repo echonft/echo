@@ -1,5 +1,5 @@
-import type { Erc20Token } from '@echo/model/types/token/erc20-token'
-import type { TokenBalance } from '@echo/model/types/token/token-balance'
+import type { Erc20Token } from '@echo/model/types/erc20-token'
+import type { TokenBalance } from '@echo/model/types/token-balance'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { backOff } from 'exponential-backoff'
 import { erc20Abi, formatUnits, type WalletClient } from 'viem'

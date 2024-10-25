@@ -1,5 +1,5 @@
 'use client'
-import type { Collection } from '@echo/model/types/collection/collection'
+import type { Collection } from '@echo/model/types/collection'
 import { CollectionSelectorInfo } from '@echo/ui/components/trade/collection-selector/collection-selector-info'
 import { CollectionSelectorInput } from '@echo/ui/components/trade/collection-selector/collection-selector-input'
 import { TokenSelectorLayout } from '@echo/ui/components/trade/token-selector/token-selector-layout'

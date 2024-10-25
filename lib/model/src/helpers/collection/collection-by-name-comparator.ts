@@ -1,4 +1,4 @@
-import type { Collection } from '@echo/model/types/collection/collection'
+import type { Collection } from '@echo/model/types/collection'
 import { stringComparator } from '@echo/utils/comparators/string-comparator'
 
 export function collectionByNameComparator<T extends Partial<Collection> & Required<Pick<Collection, 'name'>>>(

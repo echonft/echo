@@ -1,17 +1,13 @@
 // map-offer-items-to-contract-offer-items.test.ts
-import { erc721NftToItem } from '@echo/model/mappers/nft/erc721-nft-to-item'
-import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
-import { nftMockPxJohnnyId, nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
-import type { Item } from '@echo/model/types/item/item'
-import type { Erc721Nft } from '@echo/model/types/nft/erc721-nft'
+import type { Item } from '@echo/model/types/item'
 import { mapOfferItemsToContractOfferItems } from '@echo/web3/mappers/map-offer-items-to-contract-offer-items'
 import type { ContractOfferItems } from '@echo/web3/types/contract-offer-items'
 import { describe, expect, it } from '@jest/globals'
-import { type NonEmptyArray, pipe } from 'ramda'
+import { type NonEmptyArray } from 'ramda'
 
 describe('mappers - mapOfferItemsToContractOfferItems', () => {
-  const item = pipe(nftMockSpiralJohnnyId, getNftMockById as () => Erc721Nft, erc721NftToItem)()
-  const item2 = pipe(nftMockPxJohnnyId, getNftMockById as () => Erc721Nft, erc721NftToItem)()
+  // const item = pipe(nftMockSpiralJohnnyId, getNftMockById as () => Erc721Nft, erc721NftToItem)()
+  // const item2 = pipe(nftMockPxJohnnyId, getNftMockById as () => Erc721Nft, erc721NftToItem)()
   const singleItem: NonEmptyArray<Item> = [item]
   const multipleItems: NonEmptyArray<Item> = [item, item2]
   it('single item should map properly', () => {

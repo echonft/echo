@@ -1,4 +1,4 @@
-import type { PropsWithAuthUser } from '@echo/auth/types/props-with-auth-user'
+import type { User } from '@echo/auth/types/user'
 import { getListingsForCreator } from '@echo/firestore/crud/listing/get-listings-for-creator'
 import { getPendingListingsForUser } from '@echo/firestore/crud/listing/get-pending-listings-for-user'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
@@ -7,10 +7,9 @@ import { getSwapsForUser } from '@echo/firestore/crud/swap/get-swaps-for-user'
 import { getUserProfile } from '@echo/firestore/crud/user/get-user-profile'
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
-import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
-import { pathProvider } from '@echo/routing/path-provider'
+import type { Slug } from '@echo/model/types/slug'
+import { pathProvider } from '@echo/routing/path/path-provider'
 import { getSelectionFromSearchParams } from '@echo/routing/search-params/get-selection-from-search-params'
-import type { SelectionSearchParams } from '@echo/routing/types/search-params/selection-search-params'
 import { NavigationPageLayout } from '@echo/ui/components/base/layout/navigation-page-layout'
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
@@ -21,7 +20,16 @@ import { ProfileTabs } from '@echo/ui/pages/profile/profile-tabs'
 import { redirect } from 'next/navigation'
 import { always, andThen, isNil, map, otherwise, pipe, prop } from 'ramda'
 
-async function render({ searchParams, user }: PropsWithAuthUser<WithSearchParamsProps<SelectionSearchParams>>) {
+interface Props {
+  searchParams: {
+    offer?: Slug
+    listing?: Slug
+    swap?: Slug
+  }
+  user: User
+}
+
+async function render({ searchParams, user }: Props) {
   const profile = await pipe(getUserProfile, otherwise(pipe(captureAndLogError, always(undefined))))(user)
   if (isNil(profile)) {
     redirect(pathProvider.base.home.get())

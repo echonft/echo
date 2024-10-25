@@ -1,4 +1,4 @@
-import type { User } from '@echo/model/types/user/user'
+import type { User } from '@echo/model/types/user'
 import { stringComparator } from '@echo/utils/comparators/string-comparator'
 
 export function userByDiscordUsernameComparator<

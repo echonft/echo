@@ -1,5 +1,5 @@
-import type { Listing } from '@echo/model/types/listing/listing'
-import { pathProvider } from '@echo/routing/path-provider'
+import type { Listing } from '@echo/model/types/listing'
+import { pathProvider } from '@echo/routing/path/path-provider'
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 import i18next from 'i18next'
 

@@ -1,11 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getAllNftMocks } from '@echo/model/mocks/nft/get-all-nft-mocks'
-import { getNftMock } from '@echo/model/mocks/nft/get-nft-mock'
-import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
-import { getNftMocksByUsername } from '@echo/model/mocks/nft/get-nft-mocks-by-username'
-import { nftMockPxJohnnyId } from '@echo/model/mocks/nft/nft-mock'
-import { userMockCrewUsername } from '@echo/model/mocks/user/user-mock'
+import { nftMockPx1, nftMocks, nftMocksCrew, nftMockSpiral1 } from '@echo/model/mocks/nft-mock'
 import { CreateTradeBottomBar as Component } from '@echo/ui/components/trade/create-trade-bottom-bar'
 import type { Meta, StoryObj } from '@storybook/react'
 import { reverse } from 'ramda'
@@ -15,7 +10,7 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   args: {
     loading: false,
-    items: getNftMocksByUsername(userMockCrewUsername())
+    items: nftMocksCrew
   },
   argTypes: {
     loading: { control: 'boolean' },
@@ -56,18 +51,18 @@ export const NoItems: StoryObj<typeof Component> = {
 
 export const SingleItem: StoryObj<typeof Component> = {
   args: {
-    items: [getNftMock()]
+    items: [nftMockSpiral1]
   }
 }
 
 export const SingleCounterpartyItems: StoryObj<typeof Component> = {
   args: {
-    counterpartyItems: [getNftMockById(nftMockPxJohnnyId())]
+    counterpartyItems: [nftMockPx1]
   }
 }
 export const MultipleCounterpartyItems: StoryObj<typeof Component> = {
   args: {
-    counterpartyItems: reverse(getAllNftMocks())
+    counterpartyItems: reverse(nftMocks)
   }
 }
 

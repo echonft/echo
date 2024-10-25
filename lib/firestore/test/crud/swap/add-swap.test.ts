@@ -1,16 +1,16 @@
 import { addSwap } from '@echo/firestore/crud/swap/add-swap'
 import { getSwap } from '@echo/firestore/crud/swap/get-swap'
+import { offerMockToJohnnycageId } from '@echo/firestore/mocks/db-model/offer-document-data-mock'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { SwapError } from '@echo/model/constants/errors/swap-error'
-import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
-import { swapMock } from '@echo/model/mocks/swap/swap-mock'
+import { swapMock } from '@echo/model/mocks/swap-mock'
 import { deleteSwap } from '@echo/test/firestore/crud/swap/delete-swap'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, dissoc, isNil, omit, pipe } from 'ramda'
 
 describe('CRUD - swap - addSwap', () => {
-  const data = pipe(swapMock, dissoc('slug'), assoc('offerId', offerMockToJohnnycageId()))()
+  const data = pipe(dissoc('slug'), assoc('offerId', offerMockToJohnnycageId()))(swapMock)
   let swapId: Nullable<string>
 
   beforeEach(() => {

@@ -1,7 +1,5 @@
-import { Response } from 'next/dist/compiled/@edge-runtime/primitives'
 import { andThen, pipe } from 'ramda'
-import { Schema } from 'zod'
-import type { ZodTypeDef } from 'zod/lib/types'
+import { Schema, type ZodTypeDef } from 'zod'
 
 export function parseResponse<Output = unknown, Def extends ZodTypeDef = ZodTypeDef, Input = Output>(
   schema: Schema<Output, Def, Input>

@@ -3,7 +3,7 @@ import { setReference } from '@echo/firestore/helpers/crud/reference/set-referen
 import type { ListingPostDocumentData } from '@echo/firestore/types/model/listing-post-document-data'
 
 export function addListingPost(data: ListingPostDocumentData): Promise<string> {
-  return setReference<ListingPostDocumentData, ListingPostDocumentData>({
+  return setReference({
     collectionReference: getListingPostsCollectionReference(),
     data
   })

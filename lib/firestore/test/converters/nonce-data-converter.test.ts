@@ -1,6 +1,6 @@
 import { nonceDataConverter } from '@echo/firestore/converters/nonce-data-converter'
-import type { Nonce } from '@echo/firestore/types/model/nonce'
 import type { NonceDocumentData } from '@echo/firestore/types/model/nonce-document-data'
+import type { Nonce } from '@echo/model/types/nonce'
 import { futureDate } from '@echo/utils/helpers/future-date'
 import { pastDate } from '@echo/utils/helpers/past-date'
 import { describe, expect, it } from '@jest/globals'

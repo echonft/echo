@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import type { Wallet } from '@echo/model/types/wallet'
+import type { Contract } from '@echo/model/types/contract'
 import { fetchCollectionCommand } from '@echo/tasks/commands/fetch-collection-command'
 import { fetchNftCommand } from '@echo/tasks/commands/fetch-nft-command'
 import { fetchNftsForWalletCommand } from '@echo/tasks/commands/fetch-nfts-for-wallet-command'
@@ -10,7 +10,7 @@ import { updateUserNftsCommand } from '@echo/tasks/commands/update-user-nfts-com
 import { updateUsersNftsCommand } from '@echo/tasks/commands/update-users-nfts-command'
 import { updateWalletNftsCommand } from '@echo/tasks/commands/update-wallet-nfts-command'
 import { stringComparator } from '@echo/utils/comparators/string-comparator'
-import { Chain } from '@echo/utils/constants/chain'
+import { Chain } from '@echo/model/constants/chain'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { formatWalletAddress } from '@echo/web3/utils/format-wallet-address'
 import { isAddress } from '@echo/web3/utils/is-address'
@@ -40,7 +40,7 @@ await yargs(hideBin(process.argv))
         choices: pipe(values, sort(stringComparator), map(objOf('value')))(Chain),
         default: Chain.Ethereum
       })
-      const contract: Wallet = applySpec<Wallet>({
+      const contract: Contract = applySpec<Contract>({
         address: pipe(formatWalletAddress, toLower<HexString>),
         chain: prop('chain')
       })({ address, chain })
@@ -70,7 +70,7 @@ await yargs(hideBin(process.argv))
       const tokenId = await input({
         message: 'Token ID:'
       })
-      const contract: Wallet = applySpec<Wallet>({
+      const contract: Contract = applySpec<Contract>({
         address: pipe(formatWalletAddress, toLower<HexString>),
         chain: prop('chain')
       })({ address, chain })
@@ -97,7 +97,7 @@ await yargs(hideBin(process.argv))
         choices: pipe(values, sort(stringComparator), map(objOf('value')))(Chain),
         default: Chain.Ethereum
       })
-      const contract: Wallet = applySpec<Wallet>({
+      const contract: Contract = applySpec<Contract>({
         address: pipe(formatWalletAddress, toLower<HexString>),
         chain: prop('chain')
       })({ address, chain })
@@ -124,7 +124,7 @@ await yargs(hideBin(process.argv))
         choices: pipe(values, sort(stringComparator), map(objOf('value')))(Chain),
         default: Chain.Ethereum
       })
-      const contract: Wallet = applySpec<Wallet>({
+      const contract: Contract = applySpec<Contract>({
         address: pipe(formatWalletAddress, toLower<HexString>),
         chain: prop('chain')
       })({ address, chain })
@@ -163,7 +163,7 @@ await yargs(hideBin(process.argv))
         choices: pipe(values, sort(stringComparator), map(objOf('value')))(Chain),
         default: Chain.Ethereum
       })
-      const wallet: Wallet = applySpec<Wallet>({
+      const wallet: Contract = applySpec<Contract>({
         address: pipe(formatWalletAddress, toLower<HexString>),
         chain: prop('chain')
       })({ address, chain })

@@ -1,5 +1,5 @@
 import { getAllUsers } from '@echo/firestore/crud/user/get-all-users'
-import { getAllUserDocumentDataMocks } from '@echo/firestore/mocks/user/get-all-user-document-data-mocks'
+import { getAllUserDocumentDataMocks } from '@echo/firestore/mocks/db-model/user/get-all-user-document-data-mocks'
 import { eqList } from '@echo/utils/fp/eq-list'
 import { describe, expect, it } from '@jest/globals'
 

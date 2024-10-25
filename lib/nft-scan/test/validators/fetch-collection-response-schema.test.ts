@@ -1,7 +1,7 @@
 import { collectionResponseMock } from '@echo/nft-scan/mocks/collection-response-mock'
 import { collectionResponseSchema } from '@echo/nft-scan/validators/collection-response-schema'
 import { fetchCollectionResponseSchema } from '@echo/nft-scan/validators/fetch-collection-response-schema'
-import { Chain } from '@echo/utils/constants/chain'
+import { Chain } from '@echo/model/constants/chain'
 import { describe, expect, it } from '@jest/globals'
 
 describe('validators - fetchCollectionResponseSchema', () => {

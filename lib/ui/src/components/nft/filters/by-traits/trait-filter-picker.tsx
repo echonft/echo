@@ -1,5 +1,5 @@
 'use client'
-import { eqWithId } from '@echo/model/helpers/eq-with-id'
+import { eqFilter } from '@echo/model/helpers/filter/eq-filter'
 import { TraitFilterButton } from '@echo/ui/components/nft/filters/by-traits/trait-filter-button'
 import { NftFilter } from '@echo/ui/components/nft/filters/nft-filter'
 import { type WithCollapsibleProps } from '@echo/ui/types/props/with-collapsible-props'
@@ -41,7 +41,7 @@ export const TraitFilterPicker: FunctionComponent<Props> = ({
             <NftFilter
               key={filter.id}
               filter={filter}
-              selected={isInWith(selection, eqWithId, filter)}
+              selected={isInWith(selection, eqFilter, filter)}
               onToggleSelection={onToggleSelection}
             />
           ))}

@@ -1,15 +1,15 @@
 import { NotFoundError } from '@echo/backend/errors/not-found-error'
-import type { EchoEventHandlerArgs } from '@echo/backend/request-handlers/webhook/event-handlers/echo-event-handler'
+import { info } from '@echo/backend/helpers/logger'
 import { getOfferSnapshotByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
 import { addSwap } from '@echo/firestore/crud/swap/add-swap'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
-import type { Offer } from '@echo/model/types/offer/offer'
-import type { Swap } from '@echo/model/types/swap/swap'
+import type { Offer } from '@echo/model/types/offer'
+import type { Swap } from '@echo/model/types/swap'
+import type { EchoEvent } from '@echo/web3/types/echo-event'
 import { assoc, isNil, pick, pipe } from 'ramda'
 
-export async function offerExecutedEventHandler(args: EchoEventHandlerArgs) {
-  const { logger, event } = args
+export async function offerExecutedEventHandler(event: EchoEvent) {
   const { offerId, transactionHash } = event
   const offerSnapshot = await getOfferSnapshotByIdContract(offerId)
   if (isNil(offerSnapshot)) {
@@ -28,5 +28,5 @@ export async function offerExecutedEventHandler(args: EchoEventHandlerArgs) {
     assoc('offerId', offerSnapshot.id),
     addSwap
   )(offer)
-  logger?.info({ offer: offerSnapshot }, 'completed offer')
+  info({ offer: offerSnapshot }, 'completed offer')
 }

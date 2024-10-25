@@ -5,13 +5,17 @@ import { toNextReponse } from '@echo/backend/request-handlers/to-next-reponse'
 import type { AuthRequestHandlerArgsWithParams } from '@echo/backend/types/auth-request-handler'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { rejectOffer } from '@echo/firestore/crud/offer/reject-offer'
-import type { WithSlug } from '@echo/model/types/with-slug'
+import type { Slug } from '@echo/model/types/slug'
 import { andThen, isNil, objOf, pipe } from 'ramda'
+
+interface Params {
+  slug: Slug
+}
 
 export async function rejectOfferRequestHandler({
   user: { username },
   params: { slug }
-}: AuthRequestHandlerArgsWithParams<WithSlug>) {
+}: AuthRequestHandlerArgsWithParams<Params>) {
   const offer = await getOffer(slug)
   if (isNil(offer)) {
     return Promise.reject(new NotFoundError())

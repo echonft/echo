@@ -1,9 +1,10 @@
 'use client'
 
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { ImagePlaceholder } from '@echo/ui/components/base/image-placeholder'
 import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
 import { PictureSize } from '@echo/ui/constants/picture-size'
+import { nftLabel } from '@echo/ui/helpers/nft/nft-label'
 import { clsx } from 'clsx'
 import { type FunctionComponent, useState } from 'react'
 
@@ -23,7 +24,7 @@ export const SelectableNftThumbnailImage: FunctionComponent<Props> = ({ nft, onL
         className={clsx('h-32', 'w-32', 'rounded-2xl', 'min-w-0', 'flex', 'flex-col', 'justify-center', 'items-center')}
       >
         <p className={clsx('prose-label-xs', 'text-white', 'truncate')}>{nft.collection.name}</p>
-        <p className={clsx('prose-label-xs-light', 'text-white/70', 'truncate')}>{nft.tokenIdLabel}</p>
+        <p className={clsx('prose-label-xs-light', 'text-white/70', 'truncate')}>{nftLabel(nft)}</p>
       </div>
     )
   }

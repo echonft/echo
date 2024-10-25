@@ -1,13 +1,13 @@
 import { BadRequestError } from '@echo/backend/errors/bad-request-error'
 import { NotFoundError } from '@echo/backend/errors/not-found-error'
-import type { EchoEventHandlerArgs } from '@echo/backend/request-handlers/webhook/event-handlers/echo-event-handler'
+import { info } from '@echo/backend/helpers/logger'
 import { cancelOffer } from '@echo/firestore/crud/offer/cancel-offer'
 import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
+import type { EchoEvent } from '@echo/web3/types/echo-event'
 import { isNil } from 'ramda'
 
-export async function offerCancelledEventHandler(args: EchoEventHandlerArgs) {
-  const { logger, event } = args
+export async function offerCancelledEventHandler(event: EchoEvent) {
   const { offerId } = event
   const offer = await getOfferByIdContract(offerId)
   if (isNil(offer)) {
@@ -22,5 +22,5 @@ export async function offerCancelledEventHandler(args: EchoEventHandlerArgs) {
     )
   }
   await cancelOffer(offer.slug)
-  logger?.info({ offer }, 'cancelled offer')
+  info({ offer }, 'cancelled offer')
 }

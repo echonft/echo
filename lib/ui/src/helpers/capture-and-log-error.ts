@@ -1,16 +1,17 @@
 import { captureError } from '@echo/ui/helpers/capture-error'
+import type { Logger } from '@echo/utils/types/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
-import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { type SeverityLevel } from '@sentry/nextjs'
 import { assoc, isNil } from 'ramda'
 
 interface Options {
   message?: string
+  logger?: Logger
   logObject?: Record<string, unknown>
   severity?: Nullable<SeverityLevel>
 }
 
-export function captureAndLogError(err: unknown, options?: WithLoggerType<Options>) {
+export function captureAndLogError(err: unknown, options?: Options) {
   const logger = options?.logger
   captureError(err, options?.severity)
   if (isNil(options)) {

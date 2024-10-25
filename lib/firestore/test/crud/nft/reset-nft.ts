@@ -1,9 +1,10 @@
 import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
 import { getNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-nfts-collection-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
-import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
-import { type NftIndex } from '@echo/model/types/nft/nft'
-import { isNil } from 'ramda'
+import { eqNft } from '@echo/model/helpers/nft/eq-nft'
+import { nftMocks } from '@echo/model/mocks/nft-mock'
+import { type NftIndex } from '@echo/model/types/nft'
+import { find, isNil } from 'ramda'
 
 export async function resetNft(nft: NftIndex): Promise<void> {
   const snapshot = await getNftSnapshot(nft)
@@ -11,7 +12,7 @@ export async function resetNft(nft: NftIndex): Promise<void> {
     await updateReference({
       collectionReference: getNftsCollectionReference(),
       id: snapshot.id,
-      data: getNftMockById(snapshot.id)
+      data: find(eqNft(nft), nftMocks)
     })
   }
 }

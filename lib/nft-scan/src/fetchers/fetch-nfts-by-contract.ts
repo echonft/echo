@@ -1,31 +1,32 @@
+import { FetchError } from '@echo/nft-scan/constants/errors/fetch-error'
 import { fetchInit } from '@echo/nft-scan/helpers/fetch-init'
+import { error } from '@echo/nft-scan/helpers/logger'
 import { nftScanApiPathProvider } from '@echo/nft-scan/services/routing/nft-scan-api-path-provider'
 import type { FetchNftsByContractRequest } from '@echo/nft-scan/types/request/fetch-nfts-by-contract-request'
-import {
-  type FetchNftsByAccountResponseSchemaReturn,
-  fetchNftsResponseSchema
-} from '@echo/nft-scan/validators/fetch-nfts-response-schema'
-import type { WithLoggerType } from '@echo/utils/types/with-logger'
+import type { FetchNftsResponse } from '@echo/nft-scan/types/response/fetch-nfts-response'
+import { fetchNftsResponseSchema } from '@echo/nft-scan/validators/fetch-nfts-response-schema'
 import { parseResponse } from '@echo/utils/validators/parse-response'
-import { omit, pick } from 'ramda'
+import { pick } from 'ramda'
 
-export async function fetchNftsByContract(
-  args: WithLoggerType<FetchNftsByContractRequest>
-): Promise<Promise<FetchNftsByAccountResponseSchemaReturn>> {
-  const { fetch, contract, logger } = args
-  const url = nftScanApiPathProvider.nfts.fetchByAccount.getUrl(contract, omit(['contract'], args))
-  const init = await fetchInit(logger)
+export async function fetchNftsByContract({
+  contract,
+  showAttribute,
+  next,
+  limit
+}: FetchNftsByContractRequest): Promise<Promise<FetchNftsResponse>> {
+  const url = nftScanApiPathProvider.nfts.fetchByAccount.getUrl(contract, { showAttribute, next, limit })
+  const init = await fetchInit()
   const response = await fetch(url, init)
   if (!response.ok) {
-    logger?.error(
+    error(
       {
         contract,
         url,
         response: pick(['status'], response)
       },
-      'error fetching NFTs by contract'
+      FetchError.Nfts
     )
-    return Promise.reject(Error('error fetching NFTs by contract'))
+    return Promise.reject(Error(FetchError.Nfts))
   }
   return parseResponse(fetchNftsResponseSchema(contract.chain))(response)
 }

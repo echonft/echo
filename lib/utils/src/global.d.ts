@@ -1,5 +1,6 @@
 import type { Awaitable } from '@echo/utils/types/awaitable'
 import 'ramda'
+import type { NonEmptyArray } from 'ramda'
 
 declare module 'ramda' {
   export function otherwise<T>(onError: (error: unknown) => Awaitable<T | void>): <T>(promise: Promise<T>) => Promise<T>
@@ -65,6 +66,9 @@ declare module 'ramda' {
     K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6],
     K8 extends keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
   >(path: [K0, K1, K2, K3, K4, K5, K6, K7, K8]): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7][K8]
+  export function take<T>(n: number): (xs: T[]) => NonEmptyArray<T>
+  export function reverse(str: string): string
+  export function reverse<T extends T[]>(list: T): T
 }
 
 export {}

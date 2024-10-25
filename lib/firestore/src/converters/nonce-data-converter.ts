@@ -1,17 +1,16 @@
-import { setExpiredProp } from '@echo/firestore/helpers/converters/nonce/from-firestore/set-expired-prop'
-import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
-import { type Nonce } from '@echo/firestore/types/model/nonce'
 import { type NonceDocumentData } from '@echo/firestore/types/model/nonce-document-data'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import { type Nonce } from '@echo/model/types/nonce'
+import { dateNumberIsPast } from '@echo/utils/helpers/date-number-is-past'
 import { QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
-import { dissoc, pipe } from 'ramda'
+import { assoc, dissoc, invoker, pipe } from 'ramda'
+
+function setExpiredProp(data: NonceDocumentData): Nonce {
+  return assoc('expired', dateNumberIsPast(data.expiresAt), data)
+}
 
 export const nonceDataConverter = {
   fromFirestore(snapshot: QueryDocumentSnapshot<NonceDocumentData, NonceDocumentData>): Nonce {
-    return pipe(
-      nonNullableReturn(getDocumentSnapshotData<NonceDocumentData, NonceDocumentData>),
-      setExpiredProp
-    )(snapshot)
+    return pipe(invoker(0, 'data'), setExpiredProp)(snapshot)
   },
   toFirestore(modelObject: WithFieldValue<Nonce>): WithFieldValue<Nonce> {
     return dissoc('expired', modelObject) as WithFieldValue<Nonce>

@@ -1,6 +1,6 @@
 'use client'
-import type { Collection } from '@echo/model/types/collection/collection'
-import type { Listing } from '@echo/model/types/listing/listing'
+import type { Collection } from '@echo/model/types/collection'
+import type { Listing } from '@echo/model/types/listing'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { QuantityPicker } from '@echo/ui/components/base/quantity-picker'
 import { SearchBox } from '@echo/ui/components/base/search/search-box'

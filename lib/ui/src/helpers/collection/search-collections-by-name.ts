@@ -1,4 +1,4 @@
-import { type Collection } from '@echo/model/types/collection/collection'
+import { type Collection } from '@echo/model/types/collection'
 import { filter, pipe, propSatisfies, test, toLower } from 'ramda'
 
 export function searchCollectionsByName(query: string, collections: Collection[]) {

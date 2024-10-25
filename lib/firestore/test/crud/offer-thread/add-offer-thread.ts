@@ -5,7 +5,7 @@ import type { OfferThreadDocumentData } from '@echo/firestore/types/model/offer-
 import { assoc } from 'ramda'
 
 export async function addOfferThread(args: Omit<OfferThreadDocumentData, 'state'>): Promise<string> {
-  return setReference<OfferThreadDocumentData, OfferThreadDocumentData>({
+  return setReference({
     collectionReference: getOfferThreadsCollectionReference(),
     data: assoc('state', OfferThreadState.Active, args)
   })

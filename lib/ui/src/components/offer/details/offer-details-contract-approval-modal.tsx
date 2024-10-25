@@ -1,7 +1,7 @@
 'use client'
 
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
-import type { Wallet } from '@echo/model/types/wallet'
+import type { Contract } from '@echo/model/types/contract'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import { OfferDetailsContractApprovalModalButton } from '@echo/ui/components/offer/details/offer-details-contract-approval-modal-button'
@@ -45,7 +45,7 @@ export const OfferDetailsContractApprovalModal: FunctionComponent<Props> = ({
   )
 
   const updateApprovalStatus = useCallback(
-    (contract: Wallet, approved: Nullable<boolean>) => {
+    (contract: Contract, approved: Nullable<boolean>) => {
       const foundApproval = find(propEq(contract, 'contract'), approvals)
       if (!isNil(foundApproval)) {
         setApprovals(

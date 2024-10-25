@@ -1,4 +1,4 @@
-import type { Listing } from '@echo/model/types/listing/listing'
+import type { Listing } from '@echo/model/types/listing'
 import { CollectionThumbnail } from '@echo/ui/components/collection/thumbnail/collection-thumbnail'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'

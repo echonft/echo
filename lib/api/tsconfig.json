@@ -18,6 +18,6 @@
       "@echo/web3-dom/*": ["../web3-dom/src/*"]
     }
   },
-  "include": ["src", "../../env.d.ts"],
+  "include": ["src", "test", "../../env.d.ts"],
   "exclude": ["node_modules"]
 }

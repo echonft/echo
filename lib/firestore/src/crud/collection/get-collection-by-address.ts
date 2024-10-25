@@ -3,23 +3,23 @@ import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/g
 import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/crud/query/get-query-unique-document-snapshot'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import type { CollectionDocumentData } from '@echo/firestore/types/model/collection-document-data'
-import type { Collection } from '@echo/model/types/collection/collection'
-import type { Wallet } from '@echo/model/types/wallet'
+import type { Collection } from '@echo/model/types/collection'
+import type { Contract } from '@echo/model/types/contract'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, pipe } from 'ramda'
 
 function getCollectionByAddressSnapshot(
-  wallet: Wallet
+  contract: Contract
 ): Promise<Nullable<QueryDocumentSnapshot<Collection, CollectionDocumentData>>> {
   return pipe(
     getCollectionsCollectionReference,
-    queryWhere('contract.address', '==', wallet.address),
-    queryWhere('contract.chain', '==', wallet.chain),
+    queryWhere('contract.address', '==', contract.address),
+    queryWhere('contract.chain', '==', contract.chain),
     getQueryUniqueDocumentSnapshot
   )()
 }
 
-export function getCollectionByAddress(wallet: Wallet): Promise<Nullable<Collection>> {
-  return pipe(getCollectionByAddressSnapshot, andThen(getDocumentSnapshotData))(wallet)
+export function getCollectionByAddress(contract: Contract): Promise<Nullable<Collection>> {
+  return pipe(getCollectionByAddressSnapshot, andThen(getDocumentSnapshotData))(contract)
 }

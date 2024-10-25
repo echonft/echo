@@ -3,8 +3,8 @@ import { getOffersCollectionReference } from '@echo/firestore/helpers/collection
 import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { queryWhereFilter } from '@echo/firestore/helpers/crud/query/query-where-filter'
-import type { NftIndex } from '@echo/model/types/nft/nft'
-import { type Offer } from '@echo/model/types/offer/offer'
+import type { NftIndex } from '@echo/model/types/nft'
+import { type Offer } from '@echo/model/types/offer'
 import { Filter } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 

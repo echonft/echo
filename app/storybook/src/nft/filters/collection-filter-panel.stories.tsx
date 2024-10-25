@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { eqWithId } from '@echo/model/helpers/eq-with-id'
-import { getAllNftMocks } from '@echo/model/mocks/nft/get-all-nft-mocks'
+import { eqFilter } from '@echo/model/helpers/filter/eq-filter'
+import { nftMocks } from '@echo/model/mocks/nft-mock'
 import { CollectionFilterPanel as Component } from '@echo/ui/components/nft/filters/by-collection/collection-filter-panel'
 import type { CollectionFilter } from '@echo/ui/types/collection-filter'
 import { type Meta, type StoryObj } from '@storybook/react'
@@ -32,12 +32,12 @@ export const Panel: StoryObj<typeof Component> = {
     const [selection, setSelection] = useState<CollectionFilter>()
     const toggleSelection = (filter: CollectionFilter) => {
       onToggleSelection?.(filter)
-      if (isNil(selection) || !eqWithId(selection, filter)) {
+      if (isNil(selection) || !eqFilter(selection, filter)) {
         setSelection(filter)
       } else {
         setSelection(undefined)
       }
     }
-    return <Component nfts={getAllNftMocks()} selection={selection} onToggleSelection={toggleSelection} />
+    return <Component nfts={nftMocks} selection={selection} onToggleSelection={toggleSelection} />
   }
 }

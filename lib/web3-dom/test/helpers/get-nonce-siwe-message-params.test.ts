@@ -1,5 +1,5 @@
 import type { Wallet } from '@echo/model/types/wallet'
-import { Chain } from '@echo/utils/constants/chain'
+import { Chain } from '@echo/model/constants/chain'
 import { getNonceSiweMessageParams } from '@echo/web3-dom/helpers/get-nonce-siwe-message-params'
 import type { SignNonceArgs } from '@echo/web3-dom/types/sign-nonce-args'
 import { formatWalletAddress } from '@echo/web3/utils/format-wallet-address'

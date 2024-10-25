@@ -3,7 +3,7 @@ import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/g
 import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/crud/query/get-query-unique-document-snapshot'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import type { SwapDocumentData } from '@echo/firestore/types/model/swap-document-data'
-import type { Swap } from '@echo/model/types/swap/swap'
+import type { Swap } from '@echo/model/types/swap'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, pipe } from 'ramda'

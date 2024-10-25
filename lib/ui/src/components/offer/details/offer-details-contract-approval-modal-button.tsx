@@ -1,5 +1,5 @@
 'use client'
-import type { Wallet } from '@echo/model/types/wallet'
+import type { Contract } from '@echo/model/types/contract'
 import { OfferDetailsApproveContractButton } from '@echo/ui/components/offer/details/offer-details-approve-contract-button'
 import type { ContractApproval } from '@echo/ui/types/contract-approval'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -10,9 +10,9 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   contract: Nullable<ContractApproval>
-  onApproved?: (contract: Wallet, approved: boolean) => void
+  onApproved?: (contract: Contract, approved: boolean) => void
   onLoading?: VoidFunction
-  onError?: (contract: Wallet) => void
+  onError?: (contract: Contract) => void
 }
 
 export const OfferDetailsContractApprovalModalButton: FunctionComponent<Props> = ({

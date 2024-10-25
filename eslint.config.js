@@ -125,6 +125,7 @@ export default tseslint.config(
     },
     rules: {
       ...jestPlugin.configs['flat/recommended'].rules,
+      'jest/expect-expect': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off'
     }
   },

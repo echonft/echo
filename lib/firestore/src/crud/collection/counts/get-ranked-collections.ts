@@ -1,7 +1,7 @@
 import { getCollectionSwapsCount } from '@echo/firestore/crud/collection/counts/get-collection-swaps-count'
 import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
-import type { Collection } from '@echo/model/types/collection/collection'
-import type { CollectionWithSwapsCount } from '@echo/model/types/collection/collection-with-swaps-count'
+import type { Collection } from '@echo/model/types/collection'
+import type { CollectionWithSwapsCount } from '@echo/model/types/collection-with-swaps-count'
 import type { CollectionWithRank } from '@echo/ui/types/collection-with-rank'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import {

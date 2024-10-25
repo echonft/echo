@@ -1,9 +1,9 @@
-import { AbstractPath } from '@echo/routing/abstract-path'
+import { AbstractPath } from '@echo/routing/path/abstract-path'
 import type { PathArgs } from '@echo/routing/types/path-args'
 import type { PathParams } from '@echo/routing/types/path-params'
 import type { QueryParams } from '@echo/routing/types/query-params/query-params'
 import type { SearchParams } from '@echo/routing/types/search-params/search-params'
-import { Chain } from '@echo/utils/constants/chain'
+import { Chain } from '@echo/model/constants/chain'
 import { compile } from 'path-to-regexp'
 import { assoc, concat, dissoc, isNil, pipe } from 'ramda'
 

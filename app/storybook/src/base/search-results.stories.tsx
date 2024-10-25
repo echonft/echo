@@ -2,13 +2,13 @@
 
 import { mapCollectionToSearchResult } from '@echo/firestore/mappers/collection/map-collection-to-search-result'
 import { mapUserToSearchResult } from '@echo/firestore/mappers/user/map-user-to-search-result'
-import { getAllUserDocumentDataMocks } from '@echo/firestore/mocks/user/get-all-user-document-data-mocks'
-import { getAllCollectionMocks } from '@echo/model/mocks/collection/get-all-collection-mocks'
-import type { SearchResult } from '@echo/model/types/search/search-result'
+import { collectionMockPx, collectionMockSpiral } from '@echo/model/mocks/collection-mock'
+import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
+import type { SearchResult } from '@echo/model/types/search-result'
 import { SearchResultsPanel } from '@echo/ui/components/base/search/search-results-panel'
 import { Combobox } from '@headlessui/react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { concat, map, pipe } from 'ramda'
+import { concat, map } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
 
 type ComponentType = FunctionComponent<{
@@ -43,14 +43,16 @@ export const Default: StoryObj<ComponentType> = {
     }
   },
   render: ({ showCategories, onSelect }) => {
+    const collections = [collectionMockPx, collectionMockSpiral]
+    const users = [userMockCrew, userMockJohnny]
     const results = useMemo(() => {
       if (showCategories) {
         return concat<SearchResult<string>, SearchResult<string>>(
-          pipe(getAllCollectionMocks, map(mapCollectionToSearchResult))(),
-          pipe(getAllUserDocumentDataMocks, map(mapUserToSearchResult))()
+          map(mapCollectionToSearchResult, collections),
+          map(mapUserToSearchResult, users)
         )
       }
-      return pipe(getAllCollectionMocks, map(mapCollectionToSearchResult))()
+      return map(mapCollectionToSearchResult, collections)
     }, [showCategories])
 
     return (

@@ -1,4 +1,4 @@
-import type { Chain } from '@echo/utils/constants/chain'
+import type { Chain } from '@echo/model/constants/chain'
 
 export interface UnformattedWallet {
   readonly address: string

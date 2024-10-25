@@ -1,4 +1,4 @@
-import { type Collection } from '@echo/model/types/collection/collection'
+import { type Collection } from '@echo/model/types/collection'
 import { RemoveIconSvg } from '@echo/ui/components/base/svg/remove-icon-svg'
 import { CollectionProfilePicture } from '@echo/ui/components/collection/profile/collection-profile-picture'
 import { CollectionThumbnailLayout } from '@echo/ui/components/collection/thumbnail/layout/collection-thumbnail-layout'

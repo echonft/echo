@@ -15,7 +15,7 @@ export async function addOfferThread(
     return Promise.reject(Error(OfferError.NotFound))
   }
   const data = assoc('state', OfferThreadState.Active, args)
-  const id = await setReference<OfferThreadDocumentData, OfferThreadDocumentData>({
+  const id = await setReference({
     collectionReference: getOfferThreadsCollectionReference(),
     data
   })

@@ -1,5 +1,5 @@
 import { ListingState } from '@echo/model/constants/listing-state'
-import type { Listing } from '@echo/model/types/listing/listing'
+import type { Listing } from '@echo/model/types/listing'
 import { TradeDetailsStateDetailsLayout } from '@echo/ui/components/trade/layout/trade-details-state-details-layout'
 import { TradeDetailsStateLayout } from '@echo/ui/components/trade/layout/trade-details-state-layout'
 import { TradeDetailsListingStateLabel } from '@echo/ui/components/trade/trade-details-listing-state-label'

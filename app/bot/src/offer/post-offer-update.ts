@@ -1,13 +1,11 @@
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import { getOfferThreadOnEchoChannel } from '@echo/bot/offer/get-offer-thread-on-echo-channel'
-import type { WithClient } from '@echo/bot/types/with-client'
 import { addOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/add-offer-update-post'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { OfferState } from '@echo/model/constants/offer-state'
-import type { Offer } from '@echo/model/types/offer/offer'
-import type { WithLogger } from '@echo/utils/types/with-logger'
-import { userMention } from 'discord.js'
+import type { Offer } from '@echo/model/types/offer'
+import { type Client, userMention } from 'discord.js'
 import i18next from 'i18next'
 import { assoc, isNil } from 'ramda'
 
@@ -36,12 +34,13 @@ async function getMessage(offer: Offer) {
   }
 }
 
-interface PostOfferStateUpdateArgs extends WithClient, WithLogger {
+interface PostOfferStateUpdateArgs {
+  client: Client
   offer: Offer
 }
 
 export async function postOfferUpdate(args: PostOfferStateUpdateArgs) {
-  const { offer, logger } = args
+  const { offer } = args
   const { offerThread, thread } = await getOfferThreadOnEchoChannel(args)
   if (!isNil(thread) && !isNil(offerThread)) {
     const content = await getMessage(offer)
@@ -49,12 +48,12 @@ export async function postOfferUpdate(args: PostOfferStateUpdateArgs) {
       components: [buildOfferLinkButton(offer)],
       content
     })
-    logger?.info({ offer, offerThread }, 'posted offer update to thread')
+    logger.info({ offer, offerThread }, 'posted offer update to thread')
     const { id: offerUpdatePostId, data: offerUpdatePostData } = await addOfferUpdatePost({
       offerId: offerThread.offerId,
       state: offer.state
     })
-    logger?.info(
+    logger.info(
       { offer, offerUpdatePost: assoc('id', offerUpdatePostId, offerUpdatePostData) },
       'added offer update post to Firestore'
     )

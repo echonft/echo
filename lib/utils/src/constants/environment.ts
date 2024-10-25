@@ -1,3 +1,11 @@
-import type { Environment } from '@echo/utils/types/environment'
+import { isNil } from 'ramda'
 
-export const environment: Environment = process.env.ENV
+export enum Environment {
+  Development = 'development',
+  Staging = 'staging',
+  Production = 'production',
+  Test = 'test',
+  Testnet = 'testnet'
+}
+
+export const environment = isNil(process.env.ENV) ? Environment.Development : (process.env.ENV as Environment)

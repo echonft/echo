@@ -1,5 +1,6 @@
 import { getLogger } from '@echo/firestore-functions/helper/get-logger'
 import { setMaxInstances } from '@echo/firestore-functions/helper/set-max-instances'
+import { walletDataConverter } from '@echo/firestore/converters/wallet-data-converter'
 import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
 import { getNftsForWallet } from '@echo/firestore/crud/nft/get-nfts-for-wallet'
 import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
@@ -32,7 +33,7 @@ export const onWalletWritten = onDocumentWritten(
           )(wallet.userId)
           if (!isNil(foundUser)) {
             try {
-              await updateNftsForWallet({ wallet, fetch, logger })
+              await updateNftsForWallet(walletDataConverter.fromDocumentData(wallet))
             } catch (err) {
               logger.error({ err, wallet }, 'error updating NFTs for wallet')
             }

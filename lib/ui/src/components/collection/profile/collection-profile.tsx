@@ -1,4 +1,4 @@
-import type { Collection } from '@echo/model/types/collection/collection'
+import type { Collection } from '@echo/model/types/collection'
 import { Profile } from '@echo/ui/components/base/profile'
 import { CollectionLinks, type CollectionLinksProps } from '@echo/ui/components/collection/profile/collection-links'
 import { CollectionProfileSupply } from '@echo/ui/components/collection/profile/collection-profile-supply'

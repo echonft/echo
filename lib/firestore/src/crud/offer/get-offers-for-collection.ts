@@ -2,7 +2,7 @@ import { getOffersCollectionReference } from '@echo/firestore/helpers/collection
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
 import { queryWhereFilter } from '@echo/firestore/helpers/crud/query/query-where-filter'
 import type { OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
-import { type Offer } from '@echo/model/types/offer/offer'
+import { type Offer } from '@echo/model/types/offer'
 import type { Slug } from '@echo/model/types/slug'
 import { Filter, type Query } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'

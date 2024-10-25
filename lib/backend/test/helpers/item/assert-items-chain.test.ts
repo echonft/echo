@@ -1,12 +1,12 @@
 import { assertItemsChain } from '@echo/backend/helpers/item/assert-items-chain'
+import { collectionMockSpiralId } from '@echo/firestore/mocks/db-model/collection-document-data-mock'
+import { Chain } from '@echo/model/constants/chain'
 import { TokenType } from '@echo/model/constants/token-type'
 import { toNftCollection } from '@echo/model/mappers/collection/to-nft-collection'
-import { collectionMockSpiralId } from '@echo/model/mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model/mocks/collection/get-collection-mock-by-id'
-import { getUserMockByUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
-import type { Erc721Item } from '@echo/model/types/item/erc721-item'
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
-import { Chain } from '@echo/utils/constants/chain'
+import { getUserMockByUsername, userMockJohnnyUsername } from '@echo/model/mocks/user-mock'
+import type { Erc721Item } from '@echo/model/types/erc721-item'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { describe, expect, test } from '@jest/globals'
 import { assocPath, dissoc, pipe } from 'ramda'
 
@@ -23,12 +23,9 @@ describe('helpers - item - assertItemsChain', () => {
       { value: 'random1', trait: 'Palette' },
       { value: '#complement', trait: 'Background' }
     ],
-    animationUrl: 'https://animation.url/',
     collection: pipe(collectionMockSpiralId, getCollectionMockById, toNftCollection)(),
-    tokenIdLabel: '#0001',
     name: 'Spiral Frequencies #1',
     owner: getUserMockByUsername(creatorUsername),
-    metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
     tokenId: 1,
     type: TokenType.Erc721
@@ -36,11 +33,8 @@ describe('helpers - item - assertItemsChain', () => {
   const erc721Item: Erc721Item = {
     token: {
       contract: erc721Nft.collection.contract,
-      animationUrl: 'https://animation.url/',
       collection: dissoc('contract', erc721Nft.collection),
-      tokenIdLabel: '#0001',
       name: 'Spiral Frequencies #1',
-      metadataUrl: 'https://metadata.url/',
       pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
       tokenId: 1,
       type: TokenType.Erc721

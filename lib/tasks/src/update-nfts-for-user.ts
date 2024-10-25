@@ -1,30 +1,24 @@
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
+import { error, info } from '@echo/tasks/helpers/logger'
 import { updateNftsForWallet } from '@echo/tasks/update-nfts-for-wallet'
-import type { WithFetch } from '@echo/utils/types/with-fetch'
-import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { otherwise, pipe } from 'ramda'
-
-interface UpdateNftsForUserArgs extends WithFetch {
-  user: UserDocumentData
-}
 
 /**
  * Updates all the NFTs of a user
- * @param args
+ * @param user
  */
-export async function updateNftsForUser(args: WithLoggerType<UpdateNftsForUserArgs>): Promise<void> {
-  const { user, fetch, logger } = args
-  logger?.info({ user }, 'updating NFTs for user')
+export async function updateNftsForUser(user: UserDocumentData): Promise<void> {
+  info({ user }, 'updating NFTs for user')
   const wallets = await pipe(
     getWalletsForUser,
     otherwise((err) => {
-      logger?.error({ err, user }, 'could not get wallets for user')
+      error({ err, user }, 'could not get wallets for user')
       return []
     })
   )(user.username)
   for (const wallet of wallets) {
-    await updateNftsForWallet({ wallet, fetch, logger })
+    await updateNftsForWallet({ wallet, logger })
   }
-  logger?.info({ user }, 'updated NFTs for user')
+  info({ user }, 'updated NFTs for user')
 }

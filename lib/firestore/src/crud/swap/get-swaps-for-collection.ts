@@ -4,7 +4,7 @@ import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
 import { queryWhereFilter } from '@echo/firestore/helpers/crud/query/query-where-filter'
 import type { SwapDocumentData } from '@echo/firestore/types/model/swap-document-data'
 import type { Slug } from '@echo/model/types/slug'
-import type { Swap } from '@echo/model/types/swap/swap'
+import type { Swap } from '@echo/model/types/swap'
 import { Filter, type Query } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 

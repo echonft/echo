@@ -1,8 +1,4 @@
-export interface UpdateUserRequest {
-  readonly tokenType: string
-  readonly accessToken: string
-  readonly expiresIn: number
-  readonly refreshToken: string
-  readonly scope: string
-  readonly expiresAt: number
-}
+import { updateUserRequestSchema } from '@echo/api/validators/update-user-request-schema'
+import { z } from 'zod'
+
+export type UpdateUserRequest = z.infer<typeof updateUserRequestSchema>

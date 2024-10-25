@@ -1,4 +1,4 @@
-import type { Nft } from '@echo/model/types/nft/nft'
+import type { Nft } from '@echo/model/types/nft'
 import type { CollectionFilter } from '@echo/ui/types/collection-filter'
 import { equals, pipe, prop, propSatisfies } from 'ramda'
 

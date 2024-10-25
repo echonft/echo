@@ -1,4 +1,4 @@
-import type { Listing } from '@echo/model/types/listing/listing'
+import type { Listing } from '@echo/model/types/listing'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import { assoc } from 'ramda'
 

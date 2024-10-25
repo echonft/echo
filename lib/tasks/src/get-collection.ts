@@ -1,10 +1,9 @@
 import { getCollectionByAddress as getCollectionByAddressFromFirestore } from '@echo/firestore/crud/collection/get-collection-by-address'
-import type { Collection } from '@echo/model/types/collection/collection'
-import type { Wallet } from '@echo/model/types/wallet'
+import type { Collection } from '@echo/model/types/collection'
+import type { Contract } from '@echo/model/types/contract'
 import { fetchCollection } from '@echo/tasks/fetch-collection'
+import { error, info } from '@echo/tasks/helpers/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
-import type { WithFetch } from '@echo/utils/types/with-fetch'
-import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { always, andThen, assoc, ifElse, isNil, objOf, otherwise, pipe } from 'ramda'
 
 interface GetCollectionReturn {
@@ -12,27 +11,21 @@ interface GetCollectionReturn {
   source: 'firestore' | 'api'
 }
 
-interface GetCollectionArgs extends WithFetch {
-  contract: Wallet
-}
-
 /**
  * Get a collection from Firestore, and if it doesn't exist, from the API
- * @param args
+ * @param contract
  */
-export async function getCollection(args: WithLoggerType<GetCollectionArgs>): Promise<GetCollectionReturn> {
-  const { contract, logger } = args
-  logger?.info({ collection: { contract } }, 'getting collection')
+export async function getCollection(contract: Contract): Promise<GetCollectionReturn> {
+  info({ collection: { contract } }, 'getting collection')
   const collection = await pipe(
     getCollectionByAddressFromFirestore,
     otherwise((err) => {
-      logger?.error({ err, collection: { contract } }, 'could not get collection from Firestore')
+      error({ err, collection: { contract } }, 'could not get collection from Firestore')
       return undefined
     })
   )(contract)
   if (isNil(collection)) {
     return pipe(
-      assoc('logger', logger),
       fetchCollection,
       andThen(
         ifElse(
@@ -48,13 +41,13 @@ export async function getCollection(args: WithLoggerType<GetCollectionArgs>): Pr
         )
       ),
       otherwise((err) => {
-        logger?.error({ err, collection: { contract } }, 'could not fetch collection')
+        error({ err, collection: { contract } }, 'could not fetch collection')
         return {
           collection: undefined,
           source: 'api'
         }
       })
-    )(args)
+    )(contract)
   }
   return { collection, source: 'firestore' }
 }

@@ -1,9 +1,9 @@
-import { apiPathProvider } from '@echo/routing/api-path-provider'
+import { baseUrl } from '@echo/routing/helpers/base-url'
+import { productionHostname } from '@echo/routing/helpers/production-hostname'
+import { apiPathProvider } from '@echo/routing/path/api-path-provider'
 import { PictureSize } from '@echo/ui/constants/picture-size'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { getBaseUrl } from '@echo/utils/helpers/get-base-url'
 import type { Nullable } from '@echo/utils/types/nullable'
-import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import type { ImageProps } from 'next/image'
 import { concat, filter, isNil, length, lte, reduce, values } from 'ramda'
 
@@ -15,13 +15,13 @@ import { concat, filter, isNil, length, lte, reduce, values } from 'ramda'
 function getCurrentHostnameSrc(src: string): string {
   const regex = /^(https?:\/\/)([^/]+)(\/.*)?$/
   const match = regex.exec(src)
-  const hostname = process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
+  const hostname = productionHostname()
   if (
     match &&
     match[2] !== hostname &&
     (match[2] === 'dev.echonft.xyz' || match[2] === 'staging.echonft.xyz' || match[2] === 'app.echonft.xyz')
   ) {
-    return src.replace(regex, `${getBaseUrl()}$3`)
+    return src.replace(regex, `${baseUrl()}$3`)
   }
   return src
 }
@@ -41,11 +41,9 @@ function getSize(width: number): Nullable<PictureSize> {
 }
 
 export function addPictureSize(
-  args: WithLoggerType<
-    Partial<Omit<ImageProps, 'loader' | 'unoptimized' | 'src' | 'overrideSrc' | 'width'>> &
-      Record<'src', Nullable<string>> &
-      Record<'width', number>
-  >
+  args: Partial<Omit<ImageProps, 'loader' | 'unoptimized' | 'src' | 'overrideSrc' | 'width'>> &
+    Record<'src', Nullable<string>> &
+    Record<'width', number>
 ): string {
   const size = getSize(args.width)
   if (isNilOrEmpty(args.src) || isNil(size)) {
@@ -58,7 +56,7 @@ export function addPictureSize(
     // update the src to the current environment
     const src = getCurrentHostnameSrc(args.src)
     // our IPFS gateway
-    if (src.startsWith(`${getBaseUrl()}/api/ipfs`)) {
+    if (src.startsWith(`${baseUrl()}/api/ipfs`)) {
       return concat(src, `?img-width=${size}`)
     }
     // NFT storage
@@ -108,7 +106,6 @@ export function addPictureSize(
     }
     return src
   } catch (err) {
-    args.logger?.error({ err })
     return args.src
   }
 }

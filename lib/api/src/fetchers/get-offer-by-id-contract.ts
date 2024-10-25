@@ -1,19 +1,23 @@
-import type { GetOfferByIdContractRequest } from '@echo/api/types/requests/get-offer-by-id-contract-request'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
-import { apiPathProvider } from '@echo/routing/api-path-provider'
+import { apiPathProvider } from '@echo/routing/path/api-path-provider'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
+import type { HexString } from '@echo/utils/types/hex-string'
 import axios, { AxiosError } from 'axios'
-import { assoc, inc, modify, pipe } from 'ramda'
+import { assoc, inc, modify, omit, pipe } from 'ramda'
 
-interface FetchOfferArgs extends GetOfferByIdContractRequest {
+interface FetchOfferArgs {
+  idContract: HexString
   retries: number
 }
 
 async function fetchOffer(args: FetchOfferArgs): Promise<OfferResponse> {
   try {
-    const response = await axios.get<OfferResponse>(apiPathProvider.offer.getByIdContract.getUrl(args), {
-      withCredentials: true
-    })
+    const response = await axios.get<OfferResponse>(
+      apiPathProvider.offer.getByIdContract.getUrl(omit(['retries'], args)),
+      {
+        withCredentials: true
+      }
+    )
     return response.data
   } catch (err) {
     const axiosError = err as AxiosError<OfferResponse>
@@ -29,6 +33,6 @@ async function fetchOffer(args: FetchOfferArgs): Promise<OfferResponse> {
   }
 }
 
-export function getOfferByIdContract(args: GetOfferByIdContractRequest) {
+export function getOfferByIdContract(args: Omit<FetchOfferArgs, 'retries'>) {
   return pipe(assoc('retries', 0), fetchOffer)(args)
 }

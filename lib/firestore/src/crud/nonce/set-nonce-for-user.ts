@@ -3,12 +3,12 @@ import { getUserSnapshotByUsername } from '@echo/firestore/crud/user/get-user-by
 import { getNoncesCollectionReference } from '@echo/firestore/helpers/collection-reference/get-nonces-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
-import type { Nonce } from '@echo/firestore/types/model/nonce'
-import type { NonceDocumentData } from '@echo/firestore/types/model/nonce-document-data'
+import type { Nonce } from '@echo/model/types/nonce'
+import type { Username } from '@echo/model/types/username'
 import dayjs from 'dayjs'
 import { isNil } from 'ramda'
 
-export async function setNonceForUser(username: string, nonce: string): Promise<Nonce> {
+export async function setNonceForUser(username: Username, nonce: string): Promise<Nonce> {
   const userSnapshot = await getUserSnapshotByUsername(username)
   if (isNil(userSnapshot) || isNil(userSnapshot.data())) {
     return Promise.reject(Error(`user with username ${username} not found`))
@@ -22,7 +22,7 @@ export async function setNonceForUser(username: string, nonce: string): Promise<
       expired: false,
       expiresAt: dayjs().add(1, 'h').unix()
     }
-    await setReference<Nonce, NonceDocumentData>({
+    await setReference({
       collectionReference: getNoncesCollectionReference(),
       data
     })

@@ -1,8 +1,7 @@
-import type { WithLogger } from '@echo/utils/types/with-logger'
 import { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
-interface GetGuildArgs extends WithLogger {
+interface GetGuildArgs {
   client: Client
   guildId: string
 }

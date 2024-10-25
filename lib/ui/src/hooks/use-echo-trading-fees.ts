@@ -1,7 +1,7 @@
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
-import type { Chain } from '@echo/utils/constants/chain'
+import type { Chain } from '@echo/model/constants/chain'
 import { formatEther } from '@echo/web3/utils/format-ether'
 import { isNil } from 'ramda'
 import useSWR from 'swr'

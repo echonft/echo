@@ -2,21 +2,23 @@ import { NotFoundError } from '@echo/backend/errors/not-found-error'
 import { mockRequest } from '@echo/backend/mocks/mock-request'
 import { getOfferByIdContractRequestHandler } from '@echo/backend/request-handlers/offer/get-offer-by-id-contract-request-handler'
 import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
-import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
-import { getOfferMockByIdContract } from '@echo/model/mocks/offer/get-offer-mock-by-id-contract'
-import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
+import { offerMockFromJohnnycage, offerMocks } from '@echo/model/mocks/offer-mock'
+import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
+import type { Offer } from '@echo/model/types/offer'
 import { toPromise } from '@echo/utils/fp/to-promise'
 import { beforeAll, beforeEach, describe, expect, it, jest } from '@jest/globals'
-import { pipe } from 'ramda'
+import { find, pipe, propEq } from 'ramda'
 
 jest.mock('@echo/firestore/crud/offer/get-offer-by-id-contract')
 
 describe('request-handlers - offer - getOfferByIdContractRequestHandler', () => {
-  // const offerMock = getOfferMockById(offerMockFromJohnnycageId())
-  const sender = getUserDocumentDataMockByUsername(userMockJohnnyUsername())
-  // const receiver = getUserDocumentDataMockByUsername(userMockCrewUsername())
+  const offerMock = offerMockFromJohnnycage
+  const sender = userMockJohnny
+  const receiver = userMockCrew
   beforeAll(() => {
-    jest.mocked(getOfferByIdContract).mockImplementation(pipe(getOfferMockByIdContract, toPromise))
+    jest
+      .mocked(getOfferByIdContract)
+      .mockImplementation((idContract) => pipe(find<Offer>(propEq(idContract, 'idContract')), toPromise)(offerMocks))
   })
   beforeEach(() => {
     jest.clearAllMocks()

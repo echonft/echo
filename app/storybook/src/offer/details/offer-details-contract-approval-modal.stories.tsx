@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getOfferMock } from '@echo/model/mocks/offer/get-offer-mock'
+import { offerMockToJohnnycage } from '@echo/model/mocks/offer-mock'
 import { OfferDetailsContractApprovalModal as Component } from '@echo/ui/components/offer/details/offer-details-contract-approval-modal'
 import type { Meta, StoryObj } from '@storybook/react'
 import { useTranslations } from 'next-intl'
@@ -35,9 +35,7 @@ export const ContractApproval: StoryObj<typeof Component> = {
     const t = useTranslations('offer.details.swapModal')
     return (
       <Component
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        items={getOfferMock().receiverItems}
+        items={offerMockToJohnnycage.receiverItems}
         open={true}
         title={t('title')}
         subtitle={t('approval.subtitle')}

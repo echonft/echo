@@ -1,11 +1,11 @@
-import { getWalletByAddress } from '@echo/firestore/crud/wallet/get-wallet-by-address'
+import { getWallet } from '@echo/firestore/crud/wallet/get-wallet'
 import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
 import { getWalletsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-wallets-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { getWalletDocumentDataMockById } from '@echo/firestore/mocks/wallet/get-wallet-document-data-mock-by-id'
 import { walletMockJohnnyId } from '@echo/firestore/mocks/wallet/wallet-document-data-mock'
-import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
-import { Chain } from '@echo/utils/constants/chain'
+import { Chain } from '@echo/model/constants/chain'
+import { userMockJohnnyUsername } from '@echo/model/mocks/user-mock'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil, pick, toLower } from 'ramda'
@@ -54,7 +54,7 @@ describe('CRUD - wallet - removeWallet', () => {
     const walletData = pick(['address', 'chain'], wallet)
     await removeWallet(userMockJohnnyUsername(), walletData)
     deletedWalletId = walletId
-    const foundWallet = await getWalletByAddress(walletData)
+    const foundWallet = await getWallet(walletData)
     expect(foundWallet).toBeUndefined()
   })
 })

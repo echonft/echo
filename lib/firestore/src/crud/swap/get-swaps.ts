@@ -2,7 +2,7 @@ import { getSwapsCollectionReference } from '@echo/firestore/helpers/collection-
 import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import { queryLimit } from '@echo/firestore/helpers/crud/query/query-limit'
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
-import type { Swap } from '@echo/model/types/swap/swap'
+import type { Swap } from '@echo/model/types/swap'
 import { pipe } from 'ramda'
 
 export function getSwaps(limit?: number): Promise<Swap[]> {

@@ -6,9 +6,9 @@ import { collectionIndex } from '@echo/model/helpers/collection/collection-index
 import { isErc721Item } from '@echo/model/helpers/item/is-erc721-item'
 import { erc1155TokenIndex } from '@echo/model/helpers/token/erc1155-token-index'
 import { erc721TokenIndex } from '@echo/model/helpers/token/erc721-token-index'
-import type { Erc721Item } from '@echo/model/types/item/erc721-item'
-import type { NftItem } from '@echo/model/types/item/nft-item'
-import type { Listing } from '@echo/model/types/listing/listing'
+import type { Erc721Item } from '@echo/model/types/erc721-item'
+import type { NftItem } from '@echo/model/types/nft-item'
+import type { Listing } from '@echo/model/types/listing'
 import { applySpec, ifElse, map, modify, pipe, prop } from 'ramda'
 
 export function buildCreateListingRequest(args: CreateListingRequestBuilderArgs): CreateListingRequest {

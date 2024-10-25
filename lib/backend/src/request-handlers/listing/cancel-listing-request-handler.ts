@@ -5,13 +5,17 @@ import { toNextReponse } from '@echo/backend/request-handlers/to-next-reponse'
 import type { AuthRequestHandlerArgsWithParams } from '@echo/backend/types/auth-request-handler'
 import { cancelListing } from '@echo/firestore/crud/listing/cancel-listing'
 import { getListing } from '@echo/firestore/crud/listing/get-listing'
-import type { WithSlug } from '@echo/model/types/with-slug'
+import type { Slug } from '@echo/model/types/slug'
 import { andThen, isNil, objOf, pipe } from 'ramda'
+
+interface Params {
+  slug: Slug
+}
 
 export async function cancelListingRequestHandler({
   user: { username },
   params
-}: AuthRequestHandlerArgsWithParams<WithSlug>) {
+}: AuthRequestHandlerArgsWithParams<Params>) {
   const { slug } = params
   const listing = await getListing(slug)
   if (isNil(listing)) {

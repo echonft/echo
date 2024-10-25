@@ -1,5 +1,5 @@
 import { OfferState } from '@echo/model/constants/offer-state'
-import type { Offer } from '@echo/model/types/offer/offer'
+import type { Offer } from '@echo/model/types/offer'
 import { TradeDetailsStateDetailsLayout } from '@echo/ui/components/trade/layout/trade-details-state-details-layout'
 import { TradeDetailsStateLayout } from '@echo/ui/components/trade/layout/trade-details-state-layout'
 import { TradeDetailsOfferStateLabel } from '@echo/ui/components/trade/trade-details-offer-state-label'

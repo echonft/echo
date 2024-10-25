@@ -4,7 +4,7 @@ import { updateReference } from '@echo/firestore/helpers/crud/reference/update-r
 import { ListingError } from '@echo/model/constants/errors/listing-error'
 import { ListingState } from '@echo/model/constants/listing-state'
 import { shouldLockListing } from '@echo/model/helpers/listing/should-lock-listing'
-import type { Listing } from '@echo/model/types/listing/listing'
+import type { Listing } from '@echo/model/types/listing'
 import type { Slug } from '@echo/model/types/slug'
 import { isNil } from 'ramda'
 

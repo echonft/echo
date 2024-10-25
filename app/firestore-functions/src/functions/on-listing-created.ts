@@ -3,7 +3,7 @@ import { getFunctionUrl } from '@echo/firestore-functions/helper/get-function-ur
 import { getLogger } from '@echo/firestore-functions/helper/get-logger'
 import { setMaxInstances } from '@echo/firestore-functions/helper/set-max-instances'
 import type { ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
-import type { Listing } from '@echo/model/types/listing/listing'
+import type { Listing } from '@echo/model/types/listing'
 import { getFunctions } from 'firebase-admin/functions'
 import { onDocumentCreated } from 'firebase-functions/v2/firestore'
 import { isNil } from 'ramda'

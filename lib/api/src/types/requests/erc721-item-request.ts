@@ -1,5 +1,4 @@
-import type { Erc721TokenIndex } from '@echo/model/types/token/erc721-token'
+import type { erc721ItemRequestSchema } from '@echo/api/validators/erc721-item-request-schema'
+import { z } from 'zod'
 
-export interface Erc721ItemRequest {
-  readonly token: Erc721TokenIndex
-}
+export type Erc721ItemRequest = z.infer<typeof erc721ItemRequestSchema>

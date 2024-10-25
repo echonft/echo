@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getCollectionMock } from '@echo/model/mocks/collection/get-collection-mock'
+import { collectionMockSpiral } from '@echo/model/mocks/collection-mock'
 import { CollectionThumbnail as Component } from '@echo/ui/components/collection/thumbnail/collection-thumbnail'
 import { type Meta, type StoryObj } from '@storybook/react'
 
@@ -8,7 +8,7 @@ const metadata: Meta<typeof Component> = {
   title: 'Collection/Thumbnail',
   component: Component,
   args: {
-    collection: getCollectionMock()
+    collection: collectionMockSpiral
   },
   parameters: {
     controls: {

@@ -1,8 +1,7 @@
 import type { NextRequest } from '@echo/backend/types/next-request'
-import type { WithLogger } from '@echo/utils/types/with-logger'
 import type { NextResponse } from 'next/server'
 
-export interface RequestHandlerArgs<RequestBody = never> extends WithLogger {
+export interface RequestHandlerArgs<RequestBody = never> {
   req: NextRequest<RequestBody>
 }
 

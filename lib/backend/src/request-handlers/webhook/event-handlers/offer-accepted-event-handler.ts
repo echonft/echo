@@ -1,5 +1,6 @@
 import { BadRequestError } from '@echo/backend/errors/bad-request-error'
 import { NotFoundError } from '@echo/backend/errors/not-found-error'
+import { info } from '@echo/backend/helpers/logger'
 import type { EchoEventHandlerArgs } from '@echo/backend/request-handlers/webhook/event-handlers/echo-event-handler'
 import { acceptOffer } from '@echo/firestore/crud/offer/accept-offer'
 import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
@@ -22,5 +23,5 @@ export async function offerAcceptedEventHandler(args: EchoEventHandlerArgs) {
     )
   }
   await acceptOffer(offer.slug)
-  args.logger?.info({ offer }, 'accepted offer')
+  info({ offer }, 'accepted offer')
 }

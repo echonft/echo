@@ -1,3 +1,3 @@
-import type { Nonce } from '@echo/firestore/types/model/nonce'
+import type { Nonce } from '@echo/model/types/nonce'
 
 export type NonceDocumentData = Omit<Nonce, 'expired'>

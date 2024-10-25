@@ -1,3 +1,4 @@
+import type { User } from '@echo/auth/types/user'
 import { getListingsForCreator } from '@echo/firestore/crud/listing/get-listings-for-creator'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { getPendingOffersForUser } from '@echo/firestore/crud/offer/get-pending-offers-for-user'
@@ -6,12 +7,9 @@ import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-usernam
 import { getUserProfile } from '@echo/firestore/crud/user/get-user-profile'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
-import type { NextParams } from '@echo/frontend/lib/types/next-params'
-import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
-import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
-import type { WithUsername } from '@echo/model/types/with-username'
+import type { Slug } from '@echo/model/types/slug'
+import type { Username } from '@echo/model/types/username'
 import { getSelectionFromSearchParams } from '@echo/routing/search-params/get-selection-from-search-params'
-import type { SelectionSearchParams } from '@echo/routing/types/search-params/selection-search-params'
 import { NavigationPageLayout } from '@echo/ui/components/base/layout/navigation-page-layout'
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
@@ -19,14 +17,22 @@ import { UserProfile } from '@echo/ui/components/user/profile/user-profile'
 import { setListingsRole } from '@echo/ui/helpers/listing/set-listings-role'
 import { setOfferRoleForUser } from '@echo/ui/helpers/offer/set-offer-role-for-user'
 import { UserTabs } from '@echo/ui/pages/user/user-tabs'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound } from 'next/navigation'
 import { always, andThen, isNil, map, otherwise, pipe } from 'ramda'
 
-async function render({
-  params: { username },
-  searchParams,
-  user: authUser
-}: PropsWithUser<NextParams<WithUsername> & WithSearchParamsProps<SelectionSearchParams>>) {
+interface Props {
+  params: {
+    username: Username
+  }
+  searchParams: {
+    items: string[] | string
+    target?: Slug
+  }
+  user: Nullable<User>
+}
+
+async function render({ params: { username }, searchParams, user: authUser }: Props) {
   const user = await pipe(getUserByUsername, otherwise(pipe(captureAndLogError, always(undefined))))(username)
   if (isNil(user)) {
     notFound()

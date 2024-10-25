@@ -1,8 +1,8 @@
-import { eqWithId } from '@echo/model/helpers/eq-with-id'
+import { eqFilter } from '@echo/model/helpers/filter/eq-filter'
 import { eqNft } from '@echo/model/helpers/nft/eq-nft'
 import { eqOwnedNftOwner } from '@echo/model/helpers/nft/eq-owned-nft-owner'
-import type { Nft } from '@echo/model/types/nft/nft'
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { getByCollectionNftFilterPredicate } from '@echo/ui/helpers/nft/filters/get-by-collection-nft-filter-predicate'
 import { getByTraitsNftFilterPredicate } from '@echo/ui/helpers/nft/filters/get-by-traits-nft-filter-predicate'
 import { sortNftsByCollection } from '@echo/ui/helpers/nft/sort/sort-nfts-by-collection'
@@ -121,7 +121,7 @@ function toggleTraitFilterSelection(filter: TraitFilter): (state: State) => Stat
   return function (state: State): State {
     return modifyPath<State, State>(
       ['selection', 'traitFilters'],
-      ifElse(includesWith(filter, eqWithId), reject(eqWithId(filter)), append(filter)),
+      ifElse(includesWith(filter, eqFilter), reject(eqFilter(filter)), append(filter)),
       state
     )
   }
@@ -135,7 +135,7 @@ function toggleCollectionFilterSelection(filter: CollectionFilter): (state: Stat
       // but either is short-circuited, meaning that the second function will not be invoked if the first returns a truth-y value
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      ifElse(either(isNil, complement(eqWithId(filter))), always(filter), always(undefined))
+      ifElse(either(isNil, complement(eqFilter(filter))), always(filter), always(undefined))
     )(state)
     return pipe<[State], State, State>(
       assocPath(['selection', 'collectionFilter'], newFilter),

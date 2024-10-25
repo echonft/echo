@@ -1,6 +1,6 @@
 import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
 import { eqUser } from '@echo/model/helpers/user/eq-user'
-import type { Nft } from '@echo/model/types/nft/nft'
+import type { Nft } from '@echo/model/types/nft'
 import { eqPropsWith } from '@echo/utils/fp/eq-props-with'
 import { isNil } from 'ramda'
 

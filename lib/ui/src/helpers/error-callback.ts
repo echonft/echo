@@ -1,12 +1,13 @@
 import { captureAndLogError } from '@echo/ui/helpers/capture-and-log-error'
 import type { Alert } from '@echo/ui/types/alert'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { getCurrentScope } from '@sentry/nextjs'
+import type { Logger } from 'pino'
 import { assoc, isNil } from 'ramda'
 
 export interface ErrorCallback {
   alert?: Alert
+  logger?: Logger
   loggerContext?: Record<string, unknown>
   show?: (alert: Alert) => unknown
   onError?: EmptyFunction
@@ -14,9 +15,10 @@ export interface ErrorCallback {
 
 interface OnErrorArgs extends ErrorCallback {
   error: unknown
+  logger?: Logger
 }
 
-function onError(args: WithLoggerType<OnErrorArgs>) {
+function onError(args: OnErrorArgs) {
   const { alert, show, logger, loggerContext, error } = args
   const user = getCurrentScope().getUser()
   const logObject = assoc('user', user, loggerContext ?? {})
@@ -31,7 +33,7 @@ function onError(args: WithLoggerType<OnErrorArgs>) {
   args.onError?.()
 }
 
-export function errorCallback(args?: WithLoggerType<ErrorCallback>) {
+export function errorCallback(args?: ErrorCallback) {
   return function (err: unknown) {
     onError(assoc('error', err, args ?? {}))
   }

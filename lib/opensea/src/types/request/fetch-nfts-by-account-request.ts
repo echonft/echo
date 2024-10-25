@@ -1,8 +1,7 @@
-import type { Wallet } from '@echo/model/types/wallet'
-import type { WithFetch } from '@echo/utils/types/with-fetch'
+import type { Contract } from '@echo/model/types/contract'
 
-export interface FetchNftsByAccountRequest extends WithFetch {
-  wallet: Wallet
+export interface FetchNftsByAccountRequest {
+  contract: Contract
   limit?: number // Must be between 1 and 200. Default: 50
   next?: string
 }

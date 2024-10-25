@@ -1,10 +1,9 @@
 import { fetchNftsByContract } from '@echo/nft-scan/fetchers/fetch-nfts-by-contract'
-import { getLogger } from '@echo/nft-scan/helpers/get-logger'
-import { getNftsByAccount } from '@echo/nft-scan/services/get-nfts-by-account'
+import { info } from '@echo/nft-scan/helpers/logger'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import type { FetchNftsByContractRequest } from '@echo/nft-scan/types/request/fetch-nfts-by-contract-request'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { always, assoc, concat, isNil, otherwise, partialRight, pipe } from 'ramda'
+import { always, assoc, concat, isNil, otherwise, pipe } from 'ramda'
 
 async function handlePaging(args: FetchNftsByContractRequest, accNfts: PartialNft[]): Promise<PartialNft[]> {
   const response = await pipe(fetchNftsByContract, otherwise(always(undefined)))(args)
@@ -13,7 +12,7 @@ async function handlePaging(args: FetchNftsByContractRequest, accNfts: PartialNf
   }
   const { next, content } = response
   const mergedResponse = concat(accNfts, content)
-  args.logger?.info({ request: content.length, total: mergedResponse.length }, 'fetched NFTs')
+  info({ contract: args.contract, request: content.length, total: mergedResponse.length }, 'fetched NFTs')
   if (isNilOrEmpty(next)) {
     return mergedResponse
   }
@@ -21,11 +20,5 @@ async function handlePaging(args: FetchNftsByContractRequest, accNfts: PartialNf
 }
 
 export function getNftsByContract(args: Omit<FetchNftsByContractRequest, 'next'>) {
-  const logger = getLogger({ chain: args.contract.chain, logger: args.logger })?.child({
-    fetcher: getNftsByAccount.name
-  })
-  return pipe<[Omit<FetchNftsByContractRequest, 'next'>], FetchNftsByContractRequest, Promise<PartialNft[]>>(
-    assoc('logger', logger),
-    partialRight(handlePaging, [[]])
-  )(args)
+  return handlePaging(args, [])
 }

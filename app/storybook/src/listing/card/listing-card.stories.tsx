@@ -1,9 +1,9 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { ListingState } from '@echo/model/constants/listing-state'
-import { getListingMock } from '@echo/model/mocks/listing/get-listing-mock'
-import type { NftItem } from '@echo/model/types/item/nft-item'
-import type { Listing } from '@echo/model/types/listing/listing'
+import { listingMock } from '@echo/model/mocks/listing-mock'
+import type { Listing } from '@echo/model/types/listing'
+import type { NftItem } from '@echo/model/types/nft-item'
 import { ListingCard } from '@echo/ui/components/listing/card/listing-card'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { always, assoc, head, modify, type NonEmptyArray, pipe, unless, values } from 'ramda'
@@ -43,14 +43,13 @@ export const Default: StoryObj<ComponentType> = {
   render: ({ state, stack, scaleDisabled }) => {
     const listing: Listing = useMemo(
       () =>
-        pipe<never[], Listing, Listing, Listing>(
-          getListingMock,
+        pipe<[Listing], Listing, Listing>(
           assoc('state', state),
           unless<Listing, Listing>(
             always(stack),
             modify<'items', NonEmptyArray<NftItem>, NonEmptyArray<NftItem>>('items', head)
           )
-        )(),
+        )(listingMock),
       [state, stack]
     )
     return <ListingCard listing={listing} options={{ scaleDisabled }} />

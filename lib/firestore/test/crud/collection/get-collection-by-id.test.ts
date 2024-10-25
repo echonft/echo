@@ -1,6 +1,6 @@
 import { getCollectionById } from '@echo/firestore/crud/collection/get-collection-by-id'
-import { collectionMockPxId } from '@echo/model/mocks/collection/collection-mock'
-import { getCollectionMockById } from '@echo/model/mocks/collection/get-collection-mock-by-id'
+import { collectionMockPxId } from '@echo/firestore/mocks/db-model/collection-document-data-mock'
+import { collectionMockPx } from '@echo/model/mocks/collection-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - collection - getCollectionById', () => {
@@ -10,6 +10,6 @@ describe('CRUD - collection - getCollectionById', () => {
   })
   it('returns the collection with the given id', async () => {
     const collection = await getCollectionById(collectionMockPxId())
-    expect(collection).toStrictEqual(getCollectionMockById(collectionMockPxId()))
+    expect(collection).toStrictEqual(collectionMockPx)
   })
 })

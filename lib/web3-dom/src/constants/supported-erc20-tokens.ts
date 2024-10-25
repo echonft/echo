@@ -1,6 +1,6 @@
 import { TokenType } from '@echo/model/constants/token-type'
-import type { Erc20Token } from '@echo/model/types/token/erc20-token'
-import { Chain } from '@echo/utils/constants/chain'
+import type { Erc20Token } from '@echo/model/types/erc20-token'
+import { Chain } from '@echo/model/constants/chain'
 import { type NonEmptyArray } from 'ramda'
 
 export const supportedErc20Tokens: Record<Chain, NonEmptyArray<Erc20Token>> = {

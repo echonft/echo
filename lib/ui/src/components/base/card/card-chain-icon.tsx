@@ -1,6 +1,6 @@
 import { BlastIcon } from '@echo/ui/components/base/icons/blast-icon'
 import { EthereumIcon } from '@echo/ui/components/base/icons/ethereum-icon'
-import { Chain } from '@echo/utils/constants/chain'
+import { Chain } from '@echo/model/constants/chain'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 

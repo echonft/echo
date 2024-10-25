@@ -4,10 +4,10 @@ import * as updateReferenceModule from '@echo/firestore/helpers/crud/reference/u
 import type { ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
 import { ListingError } from '@echo/model/constants/errors/listing-error'
 import { ListingState } from '@echo/model/constants/listing-state'
-import { getListingMockBySlug } from '@echo/model/mocks/listing/get-listing-mock-by-slug'
-import { listingMockSlug } from '@echo/model/mocks/listing/listing-mock'
-import type { Listing } from '@echo/model/types/listing/listing'
+import { listingMock } from '@echo/model/mocks/listing-mock'
+import type { Listing } from '@echo/model/types/listing'
 import type { Slug } from '@echo/model/types/slug'
+import { resetListing } from '@echo/test/firestore/crud/listing/reset-listing'
 import { updateListing } from '@echo/test/firestore/crud/listing/update-listing'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals'
@@ -26,7 +26,7 @@ describe('CRUD - listing - cancelListing', () => {
   })
   afterEach(async () => {
     if (!isNil(slug)) {
-      await updateListing(slug, getListingMockBySlug(slug))
+      await resetListing()
     }
     updateReferenceSpy.mockRestore()
   })
@@ -36,7 +36,7 @@ describe('CRUD - listing - cancelListing', () => {
     expect(updateReferenceSpy).not.toHaveBeenCalled()
   })
   it('throws if the listing is locked', async () => {
-    slug = listingMockSlug()
+    slug = listingMock.slug
     await updateListing(slug, {
       locked: true
     })
@@ -45,7 +45,7 @@ describe('CRUD - listing - cancelListing', () => {
     expect(updateReferenceSpy).not.toHaveBeenCalled()
   })
   it('does not update the listing if it is already cancelled', async () => {
-    slug = listingMockSlug()
+    slug = listingMock.slug
     await updateListing(slug, {
       state: ListingState.Cancelled,
       locked: true
@@ -55,7 +55,7 @@ describe('CRUD - listing - cancelListing', () => {
     expect(updateReferenceSpy).not.toHaveBeenCalled()
   })
   it('cancel listing', async () => {
-    slug = listingMockSlug()
+    slug = listingMock.slug
     await updateListing(slug, {
       state: ListingState.Open,
       expiresAt: dayjs().add(1, 'day').unix()

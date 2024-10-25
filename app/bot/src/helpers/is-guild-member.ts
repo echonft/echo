@@ -1,9 +1,8 @@
 import { getGuild } from '@echo/bot/helpers/get-guild'
-import type { WithLogger } from '@echo/utils/types/with-logger'
 import { Client } from 'discord.js'
 import { isNil, omit } from 'ramda'
 
-interface IsGuildMemberArgs extends WithLogger {
+interface IsGuildMemberArgs {
   client: Client
   guildId: string
   userId: string

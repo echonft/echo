@@ -5,23 +5,16 @@ import { unescrowNft } from '@echo/firestore/crud/nft/unescrow-nft'
 import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
 import { getOrAddCollection } from '@echo/tasks/get-or-add-collection'
 import { updateNftOwner } from '@echo/tasks/update-nft-owner'
-import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import type { NftTransferEvent } from '@echo/web3/types/nft-transfer-event'
-import { isEcho } from '@echo/web3/utils/is-echo'
+import { isEchoContract } from '@echo/web3/utils/is-echo-contract'
 import { isNil } from 'ramda'
 
-export async function nftTransferEventHandler(
-  args: WithLoggerType<Record<'transfer', NftTransferEvent>>
-): Promise<void> {
-  const {
-    transfer: { contract, from, to, tokenId },
-    logger
-  } = args
-  const collection = await getOrAddCollection({ contract, fetch, logger })
+export async function nftTransferEventHandler({ contract, from, to, tokenId }: NftTransferEvent): Promise<void> {
+  const collection = await getOrAddCollection(contract)
   if (isNil(collection)) {
     return
   }
-  if (isEcho(from)) {
+  if (isEchoContract(from)) {
     const nftSnapshot = await getNftSnapshot({ collection, tokenId })
     if (isNil(nftSnapshot)) {
       return
@@ -29,7 +22,7 @@ export async function nftTransferEventHandler(
     await unescrowNft(nftSnapshot.id)
     return
   }
-  if (isEcho(to)) {
+  if (isEchoContract(to)) {
     const nft = await getNftByIndex({ collection, tokenId })
     if (isNil(nft) || !isOwnedNft(nft)) {
       return

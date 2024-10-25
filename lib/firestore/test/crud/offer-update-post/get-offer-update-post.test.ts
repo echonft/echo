@@ -1,6 +1,6 @@
 import { getOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/get-offer-update-post'
+import { offerMockToJohnnycageId } from '@echo/firestore/mocks/db-model/offer-document-data-mock'
 import { OfferState } from '@echo/model/constants/offer-state'
-import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
 import { addOfferUpdatePost } from '@echo/test/firestore/crud/offer-update-post/add-offer-update-post'
 import { deleteOfferUpdatePost } from '@echo/test/firestore/crud/offer-update-post/delete-offer-update-post'
 import type { Nullable } from '@echo/utils/types/nullable'

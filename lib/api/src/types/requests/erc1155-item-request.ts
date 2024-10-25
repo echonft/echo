@@ -1,6 +1,4 @@
-import type { Erc1155Item } from '@echo/model/types/item/erc1155-item'
-import type { Erc1155TokenIndex } from '@echo/model/types/token/erc1155-token'
+import type { erc1155ItemRequestSchema } from '@echo/api/validators/erc1155-item-request-schema'
+import { z } from 'zod'
 
-export interface Erc1155ItemRequest extends Omit<Erc1155Item, 'token'> {
-  readonly token: Erc1155TokenIndex
-}
+export type Erc1155ItemRequest = z.infer<typeof erc1155ItemRequestSchema>

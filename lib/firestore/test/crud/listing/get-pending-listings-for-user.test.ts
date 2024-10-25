@@ -1,7 +1,6 @@
 import { getPendingListingsForUser } from '@echo/firestore/crud/listing/get-pending-listings-for-user'
-import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
-import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
-import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
+import { listingMock } from '@echo/model/mocks/listing-mock'
+import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - listing - getPendingListingsForUser', () => {
@@ -10,10 +9,10 @@ describe('CRUD - listing - getPendingListingsForUser', () => {
     expect(listings).toEqual([])
   })
   it('returns the pending listings for a user', async () => {
-    let listings = await getPendingListingsForUser(userMockJohnnyUsername())
+    let listings = await getPendingListingsForUser(userMockJohnny.username)
     expect(listings).toEqual([])
-    listings = await getPendingListingsForUser(userMockCrewUsername())
+    listings = await getPendingListingsForUser(userMockCrew.username)
     expect(listings.length).toBe(1)
-    expect(listings[0]).toStrictEqual(getListingMockById(listingMockId()))
+    expect(listings[0]).toStrictEqual(listingMock)
   })
 })

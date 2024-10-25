@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
+import { userMockJohnnyUsername } from '@echo/model/mocks/user-mock'
 import { getUserProfileMockByUsername } from '@echo/model/mocks/user/user-profile-mock'
 import { UserProfile } from '@echo/ui/components/user/profile/user-profile'
 import { type Meta, type StoryObj } from '@storybook/react'

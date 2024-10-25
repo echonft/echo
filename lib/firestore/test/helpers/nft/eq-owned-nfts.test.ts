@@ -1,38 +1,32 @@
 import { eqOwnedNfts } from '@echo/model/helpers/nft/eq-owned-nfts'
-import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
-import { nftMockSpiralJohnny2Id, nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
-import { offerMockFromJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
+import { nftMockSpiral1, nftMockSpiral2 } from '@echo/model/mocks/nft-mock'
 
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
-import type { Wallet } from '@echo/model/types/wallet'
-import { Chain } from '@echo/utils/constants/chain'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { describe, expect, it } from '@jest/globals'
-import { assoc, pipe, toLower } from 'ramda'
+import { assoc } from 'ramda'
 
 describe('helpers - nft - eqOwnedNfts', () => {
   it('returns true if the nfts equal', () => {
-    const itemsA = [getNftMockById(nftMockSpiralJohnnyId()), getNftMockById(nftMockSpiralJohnny2Id())] as OwnedNft[]
-    const itemsB = [getNftMockById(nftMockSpiralJohnny2Id()), getNftMockById(nftMockSpiralJohnnyId())] as OwnedNft[]
+    const itemsA = [nftMockSpiral1, nftMockSpiral2]
+    const itemsB = [nftMockSpiral2, nftMockSpiral1] as OwnedNft[]
     expect(eqOwnedNfts(itemsA, itemsB)).toBeTruthy()
   })
   it('returns false if the nfts are not equal', () => {
-    const itemsA = [getNftMockById(nftMockSpiralJohnnyId()), getNftMockById(nftMockSpiralJohnny2Id())] as OwnedNft[]
+    const itemsA = [nftMockSpiral1, nftMockSpiral2] as OwnedNft[]
     const itemsB = [
-      pipe(
-        getNftMockById,
-        assoc('owner', {
+      assoc(
+        'owner',
+        {
           discord: {
             avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
-            username: offerMockFromJohnnycageId()
+            username: 'another-user'
           },
-          username: offerMockFromJohnnycageId(),
-          wallet: {
-            address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
-            chain: Chain.Blast
-          } as Wallet
-        })
-      )(nftMockSpiralJohnnyId()),
-      getNftMockById(nftMockSpiralJohnny2Id())
+          username: 'another-user',
+          wallet: '0x1e3918dd44f427f056be6c8e132cf1b5f42de59e'
+        },
+        nftMockSpiral1
+      ),
+      nftMockSpiral2
     ] as OwnedNft[]
     expect(eqOwnedNfts(itemsA, itemsB)).toBeFalsy()
   })

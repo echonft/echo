@@ -8,5 +8,5 @@ export function captureAndLogException(err: unknown) {
       }
     })
   }
-  global.logger.error({ err })
+  logger.error({ err })
 }

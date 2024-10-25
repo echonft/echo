@@ -1,6 +1,6 @@
-import type { Erc721Nft } from '@echo/model/types/nft/erc721-nft'
-import type { NftCollection } from '@echo/model/types/nft/nft'
-import type { Erc721Token } from '@echo/model/types/token/erc721-token'
+import type { Erc721Nft } from '@echo/model/types/erc721-nft'
+import type { NftCollection } from '@echo/model/types/nft'
+import type { Erc721Token } from '@echo/model/types/erc721-token'
 import { assoc, dissoc, modify, pipe } from 'ramda'
 
 export function erc721NftToToken(nft: Erc721Nft): Erc721Token {

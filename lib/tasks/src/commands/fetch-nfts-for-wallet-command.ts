@@ -1,3 +1,4 @@
+import type { Contract } from '@echo/model/types/contract'
 import type { Wallet } from '@echo/model/types/wallet'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import { getLogger } from '@echo/tasks/commands/get-logger'
@@ -5,7 +6,7 @@ import { fetchCollection } from '@echo/tasks/fetch-collection'
 import { fetchNftsByAccount } from '@echo/tasks/fetch-nfts-by-account'
 import { andThen, assoc, head, isEmpty, isNil, otherwise, path, pipe, tap } from 'ramda'
 
-export async function fetchNftsForWalletCommand(wallet: Wallet) {
+export async function fetchNftsForWalletCommand(wallet: Contract) {
   const logger = getLogger(fetchNftsForWalletCommand.name)
   const groups = await pipe(
     fetchNftsByAccount,

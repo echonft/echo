@@ -1,14 +1,13 @@
-import type { WithLogger } from '@echo/utils/types/with-logger'
 import { TextChannel } from 'discord.js'
 import { isNil } from 'ramda'
 
-interface GetThreadArgs extends WithLogger {
+interface GetThreadArgs {
   channel: TextChannel
   threadId: string
 }
 
 export async function getThread(args: GetThreadArgs) {
-  const { channel, threadId, logger } = args
+  const { channel, threadId } = args
   try {
     const thread = await channel.threads.fetch(threadId)
     if (isNil(thread)) {
@@ -16,7 +15,7 @@ export async function getThread(args: GetThreadArgs) {
     }
     return thread
   } catch (err) {
-    logger?.error({ err, channel }, `could not get thread ${threadId}`)
+    logger.error({ err, channel }, `could not get thread ${threadId}`)
     return undefined
   }
 }

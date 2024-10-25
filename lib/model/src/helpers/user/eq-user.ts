@@ -1,5 +1,5 @@
 import { userIndex } from '@echo/model/helpers/user/user-index'
-import type { UserIndex } from '@echo/model/types/user/user'
+import type { UserIndex } from '@echo/model/types/user'
 import { eqBy, isNil } from 'ramda'
 
 function internalFn(userA: UserIndex): (userB: UserIndex) => boolean {

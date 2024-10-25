@@ -1,6 +1,6 @@
 import { nftAttributeComparator } from '@echo/model/helpers/nft/nft-attribute-comparator'
-import { type Nft } from '@echo/model/types/nft/nft'
-import { type NftAttribute } from '@echo/model/types/nft/nft-attribute'
+import { type Nft } from '@echo/model/types/nft'
+import { type NftAttribute } from '@echo/model/types/nft-attribute'
 import type { TraitFilter } from '@echo/ui/types/trait-filter'
 import type { TraitFilterGroup } from '@echo/ui/types/trait-filter-group'
 import { collectBy, flatten, head, length, map, type NonEmptyArray, pipe, prop, sort } from 'ramda'

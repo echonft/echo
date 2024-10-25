@@ -1,0 +1,21 @@
+import { baseUrl } from '@echo/routing/helpers/base-url'
+import { AbstractPath } from '@echo/routing/path/abstract-path'
+import type { QueryParams } from '@echo/routing/types/query-params/query-params'
+import type { SearchParams } from '@echo/routing/types/search-params/search-params'
+import { concat, isNil } from 'ramda'
+
+export class Path<
+  TQueryParams extends QueryParams = never,
+  TSearchParams extends SearchParams = TQueryParams extends SearchParams ? TQueryParams : SearchParams
+> extends AbstractPath<TQueryParams, TSearchParams> {
+  get(queryParams?: TQueryParams): string {
+    if (isNil(queryParams)) {
+      return this.path
+    }
+    return concat(this.path, this.getQuery(queryParams))
+  }
+
+  getUrl(queryParams?: TQueryParams) {
+    return `${baseUrl()}${this.get(queryParams)}`
+  }
+}

@@ -1,17 +1,16 @@
 'use client'
 import { OfferRole } from '@echo/model/constants/offer-role'
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
-import type { Offer } from '@echo/model/types/offer/offer'
-import type { User } from '@echo/model/types/user/user'
-import type { UserProfile } from '@echo/model/types/user/user-profile'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { Offer } from '@echo/model/types/offer'
+import type { User } from '@echo/model/types/user'
+import type { UserProfile } from '@echo/model/types/user-profile'
 import { CreateOfferFlow } from '@echo/ui/components/offer/create/create-offer-flow'
 import { CreatedOfferSwitch } from '@echo/ui/components/offer/created/created-offer-switch'
-import type { PageLayoutBackgroundPickerProps } from '@echo/ui/types/props/page-layout-background-picker-props'
 import { useRouter } from 'next/navigation'
 import { assoc, dissoc, isNil, type NonEmptyArray, pipe } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
-interface Props extends PageLayoutBackgroundPickerProps {
+interface Props {
   receiver: User
   // TODO replace with items
   receiverNfts: OwnedNft[]
@@ -27,8 +26,7 @@ export const CreateOfferManager: FunctionComponent<Props> = ({
   receiver,
   receiverNfts,
   receiverNftsSelection,
-  senderNfts,
-  onPageBackgroundUpdate
+  senderNfts
 }) => {
   const router = useRouter()
   const [createdOffer] = useState<Offer>()
@@ -54,10 +52,5 @@ export const CreateOfferManager: FunctionComponent<Props> = ({
     )
   }
 
-  return (
-    <CreatedOfferSwitch
-      offer={assoc('role', OfferRole.Sender, createdOffer)}
-      onPageBackgroundUpdate={onPageBackgroundUpdate}
-    />
-  )
+  return <CreatedOfferSwitch offer={assoc('role', OfferRole.Sender, createdOffer)} />
 }

@@ -1,8 +1,8 @@
 import { nftsOwner } from '@echo/model/helpers/nft/nfts-owner'
 import { erc721NftToItem } from '@echo/model/mappers/nft/erc721-nft-to-item'
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
-import type { BaseOffer } from '@echo/model/types/offer/base-offer'
-import type { User } from '@echo/model/types/user/user'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { BaseOffer } from '@echo/model/types/base-offer'
+import type { User } from '@echo/model/types/user'
 import { applySpec, map, type NonEmptyArray, pipe, prop } from 'ramda'
 
 interface GenerateBaseOfferArgs {

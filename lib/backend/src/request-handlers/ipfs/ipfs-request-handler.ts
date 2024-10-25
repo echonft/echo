@@ -2,7 +2,11 @@ import type { RequestHandlerArgsWithParams } from '@echo/backend/types/request-h
 import type { ErrorResponse } from '@echo/utils/types/error-response'
 import { NextResponse } from 'next/server'
 
-export async function ipfsRequestHandler({ req }: RequestHandlerArgsWithParams<{ path: string[] }>) {
+interface Params {
+  path: string[]
+}
+
+export async function ipfsRequestHandler({ req }: RequestHandlerArgsWithParams<Params>) {
   const regex = /\/ipfs\/[^ ]+/
   const match = regex.exec(decodeURIComponent(req.url))
   if (match) {

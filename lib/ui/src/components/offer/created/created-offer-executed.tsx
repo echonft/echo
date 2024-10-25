@@ -1,4 +1,4 @@
-import { pathProvider } from '@echo/routing/path-provider'
+import { pathProvider } from '@echo/routing/path/path-provider'
 import { OfferCreationSubLayout } from '@echo/ui/components/offer/created/layout/offer-creation-sub-layout'
 import { OfferCreationSuccessLayout } from '@echo/ui/components/offer/created/layout/offer-creation-success-layout'
 import { OfferCreationTextLayout } from '@echo/ui/components/offer/created/layout/offer-creation-text-layout'

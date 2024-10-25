@@ -1,6 +1,6 @@
 import { userFromDiscordProvider } from '@echo/auth/helpers/providers/discord/user-from-discord-provider'
-import { apiPathProvider } from '@echo/routing/api-path-provider'
-import { pathProvider } from '@echo/routing/path-provider'
+import { apiPathProvider } from '@echo/routing/path/api-path-provider'
+import { pathProvider } from '@echo/routing/path/path-provider'
 import { pathIsNil } from '@echo/utils/fp/path-is-nil'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import NextAuth, { type NextAuthResult } from 'next-auth'

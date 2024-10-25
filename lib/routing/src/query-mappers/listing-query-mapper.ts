@@ -1,4 +1,4 @@
-import type { Collection } from '@echo/model/types/collection/collection'
+import type { Collection } from '@echo/model/types/collection'
 import { collectionQueryParam } from '@echo/routing/query-params/collection-query-param'
 import { nftQueryParam } from '@echo/routing/query-params/nft-query-param'
 import type { ListingQueryParams } from '@echo/routing/types/query-params/listing-query-params'

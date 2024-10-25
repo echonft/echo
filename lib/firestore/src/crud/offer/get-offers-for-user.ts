@@ -3,7 +3,8 @@ import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
 import { queryWhereFilter } from '@echo/firestore/helpers/crud/query/query-where-filter'
 import type { OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
-import { type Offer } from '@echo/model/types/offer/offer'
+import { type Offer } from '@echo/model/types/offer'
+import type { Username } from '@echo/model/types/username'
 import { Filter, type Query } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
@@ -11,7 +12,7 @@ import { pipe } from 'ramda'
  * Returns all offers for a user, that is if the user is either the sender or the receiver
  * @param username
  */
-export function getOffersForUserQuery(username: string): Query<Offer, OfferDocumentData> {
+export function getOffersForUserQuery(username: Username): Query<Offer, OfferDocumentData> {
   return pipe(
     getOffersCollectionReference,
     queryWhereFilter(
@@ -21,6 +22,6 @@ export function getOffersForUserQuery(username: string): Query<Offer, OfferDocum
   )()
 }
 
-export function getOffersForUser(username: string): Promise<Offer[]> {
+export function getOffersForUser(username: Username): Promise<Offer[]> {
   return pipe(getOffersForUserQuery, getQueryData)(username)
 }

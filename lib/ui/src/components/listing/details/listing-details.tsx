@@ -3,7 +3,7 @@ import type { ListingResponse } from '@echo/api/types/responses/listing-response
 import { ListingRole } from '@echo/model/constants/listing-role'
 import { listingItems } from '@echo/model/helpers/listing/listing-items'
 import { nftItemToNft } from '@echo/model/mappers/item/nft-item-to-nft'
-import type { WithSlug } from '@echo/model/types/with-slug'
+import type { Slug } from '@echo/model/types/slug'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { ListingDetailsTargetLayout } from '@echo/ui/components/listing/details/layout/listing-details-target-layout'
@@ -36,7 +36,7 @@ export const ListingDetails: FunctionComponent<ListingDetailsProps> = ({ listing
   const t = useTranslations('error.listing')
   // const router = useRouter()
   const { cancelListing } = useDependencies()
-  const { trigger, isMutating } = useSWRTrigger<ListingResponse, WithSlug>({
+  const { trigger, isMutating } = useSWRTrigger<ListingResponse, Record<'slug', Slug>>({
     key: SWRKeys.listing.cancel(listing),
     fetcher: cancelListing,
     onSuccess: (response) => {

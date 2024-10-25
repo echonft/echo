@@ -1,5 +1,5 @@
 'use client'
-import type { Swap } from '@echo/model/types/swap/swap'
+import type { Swap } from '@echo/model/types/swap'
 import { SwapCards } from '@echo/ui/components/swap/card/swap-cards'
 import { SwapDetailsModal } from '@echo/ui/components/swap/details/swap-details-modal'
 import type { Nullable } from '@echo/utils/types/nullable'

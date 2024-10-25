@@ -1,6 +1,5 @@
-import type { UserDiscordProfile } from '@echo/model/types/user/user-discord-profile'
-import type { WithUsername } from '@echo/model/types/with-username'
+import type { User } from '@echo/model/types/user'
 
-export interface UserDocumentData extends WithUsername {
-  discord: UserDiscordProfile
+export interface UserDocumentData extends Omit<User, 'discord'> {
+  discord: Omit<User['discord'], 'globalName'> & Partial<Pick<User['discord'], 'globalName'>> & Record<'id', string>
 }

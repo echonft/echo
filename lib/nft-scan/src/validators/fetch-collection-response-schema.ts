@@ -1,22 +1,20 @@
+import type { Chain } from '@echo/model/constants/chain'
 import { baseResponseAugmentation } from '@echo/nft-scan/validators/base-response-augmentation'
-import {
-  collectionResponseSchema,
-  type CollectionResponseSchemaReturn
-} from '@echo/nft-scan/validators/collection-response-schema'
-import type { Chain } from '@echo/utils/constants/chain'
+import { collectionResponseSchema } from '@echo/nft-scan/validators/collection-response-schema'
 import { isNil } from 'ramda'
 import { object } from 'zod'
 
 export function fetchCollectionResponseSchema(chain: Chain) {
   return object({
-    data: collectionResponseSchema(chain).nullable().optional()
+    data: collectionResponseSchema(chain).nullable().optional().readonly()
   })
     .extend(baseResponseAugmentation)
-    .transform<CollectionResponseSchemaReturn>((response) => {
+    .transform((response) => {
       const { data } = response
       if (isNil(data)) {
         return { collection: undefined, isSpam: false }
       }
       return data
     })
+    .readonly()
 }

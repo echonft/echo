@@ -1,7 +1,7 @@
 import { nftResponseMock } from '@echo/nft-scan/mocks/nft-response-mock'
 import { fetchNftsResponseSchema } from '@echo/nft-scan/validators/fetch-nfts-response-schema'
 import { nftResponseSchema } from '@echo/nft-scan/validators/nft-response-schema'
-import { Chain } from '@echo/utils/constants/chain'
+import { Chain } from '@echo/model/constants/chain'
 import { describe, expect, it } from '@jest/globals'
 import { juxt, map, pipe, prop } from 'ramda'
 

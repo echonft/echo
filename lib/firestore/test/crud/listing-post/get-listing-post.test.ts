@@ -1,5 +1,5 @@
 import { getListingPost } from '@echo/firestore/crud/listing-post/get-listing-post'
-import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
+import { listingMockId } from '@echo/firestore/mocks/db-model/listing-document-data-mock'
 import { addListingPost } from '@echo/test/firestore/crud/listing-post/add-listing-post'
 import { deleteListingPost } from '@echo/test/firestore/crud/listing-post/delete-listing-post'
 import type { Nullable } from '@echo/utils/types/nullable'

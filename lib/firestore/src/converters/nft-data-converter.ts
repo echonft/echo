@@ -1,31 +1,17 @@
-import { getNftTokenIdLabel } from '@echo/firestore/helpers/converters/nft/get-nft-token-id-label'
-import { lowerOwnerWalletAddressIfExists } from '@echo/firestore/helpers/converters/nft/lower-owner-wallet-address-if-exists'
-import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
 import type { NftDocumentData } from '@echo/firestore/types/model/nft-document-data'
-import type { Nft } from '@echo/model/types/nft/nft'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import type { Nft } from '@echo/model/types/nft'
 import { QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
-import { assoc, bind, dissoc, has, pipe, unless } from 'ramda'
+import { assoc, has, invoker, pipe, unless } from 'ramda'
 
 export const nftDataConverter = {
-  fromDocumentData(data: NftDocumentData): Nft {
-    const tokenIdLabel = getNftTokenIdLabel(data)
-    return pipe<[NftDocumentData], Omit<Nft, 'tokenIdLabel'>, Nft>(
-      // add the owner prop if it is not present
-      unless<NftDocumentData, NftDocumentData>(has('owner'), assoc('owner', undefined)),
-      // set the token id label
-      assoc('tokenIdLabel', tokenIdLabel)
-    )(data)
-  },
   fromFirestore(snapshot: QueryDocumentSnapshot<NftDocumentData, NftDocumentData>): Nft {
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    const boundFromDocumentData = bind(this.fromDocumentData, this)
     return pipe(
-      nonNullableReturn(getDocumentSnapshotData<NftDocumentData, NftDocumentData>),
-      boundFromDocumentData
+      invoker(0, 'data'),
+      unless<NftDocumentData, NftDocumentData>(has('owner'), assoc('owner', undefined)),
+      unless<NftDocumentData, NftDocumentData>(has('pictureUrl'), assoc('pictureUrl', undefined))
     )(snapshot)
   },
   toFirestore(modelObject: WithFieldValue<Nft>): WithFieldValue<NftDocumentData> {
-    return pipe(lowerOwnerWalletAddressIfExists, dissoc('tokenIdLabel'))(modelObject)
+    return modelObject
   }
 }

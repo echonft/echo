@@ -1,20 +1,19 @@
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import { getOfferThreadOnEchoChannel } from '@echo/bot/offer/get-offer-thread-on-echo-channel'
-import type { WithClient } from '@echo/bot/types/with-client'
 import { getEscrowedNftSnapshot } from '@echo/firestore/crud/nft/get-escrowed-nft-snapshot'
 import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { offerReceiverNftItems } from '@echo/model/helpers/offer/offer-receiver-nft-items'
 import { offerSenderNftItems } from '@echo/model/helpers/offer/offer-sender-nft-items'
-import type { NftItem } from '@echo/model/types/item/nft-item'
-import type { Offer } from '@echo/model/types/offer/offer'
-import type { WithLogger } from '@echo/utils/types/with-logger'
-import { userMention } from 'discord.js'
+import type { NftItem } from '@echo/model/types/nft-item'
+import type { Offer } from '@echo/model/types/offer'
+import type { Username } from '@echo/model/types/username'
+import { type Client, userMention } from 'discord.js'
 import i18next from 'i18next'
 import { always, andThen, complement, isNil, type NonEmptyArray, otherwise, pipe, prop } from 'ramda'
 
-async function getUserDiscordId(username: string) {
+async function getUserDiscordId(username: Username) {
   const user = await getUserByUsername(username)
   if (isNil(user)) {
     throw Error(`offer receiver with username ${username} not found`)
@@ -40,12 +39,13 @@ async function areNftsFromItemsInEscrow(items: NonEmptyArray<NftItem>): Promise<
   return false
 }
 
-interface PostEscrowMessageArgs extends WithClient, WithLogger {
+interface PostEscrowMessageArgs {
+  client: Client
   offer: Offer
 }
 
 export async function postEscrowMessage(args: PostEscrowMessageArgs) {
-  const { offer, logger } = args
+  const { offer } = args
   const { offerThread, thread } = await getOfferThreadOnEchoChannel(args)
   if (!isNil(thread) && !isNil(offerThread)) {
     const senderNftsInEscrow = await pipe(offerSenderNftItems, areNftsFromItemsInEscrow)(offer)
@@ -60,7 +60,7 @@ export async function postEscrowMessage(args: PostEscrowMessageArgs) {
           receiver: userMention(receiverId)
         })
       })
-      logger?.info({ offer, offerThread }, 'posted escrow update to thread')
+      logger.info({ offer, offerThread }, 'posted escrow update to thread')
       return
     }
     if (senderNftsInEscrow) {
@@ -69,7 +69,7 @@ export async function postEscrowMessage(args: PostEscrowMessageArgs) {
         components: [buildOfferLinkButton(offer)],
         content: i18next.t('offer.thread.redeemable.single', { redeemer: userMention(senderId) })
       })
-      logger?.info({ offer, offerThread }, 'posted escrow update to thread')
+      logger.info({ offer, offerThread }, 'posted escrow update to thread')
       return
     }
   }

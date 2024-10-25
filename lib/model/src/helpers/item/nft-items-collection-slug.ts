@@ -1,5 +1,5 @@
 import { nftItemCollectionSlug } from '@echo/model/helpers/item/nft-item-collection-slug'
-import type { NftItem } from '@echo/model/types/item/nft-item'
+import type { NftItem } from '@echo/model/types/nft-item'
 import type { Slug } from '@echo/model/types/slug'
 import { map, pipe, uniq } from 'ramda'
 

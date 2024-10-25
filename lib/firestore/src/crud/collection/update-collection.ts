@@ -2,7 +2,7 @@ import { getCollectionSnapshot } from '@echo/firestore/crud/collection/get-colle
 import { getCollectionsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collections-collection-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import { CollectionError } from '@echo/model/constants/errors/collection-error'
-import type { Collection } from '@echo/model/types/collection/collection'
+import type { Collection } from '@echo/model/types/collection'
 import type { Slug } from '@echo/model/types/slug'
 import { isNil } from 'ramda'
 

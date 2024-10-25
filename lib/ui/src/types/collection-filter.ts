@@ -1,3 +1,3 @@
-import type { NftFilter } from '@echo/ui/types/nft-filter'
+import type { Filter } from '@echo/ui/types/filter'
 
-export type CollectionFilter = NftFilter
+export type CollectionFilter = Filter

@@ -3,7 +3,7 @@ import { getOffersCollectionReference } from '@echo/firestore/helpers/collection
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { shouldLockOffer } from '@echo/model/helpers/offer/should-lock-offer'
-import type { Offer } from '@echo/model/types/offer/offer'
+import type { Offer } from '@echo/model/types/offer'
 import { isNil } from 'ramda'
 
 export async function updateOfferState(args: Pick<Offer, 'slug' | 'state'>): Promise<Offer> {

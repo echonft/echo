@@ -3,9 +3,8 @@
 import { OfferRole } from '@echo/model/constants/offer-role'
 import { OfferState } from '@echo/model/constants/offer-state'
 import { shouldLockOffer } from '@echo/model/helpers/offer/should-lock-offer'
-import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
-import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
-import type { Offer } from '@echo/model/types/offer/offer'
+import { offerMockToJohnnycage } from '@echo/model/mocks/offer-mock'
+import type { Offer } from '@echo/model/types/offer'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
 import { OfferDetails as Component, type OfferDetailsProps } from '@echo/ui/components/offer/details/offer-details'
@@ -73,12 +72,11 @@ export const Details: StoryObj<ComponentType> = {
       return assoc('role', undefined, offer)
     }
 
-    const offer = pipe(offerMockToJohnnycageId, getOfferMockById)()
     const renderedOffer = pipe<[Offer], Offer, Offer, OfferWithRole>(
       assoc('state', state),
       setExpirationAndLocked,
       setRole
-    )(offer)
+    )(offerMockToJohnnycage)
     return <Component offer={renderedOffer} />
   }
 }

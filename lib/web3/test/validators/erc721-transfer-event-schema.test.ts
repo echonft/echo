@@ -1,4 +1,4 @@
-import { Chain } from '@echo/utils/constants/chain'
+import { Chain } from '@echo/model/constants/chain'
 import { erc721TransferEventSchema } from '@echo/web3/validators/erc721-transfer-event-schema'
 import { describe, expect, it } from '@jest/globals'
 import { assoc } from 'ramda'

@@ -1,10 +1,13 @@
+import { Environment, environment } from '@echo/utils/constants/environment'
 import { isCI } from '@echo/utils/constants/is-ci'
-import { isProd } from '@echo/utils/constants/is-prod'
-import { isTest } from '@echo/utils/constants/is-test'
+import { logLevel } from '@echo/utils/constants/log-level'
+import { NodeEnvironment, nodeEnvironment } from '@echo/utils/constants/node-environment'
 import type { LoggerOptions } from '@echo/utils/types/logger-options'
 import type { LoggerSerializer } from '@echo/utils/types/logger-serializer'
 import pino, { type DestinationStream } from 'pino'
 import { always, assoc, equals, is, isNil, mergeAll, mergeLeft, pipe, unless } from 'ramda'
+
+export type { Logger } from 'pino'
 
 function getSerializers(serializers?: LoggerSerializer | LoggerSerializer[]): LoggerSerializer {
   const baseSerializer: LoggerSerializer = {
@@ -22,8 +25,8 @@ function getSerializers(serializers?: LoggerSerializer | LoggerSerializer[]): Lo
 export function getBaseLogger(name: string, options?: LoggerOptions, stream?: DestinationStream | undefined) {
   return pino(
     {
-      enabled: !isCI && !isTest,
-      level: process.env.LOG_LEVEL ?? (isProd ? 'info' : 'trace'),
+      enabled: !isCI && environment !== Environment.Test,
+      level: logLevel ?? (nodeEnvironment === NodeEnvironment.Production ? 'info' : 'trace'),
       name,
       formatters: {
         level(label, _number) {

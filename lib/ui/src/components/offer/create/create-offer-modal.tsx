@@ -1,11 +1,10 @@
 'use client'
-import type { GetOfferByIdContractRequest } from '@echo/api/types/requests/get-offer-by-id-contract-request'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { Expiration } from '@echo/model/constants/expiration'
 import { expirationToDateNumber } from '@echo/model/helpers/expiration-to-date-number'
 import { buildBaseOffer } from '@echo/model/helpers/offer/build-base-offer'
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
-import type { Offer } from '@echo/model/types/offer/offer'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { Offer } from '@echo/model/types/offer'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalDescription } from '@echo/ui/components/base/modal/modal-description'
@@ -54,7 +53,7 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
   const idContract = useMemo(() => generateOfferId(baseOffer), [baseOffer])
   const { trigger: getOfferTrigger, isMutating: isGetOfferMutating } = useSWRTrigger<
     OfferResponse,
-    GetOfferByIdContractRequest
+    Record<'idContract', HexString>
   >({
     key: SWRKeys.offer.getByIdContract(idContract),
     fetcher: getOfferByIdContract,

@@ -1,10 +1,10 @@
-import type { WithAuthUserProps } from '@echo/auth/types/with-auth-user-props'
+import type { User } from '@echo/auth/types/user'
 import type { NextRequest } from '@echo/backend/types/next-request'
-import type { WithLogger } from '@echo/utils/types/with-logger'
 import type { NextResponse } from 'next/server'
 
-export interface AuthRequestHandlerArgs<RequestBody = never> extends WithLogger, WithAuthUserProps {
+export interface AuthRequestHandlerArgs<RequestBody = never> {
   req: NextRequest<RequestBody>
+  user: User
 }
 
 export interface AuthRequestHandlerArgsWithParams<Params extends object, RequestBody = never>

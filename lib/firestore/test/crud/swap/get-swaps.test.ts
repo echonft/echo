@@ -1,5 +1,5 @@
 import { getSwaps } from '@echo/firestore/crud/swap/get-swaps'
-import { swapMock } from '@echo/model/mocks/swap/swap-mock'
+import { swapMock } from '@echo/model/mocks/swap-mock'
 import { addSwap } from '@echo/test/firestore/crud/swap/add-swap'
 import { deleteSwap } from '@echo/test/firestore/crud/swap/delete-swap'
 import { nowMsSlug } from '@echo/utils/helpers/now-ms-slug'
@@ -19,7 +19,7 @@ describe('CRUD - offer - getSwapsForUser', () => {
   })
 
   function getSwap() {
-    return pipe(swapMock, assoc('slug', nowMsSlug()), assoc('offerId', 'offer-id'))()
+    return pipe(assoc('slug', nowMsSlug()), assoc('offerId', 'offer-id'))(swapMock)
   }
 
   it('return an empty array if there are no swaps', async () => {

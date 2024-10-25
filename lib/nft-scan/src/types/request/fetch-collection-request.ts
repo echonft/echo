@@ -1,7 +1,6 @@
-import type { Wallet } from '@echo/model/types/wallet'
-import type { WithFetch } from '@echo/utils/types/with-fetch'
+import type { Contract } from '@echo/model/types/contract'
 
-export interface FetchCollectionRequest extends WithFetch {
-  contract: Wallet
+export interface FetchCollectionRequest {
+  contract: Contract
   showAttribute?: boolean // To fetch the collection attributes. Default: false
 }

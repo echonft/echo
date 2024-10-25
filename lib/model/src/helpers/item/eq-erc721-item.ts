@@ -1,5 +1,5 @@
 import { eqNft } from '@echo/model/helpers/nft/eq-nft'
-import type { Erc721Item } from '@echo/model/types/item/erc721-item'
+import type { Erc721Item } from '@echo/model/types/erc721-item'
 import { eqPropsWith } from '@echo/utils/fp/eq-props-with'
 import { isNil } from 'ramda'
 

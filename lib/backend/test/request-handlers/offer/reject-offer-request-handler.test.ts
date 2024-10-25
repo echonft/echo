@@ -2,9 +2,9 @@ import { NotFoundError } from '@echo/backend/errors/not-found-error'
 import { mockRequest } from '@echo/backend/mocks/mock-request'
 import { rejectOfferRequestHandler } from '@echo/backend/request-handlers/offer/reject-offer-request-handler'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
-import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
-import { offerMockToJohnnycageSlug } from '@echo/model/mocks/offer/offer-mock'
-import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
+import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/db-model/user/get-user-document-data-mock-by-username'
+import { offerMockToJohnnycageSlug } from '@echo/model/mocks/offer-mock'
+import { userMockJohnnyUsername } from '@echo/model/mocks/user-mock'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('@echo/firestore/crud/offer/get-offer')

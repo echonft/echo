@@ -6,9 +6,9 @@ import {
   collectionMockPxSlug,
   collectionMockSpiralContract,
   collectionMockSpiralSlug
-} from '@echo/model/mocks/collection/collection-mock'
-import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
-import type { Swap } from '@echo/model/types/swap/swap'
+} from '@echo/model/mocks/collection-mock'
+import { getUserMockByUsername, userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user-mock'
+import type { Swap } from '@echo/model/types/swap'
 import { addSwap } from '@echo/test/firestore/crud/swap/add-swap'
 import { deleteSwap } from '@echo/test/firestore/crud/swap/delete-swap'
 import { nowMsSlug } from '@echo/utils/helpers/now-ms-slug'
@@ -45,10 +45,7 @@ describe('CRUD - offer - getSwapsForUser', () => {
               slug: collectionMockSpiralSlug(),
               totalSupply: 6315
             },
-            animationUrl: 'https://animation.url/',
-            tokenIdLabel: '#0001',
             name: 'Spiral Frequencies #1',
-            metadataUrl: 'https://metadata.url/',
             pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
             tokenId: 1,
             type: TokenType.Erc721
@@ -65,10 +62,7 @@ describe('CRUD - offer - getSwapsForUser', () => {
               slug: collectionMockSpiralSlug(),
               totalSupply: 1077
             },
-            tokenIdLabel: '#0003',
             name: 'Creative Demigod #3',
-            animationUrl: 'https://animation.url/',
-            metadataUrl: 'https://metadata.url/',
             pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/d4ccdfe6a54889abc408c34335b6fb55',
             tokenId: 3,
             type: TokenType.Erc721
@@ -89,10 +83,7 @@ describe('CRUD - offer - getSwapsForUser', () => {
               slug: collectionMockPxSlug(),
               totalSupply: 6315
             },
-            animationUrl: 'https://animation.url/',
-            tokenIdLabel: '#0001',
             name: 'Spiral Frequencies #1',
-            metadataUrl: 'https://metadata.url/',
             pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
             tokenId: 1,
             type: TokenType.Erc721
@@ -109,10 +100,7 @@ describe('CRUD - offer - getSwapsForUser', () => {
               slug: collectionMockPxSlug(),
               totalSupply: 1077
             },
-            tokenIdLabel: '#0003',
             name: 'Creative Demigod #3',
-            animationUrl: 'https://animation.url/',
-            metadataUrl: 'https://metadata.url/',
             pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/d4ccdfe6a54889abc408c34335b6fb55',
             tokenId: 3,
             type: TokenType.Erc721
@@ -133,10 +121,7 @@ describe('CRUD - offer - getSwapsForUser', () => {
               slug: collectionMockPxSlug(),
               totalSupply: 6315
             },
-            animationUrl: 'https://animation.url/',
-            tokenIdLabel: '#0001',
             name: 'Spiral Frequencies #1',
-            metadataUrl: 'https://metadata.url/',
             pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
             tokenId: 1,
             type: TokenType.Erc721
@@ -153,10 +138,7 @@ describe('CRUD - offer - getSwapsForUser', () => {
               slug: collectionMockSpiralSlug(),
               totalSupply: 1077
             },
-            tokenIdLabel: '#0003',
             name: 'Creative Demigod #3',
-            animationUrl: 'https://animation.url/',
-            metadataUrl: 'https://metadata.url/',
             pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/d4ccdfe6a54889abc408c34335b6fb55',
             tokenId: 3,
             type: TokenType.Erc721

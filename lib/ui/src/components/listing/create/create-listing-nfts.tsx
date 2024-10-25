@@ -1,6 +1,6 @@
 'use client'
 
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { CreateListingNftsSelected } from '@echo/ui/components/listing/create/create-listing-nfts-selected'
 import { CreateListingNftsSelection } from '@echo/ui/components/listing/create/create-listing-nfts-selection'
 import type { FunctionComponent } from 'react'

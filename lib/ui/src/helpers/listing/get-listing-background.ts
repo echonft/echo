@@ -1,4 +1,4 @@
-import type { Listing } from '@echo/model/types/listing/listing'
+import type { Listing } from '@echo/model/types/listing'
 import { Background } from '@echo/ui/constants/background'
 import { getBackgroundGradientFromColor } from '@echo/ui/helpers/get-background-gradient-from-color'
 import { getListingBackgroundColor } from '@echo/ui/helpers/listing/get-listing-background-color'

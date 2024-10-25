@@ -1,10 +1,11 @@
 'use client'
 import { swapSenderNftItems } from '@echo/model/helpers/swap/swap-sender-nft-items'
-import type { NftItem } from '@echo/model/types/item/nft-item'
-import type { Swap } from '@echo/model/types/swap/swap'
+import type { NftItem } from '@echo/model/types/nft-item'
+import type { Swap } from '@echo/model/types/swap'
 import { StackLayout } from '@echo/ui/components/base/stack/layout/stack-layout'
 import { StackFooter } from '@echo/ui/components/base/stack/stack-footer'
 import { SwapStackPicture } from '@echo/ui/components/swap/card/swap-stack-picture'
+import { nftLabel } from '@echo/ui/helpers/nft/nft-label'
 import { clsx } from 'clsx'
 import { head, type NonEmptyArray, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
@@ -30,10 +31,10 @@ export const SwapCard: FunctionComponent<SwapCardProps> = ({ swap, options, onSe
       <SwapStackPicture
         chain={item.token.contract.chain}
         pictureUrl={item.token.pictureUrl}
-        tokenIdLabel={item.token.tokenIdLabel}
+        label={nftLabel(item.token)}
         scaleDisabled={options?.scaleDisabled}
       />
-      <StackFooter title={item.token.collection.name} subtitle={item.token.tokenIdLabel} />
+      <StackFooter title={item.token.collection.name} subtitle={nftLabel(item.token)} />
     </StackLayout>
   )
 }

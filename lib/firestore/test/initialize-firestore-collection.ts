@@ -1,12 +1,10 @@
 import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
-import { collectionDiscordGuildMock } from '@echo/firestore/mocks/collection-discord-guild/collection-discord-guild-mock'
-import { listingDocumentDataMock } from '@echo/firestore/mocks/listing/listing-document-data-mock'
-import { nftDocumentDataMock } from '@echo/firestore/mocks/nft/nft-document-data-mock'
-import { offerDocumentDataMock } from '@echo/firestore/mocks/offer/offer-document-data-mock'
-import { userDocumentDataMock } from '@echo/firestore/mocks/user/user-document-data-mock'
-import { walletDocumentDataMock } from '@echo/firestore/mocks/wallet/wallet-document-data-mock'
+import { collectionDocumentDataMock } from '@echo/firestore/mocks/db-model/collection-document-data-mock'
+import { listingDocumentDataMock } from '@echo/firestore/mocks/db-model/listing-document-data-mock'
+import { nftDocumentDataMock } from '@echo/firestore/mocks/db-model/nft-document-data-mock'
+import { offerDocumentDataMock } from '@echo/firestore/mocks/db-model/offer-document-data-mock'
+import { userDocumentDataMock } from '@echo/firestore/mocks/db-model/user/user-document-data-mock'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
-import { collectionMock } from '@echo/model/mocks/collection/collection-mock'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { DocumentData, WriteResult } from 'firebase-admin/firestore'
@@ -15,9 +13,7 @@ import { always, ifElse, isNil, mapObjIndexed, pipe, values } from 'ramda'
 function getMock(collectionReferenceName: CollectionReferenceName) {
   switch (collectionReferenceName) {
     case CollectionReferenceName.Collections:
-      return collectionMock() as Record<string, DocumentData>
-    case CollectionReferenceName.CollectionDiscordGuilds:
-      return collectionDiscordGuildMock() as Record<string, DocumentData>
+      return collectionDocumentDataMock() as Record<string, DocumentData>
     case CollectionReferenceName.Listings:
       return listingDocumentDataMock() as Record<string, DocumentData>
     case CollectionReferenceName.Nfts:
@@ -26,8 +22,6 @@ function getMock(collectionReferenceName: CollectionReferenceName) {
       return offerDocumentDataMock() as Record<string, DocumentData>
     case CollectionReferenceName.Users:
       return userDocumentDataMock() as Record<string, DocumentData>
-    case CollectionReferenceName.Wallets:
-      return walletDocumentDataMock() as Record<string, DocumentData>
     default:
       return undefined
   }

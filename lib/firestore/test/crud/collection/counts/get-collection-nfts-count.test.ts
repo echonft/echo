@@ -1,5 +1,5 @@
 import { getCollectionNftsCount } from '@echo/firestore/crud/collection/counts/get-collection-nfts-count'
-import { collectionMockPxSlug } from '@echo/model/mocks/collection/collection-mock'
+import { collectionMockPxSlug } from '@echo/model/mocks/collection-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - collection - counts - getCollectionNftsCount', () => {

@@ -1,9 +1,9 @@
 'use client'
 import type { Expiration } from '@echo/model/constants/expiration'
-import type { Collection } from '@echo/model/types/collection/collection'
-import type { Listing } from '@echo/model/types/listing/listing'
+import type { Collection } from '@echo/model/types/collection'
+import type { Listing } from '@echo/model/types/listing'
 
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { CreateListingButtons } from '@echo/ui/components/listing/create/create-listing-buttons'
 import { CreateListingExpiration } from '@echo/ui/components/listing/create/create-listing-expiration'

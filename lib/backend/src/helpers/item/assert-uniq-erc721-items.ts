@@ -1,7 +1,7 @@
 import { ItemError } from '@echo/model/constants/errors/item-error'
 import { eqErc721Item } from '@echo/model/helpers/item/eq-erc721-item'
 import { erc721Items } from '@echo/model/helpers/item/erc721-items'
-import type { AbstractItem } from '@echo/model/types/item/abstract-item'
+import type { AbstractItem } from '@echo/model/types/abstract-item'
 import { listHasDuplicates } from '@echo/utils/fp/list-has-duplicates'
 import { pipe } from 'ramda'
 

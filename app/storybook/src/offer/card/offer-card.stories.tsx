@@ -2,9 +2,8 @@
 
 import { OfferRole } from '@echo/model/constants/offer-role'
 import { OfferState } from '@echo/model/constants/offer-state'
-import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
-import { offerMockFromJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
-import type { Offer } from '@echo/model/types/offer/offer'
+import { offerMockFromJohnnycage } from '@echo/model/mocks/offer-mock'
+import type { Offer } from '@echo/model/types/offer'
 import { OfferCard } from '@echo/ui/components/offer/card/offer-card'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
@@ -52,7 +51,7 @@ export const Default: StoryObj<ComponentType> = {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           unless<OfferWithRole, OfferWithRole>(always(stack), modify('senderItems', drop(1)))
-        )(getOfferMockById(offerMockFromJohnnycageId())),
+        )(offerMockFromJohnnycage),
       [state, stack]
     )
     return <OfferCard offer={offer} options={{ scaleDisabled }} />

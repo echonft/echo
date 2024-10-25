@@ -2,8 +2,8 @@ import { nftArrayIndex } from '@echo/firestore/array-indexers/nft/nft-array-inde
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
 import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import { type Listing } from '@echo/model/types/listing/listing'
-import type { NftIndex } from '@echo/model/types/nft/nft'
+import { type Listing } from '@echo/model/types/listing'
+import type { NftIndex } from '@echo/model/types/nft'
 import { pipe } from 'ramda'
 
 export function getListingsForNft(nft: NftIndex): Promise<Listing[]> {

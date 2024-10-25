@@ -1,6 +1,6 @@
 import { collectionComparator } from '@echo/model/helpers/collection/collection-comparator'
 import { nftTokenIdComparator } from '@echo/model/helpers/nft/nft-token-id-comparator'
-import type { NftIndex } from '@echo/model/types/nft/nft'
+import type { NftIndex } from '@echo/model/types/nft'
 
 export function nftIndexComparator(indexA: NftIndex, indexB: NftIndex): number {
   const collectionDiff = collectionComparator(indexA.collection, indexB.collection)

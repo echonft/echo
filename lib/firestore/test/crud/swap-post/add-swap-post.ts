@@ -3,7 +3,7 @@ import { setReference } from '@echo/firestore/helpers/crud/reference/set-referen
 import type { SwapPostDocumentData } from '@echo/firestore/types/model/swap-post-document-data'
 
 export async function addSwapPost(data: SwapPostDocumentData): Promise<string> {
-  return setReference<SwapPostDocumentData, SwapPostDocumentData>({
+  return setReference({
     collectionReference: getSwapPostsCollectionReference(),
     data
   })

@@ -2,10 +2,11 @@ import { getOffersCollectionReference } from '@echo/firestore/helpers/collection
 import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import { type Offer } from '@echo/model/types/offer/offer'
+import { type Offer } from '@echo/model/types/offer'
+import type { Username } from '@echo/model/types/username'
 import { pipe } from 'ramda'
 
-export function getPendingOffersForReceiver(username: string): Promise<Offer[]> {
+export function getPendingOffersForReceiver(username: Username): Promise<Offer[]> {
   return pipe(
     getOffersCollectionReference,
     queryWhere('receiver.username', '==', username),

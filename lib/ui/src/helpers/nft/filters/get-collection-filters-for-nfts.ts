@@ -1,5 +1,5 @@
 import { collectionByNameComparator } from '@echo/model/helpers/collection/collection-by-name-comparator'
-import { type Nft, type NftCollection } from '@echo/model/types/nft/nft'
+import { type Nft, type NftCollection } from '@echo/model/types/nft'
 import type { Slug } from '@echo/model/types/slug'
 import { type CollectionFilter } from '@echo/ui/types/collection-filter'
 import { applySpec, collectBy, head, length, map, type NonEmptyArray, pipe, prop, sort } from 'ramda'

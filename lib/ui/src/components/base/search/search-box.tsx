@@ -1,5 +1,5 @@
 'use client'
-import type { SearchResult } from '@echo/model/types/search/search-result'
+import type { SearchResult } from '@echo/model/types/search-result'
 import { SearchInput } from '@echo/ui/components/base/search/search-input'
 import { SearchResultsPanel } from '@echo/ui/components/base/search/search-results-panel'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'

@@ -1,4 +1,4 @@
-import { getWalletByAddress } from '@echo/firestore/crud/wallet/get-wallet-by-address'
+import { getWallet } from '@echo/firestore/crud/wallet/get-wallet'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import type { Wallet } from '@echo/model/types/wallet'
 import { getLogger } from '@echo/tasks/commands/get-logger'
@@ -9,7 +9,7 @@ export async function updateWalletNftsCommand(wallet: Wallet) {
   const logger = getLogger(updateWalletNftsCommand.name)
   await initializeFirebase()
   const walletDocumentData = await pipe(
-    getWalletByAddress,
+    getWallet,
     andThen(
       tap((wallet) => {
         if (isNil(wallet)) {

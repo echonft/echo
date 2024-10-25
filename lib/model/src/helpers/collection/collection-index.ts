@@ -1,4 +1,4 @@
-import type { Collection, CollectionIndex } from '@echo/model/types/collection/collection'
+import type { Collection, CollectionIndex } from '@echo/model/types/collection'
 import { pick } from 'ramda'
 
 export function collectionIndex<T extends Collection>(

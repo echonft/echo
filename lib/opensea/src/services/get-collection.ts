@@ -1,45 +1,47 @@
-import type { Collection } from '@echo/model/types/collection/collection'
+import { chains } from '@echo/model/constants/chain'
+import { isTestnetChain } from '@echo/model/helpers/chain/is-testnet-chain'
+import type { ChainProps } from '@echo/model/types/chain'
+import type { Collection } from '@echo/model/types/collection'
 import { fetchCollection } from '@echo/opensea/fetchers/fetch-collection'
-import { getLogger } from '@echo/opensea/helpers/get-logger'
+import { error, info } from '@echo/opensea/helpers/logger'
 import type { FetchCollectionRequest } from '@echo/opensea/types/request/fetch-collection-request'
-import { Chain } from '@echo/utils/constants/chain'
-import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
+import { Network } from '@echo/utils/constants/network'
 import type { Nullable } from '@echo/utils/types/nullable'
-import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { assoc, isNil, otherwise, pick, pipe } from 'ramda'
+import { assoc, find, isNil, nth, otherwise, pipe, propEq, values } from 'ramda'
 
-function fetchMainnetCollection(args: WithLoggerType<FetchCollectionRequest>) {
-  const logger = getLogger({ chain: args.chain, logger: args.logger })?.child({
-    fetcher: fetchMainnetCollection.name,
-    request: pick(['slug', 'chain'], args)
-  })
+function fetchMainnetCollection({ chain, slug }: FetchCollectionRequest) {
   const regex = /^(.+)-\d+$/
-  const match = regex.exec(args.slug)
-  logger?.info({ slug: args.slug }, 'trying to get mainnet slug')
-  if (match) {
-    const mainnetSlug = match[1]
-    logger?.info({ slug: mainnetSlug }, 'found potential slug')
-    return pipe(
-      assoc('slug', mainnetSlug),
-      fetchCollection,
-      otherwise((err) => {
-        logger?.error({ err }, 'could not fetch mainnet collection')
-        return undefined
-      })
-    )(assoc('logger', logger, args))
-  } else {
+  const match = regex.exec(slug)
+  info({ chain, slug }, 'trying to get mainnet slug')
+  if (isNil(match)) {
     return undefined
   }
+  const mainnetSlug = nth(1, match)
+  if (isNil(mainnetSlug)) {
+    return undefined
+  }
+  info({ chain, slug: mainnetSlug }, 'found potential slug')
+  return pipe(
+    fetchCollection,
+    otherwise((err) => {
+      error({ err, chain }, 'could not fetch mainnet collection')
+      return undefined
+    })
+  )({ chain, slug: mainnetSlug })
 }
 
-export async function getCollection(args: WithLoggerType<FetchCollectionRequest>): Promise<Nullable<Collection>> {
-  const logger = getLogger({ chain: args.chain, logger: args.logger })?.child({
-    fetcher: getCollection.name
-  })
-  const collection = await pipe(assoc('logger', logger), fetchCollection)(args)
+export async function getCollection(args: FetchCollectionRequest): Promise<Nullable<Collection>> {
+  const collection = await fetchCollection(args)
   if (!isNil(collection) && isTestnetChain(args.chain)) {
     // chain does not matter here, but it has to be on mainnet
-    const mainnetCollection = await fetchMainnetCollection(assoc('chain', Chain.Sei, args))
+    const mainnetChainProps = pipe(
+      values,
+      find<ChainProps>(propEq<Network, 'network'>(Network.Mainnet, 'network'))
+    )(chains)
+    if (isNil(mainnetChainProps)) {
+      return collection
+    }
+    const mainnetCollection = await fetchMainnetCollection(assoc('chain', mainnetChainProps.name, args))
     if (!isNil(mainnetCollection)) {
       return pipe(assoc('contract', collection.contract), assoc('slug', collection.slug))(mainnetCollection)
     }

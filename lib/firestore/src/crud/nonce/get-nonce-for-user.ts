@@ -3,14 +3,15 @@ import { getNoncesCollectionReference } from '@echo/firestore/helpers/collection
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
 import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/crud/query/get-query-unique-document-snapshot'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import type { Nonce } from '@echo/firestore/types/model/nonce'
 import type { NonceDocumentData } from '@echo/firestore/types/model/nonce-document-data'
+import type { Nonce } from '@echo/model/types/nonce'
+import type { Username } from '@echo/model/types/username'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, isNil, pipe } from 'ramda'
 
 export async function getNonceSnapshotForUser(
-  username: string
+  username: Username
 ): Promise<Nullable<QueryDocumentSnapshot<Nonce, NonceDocumentData>>> {
   const snapshot = await getUserSnapshotByUsername(username)
   if (isNil(snapshot)) {
@@ -19,6 +20,6 @@ export async function getNonceSnapshotForUser(
   return pipe(getNoncesCollectionReference, queryWhere('userId', '==', snapshot.id), getQueryUniqueDocumentSnapshot)()
 }
 
-export function getNonceForUser(username: string): Promise<Nullable<Nonce>> {
+export function getNonceForUser(username: Username): Promise<Nullable<Nonce>> {
   return pipe(getNonceSnapshotForUser, andThen(getDocumentSnapshotData))(username)
 }

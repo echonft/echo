@@ -1,13 +1,12 @@
 import { assertNftsOwner } from '@echo/backend/helpers/nft/assert-owned-nfts'
-import { getNftMock } from '@echo/model/mocks/nft/get-nft-mock'
-import type { Nft } from '@echo/model/types/nft/nft'
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import { nftMockSpiral1 } from '@echo/model/mocks/nft-mock'
+import type { Nft } from '@echo/model/types/nft'
 import { describe, expect, test } from '@jest/globals'
 import { dissoc } from 'ramda'
 
 describe('helpers - nft - assertNftsOwner', () => {
-  const ownedNft: OwnedNft = getNftMock()
-  const nft: Nft = dissoc('owner', ownedNft)
+  const ownedNft = nftMockSpiral1
+  const nft = dissoc('owner', ownedNft) as Nft
 
   test('does not throw if all the NFTs in the list have an owner', () => {
     expect(() => {

@@ -1,8 +1,8 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getAllCollectionMocks } from '@echo/model/mocks/collection/get-all-collection-mocks'
-import { type Collection } from '@echo/model/types/collection/collection'
-import type { CollectionWithSwapsCount } from '@echo/model/types/collection/collection-with-swaps-count'
+import { collectionMocks } from '@echo/model/mocks/collection-mock'
+import { type Collection } from '@echo/model/types/collection'
+import type { CollectionWithSwapsCount } from '@echo/model/types/collection-with-swaps-count'
 import { TopCollections as Component } from '@echo/ui/pages/home/collection/top/top-collections'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { addIndex, assoc, concat, map, pipe } from 'ramda'
@@ -21,12 +21,11 @@ export default metadata
 
 export const TopCollections: StoryObj<typeof Component> = {
   args: {
-    collections: pipe<[], Collection[], Collection[], Collection[], Collection[], CollectionWithSwapsCount[]>(
-      getAllCollectionMocks,
-      concat(getAllCollectionMocks()),
-      concat(getAllCollectionMocks()),
-      concat(getAllCollectionMocks()),
+    collections: pipe<[Collection[]], Collection[], Collection[], Collection[], CollectionWithSwapsCount[]>(
+      concat(collectionMocks),
+      concat(collectionMocks),
+      concat(collectionMocks),
       addIndex(map)((collection, index) => assoc('swapsCount', index, collection))
-    )()
+    )(collectionMocks)
   }
 }

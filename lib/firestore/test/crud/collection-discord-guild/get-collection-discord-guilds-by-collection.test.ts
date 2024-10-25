@@ -1,17 +1,48 @@
 import { getCollectionDiscordGuildsByCollection } from '@echo/firestore/crud/collection-discord-guild/get-collection-discord-guilds-by-collection'
-import { getCollectionDiscordGuildMocksByCollection } from '@echo/firestore/mocks/collection-discord-guild/get-collection-discord-guild-mocks-by-collection'
-import { collectionMockSpiralId } from '@echo/model/mocks/collection/collection-mock'
-import { describe, expect, it } from '@jest/globals'
+import { deleteCollection } from '@echo/firestore/crud/collection/delete-collection'
+import { collectionMockPxId } from '@echo/firestore/mocks/db-model/collection-document-data-mock'
+import { addCollectionDiscordGuild } from '@echo/test/firestore/crud/collection-discord-guild/add-collection-discord-guild'
+import { deleteCollectionDiscordGuild } from '@echo/test/firestore/crud/collection-discord-guild/delete-collection-discord-guild'
+import type { Nullable } from '@echo/utils/types/nullable'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
+import { isNil } from 'ramda'
 
 describe('CRUD - collection-discord-guild - getCollectionDiscordGuildsByCollection', () => {
-  it('returns an empty array if there is no document for the given collection', async () => {
-    const document = await getCollectionDiscordGuildsByCollection('not-found')
-    expect(document).toEqual([])
+  const collectionId = collectionMockPxId()
+  const guildData = {
+    collectionId,
+    guild: {
+      id: '100',
+      channelId: '100'
+    }
+  }
+  // const collectionData = collectionMockPx()
+  let addedCollectionId: Nullable<string>
+  let addedGuildId: Nullable<string>
+
+  beforeEach(() => {
+    addedCollectionId = undefined
+    addedGuildId = undefined
   })
+  afterEach(async () => {
+    if (!isNil(addedCollectionId)) {
+      await deleteCollection(addedCollectionId)
+    }
+    if (!isNil(addedGuildId)) {
+      await deleteCollectionDiscordGuild(addedGuildId)
+    }
+  })
+
+  it('returns an empty array if there is no document for the given collection', async () => {
+    await expect(getCollectionDiscordGuildsByCollection('not-found')).resolves.toEqual([])
+  })
+
   it('returns the discord guilds associated with the collection', async () => {
-    const collectionId = collectionMockSpiralId()
+    // TODO
+    // addedCollectionId = await addCollection(collectionData)
+    addedGuildId = await addCollectionDiscordGuild(guildData)
     const documents = await getCollectionDiscordGuildsByCollection(collectionId)
     expect(documents.length).toBe(1)
-    expect(documents).toStrictEqual(getCollectionDiscordGuildMocksByCollection(collectionId))
+    expect(documents[0]).toStrictEqual(guildData)
   })
 })

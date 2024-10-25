@@ -2,11 +2,9 @@ import { CollectionReferenceName } from '@echo/firestore/constants/collection-re
 import { getListingsForNft } from '@echo/firestore/crud/listing/get-listings-for-nft'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import { ListingState } from '@echo/model/constants/listing-state'
-import { getListingMockById } from '@echo/model/mocks/listing/get-listing-mock-by-id'
-import { listingMockId, listingMockSlug } from '@echo/model/mocks/listing/listing-mock'
-import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
-import { nftMockPxCrewId, nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
-import type { Listing } from '@echo/model/types/listing/listing'
+import { listingMock } from '@echo/model/mocks/listing-mock'
+import { nftMockPx3, nftMockSpiral1, nftMockSpiral2 } from '@echo/model/mocks/nft-mock'
+import type { Listing } from '@echo/model/types/listing'
 import type { Slug } from '@echo/model/types/slug'
 import { resetListing } from '@echo/test/firestore/crud/listing/reset-listing'
 import { updateListing } from '@echo/test/firestore/crud/listing/update-listing'
@@ -28,26 +26,23 @@ describe('CRUD - listing - getListingsForNft', () => {
   })
   afterEach(async () => {
     if (!isNil(slug)) {
-      await resetListing(slug)
+      await resetListing()
     }
   })
 
   it('returns an empty array if there are no listings with the given NFT', async () => {
-    const nft = pipe(nftMockPxCrewId, getNftMockById)()
-    const listings = await getListingsForNft(nft)
+    const listings = await getListingsForNft(nftMockPx3)
     expect(listings).toEqual([])
   })
   it('returns the listings with the given NFT as an item', async () => {
-    const nft = pipe(nftMockSpiralJohnnyId, getNftMockById)()
-    const listings = await getListingsForNft(nft)
+    const listings = await getListingsForNft(nftMockSpiral1)
     expect(listings.length).toBe(1)
-    const mock = pipe(listingMockId, getListingMockById, updateListingMockToStateOpen)()
+    const mock = updateListingMockToStateOpen(listingMock)
     expect(listings[0]).toStrictEqual(mock)
   })
   it('only returns the listings that are not locked', async () => {
-    const nft = pipe(nftMockSpiralJohnnyId, getNftMockById)()
-    slug = listingMockSlug()
+    slug = listingMock.slug
     await updateListing(slug, { locked: true })
-    await expect(getListingsForNft(nft)).resolves.toEqual([])
+    await expect(getListingsForNft(nftMockSpiral2)).resolves.toEqual([])
   })
 })

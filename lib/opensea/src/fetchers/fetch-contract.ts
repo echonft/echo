@@ -1,19 +1,18 @@
+import type { Contract } from '@echo/model/types/contract'
+import { FetchError } from '@echo/opensea/constants/errors/fetch-error'
+import { error } from '@echo/opensea/helpers/logger'
 import { throttleFetch } from '@echo/opensea/helpers/throttle-fetch'
 import { openseaApiPathProvider } from '@echo/opensea/services/routing/opensea-api-path-provider'
-import type { FetchContractRequest } from '@echo/opensea/types/request/fetch-contract-request'
 import type { ContractResponse } from '@echo/opensea/types/response/contract-response'
 import { contractResponseSchema } from '@echo/opensea/validators/contract-response-schema'
-import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { parseResponse } from '@echo/utils/validators/parse-response'
 
-export async function fetchContract(args: WithLoggerType<FetchContractRequest>): Promise<ContractResponse> {
-  const { fetch, contract } = args
+export async function fetchContract(contract: Contract): Promise<ContractResponse> {
   const url = openseaApiPathProvider.contract.fetch.getUrl(contract)
-  const logger = args.logger?.child({ url, fetcher: fetchContract.name })
-  const response = await throttleFetch({ fetch, url, logger })
+  const response = await throttleFetch(url)
   if (!response.ok) {
-    logger?.error({ contract }, 'error fetching contract')
-    return Promise.reject(Error(`error fetching contract`))
+    error({ contract: contract, url }, FetchError.Contract)
+    return Promise.reject(Error(FetchError.Contract))
   }
   return parseResponse(contractResponseSchema)(response)
 }

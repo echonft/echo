@@ -1,6 +1,6 @@
 import { itemsCollectionArrayIndexer } from '@echo/firestore/array-indexers/item/items-collection-array-indexer'
 import { swapReceiverNftItems } from '@echo/model/helpers/swap/swap-receiver-nft-items'
-import type { Swap } from '@echo/model/types/swap/swap'
+import type { Swap } from '@echo/model/types/swap'
 import { assoc, has, pipe, uniq } from 'ramda'
 
 export function addReceiverItemsCollectionSlug(modelObject: Partial<Swap>): Partial<Swap> {

@@ -2,8 +2,9 @@
 
 import { OfferRole } from '@echo/model/constants/offer-role'
 import { OfferState } from '@echo/model/constants/offer-state'
-import { getOfferMock } from '@echo/model/mocks/offer/get-offer-mock'
-import { PageLayoutBackgroundPicker } from '@echo/ui/components/base/layout/page-layout-background-picker'
+import { offerMockToJohnnycage } from '@echo/model/mocks/offer-mock'
+import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
+import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { CreatedOfferSwitch } from '@echo/ui/components/offer/created/created-offer-switch'
 import type { Meta, StoryObj } from '@storybook/react'
 import { assoc, pipe, values } from 'ramda'
@@ -28,7 +29,16 @@ const metadata: Meta<ComponentType> = {
       options: values(OfferState),
       control: { type: 'select' }
     }
-  }
+  },
+  decorators: [
+    (Story) => (
+      <PageLayout excludeProviders={true}>
+        <SectionLayout>
+          <Story />
+        </SectionLayout>
+      </PageLayout>
+    )
+  ]
 }
 
 export default metadata
@@ -42,12 +52,10 @@ export const Switch: StoryObj<ComponentType> = {
       setState(props.state)
     }, [props])
     return (
-      <PageLayoutBackgroundPicker layout={'padded'} excludeProviders={true}>
-        <CreatedOfferSwitch
-          offer={pipe(getOfferMock, assoc('state', state), assoc('role', OfferRole.Sender))()}
-          redeemed={redeemed}
-        />
-      </PageLayoutBackgroundPicker>
+      <CreatedOfferSwitch
+        offer={pipe(assoc('state', state), assoc('role', OfferRole.Sender))(offerMockToJohnnycage)}
+        redeemed={redeemed}
+      />
     )
   }
 }

@@ -1,10 +1,10 @@
-import { getAllNftMocks } from '@echo/model/mocks/nft/get-all-nft-mocks'
+import { nftMocks } from '@echo/model/mocks/nft-mock'
 import { getTraitFiltersForNfts } from '@echo/ui/helpers/nft/filters/get-trait-filters-for-nfts'
 import { describe, expect, test } from '@jest/globals'
 
 describe('helpers - nft - getTraitFiltersForNfts', () => {
   test('returns the right traits for mock nfts', () => {
-    expect(getTraitFiltersForNfts(getAllNftMocks())).toEqual([
+    expect(getTraitFiltersForNfts(nftMocks)).toEqual([
       {
         filters: [
           {

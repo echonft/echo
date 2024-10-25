@@ -1,4 +1,4 @@
-import type { Collection } from '@echo/model/types/collection/collection'
+import type { Collection } from '@echo/model/types/collection'
 import { CollectionSelectorCollectionPicture } from '@echo/ui/components/trade/collection-selector/collection-selector-collection-picture'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'

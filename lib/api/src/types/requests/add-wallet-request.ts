@@ -1,8 +1,4 @@
-import type { Wallet } from '@echo/model/types/wallet'
-import { type HexString } from '@echo/utils/types/hex-string'
+import type { addWalletRequestSchema } from '@echo/api/validators/add-wallet-request-schema'
+import { z } from 'zod'
 
-export interface AddWalletRequest {
-  readonly message: string
-  readonly signature: HexString
-  readonly wallet: Wallet
-}
+export type AddWalletRequest = z.infer<typeof addWalletRequestSchema>

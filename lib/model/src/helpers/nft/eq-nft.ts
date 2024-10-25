@@ -1,5 +1,5 @@
 import { nftIndex } from '@echo/model/helpers/nft/nft-index'
-import type { NftIndex } from '@echo/model/types/nft/nft'
+import type { NftIndex } from '@echo/model/types/nft'
 import { eqBy, isNil } from 'ramda'
 
 function internalFn(nftA: NftIndex): (nftB: NftIndex) => boolean {

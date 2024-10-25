@@ -14,7 +14,7 @@ interface Props {
 export const NftStackPicture: FunctionComponent<Props> = ({ stack, hideOwner, scaleDisabled }) => {
   return (
     <StackPictureLayout>
-      <StackImage src={stack.pictureUrl} alt={stack.tokenIdLabel} scaleDisabled={scaleDisabled} />
+      <StackImage src={stack.pictureUrl} alt={stack.label} scaleDisabled={scaleDisabled} />
       <CardChainIcon chain={stack.collection.contract.chain} />
       <NftStackDiscordTag username={stack.owner.discord.username} hideOwner={hideOwner} />
     </StackPictureLayout>

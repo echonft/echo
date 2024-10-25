@@ -1,4 +1,4 @@
-import type { Item } from '@echo/model/types/item/item'
+import type { Item } from '@echo/model/types/item'
 import type { ContractOfferItem } from '@echo/web3/types/contract-offer-item'
 import { applySpec, path } from 'ramda'
 

@@ -1,7 +1,7 @@
 import { addListingPost } from '@echo/firestore/crud/listing-post/add-listing-post'
 import { getListingPost } from '@echo/firestore/crud/listing-post/get-listing-post'
+import { listingMockId } from '@echo/firestore/mocks/db-model/listing-document-data-mock'
 import { ListingError } from '@echo/model/constants/errors/listing-error'
-import { listingMockId } from '@echo/model/mocks/listing/listing-mock'
 import { deleteListingPost } from '@echo/test/firestore/crud/listing-post/delete-listing-post'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'

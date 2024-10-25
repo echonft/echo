@@ -1,14 +1,15 @@
 'use client'
+import type { Username } from '@echo/model/types/username'
 import { LoginStepLayout } from '@echo/ui/components/auth/layout/login-step-layout'
 import { LoginJoinDiscordButton } from '@echo/ui/components/auth/login-join-discord-button'
 import { ExternalLink } from '@echo/ui/components/base/external-link'
-import { discordInviteLink } from '@echo/utils/constants/discord-invite-link'
+import { discordInviteLink } from '@echo/ui/constants/discord-invite-link'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  username: string
+  username: Username
   onSkip?: VoidFunction
 }
 

@@ -1,9 +1,9 @@
 import { assertNftsOwner } from '@echo/backend/helpers/nft/assert-owned-nfts'
 import { NftError } from '@echo/model/constants/errors/nft-error'
 import { eqUser } from '@echo/model/helpers/user/eq-user'
-import type { Nft } from '@echo/model/types/nft/nft'
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
-import type { User } from '@echo/model/types/user/user'
+import type { Nft } from '@echo/model/types/nft'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { User } from '@echo/model/types/user'
 import { listElementsEqWith } from '@echo/utils/fp/list-elements-eq-with'
 import { complement, map, pipe, prop } from 'ramda'
 

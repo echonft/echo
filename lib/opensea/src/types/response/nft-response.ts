@@ -1,3 +1,4 @@
 import type { nftResponseSchema } from '@echo/opensea/validators/nft-response-schema'
+import { z } from 'zod'
 
-export type NftResponse = ReturnType<typeof nftResponseSchema.parse>
+export type NftResponse = z.infer<typeof nftResponseSchema>

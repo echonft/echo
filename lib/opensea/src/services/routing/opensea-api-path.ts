@@ -1,9 +1,9 @@
-import { AbstractPath } from '@echo/routing/abstract-path'
+import { AbstractPath } from '@echo/routing/path/abstract-path'
 import type { PathArgs } from '@echo/routing/types/path-args'
 import type { QueryParams } from '@echo/routing/types/query-params/query-params'
 import type { SearchParams } from '@echo/routing/types/search-params/search-params'
-import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
-import type { Chain } from '@echo/utils/constants/chain'
+import { isTestnetChain } from '@echo/model/helpers/chain/is-testnet-chain'
+import type { Chain } from '@echo/model/constants/chain'
 import { compile } from 'path-to-regexp'
 import { always, assoc, concat, dissoc, ifElse, isNil, pipe, prop } from 'ramda'
 

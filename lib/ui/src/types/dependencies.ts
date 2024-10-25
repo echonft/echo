@@ -1,17 +1,15 @@
 import type { CreateListingRequestBuilderArgs } from '@echo/api/types/request-builders/create-listing-request-builder-args'
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
-import type { GetOfferByIdContractRequest } from '@echo/api/types/requests/get-offer-by-id-contract-request'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
 import type { SignInResponse } from '@echo/auth/types/sign-in-response'
-import type { SearchResult } from '@echo/model/types/search/search-result'
+import type { SearchResult } from '@echo/model/types/search-result'
 import type { Slug } from '@echo/model/types/slug'
-import type { Erc20Token } from '@echo/model/types/token/erc20-token'
-import type { TokenBalance } from '@echo/model/types/token/token-balance'
+import type { Erc20Token } from '@echo/model/types/erc20-token'
+import type { TokenBalance } from '@echo/model/types/token-balance'
 import type { Username } from '@echo/model/types/username'
-import type { WithSlug } from '@echo/model/types/with-slug'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { Logger } from '@echo/utils/types/logger'
@@ -33,7 +31,7 @@ export interface Dependencies {
   addWallet: Fetcher<WalletsResponse, AddWalletRequest>
   approveErc721Contract: Fetcher<HexString, ApproveErc721ContractArgs>
   areNftsInEscrow: Fetcher<boolean, AreNftsInEscrowArgs>
-  cancelListing: Fetcher<ListingResponse, WithSlug>
+  cancelListing: Fetcher<ListingResponse, Record<'slug', Slug>>
   contractAcceptOffer: Fetcher<HexString, ContractUpdateOfferArgs>
   contractCancelOffer: Fetcher<HexString, ContractUpdateOfferArgs>
   contractCreateOffer: Fetcher<HexString, ContractCreateOfferArgs>
@@ -47,12 +45,12 @@ export interface Dependencies {
   getEchoTradingFees: Fetcher<bigint, GetEchoTradingFeesArgs>
   getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
   getNonce: Fetcher<NonceResponse>
-  getOfferByIdContract: Fetcher<OfferResponse, GetOfferByIdContractRequest>
+  getOfferByIdContract: Fetcher<OfferResponse, Record<'idContract', HexString>>
   getWallets: Fetcher<WalletsResponse>
   logger: Nullable<Logger>
   login: Fetcher<Nullable<SignInResponse>>
   logout: Fetcher<Nullable<Record<'url', string>>>
-  rejectOffer: Fetcher<OfferResponse, WithSlug>
+  rejectOffer: Fetcher<OfferResponse, Record<'slug', Slug>>
   searchCollections: Fetcher<SearchResult<Slug>[], string>
   searchUsers: Fetcher<SearchResult<Username>[], string>
   signNonce: Fetcher<SignNonceResult, SignNonceArgs>

@@ -1,14 +1,12 @@
 import { TokenType } from '@echo/model/constants/token-type'
 import { toNftCollection } from '@echo/model/mappers/collection/to-nft-collection'
-import { collectionMockPxContract, collectionMockPxSlug } from '@echo/model/mocks/collection/collection-mock'
-import type { Collection } from '@echo/model/types/collection/collection'
-import type { NftCollection } from '@echo/model/types/nft/nft'
+import { collectionMockPxContract, collectionMockPxSlug } from '@echo/model/mocks/collection-mock'
+import type { Collection } from '@echo/model/types/collection'
+import type { NftCollection } from '@echo/model/types/nft'
 import { describe, expect, test } from '@jest/globals'
 
 describe('mappers - collection - toNftCollection', () => {
   const collection: Collection = {
-    bannerUrl:
-      'https://i.seadn.io/gae/OwmR2aAFXTNxnPAiKrOhbsfZSSQqoaGMFQvedFileV6Vv-9TPs7TFI8RTXdIkoqfc9AZhFI4XcTHREnPc3mc-MDKFC4qapJbOyhcQQ',
     contract: collectionMockPxContract(),
     description: 'pxMythics is an 1,077 piece NFT collection based on the greatest mythologies throughout history.',
     discordUrl: 'https://discord.gg/pxmythics',

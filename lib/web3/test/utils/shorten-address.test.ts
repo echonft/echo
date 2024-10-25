@@ -1,4 +1,4 @@
-import { Chain } from '@echo/utils/constants/chain'
+import { Chain } from '@echo/model/constants/chain'
 import { shortenAddress } from '@echo/web3/utils/shorten-address'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'

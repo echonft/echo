@@ -1,34 +1,30 @@
-import type { Wallet } from '@echo/model/types/wallet'
+import { isTestnetChain } from '@echo/model/helpers/chain/is-testnet-chain'
+import type { Contract } from '@echo/model/types/contract'
 import { getNft as getNftFromNftScan } from '@echo/nft-scan/services/get-nft'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import { getNft as getNftFromOpenSea } from '@echo/opensea/services/get-nft'
-import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
+import { error, info } from '@echo/tasks/helpers/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
-import type { WithFetch } from '@echo/utils/types/with-fetch'
-import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { otherwise, pipe } from 'ramda'
 
-interface FetchNftArgs extends WithFetch {
-  contract: Wallet
-  identifier: string
+interface FetchNftArgs {
+  contract: Contract
+  tokenId: string
 }
 
 /**
  * Fetches an NFT from the API
  * We use OpenSea API on testnet and NFTScan on mainnet
- * @param args
+ * @param { contract, tokenId }
  */
-export async function fetchNft(args: WithLoggerType<FetchNftArgs>): Promise<Nullable<PartialNft>> {
-  const fetcher = isTestnetChain(args.contract.chain) ? getNftFromOpenSea : getNftFromNftScan
-  args.logger?.info({ nft: { collection: { contract: args.contract }, tokenId: args.identifier } }, 'fetching NFT')
+export async function fetchNft({ contract, tokenId }: FetchNftArgs): Promise<Nullable<PartialNft>> {
+  const fetcher = isTestnetChain(contract.chain) ? getNftFromOpenSea : getNftFromNftScan
+  info({ nft: { collection: { contract }, tokenId } }, 'fetching NFT')
   return pipe(
     fetcher,
     otherwise((err) => {
-      args.logger?.error(
-        { err, nft: { collection: { contract: args.contract }, tokenId: args.identifier } },
-        'could not fetch NFT from API'
-      )
+      error({ err, nft: { collection: { contract }, tokenId } }, 'could not fetch NFT from API')
       return undefined
     })
-  )(args)
+  )({ contract, identifier: tokenId })
 }

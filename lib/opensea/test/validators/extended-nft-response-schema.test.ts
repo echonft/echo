@@ -1,35 +1,30 @@
 import { TokenType } from '@echo/model/constants/token-type'
-import { collectionMockSpiralSlug } from '@echo/model/mocks/collection/collection-mock'
-import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
-import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
-import { walletMockCrewAddress, walletMockJohnnyAddress } from '@echo/model/mocks/wallet/wallet-mock'
-import type { Collection } from '@echo/model/types/collection/collection'
-import type { Nft, NftCollection } from '@echo/model/types/nft/nft'
+import { collectionMockSpiral } from '@echo/model/mocks/collection-mock'
+import { nftMockSpiral1 } from '@echo/model/mocks/nft-mock'
+import { walletMockCrew } from '@echo/model/mocks/wallet-mock'
+import type { Collection } from '@echo/model/types/collection'
+import type { Nft, NftCollection } from '@echo/model/types/nft'
 import type { PartialNft } from '@echo/opensea/types/partial-nft'
 import { nftExtendedResponseSchema } from '@echo/opensea/validators/nft-extended-response-schema'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, dissoc, modify, pick, pipe } from 'ramda'
 
 describe('validators - nftExtendedResponseSchema', () => {
-  const nftMock = getNftMockById(nftMockSpiralJohnnyId())
-
   it('no undefined values', () => {
     const response = {
-      identifier: nftMock.tokenId.toString(),
-      collection: collectionMockSpiralSlug(),
-      contract: nftMock.collection.contract.address,
+      identifier: nftMockSpiral1.tokenId.toString(),
+      collection: collectionMockSpiral.slug,
+      contract: nftMockSpiral1.collection.contract.address,
       token_standard: TokenType.Erc721,
-      name: nftMock.name,
+      name: nftMockSpiral1.name,
       description: 'whatever',
-      image_url: nftMock.pictureUrl,
-      metadata_url: nftMock.metadataUrl,
+      image_url: nftMockSpiral1.pictureUrl,
       opensea_url: 'https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376',
       updated_at: '2023-07-20T16:02:18.959996',
       is_disabled: false,
       is_nsfw: false,
-      animation_url: nftMock.animationUrl,
       is_suspicious: false,
-      creator: walletMockCrewAddress(),
+      creator: walletMockCrew.address,
       traits: [
         { value: 'archimedean', trait_type: 'Algorithm' },
         { value: 'main', trait_type: 'Ring' },
@@ -40,36 +35,33 @@ describe('validators - nftExtendedResponseSchema', () => {
         { value: 'random1', trait_type: 'Palette' },
         { value: '#complement', trait_type: 'Background' }
       ],
-      owners: [{ address: walletMockJohnnyAddress(), quantity: 1 }]
+      owners: [{ address: walletMockCrew.address, quantity: 1 }]
     }
-    const nft = pipe<[Nft], Omit<Nft, 'owner'>, Omit<Nft, 'owner' | 'tokenIdLabel'>, PartialNft>(
+    const nft = pipe<[Nft], Omit<Nft, 'owner'>, PartialNft>(
       dissoc('owner'),
-      dissoc('tokenIdLabel'),
       modify<'collection', NftCollection, Pick<Collection, 'contract' | 'slug'>>(
         'collection',
         pick(['contract', 'slug'])
       )
-    )(nftMock)
-    expect(nftExtendedResponseSchema(nftMock.collection.contract.chain).parse(response)).toStrictEqual(nft)
+    )(nftMockSpiral1)
+    expect(nftExtendedResponseSchema(nftMockSpiral1.collection.contract.chain).parse(response)).toStrictEqual(nft)
   })
 
   it('with undefined values', () => {
     const response = {
-      identifier: nftMock.tokenId.toString(),
-      collection: collectionMockSpiralSlug(),
-      contract: nftMock.collection.contract.address,
+      identifier: nftMockSpiral1.tokenId.toString(),
+      collection: collectionMockSpiral.slug,
+      contract: nftMockSpiral1.collection.contract.address,
       token_standard: TokenType.Erc721,
-      name: nftMock.name,
+      name: nftMockSpiral1.name,
       description: 'whatever',
       image_url: undefined,
-      metadata_url: undefined,
       opensea_url: undefined,
       updated_at: '2023-07-20T16:02:18.959996',
       is_disabled: false,
       is_nsfw: false,
-      animation_url: undefined,
       is_suspicious: false,
-      creator: walletMockCrewAddress(),
+      creator: walletMockCrew.address,
       traits: [
         { value: 'archimedean', trait_type: 'Algorithm' },
         { value: 'main', trait_type: 'Ring' },
@@ -80,47 +72,34 @@ describe('validators - nftExtendedResponseSchema', () => {
         { value: 'random1', trait_type: 'Palette' },
         { value: '#complement', trait_type: 'Background' }
       ],
-      owners: [{ address: walletMockJohnnyAddress(), quantity: 1 }]
+      owners: [{ address: walletMockCrew.address, quantity: 1 }]
     }
-    const nft: PartialNft = pipe<
-      [Nft],
-      Omit<Nft, 'owner'>,
-      Omit<Nft, 'owner' | 'tokenIdLabel'>,
-      PartialNft,
-      PartialNft,
-      PartialNft,
-      PartialNft
-    >(
+    const nft: PartialNft = pipe<[Nft], Omit<Nft, 'owner'>, PartialNft, PartialNft, PartialNft, PartialNft>(
       dissoc('owner'),
-      dissoc('tokenIdLabel'),
       modify<'collection', NftCollection, Pick<Collection, 'contract' | 'slug'>>(
         'collection',
         pick(['contract', 'slug'])
       ),
-      assoc('animationUrl', undefined),
-      assoc('metadataUrl', undefined),
       assoc('pictureUrl', undefined)
-    )(nftMock)
-    expect(nftExtendedResponseSchema(nftMock.collection.contract.chain).parse(response)).toStrictEqual(nft)
+    )(nftMockSpiral1)
+    expect(nftExtendedResponseSchema(nftMockSpiral1.collection.contract.chain).parse(response)).toStrictEqual(nft)
   })
 
   it('returns undefined if is is suspicious', () => {
     const response = {
-      identifier: nftMock.tokenId.toString(),
-      collection: collectionMockSpiralSlug(),
-      contract: nftMock.collection.contract.address,
+      identifier: nftMockSpiral1.tokenId.toString(),
+      collection: collectionMockSpiral.slug,
+      contract: nftMockSpiral1.collection.contract.address,
       token_standard: TokenType.Erc721,
-      name: nftMock.name,
+      name: nftMockSpiral1.name,
       description: 'whatever',
-      image_url: nftMock.pictureUrl,
-      metadata_url: nftMock.metadataUrl,
+      image_url: nftMockSpiral1.pictureUrl,
       opensea_url: 'https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376',
       updated_at: '2023-07-20T16:02:18.959996',
       is_disabled: false,
       is_nsfw: false,
-      animation_url: nftMock.animationUrl,
       is_suspicious: true,
-      creator: walletMockCrewAddress(),
+      creator: walletMockCrew.address,
       traits: [
         { value: 'archimedean', trait_type: 'Algorithm' },
         { value: 'main', trait_type: 'Ring' },
@@ -131,8 +110,8 @@ describe('validators - nftExtendedResponseSchema', () => {
         { value: 'random1', trait_type: 'Palette' },
         { value: '#complement', trait_type: 'Background' }
       ],
-      owners: [{ address: walletMockJohnnyAddress(), quantity: 1 }]
+      owners: [{ address: walletMockCrew.address, quantity: 1 }]
     }
-    expect(nftExtendedResponseSchema(nftMock.collection.contract.chain).parse(response)).toBeUndefined()
+    expect(nftExtendedResponseSchema(nftMockSpiral1.collection.contract.chain).parse(response)).toBeUndefined()
   })
 })

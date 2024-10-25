@@ -1,8 +1,9 @@
 'use client'
-import { type Nft } from '@echo/model/types/nft/nft'
+import { type Nft } from '@echo/model/types/nft'
 import { CardFooter } from '@echo/ui/components/base/card/card-footer'
 import { CardLayout } from '@echo/ui/components/base/card/layout/card-layout'
 import { NftCardPicture } from '@echo/ui/components/nft/card/nft-card-picture'
+import { nftLabel } from '@echo/ui/helpers/nft/nft-label'
 import { type FunctionComponent } from 'react'
 
 export interface NftCardProps {
@@ -24,7 +25,7 @@ export const NftCard: FunctionComponent<NftCardProps> = (props) => {
   return (
     <CardLayout>
       <NftCardPicture {...props} />
-      <CardFooter title={nft.collection.name} subtitle={nft.tokenIdLabel} />
+      <CardFooter title={nft.collection.name} subtitle={nftLabel(nft)} />
     </CardLayout>
   )
 }

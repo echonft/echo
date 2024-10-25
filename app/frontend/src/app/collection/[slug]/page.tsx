@@ -1,3 +1,4 @@
+import type { User } from '@echo/auth/types/user'
 import { getCollectionCounts } from '@echo/firestore/crud/collection/counts/get-collection-counts'
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { getPendingListingsForCollection } from '@echo/firestore/crud/listing/get-pending-listings-for-collection'
@@ -6,12 +7,8 @@ import { getPendingOffersForCollection } from '@echo/firestore/crud/offer/get-pe
 import { getSwapsForCollection } from '@echo/firestore/crud/swap/get-swaps-for-collection'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
-import type { NextParams } from '@echo/frontend/lib/types/next-params'
-import type { PropsWithUser } from '@echo/frontend/lib/types/props-with-user'
-import type { WithSearchParamsProps } from '@echo/frontend/lib/types/with-search-params-props'
-import type { WithSlug } from '@echo/model/types/with-slug'
+import type { Slug } from '@echo/model/types/slug'
 import { getSelectionFromSearchParams } from '@echo/routing/search-params/get-selection-from-search-params'
-import type { SelectionSearchParams } from '@echo/routing/types/search-params/selection-search-params'
 import { NavigationPageLayout } from '@echo/ui/components/base/layout/navigation-page-layout'
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
@@ -19,14 +16,23 @@ import { CollectionDetails } from '@echo/ui/components/collection/details/collec
 import { setListingsRole } from '@echo/ui/helpers/listing/set-listings-role'
 import { setOfferRoleForUser } from '@echo/ui/helpers/offer/set-offer-role-for-user'
 import { CollectionTabs } from '@echo/ui/pages/collection/collection-tabs'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound } from 'next/navigation'
 import { always, andThen, isNil, map, mergeLeft, otherwise, pipe, prop } from 'ramda'
 
-async function render({
-  params: { slug },
-  searchParams,
-  user
-}: PropsWithUser<NextParams<WithSlug> & WithSearchParamsProps<SelectionSearchParams>>) {
+interface Props {
+  params: {
+    slug: Slug
+  }
+  searchParams: {
+    offer?: Slug
+    listing?: Slug
+    swap?: Slug
+  }
+  user: Nullable<User>
+}
+
+async function render({ params: { slug }, searchParams, user }: Props) {
   const collection = await pipe(getCollection, otherwise(pipe(captureAndLogError, always(undefined))))(slug)
   if (isNil(collection)) {
     notFound()

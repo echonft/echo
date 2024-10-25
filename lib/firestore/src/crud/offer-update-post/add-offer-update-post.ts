@@ -18,7 +18,7 @@ export async function addOfferUpdatePost(
   if (!isNil(offerUpdatePost)) {
     return Promise.reject(Error(OfferError.UpdatePostExists))
   }
-  const id = await setReference<OfferUpdatePostDocumentData, OfferUpdatePostDocumentData>({
+  const id = await setReference({
     collectionReference: getOfferUpdatePostsCollectionReference(),
     data
   })

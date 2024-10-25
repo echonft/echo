@@ -1,5 +1,5 @@
-export function throwError<T>(error: string): (obj: T) => T {
-  return function (_obj: T) {
+export function throwError<T>(error: string): (obj: unknown) => T {
+  return function (_obj: unknown) {
     throw Error(error)
-  } as (_obj: T) => T
+  } as (_obj: unknown) => T
 }

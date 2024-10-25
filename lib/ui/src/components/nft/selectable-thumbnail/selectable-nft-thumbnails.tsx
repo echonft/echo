@@ -1,4 +1,4 @@
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { keyOf } from '@echo/ui/components/nft/key-of'
 import { SelectableNftThumbnail } from '@echo/ui/components/nft/selectable-thumbnail/selectable-nft-thumbnail'
 import { clsx } from 'clsx'

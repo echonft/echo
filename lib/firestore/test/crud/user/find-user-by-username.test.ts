@@ -1,6 +1,6 @@
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
-import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
-import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
+import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/db-model/user/get-user-document-data-mock-by-username'
+import { userMockJohnnyUsername } from '@echo/model/mocks/user-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - user - findUserByUsername', () => {

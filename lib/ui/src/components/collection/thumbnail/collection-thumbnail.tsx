@@ -1,4 +1,4 @@
-import { type Collection } from '@echo/model/types/collection/collection'
+import { type Collection } from '@echo/model/types/collection'
 import { CollectionProfilePicture } from '@echo/ui/components/collection/profile/collection-profile-picture'
 import { CollectionThumbnailLayout } from '@echo/ui/components/collection/thumbnail/layout/collection-thumbnail-layout'
 import { clsx } from 'clsx'

@@ -1,33 +1,28 @@
 import { maxRetries, waitTime } from '@echo/opensea/constants/fetch-params'
 import { fetchInit } from '@echo/opensea/helpers/fetch-init'
+import { error, warn } from '@echo/opensea/helpers/logger'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
-import type { WithFetch } from '@echo/utils/types/with-fetch'
-import type { WithLogger } from '@echo/utils/types/with-logger'
-import { assoc, inc, modify, pick, pipe } from 'ramda'
+import { chain, inc, modify, pick, pipe } from 'ramda'
 
-interface ThrottleFetchArgs extends WithFetch, WithLogger {
+interface TryFetchArgs {
   url: string
-}
-
-interface TryFetchArgs extends ThrottleFetchArgs {
   init: RequestInit
   retries: number
 }
 
 async function tryFetch(args: TryFetchArgs): Promise<Response> {
-  const { fetch, url, init, retries } = args
-  const logger = args.logger?.child({ retries })
+  const { url, init, retries } = args
   if (retries === maxRetries) {
-    logger?.error('throttling max retries reached. Returning error :(')
+    error({ chain, retries }, 'throttling max retries reached. Returning error :(')
     return Promise.resolve(Response.error())
   }
   if (retries > 0) {
-    logger?.warn('retrying request')
+    warn({ retries }, 'retrying request')
   }
   const response = await fetch(url, init)
   if (!response.ok) {
     if (response.status === 429) {
-      logger?.warn(`request throttled by Opensea. Retrying in ${waitTime / 1000} seconds....`)
+      warn({ retries }, `request throttled by Opensea. Retrying in ${waitTime / 1000} seconds....`)
       // Opensea throttled the request, wait 1 minute and retry
       return await pipe<[TryFetchArgs], TryFetchArgs, Promise<Response>, Promise<Response>>(
         modify('retries', inc),
@@ -35,14 +30,14 @@ async function tryFetch(args: TryFetchArgs): Promise<Response> {
         delayPromise(waitTime)
       )(args)
     } else {
-      logger?.error({ response: pick(['status'], response) }, 'error fetching request')
+      error({ retries, response: pick(['status'], response) }, 'error fetching request')
       return response
     }
   }
   return response
 }
 
-export async function throttleFetch(args: ThrottleFetchArgs) {
-  const init = await fetchInit(args.logger)
-  return await tryFetch(pipe(assoc('retries', 0), assoc('init', init))(args))
+export async function throttleFetch(url: string) {
+  const init = await fetchInit()
+  return await tryFetch({ url, retries: 0, init })
 }

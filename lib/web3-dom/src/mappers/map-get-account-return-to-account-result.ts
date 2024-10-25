@@ -1,7 +1,7 @@
+import { getChainById } from '@echo/model/helpers/chain/get-chain-by-id'
+import { isSupportedChain } from '@echo/model/helpers/chain/is-supported-chain'
 import type { Wallet } from '@echo/model/types/wallet'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
-import { getChain } from '@echo/utils/helpers/chains/get-chain'
-import { isSupportedChain } from '@echo/utils/helpers/chains/is-supported-chain'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { AccountResult } from '@echo/web3-dom/types/account-result'
@@ -34,13 +34,13 @@ function getWallet(args: ReturnType<typeof setStatus>): Nullable<Wallet> {
       propIsNil('address'),
       pipe<[ReturnType<typeof setStatus>], Nullable<number>, boolean>(
         prop('chainId'),
-        ifElse(isNil, always(true), pipe(tryCatch(getChain, always(undefined)), complement(isSupportedChain)))
+        ifElse(isNil, always(true), pipe(tryCatch(getChainById, always(undefined)), complement(isSupportedChain)))
       )
     ]),
     always(undefined),
     applySpec<Wallet>({
       address: pipe(prop('address'), toLower<HexString>),
-      chain: pipe(prop('chainId'), getChain)
+      chain: pipe(prop('chainId'), getChainById)
     })
   )(args)
 }

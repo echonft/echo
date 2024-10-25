@@ -1,21 +1,20 @@
-import type { Wallet } from '@echo/model/types/wallet'
-import { getLogger } from '@echo/tasks/commands/get-logger'
+import type { Contract } from '@echo/model/types/contract'
 import { fetchNft } from '@echo/tasks/fetch-nft'
+import { error, info, warn } from '@echo/tasks/helpers/logger'
 import { andThen, isNil, otherwise, pipe } from 'ramda'
 
-export async function fetchNftCommand(contract: Wallet, tokenId: string) {
-  const logger = getLogger(fetchNftCommand.name)
+export async function fetchNftCommand(contract: Contract, tokenId: string) {
   await pipe(
     fetchNft,
     andThen((nft) => {
       if (isNil(nft)) {
-        logger.warn({ nft }, 'NFT not found')
+        warn({ nft }, 'NFT not found')
       } else {
-        logger.info({ nft }, 'fetched NFT')
+        info({ nft }, 'fetched NFT')
       }
     }),
     otherwise((err) => {
-      logger.error({ err, nft: { tokenId, collection: { contract } } }, 'could not fetch NFT')
+      error({ err, nft: { tokenId, collection: { contract } } }, 'could not fetch NFT')
     })
-  )({ contract, fetch, identifier: tokenId, logger })
+  )({ contract, tokenId: tokenId })
 }

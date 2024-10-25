@@ -1,6 +1,6 @@
 'use client'
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
-import type { User } from '@echo/model/types/user/user'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { User } from '@echo/model/types/user'
 import { CreateOfferUserNftsSelection } from '@echo/ui/components/offer/create/create-offer-user-nfts-selection'
 import { CreateTradeBottomBar } from '@echo/ui/components/trade/create-trade-bottom-bar'
 import { TradeStepIndicator } from '@echo/ui/components/trade/trade-step-indicator'

@@ -1,5 +1,5 @@
 import { NftFilterSelector } from '@echo/ui/components/nft/filters/nft-filter-selector'
-import type { NftFilter as NftFilterModel } from '@echo/ui/types/nft-filter'
+import type { Filter as NftFilterModel } from '@echo/ui/types/filter'
 import { clsx } from 'clsx'
 
 interface Props<T extends NftFilterModel> {

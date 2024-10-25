@@ -1,4 +1,4 @@
-import type { Nft } from '@echo/model/types/nft/nft'
+import type { Nft } from '@echo/model/types/nft'
 import { always, applySpec, path, prop } from 'ramda'
 import { type ContractFunctionParameters, erc721Abi } from 'viem'
 

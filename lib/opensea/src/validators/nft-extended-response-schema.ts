@@ -1,16 +1,14 @@
-import type { Collection } from '@echo/model/types/collection/collection'
-import type { NftAttribute } from '@echo/model/types/nft/nft-attribute'
-import { emptyStringToUndefined } from '@echo/opensea/helpers/empty-string-to-undefined'
+import type { Chain } from '@echo/model/constants/chain'
+import type { Collection } from '@echo/model/types/collection'
+import type { NftAttribute } from '@echo/model/types/nft-attribute'
+import { evmAddressSchema } from '@echo/model/validators/evm-address-schema'
 import type { PartialNft } from '@echo/opensea/types/partial-nft'
 import { nftResponseAugmentation } from '@echo/opensea/validators/nft-response-schema'
-import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
-import type { Chain } from '@echo/utils/constants/chain'
-import { evmAddressSchema } from '@echo/utils/validators/evm-address-schema'
-import { always, applySpec, ifElse, is, isNil, map, partialRight, pipe, prop, when } from 'ramda'
+import { always, applySpec, is, isNil, map, partialRight, pipe, prop, when } from 'ramda'
 import { boolean, nativeEnum, number, object, string } from 'zod'
 
 const nftTraitSchema = object({
-  trait_type: string(),
+  trait_type: string().readonly(),
   display_type: nativeEnum({
     number: 'number',
     boostPercentage: 'boost_percentage',
@@ -20,50 +18,45 @@ const nftTraitSchema = object({
     none: 'None'
   })
     .nullable()
-    .optional(),
-  max_value: string().nullable().optional(),
-  value: string().or(number())
-})
+    .optional()
+    .readonly(),
+  max_value: string().nullable().optional().readonly(),
+  value: string().or(number()).readonly()
+}).readonly()
 
 export function nftExtendedResponseSchema(chain: Chain) {
-  const schema = object({
-    animation_url: string()
-      .or(string().url())
-      .nullable()
-      .optional()
-      .transform(pipe(emptyStringToUndefined, removeQueryFromUrl)),
-    is_suspicious: boolean(),
-    creator: evmAddressSchema.nullable(),
+  return object({
+    is_suspicious: boolean().readonly(),
+    creator: evmAddressSchema.nullable().readonly(),
     traits: nftTraitSchema
       .array()
       .nullable()
-      .transform(
-        ifElse(
-          isNil,
-          always<NftAttribute[]>([]),
-          map(
-            applySpec<NftAttribute>({
-              trait: prop('trait_type'),
-              value: pipe(prop('value'), when(is(Number), partialRight(parseInt, [10])))
-            })
-          )
-        )
-      ),
+      .transform((traits) =>
+        isNil(traits)
+          ? ([] as NftAttribute[])
+          : map(
+              applySpec<NftAttribute>({
+                trait: prop('trait_type'),
+                value: pipe(prop('value'), when(is(Number), partialRight(parseInt, [10])))
+              }),
+              traits
+            )
+      )
+      .readonly(),
     owners: object({
       address: evmAddressSchema,
-      quantity: number()
+      quantity: number().readonly()
     })
       .array()
       .nullable()
-  }).extend(nftResponseAugmentation)
-
-  function transform(chain: Chain) {
-    return function (response: typeof schema._output) {
+      .readonly()
+  })
+    .extend(nftResponseAugmentation)
+    .transform((response) => {
       if (response.is_suspicious) {
         return undefined
       }
       return applySpec<PartialNft>({
-        animationUrl: prop('animation_url'),
         attributes: prop('traits'),
         collection: applySpec<Pick<Collection, 'contract' | 'slug'>>({
           contract: {
@@ -73,12 +66,10 @@ export function nftExtendedResponseSchema(chain: Chain) {
           slug: prop('collection')
         }),
         name: prop('name'),
-        metadataUrl: prop('metadata_url'),
         pictureUrl: prop('image_url'),
         tokenId: prop('identifier'),
         type: prop('token_standard')
       })(response)
-    }
-  }
-  return schema.transform(transform(chain))
+    })
+    .readonly()
 }

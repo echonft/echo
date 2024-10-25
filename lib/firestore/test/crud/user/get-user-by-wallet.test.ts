@@ -1,8 +1,8 @@
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { getUserByWallet } from '@echo/firestore/crud/user/get-user-by-wallet'
-import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
-import { getWalletMockByUsername } from '@echo/model/mocks/wallet/wallet-mock'
-import { Chain } from '@echo/utils/constants/chain'
+import { Chain } from '@echo/model/constants/chain'
+import { userMockJohnnyUsername } from '@echo/model/mocks/user-mock'
+import { walletMockCrew } from '@echo/model/mocks/wallet-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - user - getUserByWallet', () => {
@@ -12,7 +12,7 @@ describe('CRUD - user - getUserByWallet', () => {
   })
   it('returns the wallet owner if wallet exists', async () => {
     const ownerUsername = userMockJohnnyUsername()
-    const wallet = getWalletMockByUsername(ownerUsername)
+    const wallet = walletMockCrew
     const owner = await getUserByWallet(wallet)
     const user = await getUserByUsername(ownerUsername)
     expect(owner).toBeDefined()

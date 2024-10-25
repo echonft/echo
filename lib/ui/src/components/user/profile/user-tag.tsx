@@ -1,4 +1,4 @@
-import type { User } from '@echo/model/types/user/user'
+import type { User } from '@echo/model/types/user'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'

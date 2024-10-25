@@ -1,7 +1,7 @@
-import type { Listing } from '@echo/model/types/listing/listing'
-import type { Nft } from '@echo/model/types/nft/nft'
-import type { Offer } from '@echo/model/types/offer/offer'
-import type { Wallet } from '@echo/model/types/wallet'
+import type { Contract } from '@echo/model/types/contract'
+import type { Listing } from '@echo/model/types/listing'
+import type { Nft } from '@echo/model/types/nft'
+import type { Offer } from '@echo/model/types/offer'
 import { keyOf } from '@echo/ui/components/nft/key-of'
 import { concat, join, map, pipe, prop } from 'ramda'
 
@@ -9,12 +9,12 @@ export const SWRKeys = {
   contract: {
     areNftsInEscrow: pipe<[Nft[]], string[], string, string>(map(keyOf), join('-'), concat('are-nfts-in-escrow-')),
     getEchoTradingFees: 'get-echo-trading-fees',
-    getErc721approval: pipe<[Wallet], string, string>(
-      (contract: Wallet) => `${contract.address}-${contract.chain}`,
+    getErc721approval: pipe<[Contract], string, string>(
+      (contract: Contract) => `${contract.address}-${contract.chain}`,
       concat('get-erc721-approval-')
     ),
-    approveErc721: pipe<[Wallet], string, string>(
-      (contract: Wallet) => `${contract.address}-${contract.chain}`,
+    approveErc721: pipe<[Contract], string, string>(
+      (contract: Contract) => `${contract.address}-${contract.chain}`,
       concat('approve-erc721-')
     ),
     createOffer: pipe<[Offer], string, string>(prop('slug'), concat('create-offer-')),

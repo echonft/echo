@@ -1,6 +1,6 @@
 import { eqNft } from '@echo/model/helpers/nft/eq-nft'
 import { eqOwnedNftOwner } from '@echo/model/helpers/nft/eq-owned-nft-owner'
-import type { Nft } from '@echo/model/types/nft/nft'
+import type { Nft } from '@echo/model/types/nft'
 import { allPass, isNil } from 'ramda'
 
 export function eqOwnedNft(nftA: Nft, nftB: Nft): boolean

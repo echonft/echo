@@ -1,30 +1,33 @@
-import type { Collection } from '@echo/model/types/collection/collection'
+import type { Collection } from '@echo/model/types/collection'
+import { FetchError } from '@echo/nft-scan/constants/errors/fetch-error'
 import { fetchInit } from '@echo/nft-scan/helpers/fetch-init'
+import { error, warn } from '@echo/nft-scan/helpers/logger'
 import { nftScanApiPathProvider } from '@echo/nft-scan/services/routing/nft-scan-api-path-provider'
 import type { FetchCollectionRequest } from '@echo/nft-scan/types/request/fetch-collection-request'
-import type { CollectionResponseSchemaReturn } from '@echo/nft-scan/validators/collection-response-schema'
 import { fetchCollectionResponseSchema } from '@echo/nft-scan/validators/fetch-collection-response-schema'
 import type { Nullable } from '@echo/utils/types/nullable'
-import type { WithLoggerType } from '@echo/utils/types/with-logger'
 import { parseResponse } from '@echo/utils/validators/parse-response'
-import { andThen, ifElse, pick, pipe, prop, propEq } from 'ramda'
+import { andThen, ifElse, pick, pipe, prop } from 'ramda'
 
-export async function fetchCollection(args: WithLoggerType<FetchCollectionRequest>): Promise<Nullable<Collection>> {
-  const { fetch, contract, logger } = args
-  const url = nftScanApiPathProvider.collection.fetch.getUrl(contract, pick(['showAttribute'], args))
-  const init = await fetchInit(logger)
+export async function fetchCollection({
+  contract,
+  showAttribute
+}: FetchCollectionRequest): Promise<Nullable<Collection>> {
+  const url = nftScanApiPathProvider.collection.fetch.getUrl(contract, { showAttribute })
+  const init = await fetchInit()
   const response = await fetch(url, init)
   if (!response.ok) {
-    logger?.error({ collection: { contract }, url, response: pick(['status'], response) }, 'error fetching collection')
-    return Promise.reject(Error('error fetching collection'))
+    error({ collection: { contract }, url, response: pick(['status'], response) }, FetchError.Collection)
+    return Promise.reject(Error(FetchError.Collection))
   }
+
   return pipe(
     parseResponse(fetchCollectionResponseSchema(contract.chain)),
     andThen(
-      ifElse<[CollectionResponseSchemaReturn], Nullable<Collection>, Nullable<Collection>>(
-        propEq(true, 'isSpam'),
-        () => {
-          logger?.warn({ collection: { contract } }, 'collection is spam')
+      ifElse(
+        prop('isSpam'),
+        (_response) => {
+          warn({ collection: { contract } }, 'collection is spam')
           return undefined
         },
         prop('collection')

@@ -1,22 +1,21 @@
-import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
+import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
 import { NftError } from '@echo/model/constants/errors/nft-error'
 import { nftIndex } from '@echo/model/helpers/nft/nft-index'
-import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
-import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
+import { nftMockSpiral1 } from '@echo/model/mocks/nft-mock'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { resetNft } from '@echo/test/firestore/crud/nft/reset-nft'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil, pipe } from 'ramda'
 
 describe('CRUD - nft - removeNftOwner', () => {
-  let nftId: Nullable<string>
+  let nft: Nullable<OwnedNft>
   beforeEach(() => {
-    nftId = undefined
+    nft = undefined
   })
   afterEach(async () => {
-    if (!isNil(nftId)) {
-      const nft = getNftMockById(nftId)
+    if (!isNil(nft)) {
       await resetNft(nft)
     }
   })
@@ -26,10 +25,9 @@ describe('CRUD - nft - removeNftOwner', () => {
     )
   })
   it('removes the NFT owner', async () => {
-    nftId = nftMockSpiralJohnnyId()
-    const nft = getNftMockById(nftId)
+    nft = nftMockSpiral1
     await pipe(nftIndex, removeNftOwner)(nft)
-    const updatedNft = await getNftById(nftId)
+    const updatedNft = await getNftByIndex(nft)
     expect(updatedNft).toBeDefined()
     expect(updatedNft?.owner).toBeUndefined()
   })

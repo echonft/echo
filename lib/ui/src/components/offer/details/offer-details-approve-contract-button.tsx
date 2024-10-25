@@ -1,5 +1,5 @@
 'use client'
-import type { Wallet } from '@echo/model/types/wallet'
+import type { Contract } from '@echo/model/types/contract'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
@@ -11,10 +11,10 @@ import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  contract: Wallet
-  onApproved?: (contract: Wallet, approved: boolean) => unknown
+  contract: Contract
+  onApproved?: (contract: Contract, approved: boolean) => unknown
   onLoading?: EmptyFunction
-  onError?: (contract: Wallet) => void
+  onError?: (contract: Contract) => void
 }
 
 export const OfferDetailsApproveContractButton: FunctionComponent<Props> = ({

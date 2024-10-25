@@ -5,32 +5,16 @@ import { CreatedOfferCreated } from '@echo/ui/components/offer/created/created-o
 import { CreatedOfferExpired } from '@echo/ui/components/offer/created/created-offer-expired'
 import { CreatedOfferRedeemed } from '@echo/ui/components/offer/created/created-offer-redeemed'
 import { CreatedOfferRejected } from '@echo/ui/components/offer/created/created-offer-rejected'
-import { Background } from '@echo/ui/constants/background'
 import { isOfferRoleReceiver } from '@echo/ui/helpers/offer/is-offer-role-receiver'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import type { PageLayoutBackgroundPickerProps } from '@echo/ui/types/props/page-layout-background-picker-props'
-import { type FunctionComponent, useEffect } from 'react'
+import { type FunctionComponent } from 'react'
 
-interface Props extends PageLayoutBackgroundPickerProps {
+interface Props {
   offer: OfferWithRole
   redeemed?: boolean
 }
 
-export const CreatedOfferSwitch: FunctionComponent<Props> = ({ offer, redeemed, onPageBackgroundUpdate }) => {
-  // set the right background according to redeemed and offer state
-  useEffect(() => {
-    if (
-      Boolean(redeemed) ||
-      offer.state === OfferState.Expired ||
-      offer.state === OfferState.Rejected ||
-      offer.state === OfferState.Cancelled
-    ) {
-      onPageBackgroundUpdate?.(undefined)
-    } else {
-      onPageBackgroundUpdate?.(Background.Success)
-    }
-  }, [onPageBackgroundUpdate, offer, redeemed])
-
+export const CreatedOfferSwitch: FunctionComponent<Props> = ({ offer, redeemed }) => {
   if (redeemed) {
     return (
       <CreatedOfferRedeemed

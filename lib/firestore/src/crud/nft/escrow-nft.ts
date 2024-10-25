@@ -3,12 +3,11 @@ import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
 import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
 import { getEscrowedNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-escrowed-nfts-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
-import type { EscrowedNftDocumentData } from '@echo/firestore/types/model/escrowed-nft-document-data'
 import { NftError } from '@echo/model/constants/errors/nft-error'
 import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
-import type { Nft } from '@echo/model/types/nft/nft'
+import type { Nft } from '@echo/model/types/nft'
 
-import type { OwnedNftIndex } from '@echo/model/types/nft/owned-nft'
+import type { OwnedNftIndex } from '@echo/model/types/owned-nft'
 import { isNil } from 'ramda'
 
 export async function escrowNft(nft: OwnedNftIndex): Promise<string> {
@@ -26,7 +25,7 @@ export async function escrowNft(nft: OwnedNftIndex): Promise<string> {
   // remove NFT owner
   await removeNftOwner(nft)
   // add escrowed NFT
-  return setReference<EscrowedNftDocumentData, EscrowedNftDocumentData>({
+  return setReference({
     collectionReference: getEscrowedNftsCollectionReference(),
     data: {
       nftId: snapshot.id,

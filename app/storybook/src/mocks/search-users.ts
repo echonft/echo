@@ -1,6 +1,6 @@
 import { mapUserToSearchResult } from '@echo/firestore/mappers/user/map-user-to-search-result'
-import { getAllUserDocumentDataMocks } from '@echo/firestore/mocks/user/get-all-user-document-data-mocks'
-import type { SearchResult } from '@echo/model/types/search/search-result'
+import { getAllUserDocumentDataMocks } from '@echo/firestore/mocks/db-model/user/get-all-user-document-data-mocks'
+import type { SearchResult } from '@echo/model/types/search-result'
 import type { Username } from '@echo/model/types/username'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { toPromise } from '@echo/utils/fp/to-promise'

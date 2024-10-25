@@ -1,5 +1,5 @@
-import type { CollectionContract } from '@echo/model/types/collection/collection'
-import type { NftWithContract } from '@echo/model/types/nft/nft'
+import type { CollectionContract } from '@echo/model/types/collection'
+import type { NftWithContract } from '@echo/model/types/nft'
 import { eqBy, isNil, modify, pick, pipe } from 'ramda'
 
 export function eqNftContract(nftA: NftWithContract, nftB: NftWithContract): boolean

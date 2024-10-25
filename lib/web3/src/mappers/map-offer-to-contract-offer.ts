@@ -1,4 +1,4 @@
-import type { BaseOffer } from '@echo/model/types/offer/base-offer'
+import type { BaseOffer } from '@echo/model/types/base-offer'
 import { mapOfferItemsToContractOfferItems } from '@echo/web3/mappers/map-offer-items-to-contract-offer-items'
 import type { ContractOffer } from '@echo/web3/types/contract-offer'
 import { ContractOfferState } from '@echo/web3/types/contract-offer-state'

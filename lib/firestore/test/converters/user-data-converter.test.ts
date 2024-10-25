@@ -1,15 +1,21 @@
 import { userDataConverter } from '@echo/firestore/converters/user-data-converter'
-import { getUserDocumentDataMockByUsername } from '@echo/firestore/mocks/user/get-user-document-data-mock-by-username'
 import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
-import { userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
-import type { Username } from '@echo/model/types/username'
+import { userMockJohnny } from '@echo/model/mocks/user-mock'
+import type { User } from '@echo/model/types/user'
 import { describe, expect, it } from '@jest/globals'
 import { QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
-import { modify, toUpper } from 'ramda'
 
 describe('converters - userDataConverter', () => {
-  const document: UserDocumentData = getUserDocumentDataMockByUsername(userMockJohnnyUsername())
-  const documentData: UserDocumentData = getUserDocumentDataMockByUsername(userMockJohnnyUsername())
+  const document: User = userMockJohnny
+  const documentData: UserDocumentData = {
+    username: 'johnnycagewins',
+    discord: {
+      username: 'johnnycagewins',
+      avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
+      globalName: undefined,
+      id: 'johnnycagewins'
+    }
+  }
   const snapshot = {
     id: 'userId',
     exists: true,
@@ -20,11 +26,6 @@ describe('converters - userDataConverter', () => {
     expect(userDataConverter.fromFirestore(snapshot)).toStrictEqual(document)
   })
   it('to Firestore conversion', () => {
-    expect(
-      userDataConverter.toFirestore(
-        // @ts-expect-error Just to test uppercase -> lowercase conversion, even though typing does not allow it
-        modify<WithFieldValue<UserDocumentData>, 'username', Username>('username', toUpper, document)
-      )
-    ).toStrictEqual(documentData)
+    expect(userDataConverter.toFirestore(documentData as WithFieldValue<User>)).toStrictEqual(documentData)
   })
 })

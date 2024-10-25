@@ -1,30 +1,27 @@
-import type { Collection } from '@echo/model/types/collection/collection'
-import type { Wallet } from '@echo/model/types/wallet'
+import { isTestnetChain } from '@echo/model/helpers/chain/is-testnet-chain'
+import type { Collection } from '@echo/model/types/collection'
+import type { Contract } from '@echo/model/types/contract'
 import { getCollectionByAddress as getCollectionFromNftScan } from '@echo/nft-scan/services/get-collection-by-address'
 import { getCollectionByAddress as getCollectionFromOpenSea } from '@echo/opensea/services/get-collection-by-address'
-import { isTestnetChain } from '@echo/utils/helpers/chains/is-testnet-chain'
+import { error, info } from '@echo/tasks/helpers/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
-import type { WithFetch } from '@echo/utils/types/with-fetch'
-import type { WithLoggerType } from '@echo/utils/types/with-logger'
-import { otherwise, pipe } from 'ramda'
-
-interface FetchCollectionArgs extends WithFetch {
-  contract: Wallet
-}
+import { objOf, otherwise, pipe } from 'ramda'
 
 /**
  * Fetches a collection from the API
  * We use OpenSea API on testnet and NFTScan on mainnet
- * @param args
+ * @param contract
  */
-export function fetchCollection(args: WithLoggerType<FetchCollectionArgs>): Promise<Nullable<Collection>> {
-  const fetcher = isTestnetChain(args.contract.chain) ? getCollectionFromOpenSea : getCollectionFromNftScan
-  args.logger?.info({ collection: { contract: args.contract }, fetcher: fetchCollection.name }, 'fetching collection')
+export function fetchCollection(contract: Contract): Promise<Nullable<Collection>> {
+  const fetcher = isTestnetChain(contract.chain)
+    ? getCollectionFromOpenSea
+    : pipe(objOf('contract'), getCollectionFromNftScan)
+  info({ collection: { contract }, fetcher: fetchCollection.name }, 'fetching collection')
   return pipe(
     fetcher,
     otherwise((err) => {
-      args.logger?.error({ err, collection: { contract: args.contract } }, 'could not fetch collection from API')
+      error({ err, collection: { contract } }, 'could not fetch collection from API')
       return undefined
     })
-  )(args)
+  )(contract)
 }

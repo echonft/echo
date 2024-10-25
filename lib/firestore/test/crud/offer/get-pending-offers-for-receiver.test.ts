@@ -1,7 +1,6 @@
 import { getPendingOffersForReceiver } from '@echo/firestore/crud/offer/get-pending-offers-for-receiver'
-import { getOfferMockById } from '@echo/model/mocks/offer/get-offer-mock-by-id'
-import { offerMockToJohnnycageId } from '@echo/model/mocks/offer/offer-mock'
-import { userMockCrewUsername, userMockJohnnyUsername } from '@echo/model/mocks/user/user-mock'
+import { offerMockToJohnnycage } from '@echo/model/mocks/offer-mock'
+import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - offer - getPendingOffersForReceiver', () => {
@@ -10,10 +9,10 @@ describe('CRUD - offer - getPendingOffersForReceiver', () => {
     expect(documents).toEqual([])
   })
   it('returns the pending offers for the receiver', async () => {
-    let documents = await getPendingOffersForReceiver(userMockCrewUsername())
+    let documents = await getPendingOffersForReceiver(userMockCrew.username)
     expect(documents).toEqual([])
-    documents = await getPendingOffersForReceiver(userMockJohnnyUsername())
+    documents = await getPendingOffersForReceiver(userMockJohnny.username)
     expect(documents.length).toBe(1)
-    expect(documents[0]).toStrictEqual(getOfferMockById(offerMockToJohnnycageId()))
+    expect(documents[0]).toStrictEqual(offerMockToJohnnycage)
   })
 })

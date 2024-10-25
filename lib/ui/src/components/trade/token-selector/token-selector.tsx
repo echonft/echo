@@ -1,6 +1,6 @@
 'use client'
-import type { Erc20Token } from '@echo/model/types/token/erc20-token'
-import type { TokenBalance } from '@echo/model/types/token/token-balance'
+import type { Erc20Token } from '@echo/model/types/erc20-token'
+import type { TokenBalance } from '@echo/model/types/token-balance'
 import { TokenSelectorInfo } from '@echo/ui/components/trade/token-selector/token-selector-info'
 import { TokenSelectorInput } from '@echo/ui/components/trade/token-selector/token-selector-input'
 import { TokenSelectorInputLayout } from '@echo/ui/components/trade/token-selector/token-selector-input-layout'

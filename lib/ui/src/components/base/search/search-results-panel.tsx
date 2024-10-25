@@ -1,7 +1,7 @@
 import type { SearchResultCategory } from '@echo/model/constants/search-result-category'
 import { compareSearchResults } from '@echo/model/helpers/search/compare-search-results'
 import { filterSearchResultsByCategory } from '@echo/model/helpers/search/filter-search-results-by-category'
-import type { SearchResult as SearchResultModel } from '@echo/model/types/search/search-result'
+import type { SearchResult as SearchResultModel } from '@echo/model/types/search-result'
 import { SearchResults } from '@echo/ui/components/base/search/search-results'
 import { SearchResultsCategories } from '@echo/ui/components/base/search/search-results-categories'
 import type { Nullable } from '@echo/utils/types/nullable'

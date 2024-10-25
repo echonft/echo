@@ -1,7 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getNftMockById } from '@echo/model/mocks/nft/get-nft-mock-by-id'
-import { nftMockSpiralJohnnyId } from '@echo/model/mocks/nft/nft-mock'
+import { nftMockSpiral1 } from '@echo/model/mocks/nft-mock'
 import { contractApprovalStore } from '@echo/storybook/mocks/stores/contract-approval-store'
 import { OfferDetailsContractApprovalRow as Component } from '@echo/ui/components/offer/details/offer-details-contract-approval-row'
 import type { Meta, StoryObj } from '@storybook/react'
@@ -25,7 +24,6 @@ export default metadata
 
 export const Row: StoryObj<ComonentType> = {
   render: ({ approved }) => {
-    const nft = getNftMockById(nftMockSpiralJohnnyId())
     const { approved: contractApproved, setApproved } = contractApprovalStore()
     useEffect(() => {
       setApproved(approved)
@@ -33,9 +31,9 @@ export const Row: StoryObj<ComonentType> = {
 
     return (
       <Component
-        collectionName={nft.collection.name}
-        contract={nft.collection.contract}
-        owner={nft.owner.wallet.address}
+        collectionName={nftMockSpiral1.collection.name}
+        contract={nftMockSpiral1.collection.contract}
+        owner={nftMockSpiral1.owner.wallet}
         approved={contractApproved}
       />
     )

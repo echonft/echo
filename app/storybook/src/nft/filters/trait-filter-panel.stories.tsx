@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { eqWithId } from '@echo/model/helpers/eq-with-id'
-import { getAllNftMocks } from '@echo/model/mocks/nft/get-all-nft-mocks'
+import { eqFilter } from '@echo/model/helpers/filter/eq-filter'
+import { nftMocks } from '@echo/model/mocks/nft-mock'
 import { TraitFilterPanel as Component } from '@echo/ui/components/nft/filters/by-traits/trait-filter-panel'
 import type { TraitFilter } from '@echo/ui/types/trait-filter'
 import { isInWith } from '@echo/utils/fp/is-in-with'
@@ -33,12 +33,12 @@ export const Panel: StoryObj<typeof Component> = {
     const [selection, setSelection] = useState<TraitFilter[]>([])
     const toggleSelection = (filter: TraitFilter) => {
       onToggleSelection?.(filter)
-      if (isInWith(selection, eqWithId, filter)) {
-        setSelection(reject(eqWithId(filter)))
+      if (isInWith(selection, eqFilter, filter)) {
+        setSelection(reject(eqFilter(filter)))
       } else {
         setSelection(append(filter))
       }
     }
-    return <Component nfts={getAllNftMocks()} selection={selection} onToggleSelection={toggleSelection} />
+    return <Component nfts={nftMocks} selection={selection} onToggleSelection={toggleSelection} />
   }
 }

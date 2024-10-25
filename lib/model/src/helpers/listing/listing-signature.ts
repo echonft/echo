@@ -6,13 +6,12 @@ import { erc721ItemComparator } from '@echo/model/helpers/item/erc721-item-compa
 import { erc721ItemIndex } from '@echo/model/helpers/item/erc721-item-index'
 import { erc721Items } from '@echo/model/helpers/item/erc721-items'
 import { userIndex } from '@echo/model/helpers/user/user-index'
-import type { Erc1155ItemIndex } from '@echo/model/types/item/erc1155-item'
-import type { Erc721ItemIndex } from '@echo/model/types/item/erc721-item'
-import type { NftItem } from '@echo/model/types/item/nft-item'
-import type { Listing } from '@echo/model/types/listing/listing'
+import type { Erc1155ItemIndex } from '@echo/model/types/erc1155-item'
+import type { Erc721ItemIndex } from '@echo/model/types/erc721-item'
+import type { Listing } from '@echo/model/types/listing'
+import type { NftItem } from '@echo/model/types/nft-item'
+import { quantitySchema } from '@echo/model/validators/quantity-schema'
 import { withSlugSchema } from '@echo/model/validators/slug-schema'
-import { walletSchema } from '@echo/model/validators/wallet-schema'
-import { quantitySchema } from '@echo/utils/validators/quantity-schema'
 import objectHash from 'object-hash'
 import { concat, converge, map, modify, type NonEmptyArray, pick, pipe, sort } from 'ramda'
 import { number, object, string, z } from 'zod'
@@ -24,8 +23,7 @@ const nftTokenIndexSchema = object({
 
 const listingIndexSchema = object({
   creator: object({
-    username: string().toLowerCase(),
-    wallet: walletSchema
+    username: string().min(1).toLowerCase()
   }),
   items: object({
     token: nftTokenIndexSchema
@@ -37,7 +35,8 @@ const listingIndexSchema = object({
       })
     )
     .array()
-    .nonempty(),
+    .nonempty()
+    .readonly(),
   target: object({
     collection: withSlugSchema,
     quantity: quantitySchema
