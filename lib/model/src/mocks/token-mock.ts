@@ -36,10 +36,3 @@ export const erc20TokenMock: Erc20Token = {
   name: 'USDC',
   type: TokenType.Erc20
 }
-
-export const erc20TokenMockNoDecimals: Erc20Token = {
-  contract: nftCollectionMockPx.contract,
-  decimals: 0,
-  name: 'USDC',
-  type: TokenType.Erc20
-}

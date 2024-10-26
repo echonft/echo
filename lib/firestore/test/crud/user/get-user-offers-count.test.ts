@@ -1,8 +1,8 @@
-import { getUserOffersCount } from '@echo/firestore/crud/user/counts/get-user-offers-count'
+import { getUserOffersCount } from '@echo/firestore/crud/user/get-user-offers-count'
 import { userMockJohnny } from '@echo/model/mocks/user-mock'
 import { describe, expect, it } from '@jest/globals'
 
-describe('CRUD - user - counts - getUserOffersCount', () => {
+describe('CRUD - user - getUserOffersCount', () => {
   it('returns 0 if there are no offer for the collection', async () => {
     const count = await getUserOffersCount('not-found')
     expect(count).toEqual(0)

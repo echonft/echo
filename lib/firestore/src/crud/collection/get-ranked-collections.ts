@@ -1,5 +1,5 @@
-import { getCollectionSwapsCount } from '@echo/firestore/crud/collection/counts/get-collection-swaps-count'
 import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
+import { getCollectionSwapsCount } from '@echo/firestore/crud/collection/get-collection-swaps-count'
 import type { CollectionDocument } from '@echo/firestore/types/model/collection-document'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import {

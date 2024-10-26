@@ -1,4 +1,4 @@
-import { getRankedCollections } from '@echo/firestore/crud/collection/counts/get-ranked-collections'
+import { getRankedCollections } from '@echo/firestore/crud/collection/get-ranked-collections'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import type { User } from '@echo/model/types/user'

@@ -222,5 +222,3 @@ export const baseOfferMockFromJohnnycage: BaseOffer = {
     }
   ]
 }
-
-export const offerMocks = [offerMockToJohnnycage, offerMockFromJohnnycage]

@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import type { User as ModelUser } from '@echo/model/types/user'
 import type { DefaultJWT, DefaultSession } from 'next-auth'
 import '@echo/utils/global'

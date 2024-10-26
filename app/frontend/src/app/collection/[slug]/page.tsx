@@ -1,5 +1,5 @@
-import { getCollectionCounts } from '@echo/firestore/crud/collection/counts/get-collection-counts'
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
+import { getCollectionCounts } from '@echo/firestore/crud/collection/get-collection-counts'
 import { getPendingListingsForCollection } from '@echo/firestore/crud/listing/get-pending-listings-for-collection'
 import { getNftsForCollection } from '@echo/firestore/crud/nft/get-nfts-for-collection'
 import { getPendingOffersForCollection } from '@echo/firestore/crud/offer/get-pending-offers-for-collection'

@@ -1,5 +1,3 @@
-export const BG_SUCCESS = 'success'
-
 export enum Background {
   Default = 'default',
   Home = 'home',

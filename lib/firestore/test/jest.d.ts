@@ -1,4 +1,4 @@
-// noinspection ES6ConvertVarToLetConst
+// noinspection ES6ConvertVarToLetConst,JSUnusedGlobalSymbols
 
 import '@jest/expect'
 import '@jest/globals'
@@ -10,11 +10,6 @@ declare global {
 }
 
 declare module '@jest/expect' {
-  // interface Expect {
-  //   toBeEqualLists(listA: unknown[], listB: unknown[]): [unknown[], unknown[]]
-  //   toBeMsSlug(): number
-  // }
-
   interface Matchers<R, T> {
     toBeUnixTimestampCloseTo(expected: number): R
     toEqualList(expected: T): R
