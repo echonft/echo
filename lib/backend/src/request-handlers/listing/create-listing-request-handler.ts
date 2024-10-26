@@ -3,6 +3,7 @@ import { toNextReponse } from '@echo/backend/request-handlers/to-next-reponse'
 import type { AuthRequestHandlerArgs } from '@echo/backend/types/auth-request-handler'
 import { createListingRequestTransformSchema } from '@echo/backend/validators/create-listing-request-transform-schema'
 import { parseRequest } from '@echo/backend/validators/parse-request'
+import { listingDocumentToModel } from '@echo/firestore/converters/listing-document-to-model'
 import { addListing } from '@echo/firestore/crud/listing/add-listing'
 import { andThen, objOf, pipe, prop } from 'ramda'
 
@@ -13,6 +14,6 @@ export async function createListingRequestHandler({
   const schema = await createListingRequestTransformSchema(username)
   return pipe(
     parseRequest(schema),
-    andThen(pipe(addListing, andThen(pipe(prop('data'), objOf('listing'), toNextReponse))))
+    andThen(pipe(addListing, andThen(pipe(prop('data'), listingDocumentToModel, objOf('listing'), toNextReponse))))
   )(req)
 }

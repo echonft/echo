@@ -1,13 +1,11 @@
+import { removeWalletRequestMock } from '@echo/api/mocks/remove-wallet-request-mock'
 import { removeWalletRequestSchema } from '@echo/api/validators/remove-wallet-request-schema'
-import { Chain } from '@echo/model/constants/chain'
-import { walletMockCrew } from '@echo/model/mocks/wallet-mock'
 import { describe, expect, it } from '@jest/globals'
 import { head, pipe, prop } from 'ramda'
 import { ZodIssueCode } from 'zod'
 
 describe('validators - removeWalletRequestSchema', () => {
-  const address = walletMockCrew.address
-  const chain = Chain.Blast
+  const { address, chain } = removeWalletRequestMock
 
   function expectZodError(data: unknown, code: ZodIssueCode, message?: string) {
     try {
@@ -50,9 +48,6 @@ describe('validators - removeWalletRequestSchema', () => {
   })
 
   it('valid request pass', () => {
-    expect(removeWalletRequestSchema.parse({ address, chain })).toEqual({
-      address,
-      chain
-    })
+    expect(removeWalletRequestSchema.parse(removeWalletRequestMock)).toEqual(removeWalletRequestMock)
   })
 })

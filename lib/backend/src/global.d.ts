@@ -13,4 +13,10 @@ declare module 'ramda' {
   export function otherwise<T>(onError: (error: unknown) => Awaitable<T | void>, promise: Promise<T>): Promise<T>
 }
 
+declare module 'next/server' {
+  interface NextResponse {
+    json<Body>(): Promise<Body>
+  }
+}
+
 export {}

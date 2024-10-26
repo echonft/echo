@@ -4,25 +4,22 @@ import { NotFoundError } from '@echo/backend/errors/not-found-error'
 import { toNextReponse } from '@echo/backend/request-handlers/to-next-reponse'
 import type { AuthRequestHandlerArgs } from '@echo/backend/types/auth-request-handler'
 import { parseRequest } from '@echo/backend/validators/parse-request'
+import { walletDocumentToModel } from '@echo/firestore/converters/wallet-document-to-model'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
-import type { Wallet } from '@echo/model/types/wallet'
-import type { NextResponse } from 'next/server'
-import { andThen, isNil, objOf, pipe } from 'ramda'
+import { chains } from '@echo/model/constants/chain'
+import { andThen, isNil, map, objOf, pipe } from 'ramda'
 
 export async function removeWalletRequestHandler({
   user: { username },
   req
 }: AuthRequestHandlerArgs<RemoveWalletRequest>) {
-  const { wallet } = await parseRequest(removeWalletRequestSchema)(req)
+  const { address, chain } = await parseRequest(removeWalletRequestSchema)(req)
   const foundUser = await getUserByUsername(username)
   if (isNil(foundUser)) {
     return Promise.reject(new NotFoundError())
   }
-  await removeWallet(foundUser.username, wallet)
-  return pipe<[string], Promise<Wallet[]>, Promise<NextResponse<Record<'wallets', Wallet[]>>>>(
-    getWalletsForUser,
-    andThen(pipe(objOf('wallets'), toNextReponse))
-  )(username)
+  await removeWallet({ address, vm: chains[chain].vm })
+  return pipe(getWalletsForUser, andThen(pipe(map(walletDocumentToModel), objOf('wallets'), toNextReponse)))(username)
 }

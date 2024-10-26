@@ -1,4 +1,8 @@
 export enum WalletError {
   Exists = 'wallet already exists',
-  NotFound = 'wallet does not exist'
+  NonceExpired = 'expired nonce',
+  NonceInvalid = 'invalid nonce',
+  NonceNotFound = 'nonce does not exist',
+  NotFound = 'wallet does not exist',
+  SignatureInvalid = 'invalid signature'
 }

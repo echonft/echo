@@ -6,12 +6,12 @@ import { describe, expect, test } from '@jest/globals'
 import { assocPath } from 'ramda'
 
 describe('helpers - item - assertUniqErc1155Items', () => {
-  const erc721Item2: Erc721Item = assocPath(['token', 'tokenId'], 2, erc721ItemMock)
-  const erc721Item3: Erc721Item = assocPath(['token', 'tokenId'], 3, erc721ItemMock)
-  const erc721Item4: Erc721Item = assocPath(['token', 'tokenId'], 4, erc721ItemMock)
-  const erc1155Item2: Erc1155Item = assocPath(['token', 'tokenId'], 2, erc1155ItemMock)
-  const erc1155Item3: Erc1155Item = assocPath(['token', 'tokenId'], 3, erc1155ItemMock)
-  const erc1155Item4: Erc1155Item = assocPath(['token', 'tokenId'], 4, erc1155ItemMock)
+  const erc721Item2: Erc721Item = assocPath(['token', 'tokenId'], 20, erc721ItemMock)
+  const erc721Item3: Erc721Item = assocPath(['token', 'tokenId'], 30, erc721ItemMock)
+  const erc721Item4: Erc721Item = assocPath(['token', 'tokenId'], 40, erc721ItemMock)
+  const erc1155Item2: Erc1155Item = assocPath(['token', 'tokenId'], 20, erc1155ItemMock)
+  const erc1155Item3: Erc1155Item = assocPath(['token', 'tokenId'], 30, erc1155ItemMock)
+  const erc1155Item4: Erc1155Item = assocPath(['token', 'tokenId'], 40, erc1155ItemMock)
 
   test('does not throw if there are no erc1155 item duplicates in the list', () => {
     expect(() =>

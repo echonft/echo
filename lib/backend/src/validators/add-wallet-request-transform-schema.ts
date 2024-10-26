@@ -4,9 +4,11 @@ import { getNonceForUser } from '@echo/firestore/crud/nonce/get-nonce-for-user'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { chains } from '@echo/model/constants/chain'
 import { UserError } from '@echo/model/constants/errors/user-error'
+import { WalletError } from '@echo/model/constants/errors/wallet-error'
 import type { Username } from '@echo/model/types/username'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { assoc, isNil, modify, path, pick, pipe } from 'ramda'
+import { dateNumberIsPast } from '@echo/utils/helpers/date-number-is-past'
+import { assoc, isNil, modify, path, pick, pipe, toLower } from 'ramda'
 import { SiweMessage } from 'siwe'
 import { NEVER, ZodIssueCode } from 'zod'
 
@@ -16,19 +18,27 @@ export function addWalletRequestTransformSchema(username: Username) {
       return modify('message', (message) => new SiweMessage(message), request)
     })
     .transform(async (params, ctx) => {
-      const { data, success } = await params.message.verify({
-        signature: params.signature,
-        domain: params.message.domain,
-        nonce: params.message.nonce
-      })
-      if (!success) {
+      try {
+        const { data, success } = await params.message.verify({
+          signature: params.signature,
+          domain: params.message.domain,
+          nonce: params.message.nonce
+        })
+        if (!success) {
+          ctx.addIssue({
+            code: ZodIssueCode.custom,
+            message: WalletError.SignatureInvalid
+          })
+          return NEVER
+        }
+        return pipe(pick(['address', 'chain']), assoc('nonce', data.nonce))(params)
+      } catch (_err) {
         ctx.addIssue({
           code: ZodIssueCode.custom,
-          message: 'invalid signature'
+          message: WalletError.SignatureInvalid
         })
         return NEVER
       }
-      return pipe(pick(['address', 'chain']), assoc('nonce', data.nonce))(params)
     })
     .transform(async ({ address, chain, nonce }, ctx) => {
       const foundUser = await getUserByUsername(username)
@@ -40,9 +50,15 @@ export function addWalletRequestTransformSchema(username: Username) {
         return NEVER
       }
       const foundNonce = await getNonceForUser(foundUser.username)
-      if (isNilOrEmpty(foundNonce) || foundNonce.expired || foundNonce.nonce !== nonce) {
-        return Promise.reject(new ForbiddenError())
+      if (isNilOrEmpty(foundNonce)) {
+        return Promise.reject(new ForbiddenError({ message: WalletError.NonceNotFound }))
       }
-      return { address, vm: path([chain, 'vm'], chains) }
+      if (dateNumberIsPast(foundNonce.expiresAt)) {
+        return Promise.reject(new ForbiddenError({ message: WalletError.NonceExpired }))
+      }
+      if (foundNonce.nonce !== nonce) {
+        return Promise.reject(new ForbiddenError({ message: WalletError.NonceInvalid }))
+      }
+      return { address: toLower(address), vm: path([chain, 'vm'], chains) }
     })
 }

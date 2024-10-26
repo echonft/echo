@@ -3,6 +3,7 @@ import { NotFoundError } from '@echo/backend/errors/not-found-error'
 import { UnauthorizedError } from '@echo/backend/errors/unauthorized-error'
 import { toNextReponse } from '@echo/backend/request-handlers/to-next-reponse'
 import type { AuthRequestHandlerArgsWithParams } from '@echo/backend/types/auth-request-handler'
+import { offerDocumentToModel } from '@echo/firestore/converters/offer-document-to-model'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { rejectOffer } from '@echo/firestore/crud/offer/reject-offer'
 import type { Slug } from '@echo/model/types/slug'
@@ -26,5 +27,5 @@ export async function rejectOfferRequestHandler({
   if (offer.receiver.username !== username) {
     return Promise.reject(new ForbiddenError())
   }
-  return pipe(rejectOffer, andThen(pipe(objOf('offer'), toNextReponse)))(slug)
+  return pipe(rejectOffer, andThen(pipe(offerDocumentToModel, objOf('offer'), toNextReponse)))(slug)
 }
