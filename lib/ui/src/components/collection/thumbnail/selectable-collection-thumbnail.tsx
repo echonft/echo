@@ -13,10 +13,10 @@ interface Props {
 
 export const SelectableCollectionThumbnail: FunctionComponent<Props> = ({ collection, onRemove }) => {
   const t = useTranslations('collection.thumbnail')
-  const { name, profilePictureUrl, totalSupply } = collection
+  const { name, pictureUrl, totalSupply } = collection
   return (
     <CollectionThumbnailLayout>
-      <CollectionProfilePicture collectionName={name} pictureUrl={profilePictureUrl} />
+      <CollectionProfilePicture collectionName={name} pictureUrl={pictureUrl} />
       <button
         className={clsx(
           'absolute',

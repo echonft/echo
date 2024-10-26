@@ -35,7 +35,7 @@ export const CreateListingTargetsSelection: FunctionComponent<CreateListingTarge
           onSelect={pipe(
             applySpec<Collection>({
               name: prop('label'),
-              profilePictureUrl: prop('pictureUrl'),
+              pictureUrl: prop('pictureUrl'),
               slug: prop('value')
             }),
             (collection: Collection) => {

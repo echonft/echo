@@ -57,7 +57,7 @@ export function collectionResponseSchema(chain: Chain) {
       description: prop('description'),
       discordUrl: prop('discord_url'),
       name: prop('name'),
-      profilePictureUrl: prop('image_url'),
+      pictureUrl: prop('image_url'),
       slug: prop('collection'),
       totalSupply: prop('total_supply'),
       verified: F

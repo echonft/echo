@@ -42,7 +42,7 @@ export function collectionResponseSchema(chain: Chain) {
         description: pipe(prop('description'), removeNullOrEmptyString),
         discordUrl: pipe(prop('discord'), removeNullOrEmptyString),
         name: prop('name'),
-        profilePictureUrl: pipe(prop('logo_url'), removeNullOrEmptyString),
+        pictureUrl: pipe(prop('logo_url'), removeNullOrEmptyString),
         slug: ifElse<[CollectionResponse], string, string>(
           propIsNil('opensea_slug'),
           pipe<[CollectionResponse], string, string>(prop('name'), toSlug),

@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const CollectionRow: FunctionComponent<Props> = ({
-  collection: { name, profilePictureUrl, rank, slug, swapsCount }
+  collection: { name, pictureUrl, rank, slug, swapsCount }
 }) => {
   return (
     <InternalLink path={pathProvider.collection.default.get({ slug })}>
@@ -25,7 +25,7 @@ export const CollectionRow: FunctionComponent<Props> = ({
             <CollectionRowRank>{rank}</CollectionRowRank>
             <SizeableImage
               className={clsx('w-[6.25rem]', 'h-[6.25rem]', 'rounded')}
-              src={profilePictureUrl}
+              src={pictureUrl}
               alt={name}
               width={100}
               height={100}

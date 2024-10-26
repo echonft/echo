@@ -5,5 +5,5 @@ import type { CollectionDocument } from '@echo/firestore/types/model/collection-
 import { pipe } from 'ramda'
 
 export function getCollectionsSearchData(): Promise<CollectionDocument[]> {
-  return pipe(collectionsCollection, querySelect('name', 'profilePictureUrl', 'slug'), getQueryData)()
+  return pipe(collectionsCollection, querySelect('name', 'pictureUrl', 'slug'), getQueryData)()
 }

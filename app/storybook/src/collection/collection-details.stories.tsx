@@ -35,7 +35,7 @@ export default metadata
 export const Details: StoryObj<ComponentType> = {
   render: ({ defaultPicture, verified }) => {
     const collection = pipe<[CollectionWithCounts], CollectionWithCounts, CollectionWithCounts>(
-      when<CollectionWithCounts, CollectionWithCounts>(always(defaultPicture), dissoc('profilePictureUrl')),
+      when<CollectionWithCounts, CollectionWithCounts>(always(defaultPicture), dissoc('pictureUrl')),
       assoc('verified', verified)
     )(collectionWithCountsMock)
     return <CollectionDetails collection={collection} />

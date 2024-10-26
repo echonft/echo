@@ -52,12 +52,12 @@ export const ListingDetails: FunctionComponent<ListingDetailsProps> = ({ listing
   })
   const { target, creator, role } = listing
   const { collection } = target
-  const { profilePictureUrl } = collection
+  const { pictureUrl } = collection
   // TODO remove
   const nfts = pipe(listingItems, nonEmptyMap(pipe(nftItemToNft(listing.creator), assoc('attributes', []))))(listing)
 
   return (
-    <TradeDetailsLayout backgroundPictureUrl={profilePictureUrl}>
+    <TradeDetailsLayout backgroundPictureUrl={pictureUrl}>
       <TradeDetailsListingState trade={listing} />
       <TradeDetailsInfoLayout>
         <TradeDetailsUserInfoLayout>

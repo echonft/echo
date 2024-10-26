@@ -11,10 +11,10 @@ interface Props {
 
 export const CollectionThumbnail: FunctionComponent<Props> = ({ collection }) => {
   const t = useTranslations('collection.thumbnail')
-  const { name, profilePictureUrl, totalSupply } = collection
+  const { name, pictureUrl, totalSupply } = collection
   return (
     <CollectionThumbnailLayout>
-      <CollectionProfilePicture collectionName={name} pictureUrl={profilePictureUrl} />
+      <CollectionProfilePicture collectionName={name} pictureUrl={pictureUrl} />
       <div className={clsx('flex', 'flex-col', 'justify-center')}>
         <span className={clsx('prose-header-sm', 'text-white', 'select-none')}>{name}</span>
         <span className={clsx('prose-label-xs', '!text-[0.8125rem]', 'text-white/70', '!leading-6', 'select-none')}>

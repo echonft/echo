@@ -8,7 +8,7 @@ export interface Collection {
   description?: string
   discordUrl?: string
   name: string
-  profilePictureUrl?: string
+  pictureUrl?: string
   slug: Slug
   totalSupply: number
   twitterUsername?: string

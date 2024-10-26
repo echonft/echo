@@ -19,7 +19,7 @@ describe('validators - collectionResponseSchema', () => {
     created_date: '2021-04-16',
     description: mock.description,
     discord_url: mock.discordUrl,
-    image_url: mock.profilePictureUrl,
+    image_url: mock.pictureUrl,
     instagram_username: 'whatever',
     is_disabled: false,
     is_nsfw: false,

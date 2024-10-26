@@ -11,19 +11,19 @@ import { type FunctionComponent } from 'react'
 
 interface CollectionProfileProps
   extends CollectionLinksProps,
-    Pick<Collection, 'name' | 'totalSupply' | 'verified' | 'profilePictureUrl'> {}
+    Pick<Collection, 'name' | 'totalSupply' | 'verified' | 'pictureUrl'> {}
 
 export const CollectionProfile: FunctionComponent<CollectionProfileProps> = ({
   name,
   totalSupply,
-  profilePictureUrl,
+  pictureUrl,
   twitterUsername,
   discordUrl,
   websiteUrl,
   verified
 }) => {
   return (
-    <Profile picture={{ pictureUrl: profilePictureUrl, alt: name }}>
+    <Profile picture={{ pictureUrl: pictureUrl, alt: name }}>
       <CollectionProfileDetailsLayout>
         <CollectionProfileTitleLayout>
           <h1 className={clsx('text-white', 'prose-display-lg-bold', 'uppercase', 'truncate')}>{name}</h1>

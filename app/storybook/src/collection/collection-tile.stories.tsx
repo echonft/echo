@@ -27,7 +27,7 @@ export const Tile: StoryObj<typeof Component> = {
   args: {
     slug: collectionMockPx.slug,
     name: collectionMockPx.name,
-    pictureUrl: collectionMockPx.profilePictureUrl,
+    pictureUrl: collectionMockPx.pictureUrl,
     size: Size.LG,
     swapsCount: 2
   }

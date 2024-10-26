@@ -17,7 +17,7 @@ describe('validators - collectionResponseSchema', () => {
     slug: 'bacgenesis',
     totalSupply: 3000,
     discordUrl: undefined,
-    profilePictureUrl: 'https://image.nftscan.com/blast/logo/0xcfc4c2b14af5b1f8ed97e1717b009dca461d8461.jpg',
+    pictureUrl: 'https://image.nftscan.com/blast/logo/0xcfc4c2b14af5b1f8ed97e1717b009dca461d8461.jpg',
     websiteUrl: 'https://bacgame.io/',
     description:
       'Blast Auto Club, the first Web3 game built on Blast blockchain. BAC is a\nlight educational, HTML5 racing club game. BAC(Blast Auto Club) is the\n1st game of a series of Web3 casual games on Blast. BAC use a team\nbattler combat model called “Group to Earn”, which is the most unique\nfeature of the game.',

@@ -9,7 +9,7 @@ export function collectionToSearchResult(collection: Collection): SearchResult<S
     category: always(SearchResultCategory.Collection),
     label: prop('name'),
     id: pipe<[Collection], string, string>(prop('slug'), concat(`${SearchResultCategory.Collection}-`)),
-    pictureUrl: prop('profilePictureUrl'),
+    pictureUrl: prop('pictureUrl'),
     value: prop('slug')
   })(collection)
 }

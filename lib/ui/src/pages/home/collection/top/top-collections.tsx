@@ -16,12 +16,12 @@ export const TopCollections: FunctionComponent<Props> = ({ collections }) => {
   return (
     <TopCollectionsLayout>
       {map(
-        ({ slug, name, profilePictureUrl, swapsCount }) => (
+        ({ slug, name, pictureUrl: pictureUrl, swapsCount }) => (
           <CollectionTile
             key={slug}
             slug={slug}
             name={name}
-            pictureUrl={profilePictureUrl}
+            pictureUrl={pictureUrl}
             swapsCount={swapsCount}
             size={Size.MD}
           />

@@ -14,7 +14,7 @@ export const CollectionDetails: FunctionComponent<Props> = ({ collection }) => {
     totalSupply,
     name,
     description,
-    profilePictureUrl,
+    pictureUrl,
     discordUrl,
     twitterUsername,
     verified,
@@ -26,11 +26,11 @@ export const CollectionDetails: FunctionComponent<Props> = ({ collection }) => {
   } = collection
 
   return (
-    <ProfileLayout bannerUrl={profilePictureUrl}>
+    <ProfileLayout bannerUrl={pictureUrl}>
       <CollectionProfile
         name={name}
         totalSupply={totalSupply}
-        profilePictureUrl={profilePictureUrl}
+        pictureUrl={pictureUrl}
         discordUrl={discordUrl}
         websiteUrl={websiteUrl}
         twitterUsername={twitterUsername}
