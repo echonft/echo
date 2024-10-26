@@ -1,5 +1,5 @@
 'use client'
-import type { User } from '@echo/auth/types/user'
+import type { User } from '@echo/model/types/user'
 import { LoginStep } from '@echo/ui/components/auth/login-step'
 import { LoginStepIndicator, type LoginStepIndicatorProps } from '@echo/ui/components/auth/login-step-indicator'
 import type { Nullable } from '@echo/utils/types/nullable'

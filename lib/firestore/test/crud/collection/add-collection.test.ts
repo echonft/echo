@@ -4,7 +4,6 @@ import { getCollectionById } from '@echo/firestore/crud/collection/get-collectio
 import { Chain } from '@echo/model/constants/chain'
 import { collectionMockPx } from '@echo/model/mocks/collection-mock'
 import type { Collection } from '@echo/model/types/collection'
-import { removeNilProps } from '@echo/utils/helpers/remove-nil-props'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, assocPath, isNil, pipe } from 'ramda'
@@ -22,8 +21,7 @@ describe('CRUD - collection - addCollection', () => {
   })
 
   it('addCollection', async () => {
-    const collectionToAdd = pipe<[Collection], Collection, Collection, Collection>(
-      removeNilProps,
+    const collectionToAdd = pipe<[Collection], Collection, Collection>(
       assoc('slug', 'slug'),
       assocPath(['contract', 'chain'], Chain.Sepolia)
     )(collectionMockPx)

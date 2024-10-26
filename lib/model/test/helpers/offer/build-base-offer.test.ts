@@ -16,10 +16,7 @@ describe('helpers - offer - buildBaseOffer', () => {
     const receiverOfferItems = [receiverNft] as NonEmptyArray<OwnedErc721Nft>
     const expiresAt: number = Date.now()
 
-    // Act
     const result = buildBaseOffer({ senderOfferItems, receiverOfferItems, expiresAt })
-
-    // Assert
     expect(result.expiresAt).toBe(expiresAt)
     expect(result.receiverItems).toEqual([erc721NftToItem(receiverNft)])
     expect(result.senderItems).toEqual([erc721NftToItem(senderNft)])

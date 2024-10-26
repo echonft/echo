@@ -1,5 +1,5 @@
 'use client'
-import type { User } from '@echo/auth/types/user'
+import type { User } from '@echo/model/types/user'
 import { LoginStepLayout } from '@echo/ui/components/auth/layout/login-step-layout'
 import { LoginDiscordConnect } from '@echo/ui/components/auth/login-discord-connect'
 import type { Nullable } from '@echo/utils/types/nullable'

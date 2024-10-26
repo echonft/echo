@@ -12,10 +12,9 @@ import type { Offer } from '@echo/model/types/offer'
 import { resetListing } from '@echo/test/firestore/crud/listing/reset-listing'
 import { deleteOffer } from '@echo/test/firestore/crud/offer/delete-offer'
 import { offerDocumentMocks } from '@echo/test/firestore/initialize-db'
-import { removeNilProps } from '@echo/utils/helpers/remove-nil-props'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
-import { isNil, omit, pick, pipe } from 'ramda'
+import { isNil, omit, pick } from 'ramda'
 
 describe('CRUD - offer - addOffer', () => {
   let createdOfferId: Nullable<string>
@@ -50,7 +49,7 @@ describe('CRUD - offer - addOffer', () => {
     const createdOffer = await addOffer(args)
     createdOfferId = createdOffer.id
     const document: Offer = (await getOfferById(createdOfferId))!
-    expect(omit(['slug', 'locked', 'state'], document)).toStrictEqual(pipe(addOfferArrayIndexers, removeNilProps)(args))
+    expect(omit(['slug', 'locked', 'state'], document)).toStrictEqual(addOfferArrayIndexers(args))
     expect(document.state).toBe(OfferState.Open)
     expect(document.locked).toBe(false)
   })

@@ -5,7 +5,7 @@ import { OfferDetailsContractApprovalRowIcon } from '@echo/ui/components/offer/d
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
 import type { HexString } from '@echo/utils/types/hex-string'
-import type { GetErc721ContractApprovalArgs } from '@echo/web3-dom/types/get-erc721-contract-approval-args'
+import type { GetErc721ContractApprovalArgs } from '@echo/web3-dom/services/get-erc721-contract-approval'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'

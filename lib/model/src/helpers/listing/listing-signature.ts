@@ -35,8 +35,7 @@ const listingIndexSchema = object({
       })
     )
     .array()
-    .nonempty()
-    .readonly(),
+    .nonempty(),
   target: object({
     collection: withSlugSchema,
     quantity: quantitySchema

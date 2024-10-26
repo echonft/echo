@@ -1,5 +1,5 @@
 'use client'
-import type { User } from '@echo/auth/types/user'
+import type { User } from '@echo/model/types/user'
 import { pathProvider } from '@echo/routing/path/path-provider'
 import { Login } from '@echo/ui/components/auth/login'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'

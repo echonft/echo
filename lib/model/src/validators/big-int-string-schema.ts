@@ -23,4 +23,3 @@ export const bigIntStringSchema = string()
       return onError()
     }
   })
-  .readonly()

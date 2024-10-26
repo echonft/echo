@@ -1,5 +1,5 @@
 'use client'
-import type { User } from '@echo/auth/types/user'
+import type { User } from '@echo/model/types/user'
 import { HeaderLayout } from '@echo/ui/components/base/header/header-layout'
 import { HeaderProfileButton } from '@echo/ui/components/base/header/header-profile-button'
 import { HeaderSearch } from '@echo/ui/components/base/header/header-search'

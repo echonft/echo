@@ -1,7 +1,7 @@
 import { VirtualMachine } from '@echo/model/constants/virtual-machine'
-import type { EvmAddress } from '@echo/model/types/evm-address'
+import type { Address } from '@echo/model/types/address'
 
 export interface Wallet {
-  address: EvmAddress
+  address: Address
   vm: VirtualMachine
 }

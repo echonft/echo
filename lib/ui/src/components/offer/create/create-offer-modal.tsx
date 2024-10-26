@@ -3,8 +3,8 @@ import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { Expiration } from '@echo/model/constants/expiration'
 import { expirationToDateNumber } from '@echo/model/helpers/expiration-to-date-number'
 import { buildBaseOffer } from '@echo/model/helpers/offer/build-base-offer'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
 import type { Offer } from '@echo/model/types/offer'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalDescription } from '@echo/ui/components/base/modal/modal-description'
@@ -14,7 +14,7 @@ import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { HexString } from '@echo/utils/types/hex-string'
-import type { ContractCreateOfferArgs } from '@echo/web3-dom/types/contract-create-offer-args'
+import type { CreateEchoOfferArgs } from '@echo/web3-dom/services/create-offer'
 import { generateOfferId } from '@echo/web3/helpers/generate-offer-id'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -67,7 +67,7 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
   })
   const { trigger: triggerContractCreate, isMutating: isContractCreateMutating } = useSWRTrigger<
     HexString,
-    ContractCreateOfferArgs
+    CreateEchoOfferArgs
   >({
     key: SWRKeys.offer.contractCreate,
     fetcher: contractCreateOffer,

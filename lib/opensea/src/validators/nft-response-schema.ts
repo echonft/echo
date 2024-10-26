@@ -12,17 +12,16 @@ export const nftResponseAugmentation = {
   collection: slugSchema,
   contract: evmAddressSchema,
   token_standard: nftTokenTypeSchema,
-  name: string().nullable().transform(emptyStringToUndefined).readonly(),
-  description: string().nullable().transform(emptyStringToUndefined).readonly(),
+  name: string().nullable().transform(emptyStringToUndefined),
+  description: string().nullable().transform(emptyStringToUndefined),
   image_url: string()
     .or(string().url())
     .nullable()
     .optional()
-    .transform(pipe(emptyStringToUndefined, removeQueryFromUrl))
-    .readonly(),
-  opensea_url: string().or(string().url()).nullable().optional().transform(emptyStringToUndefined).readonly(),
-  updated_at: string().readonly(), // there's no 'Z' at the end of the string so it's not a valid datetime
-  is_disabled: boolean().readonly(),
-  is_nsfw: boolean().readonly()
+    .transform(pipe(emptyStringToUndefined, removeQueryFromUrl)),
+  opensea_url: string().or(string().url()).nullable().optional().transform(emptyStringToUndefined),
+  updated_at: string(), // there's no 'Z' at the end of the string so it's not a valid datetime
+  is_disabled: boolean(),
+  is_nsfw: boolean()
 }
-export const nftResponseSchema = object(nftResponseAugmentation).readonly()
+export const nftResponseSchema = object(nftResponseAugmentation)

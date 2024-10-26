@@ -1,36 +1,36 @@
 import { getWallet } from '@echo/firestore/crud/wallet/get-wallet'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import type { Wallet } from '@echo/model/types/wallet'
-import { getLogger } from '@echo/tasks/commands/get-logger'
-import { updateNftsForWallet } from '@echo/tasks/update-nfts-for-wallet'
+import { chains } from '@echo/model/constants/chain'
+import type { Contract } from '@echo/model/types/contract'
+import { error, info } from '@echo/tasks/helpers/logger'
+import { updateNftsForWallet } from '@echo/tasks/tasks/update-nfts-for-wallet'
 import { andThen, isNil, otherwise, pipe, tap } from 'ramda'
 
-export async function updateWalletNftsCommand(wallet: Wallet) {
-  const logger = getLogger(updateWalletNftsCommand.name)
+export async function updateWalletNftsCommand(wallet: Contract) {
   await initializeFirebase()
-  const walletDocumentData = await pipe(
+  const walletDocument = await pipe(
     getWallet,
     andThen(
       tap((wallet) => {
         if (isNil(wallet)) {
-          logger.error({ wallet }, 'wallet not found')
+          error({ wallet }, 'wallet not found')
         }
       })
     ),
     otherwise((err) => {
-      logger.error({ err, wallet }, 'could not fetch wallet from Firestore')
+      error({ err, wallet }, 'could not fetch wallet from Firestore')
       return undefined
     })
-  )(wallet)
-  if (!isNil(walletDocumentData)) {
+  )({ address: wallet.address, vm: chains[wallet.chain].vm })
+  if (!isNil(walletDocument)) {
     await pipe(
       updateNftsForWallet,
       andThen(() => {
-        logger.info({ wallet }, 'updated NFTs for wallet')
+        info({ wallet }, 'updated NFTs for wallet')
       }),
       otherwise((err) => {
-        logger.error({ err, wallet }, 'could not update NFTs')
+        error({ err, wallet }, 'could not update NFTs')
       })
-    )({ wallet: walletDocumentData, fetch, logger })
+    )(walletDocument)
   }
 }

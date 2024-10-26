@@ -5,4 +5,3 @@ import { string } from 'zod'
 export const hexStringSchema = string()
   .regex(new RegExp('^0x?[0-9a-fA-F]+'), { message: ValidatorError.InvalidHexString })
   .transform((arg: string) => arg as HexString)
-  .readonly()

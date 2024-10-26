@@ -5,9 +5,9 @@ import { number, object, string } from 'zod'
 
 export const contractResponseSchema = object({
   address: evmAddressSchema,
-  chain: string().readonly(),
+  chain: string(),
   collection: slugSchema,
   contract_standard: nftTokenTypeSchema,
-  name: string().readonly(),
-  total_supply: number().optional().readonly()
-}).readonly()
+  name: string(),
+  total_supply: number().optional()
+})

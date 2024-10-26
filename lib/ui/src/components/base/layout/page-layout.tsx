@@ -1,5 +1,5 @@
 'use client'
-import type { User } from '@echo/auth/types/user'
+import type { User } from '@echo/model/types/user'
 import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
 import { Header } from '@echo/ui/components/base/header/header'
 import { Dependencies } from '@echo/ui/components/base/layout/dependencies'

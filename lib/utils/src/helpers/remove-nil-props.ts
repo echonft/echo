@@ -1,13 +1,13 @@
 import { equals, is, isNil, map, pipe, reject } from 'ramda'
 
-export function removeNilProps<T, U = Partial<T>>(obj: T): U {
-  return pipe<[T], unknown, unknown, U>(
+export function removeNilProps<T extends object>(obj: T): T {
+  return pipe<[T], unknown, unknown, T>(
     map((obj: unknown) => {
       if (is(Object, obj) && !is(Array, obj)) {
-        return removeNilProps(obj)
+        return removeNilProps<T>(obj as T)
       }
       if (is(Array, obj)) {
-        return map((item) => (is(Object, item) ? removeNilProps(item) : item), obj)
+        return map((item) => (is(Object, item) ? removeNilProps<T>(item as T) : item), obj)
       }
       return obj
     }),
@@ -15,5 +15,5 @@ export function removeNilProps<T, U = Partial<T>>(obj: T): U {
     // @ts-ignore
     reject(isNil),
     reject(equals({}))
-  )(obj) as U
+  )(obj) as T
 }

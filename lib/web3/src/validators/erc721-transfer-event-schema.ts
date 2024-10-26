@@ -12,12 +12,7 @@ import { object, tuple, unknown } from 'zod'
 function erc721TransferEventLogSchema(chain: Chain) {
   return object({
     address: evmAddressSchema,
-    topics: tuple([
-      unknown().readonly(),
-      topicSchema.pipe(evmAddressSchema),
-      topicSchema.pipe(evmAddressSchema),
-      hexNumberSchema
-    ]).readonly(),
+    topics: tuple([unknown(), topicSchema.pipe(evmAddressSchema), topicSchema.pipe(evmAddressSchema), hexNumberSchema]),
     transactionHash: hexStringSchema
   })
     .array()
@@ -40,7 +35,6 @@ function erc721TransferEventLogSchema(chain: Chain) {
         })
       )
     )
-    .readonly()
 }
 
 export function erc721TransferEventSchema(chain: Chain) {
@@ -54,5 +48,4 @@ export function erc721TransferEventSchema(chain: Chain) {
     .transform((args) => {
       return pipe((log) => erc721TransferEventLogSchema(chain).array().parse(log), flatten)(args)
     })
-    .readonly()
 }

@@ -4,6 +4,6 @@ import { object } from 'zod'
 
 export const logSchema = object({
   address: evmAddressSchema,
-  topics: hexStringSchema.array().nonempty().readonly(),
+  topics: hexStringSchema.array().nonempty(),
   transactionHash: hexStringSchema
 })

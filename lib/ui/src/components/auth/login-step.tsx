@@ -1,5 +1,5 @@
 'use client'
-import type { User } from '@echo/auth/types/user'
+import type { User } from '@echo/model/types/user'
 import { LoginConnectWalletStep } from '@echo/ui/components/auth/login-connect-wallet-step'
 import { LoginDiscordStep } from '@echo/ui/components/auth/login-discord-step'
 import { LoginJoinEchoStep } from '@echo/ui/components/auth/login-join-echo-step'

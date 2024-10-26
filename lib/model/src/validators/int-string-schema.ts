@@ -15,4 +15,3 @@ export const intStringSchema = string()
     }
     return parsed
   })
-  .readonly()

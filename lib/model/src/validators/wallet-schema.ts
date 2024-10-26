@@ -5,4 +5,4 @@ import { object } from 'zod'
 export const walletSchema = object({
   chain: chainSchema,
   address: evmAddressSchema
-}).readonly()
+})

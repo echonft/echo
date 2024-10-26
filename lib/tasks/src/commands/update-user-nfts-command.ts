@@ -1,35 +1,34 @@
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import type { Username } from '@echo/model/types/username'
-import { getLogger } from '@echo/tasks/commands/get-logger'
-import { updateNftsForUser } from '@echo/tasks/update-nfts-for-user'
+import { error, info } from '@echo/tasks/helpers/logger'
+import { updateNftsForUser } from '@echo/tasks/tasks/update-nfts-for-user'
 import { andThen, isNil, otherwise, pipe, tap } from 'ramda'
 
-export async function updateUserNftsCommand(username: Username) {
-  const logger = getLogger(updateUserNftsCommand.name)
+export async function updateUserNftsCommand(username: string) {
   await initializeFirebase()
   const user = await pipe(
     getUserByUsername,
     andThen(
       tap((user) => {
         if (isNil(user)) {
-          logger.error({ user: { username } }, 'user not found')
+          error({ user: { username } }, 'user not found')
         }
       })
     ),
     otherwise((err) => {
-      logger.error({ err, user: { username } }, 'could not fetch user from Firestore')
+      error({ err, user: { username } }, 'could not fetch user from Firestore')
     })
-  )(username)
+  )(username as Username)
   if (!isNil(user)) {
     await pipe(
       updateNftsForUser,
       andThen(() => {
-        logger.info({ user }, 'updated NFTs for user')
+        info({ user }, 'updated NFTs for user')
       }),
       otherwise((err) => {
-        logger.error({ err, user }, 'could not update NFTs')
+        error({ err, user }, 'could not update NFTs')
       })
-    )({ user, fetch, logger })
+    )(user)
   }
 }

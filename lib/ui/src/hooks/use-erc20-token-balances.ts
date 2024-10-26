@@ -1,3 +1,4 @@
+import { Chain } from '@echo/model/constants/chain'
 import { TokenType } from '@echo/model/constants/token-type'
 import type { Erc20Token } from '@echo/model/types/erc20-token'
 import type { TokenBalance } from '@echo/model/types/token-balance'
@@ -5,7 +6,6 @@ import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { useAccount } from '@echo/ui/hooks/use-account'
-import { Chain } from '@echo/model/constants/chain'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { nonEmptyMap } from '@echo/utils/fp/non-empty-map'
 import { supportedErc20Tokens } from '@echo/web3-dom/constants/supported-erc20-tokens'
@@ -14,7 +14,7 @@ import useSWR from 'swr'
 
 export function useErc20TokenBalances(): NonEmptyArray<TokenBalance<Erc20Token>> {
   const account = useAccount()
-  const { getAllErc20TokenBalances, logger } = useDependencies()
+  const { getAllErc20TokenBalances } = useDependencies()
   const { data } = useSWR(
     isNil(account.wallet)
       ? undefined
@@ -29,7 +29,6 @@ export function useErc20TokenBalances(): NonEmptyArray<TokenBalance<Erc20Token>>
       errorRetryCount: 3,
       errorRetryInterval: 500,
       onError: errorCallback({
-        logger,
         loggerContext: { component: useErc20TokenBalances.name, fetcher: getAllErc20TokenBalances.name }
       })
     }

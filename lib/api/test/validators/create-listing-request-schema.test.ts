@@ -1,42 +1,10 @@
+import { createListingRequestMock } from '@echo/api/mocks/create-listing-request-mock'
 import { createListingRequestSchema } from '@echo/api/validators/create-listing-request-schema'
-import { Expiration } from '@echo/model/constants/expiration'
-import { TokenType } from '@echo/model/constants/token-type'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, dissoc, head, pipe, prop } from 'ramda'
 import { ZodIssueCode } from 'zod'
 
 describe('validators - createListingRequestSchema', () => {
-  const validRequest = {
-    items: [
-      {
-        token: {
-          collection: {
-            slug: 'collection-721-slug'
-          },
-          tokenId: 111,
-          type: TokenType.Erc721
-        }
-      },
-      {
-        token: {
-          collection: {
-            slug: 'collection-1155-slug'
-          },
-          tokenId: 2,
-          type: TokenType.Erc1155
-        },
-        quantity: 5
-      }
-    ],
-    target: {
-      collection: {
-        slug: 'target-slug'
-      },
-      quantity: 2
-    },
-    expiration: Expiration.OneDay
-  }
-
   function expectZodError(data: unknown, code: ZodIssueCode) {
     try {
       createListingRequestSchema.parse(data)
@@ -50,20 +18,20 @@ describe('validators - createListingRequestSchema', () => {
   }
 
   it('throws if expires at is not valid', () => {
-    expectZodError(assoc('expiration', undefined, validRequest), ZodIssueCode.invalid_type)
-    expectZodError(assoc('expiration', '1h', validRequest), ZodIssueCode.invalid_enum_value)
+    expectZodError(assoc('expiration', undefined, createListingRequestMock), ZodIssueCode.invalid_type)
+    expectZodError(assoc('expiration', '1h', createListingRequestMock), ZodIssueCode.invalid_enum_value)
   })
 
   it('throws if items are not valid', () => {
-    expectZodError(dissoc('items', validRequest), ZodIssueCode.invalid_type)
-    expectZodError(assoc('items', [], validRequest), ZodIssueCode.too_small)
-    expectZodError(assoc('items', undefined, validRequest), ZodIssueCode.invalid_type)
-    expectZodError(assoc('items', null, validRequest), ZodIssueCode.invalid_type)
+    expectZodError(dissoc('items', createListingRequestMock), ZodIssueCode.invalid_type)
+    expectZodError(assoc('items', [], createListingRequestMock), ZodIssueCode.too_small)
+    expectZodError(assoc('items', undefined, createListingRequestMock), ZodIssueCode.invalid_type)
+    expectZodError(assoc('items', null, createListingRequestMock), ZodIssueCode.invalid_type)
   })
 
   it('throws if targets are not valid', () => {
-    expectZodError(dissoc('target', validRequest), ZodIssueCode.invalid_type)
-    expectZodError(assoc('target', undefined, validRequest), ZodIssueCode.invalid_type)
+    expectZodError(dissoc('target', createListingRequestMock), ZodIssueCode.invalid_type)
+    expectZodError(assoc('target', undefined, createListingRequestMock), ZodIssueCode.invalid_type)
     expectZodError(
       assoc(
         'target',
@@ -71,7 +39,7 @@ describe('validators - createListingRequestSchema', () => {
           quantity: 1,
           collection: {}
         },
-        validRequest
+        createListingRequestMock
       ),
       ZodIssueCode.invalid_type
     )
@@ -83,7 +51,7 @@ describe('validators - createListingRequestSchema', () => {
             slug: 'collection-slug'
           }
         },
-        validRequest
+        createListingRequestMock
       ),
       ZodIssueCode.invalid_type
     )
@@ -96,13 +64,13 @@ describe('validators - createListingRequestSchema', () => {
             slug: 'collection-slug'
           }
         },
-        validRequest
+        createListingRequestMock
       ),
       ZodIssueCode.too_small
     )
   })
 
   it('valid', () => {
-    expect(createListingRequestSchema.parse(validRequest)).toStrictEqual(validRequest)
+    expect(createListingRequestSchema.parse(createListingRequestMock)).toStrictEqual(createListingRequestMock)
   })
 })

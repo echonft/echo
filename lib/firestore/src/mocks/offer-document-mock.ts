@@ -1,10 +1,8 @@
 import type { OfferDocument } from '@echo/firestore/types/model/offer-document'
 import { offerMockFromJohnnycage, offerMockToJohnnycage } from '@echo/model/mocks/offer-mock'
-import { type Offer } from '@echo/model/types/offer'
-import { removeNilProps } from '@echo/utils/helpers/remove-nil-props'
 
 export const offerDocumentMockToJohnnycage: OfferDocument = {
-  ...removeNilProps<Offer, OfferDocument>(offerMockToJohnnycage),
+  ...offerMockToJohnnycage,
   receiverItemCollections: ['spiral-frequencies'],
   receiverItemIndexes: ['spiral-frequencies.1'],
   senderItemCollections: ['pxmythics-genesis'],
@@ -12,7 +10,7 @@ export const offerDocumentMockToJohnnycage: OfferDocument = {
 }
 
 export const offerDocumentMockFromJohnnycage: OfferDocument = {
-  ...removeNilProps<Offer, OfferDocument>(offerMockFromJohnnycage),
+  ...offerMockFromJohnnycage,
   receiverItemIndexes: ['pxmythics-genesis.3'],
   receiverItemCollections: ['pxmythics-genesis'],
   senderItemCollections: ['spiral-frequencies'],

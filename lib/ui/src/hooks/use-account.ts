@@ -1,5 +1,5 @@
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
-import type { AccountResult } from '@echo/web3-dom/types/account-result'
+import type { AccountResult } from '@echo/web3-dom/services/get-account'
 import { useEffect, useState } from 'react'
 
 export function useAccount(): AccountResult {

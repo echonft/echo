@@ -4,11 +4,13 @@ import type { NftAttribute } from '@echo/model/types/nft-attribute'
 import { evmAddressSchema } from '@echo/model/validators/evm-address-schema'
 import type { PartialNft } from '@echo/opensea/types/partial-nft'
 import { nftResponseAugmentation } from '@echo/opensea/validators/nft-response-schema'
+import { removeNilProps } from '@echo/utils/helpers/remove-nil-props'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { always, applySpec, is, isNil, map, partialRight, pipe, prop, when } from 'ramda'
 import { boolean, nativeEnum, number, object, string } from 'zod'
 
 const nftTraitSchema = object({
-  trait_type: string().readonly(),
+  trait_type: string(),
   display_type: nativeEnum({
     number: 'number',
     boostPercentage: 'boost_percentage',
@@ -18,16 +20,15 @@ const nftTraitSchema = object({
     none: 'None'
   })
     .nullable()
-    .optional()
-    .readonly(),
-  max_value: string().nullable().optional().readonly(),
-  value: string().or(number()).readonly()
-}).readonly()
+    .optional(),
+  max_value: string().nullable().optional(),
+  value: string().or(number())
+})
 
 export function nftExtendedResponseSchema(chain: Chain) {
   return object({
-    is_suspicious: boolean().readonly(),
-    creator: evmAddressSchema.nullable().readonly(),
+    is_suspicious: boolean(),
+    creator: evmAddressSchema.nullable(),
     traits: nftTraitSchema
       .array()
       .nullable()
@@ -41,35 +42,35 @@ export function nftExtendedResponseSchema(chain: Chain) {
               }),
               traits
             )
-      )
-      .readonly(),
+      ),
     owners: object({
       address: evmAddressSchema,
-      quantity: number().readonly()
+      quantity: number()
     })
       .array()
       .nullable()
-      .readonly()
   })
     .extend(nftResponseAugmentation)
-    .transform((response) => {
+    .transform<Nullable<PartialNft>>((response) => {
       if (response.is_suspicious) {
         return undefined
       }
-      return applySpec<PartialNft>({
-        attributes: prop('traits'),
-        collection: applySpec<Pick<Collection, 'contract' | 'slug'>>({
-          contract: {
-            address: prop('contract'),
-            chain: always(chain)
-          },
-          slug: prop('collection')
+      return pipe(
+        applySpec<PartialNft>({
+          attributes: prop('traits'),
+          collection: applySpec<Pick<Collection, 'contract' | 'slug'>>({
+            contract: {
+              address: prop('contract'),
+              chain: always(chain)
+            },
+            slug: prop('collection')
+          }),
+          name: prop('name'),
+          pictureUrl: prop('image_url'),
+          tokenId: prop('identifier'),
+          type: prop('token_standard')
         }),
-        name: prop('name'),
-        pictureUrl: prop('image_url'),
-        tokenId: prop('identifier'),
-        type: prop('token_standard')
-      })(response)
+        removeNilProps
+      )(response)
     })
-    .readonly()
 }

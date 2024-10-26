@@ -5,34 +5,28 @@ export const discordProfileResponseSchema = object({
   accent_color: number()
     .optional()
     .nullable()
-    .transform<number | null>(convertUndefinedToNull<number>)
-    .readonly(),
+    .transform<number | null>(convertUndefinedToNull<number>),
   avatar: string()
     .optional()
     .nullable()
-    .transform<string | null>(convertUndefinedToNull<string>)
-    .readonly(),
+    .transform<string | null>(convertUndefinedToNull<string>),
   avatar_decoration: string()
     .optional()
     .nullable()
-    .transform<string | null>(convertUndefinedToNull<string>)
-    .readonly(),
+    .transform<string | null>(convertUndefinedToNull<string>),
   banner_color: string()
     .optional()
     .nullable()
-    .transform<string | null>(convertUndefinedToNull<string>)
-    .readonly(),
+    .transform<string | null>(convertUndefinedToNull<string>),
   banner: string()
     .optional()
     .nullable()
-    .transform<string | null>(convertUndefinedToNull<string>)
-    .readonly(),
+    .transform<string | null>(convertUndefinedToNull<string>),
   discriminator: string().min(1),
   global_name: string()
     .optional()
     .nullable()
-    .transform<string | null>(convertUndefinedToNull<string>)
-    .readonly(),
-  id: string().min(1).readonly(),
-  username: string().min(1).readonly()
-}).readonly()
+    .transform<string | null>(convertUndefinedToNull<string>),
+  id: string().min(1),
+  username: string().min(1)
+})

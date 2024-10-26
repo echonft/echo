@@ -1,13 +1,12 @@
 import { walletMockCrew } from '@echo/model/mocks/wallet-mock'
 import { accountStatusStore } from '@echo/storybook/mocks/stores/account-status-store'
-import type { AccountProviderResult } from '@echo/web3-dom/types/account-provider-result'
-import type { AccountResult } from '@echo/web3-dom/types/account-result'
-import type { AccountStatus } from '@echo/web3-dom/types/account-status'
+import { AccountStatus } from '@echo/web3-dom/constants/account-status'
+import type { AccountProviderResult, AccountResult } from '@echo/web3-dom/services/get-account'
 import { isNil } from 'ramda'
 
 export function getAccount(onChange?: (account: AccountResult) => void): AccountProviderResult {
   function getResultFromStatus(status: AccountStatus): AccountResult {
-    if (status === 'connected') {
+    if (status === AccountStatus.Connected) {
       return { wallet: walletMockCrew, status }
     }
     return { wallet: undefined, status }

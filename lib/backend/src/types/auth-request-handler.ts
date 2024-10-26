@@ -1,5 +1,5 @@
-import type { User } from '@echo/auth/types/user'
 import type { NextRequest } from '@echo/backend/types/next-request'
+import type { User } from '@echo/model/types/user'
 import type { NextResponse } from 'next/server'
 
 export interface AuthRequestHandlerArgs<RequestBody = never> {

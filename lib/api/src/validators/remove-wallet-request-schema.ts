@@ -5,4 +5,4 @@ import { object } from 'zod'
 export const removeWalletRequestSchema = object({
   address: evmAddressSchema,
   chain: chainSchema
-}).readonly()
+})

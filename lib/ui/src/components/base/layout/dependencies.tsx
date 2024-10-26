@@ -11,42 +11,40 @@ import { searchUsers } from '@echo/api/fetchers/search-users'
 import { login, logout } from '@echo/auth/auth'
 import { DependenciesProvider } from '@echo/ui/components/base/dependencies-provider'
 import { getBaseLogger } from '@echo/utils/services/logger'
-import { acceptOffer as contractAcceptOffer } from '@echo/web3-dom/helpers/accept-offer'
-import { approveErc721Contract } from '@echo/web3-dom/helpers/approve-erc721-contract'
-import { areNftsInEscrow } from '@echo/web3-dom/helpers/are-nfts-in-escrow'
-import { cancelOffer as contractCancelOffer } from '@echo/web3-dom/helpers/cancel-offer'
-import { createOffer as contractCreateOffer } from '@echo/web3-dom/helpers/create-offer'
-import { disconnectWallet } from '@echo/web3-dom/helpers/disconnect-wallet'
-import { executeOffer as contractExecuteOffer } from '@echo/web3-dom/helpers/execute-offer'
-import { getAccount } from '@echo/web3-dom/helpers/get-account'
-import { getAllErc20TokenBalances } from '@echo/web3-dom/helpers/get-all-erc20-token-balances'
-import { getEchoTradingFees } from '@echo/web3-dom/helpers/get-echo-trading-fees'
-import { getErc20TokenBalance } from '@echo/web3-dom/helpers/get-erc20-token-balance'
-import { getErc721ContractApproval } from '@echo/web3-dom/helpers/get-erc721-contract-approval'
-import { redeemOffer as contractRedeemOffer } from '@echo/web3-dom/helpers/redeem-offer'
-import { signNonce } from '@echo/web3-dom/helpers/sign-nonce'
-import { switchChain } from '@echo/web3-dom/helpers/switch-chain'
+import { acceptOffer } from '@echo/web3-dom/services/accept-offer'
+import { approveErc721Contract } from '@echo/web3-dom/services/approve-erc721-contract'
+import { areNftsInEscrow } from '@echo/web3-dom/services/are-nfts-in-escrow'
+import { cancelOffer } from '@echo/web3-dom/services/cancel-offer'
+import { createOffer } from '@echo/web3-dom/services/create-offer'
+import { disconnectWallet } from '@echo/web3-dom/services/disconnect-wallet'
+import { getAccount } from '@echo/web3-dom/services/get-account'
+import { getAllErc20TokenBalances } from '@echo/web3-dom/services/get-all-erc20-token-balances'
+import { getEchoTradingFees } from '@echo/web3-dom/services/get-echo-trading-fees'
+import { getErc20TokenBalance } from '@echo/web3-dom/services/get-erc20-token-balance'
+import { getErc721ContractApproval } from '@echo/web3-dom/services/get-erc721-contract-approval'
+import { redeemOffer } from '@echo/web3-dom/services/redeem-offer'
+import { signNonce } from '@echo/web3-dom/services/sign-nonce'
+import { swap } from '@echo/web3-dom/services/swap'
+import { switchChain } from '@echo/web3-dom/services/switch-chain'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 export const Dependencies: FunctionComponent<PropsWithChildren> = ({ children }) => {
   return (
     <DependenciesProvider
       dependencies={{
+        acceptOffer,
         addWallet,
         approveErc721Contract,
         areNftsInEscrow,
         cancelListing,
-        contractAcceptOffer,
-        contractCancelOffer,
-        contractCreateOffer,
-        contractExecuteOffer,
-        contractRedeemOffer,
+        cancelOffer,
         createListing,
+        createOffer,
         disconnectWallet,
         getAccount,
-        getErc20TokenBalance,
         getAllErc20TokenBalances,
         getEchoTradingFees,
+        getErc20TokenBalance,
         getErc721ContractApproval,
         getNonce,
         getOfferByIdContract,
@@ -56,10 +54,12 @@ export const Dependencies: FunctionComponent<PropsWithChildren> = ({ children })
           baseMergeObject: { component: 'client-component' }
         }),
         logout,
+        redeemOffer,
         rejectOffer,
         searchCollections,
         searchUsers,
         signNonce,
+        swap,
         switchChain
       }}
     >

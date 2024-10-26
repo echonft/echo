@@ -1,3 +1,5 @@
-import type { Nonce } from '@echo/model/types/nonce'
-
-export type NonceDocument = Omit<Nonce, 'expired'>
+export interface NonceDocument {
+  nonce: string
+  expiresAt: number
+  userId: string
+}

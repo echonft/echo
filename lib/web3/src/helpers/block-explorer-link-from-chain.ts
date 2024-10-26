@@ -1,20 +1,25 @@
-import type { Wallet } from '@echo/model/types/wallet'
 import { Chain } from '@echo/model/constants/chain'
-import { ChainError } from '@echo/web3/constants/errors/chain-error'
+import { ChainError } from '@echo/model/constants/errors/chain-error'
+import type { Address } from '@echo/model/types/address'
 
-export function blockExplorerLinkFromChain(wallet: Wallet): string {
-  switch (wallet.chain) {
+interface UseBlockExplorerLinkArgs {
+  address: Address
+  chain: Chain
+}
+
+export function blockExplorerLinkFromChain({ address, chain }: UseBlockExplorerLinkArgs): string {
+  switch (chain) {
     case Chain.Ethereum:
-      return `https://etherscan.io/address/${wallet.address}`
+      return `https://etherscan.io/address/${address}`
     case Chain.Blast:
-      return `https://blastscan.io/address/${wallet.address}`
+      return `https://blastscan.io/address/${address}`
     case Chain.Sepolia:
-      return `https://sepolia.etherscan.io/address/${wallet.address}`
+      return `https://sepolia.etherscan.io/address/${address}`
     case Chain.BlastSepolia:
-      return `https://sepolia.blastscan.io/address/${wallet.address}`
+      return `https://sepolia.blastscan.io/address/${address}`
     case Chain.Sei:
-      return `https://seitrace.com/address/${wallet.address}`
+      return `https://seitrace.com/address/${address}`
     default:
-      throw Error(ChainError.NotSupported)
+      throw Error(ChainError.Unsupported)
   }
 }

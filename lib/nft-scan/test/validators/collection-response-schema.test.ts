@@ -27,26 +27,26 @@ describe('validators - collectionResponseSchema', () => {
   }
 
   it('maps correctly with no slug', () => {
-    const result = collectionResponseSchema(Chain.Blast).parse(collectionResponseMock())
+    const result = collectionResponseSchema(Chain.Blast).parse(collectionResponseMock)
     expect(result).toEqual({ collection: expectedResult, isSpam: false })
   })
 
   it('maps correctly with no slug name with space', () => {
-    const response = pipe(collectionResponseMock, assoc('name', 'Name With Space'))()
+    const response = assoc('name', 'Name With Space', collectionResponseMock)
     const resultWithSlug = pipe(assoc('name', 'Name With Space'), assoc('slug', 'name-with-space'))(expectedResult)
     const result = collectionResponseSchema(Chain.Blast).parse(response)
     expect(result).toEqual({ collection: resultWithSlug, isSpam: false })
   })
 
   it('maps correctly with slug', () => {
-    const response = pipe(collectionResponseMock, assoc('opensea_slug', 'opensea-slug'))()
+    const response = assoc('opensea_slug', 'opensea-slug', collectionResponseMock)
     const resultWithSlug = assoc('slug', 'opensea-slug', expectedResult)
     const result = collectionResponseSchema(Chain.Blast).parse(response)
     expect(result).toEqual({ collection: resultWithSlug, isSpam: false })
   })
 
   it('returns isSpam true if the collection is a spam collection', () => {
-    const response = pipe(collectionResponseMock, assoc('is_spam', true))()
+    const response = assoc('is_spam', true, collectionResponseMock)
     const result = collectionResponseSchema(Chain.Blast).parse(response)
     expect(result).toEqual({ collection: undefined, isSpam: true })
   })

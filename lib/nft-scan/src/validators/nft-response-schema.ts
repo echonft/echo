@@ -40,38 +40,34 @@ export function nftResponseSchema(chain: Chain) {
       .array()
       .nullable()
       .transform((attributes) =>
-        isNil(attributes) ? ([] as NftAttributeResponse[]) : reject<NftAttributeResponse>(isNil)
-      )
-      .readonly(),
+        isNil(attributes) ? ([] as NftAttributeResponse[]) : reject<NftAttributeResponse>(isNil)(attributes)
+      ),
     contract_address: evmAddressSchema,
     erc_type: nftTokenTypeSchema,
     image_uri: string()
       .nullable()
       .optional()
-      .transform(unlessNil(pipe(updateIPFSUri, removeQueryFromUrl)))
-      .readonly(),
-    name: string().nullable().optional().readonly(),
+      .transform(unlessNil(pipe(updateIPFSUri, removeQueryFromUrl))),
+    name: string().nullable().optional(),
     token_id: bigIntStringSchema,
-    token_uri: string().nullable().optional().transform(updateIPFSUri).readonly()
-  })
-    .transform<PartialNft>(
-      applySpec<PartialNft>({
-        attributes: prop('attributes'),
-        collection: applySpec({
-          contract: {
-            address: prop('contract_address'),
-            chain: always(chain)
-          }
-        }),
-        name: ifElse<[NftResponse], string, string>(
-          pipe(prop('name'), isNilOrEmpty),
-          pipe(prop('token_id'), invoker(0, 'toString')),
-          prop('name') as (response: NftResponse) => string
-        ),
-        pictureUrl: pipe(prop('image_uri'), convertNullToUndefined),
-        tokenId: prop('token_id'),
-        type: prop('erc_type')
-      })
-    )
-    .readonly()
+    token_uri: string().nullable().optional().transform(updateIPFSUri)
+  }).transform<PartialNft>(
+    applySpec<PartialNft>({
+      attributes: prop('attributes'),
+      collection: applySpec({
+        contract: {
+          address: prop('contract_address'),
+          chain: always(chain)
+        }
+      }),
+      name: ifElse<[NftResponse], string, string>(
+        pipe(prop('name'), isNilOrEmpty),
+        pipe(prop('token_id'), invoker(0, 'toString')),
+        prop('name') as (response: NftResponse) => string
+      ),
+      pictureUrl: pipe(prop('image_uri'), convertNullToUndefined),
+      tokenId: prop('token_id'),
+      type: prop('erc_type')
+    })
+  )
 }

@@ -1,6 +1,12 @@
-import type { Wallet } from '@echo/model/types/wallet'
+import type { Chain } from '@echo/model/constants/chain'
+import type { Address } from '@echo/model/types/address'
 import { blockExplorerLinkFromChain } from '@echo/web3/helpers/block-explorer-link-from-chain'
 
-export function useBlockExplorerLink(wallet: Wallet) {
-  return blockExplorerLinkFromChain(wallet)
+interface UseBlockExplorerLinkArgs {
+  address: Address
+  chain: Chain
+}
+
+export function useBlockExplorerLink(args: UseBlockExplorerLinkArgs) {
+  return blockExplorerLinkFromChain(args)
 }

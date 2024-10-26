@@ -7,7 +7,7 @@ import { error, info } from '@echo/opensea/helpers/logger'
 import type { FetchCollectionRequest } from '@echo/opensea/types/request/fetch-collection-request'
 import { Network } from '@echo/utils/constants/network'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { assoc, find, isNil, nth, otherwise, pipe, propEq, values } from 'ramda'
+import { assoc, find, isNil, nth, otherwise, pipe, propEq, toLower, values } from 'ramda'
 
 function fetchMainnetCollection({ chain, slug }: FetchCollectionRequest) {
   const regex = /^(.+)-\d+$/
@@ -27,7 +27,7 @@ function fetchMainnetCollection({ chain, slug }: FetchCollectionRequest) {
       error({ err, chain }, 'could not fetch mainnet collection')
       return undefined
     })
-  )({ chain, slug: mainnetSlug })
+  )({ chain, slug: toLower(mainnetSlug) })
 }
 
 export async function getCollection(args: FetchCollectionRequest): Promise<Nullable<Collection>> {

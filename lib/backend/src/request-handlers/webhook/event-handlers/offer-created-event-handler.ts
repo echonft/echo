@@ -1,7 +1,7 @@
 import { BadRequestError } from '@echo/backend/errors/bad-request-error'
 import { NotFoundError } from '@echo/backend/errors/not-found-error'
 import { info } from '@echo/backend/helpers/logger'
-import { contractOfferToBaseOffer } from '@echo/backend/mappers/contract-offer-to-base-offer'
+import { echoOfferToBaseOffer } from '@echo/backend/mappers/echo-offer-to-base-offer'
 import type { EchoEventHandlerArgs } from '@echo/backend/request-handlers/webhook/event-handlers/echo-event-handler'
 import { addOffer } from '@echo/firestore/crud/offer/add-offer'
 import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
@@ -13,11 +13,11 @@ import { andThen, assoc, isNil, pipe, toLower } from 'ramda'
 export async function offerCreatedEventHandler(args: EchoEventHandlerArgs) {
   const { event, chain } = args
   const { offerId } = event
-  const contractOffer = await getEchoOffer({
+  const echoOffer = await getEchoOffer({
     chain,
     offerId
   })
-  if (isNil(contractOffer)) {
+  if (isNil(echoOffer)) {
     return Promise.reject(new NotFoundError({ message: EchoContractError.OfferNotFound, severity: 'warning' }))
   }
   const existingOffer = await getOfferByIdContract(offerId)
@@ -25,8 +25,8 @@ export async function offerCreatedEventHandler(args: EchoEventHandlerArgs) {
     return Promise.reject(new BadRequestError({ message: OfferError.Exists, severity: 'warning' }))
   }
   const offer = await pipe(
-    contractOfferToBaseOffer,
+    echoOfferToBaseOffer,
     andThen(pipe(assoc('idContract', toLower(offerId)), addOffer))
-  )(contractOffer)
+  )(echoOffer)
   info({ offer }, 'created offer')
 }

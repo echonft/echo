@@ -1,6 +1,6 @@
 import type { Contract } from '@echo/model/types/contract'
-import { fetchNft } from '@echo/tasks/fetch-nft'
 import { error, info, warn } from '@echo/tasks/helpers/logger'
+import { fetchNft } from '@echo/tasks/tasks/fetch-nft'
 import { andThen, isNil, otherwise, pipe } from 'ramda'
 
 export async function fetchNftCommand(contract: Contract, tokenId: string) {

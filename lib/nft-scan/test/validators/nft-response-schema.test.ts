@@ -1,15 +1,15 @@
 import { Chain } from '@echo/model/constants/chain'
 import { TokenType } from '@echo/model/constants/token-type'
 import { attributesMock } from '@echo/nft-scan/mocks/attributes-mock'
-import { nftResponseMock } from '@echo/nft-scan/mocks/nft-response-mock'
+import { nftResponseMock1 } from '@echo/nft-scan/mocks/nft-response-mock'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import { nftResponseSchema } from '@echo/nft-scan/validators/nft-response-schema'
 import { describe, expect, it } from '@jest/globals'
-import { pipe, prop, toLower } from 'ramda'
+import { toLower } from 'ramda'
 
 describe('validator - nftResponseSchema', () => {
   const chain = Chain.Blast
-  const response = pipe(nftResponseMock, prop('1'))()
+  const response = nftResponseMock1
   const expectedResult: PartialNft = {
     collection: {
       contract: {
@@ -21,7 +21,7 @@ describe('validator - nftResponseSchema', () => {
     pictureUrl:
       'https://dev.echonft.xyz/api/ipfs/bafybeibfviw32fzcimiobx2shiukbwis5cyufmenvddajvzbr3u4uwco3a%2F2944.png',
     name: 'Blast Penguins #2944',
-    attributes: attributesMock()['1'],
+    attributes: attributesMock,
     type: TokenType.Erc721
   }
   it('maps correctly with ipfs image uri', () => {

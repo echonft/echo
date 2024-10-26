@@ -1,5 +1,5 @@
-import type { User } from '@echo/auth/types/user'
 import type { Offer } from '@echo/model/types/offer'
+import type { User } from '@echo/model/types/user'
 import { setOfferRoleReceiver } from '@echo/ui/helpers/offer/set-offer-role-receiver'
 import { setOfferRoleSender } from '@echo/ui/helpers/offer/set-offer-role-sender'
 import { setOfferRoleUndefined } from '@echo/ui/helpers/offer/set-offer-role-undefined'

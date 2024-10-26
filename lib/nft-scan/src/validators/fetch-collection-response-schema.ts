@@ -6,7 +6,7 @@ import { object } from 'zod'
 
 export function fetchCollectionResponseSchema(chain: Chain) {
   return object({
-    data: collectionResponseSchema(chain).nullable().optional().readonly()
+    data: collectionResponseSchema(chain).nullable().optional()
   })
     .extend(baseResponseAugmentation)
     .transform((response) => {
@@ -16,5 +16,4 @@ export function fetchCollectionResponseSchema(chain: Chain) {
       }
       return data
     })
-    .readonly()
 }

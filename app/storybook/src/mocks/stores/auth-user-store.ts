@@ -1,5 +1,5 @@
-import type { User } from '@echo/auth/types/user'
 import { userMocks } from '@echo/model/mocks/user-mock'
+import type { User } from '@echo/model/types/user'
 import type { Username } from '@echo/model/types/username'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { assoc, find, propEq } from 'ramda'

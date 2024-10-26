@@ -6,7 +6,6 @@ import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
 import { addSwap } from '@echo/test/firestore/crud/swap/add-swap'
 import { deleteSwap } from '@echo/test/firestore/crud/swap/delete-swap'
 import { nowMsSlug } from '@echo/utils/helpers/now-ms-slug'
-import { removeNilProps } from '@echo/utils/helpers/remove-nil-props'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc } from 'ramda'
 
@@ -152,31 +151,31 @@ describe('CRUD - offer - getSwapsForUser', () => {
     swapIds = [bothId]
     let documents = await getSwapsForUser(johnny.username)
     expect(documents.length).toBe(1)
-    expect(documents[0]).toStrictEqual(removeNilProps(bothSwap))
+    expect(documents[0]).toStrictEqual(bothSwap)
     documents = await getSwapsForUser(crew.username)
     expect(documents.length).toBe(1)
-    expect(documents[0]).toStrictEqual(removeNilProps(bothSwap))
+    expect(documents[0]).toStrictEqual(bothSwap)
     const johnnySwap = assoc('slug', nowMsSlug(), johnnyData)
     const johnnySwapId = await addSwap(johnnySwap)
     swapIds.push(johnnySwapId)
     documents = await getSwapsForUser(johnny.username)
     expect(documents.length).toBe(2)
-    expect(documents[0]).toStrictEqual(removeNilProps(johnnySwap))
-    expect(documents[1]).toStrictEqual(removeNilProps(bothSwap))
+    expect(documents[0]).toStrictEqual(johnnySwap)
+    expect(documents[1]).toStrictEqual(bothSwap)
     documents = await getSwapsForUser(crew.username)
     expect(documents.length).toBe(1)
-    expect(documents[0]).toStrictEqual(removeNilProps(bothSwap))
+    expect(documents[0]).toStrictEqual(bothSwap)
     const crewSwap = assoc('slug', nowMsSlug(), crewData)
     const crewSwapId = await addSwap(crewSwap)
     swapIds.push(crewSwapId)
     documents = await getSwapsForUser(johnny.username)
     expect(documents.length).toBe(2)
-    expect(documents[0]).toStrictEqual(removeNilProps(johnnySwap))
-    expect(documents[1]).toStrictEqual(removeNilProps(bothSwap))
+    expect(documents[0]).toStrictEqual(johnnySwap)
+    expect(documents[1]).toStrictEqual(bothSwap)
     documents = await getSwapsForUser(crew.username)
     expect(documents.length).toBe(2)
-    expect(documents[0]).toStrictEqual(removeNilProps(crewSwap))
-    expect(documents[1]).toStrictEqual(removeNilProps(bothSwap))
+    expect(documents[0]).toStrictEqual(crewSwap)
+    expect(documents[1]).toStrictEqual(bothSwap)
     expect(swapIds.length).toBe(3)
   })
 })

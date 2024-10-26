@@ -1,5 +1,5 @@
-import type { User } from '@echo/auth/types/user'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
+import type { User } from '@echo/model/types/user'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { LoginPage } from '@echo/ui/pages/login/login-page'

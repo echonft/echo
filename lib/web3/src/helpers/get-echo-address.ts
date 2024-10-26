@@ -1,5 +1,5 @@
-import type { EvmAddress } from '@echo/model/types/evm-address'
 import { Chain } from '@echo/model/constants/chain'
+import type { EvmAddress } from '@echo/model/types/address'
 import { toLower } from 'ramda'
 
 export function getEchoAddress(chain: Chain): EvmAddress {

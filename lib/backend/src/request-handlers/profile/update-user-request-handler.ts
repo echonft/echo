@@ -1,6 +1,6 @@
 import type { UpdateUserRequest } from '@echo/api/types/requests/update-user-request'
 import { updateUserRequestSchema } from '@echo/api/validators/update-user-request-schema'
-import { userDiscordProfileFromDiscordProvider } from '@echo/auth/helpers/providers/discord/user-discord-profile-from-discord-provider'
+import { userDocumentDiscordProfileFromDiscordProvider } from '@echo/auth/helpers/providers/discord/user-document-discord-profile-from-discord-provider'
 import { BadRequestError } from '@echo/backend/errors/bad-request-error'
 import { toNextReponse } from '@echo/backend/request-handlers/to-next-reponse'
 import type { RequestHandlerArgs } from '@echo/backend/types/request-handler'
@@ -20,7 +20,7 @@ export async function updateUserRequestHandler(args: RequestHandlerArgs<UpdateUs
   if (response.ok) {
     return pipe(
       parseResponse(discordProfileResponseSchema),
-      andThen(pipe(userDiscordProfileFromDiscordProvider, addOrUpdateUser, objOf('user'), toNextReponse))
+      andThen(pipe(userDocumentDiscordProfileFromDiscordProvider, addOrUpdateUser, objOf('user'), toNextReponse))
     )(response)
   }
   return Promise.reject(new BadRequestError({ message: 'request to Discord failed' }))

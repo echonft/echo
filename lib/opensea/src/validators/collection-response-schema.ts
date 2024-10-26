@@ -10,64 +10,57 @@ import { boolean, nativeEnum, number, object, string } from 'zod'
 
 export const collectionContractSchema = object({
   address: evmAddressSchema,
-  chain: string().readonly()
-}).readonly()
+  chain: string()
+})
 
 export function collectionResponseSchema(chain: Chain) {
   return object({
     collection: slugSchema,
-    name: string().readonly(),
-    description: string().nullable().optional().transform(emptyStringToUndefined).readonly(),
+    name: string(),
+    description: string().nullable().optional().transform(emptyStringToUndefined),
     image_url: string()
       .or(string().url())
       .nullable()
       .optional()
-      .transform(pipe(emptyStringToUndefined, removeQueryFromUrl))
-      .readonly(),
+      .transform(pipe(emptyStringToUndefined, removeQueryFromUrl)),
     banner_image_url: string()
       .or(string().url())
       .nullable()
       .optional()
-      .transform(pipe(emptyStringToUndefined, removeQueryFromUrl))
-      .readonly(),
-    owner: string().readonly(),
+      .transform(pipe(emptyStringToUndefined, removeQueryFromUrl)),
+    owner: string(),
     safelist_status: nativeEnum({
       notRequested: 'not_requested',
       requested: 'requested',
       approved: 'approved',
       verified: 'verified',
       disabledTopTrending: 'disabled_top_trending'
-    }).readonly(),
-    category: string().readonly(),
-    is_disabled: boolean().readonly(),
-    is_nsfw: boolean().readonly(),
-    opensea_url: string().url().readonly(),
-    project_url: string().or(string().url()).nullable().optional().transform(emptyStringToUndefined).readonly(),
-    discord_url: string().or(string().url()).nullable().optional().transform(emptyStringToUndefined).readonly(),
-    twitter_username: string().nullable().optional().transform(emptyStringToUndefined).readonly(),
-    instagram_username: string().nullable().optional().transform(emptyStringToUndefined).readonly(),
-    contracts: collectionContractSchema.array().readonly(),
-    total_supply: number().nullable().optional().readonly()
+    }),
+    category: string(),
+    is_disabled: boolean(),
+    is_nsfw: boolean(),
+    opensea_url: string().url(),
+    project_url: string().or(string().url()).nullable().optional().transform(emptyStringToUndefined),
+    discord_url: string().or(string().url()).nullable().optional().transform(emptyStringToUndefined),
+    twitter_username: string().nullable().optional().transform(emptyStringToUndefined),
+    instagram_username: string().nullable().optional().transform(emptyStringToUndefined),
+    contracts: collectionContractSchema.array(),
+    total_supply: number().nullable().optional()
+  }).transform((response) => {
+    const contract = pipe(prop('contracts'), ifElse(isEmpty, always(undefined), find(propEq(chain, 'chain'))))(response)
+    if (isNil(contract)) {
+      warn({ response, chain }, 'no contract found for chain')
+      return undefined
+    }
+    return applySpec<Omit<Collection, 'type'>>({
+      contract: prop('contract'),
+      description: prop('description'),
+      discordUrl: prop('discord_url'),
+      name: prop('name'),
+      profilePictureUrl: prop('image_url'),
+      slug: prop('collection'),
+      totalSupply: prop('total_supply'),
+      verified: F
+    })(assoc('contract', contract, response))
   })
-    .transform((response) => {
-      const contract = pipe(
-        prop('contracts'),
-        ifElse(isEmpty, always(undefined), find(propEq(chain, 'chain')))
-      )(response)
-      if (isNil(contract)) {
-        warn({ response, chain }, 'no contract found for chain')
-        return undefined
-      }
-      return applySpec<Omit<Collection, 'type'>>({
-        contract: prop('contract'),
-        description: prop('description'),
-        discordUrl: prop('discord_url'),
-        name: prop('name'),
-        profilePictureUrl: prop('image_url'),
-        slug: prop('collection'),
-        totalSupply: prop('total_supply'),
-        verified: F
-      })(assoc('contract', contract, response))
-    })
-    .readonly()
 }

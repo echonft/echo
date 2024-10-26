@@ -22,42 +22,40 @@ export function collectionResponseSchema(chain: Chain) {
 
   return object({
     contract_address: evmAddressSchema,
-    description: string().nullable().readonly(),
-    discord: string().nullable().readonly(),
+    description: string().nullable(),
+    discord: string().nullable(),
     erc_type: nftTokenTypeSchema,
-    is_spam: boolean().readonly(),
-    items_total: number().readonly(),
-    logo_url: string().nullable().transform(unlessNil(removeQueryFromUrl)).readonly(),
-    name: string().readonly(),
-    opensea_slug: slugSchema.nullable().readonly(),
-    twitter: string().nullable().readonly(),
-    website: string().nullable().readonly()
+    is_spam: boolean(),
+    items_total: number(),
+    logo_url: string().nullable().transform(unlessNil(removeQueryFromUrl)),
+    name: string(),
+    opensea_slug: slugSchema.nullable(),
+    twitter: string().nullable(),
+    website: string().nullable()
+  }).transform((data) => {
+    if (data.is_spam) {
+      return { collection: undefined, isSpam: true }
+    }
+    return pipe(
+      applySpec<Collection>({
+        contract: pipe(prop('contract_address'), objOf('address'), assoc('chain', chain)),
+        description: pipe(prop('description'), removeNullOrEmptyString),
+        discordUrl: pipe(prop('discord'), removeNullOrEmptyString),
+        name: prop('name'),
+        profilePictureUrl: pipe(prop('logo_url'), removeNullOrEmptyString),
+        slug: ifElse<[CollectionResponse], string, string>(
+          propIsNil('opensea_slug'),
+          pipe<[CollectionResponse], string, string>(prop('name'), toSlug),
+          prop('opensea_slug') as (response: CollectionResponse) => string
+        ),
+        totalSupply: prop('items_total'),
+        twitterUsername: pipe(prop('twitter'), removeNullOrEmptyString),
+        type: prop('erc_type'),
+        websiteUrl: pipe(prop('website'), removeNullOrEmptyString),
+        verified: F
+      }),
+      objOf('collection'),
+      assoc('isSpam', false)
+    )(data)
   })
-    .transform((data) => {
-      if (data.is_spam) {
-        return { collection: undefined, isSpam: true }
-      }
-      return pipe(
-        applySpec<Collection>({
-          contract: pipe(prop('contract_address'), objOf('address'), assoc('chain', chain)),
-          description: pipe(prop('description'), removeNullOrEmptyString),
-          discordUrl: pipe(prop('discord'), removeNullOrEmptyString),
-          name: prop('name'),
-          profilePictureUrl: pipe(prop('logo_url'), removeNullOrEmptyString),
-          slug: ifElse<[CollectionResponse], string, string>(
-            propIsNil('opensea_slug'),
-            pipe<[CollectionResponse], string, string>(prop('name'), toSlug),
-            prop('opensea_slug') as (response: CollectionResponse) => string
-          ),
-          totalSupply: prop('items_total'),
-          twitterUsername: pipe(prop('twitter'), removeNullOrEmptyString),
-          type: prop('erc_type'),
-          websiteUrl: pipe(prop('website'), removeNullOrEmptyString),
-          verified: F
-        }),
-        objOf('collection'),
-        assoc('isSpam', false)
-      )(data)
-    })
-    .readonly()
 }

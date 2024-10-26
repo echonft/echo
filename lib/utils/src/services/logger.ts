@@ -4,7 +4,7 @@ import { logLevel } from '@echo/utils/constants/log-level'
 import { NodeEnvironment, nodeEnvironment } from '@echo/utils/constants/node-environment'
 import type { LoggerOptions } from '@echo/utils/types/logger-options'
 import type { LoggerSerializer } from '@echo/utils/types/logger-serializer'
-import pino, { type DestinationStream } from 'pino'
+import pino, { type DestinationStream, type LevelWithSilentOrString } from 'pino'
 import { always, assoc, equals, is, isNil, mergeAll, mergeLeft, pipe, unless } from 'ramda'
 
 export type { Logger } from 'pino'
@@ -22,11 +22,23 @@ function getSerializers(serializers?: LoggerSerializer | LoggerSerializer[]): Lo
   return mergeLeft(baseSerializer, serializers)
 }
 
+function getLogLevel(): LevelWithSilentOrString {
+  if (isNil(logLevel)) {
+    if (nodeEnvironment === NodeEnvironment.Production) {
+      return 'info'
+    }
+    if (nodeEnvironment === NodeEnvironment.Test) {
+      return 'silent'
+    }
+    return 'trace'
+  }
+  return logLevel
+}
 export function getBaseLogger(name: string, options?: LoggerOptions, stream?: DestinationStream | undefined) {
   return pino(
     {
       enabled: !isCI && environment !== Environment.Test,
-      level: logLevel ?? (nodeEnvironment === NodeEnvironment.Production ? 'info' : 'trace'),
+      level: getLogLevel(),
       name,
       formatters: {
         level(label, _number) {

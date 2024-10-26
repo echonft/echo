@@ -5,7 +5,7 @@ import { literal, number, object } from 'zod'
 export const erc721ItemRequestSchema = object({
   token: object({
     collection: withSlugSchema,
-    tokenId: number().int().positive().readonly(),
-    type: literal(TokenType.Erc721).readonly()
+    tokenId: number().int().positive(),
+    type: literal(TokenType.Erc721)
   })
-}).readonly()
+})

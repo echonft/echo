@@ -1,20 +1,19 @@
 import { TokenType } from '@echo/model/constants/token-type'
 import type { Contract } from '@echo/model/types/contract'
 import type { Slug } from '@echo/model/types/slug'
-import type { Nullable } from '@echo/utils/types/nullable'
 
 export interface Collection {
   contract: Contract
-  description: Nullable<string>
-  discordUrl: Nullable<string>
+  description?: string
+  discordUrl?: string
   name: string
-  profilePictureUrl: Nullable<string>
+  profilePictureUrl?: string
   slug: Slug
   totalSupply: number
-  twitterUsername: Nullable<string>
+  twitterUsername?: string
   type: TokenType.Erc721 | TokenType.Erc1155
   verified: boolean
-  websiteUrl: Nullable<string>
+  websiteUrl?: string
 }
 
 export type CollectionIndex = Pick<Collection, 'slug'>

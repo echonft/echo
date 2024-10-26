@@ -1,16 +1,16 @@
-import type { UserDocument } from '@echo/firestore/types/model/user-document'
+import type { User as ModelUser } from '@echo/model/types/user'
 import type { DefaultJWT, DefaultSession } from 'next-auth'
 import '@echo/utils/global'
 
 declare module 'next-auth' {
-  interface User extends UserDocument {}
+  interface User extends ModelUser {}
 
   interface JWT extends DefaultJWT {
-    user?: UserDocument
+    user?: ModelUser
   }
 
   interface Session extends DefaultSession {
-    user?: UserDocument
+    user?: ModelUser
   }
 }
 

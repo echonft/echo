@@ -1,4 +1,4 @@
-import type { User } from '@echo/auth/types/user'
+import type { User } from '@echo/model/types/user'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { type FunctionComponent, type PropsWithChildren } from 'react'

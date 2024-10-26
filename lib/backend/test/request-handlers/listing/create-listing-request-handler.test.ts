@@ -25,13 +25,13 @@ import type { NftIndex } from '@echo/model/types/nft'
 import type { Slug } from '@echo/model/types/slug'
 import { nonEmptyMap } from '@echo/utils/fp/non-empty-map'
 import { toPromise } from '@echo/utils/fp/to-promise'
-import { getErc1155TokenBalance } from '@echo/web3/services/get-erc1155-token-balance'
+import { getTokenBalance } from '@echo/web3/services/get-token-balance'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { find, modify, type NonEmptyArray, pipe, prop, propEq } from 'ramda'
 
 jest.mock('@echo/firestore/crud/nft/get-nft-by-index')
 jest.mock('@echo/firestore/crud/collection/get-collection')
-jest.mock('@echo/web3/services/get-erc1155-token-balance')
+jest.mock('@echo/web3/services/get-token-balance')
 jest.mock('@echo/firestore/crud/user/get-user-by-username')
 jest.mock('@echo/firestore/crud/listing/get-listing-by-signature')
 jest.mock('@echo/firestore/crud/listing/add-listing')
@@ -51,7 +51,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
     jest
       .mocked(getCollection)
       .mockImplementation((slug: Slug) => pipe(find<Collection>(propEq(slug, 'slug')), toPromise)(collectionMocks))
-    jest.mocked(getErc1155TokenBalance).mockResolvedValue(200)
+    jest.mocked(getTokenBalance).mockResolvedValue(200)
     jest.mocked(addListing).mockResolvedValue({ id: listingDocumentMockId(), data: listingMock })
   })
 

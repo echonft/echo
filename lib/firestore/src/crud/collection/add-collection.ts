@@ -6,27 +6,20 @@ import type { NewDocument } from '@echo/firestore/types/new-document'
 import { CollectionError } from '@echo/model/constants/errors/collection-error'
 import { type Collection } from '@echo/model/types/collection'
 import type { Slug } from '@echo/model/types/slug'
-import { assoc, concat, converge, ifElse, inc, isNil, modify, pipe, prop, propEq } from 'ramda'
+import { assoc, inc, isNil, modify, pipe, toLower } from 'ramda'
 
 interface InnerGenerateUniqueCollectionSlugArgs {
   slug: Slug
   index: number
 }
 
-function innerGenerateUniqueCollectionSlug(args: InnerGenerateUniqueCollectionSlugArgs): Slug {
-  const slug = ifElse<[InnerGenerateUniqueCollectionSlugArgs], Slug, Slug>(
-    propEq(0, 'index'),
-    prop('slug'),
-    converge<
-      Slug,
-      [(args: InnerGenerateUniqueCollectionSlugArgs) => Slug, (args: InnerGenerateUniqueCollectionSlugArgs) => Slug]
-    >(concat<Slug, Slug>, [prop('slug'), pipe(prop('index'), (index: number) => `-${index}` as Slug)])
-  )(args)
-  const snapshot = getCollectionSnapshot(slug)
+async function innerGenerateUniqueCollectionSlug(args: InnerGenerateUniqueCollectionSlugArgs): Promise<Slug> {
+  const slug = args.index === 0 ? args.slug : toLower(`${args.slug}-${args.index}`)
+  const snapshot = await getCollectionSnapshot(slug)
   if (isNil(snapshot)) {
     return slug
   }
-  return pipe<[InnerGenerateUniqueCollectionSlugArgs], InnerGenerateUniqueCollectionSlugArgs, Slug>(
+  return pipe<[InnerGenerateUniqueCollectionSlugArgs], InnerGenerateUniqueCollectionSlugArgs, Promise<Slug>>(
     modify('index', inc),
     innerGenerateUniqueCollectionSlug
   )(args)
@@ -37,7 +30,7 @@ function generateUniqueCollectionSlug(slug: Slug) {
 }
 
 export async function addCollection(args: Collection): Promise<NewDocument<CollectionDocument>> {
-  const uniqueSlug = generateUniqueCollectionSlug(args.slug)
+  const uniqueSlug = await generateUniqueCollectionSlug(args.slug)
   const collectionBySlug = await getCollection(uniqueSlug)
   if (!isNil(collectionBySlug)) {
     return Promise.reject(Error(CollectionError.Exists))

@@ -268,12 +268,20 @@ export const nftMockPx3: OwnedNft = {
   type: TokenType.Erc721
 }
 
-export const nftMocks = [nftMockSpiral1, nftMockSpiral2, nftMockSpiral3, nftMockPx1, nftMockPx2, nftMockPx3]
-
 export const nftMocksJohnny = [nftMockSpiral1, nftMockSpiral2, nftMockPx1, nftMockPx2]
 
 export const nftMocksCrew = [nftMockSpiral3, nftMockPx3]
 
 export const erc721NftMock: Erc721Nft = nftMockSpiral1 as Erc721Nft
 
-export const erc1155NftMock: Erc1155Nft = { ...nftMockPx1, type: TokenType.Erc1155 }
+export const erc1155NftMock: Erc1155Nft = { ...nftMockPx1, tokenId: 4, type: TokenType.Erc1155 }
+
+export const nftMocks = [
+  nftMockSpiral1,
+  nftMockSpiral2,
+  nftMockSpiral3,
+  nftMockPx1,
+  nftMockPx2,
+  nftMockPx3,
+  erc1155NftMock
+]

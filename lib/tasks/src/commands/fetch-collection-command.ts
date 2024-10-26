@@ -1,7 +1,7 @@
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import type { Contract } from '@echo/model/types/contract'
-import { fetchCollection } from '@echo/tasks/fetch-collection'
 import { error, info, warn } from '@echo/tasks/helpers/logger'
+import { fetchCollection } from '@echo/tasks/tasks/fetch-collection'
 import { andThen, isNil, otherwise, pipe } from 'ramda'
 
 export async function fetchCollectionCommand(contract: Contract) {

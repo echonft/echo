@@ -1,16 +1,15 @@
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
+import { isEvmChain } from '@echo/model/helpers/chain/is-evm-chain'
 import type { Wallet } from '@echo/model/types/wallet'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { captureAndLogError } from '@echo/ui/helpers/capture-and-log-error'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
-import { isEvmChain } from '@echo/model/helpers/chain/is-evm-chain'
-import type { AccountResult } from '@echo/web3-dom/types/account-result'
-import type { SignNonceArgs } from '@echo/web3-dom/types/sign-nonce-args'
-import type { SignNonceResult } from '@echo/web3-dom/types/sign-nonce-result'
+import type { AccountResult } from '@echo/web3-dom/services/get-account'
+import type { SignNonceArgs, SignNonceResult } from '@echo/web3-dom/services/sign-nonce'
 import { useTranslations } from 'next-intl'
 import { includes, isNil, map, pipe, prop } from 'ramda'
 import { useEffect, useState } from 'react'
@@ -25,7 +24,7 @@ function walletsInclude(wallets: Wallet[], wallet: Wallet) {
 
 export function useConnectWallet(account: AccountResult) {
   const t = useTranslations('error.profile')
-  const { addWallet, disconnectWallet, getNonce, getWallets, signNonce, switchChain, logger } = useDependencies()
+  const { addWallet, disconnectWallet, getNonce, getWallets, signNonce, switchChain } = useDependencies()
   const { status, wallet } = account
   const [connected, setConnected] = useState(false)
   const { data: walletsResponse } = useSWR(
@@ -41,7 +40,6 @@ export function useConnectWallet(account: AccountResult) {
       onError: (err) => {
         void disconnectWallet()
         captureAndLogError(err, {
-          logger,
           logObject: {
             hook: useConnectWallet.name,
             fetcher: getWallets.name

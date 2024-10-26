@@ -1,4 +1,4 @@
-import type { AccountStatus } from '@echo/web3-dom/types/account-status'
+import { AccountStatus } from '@echo/web3-dom/constants/account-status'
 import { assoc } from 'ramda'
 import { create } from 'zustand'
 
@@ -8,18 +8,19 @@ interface AccountStatusStore {
   disconnect: () => void
   setConnected: () => void
 }
+
 export const accountStatusStore = create<AccountStatusStore>((set) => ({
-  status: 'disconnected',
+  status: AccountStatus.Disconnected,
   connect: () => {
-    set(assoc('status', 'connecting'))
+    set(assoc('status', AccountStatus.Connecting))
     setTimeout(() => {
-      set(assoc('status', 'connected'))
+      set(assoc('status', AccountStatus.Connected))
     }, 800)
   },
   disconnect: () => {
-    set(assoc('status', 'disconnected'))
+    set(assoc('status', AccountStatus.Disconnected))
   },
   setConnected: () => {
-    set(assoc('status', 'connected'))
+    set(assoc('status', AccountStatus.Connected))
   }
 }))

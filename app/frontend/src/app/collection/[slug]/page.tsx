@@ -1,4 +1,3 @@
-import type { User } from '@echo/auth/types/user'
 import { getCollectionCounts } from '@echo/firestore/crud/collection/counts/get-collection-counts'
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { getPendingListingsForCollection } from '@echo/firestore/crud/listing/get-pending-listings-for-collection'
@@ -8,6 +7,7 @@ import { getSwapsForCollection } from '@echo/firestore/crud/swap/get-swaps-for-c
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import type { Slug } from '@echo/model/types/slug'
+import type { User } from '@echo/model/types/user'
 import { getSelectionFromSearchParams } from '@echo/routing/search-params/get-selection-from-search-params'
 import { NavigationPageLayout } from '@echo/ui/components/base/layout/navigation-page-layout'
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'

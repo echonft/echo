@@ -4,7 +4,7 @@ import { getErc20TokenBalance } from '@echo/storybook/mocks/get-erc20-token-bala
 import { nonEmptyMap } from '@echo/utils/fp/non-empty-map'
 import { nonEmptyPromiseAll } from '@echo/utils/fp/non-empty-promise-all'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
-import type { GetAllTokensBalanceArgs } from '@echo/web3-dom/helpers/get-all-erc20-token-balances'
+import type { GetAllTokensBalanceArgs } from '@echo/web3-dom/services/get-all-erc20-token-balances'
 import { type NonEmptyArray, pipe, prop } from 'ramda'
 
 export async function getAllErc20TokenBalances(

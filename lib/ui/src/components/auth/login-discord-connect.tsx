@@ -1,5 +1,5 @@
 'use client'
-import type { User } from '@echo/auth/types/user'
+import type { User } from '@echo/model/types/user'
 import { LoginDiscordButton } from '@echo/ui/components/auth/login-discord-button'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { SizeableImage } from '@echo/ui/components/base/sizeable-image'

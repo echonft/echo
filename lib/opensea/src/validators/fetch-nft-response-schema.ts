@@ -7,8 +7,6 @@ import { object } from 'zod'
 
 export function fetchNftResponseSchema(chain: Chain) {
   return object({
-    nft: nftExtendedResponseSchema(chain).readonly()
-  })
-    .transform<Nullable<PartialNft>>(prop('nft'))
-    .readonly()
+    nft: nftExtendedResponseSchema(chain)
+  }).transform<Nullable<PartialNft>>(prop('nft'))
 }

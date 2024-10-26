@@ -1,4 +1,4 @@
-import type { User } from '@echo/auth/types/user'
+import type { User } from '@echo/model/types/user'
 import { EnvVars } from '@echo/ui/components/debug/env-vars'
 import type { Nullable } from '@echo/utils/types/nullable'
 

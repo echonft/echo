@@ -7,11 +7,10 @@ import { object, string } from 'zod'
 export function fetchNftsResponseSchema(chain: Chain) {
   return object({
     data: object({
-      next: string().nullable().optional().readonly(),
-      content: nftResponseSchema(chain).array().readonly()
-    }).readonly()
+      next: string().nullable().optional(),
+      content: nftResponseSchema(chain).array()
+    })
   })
     .extend(baseResponseAugmentation)
     .transform(prop('data'))
-    .readonly()
 }

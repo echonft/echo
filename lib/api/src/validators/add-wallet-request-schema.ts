@@ -7,5 +7,5 @@ export const addWalletRequestSchema = object({
   address: evmAddressSchema,
   chain: chainSchema,
   signature: hexStringSchema,
-  message: string().min(1).readonly()
-}).readonly()
+  message: string().min(1)
+})

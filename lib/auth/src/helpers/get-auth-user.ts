@@ -1,5 +1,5 @@
 import { auth } from '@echo/auth/auth'
-import type { User } from '@echo/auth/types/user'
+import type { User } from '@echo/model/types/user'
 import { isNil } from 'ramda'
 
 export async function getAuthUser(): Promise<User | null> {

@@ -1,5 +1,5 @@
 import { userDiscordProfileFromDiscordProvider } from '@echo/auth/helpers/providers/discord/user-discord-profile-from-discord-provider'
-import type { UserDiscordProfile } from '@echo/model/types/user/user-discord-profile'
+import type { User } from '@echo/model/types/user'
 import { describe, expect, test } from '@jest/globals'
 import type { DiscordProfile as ProviderDiscordProfile } from 'next-auth/providers/discord'
 import { assoc, pipe } from 'ramda'
@@ -25,16 +25,9 @@ describe('helpers - providers - discord - userDiscordProfileFromDiscordProvider'
     banner_color: 'banner_color',
     image_url: 'image_url'
   }
-  const profile: UserDiscordProfile = {
-    accentColor: 1,
-    avatar: 'avatar',
-    avatarDecorationUrl: 'https://cdn.discordapp.com/avatar-decorations/id/avatar_decoration.png', // test more
-    avatarUrl: 'https://cdn.discordapp.com/avatars/id/avatar.png', // test
-    bannerColor: 'banner_color',
-    bannerUrl: 'https://cdn.discordapp.com/banners/id/banner.png',
-    discriminator: '5',
+  const profile: User['discord'] = {
+    avatarUrl: 'https://cdn.discordapp.com/avatars/id/avatar.png',
     globalName: 'global_name',
-    id: 'id',
     username: 'username'
   }
 
@@ -52,15 +45,9 @@ describe('helpers - providers - discord - userDiscordProfileFromDiscordProvider'
       assoc('avatar_decoration', null),
       assoc('banner_color', null)
     )(providerProfile) as ProviderDiscordProfile
-    const updatedProfile: UserDiscordProfile = pipe(
-      assoc('avatar', undefined),
-      assoc('avatarUrl', 'https://cdn.discordapp.com/embed/avatars/0.png'),
-      assoc('globalName', undefined),
-      assoc('bannerUrl', undefined),
-      assoc('accentColor', undefined),
-      assoc('avatarDecorationUrl', undefined),
-      assoc('bannerColor', undefined)
-    )(profile) as UserDiscordProfile
-    expect(userDiscordProfileFromDiscordProvider(updatedProviderProfile)).toStrictEqual(updatedProfile)
+    expect(userDiscordProfileFromDiscordProvider(updatedProviderProfile)).toStrictEqual({
+      avatarUrl: 'https://cdn.discordapp.com/embed/avatars/0.png',
+      username: 'username'
+    })
   })
 })

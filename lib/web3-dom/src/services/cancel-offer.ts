@@ -1,0 +1,27 @@
+import type { Chain } from '@echo/model/constants/chain'
+import { chainId } from '@echo/model/helpers/chain/chain-id'
+import type { HexString } from '@echo/utils/types/hex-string'
+import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
+import { echoAbi } from '@echo/web3/constants/echo-abi'
+import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
+import { simulateContract, waitForTransactionReceipt, writeContract } from 'wagmi/actions'
+
+export interface CancelOfferArgs {
+  offerId: Lowercase<HexString>
+  chain: Chain
+}
+
+export async function cancelOffer(args: CancelOfferArgs) {
+  const { offerId, chain } = args
+  const address = getEchoAddress(chain)
+  const { request } = await simulateContract(wagmiConfig, {
+    abi: echoAbi,
+    functionName: 'cancelOffer',
+    address,
+    chainId: chainId(chain),
+    args: [offerId]
+  })
+  const hash = await writeContract(wagmiConfig, request)
+  await waitForTransactionReceipt(wagmiConfig, { hash })
+  return hash
+}

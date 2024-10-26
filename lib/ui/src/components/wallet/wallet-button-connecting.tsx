@@ -1,7 +1,7 @@
 'use client'
 import { ConnectWalletButtonLayout } from '@echo/ui/components/wallet/connect-wallet-button-layout'
 import { useConnectWallet } from '@echo/ui/hooks/use-connect-wallet'
-import type { AccountResult } from '@echo/web3-dom/types/account-result'
+import type { AccountResult } from '@echo/web3-dom/services/get-account'
 import { type FunctionComponent, useEffect } from 'react'
 
 interface Props {

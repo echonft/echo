@@ -13,6 +13,6 @@ describe('validators - nftAttributeResponseSchema', () => {
       { trait: 'Eyes', value: 'None' },
       { trait: 'Acessories', value: 'None' }
     ]
-    expect(nftAttributeResponseSchema.array().parse(attributesResponseMock())).toEqual(expectedResult)
+    expect(nftAttributeResponseSchema.array().parse(attributesResponseMock)).toEqual(expectedResult)
   })
 })

@@ -1,18 +1,33 @@
 import { evmAddressSchema } from '@echo/model/validators/evm-address-schema'
 import { hexStringSchema } from '@echo/model/validators/hex-string-schema'
 import { EchoEventTopic } from '@echo/web3/constants/echo-event-topic'
-import { echoEventTopicToType } from '@echo/web3/mappers/echo-event-topic-to-type'
+import { EchoEventType } from '@echo/web3/constants/echo-event-type'
 import type { EchoEvent } from '@echo/web3/types/echo-event'
 import { topicSchema } from '@echo/web3/validators/topic-schema'
 import { applySpec, flatten, map, path, pipe, prop } from 'ramda'
 import { nativeEnum, object, tuple } from 'zod'
 
+function echoEventTopicToType(topic: EchoEventTopic): EchoEventType {
+  switch (topic) {
+    case EchoEventTopic.OfferAccepted:
+      return EchoEventType.OfferAccepted
+    case EchoEventTopic.OfferCancelled:
+      return EchoEventType.OfferCancelled
+    case EchoEventTopic.OfferCreated:
+      return EchoEventType.OfferCreated
+    case EchoEventTopic.OfferExecuted:
+      return EchoEventType.OfferExecuted
+    case EchoEventTopic.OfferRedeemed:
+      return EchoEventType.OfferRedeemed
+  }
+}
+
 export const echoEventSchema = object({
   logs: object({
     address: evmAddressSchema,
-    topics: tuple([nativeEnum(EchoEventTopic).transform(echoEventTopicToType).readonly(), topicSchema])
-      .rest(topicSchema.pipe(evmAddressSchema).optional())
-      .readonly(),
+    topics: tuple([nativeEnum(EchoEventTopic).transform(echoEventTopicToType), topicSchema]).rest(
+      topicSchema.pipe(evmAddressSchema).optional()
+    ),
     transactionHash: hexStringSchema
   })
     .array()
@@ -26,10 +41,7 @@ export const echoEventSchema = object({
         })
       )
     )
-    .readonly()
 })
-  .readonly()
   .array()
   .nonempty()
   .transform(pipe(map(prop('logs')), flatten))
-  .readonly()

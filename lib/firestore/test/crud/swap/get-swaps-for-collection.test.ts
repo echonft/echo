@@ -7,7 +7,6 @@ import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
 import { addSwap } from '@echo/test/firestore/crud/swap/add-swap'
 import { deleteSwap } from '@echo/test/firestore/crud/swap/delete-swap'
 import { nowMsSlug } from '@echo/utils/helpers/now-ms-slug'
-import { removeNilProps } from '@echo/utils/helpers/remove-nil-props'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc } from 'ramda'
 
@@ -151,31 +150,31 @@ describe('CRUD - offer - getSwapsForCollection', () => {
     swapIds = [bothId]
     let documents = await getSwapsForCollection(collectionMockPx.slug)
     expect(documents.length).toBe(1)
-    expect(documents[0]).toStrictEqual(removeNilProps(bothSwap))
+    expect(documents[0]).toStrictEqual(bothSwap)
     documents = await getSwapsForCollection(collectionMockSpiral.slug)
     expect(documents.length).toBe(1)
-    expect(documents[0]).toStrictEqual(removeNilProps(bothSwap))
+    expect(documents[0]).toStrictEqual(bothSwap)
     const spiralSwap = assoc('slug', nowMsSlug(), spiralData)
-    const spiralId = await addSwap(removeNilProps(spiralSwap))
+    const spiralId = await addSwap(spiralSwap)
     swapIds.push(spiralId)
     documents = await getSwapsForCollection(collectionMockPx.slug)
     expect(documents.length).toBe(1)
-    expect(documents[0]).toStrictEqual(removeNilProps(bothSwap))
+    expect(documents[0]).toStrictEqual(bothSwap)
     documents = await getSwapsForCollection(collectionMockSpiral.slug)
     expect(documents.length).toBe(2)
-    expect(documents[0]).toStrictEqual(removeNilProps(spiralSwap))
-    expect(documents[1]).toStrictEqual(removeNilProps(bothSwap))
+    expect(documents[0]).toStrictEqual(spiralSwap)
+    expect(documents[1]).toStrictEqual(bothSwap)
     const pxSwap = assoc('slug', nowMsSlug(), pxData)
     const pxDataId = await addSwap(pxSwap)
     swapIds.push(pxDataId)
     documents = await getSwapsForCollection(collectionMockPx.slug)
     expect(documents.length).toBe(2)
-    expect(documents[0]).toStrictEqual(removeNilProps(pxSwap))
-    expect(documents[1]).toStrictEqual(removeNilProps(bothSwap))
+    expect(documents[0]).toStrictEqual(pxSwap)
+    expect(documents[1]).toStrictEqual(bothSwap)
     documents = await getSwapsForCollection(collectionMockSpiral.slug)
     expect(documents.length).toBe(2)
-    expect(documents[0]).toStrictEqual(removeNilProps(spiralSwap))
-    expect(documents[1]).toStrictEqual(removeNilProps(bothSwap))
+    expect(documents[0]).toStrictEqual(spiralSwap)
+    expect(documents[1]).toStrictEqual(bothSwap)
     expect(swapIds.length).toBe(3)
   })
 })

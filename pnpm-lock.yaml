@@ -1189,9 +1189,6 @@ importers:
       '@types/ramda':
         specifier: 0.30.1
         version: 0.30.1
-      i18next:
-        specifier: 23.12.2
-        version: 23.12.2
       jest:
         specifier: 29.7.0
         version: 29.7.0(@types/node@22.1.0)(ts-node@10.9.1(@swc/core@1.7.6(@swc/helpers@0.5.11))(@types/node@22.1.0)(typescript@5.5.4))

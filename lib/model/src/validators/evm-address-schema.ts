@@ -7,4 +7,3 @@ import { partialRight, toLower } from 'ramda'
 export const evmAddressSchema = hexStringSchema
   .refine(partialRight(isAddress, [{ strict: false }]), ValidatorError.InvalidAddress)
   .transform(toLower<HexString>)
-  .readonly()

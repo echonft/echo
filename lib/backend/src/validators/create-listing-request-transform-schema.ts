@@ -20,11 +20,13 @@ import { isErc721Item } from '@echo/model/helpers/item/is-erc721-item'
 import { listingSignature } from '@echo/model/helpers/listing/listing-signature'
 import { erc1155NftToItem } from '@echo/model/mappers/nft/erc1155-nft-to-item'
 import { erc721NftToItem } from '@echo/model/mappers/nft/erc721-nft-to-item'
+import type { EvmAddress } from '@echo/model/types/address'
 import type { Erc1155Item } from '@echo/model/types/erc1155-item'
 import type { Erc1155Nft } from '@echo/model/types/erc1155-nft'
 import type { Erc721Item } from '@echo/model/types/erc721-item'
 import type { Erc721Nft } from '@echo/model/types/erc721-nft'
 import type { Listing } from '@echo/model/types/listing'
+import type { NftOwner } from '@echo/model/types/nft'
 import type { NftItem } from '@echo/model/types/nft-item'
 import type { OwnedErc1155Nft } from '@echo/model/types/owned-erc1155-nft'
 import type { OwnedErc721Nft } from '@echo/model/types/owned-erc721-nft'
@@ -33,7 +35,7 @@ import type { User } from '@echo/model/types/user'
 import type { Username } from '@echo/model/types/username'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { toNonEmptyArray } from '@echo/utils/fp/to-non-empty-array'
-import { getErc1155TokenBalance } from '@echo/web3/services/get-erc1155-token-balance'
+import { getTokenBalance } from '@echo/web3/services/get-token-balance'
 import { assoc, dissoc, equals, head, isNil, map, type NonEmptyArray, pipe, prop } from 'ramda'
 import { NEVER, object, ZodIssueCode } from 'zod'
 
@@ -58,11 +60,11 @@ interface Erc1155ItemRequestWithOwnedNft extends Erc1155ItemRequest {
 type NftItemRequestWithOwnedNft = Erc721ItemRequestWithOwnedNft | Erc1155ItemRequestWithOwnedNft
 
 interface Erc721ItemWithOwner extends Erc721Item {
-  owner: User
+  owner: NftOwner
 }
 
 interface Erc1155ItemWithOwner extends Erc1155Item {
-  owner: User
+  owner: NftOwner
 }
 
 type NftItemWithOwner = Erc721ItemWithOwner | Erc1155ItemWithOwner
@@ -134,14 +136,13 @@ export async function createListingRequestTransformSchema(username: Username) {
             return pipe(erc721NftToItem, assoc('owner', request.nft.owner))(request.nft as Erc721Nft)
           } else {
             const item = request as Erc1155ItemRequestWithOwnedNft
-            const collection = await getCollection(request.nft.collection.slug)
-            if (isNil(collection)) {
-              return Promise.reject(Error(CollectionError.NotFound))
-            }
             // Ensure the item quantity <= wallet's balance
-            const balance = await getErc1155TokenBalance({
-              contract: collection.contract,
-              wallet: request.nft.owner.wallet
+            const balance = await getTokenBalance({
+              address: item.nft.owner.wallet,
+              chain: item.nft.collection.contract.chain,
+              token: {
+                contract: item.nft.collection.contract
+              }
             })
             if (item.quantity > balance) {
               return Promise.reject(Error(ItemError.Quantity))
@@ -190,9 +191,15 @@ export async function createListingRequestTransformSchema(username: Username) {
       }
       return dissoc('owner', item)
     }
-    const creator = pipe<[NonEmptyArray<NftItemWithOwner>], NftItemWithOwner, User>(
+    const creator = pipe<
+      [NonEmptyArray<NftItemWithOwner>],
+      NftItemWithOwner,
+      User & Record<'wallet', EvmAddress>,
+      User
+    >(
       head,
-      prop('owner')
+      prop('owner'),
+      dissoc('wallet')
     )(params.items as NonEmptyArray<NftItemWithOwner>)
     const items = pipe(map(removeItemOwner), toNonEmptyArray)(params.items)
     // Ensure listing is not a duplicate

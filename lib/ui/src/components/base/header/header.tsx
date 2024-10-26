@@ -1,4 +1,4 @@
-import type { User } from '@echo/auth/types/user'
+import type { User } from '@echo/model/types/user'
 import { HeaderLoggedIn, type HeaderLoggedInProps } from '@echo/ui/components/base/header/header-logged-in'
 import { HeaderLoggedOut } from '@echo/ui/components/base/header/header-logged-out'
 import { HeaderLogoOnly } from '@echo/ui/components/base/header/header-logo-only'
