@@ -15,7 +15,6 @@ const metadata: Meta<ComponentType> = {
   },
   argTypes: {
     nfts: {
-      defaultValue: 'One',
       options: ['One', 'Multiple'],
       control: { type: 'radio' }
     }

@@ -14,7 +14,6 @@ const metadata: Meta<ComonentType> = {
   },
   argTypes: {
     approved: {
-      defaultValue: false,
       control: { type: 'boolean' }
     }
   }

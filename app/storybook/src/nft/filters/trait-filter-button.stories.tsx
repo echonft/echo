@@ -18,7 +18,6 @@ const metadata: Meta<typeof Component> = {
       }
     },
     collapsed: {
-      defaultValue: false,
       control: { type: 'boolean' }
     }
   },

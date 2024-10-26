@@ -9,7 +9,7 @@ const metadata: Meta<typeof Component> = {
   args: {
     step: 1
   },
-  argTypes: { step: { defaultValue: 1, control: { type: 'number', min: 1, max: 3, step: 1 } } }
+  argTypes: { step: { control: { type: 'number', min: 1, max: 3, step: 1 } } }
 }
 
 export default metadata

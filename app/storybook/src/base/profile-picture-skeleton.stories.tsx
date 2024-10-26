@@ -10,11 +10,9 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   argTypes: {
     border: {
-      defaultValue: true,
       control: { type: 'boolean' }
     },
     size: {
-      defaultValue: Size.LG,
       options: values(Size),
       control: { type: 'radio' }
     }

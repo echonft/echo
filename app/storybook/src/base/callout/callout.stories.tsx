@@ -23,16 +23,13 @@ const metadata: Meta<ComponentType> = {
   },
   argTypes: {
     clickable: {
-      defaultValue: false,
       control: { type: 'boolean' }
     },
     severity: {
-      defaultValue: CalloutSeverity.Info,
       options: values(CalloutSeverity),
       control: { type: 'radio' }
     },
     variant: {
-      defaultValue: CalloutVariant.Solid,
       options: values(CalloutVariant),
       control: { type: 'radio' }
     },

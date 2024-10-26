@@ -20,11 +20,9 @@ const metadata: Meta<ComponentType> = {
   },
   argTypes: {
     defaultPicture: {
-      defaultValue: false,
       control: { type: 'boolean' }
     },
     verified: {
-      defaultValue: false,
       control: { type: 'boolean' }
     }
   }

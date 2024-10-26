@@ -11,7 +11,6 @@ const metadata: Meta<typeof Component> = {
   },
   argTypes: {
     loading: {
-      defaultValue: false,
       control: { type: 'boolean' }
     },
     onClick: {

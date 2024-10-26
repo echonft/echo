@@ -33,7 +33,6 @@ export const Default: StoryObj<ComponentType> = {
   },
   argTypes: {
     showCategories: {
-      defaultValue: false,
       control: 'boolean'
     },
     onSelect: {

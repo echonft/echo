@@ -20,7 +20,6 @@ const metadata: Meta<typeof Component> = {
   },
   argTypes: {
     image: {
-      defaultValue: 'Image',
       options: ['Default', 'Image'],
       control: { type: 'radio' }
     }

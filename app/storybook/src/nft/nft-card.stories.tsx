@@ -22,18 +22,15 @@ const metadata: Meta<ComponentType> = {
   },
   argTypes: {
     hideOwner: {
-      defaultValue: false,
       description: 'Hide the owner Discord tag',
       control: 'boolean'
     },
     hideOpenSeaLink: {
-      defaultValue: false,
       description: 'Hide the NFT OpenSea link icon',
       control: 'boolean'
     },
     scaleDisabled: {
       description: 'Disable scaling of the image on hover',
-      defaultValue: false,
       control: 'boolean'
     }
   }

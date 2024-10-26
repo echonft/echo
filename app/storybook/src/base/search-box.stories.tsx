@@ -18,7 +18,6 @@ const metadata: Meta<ComponentType> = {
   },
   argTypes: {
     showCategories: {
-      defaultValue: false,
       control: 'boolean'
     },
     onSelect: {

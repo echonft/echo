@@ -8,17 +8,14 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   argTypes: {
     disabled: {
-      defaultValue: false,
       control: 'boolean',
       if: { arg: 'loading', truthy: false }
     },
     loading: {
-      defaultValue: false,
       control: 'boolean',
       if: { arg: 'disabled', truthy: false }
     },
     threshold: {
-      defaultValue: 3000,
       options: [500, 1000, 2000, 3000, 5000],
       control: { type: 'select' }
     },

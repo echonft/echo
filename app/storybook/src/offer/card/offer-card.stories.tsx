@@ -25,16 +25,13 @@ const metadata: Meta<ComponentType> = {
   },
   argTypes: {
     state: {
-      defaultValue: OfferState.Open,
       options: values(OfferState),
       control: { type: 'select' }
     },
     stack: {
-      defaultValue: false,
       control: 'boolean'
     },
     scaleDisabled: {
-      defaultValue: false,
       control: 'boolean'
     }
   }

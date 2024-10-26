@@ -17,11 +17,9 @@ const metadata: Meta<typeof Component> = {
   },
   argTypes: {
     hideOwner: {
-      defaultValue: false,
       control: 'boolean'
     },
     scaleDisabled: {
-      defaultValue: false,
       control: 'boolean'
     }
   },

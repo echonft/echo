@@ -20,21 +20,15 @@ const metadata: Meta<ComponentType> = {
   },
   argTypes: {
     severity: {
-      defaultValue: CalloutSeverity.Error,
       options: values(CalloutSeverity),
       control: { type: 'radio' }
     },
     variant: {
-      defaultValue: CalloutVariant.Solid,
       options: values(CalloutVariant),
       control: { type: 'radio' }
     },
     permanent: {
-      defaultValue: false,
       control: { type: 'boolean' }
-    },
-    message: {
-      defaultValue: 'This is an alert!'
     }
   }
 }
