@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getCollectionWithCountsMock } from '@echo/model/mocks/collection/get-collection-with-counts-mock'
+import { collectionWithCountsMock } from '@echo/model/mocks/collection-mock'
 import type { CollectionWithCounts } from '@echo/model/types/collection'
 import { CollectionDetails } from '@echo/ui/components/collection/details/collection-details'
 import { type Meta, type StoryObj } from '@storybook/react'
@@ -34,11 +34,10 @@ export default metadata
 
 export const Details: StoryObj<ComponentType> = {
   render: ({ defaultPicture, verified }) => {
-    const collection = pipe<[], CollectionWithCounts, CollectionWithCounts, CollectionWithCounts>(
-      getCollectionWithCountsMock,
+    const collection = pipe<[CollectionWithCounts], CollectionWithCounts, CollectionWithCounts>(
       when<CollectionWithCounts, CollectionWithCounts>(always(defaultPicture), dissoc('profilePictureUrl')),
       assoc('verified', verified)
-    )()
+    )(collectionWithCountsMock)
     return <CollectionDetails collection={collection} />
   }
 }

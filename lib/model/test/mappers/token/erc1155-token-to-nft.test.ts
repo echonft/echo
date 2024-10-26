@@ -6,7 +6,7 @@ import { omit } from 'ramda'
 
 describe('mappers - token - erc1155TokenToNft', () => {
   test('maps correctly', () => {
-    expect(erc1155TokenToNft(erc1155NftMock.owner!)(erc1155TokenMock)).toStrictEqual(
+    expect(erc1155TokenToNft(erc1155NftMock.owner)(erc1155TokenMock)).toStrictEqual(
       omit(['attributes'], erc1155NftMock)
     )
   })

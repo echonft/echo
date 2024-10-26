@@ -2,8 +2,8 @@ import { TokenType } from '@echo/model/constants/token-type'
 import { nftCollectionMockPx, nftCollectionMockSpiral } from '@echo/model/mocks/collection-mock'
 import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
 import { walletMockCrew, walletMockJohnny } from '@echo/model/mocks/wallet-mock'
-import type { Erc1155Nft } from '@echo/model/types/erc1155-nft'
-import type { Erc721Nft } from '@echo/model/types/erc721-nft'
+import type { OwnedErc1155Nft } from '@echo/model/types/owned-erc1155-nft'
+import type { OwnedErc721Nft } from '@echo/model/types/owned-erc721-nft'
 import type { OwnedNft } from '@echo/model/types/owned-nft'
 
 export const nftOwnerMockJohnny = { ...userMockJohnny, wallet: walletMockJohnny.address }
@@ -276,9 +276,9 @@ export const nftMocksJohnny = [nftMockSpiral1, nftMockSpiral2, nftMockPx1, nftMo
 
 export const nftMocksCrew = [nftMockSpiral3, nftMockPx3]
 
-export const erc721NftMock: Erc721Nft = nftMockSpiral1 as Erc721Nft
+export const erc721NftMock: OwnedErc721Nft = nftMockSpiral1 as OwnedErc721Nft
 
-export const erc1155NftMock: Erc1155Nft = { ...nftMockPx1, tokenId: 4, type: TokenType.Erc1155 }
+export const erc1155NftMock: OwnedErc1155Nft = { ...nftMockPx1, tokenId: 4, type: TokenType.Erc1155 }
 
 export const nftMocks = [
   nftMockSpiral1,

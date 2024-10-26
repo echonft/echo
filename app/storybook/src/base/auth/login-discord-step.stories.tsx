@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { userMockJohnnyUsername } from '@echo/model/mocks/user-mock'
+import { userMockJohnny } from '@echo/model/mocks/user-mock'
 import { authUserStore } from '@echo/storybook/mocks/stores/auth-user-store'
 import { LoginDiscordStep as Component } from '@echo/ui/components/auth/login-discord-step'
 import { type Meta, type StoryObj } from '@storybook/react'
@@ -42,7 +42,7 @@ export const Connected: StoryObj<typeof Component> = {
   render: ({ onContinue }) => {
     const { user, signIn, signOut } = authUserStore()
     useEffect(() => {
-      signIn(userMockJohnnyUsername())
+      signIn(userMockJohnny.username)
       return signOut
     }, [])
     return <Component user={user} onContinue={onContinue} />

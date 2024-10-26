@@ -1,3 +1,4 @@
+import { Chain } from '@echo/model/constants/chain'
 import { walletMockCrew } from '@echo/model/mocks/wallet-mock'
 import { accountStatusStore } from '@echo/storybook/mocks/stores/account-status-store'
 import { AccountStatus } from '@echo/web3-dom/constants/account-status'
@@ -7,9 +8,9 @@ import { isNil } from 'ramda'
 export function getAccount(onChange?: (account: AccountResult) => void): AccountProviderResult {
   function getResultFromStatus(status: AccountStatus): AccountResult {
     if (status === AccountStatus.Connected) {
-      return { wallet: walletMockCrew, status }
+      return { address: walletMockCrew.address, chain: Chain.Ethereum, status }
     }
-    return { wallet: undefined, status }
+    return { address: undefined, chain: undefined, status }
   }
 
   const status = accountStatusStore.getState().status

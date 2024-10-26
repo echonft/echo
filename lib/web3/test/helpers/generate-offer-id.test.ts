@@ -14,7 +14,7 @@ describe('helpers - generateOfferId', () => {
   //   const offer: BaseOffer = {
   //     expiresAt: 1,
   //     receiver: user,
-  //     receiverItems: [item],Ø
+  //     receiverItems: [item],
   //     sender: user,
   //     senderItems: [item]
   //   } as BaseOffer

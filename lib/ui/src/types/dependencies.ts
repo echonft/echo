@@ -47,7 +47,7 @@ export interface Dependencies {
   getNonce: Fetcher<NonceResponse>
   getOfferByIdContract: Fetcher<OfferResponse, Record<'idContract', HexString>>
   getWallets: Fetcher<WalletsResponse>
-  logger: Nullable<Logger>
+  logger?: Logger
   login: Fetcher<Nullable<SignInResponse>>
   logout: Fetcher<Nullable<Record<'url', string>>>
   redeemOffer: Fetcher<HexString, RedeemOfferArgs>

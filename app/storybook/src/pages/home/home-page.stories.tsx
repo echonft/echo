@@ -1,13 +1,14 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { collectionMocks } from '@echo/model/mocks/collection-mock'
+import { swapMocks } from '@echo/model/mocks/swap-mock'
 import { type Collection } from '@echo/model/types/collection'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { Background } from '@echo/ui/constants/background'
 import { HomePage as Component } from '@echo/ui/pages/home/home-page'
 import type { CollectionWithRank } from '@echo/ui/types/collection-with-rank'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { addIndex, assoc, concat, map, pipe, take } from 'ramda'
+import { addIndex, assoc, concat, map, pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'Pages/Home',
@@ -36,6 +37,6 @@ export const Page: StoryObj<typeof Component> = {
       concat(collectionMocks),
       addIndex(map)((collection, index) => pipe(assoc('swapsCount', 50 - index), assoc('rank', index + 1))(collection))
     )(collectionMocks),
-    swaps: pipe(swapMocks, concat(swapMocks), concat(swapMocks), take(5))()
+    swaps: pipe(concat(swapMocks), concat(swapMocks), concat(swapMocks), concat(swapMocks))(swapMocks)
   }
 }

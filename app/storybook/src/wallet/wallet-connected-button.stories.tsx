@@ -1,5 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
+import { Chain } from '@echo/model/constants/chain'
 import { walletMockCrew } from '@echo/model/mocks/wallet-mock'
 import { WalletConnectedButton as Component } from '@echo/ui/components/wallet/wallet-connected-button'
 import { type Meta, type StoryObj } from '@storybook/react'
@@ -18,6 +19,7 @@ export default metadata
 
 export const ConnectedButton: StoryObj<typeof Component> = {
   args: {
-    wallet: walletMockCrew
+    address: walletMockCrew.address,
+    chain: Chain.Sepolia
   }
 }

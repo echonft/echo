@@ -1,10 +1,12 @@
+import { isErc721Nft } from '@echo/model/helpers/nft/is-erc721-nft'
 import { nftMocks } from '@echo/model/mocks/nft-mock'
 import { getTraitFiltersForNfts } from '@echo/ui/helpers/nft/filters/get-trait-filters-for-nfts'
 import { describe, expect, test } from '@jest/globals'
+import { filter, pipe } from 'ramda'
 
 describe('helpers - nft - getTraitFiltersForNfts', () => {
   test('returns the right traits for mock nfts', () => {
-    expect(getTraitFiltersForNfts(nftMocks)).toEqual([
+    expect(pipe(filter(isErc721Nft), getTraitFiltersForNfts)(nftMocks)).toEqual([
       {
         filters: [
           {

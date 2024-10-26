@@ -18,6 +18,6 @@ export default metadata
 
 export const ConnectedTag: StoryObj<typeof Component> = {
   args: {
-    wallet: walletMockCrew
+    address: walletMockCrew.address
   }
 }

@@ -3,7 +3,6 @@ import { getFunctionUrl } from '@echo/firestore-functions/helper/get-function-ur
 import { getLogger } from '@echo/firestore-functions/helper/get-logger'
 import { setMaxInstances } from '@echo/firestore-functions/helper/set-max-instances'
 import type { ListingDocument } from '@echo/firestore/types/model/listing-document'
-import type { Listing } from '@echo/model/types/listing'
 import { getFunctions } from 'firebase-admin/functions'
 import { onDocumentCreated } from 'firebase-functions/v2/firestore'
 import { isNil } from 'ramda'
@@ -11,7 +10,7 @@ import { isNil } from 'ramda'
 export const onListingCreated = onDocumentCreated(setMaxInstances({ document: 'listings/{id}' }), async (event) => {
   const functionName = 'expireListing'
   const logger = getLogger().child({ function: functionName })
-  const listing = getFirestoreEventData<Listing, ListingDocument>(event)
+  const listing = getFirestoreEventData<ListingDocument>(event)
   if (!isNil(listing)) {
     const queue = getFunctions().taskQueue(functionName)
     const uri = await getFunctionUrl(functionName)

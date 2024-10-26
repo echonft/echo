@@ -1,19 +1,22 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { userMockJohnnyUsername } from '@echo/model/mocks/user-mock'
-import { getUserProfileMockByUsername } from '@echo/model/mocks/user/user-profile-mock'
-import { UserProfile } from '@echo/ui/components/user/profile/user-profile'
+import { Chain } from '@echo/model/constants/chain'
+import { userMockJohnny } from '@echo/model/mocks/user-mock'
+import { walletMockJohnny } from '@echo/model/mocks/wallet-mock'
+import { UserProfileSkeleton as Component } from '@echo/ui/components/user/profile/skeleton/user-profile-skeleton'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { assocPath, pipe } from 'ramda'
-import { type FunctionComponent } from 'react'
 
-type ImageType = 'Default' | 'Image'
-type ComponentType = FunctionComponent<{ image: ImageType }>
-
-const metadata: Meta<ComponentType> = {
-  title: 'User/Profile ',
+const metadata: Meta<typeof Component> = {
+  title: 'User/Profile',
+  component: Component,
   args: {
-    image: 'Image'
+    address: walletMockJohnny.address,
+    chain: Chain.Sepolia,
+    listingsCount: 2,
+    nftsCount: 108,
+    offersCount: 7,
+    swapsCount: 13,
+    user: userMockJohnny
   },
   argTypes: {
     image: {
@@ -26,17 +29,4 @@ const metadata: Meta<ComponentType> = {
 
 export default metadata
 
-export const Profile: StoryObj<ComponentType> = {
-  render: ({ image }) => {
-    const profile = pipe(
-      getUserProfileMockByUsername,
-      assocPath(
-        ['discord', 'avatarUrl'],
-        image === 'Image'
-          ? 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png'
-          : undefined
-      )
-    )(userMockJohnnyUsername())
-    return <UserProfile user={profile} />
-  }
-}
+export const Profile: StoryObj<typeof Component> = {}

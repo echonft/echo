@@ -3,6 +3,6 @@ import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { pipe } from 'ramda'
 
-export function contractRedeemOffer(): Promise<HexString> {
-  return pipe(toPromise, delayPromise(800))('0xOfferRedeemed')
+export function swap(): Promise<HexString> {
+  return pipe(toPromise, delayPromise(800))('0xOfferExecuted')
 }

@@ -105,7 +105,7 @@ export function addPictureSize(
       return `https://res.cloudinary.com/alchemyapi/image/upload/w_${size}/scaled${urlObject.pathname}`
     }
     return src
-  } catch (err) {
+  } catch (_err) {
     return args.src
   }
 }

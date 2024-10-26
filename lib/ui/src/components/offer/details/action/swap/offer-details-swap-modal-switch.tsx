@@ -4,6 +4,7 @@ import { ConnectWalletModal } from '@echo/ui/components/wallet/connect-wallet-mo
 import { useAccount } from '@echo/ui/hooks/use-account'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
+import { AccountStatus } from '@echo/web3-dom/constants/account-status'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -16,7 +17,7 @@ interface Props {
 export const OfferDetailsSwapModalSwitch: FunctionComponent<Props> = ({ offer, open, onClose, onSuccess }) => {
   const { status } = useAccount()
 
-  if (status !== 'connected') {
+  if (status !== AccountStatus.Connected) {
     return <ConnectWalletModal open={open} onClose={onClose} />
   }
 

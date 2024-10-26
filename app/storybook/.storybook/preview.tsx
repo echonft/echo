@@ -1,16 +1,14 @@
 // noinspection JSUnusedGlobalSymbols
 
 import '@echo/ui-css/index.css'
+import { acceptOffer } from '@echo/storybook/mocks/accept-offer'
 import { addWallet } from '@echo/storybook/mocks/add-wallet'
 import { approveErc721Contract } from '@echo/storybook/mocks/approve-erc721-contract'
 import { areNftsInEscrow } from '@echo/storybook/mocks/are-nfts-in-escrow'
 import { cancelListing } from '@echo/storybook/mocks/cancel-listing'
-import { contractAcceptOffer } from '@echo/storybook/mocks/contract-accept-offer'
-import { contractCancelOffer } from '@echo/storybook/mocks/contract-cancel-offer'
-import { contractCreateOffer } from '@echo/storybook/mocks/contract-create-offer'
-import { contractExecuteOffer } from '@echo/storybook/mocks/contract-execute-offer'
-import { contractRedeemOffer } from '@echo/storybook/mocks/contract-redeem-offer'
+import { cancelOffer } from '@echo/storybook/mocks/cancel-offer'
 import { createListing } from '@echo/storybook/mocks/create-listing'
+import { createOffer } from '@echo/storybook/mocks/create-offer'
 import { disconnectWallet } from '@echo/storybook/mocks/disconnect-wallet'
 import { getAccount } from '@echo/storybook/mocks/get-account'
 import { getAllErc20TokenBalances } from '@echo/storybook/mocks/get-all-erc20-token-balances'
@@ -22,10 +20,12 @@ import { getOfferByIdContract } from '@echo/storybook/mocks/get-offer-by-id-cont
 import { getWallets } from '@echo/storybook/mocks/get-wallets'
 import { login } from '@echo/storybook/mocks/login'
 import { logout } from '@echo/storybook/mocks/logout'
+import { redeemOffer } from '@echo/storybook/mocks/redeem-offer'
 import { rejectOffer } from '@echo/storybook/mocks/reject-offer'
 import { searchCollections } from '@echo/storybook/mocks/search-collections'
 import { searchUsers } from '@echo/storybook/mocks/search-users'
 import { signNonce } from '@echo/storybook/mocks/sign-nonce'
+import { swap } from '@echo/storybook/mocks/swap'
 import { switchChain } from '@echo/storybook/mocks/switch-chain'
 import { DependenciesProvider } from '@echo/ui/components/base/dependencies-provider'
 import { Web3Provider } from '@echo/ui/components/base/web3-provider'
@@ -50,11 +50,11 @@ const preview: Preview = {
                 approveErc721Contract,
                 areNftsInEscrow,
                 cancelListing,
-                contractAcceptOffer,
-                contractCancelOffer,
-                contractCreateOffer,
-                contractExecuteOffer,
-                contractRedeemOffer,
+                acceptOffer,
+                cancelOffer,
+                createOffer,
+                swap,
+                redeemOffer,
                 createListing,
                 disconnectWallet,
                 getAccount,
@@ -65,7 +65,6 @@ const preview: Preview = {
                 getNonce,
                 getOfferByIdContract,
                 getWallets,
-                logger: undefined,
                 login,
                 logout,
                 rejectOffer,

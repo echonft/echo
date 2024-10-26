@@ -2,6 +2,7 @@
 import { LoginStepLayout } from '@echo/ui/components/auth/layout/login-step-layout'
 import { ConnectWalletButton } from '@echo/ui/components/wallet/connect-wallet-button'
 import { useAccount } from '@echo/ui/hooks/use-account'
+import { AccountStatus } from '@echo/web3-dom/constants/account-status'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, type MouseEventHandler } from 'react'
 
@@ -18,7 +19,7 @@ export const LoginConnectWalletStep: FunctionComponent<Props> = ({ onContinue, o
       title={t('title')}
       subtitle={t('subtitle')}
       btnLabel={t(`continueBtn.${status}`)}
-      btnDisabled={status === 'connecting'}
+      btnDisabled={status === AccountStatus.Connecting}
       onBtnClick={onContinue}
     >
       <ConnectWalletButton onClick={onWalletButtonClick} />

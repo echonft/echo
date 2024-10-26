@@ -1,4 +1,5 @@
 import { getNftsForCollection } from '@echo/firestore/crud/nft/get-nfts-for-collection'
+import type { OwnedNftDocument } from '@echo/firestore/types/model/nft-document'
 import { collectionMockSpiral } from '@echo/model/mocks/collection-mock'
 import { nftDocumentMocks } from '@echo/test/firestore/initialize-db'
 import { describe, expect, it } from '@jest/globals'
@@ -12,7 +13,10 @@ describe('CRUD - nft - getNftsForCollection', () => {
   it('returns the nfts of the collection', async () => {
     const collectionSlug = collectionMockSpiral.slug
     const nfts = await getNftsForCollection(collectionSlug)
-    const collectionNfts = filter(pathEq(collectionSlug, ['collection', 'slug']), nftDocumentMocks)
+    const collectionNfts = filter(
+      pathEq(collectionSlug, ['collection', 'slug']),
+      nftDocumentMocks
+    ) as OwnedNftDocument[]
     expect(nfts).toEqualList(collectionNfts)
   })
 })

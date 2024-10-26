@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { userMockJohnnyUsername } from '@echo/model/mocks/user-mock'
+import { userMockJohnny } from '@echo/model/mocks/user-mock'
 import { LoginJoinEchoStep as Component } from '@echo/ui/components/auth/login-join-echo-step'
 import { type Meta, type StoryObj } from '@storybook/react'
 
@@ -25,6 +25,6 @@ export default metadata
 
 export const JoinEchoStep: StoryObj<typeof Component> = {
   args: {
-    username: userMockJohnnyUsername()
+    username: userMockJohnny.username
   }
 }
