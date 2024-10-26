@@ -4,6 +4,7 @@ import { getOfferThreadOnEchoChannel } from '@echo/bot/offer/get-offer-thread-on
 import { getEscrowedNftSnapshot } from '@echo/firestore/crud/nft/get-escrowed-nft-snapshot'
 import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
+import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { offerReceiverNftItems } from '@echo/model/helpers/offer/offer-receiver-nft-items'
 import { offerSenderNftItems } from '@echo/model/helpers/offer/offer-sender-nft-items'
 import type { NftItem } from '@echo/model/types/nft-item'
@@ -16,7 +17,7 @@ import { always, andThen, complement, isNil, type NonEmptyArray, otherwise, pipe
 async function getUserDiscordId(username: Username) {
   const user = await getUserByUsername(username)
   if (isNil(user)) {
-    throw Error(`offer receiver with username ${username} not found`)
+    return Promise.reject(Error(OfferError.NotFound))
   }
   return user.discord.id
 }

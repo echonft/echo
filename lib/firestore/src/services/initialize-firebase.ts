@@ -1,3 +1,4 @@
+import { FirestoreError } from '@echo/firestore/constants/errors/firestore-error'
 import { getFirebaseServiceAccount } from '@echo/firestore/services/get-firebase-service-account'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { cert, getApps, initializeApp, type ServiceAccount } from 'firebase-admin/app'
@@ -15,7 +16,7 @@ export async function initializeFirebase(args?: InitializeFirebaseArgs) {
   }
   const serviceAccount = args?.serviceAccount ?? (await getFirebaseServiceAccount())
   if (isNil(serviceAccount)) {
-    return Promise.reject(Error('missing credentials'))
+    return Promise.reject(Error(FirestoreError.MissingCredentials))
   }
   try {
     const app = initializeApp({

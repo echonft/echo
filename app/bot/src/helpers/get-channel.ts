@@ -1,3 +1,4 @@
+import { ChannelError } from '@echo/bot/constants/errors/channel-error'
 import { type Client, TextChannel } from 'discord.js'
 import { isNil } from 'ramda'
 
@@ -12,8 +13,8 @@ export async function getChannel(args: GetChannelArgs): Promise<TextChannel> {
   if (isNil(cachedChannel)) {
     const channel = await client.channels.fetch(channelId)
     if (isNil(channel)) {
-      logger.error({ channel: { id: channelId } }, 'channel not found')
-      throw Error(`channel ${channelId} not found`)
+      logger.error({ channel: { id: channelId } }, ChannelError.NotFound)
+      return Promise.reject(Error(ChannelError.NotFound))
     }
     return channel as TextChannel
   }

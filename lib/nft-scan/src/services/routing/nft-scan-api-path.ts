@@ -1,9 +1,10 @@
+import { Chain } from '@echo/model/constants/chain'
+import { ChainError } from '@echo/model/constants/errors/chain-error'
 import { AbstractPath } from '@echo/routing/path/abstract-path'
 import type { PathArgs } from '@echo/routing/types/path-args'
 import type { PathParams } from '@echo/routing/types/path-params'
 import type { QueryParams } from '@echo/routing/types/query-params/query-params'
 import type { SearchParams } from '@echo/routing/types/search-params/search-params'
-import { Chain } from '@echo/model/constants/chain'
 import { compile } from 'path-to-regexp'
 import { assoc, concat, dissoc, isNil, pipe } from 'ramda'
 
@@ -39,7 +40,7 @@ export class NftScanApiPath<
       case Chain.Sei:
         return 'https://seiapi.nftscan.com/api/v2'
       default:
-        throw new Error(`Unsupported chain for NFT Scan API: ${chain}`)
+        throw new Error(ChainError.Unsupported)
     }
   }
 }

@@ -3,6 +3,7 @@ import { addCollection as addCollectionToFirestore } from '@echo/firestore/crud/
 import { addNft } from '@echo/firestore/crud/nft/add-nft'
 import { getUserByWallet } from '@echo/firestore/crud/user/get-user-by-wallet'
 import type { NewDocument } from '@echo/firestore/types/new-document'
+import { CollectionError } from '@echo/model/constants/errors/collection-error'
 import type { Collection } from '@echo/model/types/collection'
 import type { Contract } from '@echo/model/types/contract'
 import type { Nft } from '@echo/model/types/nft'
@@ -23,7 +24,7 @@ import { andThen, assoc, isNil, otherwise, pipe } from 'ramda'
 export async function getOrAddCollection(contract: Contract): Promise<Collection> {
   const { collection, source } = await getCollection(contract)
   if (isNil(collection)) {
-    return Promise.reject(Error('collection not found'))
+    return Promise.reject(Error(CollectionError.NotFound))
   }
   if (source === 'api') {
     const { data, id } = await addCollectionToFirestore(collection)

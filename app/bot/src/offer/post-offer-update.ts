@@ -3,6 +3,8 @@ import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import { getOfferThreadOnEchoChannel } from '@echo/bot/offer/get-offer-thread-on-echo-channel'
 import { addOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/add-offer-update-post'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
+import { OfferError } from '@echo/model/constants/errors/offer-error'
+import { UserError } from '@echo/model/constants/errors/user-error'
 import { OfferState } from '@echo/model/constants/offer-state'
 import type { Offer } from '@echo/model/types/offer'
 import { type Client, userMention } from 'discord.js'
@@ -12,7 +14,7 @@ import { assoc, isNil } from 'ramda'
 async function getOfferReceiverId(offer: Offer) {
   const receiver = await getUserByUsername(offer.receiver.username)
   if (isNil(receiver)) {
-    throw Error(`offer receiver with username ${offer.receiver.username} not found for offer ${offer.slug}`)
+    return Promise.reject(Error(UserError.NotFound))
   }
   return receiver.discord.id
 }
@@ -20,7 +22,7 @@ async function getOfferReceiverId(offer: Offer) {
 async function getMessage(offer: Offer) {
   switch (offer.state) {
     case OfferState.Open:
-      throw Error('There is no offer update for state OPEN')
+      throw Error(OfferError.InvalidState)
     case OfferState.Cancelled:
     case OfferState.Expired:
       return i18next.t(`offer.update.${offer.state}`)

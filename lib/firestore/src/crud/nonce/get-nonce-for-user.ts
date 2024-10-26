@@ -4,6 +4,7 @@ import { getDocumentSnapshotData } from '@echo/firestore/helpers/document/get-do
 import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/query/get-query-unique-document-snapshot'
 import { queryWhere } from '@echo/firestore/helpers/query/query-where'
 import type { NonceDocument } from '@echo/firestore/types/model/nonce-document'
+import { UserError } from '@echo/model/constants/errors/user-error'
 import type { Username } from '@echo/model/types/username'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
@@ -14,7 +15,7 @@ export async function getNonceSnapshotForUser(
 ): Promise<Nullable<QueryDocumentSnapshot<NonceDocument>>> {
   const snapshot = await getUserSnapshotByUsername(username)
   if (isNil(snapshot)) {
-    return Promise.reject(Error(`user with username ${username} not found`))
+    return Promise.reject(Error(UserError.NotFound))
   }
   return pipe(noncesCollection, queryWhere('userId', '==', snapshot.id), getQueryUniqueDocumentSnapshot)()
 }

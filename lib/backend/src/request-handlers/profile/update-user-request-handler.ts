@@ -2,6 +2,7 @@ import type { UpdateUserRequest } from '@echo/api/types/requests/update-user-req
 import { updateUserRequestSchema } from '@echo/api/validators/update-user-request-schema'
 import { userDocumentDiscordProfileFromDiscordProvider } from '@echo/auth/helpers/providers/discord/user-document-discord-profile-from-discord-provider'
 import { BadRequestError } from '@echo/backend/errors/bad-request-error'
+import { DiscordError } from '@echo/backend/errors/messages/discord-error'
 import { toNextReponse } from '@echo/backend/request-handlers/to-next-reponse'
 import type { RequestHandlerArgs } from '@echo/backend/types/request-handler'
 import { discordProfileResponseSchema } from '@echo/backend/validators/discord-profile-response-schema'
@@ -23,5 +24,5 @@ export async function updateUserRequestHandler(args: RequestHandlerArgs<UpdateUs
       andThen(pipe(userDocumentDiscordProfileFromDiscordProvider, addOrUpdateUser, objOf('user'), toNextReponse))
     )(response)
   }
-  return Promise.reject(new BadRequestError({ message: 'request to Discord failed' }))
+  return Promise.reject(new BadRequestError({ message: DiscordError.ProfileRequestFailed }))
 }

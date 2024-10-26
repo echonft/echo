@@ -1,4 +1,5 @@
 'use client'
+import { ProviderError } from '@echo/ui/constants/errors/provider-error'
 import type { Dependencies } from '@echo/ui/types/dependencies'
 import { isNil } from 'ramda'
 import React, { type PropsWithChildren } from 'react'
@@ -15,7 +16,7 @@ export const DependenciesProvider: React.FunctionComponent<PropsWithChildren<Rec
 export function useDependencies(): Dependencies {
   const dependencies = React.useContext(dependenciesContext)
   if (isNil(dependencies)) {
-    throw new Error('useDependencies must be used within DependenciesProvider')
+    throw new Error(ProviderError.Dependencies)
   }
   return dependencies
 }

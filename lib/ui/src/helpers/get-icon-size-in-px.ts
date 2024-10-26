@@ -8,7 +8,5 @@ export const getIconSizeInPx = (size: Size) => {
       return 30
     case Size.LG:
       return 40
-    default:
-      throw Error(`Wrong icon size`)
   }
 }

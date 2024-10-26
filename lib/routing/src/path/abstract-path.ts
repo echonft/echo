@@ -1,3 +1,4 @@
+import { SearchParamsError } from '@echo/routing/constants/errors/search-params-error'
 import type { PathArgs } from '@echo/routing/types/path-args'
 import type { QueryParams } from '@echo/routing/types/query-params/query-params'
 import type { QueryParamsMapper } from '@echo/routing/types/query-params/query-params-mapper'
@@ -27,7 +28,7 @@ export abstract class AbstractPath<
   }
   protected getQuery(queryParams: TQueryParams) {
     if (isNil(this.queryParamsMapper)) {
-      throw Error('search params mapper is not defined')
+      throw Error(SearchParamsError.UndefinedMapper)
     }
     return stringify(this.queryParamsMapper(queryParams), {
       addQueryPrefix: true,

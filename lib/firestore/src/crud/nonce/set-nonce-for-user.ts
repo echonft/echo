@@ -4,6 +4,7 @@ import { noncesCollection } from '@echo/firestore/helpers/collection/collections
 import { setReference } from '@echo/firestore/helpers/reference/set-reference'
 import { updateReference } from '@echo/firestore/helpers/reference/update-reference'
 import type { NonceDocument } from '@echo/firestore/types/model/nonce-document'
+import { UserError } from '@echo/model/constants/errors/user-error'
 import type { Username } from '@echo/model/types/username'
 import dayjs from 'dayjs'
 import { isNil } from 'ramda'
@@ -11,7 +12,7 @@ import { isNil } from 'ramda'
 export async function setNonceForUser(username: Username, nonce: string): Promise<NonceDocument> {
   const userSnapshot = await getUserSnapshotByUsername(username)
   if (isNil(userSnapshot) || isNil(userSnapshot.data())) {
-    return Promise.reject(Error(`user with username ${username} not found`))
+    return Promise.reject(Error(UserError.NotFound))
   }
 
   const nonceSnapshot = await getNonceSnapshotForUser(userSnapshot.data().username)
