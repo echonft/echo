@@ -1,6 +1,6 @@
 import { assoc, dissoc, isNil, pipe, prop as ramdaProp } from 'ramda'
 
-function internalFn<K extends string | number>(prop: K, toName: string) {
+function innerRenameProp<K extends string | number>(prop: K, toName: string) {
   return function <T extends Record<K, unknown>>(obj: T): Omit<T, K> & Record<typeof toName, T[K]> {
     const value = ramdaProp(prop, obj)
     return pipe<[T], Omit<T, K>, Omit<T, K> & Record<typeof toName, T[K]>>(
@@ -27,7 +27,7 @@ export function renameProp<T extends Record<K, unknown>, K extends string | numb
   | (Omit<T, K> & Record<typeof toName, T[K]>)
   | (<T extends Record<K, unknown>>(obj: T) => Omit<T, K> & Record<typeof toName, T[K]>) {
   if (isNil(obj)) {
-    return internalFn<K>(prop, toName)
+    return innerRenameProp<K>(prop, toName)
   }
-  return internalFn<K>(prop, toName)(obj)
+  return innerRenameProp<K>(prop, toName)(obj)
 }

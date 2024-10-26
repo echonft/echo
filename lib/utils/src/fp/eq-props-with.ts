@@ -1,6 +1,6 @@
 import { isNil, prop as ramdaProp } from 'ramda'
 
-function internalFn<T, K extends keyof T>(
+function innerEqPropsWith<T, K extends keyof T>(
   prop: K,
   comparator: (objA: T[K], objB: T[K]) => boolean,
   objA: T
@@ -28,7 +28,7 @@ export function eqPropsWith<T, K extends keyof T>(
   objB?: T
 ): boolean | ((objB: T) => boolean) {
   if (isNil(objB)) {
-    return internalFn<T, K>(prop, comparator, objA)
+    return innerEqPropsWith<T, K>(prop, comparator, objA)
   }
-  return internalFn<T, K>(prop, comparator, objA)(objB)
+  return innerEqPropsWith<T, K>(prop, comparator, objA)(objB)
 }

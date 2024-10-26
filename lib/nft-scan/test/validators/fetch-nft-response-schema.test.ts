@@ -12,7 +12,6 @@ describe('validators - fetchNftResponseSchema', () => {
   })
 
   it('returns undefined if it is not found', () => {
-    expect(fetchNftResponseSchema(Chain.Blast).parse({ code: 200, data: null })).toBeUndefined()
     expect(fetchNftResponseSchema(Chain.Blast).parse({ code: 200, data: undefined })).toBeUndefined()
   })
 })

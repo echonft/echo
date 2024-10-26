@@ -1,6 +1,6 @@
 import { complement, either, has, isNil, pipe, prop } from 'ramda'
 
-function internalFn<V, P extends keyof V>(propKey: P) {
+function innerPropIsNil<V, P extends keyof V>(propKey: P) {
   return function (obj: V): obj is V & { [P in keyof V]: null | undefined } {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -14,7 +14,7 @@ export function propIsNil<V, P extends PropertyKey>(
 ): (obj: V) => obj is V & { [P in keyof V]: null | undefined }
 export function propIsNil<V, P extends keyof V>(propKey: P, obj?: V): boolean | ((obj: V) => boolean) {
   if (isNil(obj)) {
-    return internalFn<V, P>(propKey)
+    return innerPropIsNil<V, P>(propKey)
   }
-  return internalFn<V, P>(propKey)(obj)
+  return innerPropIsNil<V, P>(propKey)(obj)
 }

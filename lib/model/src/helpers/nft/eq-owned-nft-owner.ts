@@ -4,7 +4,7 @@ import type { Nft } from '@echo/model/types/nft'
 import { eqPropsWith } from '@echo/utils/fp/eq-props-with'
 import { isNil } from 'ramda'
 
-function internalFn(nftA: Nft): (nftB: Nft) => boolean {
+function innerEqOwnedNftOwner(nftA: Nft): (nftB: Nft) => boolean {
   return function (nftB: Nft) {
     if (!isOwnedNft(nftA)) {
       return !isOwnedNft(nftB)
@@ -20,7 +20,7 @@ export function eqOwnedNftOwner(nftA: Nft, nftB: Nft): boolean
 export function eqOwnedNftOwner(nftA: Nft): (nftB: Nft) => boolean
 export function eqOwnedNftOwner(nftA: Nft, nftB?: Nft): boolean | ((nftB: Nft) => boolean) {
   if (isNil(nftB)) {
-    return internalFn(nftA)
+    return innerEqOwnedNftOwner(nftA)
   }
-  return internalFn(nftA)(nftB)
+  return innerEqOwnedNftOwner(nftA)(nftB)
 }

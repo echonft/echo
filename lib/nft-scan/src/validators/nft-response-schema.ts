@@ -6,7 +6,6 @@ import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import type { NftResponse } from '@echo/nft-scan/types/response/nft-response'
 import { nftAttributeResponseSchema } from '@echo/nft-scan/validators/nft-attribute-response-schema'
 import { apiPathProvider } from '@echo/routing/path/api-path-provider'
-import { convertNullToUndefined } from '@echo/utils/fp/convert-null-to-undefined'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
@@ -65,7 +64,7 @@ export function nftResponseSchema(chain: Chain) {
         pipe(prop('token_id'), invoker(0, 'toString')),
         prop('name') as (response: NftResponse) => string
       ),
-      pictureUrl: pipe(prop('image_uri'), convertNullToUndefined),
+      pictureUrl: prop('image_uri'),
       tokenId: prop('token_id'),
       type: prop('erc_type')
     })

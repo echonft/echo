@@ -1,6 +1,6 @@
 import { isNil, map, type NonEmptyArray } from 'ramda'
 
-function internalFn<T, U>(mapper: (obj: T) => U) {
+function innerNonEmptyMap<T, U>(mapper: (obj: T) => U) {
   return function (list: NonEmptyArray<T>): NonEmptyArray<U> {
     return map<T, U>(mapper, list) as NonEmptyArray<U>
   }
@@ -13,7 +13,7 @@ export function nonEmptyMap<T, U>(
   list?: NonEmptyArray<T>
 ): NonEmptyArray<U> | ((list: NonEmptyArray<T>) => NonEmptyArray<U>) {
   if (isNil(list)) {
-    return internalFn<T, U>(mapper)
+    return innerNonEmptyMap<T, U>(mapper)
   }
-  return internalFn<T, U>(mapper)(list)
+  return innerNonEmptyMap<T, U>(mapper)(list)
 }

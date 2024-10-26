@@ -1,6 +1,6 @@
 import { always, ifElse, intersection, isEmpty, isNil, not, pipe } from 'ramda'
 
-function internalFn<T = unknown>(listA: T[]): (listB: T[]) => boolean {
+function innerIntersects<T = unknown>(listA: T[]): (listB: T[]) => boolean {
   return ifElse<[T[]], boolean, boolean>(
     always(isNil(listA)),
     always(false),
@@ -12,7 +12,7 @@ export function intersects<T = unknown>(listA: T[], listB: T[]): boolean
 export function intersects<T = unknown>(listA: T[]): (listB: T[]) => boolean
 export function intersects<T = unknown>(listA: T[], listB?: T[]): boolean | ((listB: T[]) => boolean) {
   if (isNil(listB)) {
-    return internalFn(listA)
+    return innerIntersects(listA)
   }
-  return internalFn(listA)(listB)
+  return innerIntersects(listA)(listB)
 }

@@ -1,6 +1,6 @@
 import { both, complement, has, isNil, pipe, prop } from 'ramda'
 
-function internalFn<T, K extends keyof T>(propKey: K) {
+function innerPropIsNotNil<T, K extends keyof T>(propKey: K) {
   return function (obj: T): obj is T & { [P in keyof T]: NonNullable<T[P]> } {
     return both(has(propKey), pipe(prop(propKey), complement(isNil)))(obj)
   }
@@ -15,7 +15,7 @@ export function propIsNotNil<T, K extends keyof T>(
   obj?: T
 ): boolean | ((obj: T) => obj is T & { [P in keyof T]: NonNullable<T[P]> }) {
   if (isNil(obj)) {
-    return internalFn<T, K>(propKey)
+    return innerPropIsNotNil<T, K>(propKey)
   }
-  return internalFn<T, K>(propKey)(obj)
+  return innerPropIsNotNil<T, K>(propKey)(obj)
 }
