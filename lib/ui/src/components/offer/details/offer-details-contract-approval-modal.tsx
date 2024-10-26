@@ -76,7 +76,7 @@ export const OfferDetailsContractApprovalModal: FunctionComponent<Props> = ({
                 key={approval.contract.address}
                 contract={approval.contract}
                 collectionName={approval.name}
-                owner={approval.wallet.address}
+                owner={approval.wallet}
                 approved={approval.approved}
                 onSuccess={updateApprovalStatus}
               />

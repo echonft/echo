@@ -37,6 +37,6 @@ export const Profile: StoryObj<ComponentType> = {
           : undefined
       )
     )(userMockJohnnyUsername())
-    return <UserProfile profile={profile} />
+    return <UserProfile user={profile} />
   }
 }

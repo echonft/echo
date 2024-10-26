@@ -40,7 +40,7 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.create.modal')
   const tError = useTranslations('error.offer')
-  const { getOfferByIdContract, contractCreateOffer } = useDependencies()
+  const { getOfferByIdContract, createOffer } = useDependencies()
   const baseOffer = useMemo(
     () =>
       buildBaseOffer({
@@ -70,13 +70,13 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
     CreateEchoOfferArgs
   >({
     key: SWRKeys.offer.contractCreate,
-    fetcher: contractCreateOffer,
+    fetcher: createOffer,
     onSuccess: () => {
       void getOfferTrigger({ idContract })
     },
     onError: {
       alert: { severity: CalloutSeverity.Error, message: tError('new') },
-      loggerContext: { component: CreateOfferModal.name, fetcher: contractCreateOffer.name, offer: baseOffer }
+      loggerContext: { component: CreateOfferModal.name, fetcher: createOffer.name, offer: baseOffer }
     }
   })
 

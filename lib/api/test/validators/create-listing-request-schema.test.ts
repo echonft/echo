@@ -17,7 +17,7 @@ describe('validators - createListingRequestSchema', () => {
     }
   }
 
-  it('throws if expires at is not valid', () => {
+  it('throws if expiration at is not valid', () => {
     expectZodError(assoc('expiration', undefined, createListingRequestMock), ZodIssueCode.invalid_type)
     expectZodError(assoc('expiration', '1h', createListingRequestMock), ZodIssueCode.invalid_enum_value)
   })

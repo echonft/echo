@@ -1,14 +1,11 @@
-import type { EvmAddress } from '@echo/model/types/address'
 import type { Item } from '@echo/model/types/item'
-import { type User } from '@echo/model/types/user'
+import type { NftOwner } from '@echo/model/types/nft'
 import { type NonEmptyArray } from 'ramda'
-
-type OfferUser = User & Record<'wallet', EvmAddress>
 
 export interface BaseOffer {
   expiresAt: number
-  receiver: OfferUser
+  receiver: NftOwner
   receiverItems: NonEmptyArray<Item>
-  sender: OfferUser
+  sender: NftOwner
   senderItems: NonEmptyArray<Item>
 }

@@ -1,8 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { collectionMockSpiral } from '@echo/model/mocks/collection-mock'
-import { type Collection } from '@echo/model/types/collection'
-import type { CollectionWithSwapsCount } from '@echo/model/types/collection-with-swaps-count'
+import { type Collection, type CollectionWithSwapsCount } from '@echo/model/types/collection'
 import { CollectionRow as Component } from '@echo/ui/components/collection/row/collection-row'
 import type { CollectionWithRank } from '@echo/ui/types/collection-with-rank'
 import { type Meta, type StoryObj } from '@storybook/react'

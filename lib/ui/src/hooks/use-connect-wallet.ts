@@ -1,43 +1,42 @@
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
-import { isEvmChain } from '@echo/model/helpers/chain/is-evm-chain'
-import type { Wallet } from '@echo/model/types/wallet'
+import { walletFromContract } from '@echo/model/helpers/wallet/wallet-from-contract'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { captureAndLogError } from '@echo/ui/helpers/capture-and-log-error'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
+import { AccountStatus } from '@echo/web3-dom/constants/account-status'
 import type { AccountResult } from '@echo/web3-dom/services/get-account'
 import type { SignNonceArgs, SignNonceResult } from '@echo/web3-dom/services/sign-nonce'
 import { useTranslations } from 'next-intl'
-import { includes, isNil, map, pipe, prop } from 'ramda'
-import { useEffect, useState } from 'react'
+import { andThen, includes, isNil, pipe, prop } from 'ramda'
+import { useEffect, useMemo, useState } from 'react'
 import useSWR, { mutate } from 'swr'
-
-function walletsInclude(wallets: Wallet[], wallet: Wallet) {
-  if (isEvmChain(wallet.chain)) {
-    return pipe<[Wallet[]], string[], boolean>(map(prop('address')), includes(wallet.address))(wallets)
-  }
-  return includes(wallet, wallets)
-}
 
 export function useConnectWallet(account: AccountResult) {
   const t = useTranslations('error.profile')
   const { addWallet, disconnectWallet, getNonce, getWallets, signNonce, switchChain } = useDependencies()
-  const { status, wallet } = account
-  const [connected, setConnected] = useState(false)
-  const { data: walletsResponse } = useSWR(
+  const { address, chain, status } = account
+  const wallet = useMemo(() => {
+    if (!isNil(address) && !isNil(chain)) {
+      return walletFromContract({ address, chain })
+    }
+    return undefined
+  }, [address, chain])
+  const [walletValid, setWalletValid] = useState(false)
+  const { data: wallets } = useSWR(
     SWRKeys.profile.wallet.get,
     (_key: string) => {
-      return getWallets()
+      return pipe(getWallets, andThen(prop('wallets')))()
     },
     {
       shouldRetryOnError: true,
       errorRetryCount: 3,
       errorRetryInterval: 500,
       revalidateOnMount: true,
-      onError: (err) => {
+      onError(err) {
         void disconnectWallet()
         captureAndLogError(err, {
           logObject: {
@@ -54,12 +53,13 @@ export function useConnectWallet(account: AccountResult) {
     key: SWRKeys.profile.nonce.get,
     fetcher: getNonce,
     onSuccess: (response) => {
-      if (!isNil(wallet)) {
+      if (!isNil(address) && !isNil(chain)) {
         void signNonceTrigger({
+          address,
+          chain,
           domain: window.location.origin,
           uri: window.location.origin,
-          nonce: response.nonce,
-          wallet
+          nonce: response.nonce
         })
       }
     },
@@ -82,7 +82,7 @@ export function useConnectWallet(account: AccountResult) {
     fetcher: addWallet,
     onSuccess: (response) => {
       void mutate(SWRKeys.profile.wallet.get, response.wallets).finally(() => {
-        setConnected(true)
+        setWalletValid(true)
       })
     },
     onError: {
@@ -103,9 +103,10 @@ export function useConnectWallet(account: AccountResult) {
     key: SWRKeys.profile.nonce.sign,
     fetcher: signNonce,
     onSuccess: ({ message, signature }) => {
-      if (!isNil(wallet)) {
+      if (!isNil(address) && !isNil(chain)) {
         void addWalletTrigger({
-          wallet,
+          address,
+          chain,
           message,
           signature
         })
@@ -128,18 +129,18 @@ export function useConnectWallet(account: AccountResult) {
 
   // when connected, check if wallet is linked and if not, add it
   useEffect(() => {
-    if (status === 'connected') {
-      if (isNil(wallet)) {
+    if (status === AccountStatus.Connected) {
+      if (isNil(chain)) {
         void switchChain()
-      } else if (!isNil(walletsResponse?.wallets) && !connected) {
-        if (walletsInclude(walletsResponse.wallets, wallet)) {
-          setConnected(true)
+      } else if (!isNil(wallets) && !walletValid) {
+        if (includes(wallet, wallets)) {
+          setWalletValid(true)
         } else {
           void getNonceTrigger()
         }
       }
     }
-  }, [getNonceTrigger, status, switchChain, wallet, connected, walletsResponse])
+  }, [chain, getNonceTrigger, status, switchChain, wallet, walletValid, wallets])
 
-  return connected
+  return walletValid
 }

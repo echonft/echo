@@ -1,7 +1,6 @@
 import { Chain } from '@echo/model/constants/chain'
 import { TokenType } from '@echo/model/constants/token-type'
-import { type Collection } from '@echo/model/types/collection'
-import type { CollectionWithCounts } from '@echo/model/types/collection-with-counts'
+import { type Collection, type CollectionWithCounts } from '@echo/model/types/collection'
 import type { NftCollection } from '@echo/model/types/nft'
 
 export const collectionMockPx: Collection = {

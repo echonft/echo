@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+import { Chain } from '@echo/model/constants/chain'
 import type { Contract } from '@echo/model/types/contract'
 import { fetchCollectionCommand } from '@echo/tasks/commands/fetch-collection-command'
 import { fetchNftCommand } from '@echo/tasks/commands/fetch-nft-command'
@@ -10,9 +11,8 @@ import { updateUserNftsCommand } from '@echo/tasks/commands/update-user-nfts-com
 import { updateUsersNftsCommand } from '@echo/tasks/commands/update-users-nfts-command'
 import { updateWalletNftsCommand } from '@echo/tasks/commands/update-wallet-nfts-command'
 import { stringComparator } from '@echo/utils/comparators/string-comparator'
-import { Chain } from '@echo/model/constants/chain'
 import type { HexString } from '@echo/utils/types/hex-string'
-import { formatWalletAddress } from '@echo/web3/utils/format-wallet-address'
+import { formatAddress } from '@echo/web3/utils/format-address'
 import { isAddress } from '@echo/web3/utils/is-address'
 import input from '@inquirer/input'
 import select from '@inquirer/select'
@@ -41,7 +41,7 @@ await yargs(hideBin(process.argv))
         default: Chain.Ethereum
       })
       const contract: Contract = applySpec<Contract>({
-        address: pipe(formatWalletAddress, toLower<HexString>),
+        address: pipe(formatAddress, toLower<HexString>),
         chain: prop('chain')
       })({ address, chain })
       await fetchCollectionCommand(contract)
@@ -71,7 +71,7 @@ await yargs(hideBin(process.argv))
         message: 'Token ID:'
       })
       const contract: Contract = applySpec<Contract>({
-        address: pipe(formatWalletAddress, toLower<HexString>),
+        address: pipe(formatAddress, toLower<HexString>),
         chain: prop('chain')
       })({ address, chain })
       await fetchNftCommand(contract, tokenId)
@@ -98,7 +98,7 @@ await yargs(hideBin(process.argv))
         default: Chain.Ethereum
       })
       const contract: Contract = applySpec<Contract>({
-        address: pipe(formatWalletAddress, toLower<HexString>),
+        address: pipe(formatAddress, toLower<HexString>),
         chain: prop('chain')
       })({ address, chain })
       await fetchNftsForWalletCommand(contract)
@@ -125,7 +125,7 @@ await yargs(hideBin(process.argv))
         default: Chain.Ethereum
       })
       const contract: Contract = applySpec<Contract>({
-        address: pipe(formatWalletAddress, toLower<HexString>),
+        address: pipe(formatAddress, toLower<HexString>),
         chain: prop('chain')
       })({ address, chain })
       await updateCollectionCommand(contract)
@@ -164,7 +164,7 @@ await yargs(hideBin(process.argv))
         default: Chain.Ethereum
       })
       const wallet: Contract = applySpec<Contract>({
-        address: pipe(formatWalletAddress, toLower<HexString>),
+        address: pipe(formatAddress, toLower<HexString>),
         chain: prop('chain')
       })({ address, chain })
       await updateWalletNftsCommand(wallet)

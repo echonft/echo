@@ -3,19 +3,20 @@ import { ConnectWalletButtonLayout } from '@echo/ui/components/wallet/connect-wa
 import { WalletButtonConnecting } from '@echo/ui/components/wallet/wallet-button-connecting'
 import { WalletConnectedTag } from '@echo/ui/components/wallet/wallet-connected-tag'
 import { useAccount } from '@echo/ui/hooks/use-account'
+import { AccountStatus } from '@echo/web3-dom/constants/account-status'
 import { ConnectKitButton } from 'connectkit'
 import { isNil, pipe, T } from 'ramda'
 import { type FunctionComponent, type MouseEventHandler, useState } from 'react'
 
 export const ConnectWalletButton: FunctionComponent<{ onClick?: MouseEventHandler }> = ({ onClick }) => {
-  const account = useAccount()
+  const { address, chain, status } = useAccount()
   const [connected, setConnected] = useState(false)
 
-  if (connected && !isNil(account.wallet)) {
-    return <WalletConnectedTag wallet={account.wallet} />
+  if (connected && !isNil(address) && !isNil(chain)) {
+    return <WalletConnectedTag address={address} />
   }
-  if (account.status === 'connected') {
-    return <WalletButtonConnecting account={account} onConnected={pipe(T, setConnected)} />
+  if (status === AccountStatus.Connected) {
+    return <WalletButtonConnecting onConnected={pipe(T, setConnected)} />
   }
   return (
     <ConnectKitButton.Custom>

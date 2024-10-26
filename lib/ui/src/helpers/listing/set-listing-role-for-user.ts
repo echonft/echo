@@ -1,3 +1,4 @@
+import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { nftsCollectionSlug } from '@echo/model/helpers/nft/nfts-collection-slug'
 import type { Listing } from '@echo/model/types/listing'
 import type { Nft } from '@echo/model/types/nft'
@@ -9,8 +10,8 @@ import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { any, equals, isNil, pipe } from 'ramda'
 
-export function setListingRoleForUser(user: Nullable<User>, nfts: Nft[]) {
-  return function (listing: Listing): ListingWithRole {
+export function setListingRoleForUser(user: Nullable<User>) {
+  return async function (listing: Listing): Promise<ListingWithRole> {
     if (isNil(user)) {
       return setListingRoleUndefined(listing)
     }
@@ -18,6 +19,7 @@ export function setListingRoleForUser(user: Nullable<User>, nfts: Nft[]) {
     if (listing.creator.username === username) {
       return setListingRoleCreator(listing)
     }
+    const nfts = await getNftsForOwner(user.username)
     if (pipe<[Nft[]], string[], boolean>(nftsCollectionSlug, any(equals(listing.target.collection.slug)))(nfts)) {
       return setListingRoleTarget(listing)
     }

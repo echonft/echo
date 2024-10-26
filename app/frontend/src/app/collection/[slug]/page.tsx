@@ -6,6 +6,9 @@ import { getPendingOffersForCollection } from '@echo/firestore/crud/offer/get-pe
 import { getSwapsForCollection } from '@echo/firestore/crud/swap/get-swaps-for-collection'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
+import { toListingsWithRole } from '@echo/frontend/lib/helpers/listing/to-listings-with-role'
+import { toOffersWithRole } from '@echo/frontend/lib/helpers/offer/to-offers-with-role'
+import { toSwaps } from '@echo/frontend/lib/helpers/swap/to-swaps'
 import type { Slug } from '@echo/model/types/slug'
 import type { User } from '@echo/model/types/user'
 import { getSelectionFromSearchParams } from '@echo/routing/search-params/get-selection-from-search-params'
@@ -13,12 +16,10 @@ import { NavigationPageLayout } from '@echo/ui/components/base/layout/navigation
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { CollectionDetails } from '@echo/ui/components/collection/details/collection-details'
-import { setListingsRole } from '@echo/ui/helpers/listing/set-listings-role'
-import { setOfferRoleForUser } from '@echo/ui/helpers/offer/set-offer-role-for-user'
 import { CollectionTabs } from '@echo/ui/pages/collection/collection-tabs'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound } from 'next/navigation'
-import { always, andThen, isNil, map, mergeLeft, otherwise, pipe, prop } from 'ramda'
+import { always, andThen, isNil, mergeLeft, otherwise, pipe, prop } from 'ramda'
 
 interface Props {
   params: {
@@ -43,15 +44,19 @@ async function render({ params: { slug }, searchParams, user }: Props) {
   })
   const listings = await pipe(
     getPendingListingsForCollection,
-    andThen(setListingsRole(user)),
+    andThen(toListingsWithRole(user)),
     otherwise(pipe(captureAndLogError, always([])))
   )(slug)
   const offers = await pipe(
     getPendingOffersForCollection,
-    andThen(map(setOfferRoleForUser(user))),
+    andThen(toOffersWithRole(user)),
     otherwise(pipe(captureAndLogError, always([])))
   )(slug)
-  const swaps = await pipe(getSwapsForCollection, otherwise(pipe(captureAndLogError, always([]))))(slug)
+  const swaps = await pipe(
+    getSwapsForCollection,
+    andThen(toSwaps),
+    otherwise(pipe(captureAndLogError, always([])))
+  )(slug)
   const selection = getSelectionFromSearchParams({ listings, offers, swaps, searchParams })
 
   return (

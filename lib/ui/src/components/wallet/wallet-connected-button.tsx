@@ -1,9 +1,10 @@
 'use client'
-import type { Wallet } from '@echo/model/types/wallet'
+import type { Chain } from '@echo/model/constants/chain'
+import type { Address } from '@echo/model/types/address'
 import { ExternalLink } from '@echo/ui/components/base/external-link'
 import { ExternalLinkIconSvg } from '@echo/ui/components/base/svg/external-link-icon-svg'
 import { useBlockExplorerLink } from '@echo/ui/hooks/use-block-explorer-link'
-import { formatWalletAddress } from '@echo/web3/utils/format-wallet-address'
+import { formatAddress } from '@echo/web3/utils/format-address'
 import { shortenAddress } from '@echo/web3/utils/shorten-address'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -12,22 +13,23 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { Tooltip } from 'react-tooltip'
 
 interface Props {
-  wallet: Wallet
+  address: Address
+  chain?: Chain
 }
 
-export const WalletConnectedButton: FunctionComponent<Props> = ({ wallet }) => {
+export const WalletConnectedButton: FunctionComponent<Props> = ({ address, chain }) => {
   const t = useTranslations('wallet.button')
-  const buttonId = `wallet-${wallet.address}`
-  const walletLink = useBlockExplorerLink(wallet)
+  const buttonId = `wallet-${address}`
+  const walletLink = useBlockExplorerLink({ address, chain })
   return (
     <div className={clsx('flex', 'flex-row')}>
       <div>
-        <CopyToClipboard text={formatWalletAddress(wallet)}>
+        <CopyToClipboard text={formatAddress(address)}>
           <button
             id={buttonId}
             className={clsx('btn-auth-alt', 'bg-white/[0.08]', 'border-none', 'rounded-none', 'rounded-l-lg')}
           >
-            <span className={clsx('btn-label-auth')}>{shortenAddress(wallet)}</span>
+            <span className={clsx('btn-label-auth')}>{shortenAddress(address)}</span>
           </button>
         </CopyToClipboard>
         <Tooltip

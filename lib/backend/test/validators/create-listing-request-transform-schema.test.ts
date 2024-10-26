@@ -22,8 +22,7 @@ import { type NftTokenType, TokenType } from '@echo/model/constants/token-type'
 import { eqNft } from '@echo/model/helpers/nft/eq-nft'
 import { collectionMockPx } from '@echo/model/mocks/collection-mock'
 import { erc1155ItemMock, erc721ItemMock } from '@echo/model/mocks/item-mock'
-import { erc1155NftMock, erc721NftMock } from '@echo/model/mocks/nft-mock'
-import { userMockJohnny } from '@echo/model/mocks/user-mock'
+import { erc1155NftMock, erc721NftMock, nftOwnerMockJohnny } from '@echo/model/mocks/nft-mock'
 import type { Listing } from '@echo/model/types/listing'
 import type { NftIndex } from '@echo/model/types/nft'
 import { toPromise } from '@echo/utils/fp/to-promise'
@@ -170,7 +169,7 @@ describe('validators - createListingRequestTransformSchema', () => {
   it('valid', async () => {
     const schema = await createListingRequestTransformSchema(userDocumentMockJohnny.username)
     const expectedValue: ExpectedReturn = {
-      creator: userMockJohnny,
+      creator: nftOwnerMockJohnny,
       expiration: Expiration.OneDay,
       items: [erc721ItemMock, erc1155ItemMock],
       target: {

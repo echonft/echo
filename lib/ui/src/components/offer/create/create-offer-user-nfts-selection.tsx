@@ -5,7 +5,6 @@ import type { User } from '@echo/model/types/user'
 import { Profile } from '@echo/ui/components/base/profile'
 import { SelectableNfts } from '@echo/ui/components/nft/selectable/selectable-nfts'
 import { UserProfileDetailsLayout } from '@echo/ui/components/user/profile/layout/user-profile-details-layout'
-import { UserProfileWallets } from '@echo/ui/components/user/profile/user-profile-wallets'
 import { UserTag } from '@echo/ui/components/user/profile/user-tag'
 import clsx from 'clsx'
 import type { FunctionComponent } from 'react'
@@ -27,15 +26,15 @@ export const CreateOfferUserNftsSelection: FunctionComponent<Props> = ({
 }) => {
   const {
     discord: { avatarUrl },
-    username,
-    wallet
+    username
+    // wallet
   } = user
   return (
     <div className={clsx('flex', 'flex-col', 'gap-14')}>
       <Profile picture={{ pictureUrl: avatarUrl, alt: username }}>
         <UserProfileDetailsLayout>
           <UserTag user={user} />
-          <UserProfileWallets wallets={[wallet]} />
+          {/*<WalletConnectedButton address={address} chain={chain} />*/}
         </UserProfileDetailsLayout>
       </Profile>
       <SelectableNfts

@@ -2,10 +2,14 @@ import { getListingsForCreator } from '@echo/firestore/crud/listing/get-listings
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { getPendingOffersForUser } from '@echo/firestore/crud/offer/get-pending-offers-for-user'
 import { getSwapsForUser } from '@echo/firestore/crud/swap/get-swaps-for-user'
+import { getUserOffersCount } from '@echo/firestore/crud/user/counts/get-user-offers-count'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
-import { getUserProfile } from '@echo/firestore/crud/user/get-user-profile'
+import { getWalletForUser } from '@echo/firestore/crud/wallet/get-wallet-for-user'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
+import { toListingsWithRole } from '@echo/frontend/lib/helpers/listing/to-listings-with-role'
+import { toOffersWithRole } from '@echo/frontend/lib/helpers/offer/to-offers-with-role'
+import { toSwaps } from '@echo/frontend/lib/helpers/swap/to-swaps'
 import type { Slug } from '@echo/model/types/slug'
 import type { User } from '@echo/model/types/user'
 import type { Username } from '@echo/model/types/username'
@@ -14,12 +18,10 @@ import { NavigationPageLayout } from '@echo/ui/components/base/layout/navigation
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { UserProfile } from '@echo/ui/components/user/profile/user-profile'
-import { setListingsRole } from '@echo/ui/helpers/listing/set-listings-role'
-import { setOfferRoleForUser } from '@echo/ui/helpers/offer/set-offer-role-for-user'
 import { UserTabs } from '@echo/ui/pages/user/user-tabs'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound } from 'next/navigation'
-import { always, andThen, isNil, map, otherwise, pipe } from 'ramda'
+import { always, andThen, isNil, otherwise, pipe } from 'ramda'
 
 interface Props {
   params: {
@@ -37,29 +39,34 @@ async function render({ params: { username }, searchParams, user: authUser }: Pr
   if (isNil(user)) {
     notFound()
   }
-  const profile = await pipe(getUserProfile, otherwise(pipe(captureAndLogError, always(undefined))))(user)
-  if (isNil(profile)) {
-    notFound()
-  }
+  const wallet = await pipe(getWalletForUser, otherwise(pipe(captureAndLogError, always(undefined))))(user.username)
   const isAuthUser = username === authUser?.username
   const nfts = await pipe(getNftsForOwner, otherwise(pipe(captureAndLogError, always([]))))(username)
   const listings = await pipe(
     getListingsForCreator,
-    andThen(setListingsRole(user)),
+    andThen(toListingsWithRole(authUser)),
     otherwise(pipe(captureAndLogError, always([])))
   )(username)
   const offers = await pipe(
     getPendingOffersForUser,
-    andThen(map(setOfferRoleForUser(authUser))),
+    andThen(toOffersWithRole(authUser)),
     otherwise(pipe(captureAndLogError, always([])))
   )(username)
-  const swaps = await pipe(getSwapsForUser, otherwise(pipe(captureAndLogError, always([]))))(username)
+  const offersCount = await pipe(getUserOffersCount, otherwise(pipe(captureAndLogError, always(0))))(username)
+  const swaps = await pipe(getSwapsForUser, andThen(toSwaps), otherwise(pipe(captureAndLogError, always([]))))(username)
   const selection = getSelectionFromSearchParams({ listings, offers, swaps, searchParams })
 
   return (
     <NavigationPageLayout user={authUser}>
       <SectionLayout>
-        <UserProfile profile={profile} />
+        <UserProfile
+          address={wallet.address}
+          user={user}
+          listingsCount={listings.length}
+          nftsCount={nfts.length}
+          offersCount={offersCount}
+          swapsCount={swaps.length}
+        />
       </SectionLayout>
       <NavigationSectionLayout>
         <UserTabs

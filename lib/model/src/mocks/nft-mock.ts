@@ -6,6 +6,10 @@ import type { Erc1155Nft } from '@echo/model/types/erc1155-nft'
 import type { Erc721Nft } from '@echo/model/types/erc721-nft'
 import type { OwnedNft } from '@echo/model/types/owned-nft'
 
+export const nftOwnerMockJohnny = { ...userMockJohnny, wallet: walletMockJohnny.address }
+
+export const nftOwnerMockCrew = { ...userMockCrew, wallet: walletMockCrew.address }
+
 export const nftMockSpiral1: OwnedNft = {
   attributes: [
     { value: 'archimedean', trait: 'Algorithm' },
@@ -19,7 +23,7 @@ export const nftMockSpiral1: OwnedNft = {
   ],
   collection: nftCollectionMockSpiral,
   name: 'Spiral Frequencies #1',
-  owner: { ...userMockJohnny, wallet: walletMockJohnny.address },
+  owner: nftOwnerMockJohnny,
   pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
   tokenId: 1,
   type: TokenType.Erc721
@@ -62,7 +66,7 @@ export const nftMockSpiral2: OwnedNft = {
   ],
   collection: nftCollectionMockSpiral,
   name: 'Spiral Frequencies #2',
-  owner: { ...userMockJohnny, wallet: walletMockJohnny.address },
+  owner: nftOwnerMockJohnny,
   pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/c8ced259cc0a40a5a42d22182e82f9de',
   tokenId: 2,
   type: TokenType.Erc721
@@ -105,7 +109,7 @@ export const nftMockSpiral3: OwnedNft = {
   ],
   collection: nftCollectionMockSpiral,
   name: 'Spiral Frequencies #3',
-  owner: { ...userMockCrew, wallet: walletMockCrew.address },
+  owner: nftOwnerMockCrew,
   pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/f7adbf923a17d9b1f9b33d7a23d2b621',
   tokenId: 3,
   type: TokenType.Erc721
@@ -164,7 +168,7 @@ export const nftMockPx1: OwnedNft = {
   ],
   collection: nftCollectionMockPx,
   name: 'Creative Demigod #1',
-  owner: { ...userMockJohnny, wallet: walletMockJohnny.address },
+  owner: nftOwnerMockJohnny,
   pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/c96b4f27dc8dec8a869932f36205bafa',
   tokenId: 1,
   type: TokenType.Erc721
@@ -211,7 +215,7 @@ export const nftMockPx2: OwnedNft = {
   ],
   collection: nftCollectionMockPx,
   name: 'Water Elemental #2',
-  owner: { ...userMockJohnny, wallet: walletMockJohnny.address },
+  owner: nftOwnerMockJohnny,
   pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/eaefecb1e422f0f1848058cfdc8a36a9',
   tokenId: 2,
   type: TokenType.Erc721
@@ -262,7 +266,7 @@ export const nftMockPx3: OwnedNft = {
   ],
   collection: nftCollectionMockPx,
   name: 'Creative Demigod #3',
-  owner: { ...userMockCrew, wallet: walletMockCrew.address },
+  owner: nftOwnerMockCrew,
   pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/d4ccdfe6a54889abc408c34335b6fb55',
   tokenId: 3,
   type: TokenType.Erc721

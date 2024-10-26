@@ -20,7 +20,6 @@ import { isErc721Item } from '@echo/model/helpers/item/is-erc721-item'
 import { listingSignature } from '@echo/model/helpers/listing/listing-signature'
 import { erc1155NftToItem } from '@echo/model/mappers/nft/erc1155-nft-to-item'
 import { erc721NftToItem } from '@echo/model/mappers/nft/erc721-nft-to-item'
-import type { EvmAddress } from '@echo/model/types/address'
 import type { Erc1155Item } from '@echo/model/types/erc1155-item'
 import type { Erc1155Nft } from '@echo/model/types/erc1155-nft'
 import type { Erc721Item } from '@echo/model/types/erc721-item'
@@ -191,15 +190,9 @@ export async function createListingRequestTransformSchema(username: Username) {
       }
       return dissoc('owner', item)
     }
-    const creator = pipe<
-      [NonEmptyArray<NftItemWithOwner>],
-      NftItemWithOwner,
-      User & Record<'wallet', EvmAddress>,
-      User
-    >(
+    const creator = pipe<[NonEmptyArray<NftItemWithOwner>], NftItemWithOwner, NftOwner>(
       head,
-      prop('owner'),
-      dissoc('wallet')
+      prop('owner')
     )(params.items as NonEmptyArray<NftItemWithOwner>)
     const items = pipe(map(removeItemOwner), toNonEmptyArray)(params.items)
     // Ensure listing is not a duplicate

@@ -1,6 +1,5 @@
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
-import { getUserProfile } from '@echo/firestore/crud/user/get-user-profile'
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import { eqOwnedNftOwner } from '@echo/model/helpers/nft/eq-owned-nft-owner'
@@ -52,16 +51,11 @@ async function render({ searchParams: { items, target }, user }: Props) {
   if (isNilOrEmpty(items)) {
     notFound()
   }
-  const profile = await pipe(getUserProfile, otherwise(pipe(captureAndLogError, always(undefined))))(user)
-  if (isNil(profile)) {
-    notFound()
-  }
   const receiverNftsSelection = await pipe(
     unless(is(Array), juxt([identity])),
     map(getNftIndexFromSearchParam),
     map(getNftByIndex),
     promiseAll,
-    // TODO use a validator schema instead
     andThen<Nullable<Nft>[], OwnedNft[]>(
       pipe<[Nullable<Nft>[]], Nft[], OwnedNft[], OwnedNft[][], OwnedNft[]>(
         reject(isNil),
@@ -76,7 +70,7 @@ async function render({ searchParams: { items, target }, user }: Props) {
   if (!isNonEmptyArray(receiverNftsSelection)) {
     notFound()
   }
-  const receiver = pipe(head, prop('owner'))(receiverNftsSelection)
+  const receiver = pipe(head, prop('owner')<OwnedNft>)(receiverNftsSelection)
   const receiverChain = pipe(head, path(['collection', 'contract', 'chain']))(receiverNftsSelection)
   const receiverNfts = await pipe(
     prop('username'),
@@ -109,7 +103,7 @@ async function render({ searchParams: { items, target }, user }: Props) {
         receiverNftsSelection={receiverNftsSelection}
         receiver={receiver}
         senderNfts={senderNfts}
-        sender={profile}
+        sender={user}
       />
     </PageLayout>
   )

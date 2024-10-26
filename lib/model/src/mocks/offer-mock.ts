@@ -1,8 +1,7 @@
 import { Chain } from '@echo/model/constants/chain'
 import { OfferState } from '@echo/model/constants/offer-state'
 import { TokenType } from '@echo/model/constants/token-type'
-import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
-import { walletMockCrew, walletMockJohnny } from '@echo/model/mocks/wallet-mock'
+import { nftOwnerMockCrew, nftOwnerMockJohnny } from '@echo/model/mocks/nft-mock'
 import type { BaseOffer } from '@echo/model/types/base-offer'
 import { type Offer } from '@echo/model/types/offer'
 
@@ -10,7 +9,7 @@ export const offerMockToJohnnycage: Offer = {
   expiresAt: 2324074781,
   locked: false,
   idContract: '0xlycfl6eg7jkud7xj6ipi',
-  receiver: { ...userMockJohnny, wallet: walletMockJohnny.address },
+  receiver: nftOwnerMockJohnny,
   receiverItems: [
     {
       token: {
@@ -30,7 +29,7 @@ export const offerMockToJohnnycage: Offer = {
       }
     }
   ],
-  sender: { ...userMockCrew, wallet: walletMockCrew.address },
+  sender: nftOwnerMockCrew,
   senderItems: [
     {
       token: {
@@ -56,7 +55,7 @@ export const offerMockToJohnnycage: Offer = {
 
 export const baseOfferMockToJohnnycage: BaseOffer = {
   expiresAt: 2324074781,
-  receiver: { ...userMockJohnny, wallet: walletMockJohnny.address },
+  receiver: nftOwnerMockJohnny,
   receiverItems: [
     {
       token: {
@@ -76,7 +75,7 @@ export const baseOfferMockToJohnnycage: BaseOffer = {
       }
     }
   ],
-  sender: { ...userMockCrew, wallet: walletMockCrew.address },
+  sender: nftOwnerMockCrew,
   senderItems: [
     {
       token: {
@@ -102,7 +101,7 @@ export const offerMockFromJohnnycage: Offer = {
   expiresAt: 2324074781,
   locked: true,
   idContract: '0xaskfpkohehvh0gd69t1g',
-  receiver: { ...userMockCrew, wallet: walletMockCrew.address },
+  receiver: nftOwnerMockCrew,
   receiverItems: [
     {
       token: {
@@ -122,7 +121,7 @@ export const offerMockFromJohnnycage: Offer = {
       }
     }
   ],
-  sender: { ...userMockJohnny, wallet: walletMockJohnny.address },
+  sender: nftOwnerMockJohnny,
   senderItems: [
     {
       token: {
@@ -165,7 +164,7 @@ export const offerMockFromJohnnycage: Offer = {
 
 export const baseOfferMockFromJohnnycage: BaseOffer = {
   expiresAt: 2324074781,
-  receiver: { ...userMockCrew, wallet: walletMockCrew.address },
+  receiver: nftOwnerMockCrew,
   receiverItems: [
     {
       token: {
@@ -185,7 +184,7 @@ export const baseOfferMockFromJohnnycage: BaseOffer = {
       }
     }
   ],
-  sender: { ...userMockJohnny, wallet: walletMockJohnny.address },
+  sender: nftOwnerMockJohnny,
   senderItems: [
     {
       token: {

@@ -2,6 +2,7 @@ import type { Chain } from '@echo/model/constants/chain'
 import { chainById } from '@echo/model/helpers/chain/chain-by-id'
 import type { Address } from '@echo/model/types/address'
 import type { ChainId } from '@echo/model/types/chain'
+import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { AccountStatus } from '@echo/web3-dom/constants/account-status'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
@@ -9,7 +10,7 @@ import { always, applySpec, ifElse, isNil, pipe, prop, propEq, toLower } from 'r
 import { getAccount as wagmiGetAccount, type GetAccountReturnType, watchAccount } from 'wagmi/actions'
 
 export interface AccountResult {
-  address: Address
+  address: Nullable<Address>
   chain: Nullable<Chain>
   status: AccountStatus
 }
@@ -26,7 +27,7 @@ export function mapResult(result: GetAccountReturnType): AccountResult {
   }
 
   return applySpec<AccountResult>({
-    address: pipe(prop('address'), toLower),
+    address: pipe(prop('address'), unlessNil(toLower)),
     chain: getChain,
     status: ifElse(propEq('reconnecting', 'status'), always(AccountStatus.Connecting), prop('status'))
   })(result)

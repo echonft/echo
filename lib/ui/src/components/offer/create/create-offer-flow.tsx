@@ -12,19 +12,16 @@ import { type NonEmptyArray, values } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  loading: boolean
   sender: User
   senderNfts: OwnedNft[]
   receiver: User
   receiverNfts: OwnedNft[]
   receiverNftsSelection: NonEmptyArray<OwnedNft>
+  loading?: boolean
   onComplete?: () => void
   onCancel?: () => void
 }
 
-// TODO don't use a state to update the container here
-// instead use a layout in the frontend, and set the according component according to the route
-// (e.g. offer/{step}) where step is a value of OfferCreationSteps
 export const CreateOfferFlow: FunctionComponent<Props> = ({
   loading,
   sender,

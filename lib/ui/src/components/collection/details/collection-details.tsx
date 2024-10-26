@@ -1,4 +1,4 @@
-import type { CollectionWithCounts } from '@echo/model/types/collection-with-counts'
+import type { CollectionWithCounts } from '@echo/model/types/collection'
 import { CountsDetails } from '@echo/ui/components/base/counts-details'
 import { ProfileLayout } from '@echo/ui/components/base/layout/profile-layout'
 import { CollectionDetailsDescription } from '@echo/ui/components/collection/details/collection-details-description'

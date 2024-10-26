@@ -8,7 +8,7 @@ import { walletDocumentToModel } from '@echo/firestore/converters/wallet-documen
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
-import { chains } from '@echo/model/constants/chain'
+import { walletFromContract } from '@echo/model/helpers/wallet/wallet-from-contract'
 import { andThen, isNil, map, objOf, pipe } from 'ramda'
 
 export async function removeWalletRequestHandler({
@@ -20,6 +20,6 @@ export async function removeWalletRequestHandler({
   if (isNil(foundUser)) {
     return Promise.reject(new NotFoundError())
   }
-  await removeWallet({ address, vm: chains[chain].vm })
+  await pipe(walletFromContract, removeWallet)({ address, chain })
   return pipe(getWalletsForUser, andThen(pipe(map(walletDocumentToModel), objOf('wallets'), toNextReponse)))(username)
 }

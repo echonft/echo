@@ -2,9 +2,9 @@ import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { NftError } from '@echo/model/constants/errors/nft-error'
 import { nftIndex } from '@echo/model/helpers/nft/nft-index'
-import { nftMockSpiral1 } from '@echo/model/mocks/nft-mock'
-import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
-import { walletMockCrew, walletMockJohnny } from '@echo/model/mocks/wallet-mock'
+import { nftMockSpiral1, nftOwnerMockJohnny } from '@echo/model/mocks/nft-mock'
+import { userMockCrew } from '@echo/model/mocks/user-mock'
+import { walletMockCrew } from '@echo/model/mocks/wallet-mock'
 import type { NftOwner } from '@echo/model/types/nft'
 import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { resetNft } from '@echo/test/firestore/crud/nft/reset-nft'
@@ -25,7 +25,7 @@ describe('CRUD - nft - setNftOwner', () => {
   })
 
   it('throws if the NFT does not exist', async () => {
-    const owner = { ...userMockJohnny, wallet: walletMockJohnny.address }
+    const owner = nftOwnerMockJohnny
     await expect(setNftOwner({ nft: { collection: { slug: 'not-found' }, tokenId: 0 }, owner })).rejects.toEqual(
       Error(NftError.NotFound)
     )

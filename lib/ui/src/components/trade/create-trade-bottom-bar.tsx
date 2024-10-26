@@ -12,8 +12,8 @@ import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  loading: boolean
   items: OwnedNft[]
+  loading?: boolean
   targetCollection?: Collection
   targetQuantity?: number
   counterpartyItems?: OwnedNft[]

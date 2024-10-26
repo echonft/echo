@@ -1,4 +1,4 @@
-import type { CollectionWithSwapsCount } from '@echo/model/types/collection-with-swaps-count'
+import type { CollectionWithSwapsCount } from '@echo/model/types/collection'
 
 export interface CollectionWithRank extends CollectionWithSwapsCount {
   rank: number

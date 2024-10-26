@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { getCollectionWithCountsMock } from '@echo/model/mocks/collection/get-collection-with-counts-mock'
-import type { CollectionWithCounts } from '@echo/model/types/collection-with-counts'
+import type { CollectionWithCounts } from '@echo/model/types/collection'
 import { CollectionDetails } from '@echo/ui/components/collection/details/collection-details'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { always, assoc, dissoc, pipe, when } from 'ramda'

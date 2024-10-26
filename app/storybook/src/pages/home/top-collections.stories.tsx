@@ -1,8 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { collectionMocks } from '@echo/model/mocks/collection-mock'
-import { type Collection } from '@echo/model/types/collection'
-import type { CollectionWithSwapsCount } from '@echo/model/types/collection-with-swaps-count'
+import { type Collection, type CollectionWithSwapsCount } from '@echo/model/types/collection'
 import { TopCollections as Component } from '@echo/ui/pages/home/collection/top/top-collections'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { addIndex, assoc, concat, map, pipe } from 'ramda'

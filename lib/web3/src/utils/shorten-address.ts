@@ -1,14 +1,12 @@
-import type { Wallet } from '@echo/model/types/wallet'
-import type { UnformattedWallet } from '@echo/web3/types/unformatted-wallet'
-import { formatWalletAddress } from '@echo/web3/utils/format-wallet-address'
+import type { HexString } from '@echo/utils/types/hex-string'
+import { formatAddress } from '@echo/web3/utils/format-address'
 
 /**
  * Shorten the address to display the 4 first chars and 4 last chars.
  * Function throws if the str is not an address
- * @param {Wallet | UnformattedWallet} args
- * @return {((args: {address: string, chainId: number}) => string}
+ * @param {string} address
  */
-export function shortenAddress(args: Wallet | UnformattedWallet): string {
-  const formattedAddress = formatWalletAddress(args)
-  return `${formattedAddress.substring(0, 6)}...${formattedAddress.substring(formattedAddress.length - 4)}`
+export function shortenAddress(address: string): HexString {
+  const formattedAddress = formatAddress(address)
+  return `${formattedAddress.substring(0, 6)}...${formattedAddress.substring(formattedAddress.length - 4)}` as HexString
 }

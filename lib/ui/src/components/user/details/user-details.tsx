@@ -1,4 +1,5 @@
-import { type User } from '@echo/model/types/user'
+import type { Chain } from '@echo/model/constants/chain'
+import type { NftOwner } from '@echo/model/types/nft'
 import { pathProvider } from '@echo/routing/path/path-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { ProfilePicture } from '@echo/ui/components/base/profile-picture'
@@ -10,18 +11,20 @@ import { Size } from '@echo/ui/constants/size'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  user: User
+  user: NftOwner
+  chain: Chain
   isAuthUser?: boolean
 }
 
 /**
  * Shared between listings and offers
  * Shows the picture of the user (if listing = creator, if offer = sender) and their wallet address
+ * @param chain
  * @param user
  * @param isAuthUser
  */
-export const UserDetails: FunctionComponent<Props> = ({ user, isAuthUser = false }) => {
-  const { discord, wallet } = user
+export const UserDetails: FunctionComponent<Props> = ({ chain, user, isAuthUser = false }) => {
+  const { discord } = user
   const { username, avatarUrl } = discord
   return (
     <UserDetailsLayout>
@@ -30,7 +33,7 @@ export const UserDetails: FunctionComponent<Props> = ({ user, isAuthUser = false
       </InternalLink>
       <UserDetailsDiscordTagAndWalletLayout>
         <UserTag user={user} isAuthUser={isAuthUser} />
-        <WalletConnectedButton wallet={wallet} />
+        <WalletConnectedButton address={user.wallet} chain={chain} />
       </UserDetailsDiscordTagAndWalletLayout>
     </UserDetailsLayout>
   )

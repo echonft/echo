@@ -1,4 +1,5 @@
 'use client'
+import { eqFilter } from '@echo/model/helpers/filter/eq-filter'
 import type { Nft } from '@echo/model/types/nft'
 import { NftFiltersPanelLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panel-layout'
 import { NftFilter } from '@echo/ui/components/nft/filters/nft-filter'
@@ -26,7 +27,7 @@ export const CollectionFilterPanel: FunctionComponent<Props> = ({ nfts, selectio
           <NftFilter
             key={filter.id}
             filter={filter}
-            selected={!isNil(selection) && eqWithId(filter, selection)}
+            selected={!isNil(selection) && eqFilter(filter, selection)}
             onToggleSelection={onToggleSelection}
           />
         ),

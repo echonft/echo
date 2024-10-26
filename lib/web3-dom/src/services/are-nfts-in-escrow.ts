@@ -2,9 +2,9 @@ import type { Chain } from '@echo/model/constants/chain'
 import type { Nft } from '@echo/model/types/nft'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { walletClient } from '@echo/web3-dom/helpers/wallet-client'
-import { mapNftsToIsOwnerContractCalls } from '@echo/web3-dom/mappers/map-nfts-to-is-owner-contract-calls'
 import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
-import { all, head, isNil, map, path, pipe, prop, toLower } from 'ramda'
+import { all, always, applySpec, head, isNil, map, path, pipe, prop, toLower } from 'ramda'
+import { type ContractFunctionParameters, erc721Abi } from 'viem'
 import { multicall } from 'viem/actions'
 
 export interface AreNftsInEscrowArgs {
@@ -22,7 +22,15 @@ function isEchoAddress(chain: Chain) {
 
 export async function areNftsInEscrow({ nfts }: AreNftsInEscrowArgs): Promise<boolean> {
   const chain = pipe<[Nft[]], Nft, Chain>(head, path(['collection', 'contract', 'chain']))(nfts)
-  const contractCalls = mapNftsToIsOwnerContractCalls(nfts)
+  const contractCalls = map(
+    applySpec<ContractFunctionParameters>({
+      address: path(['collection', 'contract', 'address']),
+      abi: always(erc721Abi),
+      functionName: always('ownerOf'),
+      args: [prop('tokenId')]
+    }),
+    nfts
+  )
   const client = walletClient(chain)
   const results = await multicall(client, {
     contracts: contractCalls

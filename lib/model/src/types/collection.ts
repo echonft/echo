@@ -1,5 +1,6 @@
 import { TokenType } from '@echo/model/constants/token-type'
 import type { Contract } from '@echo/model/types/contract'
+import type { Counts } from '@echo/model/types/counts'
 import type { Slug } from '@echo/model/types/slug'
 
 export interface Collection {
@@ -18,3 +19,8 @@ export interface Collection {
 
 export type CollectionIndex = Pick<Collection, 'slug'>
 export type CollectionContract = Pick<Collection, 'contract'>
+export type CollectionWithCounts = Collection & Counts
+
+export interface CollectionWithSwapsCount extends Collection {
+  readonly swapsCount: number
+}

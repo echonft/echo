@@ -1,4 +1,4 @@
-import type { CollectionWithSwapsCount } from '@echo/model/types/collection-with-swaps-count'
+import type { CollectionWithSwapsCount } from '@echo/model/types/collection'
 import { CollectionTile } from '@echo/ui/components/collection/tile/collection-tile'
 import { Size } from '@echo/ui/constants/size'
 import { TopCollectionsLayout } from '@echo/ui/pages/home/collection/top/layout/top-collections-layout'
