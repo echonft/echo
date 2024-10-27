@@ -6,10 +6,12 @@ on:
       - opened
       - reopened
       - synchronize
-
 jobs:
   tsc:
     runs-on: ubuntu-latest
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,24 +21,30 @@ jobs:
           run_install: true
       - name: bot tsc
         run: pnpm exec turbo run tsc --filter=@echo/bot
+      - name: firestore-functions tsc
+        run: pnpm exec turbo run tsc --filter=@echo/firestore-functions
       - name: frontend tsc
         run: pnpm exec turbo run tsc --filter=@echo/frontend
       - name: storybook tsc
         run: pnpm exec turbo run tsc --filter=@echo/storybook
-      - name: auth tsc
-        run: pnpm exec turbo run tsc --filter=@echo/auth
       - name: api tsc
         run: pnpm exec turbo run tsc --filter=@echo/api
+      - name: auth tsc
+        run: pnpm exec turbo run tsc --filter=@echo/auth
+      - name: backend tsc
+        run: pnpm exec turbo run tsc --filter=@echo/backend
       - name: firestore tsc
         run: pnpm exec turbo run tsc --filter=@echo/firestore
-      - name: firestore-functions tsc
-        run: pnpm exec turbo run tsc --filter=@echo/firestore-functions
       - name: model tsc
         run: pnpm exec turbo run tsc --filter=@echo/model
       - name: nft-scan tsc
         run: pnpm exec turbo run tsc --filter=@echo/nft-scan
       - name: opensea tsc
         run: pnpm exec turbo run tsc --filter=@echo/opensea
+      - name: routing tsc
+        run: pnpm exec turbo run tsc --filter=@echo/routing
+      - name: tasks tsc
+        run: pnpm exec turbo run tsc --filter=@echo/tasks
       - name: ui tsc
         run: pnpm exec turbo run tsc --filter=@echo/ui
       - name: utils tsc

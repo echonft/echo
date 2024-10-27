@@ -6,10 +6,12 @@ on:
       - opened
       - reopened
       - synchronize
-
 jobs:
   lint:
     runs-on: ubuntu-latest
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,6 +23,10 @@ jobs:
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint --filter=@echo/bot -- --quiet
+      - name: firestore-functions lint
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
+        run: pnpm exec turbo run lint --filter=@echo/firestore-functions -- --quiet
       - name: frontend lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
@@ -37,14 +43,15 @@ jobs:
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint --filter=@echo/auth -- --quiet
+      - name: backend lint
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
+        run: pnpm exec turbo run lint --filter=@echo/backend -- --quiet
       - name: firestore lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint --filter=@echo/firestore -- --quiet
-      - name: firestore-functions lint
-        env:
-          NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint --filter=@echo/firestore-functions -- --quiet
+
       - name: model lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
@@ -57,6 +64,14 @@ jobs:
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint --filter=@echo/opensea -- --quiet
+      - name: routing lint
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
+        run: pnpm exec turbo run lint --filter=@echo/routing -- --quiet
+      - name: tasks lint
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
+        run: pnpm exec turbo run lint --filter=@echo/tasks -- --quiet
       - name: ui lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"

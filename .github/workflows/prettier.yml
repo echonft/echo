@@ -6,10 +6,12 @@ on:
       - opened
       - reopened
       - synchronize
-
 jobs:
   prettier:
     runs-on: ubuntu-latest
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,6 +21,8 @@ jobs:
           run_install: true
       - name: bot prettier
         run: pnpm exec turbo run prettier --filter=@echo/bot -- --log-level=silent
+      - name: firestore-functions prettier
+        run: pnpm exec turbo run prettier --filter=@echo/firestore-functions -- --log-level=silent
       - name: frontend prettier
         run: pnpm exec turbo run prettier --filter=@echo/frontend -- --log-level=silent
       - name: storybook prettier
@@ -27,16 +31,20 @@ jobs:
         run: pnpm exec turbo run prettier --filter=@echo/api -- --log-level=silent
       - name: auth prettier
         run: pnpm exec turbo run prettier --filter=@echo/auth -- --log-level=silent
+      - name: backend prettier
+        run: pnpm exec turbo run prettier --filter=@echo/backend -- --log-level=silent
       - name: firestore prettier
         run: pnpm exec turbo run prettier --filter=@echo/firestore -- --log-level=silent
-      - name: firestore-functions prettier
-        run: pnpm exec turbo run prettier --filter=@echo/firestore-functions -- --log-level=silent
       - name: model prettier
         run: pnpm exec turbo run prettier --filter=@echo/model -- --log-level=silent
       - name: nft-scan prettier
         run: pnpm exec turbo run prettier --filter=@echo/nft-scan -- --log-level=silent
       - name: opensea prettier
         run: pnpm exec turbo run prettier --filter=@echo/opensea -- --log-level=silent
+      - name: routing prettier
+        run: pnpm exec turbo run prettier --filter=@echo/routing -- --log-level=silent
+      - name: tasks prettier
+        run: pnpm exec turbo run prettier --filter=@echo/tasks -- --log-level=silent
       - name: ui prettier
         run: pnpm exec turbo run prettier --filter=@echo/ui -- --log-level=silent
       - name: utils prettier
