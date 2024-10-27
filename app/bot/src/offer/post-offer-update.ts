@@ -37,8 +37,8 @@ async function getMessage(offer: Offer) {
 }
 
 interface PostOfferStateUpdateArgs {
-  client: Client
-  offer: Offer
+  readonly client: Client
+  readonly offer: Offer
 }
 
 export async function postOfferUpdate(args: PostOfferStateUpdateArgs) {

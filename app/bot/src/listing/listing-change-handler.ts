@@ -7,7 +7,7 @@ import type { Client } from 'discord.js'
 import { assoc, isNil } from 'ramda'
 
 interface Args extends ListingChangeHandlerArgs {
-  client: Client
+  readonly client: Client
 }
 
 export async function listingChangeHandler(args: Args) {

@@ -41,8 +41,8 @@ async function areNftsFromItemsInEscrow(items: NonEmptyArray<NftItem>): Promise<
 }
 
 interface PostEscrowMessageArgs {
-  client: Client
-  offer: Offer
+  readonly client: Client
+  readonly offer: Offer
 }
 
 export async function postEscrowMessage(args: PostEscrowMessageArgs) {

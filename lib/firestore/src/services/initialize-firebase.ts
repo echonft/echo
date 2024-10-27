@@ -6,7 +6,7 @@ import { initializeFirestore as firebaseInitializeFirestore } from 'firebase-adm
 import { isNil } from 'ramda'
 
 interface InitializeFirebaseArgs {
-  serviceAccount?: ServiceAccount
+  readonly serviceAccount?: ServiceAccount
 }
 
 export async function initializeFirebase(args?: InitializeFirebaseArgs) {

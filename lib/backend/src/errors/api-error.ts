@@ -12,10 +12,10 @@ export enum ApiErrorStatus {
 }
 
 export interface ApiErrorArgs {
-  status: ApiErrorStatus
-  message: string
-  err?: unknown
-  severity?: SeverityLevel
+  readonly status: ApiErrorStatus
+  readonly message: string
+  readonly err?: unknown
+  readonly severity?: SeverityLevel
 }
 
 export abstract class ApiError extends Error {

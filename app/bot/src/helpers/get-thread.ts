@@ -2,8 +2,8 @@ import { TextChannel } from 'discord.js'
 import { isNil } from 'ramda'
 
 interface GetThreadArgs {
-  channel: TextChannel
-  threadId: string
+  readonly channel: TextChannel
+  readonly threadId: string
 }
 
 export async function getThread(args: GetThreadArgs) {

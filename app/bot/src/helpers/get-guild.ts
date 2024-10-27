@@ -2,8 +2,8 @@ import { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
 interface GetGuildArgs {
-  client: Client
-  guildId: string
+  readonly client: Client
+  readonly guildId: string
 }
 
 export async function getGuild(args: GetGuildArgs) {

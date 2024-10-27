@@ -10,8 +10,8 @@ import i18next from 'i18next'
 import { isNil, pipe } from 'ramda'
 
 interface ArchiveOfferThreadArgs {
-  client: Client
-  offer: Offer
+  readonly client: Client
+  readonly offer: Offer
 }
 
 export async function archiveOfferThread(args: ArchiveOfferThreadArgs) {

@@ -8,13 +8,13 @@ import type { AnyThreadChannel, Client } from 'discord.js'
 import { isNil } from 'ramda'
 
 interface GetOfferThreadOnEchoChannelArgs {
-  client: Client
-  offer: Offer
+  readonly client: Client
+  readonly offer: Offer
 }
 
 interface GetOfferThreadOnEchoChannelReturn {
-  offerThread: Nullable<OfferThreadDocument>
-  thread: Nullable<AnyThreadChannel>
+  readonly offerThread: Nullable<OfferThreadDocument>
+  readonly thread: Nullable<AnyThreadChannel>
 }
 
 export async function getOfferThreadOnEchoChannel({

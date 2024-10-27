@@ -3,9 +3,9 @@ import { Client } from 'discord.js'
 import { isNil, omit } from 'ramda'
 
 interface IsGuildMemberArgs {
-  client: Client
-  guildId: string
-  userId: string
+  readonly client: Client
+  readonly guildId: string
+  readonly userId: string
 }
 
 // might be needed if we support collection guilds

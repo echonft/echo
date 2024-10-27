@@ -8,8 +8,8 @@ import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, pipe } from 'ramda'
 
 interface GetListingPostArgs {
-  listingId: string
-  guildId: string
+  readonly listingId: string
+  readonly guildId: string
 }
 
 function getListingPostSnapshot({

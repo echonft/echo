@@ -9,8 +9,8 @@ import i18next from 'i18next'
 import { isNil } from 'ramda'
 
 interface PostSwapArgs {
-  client: Client
-  offer: Offer
+  readonly client: Client
+  readonly offer: Offer
 }
 
 export async function postSwap(args: PostSwapArgs) {

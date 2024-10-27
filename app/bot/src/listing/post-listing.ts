@@ -7,8 +7,8 @@ import type { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
 interface PostListingArgs {
-  client: Client
-  listing: Listing
+  readonly client: Client
+  readonly listing: Listing
 }
 
 export async function postListing(args: PostListingArgs) {

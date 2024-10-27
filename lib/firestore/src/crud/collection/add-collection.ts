@@ -9,8 +9,8 @@ import type { Slug } from '@echo/model/types/slug'
 import { assoc, inc, isNil, modify, pipe, toLower } from 'ramda'
 
 interface InnerGenerateUniqueCollectionSlugArgs {
-  slug: Slug
-  index: number
+  readonly slug: Slug
+  readonly index: number
 }
 
 async function innerGenerateUniqueCollectionSlug(args: InnerGenerateUniqueCollectionSlugArgs): Promise<Slug> {

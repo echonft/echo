@@ -9,8 +9,8 @@ import { createHmac } from 'crypto'
 import { isNil, pipe } from 'ramda'
 
 interface AssertQuicknodeSignatureArgs {
-  req: NextRequest<WebhookBlockRequest>
-  type: QuicknodeSignatureType
+  readonly req: NextRequest<WebhookBlockRequest>
+  readonly type: QuicknodeSignatureType
 }
 
 function getSecretName(type: QuicknodeSignatureType): Secret {

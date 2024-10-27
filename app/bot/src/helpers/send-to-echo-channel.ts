@@ -3,8 +3,8 @@ import { sendToChannel } from '@echo/bot/helpers/send-to-channel'
 import type { Client, MessageCreateOptions, MessagePayload } from 'discord.js'
 
 interface SendToEchoChannelArgs {
-  client: Client
-  payload: string | MessagePayload | MessageCreateOptions
+  readonly client: Client
+  readonly payload: string | MessagePayload | MessageCreateOptions
 }
 
 export async function sendToEchoChannel({ client, payload }: SendToEchoChannelArgs) {

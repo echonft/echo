@@ -6,9 +6,9 @@ import { type Meta, type StoryObj } from '@storybook/react'
 import { type FunctionComponent } from 'react'
 
 interface Args {
-  hideOwner: boolean
-  hideOpenSeaLink: boolean
-  scaleDisabled: boolean
+  readonly hideOwner: boolean
+  readonly hideOpenSeaLink: boolean
+  readonly scaleDisabled: boolean
 }
 
 type ComponentType = FunctionComponent<Args>

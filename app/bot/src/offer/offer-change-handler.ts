@@ -14,7 +14,7 @@ import type { Client } from 'discord.js'
 import { assoc, isNil } from 'ramda'
 
 interface Args extends OfferChangeHandlerArgs {
-  client: Client
+  readonly client: Client
 }
 
 export async function offerChangeHandler(args: Args) {

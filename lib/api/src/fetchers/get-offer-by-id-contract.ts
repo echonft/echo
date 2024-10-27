@@ -6,8 +6,8 @@ import axios, { AxiosError } from 'axios'
 import { assoc, inc, modify, omit, pipe } from 'ramda'
 
 interface FetchOfferArgs {
-  idContract: HexString
-  retries: number
+  readonly idContract: HexString
+  readonly retries: number
 }
 
 async function fetchOffer(args: FetchOfferArgs): Promise<OfferResponse> {

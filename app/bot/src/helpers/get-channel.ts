@@ -3,8 +3,8 @@ import { type Client, TextChannel } from 'discord.js'
 import { isNil } from 'ramda'
 
 interface GetChannelArgs {
-  client: Client
-  channelId: string
+  readonly client: Client
+  readonly channelId: string
 }
 
 export async function getChannel(args: GetChannelArgs): Promise<TextChannel> {

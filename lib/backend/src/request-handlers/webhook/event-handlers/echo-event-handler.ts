@@ -7,8 +7,8 @@ import { EchoEventType } from '@echo/web3/constants/echo-event-type'
 import type { EchoEvent } from '@echo/web3/types/echo-event'
 
 export interface EchoEventHandlerArgs {
-  event: EchoEvent
-  chain: Chain
+  readonly event: EchoEvent
+  readonly chain: Chain
 }
 
 export function echoEventHandler(args: EchoEventHandlerArgs) {

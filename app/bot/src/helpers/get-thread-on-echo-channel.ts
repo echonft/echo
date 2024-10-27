@@ -4,8 +4,8 @@ import { type Client } from 'discord.js'
 import { isNil } from 'ramda'
 
 interface GetThreadOnEchoChannelArgs {
-  client: Client
-  threadId: string
+  readonly client: Client
+  readonly threadId: string
 }
 
 export async function getThreadOnEchoChannel(args: GetThreadOnEchoChannelArgs) {

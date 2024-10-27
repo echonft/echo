@@ -9,10 +9,10 @@ import { ChannelType, type Client, ThreadAutoArchiveDuration, userMention } from
 import i18next from 'i18next'
 
 interface CreateOfferThreadArgs {
-  client: Client
-  offer: Offer
-  sender: UserDocument
-  receiver: UserDocument
+  readonly client: Client
+  readonly offer: Offer
+  readonly sender: UserDocument
+  readonly receiver: UserDocument
 }
 
 export async function createOfferThread(args: CreateOfferThreadArgs): Promise<{

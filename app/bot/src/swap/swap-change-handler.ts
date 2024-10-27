@@ -9,7 +9,7 @@ import type { Client } from 'discord.js'
 import { assoc, isNil } from 'ramda'
 
 interface Args extends SwapChangeHandlerArgs {
-  client: Client
+  readonly client: Client
 }
 
 export async function swapChangeHandler(args: Args) {
