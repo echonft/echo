@@ -1,7 +1,7 @@
-import { propIsEmpty } from '@echo/utils/fp/prop-is-empty'
+import { propIsEmpty } from '@echo/utils/helpers/prop-is-empty'
 import { describe, expect, it } from '@jest/globals'
 
-describe('fp - propIsEmpty', () => {
+describe('propIsEmpty', () => {
   it('returns false if the prop does not exist', () => {
     const obj = {
       a: 1,

@@ -1,4 +1,4 @@
-import { eqListWith } from '@echo/utils/fp/eq-list-with'
+import { eqListWith } from '@echo/utils/helpers/eq-list-with'
 import { equals, isNil } from 'ramda'
 
 function innerEqList<T>(listA: T[]): (listB: T[]) => boolean {

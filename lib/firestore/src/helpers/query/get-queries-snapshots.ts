@@ -1,6 +1,6 @@
 import { getQuerySnapshot } from '@echo/firestore/helpers/query/get-query-snapshot'
 import { getQuerySnapshotDocumentSnapshots } from '@echo/firestore/helpers/query/get-query-snapshot-document-snapshots'
-import { promiseAll } from '@echo/utils/fp/promise-all'
+import { promiseAll } from '@echo/utils/helpers/promise-all'
 import { Query, type QueryDocumentSnapshot, type QuerySnapshot } from 'firebase-admin/firestore'
 import { andThen, flatten, isEmpty, map, pipe, reject } from 'ramda'
 

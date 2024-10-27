@@ -1,6 +1,6 @@
 import { userMockJohnny } from '@echo/model/mocks/user-mock'
 import { authUserStore } from '@echo/storybook/mocks/stores/auth-user-store'
-import { toPromise } from '@echo/utils/fp/to-promise'
+import { toPromise } from '@echo/utils/helpers/to-promise'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { pipe } from 'ramda'
 

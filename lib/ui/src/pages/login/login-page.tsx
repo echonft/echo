@@ -2,7 +2,7 @@
 import type { User } from '@echo/model/types/user'
 import { pathProvider } from '@echo/routing/path/path-provider'
 import { Login } from '@echo/ui/components/auth/login'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/navigation'

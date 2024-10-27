@@ -1,7 +1,7 @@
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { clearDb } from '@echo/test/firestore/clear-db'
 import { initializeDb } from '@echo/test/firestore/initialize-db'
-import { eqList } from '@echo/utils/fp/eq-list'
+import { eqList } from '@echo/utils/helpers/eq-list'
 import { beforeAll, expect } from '@jest/globals'
 import dayjs from 'dayjs'
 import type { ServiceAccount } from 'firebase-admin/app'

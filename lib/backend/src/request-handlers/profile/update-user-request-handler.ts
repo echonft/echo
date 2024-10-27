@@ -8,7 +8,7 @@ import type { RequestHandlerArgs } from '@echo/backend/types/request-handler'
 import { discordProfileResponseSchema } from '@echo/backend/validators/discord-profile-response-schema'
 import { parseRequest } from '@echo/backend/validators/parse-request'
 import { addOrUpdateUser } from '@echo/firestore/crud/user/add-or-update-user'
-import { parseResponse } from '@echo/utils/validators/parse-response'
+import { parseResponse } from '@echo/utils/helpers/parse-response'
 import { andThen, objOf, pipe } from 'ramda'
 
 export async function updateUserRequestHandler(args: RequestHandlerArgs<UpdateUserRequest>) {

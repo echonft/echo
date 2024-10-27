@@ -5,7 +5,7 @@ import { throttleFetch } from '@echo/opensea/helpers/throttle-fetch'
 import { openseaApiPathProvider } from '@echo/opensea/services/routing/opensea-api-path-provider'
 import type { ContractResponse } from '@echo/opensea/types/response/contract-response'
 import { contractResponseSchema } from '@echo/opensea/validators/contract-response-schema'
-import { parseResponse } from '@echo/utils/validators/parse-response'
+import { parseResponse } from '@echo/utils/helpers/parse-response'
 
 export async function fetchContract(contract: Contract): Promise<ContractResponse> {
   const url = openseaApiPathProvider.contract.fetch.getUrl(contract)

@@ -1,5 +1,5 @@
 import type { User } from '@echo/model/types/user'
-import { stringComparator } from '@echo/utils/comparators/string-comparator'
+import { stringComparator } from '@echo/utils/helpers/string-comparator'
 
 export function userByDiscordUsernameComparator<
   T extends Partial<User> &

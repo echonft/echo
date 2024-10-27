@@ -11,7 +11,7 @@ import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import { error, info } from '@echo/tasks/helpers/logger'
 import { fetchNftsByContract } from '@echo/tasks/tasks/fetch-nfts-by-contract'
 import { getCollection } from '@echo/tasks/tasks/get-collection'
-import { unlessNil } from '@echo/utils/fp/unless-nil'
+import { unlessNil } from '@echo/utils/helpers/unless-nil'
 import { getNftOwner } from '@echo/web3/services/get-nft-owner'
 import { andThen, assoc, isNil, otherwise, pipe } from 'ramda'
 

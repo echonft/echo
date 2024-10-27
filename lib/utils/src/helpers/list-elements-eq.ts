@@ -1,4 +1,4 @@
-import { listElementsEqWith } from '@echo/utils/fp/list-elements-eq-with'
+import { listElementsEqWith } from '@echo/utils/helpers/list-elements-eq-with'
 import { equals } from 'ramda'
 
 export function listElementsEq<T>(list: T[]): boolean {

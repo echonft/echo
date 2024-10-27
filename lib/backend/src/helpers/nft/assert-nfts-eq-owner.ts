@@ -4,7 +4,7 @@ import { eqUser } from '@echo/model/helpers/user/eq-user'
 import type { Nft } from '@echo/model/types/nft'
 import type { OwnedNft } from '@echo/model/types/owned-nft'
 import type { User } from '@echo/model/types/user'
-import { listElementsEqWith } from '@echo/utils/fp/list-elements-eq-with'
+import { listElementsEqWith } from '@echo/utils/helpers/list-elements-eq-with'
 import { complement, map, pipe, prop } from 'ramda'
 
 /**

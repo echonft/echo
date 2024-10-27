@@ -2,7 +2,7 @@ import { dateIsPast } from '@echo/utils/helpers/date-is-past'
 import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 
-describe('helpers - dateIsPast', () => {
+describe('dateIsPast', () => {
   it('returns false if date is in the future', () => {
     const date = dayjs().add(1, 'hour')
     expect(dateIsPast(date)).toBeFalsy()

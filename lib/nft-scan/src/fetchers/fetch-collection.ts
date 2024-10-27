@@ -5,8 +5,8 @@ import { error, warn } from '@echo/nft-scan/helpers/logger'
 import { nftScanApiPathProvider } from '@echo/nft-scan/services/routing/nft-scan-api-path-provider'
 import type { FetchCollectionRequest } from '@echo/nft-scan/types/request/fetch-collection-request'
 import { fetchCollectionResponseSchema } from '@echo/nft-scan/validators/fetch-collection-response-schema'
+import { parseResponse } from '@echo/utils/helpers/parse-response'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { parseResponse } from '@echo/utils/validators/parse-response'
 import { andThen, ifElse, pick, pipe, prop } from 'ramda'
 
 export async function fetchCollection({

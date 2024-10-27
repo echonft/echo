@@ -1,7 +1,7 @@
 import type { Chain } from '@echo/model/constants/chain'
 import { evmAddressSchema } from '@echo/model/validators/evm-address-schema'
 import { hexStringSchema } from '@echo/model/validators/hex-string-schema'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import type { NftTransferEvent } from '@echo/web3/types/nft-transfer-event'
 import { blockDataSchema } from '@echo/web3/validators/block-data-schema'
 import { hexNumberSchema } from '@echo/web3/validators/hex-number-schema'

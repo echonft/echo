@@ -4,8 +4,8 @@ import { fetchNftsByAccount } from '@echo/opensea/fetchers/fetch-nfts-by-account
 import type { PartialNft } from '@echo/opensea/types/partial-nft'
 import type { FetchNftsByAccountRequest } from '@echo/opensea/types/request/fetch-nfts-by-account-request'
 import type { NftResponse } from '@echo/opensea/types/response/nft-response'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { unlessNil } from '@echo/utils/fp/unless-nil'
+import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
+import { unlessNil } from '@echo/utils/helpers/unless-nil'
 import {
   always,
   andThen,

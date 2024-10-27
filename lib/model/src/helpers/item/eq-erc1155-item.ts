@@ -1,6 +1,6 @@
 import { eqNft } from '@echo/model/helpers/nft/eq-nft'
 import type { Erc1155Item } from '@echo/model/types/erc1155-item'
-import { eqPropsWith } from '@echo/utils/fp/eq-props-with'
+import { eqPropsWith } from '@echo/utils/helpers/eq-props-with'
 import { and, eqProps, isNil } from 'ramda'
 
 function innerEqErc1155Item(itemA: Erc1155Item): (itemB: Erc1155Item) => boolean {

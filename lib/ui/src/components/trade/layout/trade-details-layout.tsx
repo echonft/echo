@@ -1,7 +1,7 @@
 import { PictureSize } from '@echo/ui/constants/picture-size'
 import { addPictureSize } from '@echo/ui/helpers/add-picture-size'
 import { themeExtension } from '@echo/ui/helpers/theme/theme'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import type { FunctionComponent, PropsWithChildren } from 'react'

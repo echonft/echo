@@ -11,7 +11,7 @@ import { addOrUpdateNft } from '@echo/tasks/tasks/add-or-update-nft'
 import { fetchNftsByAccount } from '@echo/tasks/tasks/fetch-nfts-by-account'
 import { getOrAddCollection } from '@echo/tasks/tasks/get-or-add-collection'
 import { updateNftOwner } from '@echo/tasks/tasks/update-nft-owner'
-import { isInWith } from '@echo/utils/fp/is-in-with'
+import { isInWith } from '@echo/utils/helpers/is-in-with'
 import { getNftOwner } from '@echo/web3/services/get-nft-owner'
 import { assoc, flatten, head, map, path, pipe, prop } from 'ramda'
 

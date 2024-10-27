@@ -2,7 +2,7 @@ import { listingDocumentToModel } from '@echo/firestore/converters/listing-docum
 import type { ListingDocument } from '@echo/firestore/types/model/listing-document'
 import type { User } from '@echo/model/types/user'
 import { setListingRoleForUser } from '@echo/ui/helpers/listing/set-listing-role-for-user'
-import { promiseAll } from '@echo/utils/fp/promise-all'
+import { promiseAll } from '@echo/utils/helpers/promise-all'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { map, pipe } from 'ramda'
 

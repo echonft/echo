@@ -2,7 +2,7 @@ import { fetchNftsByContract } from '@echo/nft-scan/fetchers/fetch-nfts-by-contr
 import { info } from '@echo/nft-scan/helpers/logger'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import type { FetchNftsByContractRequest } from '@echo/nft-scan/types/request/fetch-nfts-by-contract-request'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { always, assoc, concat, isNil, otherwise, pipe } from 'ramda'
 
 async function handlePaging(args: FetchNftsByContractRequest, accNfts: PartialNft[]): Promise<PartialNft[]> {

@@ -1,7 +1,7 @@
-import { isIn } from '@echo/utils/fp/is-in'
+import { isIn } from '@echo/utils/helpers/is-in'
 import { describe, expect, it } from '@jest/globals'
 
-describe('fp - isIn', () => {
+describe('isIn', () => {
   it('returns false if the value is not in the list', () => {
     expect(isIn(['a', 'b'])('c')).toBeFalsy()
   })

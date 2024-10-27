@@ -4,7 +4,7 @@ import { getQueryUniqueData } from '@echo/firestore/helpers/query/get-query-uniq
 import { queryWhere } from '@echo/firestore/helpers/query/query-where'
 import type { UserDocument } from '@echo/firestore/types/model/user-document'
 import type { Wallet } from '@echo/model/types/wallet'
-import { unlessNil } from '@echo/utils/fp/unless-nil'
+import { unlessNil } from '@echo/utils/helpers/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { andThen, pipe, prop } from 'ramda'
 

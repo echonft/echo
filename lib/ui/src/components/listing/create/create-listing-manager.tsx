@@ -14,7 +14,7 @@ import { CreateListing } from '@echo/ui/components/listing/create/create-listing
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
-import { nonEmptyMap } from '@echo/utils/fp/non-empty-map'
+import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'

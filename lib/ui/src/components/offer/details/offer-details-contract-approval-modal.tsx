@@ -8,7 +8,7 @@ import { OfferDetailsContractApprovalModalButton } from '@echo/ui/components/off
 import { OfferDetailsContractApprovalRow } from '@echo/ui/components/offer/details/offer-details-contract-approval-row'
 import { offerItemsToContractApprovals } from '@echo/ui/mappers/offer-items-to-contract-approvals'
 import type { ContractApproval } from '@echo/ui/types/contract-approval'
-import { propIsNotNil } from '@echo/utils/fp/prop-is-not-nil'
+import { propIsNotNil } from '@echo/utils/helpers/prop-is-not-nil'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'

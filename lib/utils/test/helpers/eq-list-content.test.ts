@@ -1,7 +1,7 @@
-import { eqList } from '@echo/utils/fp/eq-list'
+import { eqList } from '@echo/utils/helpers/eq-list'
 import { describe, expect, it } from '@jest/globals'
 
-describe('fp - eqPaths', () => {
+describe('eqPaths', () => {
   it('works on empty lists', () => {
     const listA: never[] = []
     const listB: never[] = []

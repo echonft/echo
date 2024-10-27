@@ -10,8 +10,8 @@ import { sortNftsByOwner } from '@echo/ui/helpers/nft/sort/sort-nfts-by-owner'
 import type { CollectionFilter } from '@echo/ui/types/collection-filter'
 import type { NftSortBy } from '@echo/ui/types/nft-sort-by'
 import type { TraitFilter } from '@echo/ui/types/trait-filter'
-import { includesWith } from '@echo/utils/fp/includes-with'
-import { isInWith } from '@echo/utils/fp/is-in-with'
+import { includesWith } from '@echo/utils/helpers/includes-with'
+import { isInWith } from '@echo/utils/helpers/is-in-with'
 import type { Nullable } from '@echo/utils/types/nullable'
 import {
   always,

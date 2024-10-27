@@ -5,8 +5,8 @@ import { nftScanApiPathProvider } from '@echo/nft-scan/services/routing/nft-scan
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import type { FetchNftRequest } from '@echo/nft-scan/types/request/fetch-nft-request'
 import { fetchNftResponseSchema } from '@echo/nft-scan/validators/fetch-nft-response-schema'
+import { parseResponse } from '@echo/utils/helpers/parse-response'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { parseResponse } from '@echo/utils/validators/parse-response'
 import { assoc, pick } from 'ramda'
 
 export async function fetchNft({

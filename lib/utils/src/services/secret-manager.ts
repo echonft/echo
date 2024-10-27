@@ -3,7 +3,7 @@ import { SecretManagerError } from '@echo/utils/constants/errors/secret-manager-
 import { isCI } from '@echo/utils/constants/is-ci'
 import { NodeEnvironment, nodeEnvironment } from '@echo/utils/constants/node-environment'
 import type { Secret } from '@echo/utils/constants/secret'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { gcloudProjectId } from '@echo/utils/helpers/gcloud-project-id'
 import { SecretManagerServiceClient } from '@google-cloud/secret-manager'
 import { assoc, isNil, objOf, pipe, prop } from 'ramda'

@@ -9,7 +9,7 @@ import { TradeDetailsLayout } from '@echo/ui/components/trade/layout/trade-detai
 import { TradeDetailsItems } from '@echo/ui/components/trade/trade-details-items'
 import { TradeDetailsOfferState } from '@echo/ui/components/trade/trade-details-offer-state'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import { nonEmptyMap } from '@echo/utils/fp/non-empty-map'
+import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
 import { assoc, pipe } from 'ramda'
 import type { FunctionComponent } from 'react'
 

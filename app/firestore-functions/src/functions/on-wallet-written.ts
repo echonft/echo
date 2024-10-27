@@ -9,8 +9,8 @@ import { chainsForVirtualMachine } from '@echo/model/helpers/chain/chains-for-vi
 import type { Contract } from '@echo/model/types/contract'
 import { updateNftOwner } from '@echo/tasks/tasks/update-nft-owner'
 import { updateNftsForWallet } from '@echo/tasks/tasks/update-nfts-for-wallet'
-import { promiseAll } from '@echo/utils/fp/promise-all'
-import { unlessNil } from '@echo/utils/fp/unless-nil'
+import { promiseAll } from '@echo/utils/helpers/promise-all'
+import { unlessNil } from '@echo/utils/helpers/unless-nil'
 import { DocumentSnapshot } from 'firebase-admin/firestore'
 import { onDocumentWritten } from 'firebase-functions/v2/firestore'
 import {

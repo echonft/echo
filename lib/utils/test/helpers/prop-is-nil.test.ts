@@ -1,7 +1,7 @@
-import { propIsNil } from '@echo/utils/fp/prop-is-nil'
+import { propIsNil } from '@echo/utils/helpers/prop-is-nil'
 import { describe, expect, it } from '@jest/globals'
 
-describe('fp - propIsNil', () => {
+describe('propIsNil', () => {
   it('returns true if the prop does not exist', () => {
     const obj = {
       a: 1,

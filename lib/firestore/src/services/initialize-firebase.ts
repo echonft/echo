@@ -1,6 +1,6 @@
 import { FirestoreError } from '@echo/firestore/constants/errors/firestore-error'
 import { getFirebaseServiceAccount } from '@echo/firestore/services/get-firebase-service-account'
-import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
+import { isNonEmptyArray } from '@echo/utils/helpers/is-non-empty-array'
 import { cert, getApps, initializeApp, type ServiceAccount } from 'firebase-admin/app'
 import { initializeFirestore as firebaseInitializeFirestore } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'

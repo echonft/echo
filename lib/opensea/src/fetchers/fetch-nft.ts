@@ -5,8 +5,8 @@ import { throttleFetch } from '@echo/opensea/helpers/throttle-fetch'
 import { openseaApiPathProvider } from '@echo/opensea/services/routing/opensea-api-path-provider'
 import type { PartialNft } from '@echo/opensea/types/partial-nft'
 import { fetchNftResponseSchema } from '@echo/opensea/validators/fetch-nft-response-schema'
+import { parseResponse } from '@echo/utils/helpers/parse-response'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { parseResponse } from '@echo/utils/validators/parse-response'
 import { assoc } from 'ramda'
 
 export interface FetchNftRequest {

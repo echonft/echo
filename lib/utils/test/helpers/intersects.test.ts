@@ -1,13 +1,14 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { intersects } from '@echo/utils/fp/intersects'
+import { intersects } from '@echo/utils/helpers/intersects'
 import { describe, expect, it } from '@jest/globals'
 
-describe('fp - intersects', () => {
+describe('intersects', () => {
   it('returns false if the first list is undefined', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     expect(intersects(undefined)(['a', 'b'])).toBeFalsy()
   })
   it('returns false if the second list is undefined', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     expect(intersects(['a', 'b'])(undefined)).toBeFalsy()
   })

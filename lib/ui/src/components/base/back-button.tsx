@@ -1,6 +1,6 @@
 import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
 import { Direction } from '@echo/ui/constants/direction'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 

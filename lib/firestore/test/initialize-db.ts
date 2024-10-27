@@ -15,7 +15,7 @@ import {
 } from '@echo/firestore/mocks/offer-document-mock'
 import { userDocumentMockCrew, userDocumentMockJohnny } from '@echo/firestore/mocks/user-document-mock'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
-import { promiseAll } from '@echo/utils/fp/promise-all'
+import { promiseAll } from '@echo/utils/helpers/promise-all'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { DocumentData, WriteResult } from 'firebase-admin/firestore'
 import { always, ifElse, isNil, mapObjIndexed, pipe, values } from 'ramda'

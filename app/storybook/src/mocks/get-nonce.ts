@@ -1,7 +1,7 @@
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import { errorStore } from '@echo/storybook/mocks/stores/error-store'
-import { toPromise } from '@echo/utils/fp/to-promise'
-import { toRejectedPromise } from '@echo/utils/fp/to-rejected-promise'
+import { toPromise } from '@echo/utils/helpers/to-promise'
+import { toRejectedPromise } from '@echo/utils/helpers/to-rejected-promise'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { objOf, pipe } from 'ramda'
 

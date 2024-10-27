@@ -4,7 +4,7 @@ import { TraitFilterButton } from '@echo/ui/components/nft/filters/by-traits/tra
 import { NftFilter } from '@echo/ui/components/nft/filters/nft-filter'
 import { type WithCollapsibleProps } from '@echo/ui/types/props/with-collapsible-props'
 import { type TraitFilter } from '@echo/ui/types/trait-filter'
-import { isInWith } from '@echo/utils/fp/is-in-with'
+import { isInWith } from '@echo/utils/helpers/is-in-with'
 import { Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'

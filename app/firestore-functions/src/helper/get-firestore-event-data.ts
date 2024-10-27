@@ -1,5 +1,5 @@
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/document/get-document-snapshot-data'
-import { unlessNil } from '@echo/utils/fp/unless-nil'
+import { unlessNil } from '@echo/utils/helpers/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { FirestoreEvent, QueryDocumentSnapshot } from 'firebase-functions/v2/firestore'
 import { pipe, prop } from 'ramda'

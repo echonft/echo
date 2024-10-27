@@ -1,7 +1,7 @@
 import { fetchNftsByAccount } from '@echo/nft-scan/fetchers/fetch-nfts-by-account'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import type { FetchNftsByAccountRequest } from '@echo/nft-scan/types/request/fetch-nfts-by-account-request'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { always, assoc, concat, isNil, otherwise, pipe } from 'ramda'
 
 async function handlePaging(args: FetchNftsByAccountRequest, accNfts: PartialNft[]): Promise<PartialNft[]> {

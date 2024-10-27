@@ -5,7 +5,7 @@ import type { NftToken } from '@echo/model/types/nft-token'
 import type { User } from '@echo/model/types/user'
 import { nftLabel } from '@echo/ui/helpers/nft/nft-label'
 import type { NftStack } from '@echo/ui/types/nft-stack'
-import { nonEmptyMap } from '@echo/utils/fp/non-empty-map'
+import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
 import { always, applySpec, head, type NonEmptyArray, pipe, prop } from 'ramda'
 
 export function buildNftStack(items: NonEmptyArray<NftItem>, owner: User): NftStack {

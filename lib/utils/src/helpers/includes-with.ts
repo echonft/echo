@@ -1,4 +1,4 @@
-import { isInWith } from '@echo/utils/fp/is-in-with'
+import { isInWith } from '@echo/utils/helpers/is-in-with'
 import { isNil } from 'ramda'
 
 function innerIncludesWith<T>(obj: T, comparator: (objA: T, objB: T) => boolean) {

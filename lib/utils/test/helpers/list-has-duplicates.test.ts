@@ -1,8 +1,8 @@
-import { listHasDuplicates } from '@echo/utils/fp/list-has-duplicates'
+import { listHasDuplicates } from '@echo/utils/helpers/list-has-duplicates'
 import { describe, expect, it } from '@jest/globals'
 import { equals } from 'ramda'
 
-describe('fp - eqPaths', () => {
+describe('eqPaths', () => {
   it('returns false if all the elements are different', () => {
     expect(listHasDuplicates(equals, [1, 2, 3, 4])).toBeFalsy()
     expect(listHasDuplicates(equals, ['1', '2', 'a'])).toBeFalsy()

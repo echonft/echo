@@ -4,7 +4,7 @@ import { TradeCardLayout } from '@echo/ui/components/trade/card/layout/trade-car
 import { NftTradeCards } from '@echo/ui/components/trade/card/nft-trade-cards'
 import { TradeCardPicture } from '@echo/ui/components/trade/card/trade-card-picture'
 import type { SwapDirection } from '@echo/ui/constants/swap-direction'
-import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
+import { isNonEmptyArray } from '@echo/utils/helpers/is-non-empty-array'
 import { head } from 'ramda'
 import { type FunctionComponent } from 'react'
 

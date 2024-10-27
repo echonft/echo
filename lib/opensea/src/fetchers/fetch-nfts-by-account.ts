@@ -5,7 +5,7 @@ import { openseaApiPathProvider } from '@echo/opensea/services/routing/opensea-a
 import type { FetchNftsByAccountRequest } from '@echo/opensea/types/request/fetch-nfts-by-account-request'
 import type { FetchNftsResponse } from '@echo/opensea/types/response/fetch-nfts-response'
 import { fetchNftsResponseSchema } from '@echo/opensea/validators/fetch-nfts-response-schema'
-import { parseResponse } from '@echo/utils/validators/parse-response'
+import { parseResponse } from '@echo/utils/helpers/parse-response'
 import { pick } from 'ramda'
 
 export async function fetchNftsByAccount({

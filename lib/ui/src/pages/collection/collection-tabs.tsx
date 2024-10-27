@@ -15,7 +15,7 @@ import { CollectionItemsPanel } from '@echo/ui/pages/collection/collection-items
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { TabOptions } from '@echo/ui/types/tab-options'
-import { isFalsy } from '@echo/utils/fp/is-falsy'
+import { isFalsy } from '@echo/utils/helpers/is-falsy'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { TabGroup, TabList, TabPanels } from '@headlessui/react'
 import { all, always, find, findIndex, ifElse, isEmpty, isNil, map, pipe, prop, propEq } from 'ramda'

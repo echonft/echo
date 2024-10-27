@@ -8,8 +8,8 @@ import { openseaApiPathProvider } from '@echo/opensea/services/routing/opensea-a
 import type { FetchCollectionRequest } from '@echo/opensea/types/request/fetch-collection-request'
 import type { ContractResponse } from '@echo/opensea/types/response/contract-response'
 import { collectionResponseSchema } from '@echo/opensea/validators/collection-response-schema'
+import { parseResponse } from '@echo/utils/helpers/parse-response'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { parseResponse } from '@echo/utils/validators/parse-response'
 import { assoc, isNil, pipe, prop } from 'ramda'
 
 export async function fetchCollection({ chain, slug }: FetchCollectionRequest): Promise<Nullable<Collection>> {

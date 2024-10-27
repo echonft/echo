@@ -1,6 +1,6 @@
 import type { Erc20Token } from '@echo/model/types/erc20-token'
 import type { TokenBalance } from '@echo/model/types/token-balance'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { backOff } from 'exponential-backoff'
 import { erc20Abi, formatUnits, type WalletClient } from 'viem'
 import { readContract } from 'viem/actions'

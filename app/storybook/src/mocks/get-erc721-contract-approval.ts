@@ -1,5 +1,5 @@
 import { contractApprovalStore } from '@echo/storybook/mocks/stores/contract-approval-store'
-import { toPromise } from '@echo/utils/fp/to-promise'
+import { toPromise } from '@echo/utils/helpers/to-promise'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { pipe, prop } from 'ramda'
 

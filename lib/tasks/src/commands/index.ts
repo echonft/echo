@@ -10,7 +10,7 @@ import { updateCollectionCommand } from '@echo/tasks/commands/update-collection-
 import { updateUserNftsCommand } from '@echo/tasks/commands/update-user-nfts-command'
 import { updateUsersNftsCommand } from '@echo/tasks/commands/update-users-nfts-command'
 import { updateWalletNftsCommand } from '@echo/tasks/commands/update-wallet-nfts-command'
-import { stringComparator } from '@echo/utils/comparators/string-comparator'
+import { stringComparator } from '@echo/utils/helpers/string-comparator'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { getAddress } from '@echo/web3/helpers/get-address'
 import { isAddress } from '@echo/web3/helpers/is-address'

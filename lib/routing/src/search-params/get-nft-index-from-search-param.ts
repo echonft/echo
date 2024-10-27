@@ -1,6 +1,6 @@
 import type { NftIndex } from '@echo/model/types/nft'
 import { SearchParamsError } from '@echo/routing/constants/errors/search-params-error'
-import { throwError } from '@echo/utils/fp/throw-error'
+import { throwError } from '@echo/utils/helpers/throw-error'
 import { applySpec, complement, equals, head, last, length, partialRight, pipe, split, when } from 'ramda'
 
 export function getNftIndexFromSearchParam(param: string): NftIndex {

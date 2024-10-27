@@ -1,5 +1,5 @@
 import type { NftAttribute } from '@echo/model/types/nft-attribute'
-import { propIsNilOrEmpty } from '@echo/utils/fp/prop-is-nil-or-empty'
+import { propIsNilOrEmpty } from '@echo/utils/helpers/prop-is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { always, applySpec, either, ifElse, prop } from 'ramda'
 import { object, string } from 'zod'

@@ -2,7 +2,7 @@
 import { SearchInputClearButton } from '@echo/ui/components/base/search/search-input-clear-button'
 import { SearchIconSvg } from '@echo/ui/components/base/svg/search-icon-svg'
 import { theme } from '@echo/ui/helpers/theme/theme'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { Input } from '@headlessui/react'
 import { clsx } from 'clsx'

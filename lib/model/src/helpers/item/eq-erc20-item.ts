@@ -1,6 +1,6 @@
 import { eqErc20Token } from '@echo/model/helpers/token/eq-erc20-token'
 import type { Erc20Item } from '@echo/model/types/erc20-item'
-import { eqPropsWith } from '@echo/utils/fp/eq-props-with'
+import { eqPropsWith } from '@echo/utils/helpers/eq-props-with'
 import { and, eqProps, isNil } from 'ramda'
 
 function innerEqErc20Item(itemA: Erc20Item): (itemB: Erc20Item) => boolean {

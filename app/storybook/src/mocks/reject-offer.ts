@@ -2,7 +2,7 @@ import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { OfferState } from '@echo/model/constants/offer-state'
 import { offerMockToJohnnycage } from '@echo/model/mocks/offer-mock'
 import type { Slug } from '@echo/model/types/slug'
-import { toPromise } from '@echo/utils/fp/to-promise'
+import { toPromise } from '@echo/utils/helpers/to-promise'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { assoc, objOf, pipe } from 'ramda'
 

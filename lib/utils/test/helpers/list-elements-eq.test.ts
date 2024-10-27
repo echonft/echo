@@ -1,7 +1,7 @@
-import { listElementsEq } from '@echo/utils/fp/list-elements-eq'
+import { listElementsEq } from '@echo/utils/helpers/list-elements-eq'
 import { describe, expect, it } from '@jest/globals'
 
-describe('fp - eqPaths', () => {
+describe('eqPaths', () => {
   it('returns true if all the elements in a list are equal', () => {
     expect(listElementsEq([1, 1, 1])).toBeTruthy()
     expect(listElementsEq(['1', '1', '1'])).toBeTruthy()

@@ -1,5 +1,5 @@
 import type { User } from '@echo/model/types/user'
-import { propIsNotNil } from '@echo/utils/fp/prop-is-not-nil'
+import { propIsNotNil } from '@echo/utils/helpers/prop-is-not-nil'
 import type { LoggerSerializer } from '@echo/utils/types/logger-serializer'
 import { map, modify, pick, pipe, when } from 'ramda'
 
