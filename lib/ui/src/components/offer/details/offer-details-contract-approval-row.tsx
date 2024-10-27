@@ -1,10 +1,10 @@
 'use client'
+import type { EvmAddress } from '@echo/model/types/address'
 import type { Contract } from '@echo/model/types/contract'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { OfferDetailsContractApprovalRowIcon } from '@echo/ui/components/offer/details/offer-details-contract-approval-row-icon'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
-import type { HexString } from '@echo/utils/types/hex-string'
 import type { GetErc721ContractApprovalArgs } from '@echo/web3-dom/services/get-erc721-contract-approval'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
@@ -14,7 +14,7 @@ import useSWR from 'swr'
 interface Props {
   collectionName: string
   contract: Contract
-  owner: HexString
+  address: EvmAddress
   approved?: boolean
   onSuccess?: (contract: Contract, approved: boolean) => unknown
 }
@@ -22,13 +22,13 @@ interface Props {
 export const OfferDetailsContractApprovalRow: FunctionComponent<Props> = ({
   collectionName,
   contract,
-  owner,
+  address,
   approved,
   onSuccess
 }) => {
   const { getErc721ContractApproval } = useDependencies()
   useSWR<boolean, Error, (GetErc721ContractApprovalArgs & Record<'name', string>) | undefined>(
-    isNil(approved) ? { name: SWRKeys.contract.getErc721approval(contract), contract, owner } : undefined,
+    isNil(approved) ? { name: SWRKeys.contract.getErc721approval(contract), contract, address } : undefined,
     getErc721ContractApproval,
     {
       onSuccess: (data) => {

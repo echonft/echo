@@ -1,12 +1,18 @@
 import type { Chain } from '@echo/model/constants/chain'
 import { chainId } from '@echo/model/helpers/chain/chain-id'
-import type { ChainId } from '@echo/model/types/chain'
-import type { Item } from '@echo/model/types/item'
 import type { BaseOffer } from '@echo/model/types/base-offer'
+import type { ChainId } from '@echo/model/types/chain'
+import type { Contract } from '@echo/model/types/contract'
+import type { Item } from '@echo/model/types/item'
+import type { Nft } from '@echo/model/types/nft'
 import type { HexString } from '@echo/utils/types/hex-string'
-import { hashNfts } from '@echo/web3/helpers/hash-nfts'
-import { applySpec, head, juxt, type NonEmptyArray, partial, path, pipe, prop, toLower } from 'ramda'
+import { applySpec, head, juxt, map, type NonEmptyArray, partial, path, pipe, prop, toLower } from 'ramda'
 import { encodeAbiParameters, keccak256, parseAbiParameters } from 'viem'
+
+interface OfferItemAbi {
+  readonly tokenAddress: HexString
+  readonly tokenId: bigint
+}
 
 interface OfferAbiParameters {
   sender: HexString
@@ -16,6 +22,20 @@ interface OfferAbiParameters {
   receiverItemsChainId: bigint
   receiverItems: HexString
   expiration: bigint
+}
+
+function hashNfts(nfts: Nft[]): HexString {
+  const params = parseAbiParameters(['struct OfferItem { address tokenAddress; uint256 tokenId; }', 'OfferItem[]'])
+  return keccak256(
+    encodeAbiParameters(params, [
+      map(
+        applySpec<OfferItemAbi>({
+          tokenAddress: pipe<[Nft], Contract, HexString>(path(['collection', 'contract']), prop('address')),
+          tokenId: prop('tokenId')
+        })
+      )(nfts)
+    ])
+  )
 }
 
 /**

@@ -87,7 +87,7 @@ export const onWalletWritten = onDocumentWritten(
                     pipe(
                       invoker(0, 'data'),
                       objOf('nft'),
-                      assoc('owner', undefined),
+                      assoc('ownerAddress', undefined),
                       updateNftOwner,
                       otherwise((err: unknown) => {
                         logger.error({ err, nft }, 'could not remove NFT owner')

@@ -36,7 +36,7 @@ async function updateNftsForAddress(address: EvmAddress, chain: Chain): Promise<
   for (const walletNft of walletNfts) {
     if (!isInWith(nfts, eqNftContract, walletNft)) {
       const ownerWallet = await getNftOwner(walletNft)
-      await updateNftOwner({ nft: walletNft, owner: ownerWallet.address })
+      await updateNftOwner({ nft: walletNft, ownerAddress: ownerWallet.address })
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Expiration } from '@echo/model/constants/expiration'
+import { Expiration, type ExpirationValues } from '@echo/model/constants/expiration'
 import { ExpirationLayout } from '@echo/ui/components/trade/expiration-selector/expiration-layout'
 import { ExpirationSelectorLayout } from '@echo/ui/components/trade/expiration-selector/expiration-selector-layout'
 import { ExpirationTitle } from '@echo/ui/components/trade/expiration-selector/expiration-title'
@@ -35,7 +35,9 @@ export const ExpirationSelector: FunctionComponent<Props> = ({ selectedExpiratio
               onClick={() => onSelectExpiration?.(expiration)}
               key={expiration}
             >
-              <span className={clsx('prose-label-md', 'text-white')}>{t(`selector.${expiration}`)}</span>
+              <span className={clsx('prose-label-md', 'text-white')}>
+                {t(`selector.${expiration as ExpirationValues}`)}
+              </span>
             </button>
           ))
         )(Expiration)}

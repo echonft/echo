@@ -3,8 +3,8 @@ import { EchoOfferState } from '@echo/web3/constants/echo-offer-state'
 import type { EchoOffer } from '@echo/web3/types/echo-offer'
 
 export const echoOfferMock: EchoOffer = {
-  sender: baseOfferMockFromJohnnycage.sender.wallet,
-  receiver: baseOfferMockFromJohnnycage.receiver.wallet,
+  sender: baseOfferMockFromJohnnycage.sender.wallet.address,
+  receiver: baseOfferMockFromJohnnycage.receiver.wallet.address,
   receiverItems: {
     chainId: 1,
     items: [{ tokenId: 3, tokenAddress: '0x12c63bbd266db84e117356e664f3604055166cec' }]

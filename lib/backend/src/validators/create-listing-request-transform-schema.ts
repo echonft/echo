@@ -25,12 +25,11 @@ import type { Erc1155Nft } from '@echo/model/types/erc1155-nft'
 import type { Erc721Item } from '@echo/model/types/erc721-item'
 import type { Erc721Nft } from '@echo/model/types/erc721-nft'
 import type { Listing } from '@echo/model/types/listing'
-import type { NftOwner } from '@echo/model/types/nft'
 import type { NftItem } from '@echo/model/types/nft-item'
 import type { OwnedErc1155Nft } from '@echo/model/types/owned-erc1155-nft'
 import type { OwnedErc721Nft } from '@echo/model/types/owned-erc721-nft'
 import type { OwnedNft } from '@echo/model/types/owned-nft'
-import type { User } from '@echo/model/types/user'
+import type { User, UserWithWallet } from '@echo/model/types/user'
 import type { Username } from '@echo/model/types/username'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { toNonEmptyArray } from '@echo/utils/fp/to-non-empty-array'
@@ -59,11 +58,11 @@ interface Erc1155ItemRequestWithOwnedNft extends Erc1155ItemRequest {
 type NftItemRequestWithOwnedNft = Erc721ItemRequestWithOwnedNft | Erc1155ItemRequestWithOwnedNft
 
 interface Erc721ItemWithOwner extends Erc721Item {
-  owner: NftOwner
+  owner: UserWithWallet
 }
 
 interface Erc1155ItemWithOwner extends Erc1155Item {
-  owner: NftOwner
+  owner: UserWithWallet
 }
 
 type NftItemWithOwner = Erc721ItemWithOwner | Erc1155ItemWithOwner
@@ -137,7 +136,7 @@ export async function createListingRequestTransformSchema(username: Username) {
             const item = request as Erc1155ItemRequestWithOwnedNft
             // Ensure the item quantity <= wallet's balance
             const balance = await getTokenBalance({
-              address: item.nft.owner.wallet,
+              address: item.nft.owner.wallet.address,
               chain: item.nft.collection.contract.chain,
               token: {
                 contract: item.nft.collection.contract
@@ -190,7 +189,7 @@ export async function createListingRequestTransformSchema(username: Username) {
       }
       return dissoc('owner', item)
     }
-    const creator = pipe<[NonEmptyArray<NftItemWithOwner>], NftItemWithOwner, NftOwner>(
+    const creator = pipe<[NonEmptyArray<NftItemWithOwner>], NftItemWithOwner, UserWithWallet>(
       head,
       prop('owner')
     )(params.items as NonEmptyArray<NftItemWithOwner>)

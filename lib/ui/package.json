@@ -52,7 +52,6 @@
     "@echo/model": "workspace:*",
     "@echo/routing": "workspace:*",
     "@echo/utils": "workspace:*",
-    "@echo/web3": "workspace:*",
     "@echo/web3-dom": "workspace:*",
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",

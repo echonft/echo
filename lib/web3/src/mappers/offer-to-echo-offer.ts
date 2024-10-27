@@ -22,8 +22,8 @@ function mapItems(items: NonEmptyArray<Item>) {
 
 export function offerToEchoOffer(offer: BaseOffer): EchoOffer {
   return applySpec<EchoOffer>({
-    sender: pipe(path<BaseOffer, 'sender', 'wallet'>(['sender', 'wallet']), getAddress),
-    receiver: pipe(path<BaseOffer, 'receiver', 'wallet'>(['receiver', 'wallet']), getAddress),
+    sender: pipe(path<BaseOffer, 'sender', 'wallet', 'address'>(['sender', 'wallet', 'address']), getAddress),
+    receiver: pipe(path<BaseOffer, 'receiver', 'wallet', 'address'>(['receiver', 'wallet', 'address']), getAddress),
     senderItems: pipe(prop('senderItems'), mapItems),
     receiverItems: pipe(prop('receiverItems'), mapItems),
     expiration: prop('expiresAt'),

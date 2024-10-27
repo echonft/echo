@@ -35,9 +35,9 @@ export const AuthUserProfile: FunctionComponent<Props> = ({
       <PaddedLayout>
         <Profile picture={{ pictureUrl: avatarUrl, alt: username }}>
           <UserProfileDetailsLayout>
-            <UserTag user={profile} />
+            <UserTag user={user} />
             <div className={clsx('flex', 'flex-row', 'h-max', 'w-max', 'gap-2.5')}>
-              <UserProfileWallets wallets={wallets} />
+              <WalletConnectedButton address={address} />
               <LogoutButtonManager />
             </div>
           </UserProfileDetailsLayout>

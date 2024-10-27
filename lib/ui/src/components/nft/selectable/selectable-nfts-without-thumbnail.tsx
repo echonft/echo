@@ -1,5 +1,5 @@
 'use client'
-import type { OwnedNft } from '@echo/model/types/nft/owned-nft'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
 import {
   SelectableNftCard,
   type SelectableNftCardProps

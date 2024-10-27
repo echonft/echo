@@ -1,11 +1,11 @@
 import { ListingState } from '@echo/model/constants/listing-state'
 import { TokenType } from '@echo/model/constants/token-type'
 import { collectionMockPx, collectionMockSpiral } from '@echo/model/mocks/collection-mock'
-import { nftOwnerMockJohnny } from '@echo/model/mocks/nft-mock'
+import { userWithWalletMockJohnny } from '@echo/model/mocks/user-mock'
 import { type Listing } from '@echo/model/types/listing'
 
 export const listingMock: Listing = {
-  creator: nftOwnerMockJohnny,
+  creator: userWithWalletMockJohnny,
   expiresAt: 2324074781,
   items: [
     {

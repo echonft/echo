@@ -1,24 +1,23 @@
+import type { EvmAddress } from '@echo/model/types/address'
 import type { Contract } from '@echo/model/types/contract'
-import type { HexString } from '@echo/utils/types/hex-string'
 import { walletClient } from '@echo/web3-dom/helpers/wallet-client'
-import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
+import { echoAddress } from '@echo/web3/helpers/echo-address'
 import { pipe, prop } from 'ramda'
 import { erc721Abi } from 'viem'
 import { readContract } from 'viem/actions'
 
 export interface GetErc721ContractApprovalArgs {
   contract: Contract
-  owner: HexString
+  address: EvmAddress
 }
 
 export async function getErc721ContractApproval(args: GetErc721ContractApprovalArgs) {
-  const { contract, owner } = args
-  const echoAddress = getEchoAddress(contract.chain)
+  const { contract, address } = args
   const client = pipe(prop('chain'), walletClient)(contract)
   return await readContract(client, {
     abi: erc721Abi,
     functionName: 'isApprovedForAll',
     address: contract.address,
-    args: [owner, echoAddress]
+    args: [address, echoAddress(contract.chain)]
   })
 }

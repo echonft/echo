@@ -1,9 +1,10 @@
-import type { Nft, NftIndex, NftOwner } from '@echo/model/types/nft'
+import type { Nft, NftIndex } from '@echo/model/types/nft'
+import type { UserWithWallet } from '@echo/model/types/user'
 
 export interface OwnedNft extends Omit<Nft, 'owner'> {
-  owner: NftOwner
+  owner: UserWithWallet
 }
 
 export interface OwnedNftIndex extends NftIndex {
-  owner: NftOwner
+  owner: UserWithWallet
 }

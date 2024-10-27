@@ -3,12 +3,13 @@ import { nftsCollection } from '@echo/firestore/helpers/collection/collections'
 import { updateReference } from '@echo/firestore/helpers/reference/update-reference'
 import type { NftDocument } from '@echo/firestore/types/model/nft-document'
 import { NftError } from '@echo/model/constants/errors/nft-error'
-import { type NftIndex, type NftOwner } from '@echo/model/types/nft'
+import { type NftIndex } from '@echo/model/types/nft'
+import type { UserWithWallet } from '@echo/model/types/user'
 import { isNil } from 'ramda'
 
 interface SetNftOwnerArgs {
   nft: NftIndex
-  owner: NftOwner
+  owner: UserWithWallet
 }
 
 export async function setNftOwner(args: SetNftOwnerArgs): Promise<NftDocument> {

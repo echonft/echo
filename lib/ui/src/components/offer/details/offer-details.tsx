@@ -1,13 +1,8 @@
 'use client'
-import type { Chain } from '@echo/model/constants/chain'
 import { OfferRole } from '@echo/model/constants/offer-role'
 import { offerReceiverNftItems } from '@echo/model/helpers/offer/offer-receiver-nft-items'
 import { offerSenderNftItems } from '@echo/model/helpers/offer/offer-sender-nft-items'
 import { nftItemToNft } from '@echo/model/mappers/item/nft-item-to-nft'
-import type { NftItem } from '@echo/model/types/nft-item'
-import type { Offer } from '@echo/model/types/offer'
-import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
-import { NftCards } from '@echo/ui/components/nft/card/nft-cards'
 import { OfferDetailsButtons } from '@echo/ui/components/offer/details/action/offer-details-buttons'
 import { OfferDetailsItemsButtonsLayout } from '@echo/ui/components/offer/details/layout/offer-details-items-buttons-layout'
 import { TradeDetailsLayout } from '@echo/ui/components/trade/layout/trade-details-layout'
@@ -15,7 +10,7 @@ import { TradeDetailsItems } from '@echo/ui/components/trade/trade-details-items
 import { TradeDetailsOfferState } from '@echo/ui/components/trade/trade-details-offer-state'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { nonEmptyMap } from '@echo/utils/fp/non-empty-map'
-import { assoc, head, type NonEmptyArray, path, pipe } from 'ramda'
+import { assoc, pipe } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 export interface OfferDetailsProps {

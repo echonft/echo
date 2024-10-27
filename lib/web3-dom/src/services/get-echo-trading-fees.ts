@@ -1,7 +1,7 @@
 import type { Chain } from '@echo/model/constants/chain'
 import { walletClient } from '@echo/web3-dom/helpers/wallet-client'
 import { echoAbi } from '@echo/web3/constants/echo-abi'
-import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
+import { echoAddress } from '@echo/web3/helpers/echo-address'
 import { readContract } from 'viem/actions'
 
 export interface GetEchoTradingFeesArgs {
@@ -10,11 +10,10 @@ export interface GetEchoTradingFeesArgs {
 
 export async function getEchoTradingFees(args: GetEchoTradingFeesArgs): Promise<bigint> {
   const { chain } = args
-  const echoAddress = getEchoAddress(chain)
   const client = walletClient(chain)
   return await readContract(client, {
     abi: echoAbi,
     functionName: 'tradingFee',
-    address: echoAddress
+    address: echoAddress(chain)
   })
 }

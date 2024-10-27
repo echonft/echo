@@ -26,14 +26,7 @@ interface Props {
   onComplete?: (items: NonEmptyArray<OwnedNft>, target: Listing['target'], expiration: Expiration) => void
 }
 
-export const CreateListing: FunctionComponent<Props> = ({
-  creatorNfts,
-  items,
-  target,
-  loading,
-  onCancel,
-  onComplete
-}) => {
+export const CreateListing: FunctionComponent<Props> = ({ creatorNfts, items, target, loading, onCancel }) => {
   const { nfts, selection, selectNft, unselectNft } = useNfts({
     nfts: creatorNfts,
     sortBy: 'collection',

@@ -1,3 +1,5 @@
+import type { Chain } from '@echo/model/constants/chain'
+import type { Address } from '@echo/model/types/address'
 import type { Username } from '@echo/model/types/username'
 
 export interface User {
@@ -10,3 +12,10 @@ export interface User {
 }
 
 export type UserIndex = Pick<User, 'username'>
+
+export interface UserWithWallet extends User {
+  wallet: {
+    address: Address
+    chain?: Chain
+  }
+}

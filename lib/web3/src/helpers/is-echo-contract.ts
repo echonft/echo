@@ -1,7 +1,7 @@
 import type { Contract } from '@echo/model/types/contract'
-import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
+import { echoAddress } from '@echo/web3/helpers/echo-address'
 import { equals } from 'ramda'
 
 export function isEchoContract(contract: Contract): boolean {
-  return equals(contract.address, getEchoAddress(contract.chain))
+  return equals(contract.address, echoAddress(contract.chain))
 }

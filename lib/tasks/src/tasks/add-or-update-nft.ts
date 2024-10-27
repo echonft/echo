@@ -2,7 +2,8 @@ import { userDocumentToModel } from '@echo/firestore/converters/user-document-to
 import { addNft } from '@echo/firestore/crud/nft/add-nft'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getUserByWallet } from '@echo/firestore/crud/user/get-user-by-wallet'
-import type { Nft, NftOwner } from '@echo/model/types/nft'
+import type { Nft } from '@echo/model/types/nft'
+import type { UserWithWallet } from '@echo/model/types/user'
 import { info } from '@echo/tasks/helpers/logger'
 import { updateNftOwner, type UpdateNftOwnerArgs } from '@echo/tasks/tasks/update-nft-owner'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
@@ -14,9 +15,9 @@ export async function addOrUpdateNft(nft: Nft): Promise<Nft> {
   const wallet = await getNftOwner(nft)
   const existingNft = await getNftByIndex(nft)
   if (isNil(existingNft)) {
-    const owner: Nullable<NftOwner> = await pipe(
+    const owner: Nullable<UserWithWallet> = await pipe(
       getUserByWallet,
-      andThen(unlessNil(pipe(userDocumentToModel, assoc('wallet', wallet.address))))
+      andThen(unlessNil(pipe(userDocumentToModel, assoc('wallet', { address: wallet.address }))))
     )(wallet)
     return await pipe(
       assoc('owner', owner),
@@ -27,9 +28,9 @@ export async function addOrUpdateNft(nft: Nft): Promise<Nft> {
       })
     )(nft)
   } else {
-    return pipe<[Nft], Omit<UpdateNftOwnerArgs, 'owner'>, UpdateNftOwnerArgs, Promise<Nft>>(
+    return pipe<[Nft], Omit<UpdateNftOwnerArgs, 'ownerAddress'>, UpdateNftOwnerArgs, Promise<Nft>>(
       objOf('nft'),
-      assoc('owner', wallet.address),
+      assoc('ownerAddress', wallet.address),
       updateNftOwner
     )(nft)
   }

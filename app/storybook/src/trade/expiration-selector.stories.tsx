@@ -21,7 +21,13 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   render: ({ onSelectExpiration, selectedExpiration }) => {
     const [expiration, setExpiration] = useState(selectedExpiration)
-    return <Component onSelectExpiration={setExpiration} selectedExpiration={expiration} />
+
+    function selectExpiration(selected: Expiration) {
+      setExpiration(expiration)
+      onSelectExpiration?.(selected)
+    }
+
+    return <Component onSelectExpiration={selectExpiration} selectedExpiration={expiration} />
   }
 }
 

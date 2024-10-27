@@ -36,8 +36,8 @@ export const UserProfile: FunctionComponent<Props> = ({
       <PaddedLayout>
         <Profile picture={{ pictureUrl: avatarUrl, alt: username }}>
           <UserProfileDetailsLayout>
-            <UserTag user={profile} />
-            <UserProfileWallets wallets={wallets} />
+            <UserTag user={user} />
+            <WalletConnectedButton address={address} chain={chain} />
           </UserProfileDetailsLayout>
         </Profile>
       </PaddedLayout>

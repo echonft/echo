@@ -15,7 +15,7 @@ import { andThen, assoc, equals, isNil, otherwise, pipe, tap } from 'ramda'
 
 export interface UpdateNftOwnerArgs {
   readonly nft: Nft
-  readonly owner: Nullable<Address>
+  readonly ownerAddress: Nullable<Address>
 }
 
 async function cancelTiedListings(nft: NftIndex) {
@@ -38,14 +38,14 @@ async function cancelTiedOffers(nft: NftIndex) {
  * Else, it removes the owner
  * @param args
  */
-export async function updateNftOwner({ nft, owner }: UpdateNftOwnerArgs): Promise<Nft> {
-  if (equals(owner, nft.owner?.wallet)) {
+export async function updateNftOwner({ nft, ownerAddress }: UpdateNftOwnerArgs): Promise<Nft> {
+  if (equals(ownerAddress, nft.owner?.wallet.address)) {
     // NFT owner is already set to the right value in Firestore, return it
     return nft
   }
   await cancelTiedOffers(nft)
   await cancelTiedListings(nft)
-  if (isNil(owner)) {
+  if (isNil(ownerAddress)) {
     return pipe(
       removeNftOwner,
       andThen(
@@ -58,10 +58,10 @@ export async function updateNftOwner({ nft, owner }: UpdateNftOwnerArgs): Promis
   const user = await pipe(
     getUserByWallet,
     otherwise((err) => {
-      error({ err, owner: owner }, 'could not get wallet owner')
+      error({ err, owner: ownerAddress }, 'could not get wallet owner')
       return undefined
     })
-  )({ address: owner, vm: chains[nft.collection.contract.chain].vm })
+  )({ address: ownerAddress, vm: chains[nft.collection.contract.chain].vm })
   if (isNil(user)) {
     return pipe(
       removeNftOwner,
@@ -72,7 +72,7 @@ export async function updateNftOwner({ nft, owner }: UpdateNftOwnerArgs): Promis
       )
     )(nft)
   } else {
-    const nftOwner = pipe(userDocumentToModel, assoc('wallet', owner))(user)
+    const nftOwner = pipe(userDocumentToModel, assoc('wallet', { address: ownerAddress }))(user)
     return pipe(
       setNftOwner,
       andThen(

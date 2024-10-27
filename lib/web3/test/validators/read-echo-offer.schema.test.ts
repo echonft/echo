@@ -8,8 +8,8 @@ import { describe, expect, test } from '@jest/globals'
 describe('readEchoOfferSchema', () => {
   test('maps correctly', () => {
     const readValues = [
-      baseOfferMockFromJohnnycage.sender.wallet,
-      baseOfferMockFromJohnnycage.receiver.wallet,
+      baseOfferMockFromJohnnycage.sender.wallet.address,
+      baseOfferMockFromJohnnycage.receiver.wallet.address,
       {
         chainId: BigInt(1),
         items: [

@@ -1,11 +1,8 @@
 'use client'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
-import type { Chain } from '@echo/model/constants/chain'
 import { ListingRole } from '@echo/model/constants/listing-role'
 import { listingItems } from '@echo/model/helpers/listing/listing-items'
 import { nftItemToNft } from '@echo/model/mappers/item/nft-item-to-nft'
-import type { Listing } from '@echo/model/types/listing'
-import type { NftItem } from '@echo/model/types/nft-item'
 import type { Slug } from '@echo/model/types/slug'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
@@ -26,7 +23,7 @@ import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import { nonEmptyMap } from '@echo/utils/fp/non-empty-map'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { assoc, head, type NonEmptyArray, path, pipe } from 'ramda'
+import { assoc, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 export interface ListingDetailsProps {
@@ -61,15 +58,7 @@ export const ListingDetails: FunctionComponent<ListingDetailsProps> = ({ listing
       <TradeDetailsListingState trade={listing} />
       <TradeDetailsInfoLayout>
         <TradeDetailsUserInfoLayout>
-          <UserDetails
-            user={creator}
-            chain={pipe<[Listing], NonEmptyArray<NftItem>, NftItem, Chain>(
-              listingItems,
-              head,
-              path(['token', 'contract', 'chain'])
-            )(listing)}
-            isAuthUser={role === ListingRole.Creator}
-          />
+          <UserDetails user={creator} isAuthUser={role === ListingRole.Creator} />
           {/*TODO create a component for items*/}
           <NftCards nfts={nfts} alignment={Alignment.Left} />
         </TradeDetailsUserInfoLayout>

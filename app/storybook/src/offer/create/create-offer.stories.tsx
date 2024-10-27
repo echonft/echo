@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { nftMocksCrew, nftMocksJohnny } from '@echo/model/mocks/nft-mock'
-import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
+import { userWithWalletMockCrew, userWithWalletMockJohnny } from '@echo/model/mocks/user-mock'
 import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { CreateOfferFlow as Component } from '@echo/ui/components/offer/create/create-offer-flow'
 import type { Meta, StoryObj } from '@storybook/react'
@@ -12,10 +12,10 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   args: {
     loading: false,
-    receiver: userMockCrew,
+    receiver: userWithWalletMockCrew,
     receiverNfts: nftMocksCrew,
     receiverNftsSelection: take(1, nftMocksCrew) as NonEmptyArray<OwnedNft>,
-    sender: userMockJohnny,
+    sender: userWithWalletMockJohnny,
     senderNfts: nftMocksJohnny
   },
   argTypes: {

@@ -48,4 +48,4 @@ export const swapMock: Swap = {
   transactionId: '0xb384a4949fe643aa638827e381e62513e412af409b0744a37065dd59b0a5309b'
 }
 
-export const swapMocks = [swapMock]
+export const swapMocks: Swap[] = [swapMock]

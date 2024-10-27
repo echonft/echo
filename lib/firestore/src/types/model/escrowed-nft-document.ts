@@ -1,6 +1,6 @@
-import type { NftOwner } from '@echo/model/types/nft'
+import type { UserWithWallet } from '@echo/model/types/user'
 
 export interface EscrowedNftDocument {
   nftId: string
-  owner: NftOwner
+  owner: UserWithWallet
 }

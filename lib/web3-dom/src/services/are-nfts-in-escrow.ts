@@ -2,22 +2,13 @@ import type { Chain } from '@echo/model/constants/chain'
 import type { Nft } from '@echo/model/types/nft'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { walletClient } from '@echo/web3-dom/helpers/wallet-client'
-import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
-import { all, always, applySpec, head, isNil, map, path, pipe, prop, toLower } from 'ramda'
+import { echoAddress } from '@echo/web3/helpers/echo-address'
+import { all, always, applySpec, equals, head, isNil, map, path, pipe, prop, reject, toLower } from 'ramda'
 import { type ContractFunctionParameters, erc721Abi } from 'viem'
 import { multicall } from 'viem/actions'
 
 export interface AreNftsInEscrowArgs {
   nfts: Nft[]
-}
-
-function isEchoAddress(chain: Chain) {
-  return function (result: Nullable<string>) {
-    if (isNil(result)) {
-      return false
-    }
-    return getEchoAddress(chain) === toLower(result)
-  }
 }
 
 export async function areNftsInEscrow({ nfts }: AreNftsInEscrowArgs): Promise<boolean> {
@@ -35,9 +26,12 @@ export async function areNftsInEscrow({ nfts }: AreNftsInEscrowArgs): Promise<bo
   const results = await multicall(client, {
     contracts: contractCalls
   })
+  const echoContractAddress = echoAddress(chain)
 
-  return pipe<[Record<'result', Nullable<string>>[]], Nullable<string>[], boolean>(
+  return pipe<[Record<'result', Nullable<string>>[]], Nullable<string>[], string[], Lowercase<string>[], boolean>(
     map(prop('result')),
-    all(isEchoAddress(chain))
+    reject(isNil),
+    map<string, Lowercase<string>>(toLower),
+    all(equals(echoContractAddress))
   )(results as Record<'result', Nullable<string>>[])
 }

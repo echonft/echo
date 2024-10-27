@@ -5,7 +5,7 @@ import type { Item } from '@echo/model/types/item'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import { echoAbi } from '@echo/web3/constants/echo-abi'
-import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
+import { echoAddress } from '@echo/web3/helpers/echo-address'
 import { offerToEchoOffer } from '@echo/web3/mappers/offer-to-echo-offer'
 import { head, type NonEmptyArray, path, pipe, prop } from 'ramda'
 import { simulateContract, waitForTransactionReceipt, writeContract } from 'wagmi/actions'
@@ -24,7 +24,7 @@ export async function createOffer(args: CreateEchoOfferArgs): Promise<HexString>
     path(['token', 'contract', 'chain'])
   )(offer)
 
-  const address = getEchoAddress(chain)
+  const address = echoAddress(chain)
   const { request } = await simulateContract(wagmiConfig, {
     abi: echoAbi,
     functionName: 'createOffer',

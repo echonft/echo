@@ -1,6 +1,7 @@
 'use client'
+import { Expiration } from '@echo/model/constants/expiration'
 import type { OwnedNft } from '@echo/model/types/owned-nft'
-import type { User } from '@echo/model/types/user'
+import type { UserWithWallet } from '@echo/model/types/user'
 import { CreateOfferReviewStep } from '@echo/ui/components/offer/create/create-offer-review-step'
 import { CreateOfferUserNftsSelection } from '@echo/ui/components/offer/create/create-offer-user-nfts-selection'
 import { CreateTradeBottomBar } from '@echo/ui/components/trade/create-trade-bottom-bar'
@@ -13,14 +14,14 @@ import { type NonEmptyArray, values } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  sender: User
+  sender: UserWithWallet
   senderNfts: OwnedNft[]
-  receiver: User
+  receiver: UserWithWallet
   receiverNfts: OwnedNft[]
   receiverNftsSelection: NonEmptyArray<OwnedNft>
   loading?: boolean
-  onComplete?: () => void
-  onCancel?: () => void
+  onComplete?: VoidFunction
+  onCancel?: VoidFunction
 }
 
 export const CreateOfferFlow: FunctionComponent<Props> = ({
@@ -45,6 +46,7 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
     selectNft: selectReceiverNfts,
     unselectNft: unselectReceiverNfts
   } = useNfts({ nfts: receiverNfts, selection: { nfts: receiverNftsSelection }, sortBy: 'collection' })
+  const [expiration, setExpiration] = useState(Expiration.OneDay)
   const steps = values(OfferCreationSteps)
   const totalSteps = steps.length
   const subtitles = [t('steps.counterparty'), t('steps.offer'), t('steps.review'), t('steps.done')]
@@ -95,6 +97,8 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
             senderNftsSelection={senderSelection.nfts}
             receiver={receiver}
             receiverNftsSelection={receiverSelection.nfts}
+            selectedExpiration={expiration}
+            onSelectExpiration={setExpiration}
           />
         )}
       </div>

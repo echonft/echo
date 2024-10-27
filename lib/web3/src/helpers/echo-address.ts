@@ -3,7 +3,7 @@ import { ChainError } from '@echo/model/constants/errors/chain-error'
 import type { EvmAddress } from '@echo/model/types/address'
 import { toLower } from 'ramda'
 
-export function getEchoAddress(chain: Chain): EvmAddress {
+export function echoAddress(chain: Chain): EvmAddress {
   switch (chain) {
     case Chain.Blast:
       return toLower('0x538dd3e75d05b63dc81fee587b8a4aa5fde2cc95')

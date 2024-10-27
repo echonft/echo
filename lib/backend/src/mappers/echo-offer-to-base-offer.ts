@@ -10,8 +10,8 @@ import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
 import { erc721NftToItem } from '@echo/model/mappers/nft/erc721-nft-to-item'
 import type { BaseOffer } from '@echo/model/types/base-offer'
 import type { Erc721Item } from '@echo/model/types/erc721-item'
-import type { NftOwner } from '@echo/model/types/nft'
 import type { OwnedErc721Nft } from '@echo/model/types/owned-erc721-nft'
+import type { UserWithWallet } from '@echo/model/types/user'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { nonEmptyMap } from '@echo/utils/fp/non-empty-map'
 import { nonEmptyPromiseAll } from '@echo/utils/fp/non-empty-promise-all'
@@ -22,7 +22,7 @@ type EchoOfferItems = EchoOffer['senderItems']
 type EchoOfferItem = EchoOfferItems['items'][number]
 
 interface Erc721ItemWithOwner extends Erc721Item {
-  owner: NftOwner
+  owner: UserWithWallet
 }
 
 // TODO add ERC20 and ERC1155
@@ -65,11 +65,11 @@ export async function echoOfferToBaseOffer(contractOffer: EchoOffer): Promise<Ba
   if (!isNonEmptyArray(receiverItems)) {
     return Promise.reject(new BadRequestError({ severity: 'warning' }))
   }
-  const receiver = pipe<[NonEmptyArray<Erc721ItemWithOwner>], Erc721ItemWithOwner, NftOwner>(
+  const receiver = pipe<[NonEmptyArray<Erc721ItemWithOwner>], Erc721ItemWithOwner, UserWithWallet>(
     head,
     prop('owner')
   )(receiverItems)
-  const sender = pipe<[NonEmptyArray<Erc721ItemWithOwner>], Erc721ItemWithOwner, NftOwner>(
+  const sender = pipe<[NonEmptyArray<Erc721ItemWithOwner>], Erc721ItemWithOwner, UserWithWallet>(
     head,
     prop('owner')
   )(senderItems)

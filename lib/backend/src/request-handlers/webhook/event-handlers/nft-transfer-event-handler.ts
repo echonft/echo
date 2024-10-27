@@ -5,8 +5,8 @@ import { unescrowNft } from '@echo/firestore/crud/nft/unescrow-nft'
 import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
 import { getOrAddCollection } from '@echo/tasks/tasks/get-or-add-collection'
 import { updateNftOwner } from '@echo/tasks/tasks/update-nft-owner'
+import { isEchoContract } from '@echo/web3/helpers/is-echo-contract'
 import type { NftTransferEvent } from '@echo/web3/types/nft-transfer-event'
-import { isEchoContract } from '@echo/web3/utils/is-echo-contract'
 import { isNil } from 'ramda'
 
 export async function nftTransferEventHandler({ contract, from, to, tokenId }: NftTransferEvent): Promise<void> {
@@ -31,7 +31,7 @@ export async function nftTransferEventHandler({ contract, from, to, tokenId }: N
     return
   }
   if (!isNil(nft)) {
-    await updateNftOwner({ nft, owner: to.address })
+    await updateNftOwner({ nft, ownerAddress: to.address })
   }
   return
 }
