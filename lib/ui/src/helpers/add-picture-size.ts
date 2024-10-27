@@ -85,8 +85,7 @@ export function addPictureSize(
       if (isNil(match) || length(match) < 2 || isNil(match[1])) {
         return src
       }
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      return `${apiPathProvider.ipfs.proxy.getUrl({ path: match[1]! })}?img-width=${size}`
+      return `${apiPathProvider.ipfs.proxy.getUrl({ path: match[1] })}?img-width=${size}`
     }
     // discord
     if (hostname.includes('discordapp.com')) {

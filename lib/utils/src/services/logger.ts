@@ -34,7 +34,7 @@ function getLogLevel(): LevelWithSilentOrString {
   }
   return logLevel
 }
-export function getBaseLogger(name: string, options?: LoggerOptions, stream?: DestinationStream | undefined) {
+export function getBaseLogger(name: string, options?: LoggerOptions, stream?: DestinationStream) {
   return pino(
     {
       enabled: !isCI && environment !== Environment.Test,

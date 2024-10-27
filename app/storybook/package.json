@@ -16,16 +16,16 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@headlessui/react": "2.1.2",
-    "@sentry/nextjs": "8.24.0",
-    "@storybook/nextjs": "8.2.7",
-    "dayjs": "1.11.12",
-    "next-intl": "3.17.2",
+    "@headlessui/react": "2.2.0",
+    "@sentry/nextjs": "8.35.0",
+    "@storybook/nextjs": "8.3.6",
+    "dayjs": "1.11.13",
+    "next-intl": "3.23.5",
     "ramda": "0.30.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "storybook": "8.2.7",
-    "zustand": "4.5.4"
+    "storybook": "8.3.6",
+    "zustand": "4.5.5"
   },
   "devDependencies": {
     "@echo/api": "workspace:*",
@@ -36,17 +36,17 @@
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
     "@echo/web3-dom": "workspace:*",
-    "@storybook/addon-actions": "8.2.7",
-    "@storybook/addon-essentials": "8.2.7",
+    "@storybook/addon-actions": "8.3.6",
+    "@storybook/addon-essentials": "8.3.6",
     "@storybook/addon-styling-webpack": "1.0.0",
-    "@storybook/react": "8.2.7",
-    "@types/node": "22.1.0",
-    "@types/ramda": "0.30.1",
-    "@types/react": "18.3.3",
-    "@types/react-dom": "18.3.0",
+    "@storybook/react": "8.3.6",
+    "@types/node": "22.8.1",
+    "@types/ramda": "0.30.2",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
     "css-loader": "7.1.2",
     "style-loader": "4.0.0",
     "tsconfig-paths-webpack-plugin": "4.1.0",
-    "typescript": "5.5.4"
+    "typescript": "5.6.3"
   }
 }
