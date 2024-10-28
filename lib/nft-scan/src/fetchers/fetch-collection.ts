@@ -1,8 +1,8 @@
 import type { Collection } from '@echo/model/types/collection'
 import { FetchError } from '@echo/nft-scan/constants/errors/fetch-error'
+import { nftScanApiPathProvider } from '@echo/nft-scan/constants/nft-scan-api-path-provider'
 import { fetchInit } from '@echo/nft-scan/helpers/fetch-init'
 import { error, warn } from '@echo/nft-scan/helpers/logger'
-import { nftScanApiPathProvider } from '@echo/nft-scan/services/routing/nft-scan-api-path-provider'
 import type { FetchCollectionRequest } from '@echo/nft-scan/types/request/fetch-collection-request'
 import { fetchCollectionResponseSchema } from '@echo/nft-scan/validators/fetch-collection-response-schema'
 import { parseResponse } from '@echo/utils/helpers/parse-response'
@@ -13,7 +13,7 @@ export async function fetchCollection({
   contract,
   showAttribute
 }: FetchCollectionRequest): Promise<Nullable<Collection>> {
-  const url = nftScanApiPathProvider.collection.fetch.getUrl(contract, { showAttribute })
+  const url = nftScanApiPathProvider.collection.fetch.withQuery({ showAttribute }).getUrl(contract)
   const init = await fetchInit()
   const response = await fetch(url, init)
   if (!response.ok) {

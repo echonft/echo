@@ -1,7 +1,7 @@
 import { FetchError } from '@echo/opensea/constants/errors/fetch-error'
+import { openseaApiPathProvider } from '@echo/opensea/constants/opensea-api-path-provider'
 import { error } from '@echo/opensea/helpers/logger'
 import { throttleFetch } from '@echo/opensea/helpers/throttle-fetch'
-import { openseaApiPathProvider } from '@echo/opensea/services/routing/opensea-api-path-provider'
 import type { FetchNftsByContractRequest } from '@echo/opensea/types/request/fetch-nfts-by-contract-request'
 import type { FetchNftsResponse } from '@echo/opensea/types/response/fetch-nfts-response'
 import { fetchNftsResponseSchema } from '@echo/opensea/validators/fetch-nfts-response-schema'
@@ -13,7 +13,7 @@ export async function fetchNftsByContract({
   next,
   limit
 }: FetchNftsByContractRequest): Promise<FetchNftsResponse> {
-  const url = openseaApiPathProvider.nfts.fetchByContract.getUrl(contract, { next, limit })
+  const url = openseaApiPathProvider.nfts.fetchByContract.withQuery({ next, limit }).getUrl(contract)
   const response = await throttleFetch(url)
   if (!response.ok) {
     error({ contract, url, response: pick(['status'], response) }, FetchError.Nfts)

@@ -2,9 +2,9 @@ import { embedSeparator } from '@echo/bot/helpers/embed/embed-separator'
 import { embedValueForNftItem } from '@echo/bot/helpers/embed/embed-value-for-nft-item'
 import { type UserDocument } from '@echo/firestore/types/model/user-document'
 import { nftItems } from '@echo/model/helpers/item/nft-items'
-import type { NftItem } from '@echo/model/types/nft-item'
 import { type Listing } from '@echo/model/types/listing'
-import { pathProvider } from '@echo/routing/path/path-provider'
+import type { NftItem } from '@echo/model/types/nft-item'
+import { pathProvider } from '@echo/routing/constants/path-provider'
 import { type APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import i18next from 'i18next'
 import { addIndex, flatten, map, type NonEmptyArray } from 'ramda'
@@ -15,7 +15,9 @@ export function buildListingEmbed(listing: Listing, creator: UserDocument) {
     .setDescription(i18next.t('listing.embed.description', { user: userMention(creator.discord.id) }))
     .setColor(0x00ff66)
     .setFields(fields(listing.items, listing.target))
-    .setURL(pathProvider.collection.default.getUrl({ slug: listing.target.collection.slug }, { listing: listing }))
+    .setURL(
+      pathProvider.collection.default.withQuery({ listing: listing }).getUrl({ slug: listing.target.collection.slug })
+    )
 }
 
 function fields(items: NonEmptyArray<NftItem>, target: Listing['target']): APIEmbedField[] {

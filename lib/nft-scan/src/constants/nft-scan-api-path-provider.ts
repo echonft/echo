@@ -1,3 +1,4 @@
+import type { Chain } from '@echo/model/constants/chain'
 import { fetchCollectionQueryMapper } from '@echo/nft-scan/services/routing/fetch-collection-query-mapper'
 import { fetchNftQueryMapper } from '@echo/nft-scan/services/routing/fetch-nft-query-mapper'
 import { fetchNftsByAccountQueryMapper } from '@echo/nft-scan/services/routing/fetch-nfts-by-account-query-mapper'
@@ -12,7 +13,7 @@ import type { OptionalRecord } from '@echo/utils/types/optional-record'
 export const nftScanApiPathProvider = {
   collection: {
     fetch: new NftScanApiPath<
-      Record<'address', HexString>,
+      { address: HexString; chain: Chain },
       OptionalRecord<'showAttribute', boolean>,
       Record<'show_attribute', boolean>
     >({
@@ -22,7 +23,7 @@ export const nftScanApiPathProvider = {
   },
   nft: {
     fetch: new NftScanApiPath<
-      { address: HexString; identifier: string },
+      { address: HexString; chain: Chain; identifier: string },
       OptionalRecord<'showAttribute', boolean>,
       Record<'show_attribute', boolean>
     >({
@@ -32,7 +33,7 @@ export const nftScanApiPathProvider = {
   },
   nfts: {
     fetchByAccount: new NftScanApiPath<
-      Record<'address', HexString>,
+      { address: HexString; chain: Chain },
       FetchNftsQueryParams,
       FetchNftsByAccountSearchParams
     >({
@@ -40,7 +41,7 @@ export const nftScanApiPathProvider = {
       queryParamsMapper: fetchNftsByAccountQueryMapper
     }),
     fetchByContract: new NftScanApiPath<
-      Record<'address', HexString>,
+      { address: HexString; chain: Chain },
       FetchNftsQueryParams,
       FetchNftsByContractSearchParams
     >({

@@ -1,7 +1,7 @@
 import type { SearchResponse } from '@echo/api/types/responses/search-response'
 import type { SearchResult } from '@echo/model/types/search-result'
 import type { Username } from '@echo/model/types/username'
-import { apiPathProvider } from '@echo/routing/path/api-path-provider'
+import { apiPathProvider } from '@echo/routing/constants/api-path-provider'
 import axios from 'axios'
 import { path } from 'ramda'
 

@@ -1,5 +1,5 @@
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
-import { apiPathProvider } from '@echo/routing/path/api-path-provider'
+import { apiPathProvider } from '@echo/routing/constants/api-path-provider'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import type { HexString } from '@echo/utils/types/hex-string'
 import axios, { AxiosError } from 'axios'

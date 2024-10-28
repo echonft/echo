@@ -1,7 +1,7 @@
 import { buildCreateListingRequest } from '@echo/api/request-builders/build-create-listing-request'
 import type { CreateListingRequestBuilderArgs } from '@echo/api/types/request-builders/create-listing-request-builder-args'
 import { type ListingResponse } from '@echo/api/types/responses/listing-response'
-import { apiPathProvider } from '@echo/routing/path/api-path-provider'
+import { apiPathProvider } from '@echo/routing/constants/api-path-provider'
 import axios from 'axios'
 import { prop } from 'ramda'
 

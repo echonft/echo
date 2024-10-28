@@ -1,7 +1,7 @@
 'use client'
 
 import type { OwnedNft } from '@echo/model/types/owned-nft'
-import { pathProvider } from '@echo/routing/path/path-provider'
+import { pathProvider } from '@echo/routing/constants/path-provider'
 import { NftsWithFilters } from '@echo/ui/components/nft/filters/nfts-with-filters'
 import { SelectableNftsWithFilters } from '@echo/ui/components/nft/filters/selectable-nfts-with-filters'
 import { NftAction } from '@echo/ui/constants/nft-actions'
@@ -34,7 +34,7 @@ export const UserItemsPanel: FunctionComponent<Props> = ({ isAuthUser, nfts, sho
           action={NftAction.Offer}
           sortBy={'collection'}
           onSelectionAction={(selection) => {
-            router.push(pathProvider.offer.new.get({ items: selection }))
+            router.push(pathProvider.offer.new.withQuery({ items: selection }).get())
           }}
         />
       </TabPanel>

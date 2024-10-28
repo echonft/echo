@@ -1,5 +1,5 @@
 import type { Slug } from '@echo/model/types/slug'
-import { pathProvider } from '@echo/routing/path/path-provider'
+import { pathProvider } from '@echo/routing/constants/path-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { PictureSize } from '@echo/ui/constants/picture-size'
 import { Size } from '@echo/ui/constants/size'

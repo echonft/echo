@@ -1,4 +1,4 @@
-import { apiPathProvider } from '@echo/routing/path/api-path-provider'
+import { apiPathProvider } from '@echo/routing/constants/api-path-provider'
 import { values } from 'ramda'
 
 export function isApiWebhookPath(path: string): boolean {

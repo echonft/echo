@@ -34,7 +34,7 @@
     "@eslint/compat": "1.2.1",
     "@eslint/eslintrc": "3.1.0",
     "@eslint/js": "9.13.0",
-    "@next/eslint-plugin-next": "14.2.16",
+    "@next/eslint-plugin-next": "15.0.1",
     "@storybook/eslint-config-storybook": "4.0.0",
     "@types/eslint__eslintrc": "2.1.2",
     "@types/eslint__js": "8.42.3",
@@ -46,7 +46,7 @@
     "eslint-plugin-jest": "28.8.3",
     "eslint-plugin-prettier": "5.2.1",
     "eslint-plugin-react": "7.37.2",
-    "eslint-plugin-react-hooks": "4.6.2",
+    "eslint-plugin-react-hooks": "5.0.0",
     "eslint-plugin-storybook": "0.10.1",
     "firebase-tools": "13.23.0",
     "globals": "15.11.0",
@@ -61,7 +61,7 @@
     "turbo": "2.2.3",
     "typescript": "5.6.3",
     "typescript-eslint": "8.11.0",
-    "vercel": "35.2.4"
+    "vercel": "37.12.1"
   },
   "packageManager": "pnpm@9.12.2",
   "engines": {

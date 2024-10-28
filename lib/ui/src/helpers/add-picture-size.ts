@@ -1,6 +1,6 @@
+import { productionHostname } from '@echo/routing/constants/production-hostname'
 import { baseUrl } from '@echo/routing/helpers/base-url'
-import { productionHostname } from '@echo/routing/helpers/production-hostname'
-import { apiPathProvider } from '@echo/routing/path/api-path-provider'
+import { apiPathProvider } from '@echo/routing/constants/api-path-provider'
 import { PictureSize } from '@echo/ui/constants/picture-size'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -15,10 +15,9 @@ import { concat, filter, isNil, length, lte, reduce, values } from 'ramda'
 function getCurrentHostnameSrc(src: string): string {
   const regex = /^(https?:\/\/)([^/]+)(\/.*)?$/
   const match = regex.exec(src)
-  const hostname = productionHostname()
   if (
     match &&
-    match[2] !== hostname &&
+    match[2] !== productionHostname &&
     (match[2] === 'dev.echonft.xyz' || match[2] === 'staging.echonft.xyz' || match[2] === 'app.echonft.xyz')
   ) {
     return src.replace(regex, `${baseUrl()}$3`)

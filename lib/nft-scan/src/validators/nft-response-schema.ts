@@ -5,7 +5,7 @@ import { nftTokenTypeSchema } from '@echo/model/validators/nft-token-type-schema
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import type { NftResponse } from '@echo/nft-scan/types/response/nft-response'
 import { nftAttributeResponseSchema } from '@echo/nft-scan/validators/nft-attribute-response-schema'
-import { apiPathProvider } from '@echo/routing/path/api-path-provider'
+import { apiPathProvider } from '@echo/routing/constants/api-path-provider'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { unlessNil } from '@echo/utils/helpers/unless-nil'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'

@@ -1,36 +1,30 @@
-import { AbstractPath } from '@echo/routing/path/abstract-path'
-import type { PathArgs } from '@echo/routing/types/path-args'
+import type { Chain } from '@echo/model/constants/chain'
+import { isTestnetChain } from '@echo/model/helpers/chain/is-testnet-chain'
+import { AbstractPath, type PathArgs, type PathParamsArgs } from '@echo/routing/path/abstract-path'
 import type { QueryParams } from '@echo/routing/types/query-params/query-params'
 import type { SearchParams } from '@echo/routing/types/search-params/search-params'
-import { isTestnetChain } from '@echo/model/helpers/chain/is-testnet-chain'
-import type { Chain } from '@echo/model/constants/chain'
-import { compile } from 'path-to-regexp'
-import { always, assoc, concat, dissoc, ifElse, isNil, pipe, prop } from 'ramda'
+import { assoc, dissoc, juxt, pipe, prop } from 'ramda'
+
+interface Params extends Record<PropertyKey, string | string[]> {
+  chain: Chain
+}
 
 export class OpenseaApiPath<
-  TParams extends Record<PropertyKey, string | string[]>,
+  TParams extends Params,
   TQueryParams extends QueryParams = never,
   TSearchParams extends SearchParams = TQueryParams extends SearchParams ? TQueryParams : SearchParams
-> extends AbstractPath<TQueryParams, TSearchParams> {
-  constructor(args: Omit<PathArgs<TQueryParams, TSearchParams>, 'secure'>) {
-    super(
-      pipe<[typeof args], Omit<PathArgs<TQueryParams, TSearchParams>, 'secure'>, PathArgs<TQueryParams, TSearchParams>>(
-        dissoc('chain') as (obj: typeof args) => Omit<PathArgs<TQueryParams, TSearchParams>, 'secure'>,
-        assoc('secure', true) as (
-          obj: Omit<PathArgs<TQueryParams, TSearchParams>, 'secure'>
-        ) => PathArgs<TQueryParams, TSearchParams>
-      )(args)
-    )
+> extends AbstractPath<TParams, TQueryParams, TSearchParams> {
+  constructor(args: Omit<PathArgs<TQueryParams, TSearchParams>, 'baseUrl' | 'secure'>) {
+    super(pipe(assoc('secure', true), assoc('baseUrl', ''))(args))
   }
-  getUrl(params: TParams & Record<'chain', Chain>, queryParams?: TQueryParams) {
-    const baseUrl = pipe(
-      prop('chain'),
-      ifElse(isTestnetChain, always('https://testnets-api.opensea.io/api/v2'), always('https://api.opensea.io/api/v2'))
-    )(params)
-    const path = compile<TParams>(this.path, { encode: encodeURIComponent })(params)
-    if (isNil(queryParams)) {
-      return concat(baseUrl, path)
-    }
-    return concat(concat(baseUrl, path), this.getQuery(queryParams))
+
+  getUrl(...params: PathParamsArgs<TParams>) {
+    this.setBaseUrl(prop('chain', ...(params as [Params])))
+    return super.getUrl(...(juxt([dissoc('chain')])(...(params as [Params])) as PathParamsArgs<TParams>))
+  }
+
+  protected setBaseUrl(chain: Chain) {
+    const url = isTestnetChain(chain) ? 'https://testnets-api.opensea.io/api/v2' : 'https://api.opensea.io/api/v2'
+    super.setBaseUrl(url)
   }
 }

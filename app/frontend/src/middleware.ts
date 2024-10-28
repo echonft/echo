@@ -1,12 +1,13 @@
 import { auth } from '@echo/auth/auth'
 import type { NextAuthRequest } from '@echo/auth/types/next-auth-request'
 import { UnauthorizedError } from '@echo/backend/errors/unauthorized-error'
+import { pathProvider } from '@echo/routing/constants/path-provider'
 import { baseUrl } from '@echo/routing/helpers/base-url'
 import { isApiPath } from '@echo/routing/path/is-api-path'
 import { isApiPathSecure } from '@echo/routing/path/is-api-path-secure'
 import { isApiWebhookPath } from '@echo/routing/path/is-api-webhook-path'
 import { isPathSecure } from '@echo/routing/path/is-path-secure'
-import { pathProvider } from '@echo/routing/path/path-provider'
+import type { PathString } from '@echo/routing/types/path-string'
 import { NextResponse } from 'next/server'
 import { isNil } from 'ramda'
 
@@ -18,7 +19,7 @@ type RouteHandler = (
 ) => void | Response | Promise<void | Response>
 
 export default auth((req): void | Response | Promise<void | Response> => {
-  const path = req.nextUrl.pathname
+  const path = req.nextUrl.pathname as PathString
   if (isApiPath(path)) {
     if (isApiPathSecure(path) && isNil(req.auth?.user)) {
       return new UnauthorizedError().getErrorResponse()

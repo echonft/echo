@@ -1,5 +1,5 @@
 import type { Offer } from '@echo/model/types/offer'
-import { pathProvider } from '@echo/routing/path/path-provider'
+import { pathProvider } from '@echo/routing/constants/path-provider'
 import { OfferCreationSubLayout } from '@echo/ui/components/offer/created/layout/offer-creation-sub-layout'
 import { OfferCreationSuccessLayout } from '@echo/ui/components/offer/created/layout/offer-creation-success-layout'
 import { OfferCreationTextLayout } from '@echo/ui/components/offer/created/layout/offer-creation-text-layout'
@@ -17,7 +17,7 @@ export const CreatedOfferCreated: FunctionComponent<Props> = ({ offer }) => {
   const router = useRouter()
 
   const onClick = () => {
-    router.replace(pathProvider.profile.default.get({ offer }))
+    router.replace(pathProvider.profile.default.withQuery({ offer }).get())
   }
   return (
     <OfferCreationSuccessLayout>

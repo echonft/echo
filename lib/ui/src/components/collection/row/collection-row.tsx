@@ -1,4 +1,4 @@
-import { pathProvider } from '@echo/routing/path/path-provider'
+import { pathProvider } from '@echo/routing/constants/path-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
 import { CollectionRowLabel } from '@echo/ui/components/collection/row/collection-row-label'

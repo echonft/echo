@@ -1,7 +1,7 @@
 'use client'
 import { SearchResultCategory } from '@echo/model/constants/search-result-category'
 import type { SearchResult } from '@echo/model/types/search-result'
-import { pathProvider } from '@echo/routing/path/path-provider'
+import { pathProvider } from '@echo/routing/constants/path-provider'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { SearchBox } from '@echo/ui/components/base/search/search-box'
 import { promiseAll } from '@echo/utils/helpers/promise-all'

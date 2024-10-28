@@ -5,10 +5,10 @@ import type { Expiration } from '@echo/model/constants/expiration'
 import { erc721NftToItem } from '@echo/model/mappers/nft/erc721-nft-to-item'
 import type { Collection } from '@echo/model/types/collection'
 import type { Erc721Item } from '@echo/model/types/erc721-item'
-import type { Listing } from '@echo/model/types/listing'
 import type { Erc721Nft } from '@echo/model/types/erc721-nft'
+import type { Listing } from '@echo/model/types/listing'
 import type { OwnedNft } from '@echo/model/types/owned-nft'
-import { pathProvider } from '@echo/routing/path/path-provider'
+import { pathProvider } from '@echo/routing/constants/path-provider'
 import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { CreateListing } from '@echo/ui/components/listing/create/create-listing'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
@@ -37,7 +37,7 @@ export const CreateListingManager: FunctionComponent<Props> = ({ creatorNfts, it
     fetcher: createListing,
     onSuccess: ({ listing }) => {
       router.replace(
-        pathProvider.collection.default.getUrl({ slug: listing.target.collection.slug }, { listing: listing })
+        pathProvider.collection.default.withQuery({ listing: listing }).getUrl({ slug: listing.target.collection.slug })
       )
     },
     onError: {

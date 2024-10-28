@@ -2,7 +2,7 @@
 import type { Collection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
 import type { OwnedNft } from '@echo/model/types/owned-nft'
-import { pathProvider } from '@echo/routing/path/path-provider'
+import { pathProvider } from '@echo/routing/constants/path-provider'
 import { BottomBarLayout } from '@echo/ui/components/base/layout/bottom-bar-layout'
 import { TraitFilterPanel } from '@echo/ui/components/nft/filters/by-traits/trait-filter-panel'
 import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panels-layout'
@@ -30,13 +30,13 @@ export const CollectionItemsPanel: FunctionComponent<Props> = ({ collection, nft
     sortBy: 'owner'
   })
   function onCreateListing() {
-    router.push(pathProvider.listing.new.get({ target: collection }))
+    router.push(pathProvider.listing.new.withQuery({ target: collection }).get())
   }
   function onCreateOffer(nft?: Nft) {
     if (isNil(nft)) {
-      router.push(pathProvider.offer.new.get({ items: selection.nfts }))
+      router.push(pathProvider.offer.new.withQuery({ items: selection.nfts }).get())
     } else {
-      router.push(pathProvider.offer.new.get({ items: nft }))
+      router.push(pathProvider.offer.new.withQuery({ items: nft }).get())
     }
   }
 

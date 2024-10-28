@@ -1,7 +1,7 @@
 'use client'
 
 import type { OwnedNft } from '@echo/model/types/owned-nft'
-import { pathProvider } from '@echo/routing/path/path-provider'
+import { pathProvider } from '@echo/routing/constants/path-provider'
 import { SelectableNftsWithFilters } from '@echo/ui/components/nft/filters/selectable-nfts-with-filters'
 import { NftAction } from '@echo/ui/constants/nft-actions'
 import { TabPanel } from '@headlessui/react'
@@ -24,7 +24,7 @@ export const ProfileItemsPanel: FunctionComponent<Props> = ({ nfts, show }) => {
           sortBy={'collection'}
           action={NftAction.Listing}
           onSelectionAction={(selection) => {
-            router.push(pathProvider.listing.new.get({ items: selection }))
+            router.push(pathProvider.listing.new.withQuery({ items: selection }).get())
           }}
         />
       </TabPanel>

@@ -14,6 +14,7 @@
       <sourceFolder url="file://$MODULE_DIR$/lib/auth/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/lib/backend/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/lib/api/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/routing/test" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/app/bot/dist" />
       <excludeFolder url="file://$MODULE_DIR$/app/firestore-functions/dist" />
       <excludeFolder url="file://$MODULE_DIR$/lib/tasks/dist" />

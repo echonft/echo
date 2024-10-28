@@ -1,6 +1,6 @@
 'use client'
 import type { User } from '@echo/model/types/user'
-import { pathProvider } from '@echo/routing/path/path-provider'
+import { pathProvider } from '@echo/routing/constants/path-provider'
 import { Login } from '@echo/ui/components/auth/login'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'

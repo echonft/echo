@@ -1,37 +1,34 @@
 import { Chain } from '@echo/model/constants/chain'
 import { ChainError } from '@echo/model/constants/errors/chain-error'
-import { AbstractPath } from '@echo/routing/path/abstract-path'
-import type { PathArgs } from '@echo/routing/types/path-args'
-import type { PathParams } from '@echo/routing/types/path-params'
+import { AbstractPath, type PathArgs, type PathParamsArgs } from '@echo/routing/path/abstract-path'
 import type { QueryParams } from '@echo/routing/types/query-params/query-params'
 import type { SearchParams } from '@echo/routing/types/search-params/search-params'
-import { compile } from 'path-to-regexp'
-import { assoc, concat, dissoc, isNil, pipe } from 'ramda'
+import { assoc, dissoc, juxt, pipe, prop } from 'ramda'
+
+interface Params extends Record<PropertyKey, string | string[]> {
+  chain: Chain
+}
 
 export class NftScanApiPath<
-  TParams extends PathParams,
+  TParams extends Params,
   TQueryParams extends QueryParams = never,
   TSearchParams extends SearchParams = TQueryParams extends SearchParams ? TQueryParams : SearchParams
-> extends AbstractPath<TQueryParams, TSearchParams> {
-  constructor(args: Omit<PathArgs<TQueryParams, TSearchParams>, 'secure'>) {
-    super(
-      pipe<[typeof args], Omit<PathArgs<TQueryParams, TSearchParams>, 'secure'>, PathArgs<TQueryParams, TSearchParams>>(
-        dissoc('chain') as (obj: typeof args) => Omit<PathArgs<TQueryParams, TSearchParams>, 'secure'>,
-        assoc('secure', true) as (
-          obj: Omit<PathArgs<TQueryParams, TSearchParams>, 'secure'>
-        ) => PathArgs<TQueryParams, TSearchParams>
-      )(args)
-    )
-  }
-  getUrl(params: TParams & Record<'chain', Chain>, queryParams?: TQueryParams) {
-    const path = compile<TParams>(this.path, { encode: encodeURIComponent })(params)
-    if (isNil(queryParams)) {
-      return concat(this.getBaseUrl(params.chain), path)
-    }
-    return concat(concat(this.getBaseUrl(params.chain), path), this.getQuery(queryParams))
+> extends AbstractPath<TParams, TQueryParams, TSearchParams> {
+  constructor(args: Omit<PathArgs<TQueryParams, TSearchParams>, 'baseUrl' | 'secure'>) {
+    super(pipe(assoc('secure', true), assoc('baseUrl', ''))(args))
   }
 
-  protected getBaseUrl(chain: Chain) {
+  getUrl(...params: PathParamsArgs<TParams>) {
+    this.setBaseUrl(prop('chain', ...(params as [Params])))
+    return super.getUrl(...(juxt([dissoc('chain')])(...(params as [Params])) as PathParamsArgs<TParams>))
+  }
+
+  protected setBaseUrl(chain: Chain) {
+    const url = this.getBaseUrlForChain(chain)
+    super.setBaseUrl(url)
+  }
+
+  private getBaseUrlForChain(chain: Chain): string {
     switch (chain) {
       case Chain.Blast:
         return 'https://blastapi.nftscan.com/api/v2'

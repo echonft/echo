@@ -1,13 +1,13 @@
+import type { Chain } from '@echo/model/constants/chain'
 import { OpenseaApiPath } from '@echo/opensea/services/routing/opensea-api-path'
 import { pagingQueryMapper } from '@echo/opensea/services/routing/paging-query-mapper'
 import type { PagingQueryParams } from '@echo/opensea/types/routing/paging-query-params'
 import type { PagingSearchParams } from '@echo/opensea/types/routing/paging-search-params'
-import type { Chain } from '@echo/model/constants/chain'
 import type { HexString } from '@echo/utils/types/hex-string'
 
 export const openseaApiPathProvider = {
   collection: {
-    fetch: new OpenseaApiPath<Record<'slug', string>>({
+    fetch: new OpenseaApiPath<{ chain: Chain; slug: string }>({
       path: '/collections/:slug'
     })
   },

@@ -1,4 +1,4 @@
-import { productionUrl } from '@echo/routing/helpers/production-url'
+import { productionHostname } from '@echo/routing/constants/production-hostname'
 import { NodeEnvironment, nodeEnvironment } from '@echo/utils/constants/node-environment'
 import { VercelEnvironment, vercelEnvironment } from '@echo/utils/constants/vercel-environment'
 
@@ -9,5 +9,5 @@ export function baseUrl() {
   if (vercelEnvironment === VercelEnvironment.Preview) {
     return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
   }
-  return productionUrl()
+  return `https://${productionHostname}`
 }

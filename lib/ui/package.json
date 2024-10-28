@@ -40,7 +40,7 @@
     "throttle-debounce": "5.0.2",
     "use-long-press": "3.2.0",
     "wagmi": "2.12.25",
-    "zustand": "4.5.5"
+    "zustand": "5.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.26.0",
