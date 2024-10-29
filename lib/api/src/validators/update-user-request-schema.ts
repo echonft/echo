@@ -1,10 +1,8 @@
-import { number, object, string } from 'zod'
+import { prop } from 'ramda'
+import { object, string } from 'zod'
 
 export const updateUserRequestSchema = object({
-  access_token: string().min(1),
-  refresh_token: string().min(1),
-  expires_in: number(),
-  expires_at: number(),
-  scope: string().min(1),
-  token_type: string().min(1)
+  access_token: string().min(1)
 })
+
+export const updateUserRequestSchemaTransform = updateUserRequestSchema.transform(prop('access_token'))

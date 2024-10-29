@@ -3,7 +3,7 @@ import { evmAddressSchema } from '@echo/model/validators/evm-address-schema'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
 
-describe('validators - evmAddressSchema', () => {
+describe('evmAddressSchema', () => {
   it('wrong address fails validation', () => {
     expect(() => evmAddressSchema.parse(undefined)).toThrow()
     expect(() => bigIntStringSchema.parse(null)).toThrow()

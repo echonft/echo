@@ -6,7 +6,7 @@ import { addWallet } from '@echo/test/firestore/crud/wallet/add-wallet'
 import { userDocumentMockCrewId } from '@echo/test/firestore/initialize-db'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
-import { assoc, isNil } from 'ramda'
+import { isNil } from 'ramda'
 
 describe('CRUD - wallet - getWalletByAddress', () => {
   let addedWalletId: Nullable<string>
@@ -24,8 +24,7 @@ describe('CRUD - wallet - getWalletByAddress', () => {
     expect(wallet).toBeUndefined()
   })
   it('returns the wallet if it exists', async () => {
-    const walletCrew = assoc('userId', userDocumentMockCrewId, walletDocumentMockCrew)
-    addedWalletId = await addWallet(walletCrew)
-    await expect(getWallet(walletMockCrew)).resolves.toStrictEqual(walletCrew)
+    addedWalletId = await addWallet(walletDocumentMockCrew)
+    await expect(getWallet(walletMockCrew)).resolves.toStrictEqual(userDocumentMockCrewId)
   })
 })

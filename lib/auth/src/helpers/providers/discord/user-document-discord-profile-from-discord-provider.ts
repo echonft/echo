@@ -1,10 +1,10 @@
 import { userDiscordProfileFromDiscordProvider } from '@echo/auth/helpers/providers/discord/user-discord-profile-from-discord-provider'
+import type { DiscordProfileResponse } from '@echo/auth/types/discord-profile-response'
 import type { UserDocument } from '@echo/firestore/types/model/user-document'
-import type { DiscordProfile as ProviderDiscordProfile } from 'next-auth/providers/discord'
 import { assoc, pipe } from 'ramda'
 
 export function userDocumentDiscordProfileFromDiscordProvider(
-  profile: Partial<ProviderDiscordProfile> & Required<Pick<ProviderDiscordProfile, 'id' | 'username'>>
+  response: DiscordProfileResponse
 ): UserDocument['discord'] {
-  return pipe(userDiscordProfileFromDiscordProvider, assoc('id', profile.id))(profile)
+  return pipe(userDiscordProfileFromDiscordProvider, assoc('id', response.id))(response)
 }

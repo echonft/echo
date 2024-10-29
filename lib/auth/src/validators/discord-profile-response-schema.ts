@@ -1,12 +1,9 @@
+import { intStringSchema } from '@echo/model/validators/int-string-schema'
 import { number, object, string } from 'zod'
 
 export const discordProfileResponseSchema = object({
-  accent_color: number().optional().nullable(),
   avatar: string().optional().nullable(),
-  avatar_decoration: string().optional().nullable(),
-  banner_color: string().optional().nullable(),
-  banner: string().optional().nullable(),
-  discriminator: string().min(1),
+  discriminator: intStringSchema.or(number()),
   global_name: string().optional().nullable(),
   id: string().min(1),
   username: string().min(1)

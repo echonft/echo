@@ -6,10 +6,9 @@ import { VirtualMachine } from '@echo/model/constants/virtual-machine'
 import { userMockCrew } from '@echo/model/mocks/user-mock'
 import { walletMockCrew } from '@echo/model/mocks/wallet-mock'
 import { addWallet } from '@echo/test/firestore/crud/wallet/add-wallet'
-import { userDocumentMockCrewId } from '@echo/test/firestore/initialize-db'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
-import { assoc, isNil } from 'ramda'
+import { isNil } from 'ramda'
 
 describe('CRUD - user - getUserByWallet', () => {
   let addedWalletId: Nullable<string>
@@ -28,7 +27,7 @@ describe('CRUD - user - getUserByWallet', () => {
     expect(owner).toBeUndefined()
   })
   it('returns the wallet owner if wallet exists', async () => {
-    addedWalletId = await addWallet(assoc('userId', userDocumentMockCrewId, walletDocumentMockCrew))
+    addedWalletId = await addWallet(walletDocumentMockCrew)
     const owner = await getUserByWallet(walletMockCrew)
     const user = await getUserByUsername(userMockCrew.username)
     expect(owner).toBeDefined()

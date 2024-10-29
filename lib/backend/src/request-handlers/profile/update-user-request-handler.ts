@@ -1,28 +1,23 @@
 import type { UpdateUserRequest } from '@echo/api/types/requests/update-user-request'
-import { updateUserRequestSchema } from '@echo/api/validators/update-user-request-schema'
+import { updateUserRequestSchemaTransform } from '@echo/api/validators/update-user-request-schema'
 import { userDocumentDiscordProfileFromDiscordProvider } from '@echo/auth/helpers/providers/discord/user-document-discord-profile-from-discord-provider'
-import { BadRequestError } from '@echo/backend/errors/bad-request-error'
-import { DiscordError } from '@echo/backend/errors/messages/discord-error'
-import { toNextReponse } from '@echo/backend/request-handlers/to-next-reponse'
+import type { AuthUser } from '@echo/auth/types/auth-user'
+import { fetchDiscordProfile } from '@echo/backend/helpers/user/fetch-discord-profile'
 import type { RequestHandlerArgs } from '@echo/backend/types/request-handler'
-import { discordProfileResponseSchema } from '@echo/backend/validators/discord-profile-response-schema'
 import { parseRequest } from '@echo/backend/validators/parse-request'
+import { userDocumentToModel } from '@echo/firestore/converters/user-document-to-model'
+import { walletDocumentToModel } from '@echo/firestore/converters/wallet-document-to-model'
 import { addOrUpdateUser } from '@echo/firestore/crud/user/add-or-update-user'
-import { parseResponse } from '@echo/utils/helpers/parse-response'
-import { andThen, objOf, pipe } from 'ramda'
+import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
+import { NextResponse } from 'next/server'
+import { andThen, assoc, map, pipe, prop } from 'ramda'
 
 export async function updateUserRequestHandler(args: RequestHandlerArgs<UpdateUserRequest>) {
-  const token = await parseRequest(updateUserRequestSchema)(args.req)
-  const response = await fetch('https://discord.com/api/users/@me', {
-    headers: {
-      Authorization: `Bearer ${token.access_token}`
-    }
-  })
-  if (response.ok) {
-    return pipe(
-      parseResponse(discordProfileResponseSchema),
-      andThen(pipe(userDocumentDiscordProfileFromDiscordProvider, addOrUpdateUser, objOf('user'), toNextReponse))
-    )(response)
-  }
-  return Promise.reject(new BadRequestError({ message: DiscordError.ProfileRequestFailed }))
+  const token = await parseRequest(updateUserRequestSchemaTransform)(args.req)
+  const user = await pipe(
+    fetchDiscordProfile,
+    andThen(pipe(userDocumentDiscordProfileFromDiscordProvider, addOrUpdateUser, andThen(userDocumentToModel)))
+  )(token)
+  const wallets = await pipe(prop('username'), getWalletsForUser, andThen(map(walletDocumentToModel)))(user)
+  return NextResponse.json<AuthUser>(assoc('wallets', wallets, user))
 }

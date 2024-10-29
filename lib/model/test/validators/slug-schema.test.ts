@@ -2,7 +2,7 @@ import { slugSchema, withSlugSchema } from '@echo/model/validators/slug-schema'
 import { describe, expect, it } from '@jest/globals'
 import { forEach } from 'ramda'
 
-describe('validators - slugSchema', () => {
+describe('slugSchema', () => {
   it('invalid', () => {
     const values = [undefined, null, '', 10]
     forEach((value) => {

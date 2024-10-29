@@ -1,7 +1,7 @@
 import { intStringSchema } from '@echo/model/validators/int-string-schema'
 import { describe, expect, it } from '@jest/globals'
 
-describe('validators - intStringSchema', () => {
+describe('intStringSchema', () => {
   it('invalid', () => {
     expect(() => intStringSchema.parse(undefined)).toThrow()
     expect(() => intStringSchema.parse(null)).toThrow()

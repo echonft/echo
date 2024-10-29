@@ -1,11 +1,8 @@
-import { chainSchema } from '@echo/model/validators/chain-schema'
-import { evmAddressSchema } from '@echo/model/validators/evm-address-schema'
+import { contractAugmentation } from '@echo/model/validators/contract-schema'
 import { hexStringSchema } from '@echo/model/validators/hex-string-schema'
 import { object, string } from 'zod'
 
-export const addWalletRequestSchema = object({
-  address: evmAddressSchema,
-  chain: chainSchema,
+export const addWalletRequestSchema = object(contractAugmentation).extend({
   signature: hexStringSchema,
   message: string().min(1)
 })

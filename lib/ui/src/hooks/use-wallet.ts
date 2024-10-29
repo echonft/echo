@@ -15,7 +15,7 @@ import { andThen, includes, isNil, pipe, prop } from 'ramda'
 import { useEffect, useMemo, useState } from 'react'
 import useSWR, { mutate } from 'swr'
 
-export function useConnectWallet(account: AccountResult) {
+export function useWallet(account: AccountResult) {
   const t = useTranslations('error.profile')
   const { addWallet, disconnectWallet, getNonce, getWallets, signNonce, switchChain } = useDependencies()
   const { address, chain, status } = account
@@ -40,7 +40,7 @@ export function useConnectWallet(account: AccountResult) {
         void disconnectWallet()
         captureAndLogError(err, {
           logObject: {
-            hook: useConnectWallet.name,
+            hook: useWallet.name,
             fetcher: getWallets.name
           },
           severity: 'warning'
@@ -72,7 +72,7 @@ export function useConnectWallet(account: AccountResult) {
         void disconnectWallet()
       },
       loggerContext: {
-        hook: useConnectWallet.name,
+        hook: useWallet.name,
         fetcher: getNonce.name
       }
     }
@@ -94,7 +94,7 @@ export function useConnectWallet(account: AccountResult) {
         void disconnectWallet()
       },
       loggerContext: {
-        hook: useConnectWallet.name,
+        hook: useWallet.name,
         fetcher: addWallet.name
       }
     }
@@ -121,7 +121,7 @@ export function useConnectWallet(account: AccountResult) {
         void disconnectWallet()
       },
       loggerContext: {
-        hook: useConnectWallet.name,
+        hook: useWallet.name,
         fetcher: signNonce.name
       }
     }

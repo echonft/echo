@@ -1,12 +1,12 @@
-import { VirtualMachine } from '@echo/model/constants/virtual-machine'
-import { walletSchema } from '@echo/model/validators/wallet-schema'
+import { Chain } from '@echo/model/constants/chain'
+import { contractSchema } from '@echo/model/validators/contract-schema'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
 import { ZodError, ZodIssueCode } from 'zod'
 
-describe('walletSchema', () => {
+describe('contractSchema', () => {
   it('wrong address fails validation', () => {
-    expect(() => walletSchema.parse({ address: undefined, vm: VirtualMachine.Evm })).toThrow(
+    expect(() => contractSchema.parse({ address: undefined, chain: Chain.Ethereum })).toThrow(
       ZodError.create([
         {
           code: ZodIssueCode.invalid_type,
@@ -17,7 +17,7 @@ describe('walletSchema', () => {
         }
       ])
     )
-    expect(() => walletSchema.parse({ address: '', vm: VirtualMachine.Evm })).toThrow(
+    expect(() => contractSchema.parse({ address: '', chain: Chain.Ethereum })).toThrow(
       ZodError.create([
         {
           validation: 'regex',
@@ -32,7 +32,7 @@ describe('walletSchema', () => {
         }
       ])
     )
-    expect(() => walletSchema.parse({ address: '0xtest', vm: VirtualMachine.Evm })).toThrow(
+    expect(() => contractSchema.parse({ address: '0xtest', chain: Chain.Ethereum })).toThrow(
       ZodError.create([
         {
           validation: 'regex',
@@ -49,20 +49,22 @@ describe('walletSchema', () => {
     )
   })
 
-  it('wrong vm fails validation', () => {
-    expect(() => walletSchema.parse({ address: '0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84', vm: '' })).toThrow()
+  it('wrong chain fails validation', () => {
+    expect(() => contractSchema.parse({ address: '0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84', chain: '' })).toThrow()
     expect(() =>
-      walletSchema.parse({ address: '0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84', vm: 'not-supported' })
+      contractSchema.parse({ address: '0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84', chain: 'not-supported' })
     ).toThrow()
-    expect(() => walletSchema.parse({ address: '0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84', vm: undefined })).toThrow()
+    expect(() =>
+      contractSchema.parse({ address: '0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84', chain: undefined })
+    ).toThrow()
   })
 
-  it('valid wallet pass', () => {
+  it('valid contract pass', () => {
     expect(
-      walletSchema.parse({ address: toLower('0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84'), vm: VirtualMachine.Evm })
+      contractSchema.parse({ address: toLower('0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84'), chain: Chain.Ethereum })
     ).toStrictEqual({
       address: toLower('0xaf1C962f799954E2a43ffDEa5aCAa942d53e1F84'),
-      vm: VirtualMachine.Evm
+      chain: Chain.Ethereum
     })
   })
 })

@@ -5,10 +5,9 @@ import { walletDocumentMockCrew } from '@echo/firestore/mocks/wallet-document-mo
 import { WalletError } from '@echo/model/constants/errors/wallet-error'
 import { walletMockCrew, walletMockJohnny } from '@echo/model/mocks/wallet-mock'
 import { addWallet } from '@echo/test/firestore/crud/wallet/add-wallet'
-import { userDocumentMockCrewId } from '@echo/test/firestore/initialize-db'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
-import { assoc, isNil } from 'ramda'
+import { isNil } from 'ramda'
 
 describe('CRUD - wallet - removeWallet', () => {
   let addedWalletId: Nullable<string>
@@ -26,8 +25,7 @@ describe('CRUD - wallet - removeWallet', () => {
   })
 
   it('remove wallet', async () => {
-    const walletCrew = assoc('userId', userDocumentMockCrewId, walletDocumentMockCrew)
-    addedWalletId = await addWallet(walletCrew)
+    addedWalletId = await addWallet(walletDocumentMockCrew)
     await removeWallet(walletMockCrew)
     await expect(getWallet(walletMockCrew)).resolves.toBeUndefined()
   })

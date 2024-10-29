@@ -1,4 +1,4 @@
-import type { removeWalletRequestSchema } from '@echo/api/validators/remove-wallet-request-schema'
+import type { contractSchema } from '@echo/model/validators/contract-schema'
 import { z } from 'zod'
 
-export type RemoveWalletRequest = z.infer<typeof removeWalletRequestSchema>
+export type RemoveWalletRequest = z.infer<typeof contractSchema>

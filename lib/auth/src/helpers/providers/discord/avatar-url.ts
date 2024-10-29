@@ -1,12 +1,12 @@
 import { imageExtension } from '@echo/auth/helpers/providers/discord/image-extension'
-import type { DiscordProfile } from 'next-auth/providers/discord'
-import { isNil } from 'ramda'
+import type { DiscordProfileResponse } from '@echo/auth/types/discord-profile-response'
+import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 
-export function avatarUrl(profile: DiscordProfile): string {
-  if (isNil(profile.avatar)) {
-    const defaultAvatarNumber = parseInt(profile.discriminator, 10) % 5
+export function avatarUrl(response: DiscordProfileResponse): string {
+  if (isNilOrEmpty(response.avatar)) {
+    const defaultAvatarNumber = response.discriminator % 5
     return `https://cdn.discordapp.com/embed/avatars/${defaultAvatarNumber}.png`
   }
-  const format = imageExtension(profile.avatar)
-  return `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.${format}`
+  const format = imageExtension(response.avatar)
+  return `https://cdn.discordapp.com/avatars/${response.id}/${response.avatar}.${format}`
 }

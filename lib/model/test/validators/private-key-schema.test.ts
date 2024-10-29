@@ -1,7 +1,7 @@
 import { privateKeySchema } from '@echo/model/validators/private-key-schema'
 import { describe, expect, it } from '@jest/globals'
 
-describe('validators - privateKeySchema', () => {
+describe('privateKeySchema', () => {
   it('invalid', () => {
     expect(() => privateKeySchema.parse(undefined)).toThrow()
     expect(() => privateKeySchema.parse(null)).toThrow()

@@ -1,7 +1,7 @@
 import { hexStringSchema } from '@echo/model/validators/hex-string-schema'
 import { describe, expect, it } from '@jest/globals'
 
-describe('validators - hexStringSchema', () => {
+describe('hexStringSchema', () => {
   it('wrong string fails validation', () => {
     expect(() => hexStringSchema.parse(undefined)).toThrow()
     expect(() => hexStringSchema.parse('')).toThrow()

@@ -3,7 +3,7 @@ import { nftTokenTypeSchema } from '@echo/model/validators/nft-token-type-schema
 import { describe, expect, it } from '@jest/globals'
 import { forEach } from 'ramda'
 
-describe('validators - nftTokenTypeSchema', () => {
+describe('nftTokenTypeSchema', () => {
   it('invalid', () => {
     const values = [undefined, null, '', 10, TokenType.Erc20]
     forEach((value) => {

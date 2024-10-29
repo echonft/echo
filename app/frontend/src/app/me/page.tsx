@@ -6,6 +6,7 @@ import { getSwapsForUser } from '@echo/firestore/crud/swap/get-swaps-for-user'
 import { getWalletForUser } from '@echo/firestore/crud/wallet/get-wallet-for-user'
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
+import { getLogger } from '@echo/frontend/lib/helpers/get-logger'
 import { toListingsWithRole } from '@echo/frontend/lib/helpers/listing/to-listings-with-role'
 import { toOffersWithRole } from '@echo/frontend/lib/helpers/offer/to-offers-with-role'
 import { toSwaps } from '@echo/frontend/lib/helpers/swap/to-swaps'
@@ -29,6 +30,7 @@ interface Props {
 }
 
 async function render({ searchParams, user }: Props) {
+  getLogger().info({ user }, 'logged user')
   const wallet = await pipe(getWalletForUser, otherwise(pipe(captureAndLogError, always(undefined))))(user.username)
   const nfts = await pipe(prop('username'), getNftsForOwner, otherwise(pipe(captureAndLogError, always([]))))(user)
   const listings = await pipe(

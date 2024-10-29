@@ -12,10 +12,10 @@ import { userMockJohnny } from '@echo/model/mocks/user-mock'
 import { walletMockCrew } from '@echo/model/mocks/wallet-mock'
 import { deleteUser } from '@echo/test/firestore/crud/user/delete-user'
 import { addWallet as testAddWallet } from '@echo/test/firestore/crud/wallet/add-wallet'
-import { userDocumentMockCrewId, userDocumentMockJohnnyId } from '@echo/test/firestore/initialize-db'
+import { userDocumentMockJohnnyId } from '@echo/test/firestore/initialize-db'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
-import { assoc, isNil } from 'ramda'
+import { isNil } from 'ramda'
 
 describe('CRUD - wallet - addWallet', () => {
   let addedUserId: Nullable<string>
@@ -51,7 +51,7 @@ describe('CRUD - wallet - addWallet', () => {
   })
 
   it('throws if the wallet already exists', async () => {
-    addedWalletId = await testAddWallet(assoc('userId', userDocumentMockCrewId, walletDocumentMockCrew))
+    addedWalletId = await testAddWallet(walletDocumentMockCrew)
     await expect(addWallet(userDocumentMockCrew.username, walletDocumentMockCrew)).rejects.toEqual(
       Error(WalletError.Exists)
     )

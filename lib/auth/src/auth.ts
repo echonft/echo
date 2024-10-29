@@ -1,12 +1,15 @@
-import { userFromDiscordProvider } from '@echo/auth/helpers/providers/discord/user-from-discord-provider'
+import { AuthError } from '@echo/auth/errors/auth-error'
+import { error } from '@echo/auth/helpers/logger'
+import { authUserSchema } from '@echo/auth/validators/auth-user-schema'
 import { apiPathProvider } from '@echo/routing/constants/api-path-provider'
 import { pathProvider } from '@echo/routing/constants/path-provider'
+import { parseResponse } from '@echo/utils/helpers/parse-response'
 import { pathIsNil } from '@echo/utils/helpers/path-is-nil'
 import { propIsNil } from '@echo/utils/helpers/prop-is-nil'
 import NextAuth, { type NextAuthResult } from 'next-auth'
 import Discord, { type DiscordProfile } from 'next-auth/providers/discord'
 import { signIn, type SignInResponse, signOut } from 'next-auth/react'
-import { assoc, dissoc, either, isNil } from 'ramda'
+import { andThen, assoc, dissoc, either, isNil, pipe } from 'ramda'
 
 // noinspection JSUnusedGlobalSymbols
 const {
@@ -38,19 +41,18 @@ const {
     Discord({
       authorization: 'https://discord.com/api/oauth2/authorize?scope=identify',
       profile: async (profile: DiscordProfile, token) => {
-        // TODO switch runtime to nodejs and call the db directly here
         try {
-          await fetch(apiPathProvider.user.update.getUrl(), {
+          return await pipe(fetch, andThen(parseResponse(authUserSchema)))(apiPathProvider.user.update.getUrl(), {
             headers: {
               'Content-Type': 'application/json'
             },
             method: 'POST',
             body: JSON.stringify(token)
           })
-        } catch (_err) {
-          // nothing to do
+        } catch (err) {
+          error({ err, profile, token }, AuthError.UpdateUser)
+          throw err
         }
-        return userFromDiscordProvider(profile)
       }
     })
   ]
@@ -60,5 +62,5 @@ export function login(): Promise<SignInResponse | undefined> {
   return signIn('discord')
 }
 export function logout(): Promise<Record<'url', string> | undefined> {
-  return signOut({ callbackUrl: pathProvider.base.home.getUrl() })
+  return signOut({ redirectTo: pathProvider.base.home.getUrl() })
 }

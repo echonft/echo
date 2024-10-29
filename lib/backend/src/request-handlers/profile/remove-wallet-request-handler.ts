@@ -1,5 +1,4 @@
 import type { RemoveWalletRequest } from '@echo/api/types/requests/remove-wallet-request'
-import { removeWalletRequestSchema } from '@echo/api/validators/remove-wallet-request-schema'
 import { NotFoundError } from '@echo/backend/errors/not-found-error'
 import { toNextReponse } from '@echo/backend/request-handlers/to-next-reponse'
 import type { AuthRequestHandlerArgs } from '@echo/backend/types/auth-request-handler'
@@ -9,13 +8,14 @@ import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-usernam
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
 import { walletFromContract } from '@echo/model/helpers/wallet/wallet-from-contract'
+import { contractSchema } from '@echo/model/validators/contract-schema'
 import { andThen, isNil, map, objOf, pipe } from 'ramda'
 
 export async function removeWalletRequestHandler({
   user: { username },
   req
 }: AuthRequestHandlerArgs<RemoveWalletRequest>) {
-  const { address, chain } = await parseRequest(removeWalletRequestSchema)(req)
+  const { address, chain } = await parseRequest(contractSchema)(req)
   const foundUser = await getUserByUsername(username)
   if (isNil(foundUser)) {
     return Promise.reject(new NotFoundError())

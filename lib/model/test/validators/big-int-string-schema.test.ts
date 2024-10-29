@@ -1,7 +1,7 @@
 import { bigIntStringSchema } from '@echo/model/validators/big-int-string-schema'
 import { describe, expect, it } from '@jest/globals'
 
-describe('validators - bigIntStringSchema', () => {
+describe('bigIntStringSchema', () => {
   it('invalid', () => {
     expect(() => bigIntStringSchema.parse(undefined)).toThrow()
     expect(() => bigIntStringSchema.parse(null)).toThrow()
