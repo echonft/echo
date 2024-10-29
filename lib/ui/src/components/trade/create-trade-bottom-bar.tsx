@@ -1,5 +1,5 @@
-import type { Collection } from '@echo/model/types/collection'
-import type { OwnedNft } from '@echo/model/types/nft'
+import type { Listing } from '@echo/model/types/listing'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
 import { CreateTradeBottomBarItems } from '@echo/ui/components/trade/create-trade-bottom-bar-items'
 import { CreateTradeBottomBarButtonLayout } from '@echo/ui/components/trade/layout/create-trade-bottom-bar-button-layout'
@@ -7,6 +7,7 @@ import { CreateTradeBottomBarItemsLayout } from '@echo/ui/components/trade/layou
 import { CreateTradeBottomBarLayout } from '@echo/ui/components/trade/layout/create-trade-bottom-bar-layout'
 import { Direction } from '@echo/ui/constants/direction'
 import type { WithChildrenProps } from '@echo/ui/types/props/with-children-props'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
@@ -15,8 +16,7 @@ import type { FunctionComponent } from 'react'
 interface Props extends WithChildrenProps {
   items: OwnedNft[]
   loading?: boolean
-  targetCollection?: Collection
-  targetQuantity?: number
+  targetCollection?: Nullable<Listing['target']>
   counterpartyItems?: OwnedNft[]
   onBack?: () => void
 }
@@ -26,7 +26,6 @@ export const CreateTradeBottomBar: FunctionComponent<Props> = ({
   loading,
   items,
   targetCollection,
-  targetQuantity,
   counterpartyItems,
   onBack,
   children
@@ -60,8 +59,8 @@ export const CreateTradeBottomBar: FunctionComponent<Props> = ({
       <CreateTradeBottomBarItemsLayout>
         <CreateTradeBottomBarItems
           items={items}
-          targetCollection={targetCollection}
-          targetQuantity={targetQuantity}
+          targetCollection={targetCollection?.collection}
+          targetQuantity={targetCollection?.quantity}
           counterpartyItems={counterpartyItems}
         />
       </CreateTradeBottomBarItemsLayout>

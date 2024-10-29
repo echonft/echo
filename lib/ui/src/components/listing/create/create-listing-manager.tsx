@@ -18,13 +18,13 @@ import { type NonEmptyArray } from 'ramda'
 import { type FunctionComponent, useCallback, useState } from 'react'
 
 interface Props {
+  creator: User
   creatorNfts: OwnedNft[]
-  // TODO replace with items
   items: Nullable<OwnedNft[]>
   target: Nullable<Collection>
 }
 
-export const CreateListingManager: FunctionComponent<Props> = ({ creatorNfts, items, target }) => {
+export const CreateListingManager: FunctionComponent<Props> = ({ creator, creatorNfts, items, target }) => {
   const t = useTranslations('error.listing')
   const [loading, setLoading] = useState(false)
   const router = useRouter()
@@ -58,6 +58,7 @@ export const CreateListingManager: FunctionComponent<Props> = ({ creatorNfts, it
 
   return (
     <CreateListing
+      creator={creatorWithWallet}
       creatorNfts={creatorNfts}
       items={items}
       target={target}

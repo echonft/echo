@@ -130,9 +130,10 @@ export const messages = {
   },
   listing: {
     create: {
-      assets: {
-        in: 'Looking for',
-        out: 'Offering'
+      steps: {
+        collection: 'Target a Collection',
+        review: 'Review',
+        done: 'Listing Done!'
       },
       cancelBtn: 'Cancel',
       cancelBtnMessage: 'Hold to cancel',

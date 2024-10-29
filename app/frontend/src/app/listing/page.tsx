@@ -73,9 +73,11 @@ async function render({ searchParams: { items, target }, user }: Props) {
   }
 
   return (
-    <NavigationSectionLayout>
-      <CreateListingManager creatorNfts={creatorNfts} items={listingItems} target={listingTarget} />
-    </NavigationSectionLayout>
+    <PageLayout user={user}>
+      <NavigationSectionLayout>
+        <CreateListingManager creator={user} creatorNfts={creatorNfts} items={listingItems} target={listingTarget} />
+      </NavigationSectionLayout>
+    </PageLayout>
   )
 }
 

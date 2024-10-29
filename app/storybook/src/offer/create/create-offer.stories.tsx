@@ -13,8 +13,7 @@ const metadata: Meta<typeof Component> = {
   title: 'Offer/Create',
   component: Component,
   args: {
-    loading: false,
-    receiver: userMockCrew,
+    receiver: userWithWalletMockCrew,
     receiverNfts: nftMocksCrew,
     receiverNftsSelection: take(1, nftMocksCrew) as NonEmptyArray<OwnedNft>,
     sender: userMockJohnny,
@@ -25,16 +24,11 @@ const metadata: Meta<typeof Component> = {
       table: {
         disable: true
       }
-    },
-    onComplete: {
-      table: {
-        disable: true
-      }
     }
   },
   parameters: {
     controls: {
-      exclude: ['loading', 'receiver', 'sender', 'senderNfts', 'receiverNfts', 'receiverNftsSelection']
+      exclude: ['receiver', 'sender', 'senderNfts', 'receiverNfts', 'receiverNftsSelection']
     }
   },
   render: (args) => {

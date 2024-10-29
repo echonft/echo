@@ -1,23 +1,22 @@
 'use client'
-import type { Expiration } from '@echo/model/constants/expiration'
+import { Expiration } from '@echo/model/constants/expiration'
 import type { Collection } from '@echo/model/types/collection'
 import type { Listing } from '@echo/model/types/listing'
-import type { OwnedNft } from '@echo/model/types/nft'
-
-import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
-import { CreateListingButtons } from '@echo/ui/components/listing/create/create-listing-buttons'
-import { CreateListingNfts } from '@echo/ui/components/listing/create/create-listing-nfts'
-import { CreateListingSwapDirectionHeader } from '@echo/ui/components/listing/create/create-listing-swap-direction-header'
-import { CreateListingTargets } from '@echo/ui/components/listing/create/create-listing-targets'
-import { CreateOfferSwapDirectionHeader } from '@echo/ui/components/offer/create/create-offer-swap-direction-header'
-import { SwapDirection } from '@echo/ui/constants/swap-direction'
+import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { UserWithWallet } from '@echo/model/types/user'
+import { CreateOfferUserNftsSelection } from '@echo/ui/components/offer/create/create-offer-user-nfts-selection'
+import { CreateTradeBottomBar } from '@echo/ui/components/trade/create-trade-bottom-bar'
+import { TradeStepIndicator } from '@echo/ui/components/trade/trade-step-indicator'
+import { ListingCreationSteps } from '@echo/ui/constants/listing-creation-steps'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
-import { assoc, isEmpty, isNil, type NonEmptyArray } from 'ramda'
-import { type FunctionComponent, useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { isNil, values, type NonEmptyArray } from 'ramda'
+import { useState, type FunctionComponent } from 'react'
 
 interface Props {
+  creator: UserWithWallet
   creatorNfts: OwnedNft[]
   items: Nullable<OwnedNft[]>
   target: Nullable<Collection>
@@ -26,7 +25,8 @@ interface Props {
   onComplete?: (items: NonEmptyArray<OwnedNft>, target: Listing['target'], expiration: Expiration) => void
 }
 
-export const CreateListing: FunctionComponent<Props> = ({ creatorNfts, items, target, loading, onCancel }) => {
+export const CreateListing: FunctionComponent<Props> = ({ creator, creatorNfts, items, target, loading, onCancel }) => {
+  const t = useTranslations('listing.create')
   const { nfts, selection, selectNft, unselectNft } = useNfts({
     nfts: creatorNfts,
     sortBy: 'collection',
@@ -35,70 +35,79 @@ export const CreateListing: FunctionComponent<Props> = ({ creatorNfts, items, ta
   const [targetSelection, setTargetSelection] = useState<Nullable<Listing['target']>>(
     isNil(target) ? undefined : { collection: target, quantity: 1 }
   )
-  const [reviewing, setReviewing] = useState(false)
-  // TODO Probably should change that, not the most beautiful
-  const [settingExpiration, setSettingExpiration] = useState(false)
+  const [expiration, setExpiration] = useState(Expiration.OneDay)
 
-  if (settingExpiration) {
-    return null
+  const [currentStep, setCurrentStep] = useState(0)
+  const steps = values(ListingCreationSteps)
+  const totalSteps = steps.length
+  const subtitles = [t('steps.collection'), t('steps.review'), t('steps.done')]
+
+  const handleNext = () => {
+    if (currentStep < totalSteps - 1) {
+      setCurrentStep(currentStep + 1)
+    }
+  }
+
+  const handleBack = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1)
+    } else {
+      onCancel?.()
+    }
   }
 
   return (
-    <div className={clsx('flex', 'flex-col', 'gap-24')}>
-      <div className={clsx('flex', 'flex-col', 'gap-20')}>
-        <CreateListingSwapDirectionHeader direction={SwapDirection.In} />
-        <div className={clsx('flex', 'flex-row', 'justify-center', 'h-max', 'w-full', 'px-8')}>
-          <div className={clsx('h-max', 'w-full', 'max-w-[40rem]')}>
-            <CreateListingTargets
-              locked={reviewing}
-              target={targetSelection}
-              onQtyChange={(quantity) => {
-                setTargetSelection(assoc('quantity', quantity))
-              }}
-              onRemove={() => {
-                setTargetSelection(undefined)
-              }}
-              onSelect={(selection) => {
-                setTargetSelection({ collection: selection, quantity: 1 })
-              }}
-            />
-          </div>
-        </div>
-        <div className={clsx('pb-4')}>
-          <ItemsSeparator />
-        </div>
-        <CreateOfferSwapDirectionHeader direction={SwapDirection.Out} />
-        <div className={clsx('flex', 'flex-row', 'justify-center', 'h-max', 'w-full', 'px-8')}>
-          <CreateListingNfts
+    <div className={clsx('flex', 'flex-col', 'gap-12')}>
+      <div className={clsx('flex', 'items-center', 'justify-center')}>
+        <TradeStepIndicator step={currentStep} totalSteps={totalSteps} subtitles={subtitles} />
+      </div>
+      <div className={clsx('flex-grow', 'overflow-y-auto', 'pb-32')}>
+        {currentStep === 0 && (
+          <CreateOfferUserNftsSelection
+            user={creator}
             nfts={nfts}
             selection={selection.nfts}
-            locked={reviewing}
             onSelect={selectNft}
             onUnselect={unselectNft}
           />
-        </div>
-        <div className={clsx('flex', 'flex-row', 'gap-8', 'justify-center', 'items-center', 'pb-5')}>
-          <CreateListingButtons
-            locked={reviewing}
-            disabled={!reviewing && (isEmpty(selection.nfts) || isNil(targetSelection))}
-            loading={loading}
-            onComplete={() => {
-              if (reviewing) {
-                setSettingExpiration(true)
-              } else {
-                setReviewing(true)
-              }
-            }}
-            onCancel={() => {
-              if (reviewing) {
-                setReviewing(false)
-              } else {
-                onCancel?.()
-              }
-            }}
+        )}
+        {/* {currentStep === 1 && (
+          <CreateOfferUserNftsSelection
+            user={sender}
+            nfts={senderNfts}
+            selection={senderSelection.nfts}
+            onSelect={selectSenderNfts}
+            onUnselect={unselectSenderNfts}
           />
-        </div>
+        )}
+        {currentStep === 2 && (
+          <CreateOfferReviewStep
+            sender={sender}
+            senderNftsSelection={senderSelection.nfts}
+            receiver={receiver}
+            receiverNftsSelection={receiverSelection.nfts}
+            selectedExpiration={expiration}
+            onSelectExpiration={setExpiration}
+          />
+        )}
+        {currentStep === 3 && createdOffer && <CreatedOfferCreated offer={createdOffer} />} */}
       </div>
+      {currentStep < totalSteps - 1 && (
+        <CreateTradeBottomBar items={selection.nfts} targetCollection={targetSelection} onBack={handleBack}>
+          {/* <CreateOfferNextButton
+            currentStep={currentStep}
+            totalSteps={totalSteps}
+            expiration={expiration}
+            senderItems={senderSelection.nfts}
+            receiverItems={receiverSelection.nfts}
+            onNext={handleNext}
+            onSuccess={(offer) => {
+              handleNext()
+              setCreatedOffer(offer)
+            }}
+          /> */}
+        </CreateTradeBottomBar>
+      )}
     </div>
   )
 }
