@@ -4,10 +4,10 @@ import type { OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
 import { CreateOfferFlow } from '@echo/ui/components/offer/create/create-offer-flow'
-import { CreatedOfferSwitch } from '@echo/ui/components/offer/created/created-offer-switch'
+import { useAccount } from '@echo/ui/hooks/use-account'
 import { useRouter } from 'next/navigation'
-import { assoc, isNil, type NonEmptyArray } from 'ramda'
-import { type FunctionComponent, useState } from 'react'
+import { assoc, type NonEmptyArray } from 'ramda'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   receiver: User & Required<Pick<User, 'wallet'>>
@@ -27,21 +27,18 @@ export const CreateOfferManager: FunctionComponent<Props> = ({
   senderNfts
 }) => {
   const router = useRouter()
-  const [createdOffer] = useState<Offer>()
-  if (isNil(createdOffer)) {
-    return (
-      <CreateOfferFlow
-        receiver={receiver}
-        receiverNfts={receiverNfts}
-        receiverNftsSelection={receiverNftsSelection}
-        sender={sender}
-        senderNfts={senderNfts}
-        onCancel={() => {
-          router.back()
-        }}
-      />
-    )
-  }
-
-  return <CreatedOfferSwitch offer={assoc('role', OfferRole.Sender, createdOffer)} />
+  const { address, chain } = useAccount()
+  const senderWithWallet = assoc('wallet', { address, chain }, sender) as UserWithWallet
+  return (
+    <CreateOfferFlow
+      receiver={receiver}
+      receiverNfts={receiverNfts}
+      receiverNftsSelection={receiverNftsSelection}
+      sender={senderWithWallet}
+      senderNfts={senderNfts}
+      onCancel={() => {
+        router.back()
+      }}
+    />
+  )
 }

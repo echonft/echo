@@ -20,19 +20,15 @@ interface Props {
   receiver: User & Required<Pick<User, 'wallet'>>
   receiverNfts: OwnedNft[]
   receiverNftsSelection: NonEmptyArray<OwnedNft>
-  loading?: boolean
-  onComplete?: VoidFunction
   onCancel?: VoidFunction
 }
 
 export const CreateOfferFlow: FunctionComponent<Props> = ({
-  loading,
   sender,
   senderNfts,
   receiver,
   receiverNfts,
   receiverNftsSelection,
-  onComplete,
   onCancel
 }) => {
   const t = useTranslations('offer.create')
@@ -59,8 +55,6 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
   const handleNext = () => {
     if (currentStep < totalSteps - 1) {
       setCurrentStep(currentStep + 1)
-    } else {
-      onComplete?.()
     }
   }
 
@@ -110,7 +104,6 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
       </div>
       {currentStep < totalSteps - 1 && (
         <CreateTradeBottomBar
-          loading={loading}
           items={receiverSelection.nfts}
           counterpartyItems={senderSelection.nfts}
           onBack={handleBack}
