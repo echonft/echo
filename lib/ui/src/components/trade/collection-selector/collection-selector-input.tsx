@@ -37,7 +37,7 @@ export const CollectionSelectorInput: FunctionComponent<Props> = ({ value, onCha
             /* onChange won't be called */
           }
         }}
-        value={value}
+        value={value ?? ''}
       />
     </div>
   )

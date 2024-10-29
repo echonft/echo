@@ -139,7 +139,9 @@ export const messages = {
       cancelBtnMessage: 'Hold to cancel',
       createBtn: 'Create',
       editBtn: 'Edit',
+      nextBtn: 'Next',
       reviewBtn: 'Review',
+      reviewTitle: 'Review your offer',
       targets: {
         empty: 'To add a collection, type its name in the input above',
         search: {
@@ -377,7 +379,11 @@ Don't worry, its safe with us.`
     collectionSelector: {
       subtitle: 'How many NFTs do you want in exchange?',
       placeholder: 'Amount',
-      btn: 'Add'
+      btn: 'Add',
+      search: {
+        title: 'Target a Collection',
+        placeHolder: 'Search for a collection'
+      }
     },
     create: {
       backBtn: 'Back',

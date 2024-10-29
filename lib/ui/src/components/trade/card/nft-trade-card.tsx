@@ -8,12 +8,12 @@ import { isNonEmptyArray } from '@echo/utils/helpers/is-non-empty-array'
 import { head } from 'ramda'
 import { type FunctionComponent } from 'react'
 
-export interface NftTradeCardProps {
+interface Props {
   items: OwnedNft[]
   direction: SwapDirection
 }
 
-export const NftTradeCard: FunctionComponent<NftTradeCardProps> = ({ items, direction }) => {
+export const NftTradeCard: FunctionComponent<Props> = ({ items, direction }) => {
   if (isNonEmptyArray(items)) {
     const item = head(items)
     if (items.length > 1) {

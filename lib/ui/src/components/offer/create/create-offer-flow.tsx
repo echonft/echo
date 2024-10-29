@@ -3,9 +3,9 @@ import { Expiration } from '@echo/model/constants/expiration'
 import type { OwnedNft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
 import { CreateOfferReviewStep } from '@echo/ui/components/offer/create/create-offer-review-step'
-import { CreateOfferUserNftsSelection } from '@echo/ui/components/offer/create/create-offer-user-nfts-selection'
 import { CreatedOfferCreated } from '@echo/ui/components/offer/created/created-offer-created'
 import { CreateTradeBottomBar } from '@echo/ui/components/trade/create-trade-bottom-bar'
+import { CreateTradeUserNftsSelection } from '@echo/ui/components/trade/create-trade-user-nfts-selection'
 import { TradeStepIndicator } from '@echo/ui/components/trade/trade-step-indicator'
 import { OfferCreationSteps } from '@echo/ui/constants/offer-creation-steps'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
@@ -73,7 +73,7 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
       </div>
       <div className={clsx('flex-grow', 'overflow-y-auto', 'pb-32')}>
         {currentStep === 0 && (
-          <CreateOfferUserNftsSelection
+          <CreateTradeUserNftsSelection
             user={receiver}
             nfts={receiverNfts}
             selection={receiverSelection.nfts}
@@ -82,7 +82,7 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
           />
         )}
         {currentStep === 1 && (
-          <CreateOfferUserNftsSelection
+          <CreateTradeUserNftsSelection
             user={sender}
             nfts={senderNfts}
             selection={senderSelection.nfts}

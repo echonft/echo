@@ -3,7 +3,7 @@ import type { Expiration } from '@echo/model/constants/expiration'
 import type { Offer } from '@echo/model/types/offer'
 import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { CreateOfferModalSwitch } from '@echo/ui/components/offer/create/create-offer-modal-switch'
-import { isNextButtonDisabled } from '@echo/ui/helpers/offer/is-next-button-disabled'
+import { isCreateOfferNextButtonDisabled } from '@echo/ui/helpers/offer/is-create-offer-next-button-disabled'
 import clsx from 'clsx'
 import { useTranslations } from 'next-intl'
 import type { NonEmptyArray } from 'ramda'
@@ -29,7 +29,7 @@ export const CreateOfferNextButton: FunctionComponent<Props> = ({
   onSuccess
 }) => {
   const t = useTranslations('offer.create')
-  const loading = isNextButtonDisabled(senderItems, receiverItems, currentStep)
+  const loading = isCreateOfferNextButtonDisabled(senderItems, receiverItems, currentStep)
   const [isApproveModalOpen, setIsApproveModalOpen] = useState(false)
 
   const handleNext = () => {

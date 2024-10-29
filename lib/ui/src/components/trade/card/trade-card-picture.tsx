@@ -11,7 +11,7 @@ interface Props {
 export const TradeCardPicture: FunctionComponent<Props> = ({ pictureURL, alt }) => (
   <div className={clsx('w-full', 'h-full', 'relative')}>
     <SizeableImage
-      className={clsx('select-none', 'w-full', 'h-full', 'object-center', 'object-fill')}
+      className={clsx('select-none', 'w-[88px]', 'h-[88px]', 'object-center', 'object-fill')}
       width={88}
       height={88}
       src={pictureURL}

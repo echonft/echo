@@ -16,13 +16,14 @@ interface Props {
   searching?: boolean
   style?: Nullable<{
     placeHolder?: string
+    backgroundColor?: string
   }>
   onChange?: (query: Nullable<string>) => void
 }
 
 export const SearchInput: FunctionComponent<Props> = ({ query, searching, style, onChange }) => {
   return (
-    <div className={clsx('items-center', 'bg-dark-350', 'rounded-lg', 'w-full')}>
+    <div className={clsx('items-center', style?.backgroundColor ?? 'bg-dark-350', 'rounded-lg', 'w-full')}>
       <span className={clsx('text-yellow-500', 'absolute', 'left-3', 'top-3')}>
         {searching ? (
           <RotatingLines

@@ -19,6 +19,7 @@ export interface SearchBoxProps<T> {
       show?: boolean
     }
     placeHolder?: string
+    backgroundColor?: string
   }
   onSelect?: (result: SearchResult<T>) => void
 }
@@ -58,8 +59,8 @@ export const SearchBox = <T,>({ resultsProvider, style, onSelect }: SearchBoxPro
             search(query)
           }
         }}
-        style={unlessNil<NonNullable<typeof style>, Pick<NonNullable<typeof style>, 'placeHolder'>>(
-          pick(['placeHolder'])
+        style={unlessNil<NonNullable<typeof style>, Pick<NonNullable<typeof style>, 'placeHolder' | 'backgroundColor'>>(
+          pick(['placeHolder', 'backgroundColor'])
         )(style)}
       />
       <AnimatePresence>

@@ -19,7 +19,7 @@ interface Props {
   onUnselect?: (nft: OwnedNft) => unknown
 }
 
-export const CreateOfferUserNftsSelection: FunctionComponent<Props> = ({
+export const CreateTradeUserNftsSelection: FunctionComponent<Props> = ({
   user,
   nfts,
   selection,
