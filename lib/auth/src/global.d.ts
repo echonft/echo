@@ -1,18 +1,18 @@
 // noinspection JSUnusedGlobalSymbols
 
-import type { AuthUser } from '@echo/auth/types/auth-user'
+import type { User as ModelUser } from '@echo/model/types/user'
 import type { DefaultJWT, DefaultSession } from 'next-auth'
 import '@echo/utils/global'
 
 declare module 'next-auth' {
-  interface User extends AuthUser {}
+  interface User extends ModelUser {}
 
   interface JWT extends DefaultJWT {
-    user?: AuthUser
+    user?: ModelUser
   }
 
   interface Session extends DefaultSession {
-    user?: AuthUser
+    user?: ModelUser
   }
 }
 

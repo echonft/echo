@@ -1,3 +1,4 @@
+'use client'
 import { CalloutManagerContent } from '@echo/ui/components/base/callout/callout-manager-content'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
 import { clsx } from 'clsx'

@@ -1,7 +1,7 @@
 import { CardsSkeleton } from '@echo/ui/components/base/card/skeleton/cards-skeleton'
+import { NavigationLayout } from '@echo/ui/components/base/layout/navigation-layout'
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
-import { NavigationPageLayoutSkeleton } from '@echo/ui/components/base/layout/skeleton/navigation-page-layout-skeleton'
 import { TabsSkeleton } from '@echo/ui/components/base/navigation/tabs/skeleton/tabs-skeleton'
 import { CollectionDetailsSkeleton } from '@echo/ui/components/collection/details/skeleton/collection-details-skeleton'
 import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panels-layout'
@@ -11,7 +11,7 @@ import { SelectableNftsActionButtonSkeleton } from '@echo/ui/components/nft/sele
 
 export default function render() {
   return (
-    <NavigationPageLayoutSkeleton>
+    <NavigationLayout>
       <SectionLayout>
         <CollectionDetailsSkeleton />
       </SectionLayout>
@@ -25,6 +25,6 @@ export default function render() {
           <CardsSkeleton />
         </NftsAndFiltersLayout>
       </NavigationSectionLayout>
-    </NavigationPageLayoutSkeleton>
+    </NavigationLayout>
   )
 }

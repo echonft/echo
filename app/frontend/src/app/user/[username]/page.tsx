@@ -14,7 +14,7 @@ import type { Slug } from '@echo/model/types/slug'
 import type { User } from '@echo/model/types/user'
 import type { Username } from '@echo/model/types/username'
 import { getSelectionFromSearchParams } from '@echo/routing/search-params/get-selection-from-search-params'
-import { NavigationPageLayout } from '@echo/ui/components/base/layout/navigation-page-layout'
+import { NavigationLayout } from '@echo/ui/components/base/layout/navigation-layout'
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { UserProfile } from '@echo/ui/components/user/profile/user-profile'
@@ -57,7 +57,7 @@ async function render({ params: { username }, searchParams, user: authUser }: Pr
   const selection = getSelectionFromSearchParams({ listings, offers, swaps, searchParams })
 
   return (
-    <NavigationPageLayout user={authUser}>
+    <NavigationLayout>
       <SectionLayout>
         <UserProfile
           address={wallet.address}
@@ -78,7 +78,7 @@ async function render({ params: { username }, searchParams, user: authUser }: Pr
           selection={selection}
         />
       </NavigationSectionLayout>
-    </NavigationPageLayout>
+    </NavigationLayout>
   )
 }
 

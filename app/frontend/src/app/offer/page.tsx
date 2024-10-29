@@ -9,7 +9,6 @@ import type { OwnedNft } from '@echo/model/types/owned-nft'
 import type { Slug } from '@echo/model/types/slug'
 import type { User } from '@echo/model/types/user'
 import { getNftIndexFromSearchParam } from '@echo/routing/search-params/get-nft-index-from-search-param'
-import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { CreateOfferManager } from '@echo/ui/components/offer/create/create-offer-manager'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { isNonEmptyArray } from '@echo/utils/helpers/is-non-empty-array'
@@ -97,15 +96,13 @@ async function render({ searchParams: { items, target }, user }: Props) {
   }
 
   return (
-    <PageLayout user={user}>
-      <CreateOfferManager
-        receiverNfts={receiverNfts}
-        receiverNftsSelection={receiverNftsSelection}
-        receiver={receiver}
-        senderNfts={senderNfts}
-        sender={user}
-      />
-    </PageLayout>
+    <CreateOfferManager
+      receiverNfts={receiverNfts}
+      receiverNftsSelection={receiverNftsSelection}
+      receiver={receiver}
+      senderNfts={senderNfts}
+      sender={user}
+    />
   )
 }
 

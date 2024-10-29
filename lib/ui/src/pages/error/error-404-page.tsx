@@ -1,11 +1,23 @@
+'use client'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { EchoIconSvg } from '@echo/ui/components/base/svg/echo-icon-svg'
+import { HeaderStyle } from '@echo/ui/constants/header-style'
+import { useHeaderStore } from '@echo/ui/hooks/use-header-store'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { type FunctionComponent } from 'react'
+import { type FunctionComponent, useEffect } from 'react'
 
-export const Error404: FunctionComponent = () => {
+export const Error404Page: FunctionComponent = () => {
   const t = useTranslations('notFoundPage')
+  const setStyle = useHeaderStore((state) => state.setStyle)
+
+  useEffect(() => {
+    setStyle(HeaderStyle.Plain)
+    return (): void => {
+      setStyle(HeaderStyle.Default)
+    }
+  }, [setStyle])
+
   return (
     <div className={clsx('w-max', 'h-full', 'flex', 'flex-col', 'mx-auto', 'items-center')}>
       <div

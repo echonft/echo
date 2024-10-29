@@ -1,11 +1,18 @@
 import '@echo/ui-css/index.css'
 import { metadataDescription, metadataImageUrl, metadataTitle } from '@echo/frontend/lib/constants/metadata'
+import { withUser } from '@echo/frontend/lib/decorators/with-user'
+import type { User } from '@echo/model/types/user'
 import { baseUrl } from '@echo/routing/helpers/base-url'
+import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
+import { Dependencies } from '@echo/ui/components/base/layout/dependencies'
+import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
+import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { messages } from '@echo/ui/messages/en'
-import type { WithChildrenProps } from '@echo/ui/types/props/with-children-props'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { type Metadata, type Viewport } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
+import dynamic from 'next/dynamic'
+import type { PropsWithChildren } from 'react'
 
 // noinspection JSUnusedGlobalSymbols
 export const metadata: Metadata = {
@@ -85,16 +92,32 @@ export const viewport: Viewport = {
   width: 'device-width'
 }
 
-export default function render({ children }: WithChildrenProps) {
+interface Props {
+  user: User
+}
+
+const Header = dynamic(() => import('@echo/ui/components/base/header/header').then((mod) => mod.Header))
+
+function render({ user, children }: PropsWithChildren<Props>) {
   const locale = 'en'
-  return (
+  return Promise.resolve(
     <html lang={locale} suppressHydrationWarning={true}>
       <body suppressHydrationWarning={true}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
+          <PageLayout>
+            <Dependencies>
+              <Header user={user} />
+              <MainSectionLayout>
+                {children}
+                <CalloutManager />
+              </MainSectionLayout>
+            </Dependencies>
+          </PageLayout>
         </NextIntlClientProvider>
         <SpeedInsights />
       </body>
     </html>
   )
 }
+
+export default withUser(render)

@@ -1,6 +1,6 @@
 import { AuthError } from '@echo/auth/errors/auth-error'
 import { error } from '@echo/auth/helpers/logger'
-import { authUserSchema } from '@echo/auth/validators/auth-user-schema'
+import { userSchema } from '@echo/model/validators/user-schema'
 import { apiPathProvider } from '@echo/routing/constants/api-path-provider'
 import { pathProvider } from '@echo/routing/constants/path-provider'
 import { parseResponse } from '@echo/utils/helpers/parse-response'
@@ -42,13 +42,16 @@ const {
       authorization: 'https://discord.com/api/oauth2/authorize?scope=identify',
       profile: async (profile: DiscordProfile, token) => {
         try {
-          return await pipe(fetch, andThen(parseResponse(authUserSchema)))(apiPathProvider.user.update.getUrl(), {
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            method: 'POST',
-            body: JSON.stringify(token)
-          })
+          return await pipe(fetch, andThen(pipe(parseResponse(userSchema), assoc('id', profile.id))))(
+            apiPathProvider.user.update.getUrl(),
+            {
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              method: 'POST',
+              body: JSON.stringify(token)
+            }
+          )
         } catch (err) {
           error({ err, profile, token }, AuthError.UpdateUser)
           throw err

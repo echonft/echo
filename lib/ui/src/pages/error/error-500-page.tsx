@@ -1,14 +1,27 @@
+'use client'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { EchoIconSvg } from '@echo/ui/components/base/svg/echo-icon-svg'
+import { HeaderStyle } from '@echo/ui/constants/header-style'
+import { useHeaderStore } from '@echo/ui/hooks/use-header-store'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { type FunctionComponent } from 'react'
+import { type FunctionComponent, useEffect } from 'react'
 
 interface Props {
   onReset?: VoidFunction
 }
-export const Error500: FunctionComponent<Props> = ({ onReset }) => {
+
+export const Error500Page: FunctionComponent<Props> = ({ onReset }) => {
   const t = useTranslations('errorPage')
+  const setStyle = useHeaderStore((state) => state.setStyle)
+
+  useEffect(() => {
+    setStyle(HeaderStyle.Plain)
+    return (): void => {
+      setStyle(HeaderStyle.Default)
+    }
+  }, [setStyle])
+
   return (
     <div className={clsx('w-max', 'h-full', 'flex', 'flex-col', 'mx-auto', 'items-center')}>
       <div

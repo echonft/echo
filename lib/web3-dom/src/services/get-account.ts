@@ -1,6 +1,6 @@
 import type { Chain } from '@echo/model/constants/chain'
 import { chainById } from '@echo/model/helpers/chain/chain-by-id'
-import type { Address } from '@echo/model/types/address'
+import type { EvmAddress } from '@echo/model/types/address'
 import type { ChainId } from '@echo/model/types/chain'
 import { unlessNil } from '@echo/utils/helpers/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -10,7 +10,7 @@ import { always, applySpec, ifElse, isNil, pipe, prop, propEq, toLower } from 'r
 import { getAccount as wagmiGetAccount, type GetAccountReturnType, watchAccount } from 'wagmi/actions'
 
 export interface AccountResult {
-  address: Nullable<Address>
+  address: Nullable<EvmAddress>
   chain: Nullable<Chain>
   status: AccountStatus
 }
@@ -56,4 +56,5 @@ export function getAccount(onChange?: (account: AccountResult) => void): Account
   onChange(account)
   return { account, unsubscribe }
 }
+
 export type AccountProvider = (onChange?: (account: AccountResult) => void) => AccountProviderResult

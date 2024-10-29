@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { HeaderLoginButton as Component } from '@echo/ui/components/base/header/header-login-button'
+import { HeaderButton as Component } from '@echo/ui/components/base/header/header-button'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

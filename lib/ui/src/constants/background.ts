@@ -4,6 +4,5 @@ export enum Background {
   Collections = 'collections',
   GreenGradient = 'green-gradient',
   YellowGradient = 'yellow-gradient',
-  RedGradient = 'red-gradient',
-  Success = 'success'
+  RedGradient = 'red-gradient'
 }

@@ -10,7 +10,6 @@ import type { Slug } from '@echo/model/types/slug'
 import type { User } from '@echo/model/types/user'
 import { getNftIndexFromSearchParam } from '@echo/routing/search-params/get-nft-index-from-search-param'
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
-import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { CreateListingManager } from '@echo/ui/components/listing/create/create-listing-manager'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { promiseAll } from '@echo/utils/helpers/promise-all'
@@ -75,11 +74,9 @@ async function render({ searchParams: { items, target }, user }: Props) {
   }
 
   return (
-    <PageLayout user={user}>
-      <NavigationSectionLayout>
-        <CreateListingManager creatorNfts={creatorNfts} items={listingItems} target={listingTarget} />
-      </NavigationSectionLayout>
-    </PageLayout>
+    <NavigationSectionLayout>
+      <CreateListingManager creatorNfts={creatorNfts} items={listingItems} target={listingTarget} />
+    </NavigationSectionLayout>
   )
 }
 

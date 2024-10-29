@@ -35,16 +35,6 @@ export const SWRKeys = {
     sign: pipe<[Offer], string, string>(prop('slug'), concat('sign-offer-')),
     validate: pipe<[Offer], string, string>(prop('slug'), concat('validate-offer-'))
   },
-  profile: {
-    nonce: {
-      get: 'get-nonce',
-      sign: 'sign-nonce'
-    },
-    wallet: {
-      add: 'add-wallet',
-      get: 'get-wallets'
-    }
-  },
   swap: {
     execute: pipe<[Offer], string, string>(prop('slug'), concat('execute-swap-'))
   }

@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { Error500 as Component } from '@echo/ui/components/base/error/error-500'
+import { Error500Page as Component } from '@echo/ui/pages/error/error-500-page'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

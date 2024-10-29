@@ -32,7 +32,7 @@ const metadata: Meta<ComponentType> = {
   },
   decorators: [
     (Story) => (
-      <PageLayout excludeProviders={true}>
+      <PageLayout>
         <SectionLayout>
           <Story />
         </SectionLayout>

@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { Error404 as Component } from '@echo/ui/components/base/error/error-404'
+import { Error404Page as Component } from '@echo/ui/pages/error/error-404-page'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

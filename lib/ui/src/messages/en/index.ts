@@ -89,10 +89,6 @@ export const messages = {
       redeem: 'An error occured while trying to redeem your {count, plural, =1 {NFT} other {NFTs}}. Please try again',
       reject: 'An error occurred while trying to reject the offer. Please try again',
       swap: 'An error occurred while trying to swap the assets. Please try again'
-    },
-    profile: {
-      addWallet: 'An error occurred while trying to add the wallet to your account. Please try again',
-      signing: 'An error occurred while trying to sign the message. Please try again'
     }
   },
   errorPage: {

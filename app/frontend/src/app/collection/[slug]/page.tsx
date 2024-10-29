@@ -12,7 +12,7 @@ import { toSwaps } from '@echo/frontend/lib/helpers/swap/to-swaps'
 import type { Slug } from '@echo/model/types/slug'
 import type { User } from '@echo/model/types/user'
 import { getSelectionFromSearchParams } from '@echo/routing/search-params/get-selection-from-search-params'
-import { NavigationPageLayout } from '@echo/ui/components/base/layout/navigation-page-layout'
+import { NavigationLayout } from '@echo/ui/components/base/layout/navigation-layout'
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { CollectionDetails } from '@echo/ui/components/collection/details/collection-details'
@@ -60,7 +60,7 @@ async function render({ params: { slug }, searchParams, user }: Props) {
   const selection = getSelectionFromSearchParams({ listings, offers, swaps, searchParams })
 
   return (
-    <NavigationPageLayout user={user}>
+    <NavigationLayout>
       <SectionLayout>
         <CollectionDetails collection={mergeLeft(collection, counts)} />
       </SectionLayout>
@@ -74,7 +74,7 @@ async function render({ params: { slug }, searchParams, user }: Props) {
           selection={selection}
         />
       </NavigationSectionLayout>
-    </NavigationPageLayout>
+    </NavigationLayout>
   )
 }
 
