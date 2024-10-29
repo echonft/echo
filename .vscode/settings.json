@@ -10,5 +10,6 @@
   "typescript.experimental.updateImportsOnPaste": true,
   "javascript.preferences.organizeImports": {
     "typeOrder": "auto"
-  }
+  },
+  "prettier.prettierPath": "./node_modules/prettier"
 }

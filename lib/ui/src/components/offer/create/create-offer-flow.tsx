@@ -4,6 +4,7 @@ import type { OwnedNft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
 import { CreateOfferReviewStep } from '@echo/ui/components/offer/create/create-offer-review-step'
 import { CreateOfferUserNftsSelection } from '@echo/ui/components/offer/create/create-offer-user-nfts-selection'
+import { CreatedOfferCreated } from '@echo/ui/components/offer/created/created-offer-created'
 import { CreateTradeBottomBar } from '@echo/ui/components/trade/create-trade-bottom-bar'
 import { TradeStepIndicator } from '@echo/ui/components/trade/trade-step-indicator'
 import { OfferCreationSteps } from '@echo/ui/constants/offer-creation-steps'
@@ -35,7 +36,7 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
   onCancel
 }) => {
   const t = useTranslations('offer.create')
-  const [currentStep, setCurrentStep] = useState(0)
+  // User inputs
   const {
     selection: senderSelection,
     selectNft: selectSenderNfts,
@@ -47,9 +48,13 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
     unselectNft: unselectReceiverNfts
   } = useNfts({ nfts: receiverNfts, selection: { nfts: receiverNftsSelection }, sortBy: 'collection' })
   const [expiration, setExpiration] = useState(Expiration.OneDay)
+
+  // Steps
+  const [currentStep, setCurrentStep] = useState(0)
   const steps = values(OfferCreationSteps)
   const totalSteps = steps.length
   const subtitles = [t('steps.counterparty'), t('steps.offer'), t('steps.review'), t('steps.done')]
+  const [createdOffer, setCreatedOffer] = useState<Offer>()
 
   const handleNext = () => {
     if (currentStep < totalSteps - 1) {
@@ -72,7 +77,7 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
       <div className={clsx('flex', 'items-center', 'justify-center')}>
         <TradeStepIndicator step={currentStep} totalSteps={totalSteps} subtitles={subtitles} />
       </div>
-      <div className={clsx('flex-grow', 'overflow-y-auto')}>
+      <div className={clsx('flex-grow', 'overflow-y-auto', 'pb-32')}>
         {currentStep === 0 && (
           <CreateOfferUserNftsSelection
             user={receiver}
@@ -101,15 +106,29 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
             onSelectExpiration={setExpiration}
           />
         )}
+        {currentStep === 3 && createdOffer && <CreatedOfferCreated offer={createdOffer} />}
       </div>
-      <CreateTradeBottomBar
-        loading={loading}
-        items={receiverSelection.nfts}
-        counterpartyItems={senderSelection.nfts}
-        onNext={handleNext}
-        onBack={handleBack}
-        nextBtnLabel={currentStep === totalSteps - 1 ? t('createBtn') : t('nextBtn')}
-      />
+      {currentStep < totalSteps - 1 && (
+        <CreateTradeBottomBar
+          loading={loading}
+          items={receiverSelection.nfts}
+          counterpartyItems={senderSelection.nfts}
+          onBack={handleBack}
+        >
+          <CreateOfferNextButton
+            currentStep={currentStep}
+            totalSteps={totalSteps}
+            expiration={expiration}
+            senderItems={senderSelection.nfts}
+            receiverItems={receiverSelection.nfts}
+            onNext={handleNext}
+            onSuccess={(offer) => {
+              handleNext()
+              setCreatedOffer(offer)
+            }}
+          />
+        </CreateTradeBottomBar>
+      )}
     </div>
   )
 }

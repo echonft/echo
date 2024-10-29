@@ -6,31 +6,30 @@ import { CreateTradeBottomBarButtonLayout } from '@echo/ui/components/trade/layo
 import { CreateTradeBottomBarItemsLayout } from '@echo/ui/components/trade/layout/create-trade-bottom-bar-items-layout'
 import { CreateTradeBottomBarLayout } from '@echo/ui/components/trade/layout/create-trade-bottom-bar-layout'
 import { Direction } from '@echo/ui/constants/direction'
+import type { WithChildrenProps } from '@echo/ui/types/props/with-children-props'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
-interface Props {
+interface Props extends WithChildrenProps {
   items: OwnedNft[]
   loading?: boolean
   targetCollection?: Collection
   targetQuantity?: number
   counterpartyItems?: OwnedNft[]
-  nextBtnLabel?: string
-  nextDisabled?: boolean
   onBack?: () => void
-  onNext?: () => void
 }
 
+// TODO Not sure if having the next button as children is ideal
 export const CreateTradeBottomBar: FunctionComponent<Props> = ({
   loading,
   items,
   targetCollection,
   targetQuantity,
   counterpartyItems,
-  onNext,
-  onBack
+  onBack,
+  children
 }) => {
   const t = useTranslations('trade.create')
   return (
@@ -66,17 +65,7 @@ export const CreateTradeBottomBar: FunctionComponent<Props> = ({
           counterpartyItems={counterpartyItems}
         />
       </CreateTradeBottomBarItemsLayout>
-      <CreateTradeBottomBarButtonLayout>
-        <button
-          className={clsx('btn-gradient', 'btn-size-alt', 'group', loading && 'animate-pulse')}
-          disabled={loading}
-          onClick={() => {
-            onNext?.()
-          }}
-        >
-          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('nextBtn')}</span>
-        </button>
-      </CreateTradeBottomBarButtonLayout>
+      <CreateTradeBottomBarButtonLayout>{children}</CreateTradeBottomBarButtonLayout>
     </CreateTradeBottomBarLayout>
   )
 }

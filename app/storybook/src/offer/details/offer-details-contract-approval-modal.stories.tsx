@@ -11,7 +11,7 @@ import { useTranslations } from 'next-intl'
 import { assoc, pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Offer/Details/Modal/Contract Approval/Modal',
+  title: 'Offer/Details/Modal/Contract Approval',
   component: Component,
   argTypes: {
     onClose: {
@@ -34,8 +34,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-// FIXME
-export const ContractApproval: StoryObj<typeof Component> = {
+export const Modal: StoryObj<typeof Component> = {
   render: ({ onSuccess, onClose }) => {
     const t = useTranslations('offer.details.swapModal')
     const items = pipe(

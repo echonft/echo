@@ -10,7 +10,14 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   args: {
     loading: false,
-    items: nftMocksCrew
+    items: nftMocksCrew,
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    onBack: () => {},
+    children: (
+      <button className={'btn-gradient btn-size-alt group'}>
+        <span className={'prose-label-lg btn-label-gradient'}>{'Next'}</span>
+      </button>
+    )
   },
   argTypes: {
     loading: { control: 'boolean' },
@@ -18,16 +25,11 @@ const metadata: Meta<typeof Component> = {
       table: {
         disable: true
       }
-    },
-    onNext: {
-      table: {
-        disable: true
-      }
     }
   },
   parameters: {
     controls: {
-      exclude: ['items', 'onBack', 'onNext', 'counterpartyItems']
+      exclude: ['items', 'onBack', 'counterpartyItems']
     }
   }
 }
@@ -38,7 +40,12 @@ export const Default: StoryObj<typeof Component> = {}
 
 export const Loading: StoryObj<typeof Component> = {
   args: {
-    loading: true
+    loading: true,
+    children: (
+      <button className={'btn-gradient btn-size-alt group animate-pulse'} disabled>
+        <span className={'prose-label-lg btn-label-gradient'}>{'Next'}</span>
+      </button>
+    )
   }
 }
 

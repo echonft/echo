@@ -33,6 +33,7 @@ export const SelectableNftsWithoutThumbnail: FunctionComponent<Props> = ({
           (nft) => (
             <SelectableNftCard
               className={clsx(isSelected(nft) && 'border-yellow-500')}
+              key={`${nft.collection.contract.address}:${nft.tokenId}`}
               nft={nft}
               selected={isSelected(nft)}
               action={isEmpty(selection) ? action : undefined}
