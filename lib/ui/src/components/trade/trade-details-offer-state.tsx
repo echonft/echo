@@ -2,6 +2,7 @@ import { OfferState } from '@echo/model/constants/offer-state'
 import type { Offer } from '@echo/model/types/offer'
 import { TradeDetailsStateDetailsLayout } from '@echo/ui/components/trade/layout/trade-details-state-details-layout'
 import { TradeDetailsStateLayout } from '@echo/ui/components/trade/layout/trade-details-state-layout'
+import { TradeDetailsPaddedStateLayout } from '@echo/ui/components/trade/layout/trade-details-state-padded-layout'
 import { TradeDetailsOfferStateLabel } from '@echo/ui/components/trade/trade-details-offer-state-label'
 import { TradeDetailsStateSeparator } from '@echo/ui/components/trade/trade-details-state-separator'
 import { TradeStateExpiration } from '@echo/ui/components/trade/trade-state-expiration'
@@ -18,15 +19,15 @@ export const TradeDetailsOfferState: FunctionComponent<Props> = ({ trade }) => {
 
   if (expired) {
     return (
-      <TradeDetailsStateLayout>
+      <TradeDetailsPaddedStateLayout>
         <TradeStateExpiration trade={trade} />
-      </TradeDetailsStateLayout>
+      </TradeDetailsPaddedStateLayout>
     )
   } else if (locked) {
     return (
-      <TradeDetailsStateLayout>
+      <TradeDetailsPaddedStateLayout>
         <TradeDetailsOfferStateLabel state={state} />
-      </TradeDetailsStateLayout>
+      </TradeDetailsPaddedStateLayout>
     )
   }
   return (

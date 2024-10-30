@@ -2,6 +2,7 @@ import { ListingState } from '@echo/model/constants/listing-state'
 import type { Listing } from '@echo/model/types/listing'
 import { TradeDetailsStateDetailsLayout } from '@echo/ui/components/trade/layout/trade-details-state-details-layout'
 import { TradeDetailsStateLayout } from '@echo/ui/components/trade/layout/trade-details-state-layout'
+import { TradeDetailsPaddedStateLayout } from '@echo/ui/components/trade/layout/trade-details-state-padded-layout'
 import { TradeDetailsListingStateLabel } from '@echo/ui/components/trade/trade-details-listing-state-label'
 import { TradeDetailsStateSeparator } from '@echo/ui/components/trade/trade-details-state-separator'
 import { TradeStateExpiration } from '@echo/ui/components/trade/trade-state-expiration'
@@ -18,15 +19,15 @@ export const TradeDetailsListingState: FunctionComponent<Props> = ({ trade }) =>
 
   if (expired) {
     return (
-      <TradeDetailsStateLayout>
+      <TradeDetailsPaddedStateLayout>
         <TradeStateExpiration trade={trade} />
-      </TradeDetailsStateLayout>
+      </TradeDetailsPaddedStateLayout>
     )
   } else if (locked) {
     return (
-      <TradeDetailsStateLayout>
+      <TradeDetailsPaddedStateLayout>
         <TradeDetailsListingStateLabel state={state} />
-      </TradeDetailsStateLayout>
+      </TradeDetailsPaddedStateLayout>
     )
   }
   return (

@@ -14,7 +14,6 @@ import { assoc, pipe } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 export interface OfferDetailsProps {
-  // TODO update to have an offer where NFT items token are OwnedNft
   offer: OfferWithRole
   onUpdate?: (offer: OfferWithRole) => unknown
 }
@@ -48,6 +47,4 @@ export const OfferDetails: FunctionComponent<OfferDetailsProps> = ({ offer, onUp
       </OfferDetailsItemsButtonsLayout>
     </TradeDetailsLayout>
   )
-  // FIXME Not the cleanest, but this flow has to change so works for now
-  // return <CreatedOfferSwitch offer={updatedOffer} redeemed={offer.state === OFFER_STATE_REJECTED} />
 }

@@ -11,6 +11,7 @@ import { TradeDetailsInfoLayout } from '@echo/ui/components/trade/layout/trade-d
 import { TradeDetailsUserInfoLayout } from '@echo/ui/components/trade/layout/trade-details-user-info-layout'
 import { UserDetails } from '@echo/ui/components/user/details/user-details'
 import { Alignment } from '@echo/ui/constants/alignments'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
@@ -18,7 +19,7 @@ interface Props {
   creator: UserWithWallet
   nfts: OwnedNft[]
   target: Listing['target']
-  role: ListingRole
+  role: Nullable<ListingRole>
 }
 
 export const ListingDetailsItems: FunctionComponent<Props> = ({ creator, nfts, target, role }) => {

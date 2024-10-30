@@ -1,6 +1,7 @@
+import { Chain } from '@echo/model/constants/chain'
 import { BlastIcon } from '@echo/ui/components/base/icons/blast-icon'
 import { EthereumIcon } from '@echo/ui/components/base/icons/ethereum-icon'
-import { Chain } from '@echo/model/constants/chain'
+import { SeiIcon } from '@echo/ui/components/base/icons/sei-icon'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
@@ -11,6 +12,9 @@ interface Props {
 const CardChainIconPicker: FunctionComponent<Props> = ({ chain }) => {
   if (chain === Chain.Blast || chain === Chain.BlastSepolia) {
     return <BlastIcon />
+  }
+  if (chain === Chain.Sei) {
+    return <SeiIcon />
   }
   return <EthereumIcon />
 }
