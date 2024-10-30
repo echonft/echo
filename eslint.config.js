@@ -85,6 +85,10 @@ export default tseslint.config(
             {
               name: 'clsx/clsx',
               message: 'Not gonna work. Import directly from clsx instead'
+            },
+            {
+              name: 'zustand/index',
+              message: 'Not gonna work. Import directly from zustand instead'
             }
           ],
           patterns: [

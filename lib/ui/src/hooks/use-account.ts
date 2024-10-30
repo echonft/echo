@@ -1,4 +1,4 @@
-import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
+import { useDependencies } from '@echo/ui/hooks/use-dependencies'
 import { AccountStatus } from '@echo/web3-dom/constants/account-status'
 import type { AccountResult } from '@echo/web3-dom/services/get-account'
 import { useEffect, useState } from 'react'

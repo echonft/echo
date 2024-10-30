@@ -1,7 +1,7 @@
 'use client'
 import type { Contract } from '@echo/model/types/contract'
-import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
+import { useDependencies } from '@echo/ui/hooks/use-dependencies'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { HexString } from '@echo/utils/types/hex-string'

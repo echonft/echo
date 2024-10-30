@@ -4,7 +4,7 @@ import type { WalletsResponse } from '@echo/api/types/responses/wallets-response
 import { mockRequest } from '@echo/auth/mocks/mock-request'
 import { BadRequestError } from '@echo/backend/errors/bad-request-error'
 import { addWalletRequestHandler } from '@echo/backend/request-handlers/profile/add-wallet-request-handler'
-import { getNonceForUser } from '@echo/firestore/crud/nonce/get-nonce-for-user'
+import { getNonce } from '@echo/firestore/crud/nonce/get-nonce'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
@@ -15,7 +15,7 @@ import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { assoc } from 'ramda'
 
 jest.mock('@echo/firestore/crud/user/get-user-by-username')
-jest.mock('@echo/firestore/crud/nonce/get-nonce-for-user')
+jest.mock('@echo/firestore/crud/nonce/get-nonce')
 jest.mock('@echo/firestore/crud/wallet/add-wallet')
 jest.mock('@echo/firestore/crud/wallet/get-wallets-for-user')
 
@@ -31,7 +31,7 @@ describe('addWalletRequestHandler', () => {
 
   it('returns a 200 if the nonce is valid', async () => {
     jest.mocked(getUserByUsername).mockResolvedValueOnce(userDocumentMockJohnny)
-    jest.mocked(getNonceForUser).mockResolvedValueOnce(addWalletRequestNonceMock)
+    jest.mocked(getNonce).mockResolvedValueOnce(addWalletRequestNonceMock)
     jest.mocked(addWallet).mockResolvedValueOnce({
       id: 'wallet-id',
       data: assoc('userId', 'userId', walletMockJohnny)

@@ -29,12 +29,9 @@
   },
   "devDependencies": {
     "@echo/api": "workspace:*",
-    "@echo/auth": "workspace:*",
-    "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/ui": "workspace:*",
     "@echo/utils": "workspace:*",
-    "@echo/web3": "workspace:*",
     "@echo/web3-dom": "workspace:*",
     "@storybook/addon-actions": "8.3.6",
     "@storybook/addon-essentials": "8.3.6",

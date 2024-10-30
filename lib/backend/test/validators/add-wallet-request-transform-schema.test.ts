@@ -1,7 +1,7 @@
 import { addWalletRequestMock, addWalletRequestNonceMock } from '@echo/api/mocks/add-wallet-request-mock'
 import { ForbiddenError } from '@echo/backend/errors/forbidden-error'
 import { addWalletRequestTransformSchema } from '@echo/backend/validators/add-wallet-request-transform-schema'
-import { getNonceForUser } from '@echo/firestore/crud/nonce/get-nonce-for-user'
+import { getNonce } from '@echo/firestore/crud/nonce/get-nonce'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { userDocumentMockJohnny } from '@echo/firestore/mocks/user-document-mock'
 import { UserError } from '@echo/model/constants/errors/user-error'
@@ -14,13 +14,13 @@ import { assoc } from 'ramda'
 import { ZodError, ZodIssueCode } from 'zod'
 
 jest.mock('@echo/firestore/crud/user/get-user-by-username')
-jest.mock('@echo/firestore/crud/nonce/get-nonce-for-user')
+jest.mock('@echo/firestore/crud/nonce/get-nonce')
 
 describe('validators - addWalletRequestTransformSchema', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     jest.mocked(getUserByUsername).mockResolvedValue(userDocumentMockJohnny)
-    jest.mocked(getNonceForUser).mockResolvedValue(addWalletRequestNonceMock)
+    jest.mocked(getNonce).mockResolvedValue(addWalletRequestNonceMock)
   })
 
   it('fails if the signature is invalid', async () => {
@@ -59,21 +59,21 @@ describe('validators - addWalletRequestTransformSchema', () => {
   })
 
   it('fails if the nonce is not found', async () => {
-    jest.mocked(getNonceForUser).mockResolvedValue(undefined)
+    jest.mocked(getNonce).mockResolvedValue(undefined)
     await expect(
       addWalletRequestTransformSchema(userDocumentMockJohnny.username).parseAsync(addWalletRequestMock)
     ).rejects.toEqual(new ForbiddenError({ message: WalletError.NonceNotFound }))
   })
 
   it('fails if the nonce is invalid', async () => {
-    jest.mocked(getNonceForUser).mockResolvedValue(assoc('nonce', 'invalid', addWalletRequestNonceMock))
+    jest.mocked(getNonce).mockResolvedValue(assoc('nonce', 'invalid', addWalletRequestNonceMock))
     await expect(
       addWalletRequestTransformSchema(userDocumentMockJohnny.username).parseAsync(addWalletRequestMock)
     ).rejects.toEqual(new ForbiddenError({ message: WalletError.NonceInvalid }))
   })
 
   it('fails if the nonce is expired', async () => {
-    jest.mocked(getNonceForUser).mockResolvedValue(assoc('expiresAt', pastDate(), addWalletRequestNonceMock))
+    jest.mocked(getNonce).mockResolvedValue(assoc('expiresAt', pastDate(), addWalletRequestNonceMock))
     await expect(
       addWalletRequestTransformSchema(userDocumentMockJohnny.username).parseAsync(addWalletRequestMock)
     ).rejects.toEqual(new ForbiddenError({ message: WalletError.NonceExpired }))

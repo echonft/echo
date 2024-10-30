@@ -1,5 +1,6 @@
 export enum AccountStatus {
   Connected = 'connected',
   Connecting = 'connecting',
-  Disconnected = 'disconnected'
+  Disconnected = 'disconnected',
+  UnsupportedChain = 'unsupported-chain'
 }

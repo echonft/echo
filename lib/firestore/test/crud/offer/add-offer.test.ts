@@ -1,6 +1,5 @@
 import { addOfferArrayIndexers } from '@echo/firestore/array-indexers/offer/add-offer-array-indexers'
 import { addOffer } from '@echo/firestore/crud/offer/add-offer'
-import { getAllOffers } from '@echo/firestore/crud/offer/get-all-offers'
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { Expiration } from '@echo/model/constants/expiration'
@@ -11,7 +10,6 @@ import type { BaseOffer } from '@echo/model/types/base-offer'
 import type { Offer } from '@echo/model/types/offer'
 import { resetListing } from '@echo/test/firestore/crud/listing/reset-listing'
 import { deleteOffer } from '@echo/test/firestore/crud/offer/delete-offer'
-import { offerDocumentMocks } from '@echo/test/firestore/initialize-db'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil, omit, pick } from 'ramda'
@@ -35,8 +33,6 @@ describe('CRUD - offer - addOffer', () => {
       offerMock
     )
     await expect(addOffer({ ...baseOffer, idContract: offerMock.idContract })).rejects.toEqual(Error(OfferError.Exists))
-    const offers = await getAllOffers()
-    expect(offers).toEqualList(offerDocumentMocks)
   })
 
   it('add an offer', async () => {

@@ -2,10 +2,10 @@
 
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { Slug } from '@echo/model/types/slug'
-import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
+import { useDependencies } from '@echo/ui/hooks/use-dependencies'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'

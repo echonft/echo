@@ -1,4 +1,5 @@
 import '@echo/ui-css/index.css'
+import { actions } from '@echo/backend/actions/actions'
 import { metadataDescription, metadataImageUrl, metadataTitle } from '@echo/frontend/lib/constants/metadata'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import type { User } from '@echo/model/types/user'
@@ -7,6 +8,7 @@ import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager
 import { Dependencies } from '@echo/ui/components/base/layout/dependencies'
 import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
+import { ActionsProvider } from '@echo/ui/components/providers/actions-provider'
 import { messages } from '@echo/ui/messages/en'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { type Metadata, type Viewport } from 'next'
@@ -105,13 +107,15 @@ function render({ user, children }: PropsWithChildren<Props>) {
       <body suppressHydrationWarning={true}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <PageLayout>
-            <Dependencies>
-              <Header user={user} />
-              <MainSectionLayout>
-                {children}
-                <CalloutManager />
-              </MainSectionLayout>
-            </Dependencies>
+            <ActionsProvider actions={actions}>
+              <Dependencies>
+                <Header user={user} />
+                <MainSectionLayout>
+                  {children}
+                  <CalloutManager />
+                </MainSectionLayout>
+              </Dependencies>
+            </ActionsProvider>
           </PageLayout>
         </NextIntlClientProvider>
         <SpeedInsights />

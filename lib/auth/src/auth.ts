@@ -2,7 +2,6 @@ import { AuthError } from '@echo/auth/errors/auth-error'
 import { error } from '@echo/auth/helpers/logger'
 import { userSchema } from '@echo/model/validators/user-schema'
 import { apiPathProvider } from '@echo/routing/constants/api-path-provider'
-import { pathProvider } from '@echo/routing/constants/path-provider'
 import { parseResponse } from '@echo/utils/helpers/parse-response'
 import { pathIsNil } from '@echo/utils/helpers/path-is-nil'
 import { propIsNil } from '@echo/utils/helpers/prop-is-nil'
@@ -64,6 +63,12 @@ export { GET, POST, auth }
 export function login(): Promise<SignInResponse | undefined> {
   return signIn('discord')
 }
-export function logout(): Promise<Record<'url', string> | undefined> {
-  return signOut({ redirectTo: pathProvider.base.home.getUrl() })
+
+export interface LogoutOptions {
+  redirectTo?: string
+  redirect?: boolean
+}
+
+export function logout(options?: LogoutOptions): Promise<Record<'url', string> | undefined> {
+  return signOut(options)
 }

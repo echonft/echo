@@ -1,4 +1,4 @@
-import { productionHostname } from '@echo/routing/constants/production-hostname'
+import { productionDomain } from '@echo/routing/constants/production-domain'
 import { baseUrl } from '@echo/routing/helpers/base-url'
 import { AbstractPath, type PathArgs, type PathParamsArgs } from '@echo/routing/path/abstract-path'
 import type { QueryParams } from '@echo/routing/types/query-params/query-params'
@@ -16,7 +16,7 @@ export class Path<
   }
 
   getProductionUrl(...params: PathParamsArgs<TParams>): string {
-    return `https://${productionHostname}${this.get(...params)}`
+    return `https://${productionDomain}${this.get(...params)}`
   }
 
   withQuery(queryParams: TQueryParams): this {

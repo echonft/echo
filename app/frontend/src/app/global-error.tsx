@@ -1,7 +1,5 @@
 'use client'
 import type { NextErrorParams } from '@echo/frontend/lib/types/next-error-params'
-import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
-import { Dependencies } from '@echo/ui/components/base/layout/dependencies'
 import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { messages } from '@echo/ui/messages/en'
@@ -24,13 +22,10 @@ export default function ({ error, reset }: NextErrorParams) {
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <PageLayout>
-            <Dependencies>
-              <Header user={undefined} />
-              <MainSectionLayout>
-                <Error500Page onReset={reset} />
-                <CalloutManager />
-              </MainSectionLayout>
-            </Dependencies>
+            <Header user={undefined} />
+            <MainSectionLayout>
+              <Error500Page onReset={reset} />
+            </MainSectionLayout>
           </PageLayout>
         </NextIntlClientProvider>
       </body>

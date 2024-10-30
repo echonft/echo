@@ -10,11 +10,11 @@ interface Props {
 }
 
 export const ConnectWalletButtonLayout: FunctionComponent<Props> = ({ isConnecting, onClick }) => {
-  const t = useTranslations('wallet.button.label')
+  const t = useTranslations('wallet.button')
   return (
     <button onClick={onClick} disabled={isConnecting} className={clsx('btn-auth', isConnecting && 'animate-pulse')}>
       <WalletIconSvg width={24} />
-      <span className={clsx('btn-label-auth')}>{t(isConnecting ? 'connecting' : 'disconnected')}</span>
+      <span className={clsx('btn-label-auth')}>{t('label')}</span>
     </button>
   )
 }

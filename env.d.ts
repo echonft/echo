@@ -18,7 +18,9 @@ declare namespace NodeJS {
       NODE_ENV?: 'production' | 'development' | 'test'
       SECRET_MANAGER_EMAIL: string
       SECRET_MANAGER_PRIVATE_KEY: string
-      VERCEL_ENV: 'production' | 'preview' | 'development'
+      VERCEL_ENV: 'production' | 'preview' | 'development' | undefined
+      VERCEL_PROJECT_PRODUCTION_URL: string | undefined
+      VERCEL_URL: string | undefined
     }
   }
 }

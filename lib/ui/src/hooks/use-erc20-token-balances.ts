@@ -2,10 +2,10 @@ import { Chain } from '@echo/model/constants/chain'
 import { TokenType } from '@echo/model/constants/token-type'
 import type { Erc20Token } from '@echo/model/types/erc20-token'
 import type { TokenBalance } from '@echo/model/types/token-balance'
-import { useDependencies } from '@echo/ui/components/base/dependencies-provider'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
-import { useAccount } from '@echo/ui/hooks/use-account'
+import { useDependencies } from '@echo/ui/hooks/use-dependencies'
+import { useWalletStore } from '@echo/ui/hooks/use-wallet-store'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
 import { supportedErc20Tokens } from '@echo/web3-dom/constants/supported-erc20-tokens'
@@ -13,7 +13,7 @@ import { assoc, isNil, type NonEmptyArray, objOf, pick, pipe, prop } from 'ramda
 import useSWR from 'swr'
 
 export function useErc20TokenBalances(): NonEmptyArray<TokenBalance<Erc20Token>> {
-  const account = useAccount()
+  const account = useWalletStore((state) => state.account)
   const { getAllErc20TokenBalances } = useDependencies()
   const { data } = useSWR(
     isNil(account.address) || isNil(account.chain)

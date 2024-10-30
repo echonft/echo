@@ -1,13 +1,14 @@
-import { productionHostname } from '@echo/routing/constants/production-hostname'
+import { domain } from '@echo/routing/constants/domain'
+import { productionDomain } from '@echo/routing/constants/production-domain'
 import { NodeEnvironment, nodeEnvironment } from '@echo/utils/constants/node-environment'
 import { VercelEnvironment, vercelEnvironment } from '@echo/utils/constants/vercel-environment'
 
 export function baseUrl() {
   if (nodeEnvironment === NodeEnvironment.Development || nodeEnvironment === NodeEnvironment.Test) {
-    return 'http://localhost:3000'
+    return `http://${domain}:3000`
   }
   if (vercelEnvironment === VercelEnvironment.Preview) {
-    return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+    return `https://${domain}`
   }
-  return `https://${productionHostname}`
+  return `https://${productionDomain}`
 }

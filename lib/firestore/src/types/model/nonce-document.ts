@@ -1,5 +1,7 @@
+import type { Contract } from '@echo/model/types/contract'
+
 export interface NonceDocument {
-  nonce: string
   expiresAt: number
-  userId: string
+  nonce: string
+  wallet: Contract
 }

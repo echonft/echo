@@ -5,7 +5,7 @@ import type { OwnedNft } from '@echo/model/types/owned-nft'
 import type { User, UserWithWallet } from '@echo/model/types/user'
 import { CreateOfferFlow } from '@echo/ui/components/offer/create/create-offer-flow'
 import { CreatedOfferSwitch } from '@echo/ui/components/offer/created/created-offer-switch'
-import { useAccount } from '@echo/ui/hooks/use-account'
+import { useWalletStore } from '@echo/ui/hooks/use-wallet-store'
 import { useRouter } from 'next/navigation'
 import { assoc, isNil, type NonEmptyArray } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
@@ -30,7 +30,7 @@ export const CreateOfferManager: FunctionComponent<Props> = ({
   const router = useRouter()
   const [createdOffer] = useState<Offer>()
   // TODO
-  const { address, chain } = useAccount()
+  const { address, chain } = useWalletStore((state) => state.account)
   const senderWithWallet = assoc('wallet', { address, chain }, sender) as UserWithWallet
   if (isNil(createdOffer)) {
     return (

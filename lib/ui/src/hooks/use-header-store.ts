@@ -1,19 +1,3 @@
-import { HeaderStyle } from '@echo/ui/constants/header-style'
-import { assoc } from 'ramda'
-import { create } from 'zustand/index'
+import { createHeaderStore } from '@echo/ui/stores/header-store'
 
-interface HeaderStore {
-  style: HeaderStyle
-  setStyle: (style: HeaderStyle) => void
-  reset: VoidFunction
-}
-
-export const useHeaderStore = create<HeaderStore>((set) => ({
-  style: HeaderStyle.Default,
-  setStyle: (style) => {
-    set(assoc('style', style))
-  },
-  reset: () => {
-    set(assoc('style', HeaderStyle.Default))
-  }
-}))
+export const useHeaderStore = createHeaderStore()

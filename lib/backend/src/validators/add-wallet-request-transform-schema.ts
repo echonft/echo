@@ -1,13 +1,13 @@
 import { addWalletRequestSchema } from '@echo/api/validators/add-wallet-request-schema'
 import { ForbiddenError } from '@echo/backend/errors/forbidden-error'
-import { getNonceForUser } from '@echo/firestore/crud/nonce/get-nonce-for-user'
+import { getNonce } from '@echo/firestore/crud/nonce/get-nonce'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { chains } from '@echo/model/constants/chain'
 import { UserError } from '@echo/model/constants/errors/user-error'
 import { WalletError } from '@echo/model/constants/errors/wallet-error'
 import type { Username } from '@echo/model/types/username'
-import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { dateNumberIsPast } from '@echo/utils/helpers/date-number-is-past'
+import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { assoc, isNil, modify, path, pick, pipe, toLower } from 'ramda'
 import { SiweMessage } from 'siwe'
 import { NEVER, ZodIssueCode } from 'zod'
@@ -49,7 +49,7 @@ export function addWalletRequestTransformSchema(username: Username) {
         })
         return NEVER
       }
-      const foundNonce = await getNonceForUser(foundUser.username)
+      const foundNonce = await getNonce(foundUser.username)
       if (isNilOrEmpty(foundNonce)) {
         return Promise.reject(new ForbiddenError({ message: WalletError.NonceNotFound }))
       }

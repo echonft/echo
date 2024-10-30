@@ -427,10 +427,7 @@ Don't worry, its safe with us.`
   wallet: {
     button: {
       copied: 'Copied!',
-      label: {
-        disconnected: 'Connect',
-        connecting: 'Connecting...'
-      }
+      label: 'Connect'
     },
     modal: {
       title: 'Oops! Wallet not connected',
