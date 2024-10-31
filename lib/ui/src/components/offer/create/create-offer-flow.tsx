@@ -6,6 +6,7 @@ import { CreateOfferReviewStep } from '@echo/ui/components/offer/create/create-o
 import { CreatedOfferCreated } from '@echo/ui/components/offer/created/created-offer-created'
 import { CreateTradeBottomBar } from '@echo/ui/components/trade/create-trade-bottom-bar'
 import { CreateTradeUserNftsSelection } from '@echo/ui/components/trade/create-trade-user-nfts-selection'
+import { CreateTradeStepLayout } from '@echo/ui/components/trade/layout/create-trade-step-layout'
 import { TradeStepIndicator } from '@echo/ui/components/trade/trade-step-indicator'
 import { OfferCreationSteps } from '@echo/ui/constants/offer-creation-steps'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
@@ -71,7 +72,7 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
       <div className={clsx('flex', 'items-center', 'justify-center')}>
         <TradeStepIndicator step={currentStep} totalSteps={totalSteps} subtitles={subtitles} />
       </div>
-      <div className={clsx('flex-grow', 'overflow-y-auto', 'pb-32')}>
+      <CreateTradeStepLayout>
         {currentStep === 0 && (
           <CreateTradeUserNftsSelection
             user={receiver}
@@ -101,7 +102,7 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
           />
         )}
         {currentStep === 3 && createdOffer && <CreatedOfferCreated offer={createdOffer} />}
-      </div>
+      </CreateTradeStepLayout>
       {currentStep < totalSteps - 1 && (
         <CreateTradeBottomBar
           items={receiverSelection.nfts}

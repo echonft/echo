@@ -12,7 +12,8 @@ type ReadContractOfferItems = z.infer<typeof itemsSchema>
 
 const itemSchema = object({
   tokenAddress: evmAddressSchema,
-  tokenId: bigint().positive()
+  tokenIdOrAmount: bigint().positive(),
+  tokenType: bigint().positive()
 })
 
 const itemsSchema = object({
@@ -23,7 +24,8 @@ const itemsSchema = object({
 function mapItem(readContractOfferItem: ReadContractOfferItem) {
   return applySpec({
     tokenAddress: pipe(prop('tokenAddress'), toLower<HexString>),
-    tokenId: pipe(prop('tokenId'), Number)
+    tokenIdOrAmount: pipe(prop('tokenIdOrAmount'), Number),
+    tokenType: pipe(prop('tokenType'), Number)
   })(readContractOfferItem)
 }
 

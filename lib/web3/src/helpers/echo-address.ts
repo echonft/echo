@@ -14,7 +14,7 @@ export function echoAddress(chain: Chain): EvmAddress {
     case Chain.Sepolia:
       return toLower('0xB0904D81440EFCA27Ec61948c95f21D7d546F8C3')
     case Chain.Sei:
-      // FIXME wrong address
-      return toLower('0x538dd3e75d05b63dc81fee587b8a4aa5fde2cc95')
+      // FIXME Temp contract address
+      return toLower('0x07d31999C2BAe29086133A5C93b07a481c5dDaea')
   }
 }

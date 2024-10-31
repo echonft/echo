@@ -9,7 +9,9 @@ import { getAddress } from 'viem'
 function mapItem(item: Item) {
   return applySpec({
     tokenAddress: path(['token', 'contract', 'address']),
-    tokenId: path(['token', 'tokenId'])
+    // FIXME Adjust to handle ERC20s
+    tokenType: always(1),
+    tokenIdOrAmount: path(['token', 'tokenId'])
   })(item)
 }
 

@@ -8,6 +8,7 @@ import { CreateListingFirstStep } from '@echo/ui/components/listing/create/creat
 import { CreateListingReviewStep } from '@echo/ui/components/listing/create/create-listing-review-step'
 import { CreateTargetNextButton } from '@echo/ui/components/listing/create/create-target-next-button'
 import { CreateTradeBottomBar } from '@echo/ui/components/trade/create-trade-bottom-bar'
+import { CreateTradeStepLayout } from '@echo/ui/components/trade/layout/create-trade-step-layout'
 import { TradeStepIndicator } from '@echo/ui/components/trade/trade-step-indicator'
 import { ListingCreationSteps } from '@echo/ui/constants/listing-creation-steps'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
@@ -76,7 +77,7 @@ export const CreateListing: FunctionComponent<Props> = ({
       <div className={clsx('flex', 'items-center', 'justify-center')}>
         <TradeStepIndicator step={currentStep} totalSteps={totalSteps} subtitles={subtitles} />
       </div>
-      <div className={clsx('flex-grow', 'overflow-y-auto', 'pb-32')}>
+      <CreateTradeStepLayout>
         {currentStep === 0 && (
           <CreateListingFirstStep
             user={creator}
@@ -101,7 +102,7 @@ export const CreateListing: FunctionComponent<Props> = ({
             target={targetSelection!}
           />
         )}
-      </div>
+      </CreateTradeStepLayout>
       <CreateTradeBottomBar items={selection.nfts} targetCollection={targetSelection} onBack={handleBack}>
         <CreateTargetNextButton
           creatorNfts={selection.nfts}

@@ -6,7 +6,8 @@ import { literal, nativeEnum, number, object } from 'zod'
 
 const offerItemSchema = object({
   tokenAddress: evmAddressSchema,
-  tokenId: number().int().positive()
+  tokenIdOrAmount: number().int().positive(),
+  tokenType: number().int().min(0).max(1)
 })
 
 function offerItemsSchema(chain: Chain) {

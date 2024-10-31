@@ -40,6 +40,10 @@ async function getTransport(chain: Chain): Promise<FallbackTransport<[WebSocketT
   if (chain === Chain.Sepolia) {
     return fallback([webSocket('wss://evm-ws.sei-apis.com'), http('https://evm-rpc.sei-apis.com')], config)
   }
+  // FIXME Set the proper values here, we have a private endpoint
+  if (chain === Chain.Sei) {
+    return fallback([webSocket('wss://evm-ws.sei-apis.com'), http('https://evm-rpc.sei-apis.com')], config)
+  }
   const transportUrl = await alchemyTransportUrl(chain)
   return fallback([webSocket(`wss://${transportUrl}`), http(`https://${transportUrl}`)], config)
 }

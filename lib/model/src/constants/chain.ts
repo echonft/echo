@@ -15,7 +15,7 @@ export const chains = {
     name: Chain.Blast,
     vm: VirtualMachine.Evm,
     network: Network.Mainnet,
-    supported: true
+    supported: false
   },
   blast_sepolia: {
     id: 168587773,
@@ -43,6 +43,6 @@ export const chains = {
     name: Chain.Sei,
     vm: VirtualMachine.Evm,
     network: Network.Mainnet,
-    supported: false
+    supported: true
   }
 } as const
