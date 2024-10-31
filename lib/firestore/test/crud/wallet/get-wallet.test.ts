@@ -3,12 +3,11 @@ import { getWallet } from '@echo/firestore/crud/wallet/get-wallet'
 import { walletDocumentMockCrew } from '@echo/firestore/mocks/wallet-document-mock'
 import { walletMockCrew, walletMockJohnny } from '@echo/model/mocks/wallet-mock'
 import { addWallet } from '@echo/test/firestore/crud/wallet/add-wallet'
-import { userDocumentMockCrewId } from '@echo/test/firestore/initialize-db'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
 
-describe('CRUD - wallet - getWalletByAddress', () => {
+describe('getWallet', () => {
   let addedWalletId: Nullable<string>
   beforeEach(() => {
     addedWalletId = undefined
@@ -23,8 +22,9 @@ describe('CRUD - wallet - getWalletByAddress', () => {
     const wallet = await getWallet(walletMockJohnny)
     expect(wallet).toBeUndefined()
   })
+
   it('returns the wallet if it exists', async () => {
     addedWalletId = await addWallet(walletDocumentMockCrew)
-    await expect(getWallet(walletMockCrew)).resolves.toStrictEqual(userDocumentMockCrewId)
+    await expect(getWallet(walletMockCrew)).resolves.toStrictEqual(walletDocumentMockCrew)
   })
 })

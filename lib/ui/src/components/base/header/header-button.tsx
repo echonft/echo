@@ -3,11 +3,10 @@ import type { User } from '@echo/model/types/user'
 import { pathProvider } from '@echo/routing/constants/path-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
-import { Web3Provider } from '@echo/ui/components/providers/web3-provider'
-import { ConnectWalletButton } from '@echo/ui/components/wallet/connect-wallet-button'
-import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
+import { WalletButton } from '@echo/ui/components/wallet/wallet-button'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
+import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -15,7 +14,7 @@ interface Props {
 }
 
 const HeaderButtonImg: FunctionComponent<Props> = ({ user }) => {
-  if (isNilOrEmpty(user)) {
+  if (isNil(user?.username)) {
     return null
   }
   const {
@@ -50,9 +49,7 @@ const HeaderButtonImg: FunctionComponent<Props> = ({ user }) => {
 export const HeaderButton: FunctionComponent<Props> = ({ user }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'gap-4', 'h-max', 'w-max')}>
-      <Web3Provider>
-        <ConnectWalletButton user={user} />
-      </Web3Provider>
+      <WalletButton />
       <HeaderButtonImg user={user} />
     </div>
   )

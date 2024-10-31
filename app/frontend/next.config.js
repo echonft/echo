@@ -23,13 +23,18 @@ const nextConfig = {
   },
   swcMinify: true,
   transpilePackages: [
-    '@echo/auth',
+    '@echo/api',
     '@echo/backend',
     '@echo/firestore',
     '@echo/model',
+    '@echo/nft-scan',
+    '@echo/opensea',
     '@echo/routing',
+    '@echo/tasks',
     '@echo/ui',
-    '@echo/utils'
+    '@echo/utils',
+    '@echo/web3',
+    '@echo/web3-dom'
   ]
 }
 const withNextIntl = nextIntl('./src/i18n.ts')

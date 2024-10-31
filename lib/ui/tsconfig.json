@@ -6,7 +6,6 @@
     "paths": {
       "@echo/ui/*": ["src/*"],
       "@echo/api/*": ["../api/src/*"],
-      "@echo/auth/*": ["../auth/src/*"],
       "@echo/backend/*": ["../backend/src/*"],
       "@echo/firestore/*": ["../firestore/src/*"],
       "@echo/model/*": ["../model/src/*"],

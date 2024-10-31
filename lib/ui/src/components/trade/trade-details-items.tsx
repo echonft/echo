@@ -1,6 +1,6 @@
 'use client'
 import type { Nft } from '@echo/model/types/nft'
-import type { UserWithWallet } from '@echo/model/types/user'
+import type { User } from '@echo/model/types/user'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { NftCards } from '@echo/ui/components/nft/card/nft-cards'
 import { TradeDetailsInfoLayout } from '@echo/ui/components/trade/layout/trade-details-info-layout'
@@ -10,9 +10,9 @@ import { Alignment } from '@echo/ui/constants/alignments'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  sender: UserWithWallet
+  sender: User
   senderNfts: Nft[]
-  receiver: UserWithWallet
+  receiver: User
   receiverNfts: Nft[]
   // TODO Should be better than this
   isSender?: boolean

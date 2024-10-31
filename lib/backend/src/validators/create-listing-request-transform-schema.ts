@@ -29,7 +29,7 @@ import type { NftItem } from '@echo/model/types/nft-item'
 import type { OwnedErc1155Nft } from '@echo/model/types/owned-erc1155-nft'
 import type { OwnedErc721Nft } from '@echo/model/types/owned-erc721-nft'
 import type { OwnedNft } from '@echo/model/types/owned-nft'
-import type { User, UserWithWallet } from '@echo/model/types/user'
+import type { User } from '@echo/model/types/user'
 import type { Username } from '@echo/model/types/username'
 import { promiseAll } from '@echo/utils/helpers/promise-all'
 import { toNonEmptyArray } from '@echo/utils/helpers/to-non-empty-array'
@@ -58,11 +58,11 @@ interface Erc1155ItemRequestWithOwnedNft extends Erc1155ItemRequest {
 type NftItemRequestWithOwnedNft = Erc721ItemRequestWithOwnedNft | Erc1155ItemRequestWithOwnedNft
 
 interface Erc721ItemWithOwner extends Erc721Item {
-  owner: UserWithWallet
+  owner: User
 }
 
 interface Erc1155ItemWithOwner extends Erc1155Item {
-  owner: UserWithWallet
+  owner: User
 }
 
 type NftItemWithOwner = Erc721ItemWithOwner | Erc1155ItemWithOwner
@@ -189,7 +189,7 @@ export async function createListingRequestTransformSchema(username: Username) {
       }
       return dissoc('owner', item)
     }
-    const creator = pipe<[NonEmptyArray<NftItemWithOwner>], NftItemWithOwner, UserWithWallet>(
+    const creator = pipe<[NonEmptyArray<NftItemWithOwner>], NftItemWithOwner, User>(
       head,
       prop('owner')
     )(params.items as NonEmptyArray<NftItemWithOwner>)

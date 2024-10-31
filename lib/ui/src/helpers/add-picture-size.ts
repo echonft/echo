@@ -1,5 +1,5 @@
 import { apiPathProvider } from '@echo/routing/constants/api-path-provider'
-import { productionDomain } from '@echo/routing/constants/production-domain'
+import { productionHostname } from '@echo/routing/constants/production-hostname'
 import { baseUrl } from '@echo/routing/helpers/base-url'
 import { PictureSize } from '@echo/ui/constants/picture-size'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
@@ -17,10 +17,10 @@ function getCurrentHostnameSrc(src: string): string {
   const match = regex.exec(src)
   if (
     match &&
-    match[2] !== productionDomain &&
+    match[2] !== productionHostname &&
     (match[2] === 'dev.echonft.xyz' || match[2] === 'staging.echonft.xyz' || match[2] === 'app.echonft.xyz')
   ) {
-    return src.replace(regex, `${baseUrl()}$3`)
+    return src.replace(regex, `${baseUrl}$3`)
   }
   return src
 }
@@ -55,7 +55,7 @@ export function addPictureSize(
     // update the src to the current environment
     const src = getCurrentHostnameSrc(args.src)
     // our IPFS gateway
-    if (src.startsWith(`${baseUrl()}/api/ipfs`)) {
+    if (src.startsWith(`${baseUrl}/api/ipfs`)) {
       return concat(src, `?img-width=${size}`)
     }
     // NFT storage

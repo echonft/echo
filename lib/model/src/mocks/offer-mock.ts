@@ -1,7 +1,7 @@
 import { Chain } from '@echo/model/constants/chain'
 import { OfferState } from '@echo/model/constants/offer-state'
 import { TokenType } from '@echo/model/constants/token-type'
-import { userWithWalletMockCrew, userWithWalletMockJohnny } from '@echo/model/mocks/user-mock'
+import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
 import type { BaseOffer } from '@echo/model/types/base-offer'
 import { type Offer } from '@echo/model/types/offer'
 
@@ -9,7 +9,7 @@ export const offerMockToJohnnycage: Offer = {
   expiresAt: 2324074781,
   locked: false,
   idContract: '0xlycfl6eg7jkud7xj6ipi',
-  receiver: userWithWalletMockJohnny,
+  receiver: userMockJohnny,
   receiverItems: [
     {
       token: {
@@ -29,7 +29,7 @@ export const offerMockToJohnnycage: Offer = {
       }
     }
   ],
-  sender: userWithWalletMockCrew,
+  sender: userMockCrew,
   senderItems: [
     {
       token: {
@@ -55,7 +55,7 @@ export const offerMockToJohnnycage: Offer = {
 
 export const baseOfferMockToJohnnycage: BaseOffer = {
   expiresAt: 2324074781,
-  receiver: userWithWalletMockJohnny,
+  receiver: userMockJohnny,
   receiverItems: [
     {
       token: {
@@ -75,7 +75,7 @@ export const baseOfferMockToJohnnycage: BaseOffer = {
       }
     }
   ],
-  sender: userWithWalletMockCrew,
+  sender: userMockCrew,
   senderItems: [
     {
       token: {
@@ -101,7 +101,7 @@ export const offerMockFromJohnnycage: Offer = {
   expiresAt: 2324074781,
   locked: true,
   idContract: '0xaskfpkohehvh0gd69t1g',
-  receiver: userWithWalletMockCrew,
+  receiver: userMockCrew,
   receiverItems: [
     {
       token: {
@@ -121,7 +121,7 @@ export const offerMockFromJohnnycage: Offer = {
       }
     }
   ],
-  sender: userWithWalletMockJohnny,
+  sender: userMockJohnny,
   senderItems: [
     {
       token: {
@@ -164,7 +164,7 @@ export const offerMockFromJohnnycage: Offer = {
 
 export const baseOfferMockFromJohnnycage: BaseOffer = {
   expiresAt: 2324074781,
-  receiver: userWithWalletMockCrew,
+  receiver: userMockCrew,
   receiverItems: [
     {
       token: {
@@ -184,7 +184,7 @@ export const baseOfferMockFromJohnnycage: BaseOffer = {
       }
     }
   ],
-  sender: userWithWalletMockJohnny,
+  sender: userMockJohnny,
   senderItems: [
     {
       token: {

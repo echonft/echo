@@ -1,4 +1,4 @@
-import type { UserWithWallet } from '@echo/model/types/user'
+import type { User } from '@echo/model/types/user'
 import { pathProvider } from '@echo/routing/constants/path-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { ProfilePicture } from '@echo/ui/components/base/profile-picture'
@@ -10,7 +10,7 @@ import { Size } from '@echo/ui/constants/size'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  user: UserWithWallet
+  user: User
   isAuthUser?: boolean
 }
 

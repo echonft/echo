@@ -1,4 +1,4 @@
-import { mockRequest } from '@echo/auth/mocks/mock-request'
+import { mockRequest } from '@echo/backend/mocks/mock-request'
 import { nonceRequestHandler } from '@echo/backend/request-handlers/profile/nonce-request-handler'
 import { addNonce } from '@echo/firestore/crud/nonce/add-nonce'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'

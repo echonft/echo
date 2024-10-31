@@ -1,4 +1,4 @@
-import { getAuthUser } from '@echo/auth/helpers/get-auth-user'
+import { getAuthUser } from '@echo/backend/helpers/auth/get-auth-user'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import type { NextReturn } from '@echo/frontend/lib/types/next-return'
 import type { User } from '@echo/model/types/user'

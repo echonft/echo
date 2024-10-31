@@ -1,12 +1,11 @@
 import { type ErrorCallback, errorCallback } from '@echo/ui/helpers/error-callback'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
-import type { Fetcher } from '@echo/utils/types/fetcher'
 import { assoc, pipe } from 'ramda'
 import useSWRMutation from 'swr/mutation'
 
 interface UseSWRTriggerArgs<TResponse, TArgs> {
   key: string
-  fetcher: Fetcher<TResponse, TArgs>
+  fetcher: (args: TArgs) => Promise<TResponse>
   onSuccess?: (data: TResponse) => void
   onError?: Omit<ErrorCallback, 'show'>
 }

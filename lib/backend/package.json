@@ -15,9 +15,11 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
+    "@auth/core": "0.37.2",
     "@sentry/nextjs": "8.35.0",
     "dayjs": "1.11.13",
     "next": "14.2.16",
+    "next-auth": "5.0.0-beta.25",
     "ramda": "0.30.1",
     "siwe": "2.3.2",
     "zod": "3.23.8"
@@ -27,7 +29,6 @@
     "@babel/preset-env": "7.26.0",
     "@babel/preset-typescript": "7.26.0",
     "@echo/api": "workspace:*",
-    "@echo/auth": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/routing": "workspace:*",

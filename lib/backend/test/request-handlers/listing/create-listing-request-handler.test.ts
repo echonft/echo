@@ -1,7 +1,7 @@
 import { createListingRequestMock } from '@echo/api/mocks/create-listing-request-mock'
 import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
-import { mockRequest } from '@echo/auth/mocks/mock-request'
 import { BadRequestError } from '@echo/backend/errors/bad-request-error'
+import { mockRequest } from '@echo/backend/mocks/mock-request'
 import { createListingRequestHandler } from '@echo/backend/request-handlers/listing/create-listing-request-handler'
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { addListing } from '@echo/firestore/crud/listing/add-listing'

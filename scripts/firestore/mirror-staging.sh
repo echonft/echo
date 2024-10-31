@@ -10,20 +10,20 @@ fi
 printf "\e[36mMirroring staging database...\n\e[0m"
 # deleting current database
 firebase use staging 1>/dev/null
-# Disable exit on error since the db might already have been deleted
-set +e
 gsutil -m rm -r "gs://echo-firestore-prod-backup/**" 1>/dev/null
-firebase firestore:databases:delete "(default)" --force 1>/dev/null
-printf "\e[35m\nDeleted staging database, waiting 4 minutes...\n\e[0m"
-# Re-enable exit on error
-set -e
-duration=240
-while [ "$duration" -gt 0 ]
-do
-  printf "\e[35m\r%02d:%02d\e[0m" $((duration/60)) $((duration%60))
-  sleep 1
-  duration=$((duration-1))
-done
+output=$(firebase firestore:databases:delete "(default)" --force 1>/dev/null)
+if ! echo "$output" | grep -q "^Error:"; then
+  printf "\e[35m\nDeleted staging database, waiting 5 minutes...\n\e[0m"
+  duration=300
+  while [ "$duration" -gt 0 ]
+  do
+    printf "\e[35m\r%02d:%02d\e[0m" $((duration/60)) $((duration%60))
+    sleep 1
+    duration=$((duration-1))
+  done
+else
+  printf "\e[35m\nStaging database not found, proceeding to creation\n\e[0m"
+fi
 # Getting production database
 firebase use production 1>/dev/null
 firebase firestore:indexes > "${dir}"/../../firestore.indexes.json

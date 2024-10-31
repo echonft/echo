@@ -1,6 +1,6 @@
-import { mockRequest } from '@echo/auth/mocks/mock-request'
 import { ForbiddenError } from '@echo/backend/errors/forbidden-error'
 import { NotFoundError } from '@echo/backend/errors/not-found-error'
+import { mockRequest } from '@echo/backend/mocks/mock-request'
 import { getOfferByIdContractRequestHandler } from '@echo/backend/request-handlers/offer/get-offer-by-id-contract-request-handler'
 import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
 import { offerDocumentMockFromJohnnycage } from '@echo/firestore/mocks/offer-document-mock'

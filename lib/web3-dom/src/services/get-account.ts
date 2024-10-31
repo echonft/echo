@@ -4,7 +4,7 @@ import type { EvmAddress } from '@echo/model/types/address'
 import type { ChainId } from '@echo/model/types/chain'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { AccountStatus } from '@echo/web3-dom/constants/account-status'
-import { type Config, wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
+import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import { isNil, pipe, toLower } from 'ramda'
 import {
   getAccount as wagmiGetAccount,
@@ -12,12 +12,14 @@ import {
   watchAccount as wagmiWatchAccount
 } from 'wagmi/actions'
 
+export interface AccountResultConnected {
+  status: AccountStatus.Connected
+  address: EvmAddress
+  chain: Chain
+}
+
 export type AccountResult =
-  | {
-      status: AccountStatus.Connected
-      address: EvmAddress
-      chain: Chain
-    }
+  | AccountResultConnected
   | {
       status: Exclude<AccountStatus, AccountStatus.Connected>
       address: undefined
@@ -61,11 +63,11 @@ function mapResult(result: GetAccountReturnType): AccountResult {
 }
 
 export function getAccount(): AccountResult {
-  return pipe(wagmiGetAccount<Config>, mapResult)(wagmiConfig)
+  return pipe(wagmiGetAccount, mapResult)(wagmiConfig)
 }
 
 export function watchAccount(onChange: (account: AccountResult, prevAccount: AccountResult) => void) {
-  wagmiWatchAccount<Config>(wagmiConfig, {
+  return wagmiWatchAccount(wagmiConfig, {
     onChange: (account, prevAccount) => {
       onChange(mapResult(account), mapResult(prevAccount))
     }

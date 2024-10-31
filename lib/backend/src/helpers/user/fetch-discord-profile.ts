@@ -1,4 +1,4 @@
-import { discordProfileResponseSchema } from '@echo/auth/validators/discord-profile-response-schema'
+import { discordProfileResponseSchema } from '@echo/backend/validators/discord-profile-response-schema'
 import { parseResponse } from '@echo/utils/helpers/parse-response'
 import { andThen, pipe } from 'ramda'
 

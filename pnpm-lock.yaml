@@ -202,9 +202,6 @@ importers:
 
   app/frontend:
     dependencies:
-      '@echo/auth':
-        specifier: workspace:*
-        version: link:../../lib/auth
       '@echo/backend':
         specifier: workspace:*
         version: link:../../lib/backend
@@ -238,6 +235,9 @@ importers:
       next:
         specifier: 14.2.16
         version: 14.2.16(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      next-auth:
+        specifier: 5.0.0-beta.25
+        version: 5.0.0-beta.25(next@14.2.16(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       next-intl:
         specifier: 3.23.5
         version: 3.23.5(next@14.2.16(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
@@ -321,12 +321,6 @@ importers:
       '@echo/api':
         specifier: workspace:*
         version: link:../../lib/api
-      '@echo/auth':
-        specifier: workspace:*
-        version: link:../../lib/auth
-      '@echo/firestore':
-        specifier: workspace:*
-        version: link:../../lib/firestore
       '@echo/model':
         specifier: workspace:*
         version: link:../../lib/model
@@ -336,9 +330,6 @@ importers:
       '@echo/utils':
         specifier: workspace:*
         version: link:../../lib/utils
-      '@echo/web3':
-        specifier: workspace:*
-        version: link:../../lib/web3
       '@echo/web3-dom':
         specifier: workspace:*
         version: link:../../lib/web3-dom
@@ -431,69 +422,11 @@ importers:
         specifier: 5.6.3
         version: 5.6.3
 
-  lib/auth:
+  lib/backend:
     dependencies:
       '@auth/core':
         specifier: 0.37.2
         version: 0.37.2
-      '@echo/firestore':
-        specifier: workspace:*
-        version: link:../firestore
-      '@echo/model':
-        specifier: workspace:*
-        version: link:../model
-      '@echo/routing':
-        specifier: workspace:*
-        version: link:../routing
-      '@echo/utils':
-        specifier: workspace:*
-        version: link:../utils
-      next:
-        specifier: 14.2.16
-        version: 14.2.16(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      next-auth:
-        specifier: 5.0.0-beta.25
-        version: 5.0.0-beta.25(next@14.2.16(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
-      ramda:
-        specifier: 0.30.1
-        version: 0.30.1
-      zod:
-        specifier: 3.23.8
-        version: 3.23.8
-    devDependencies:
-      '@babel/core':
-        specifier: 7.26.0
-        version: 7.26.0
-      '@babel/preset-env':
-        specifier: 7.26.0
-        version: 7.26.0(@babel/core@7.26.0)
-      '@babel/preset-typescript':
-        specifier: 7.26.0
-        version: 7.26.0(@babel/core@7.26.0)
-      '@jest/globals':
-        specifier: 29.7.0
-        version: 29.7.0
-      '@jest/types':
-        specifier: 29.6.3
-        version: 29.6.3
-      '@types/node':
-        specifier: 22.8.1
-        version: 22.8.1
-      '@types/ramda':
-        specifier: 0.30.2
-        version: 0.30.2
-      jest:
-        specifier: 29.7.0
-        version: 29.7.0(@types/node@22.8.1)(ts-node@10.9.1(@swc/core@1.7.40(@swc/helpers@0.5.11))(@types/node@22.8.1)(typescript@5.6.3))
-      jest-junit:
-        specifier: 16.0.0
-        version: 16.0.0
-      typescript:
-        specifier: 5.6.3
-        version: 5.6.3
-
-  lib/backend:
-    dependencies:
       '@sentry/nextjs':
         specifier: 8.35.0
         version: 8.35.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.27.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.53.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.27.0(@opentelemetry/api@1.9.0))(encoding@0.1.13)(next@14.2.16(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(webpack@5.93.0(@swc/core@1.7.40(@swc/helpers@0.5.11)))
@@ -503,6 +436,9 @@ importers:
       next:
         specifier: 14.2.16
         version: 14.2.16(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      next-auth:
+        specifier: 5.0.0-beta.25
+        version: 5.0.0-beta.25(next@14.2.16(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       ramda:
         specifier: 0.30.1
         version: 0.30.1
@@ -525,9 +461,6 @@ importers:
       '@echo/api':
         specifier: workspace:*
         version: link:../api
-      '@echo/auth':
-        specifier: workspace:*
-        version: link:../auth
       '@echo/firestore':
         specifier: workspace:*
         version: link:../firestore
@@ -918,6 +851,9 @@ importers:
       marked-react:
         specifier: 2.0.0
         version: 2.0.0(react@18.3.1)
+      next-auth:
+        specifier: 5.0.0-beta.25
+        version: 5.0.0-beta.25(next@14.2.16(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       next-intl:
         specifier: 3.23.5
         version: 3.23.5(next@14.2.16(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
@@ -948,6 +884,9 @@ importers:
       react-tooltip:
         specifier: 5.28.0
         version: 5.28.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      siwe:
+        specifier: 2.3.2
+        version: 2.3.2(ethers@6.13.1(bufferutil@4.0.8)(utf-8-validate@5.0.10))
       swr:
         specifier: 2.2.5
         version: 2.2.5(react@18.3.1)
@@ -982,9 +921,6 @@ importers:
       '@echo/api':
         specifier: workspace:*
         version: link:../api
-      '@echo/auth':
-        specifier: workspace:*
-        version: link:../auth
       '@echo/model':
         specifier: workspace:*
         version: link:../model
@@ -15081,7 +15017,7 @@ snapshots:
     dependencies:
       '@ethereumjs/tx': 4.2.0
       '@metamask/superstruct': 3.1.0
-      '@noble/hashes': 1.4.0
+      '@noble/hashes': 1.5.0
       '@scure/base': 1.1.7
       '@types/debug': 4.1.12
       debug: 4.3.7
@@ -15095,7 +15031,7 @@ snapshots:
     dependencies:
       '@ethereumjs/tx': 4.2.0
       '@metamask/superstruct': 3.1.0
-      '@noble/hashes': 1.4.0
+      '@noble/hashes': 1.5.0
       '@scure/base': 1.1.7
       '@types/debug': 4.1.12
       debug: 4.3.7
@@ -16484,7 +16420,7 @@ snapshots:
 
   '@spruceid/siwe-parser@2.1.2':
     dependencies:
-      '@noble/hashes': 1.4.0
+      '@noble/hashes': 1.5.0
       apg-js: 4.4.0
       uri-js: 4.4.1
       valid-url: 1.0.9

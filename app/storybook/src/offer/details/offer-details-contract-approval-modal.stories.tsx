@@ -3,7 +3,7 @@
 import { offerReceiverNftItems } from '@echo/model/helpers/offer/offer-receiver-nft-items'
 import { nftItemToNft } from '@echo/model/mappers/item/nft-item-to-nft'
 import { offerMockToJohnnycage } from '@echo/model/mocks/offer-mock'
-import { userWithWalletMockJohnny } from '@echo/model/mocks/user-mock'
+import { userMockJohnny } from '@echo/model/mocks/user-mock'
 import { OfferDetailsContractApprovalModal as Component } from '@echo/ui/components/offer/details/offer-details-contract-approval-modal'
 import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
 import type { Meta, StoryObj } from '@storybook/react'
@@ -40,7 +40,7 @@ export const ContractApproval: StoryObj<typeof Component> = {
     const t = useTranslations('offer.details.swapModal')
     const items = pipe(
       offerReceiverNftItems,
-      nonEmptyMap(pipe(nftItemToNft(userWithWalletMockJohnny), assoc('attributes', [])))
+      nonEmptyMap(pipe(nftItemToNft(userMockJohnny), assoc('attributes', [])))
     )(offerMockToJohnnycage)
     return (
       <Component

@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { ConnectWalletButton as Component } from '@echo/ui/components/wallet/connect-wallet-button'
+import { WalletButton as Component } from '@echo/ui/components/wallet/wallet-button'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

@@ -6,7 +6,7 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { always, ifElse, isNil, pipe, prop } from 'ramda'
 
 export function getListingBackground(listing: Nullable<Listing>) {
-  return ifElse<Nullable<Listing>, undefined | null, Background, Background>(
+  return ifElse<Nullable<Listing>, Nullable, Background, Background>(
     isNil,
     always(Background.Default),
     pipe(prop('state'), getListingBackgroundColor, getBackgroundGradientFromColor)

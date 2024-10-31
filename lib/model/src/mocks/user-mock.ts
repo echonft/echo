@@ -1,5 +1,5 @@
 import { walletMockCrew, walletMockJohnny } from '@echo/model/mocks/wallet-mock'
-import type { User, UserWithWallet } from '@echo/model/types/user'
+import type { User } from '@echo/model/types/user'
 
 export const userMockCrew: User = {
   username: 'crewnft_',
@@ -7,7 +7,8 @@ export const userMockCrew: User = {
     username: 'crewnft_',
     avatarUrl: 'https://cdn.discordapp.com/avatars/884593489189433364/6080eecbd12f0f7bb2299690661535cf.png',
     globalName: 'crew'
-  }
+  },
+  wallet: walletMockCrew
 }
 
 export const userMockJohnny: User = {
@@ -15,14 +16,8 @@ export const userMockJohnny: User = {
   discord: {
     username: 'johnnycagewins',
     avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png'
-  }
+  },
+  wallet: walletMockJohnny
 }
 
 export const userMocks: User[] = [userMockCrew, userMockJohnny]
-
-export const userWithWalletMockJohnny: UserWithWallet = {
-  ...userMockJohnny,
-  wallet: { address: walletMockJohnny.address }
-}
-
-export const userWithWalletMockCrew: UserWithWallet = { ...userMockCrew, wallet: { address: walletMockCrew.address } }

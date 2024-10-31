@@ -1,2 +1,2 @@
-export { GET, POST } from '@echo/auth/auth'
-export const runtime = 'edge'
+// export const dynamic = 'force-dynamic'
+export { GET, POST } from '@echo/backend/auth'

@@ -1,10 +1,10 @@
-import { privateKeySchema } from '@echo/model/validators/private-key-schema'
+import { base64DecodeSchema } from '@echo/model/validators/base64-decode-schema'
 import { SecretManagerError } from '@echo/utils/constants/errors/secret-manager-error'
 import { isCI } from '@echo/utils/constants/is-ci'
 import { NodeEnvironment, nodeEnvironment } from '@echo/utils/constants/node-environment'
 import type { Secret } from '@echo/utils/constants/secret'
-import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { gcloudProjectId } from '@echo/utils/helpers/gcloud-project-id'
+import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { SecretManagerServiceClient } from '@google-cloud/secret-manager'
 import { assoc, isNil, objOf, pipe, prop } from 'ramda'
 
@@ -25,7 +25,7 @@ function getCredentials(): Credentials {
     // logger?.error('SECRET_MANAGER_EMAIL env not set')
     throw Error(SecretManagerError.CredentialsMissing)
   }
-  const privateKey = privateKeySchema.parse(process.env.SECRET_MANAGER_PRIVATE_KEY)
+  const privateKey = base64DecodeSchema.parse(process.env.SECRET_MANAGER_PRIVATE_KEY)
   if (isNilOrEmpty(privateKey)) {
     // logger?.error('SECRET_MANAGER_PRIVATE_KEY env not set')
     throw Error(SecretManagerError.CredentialsMissing)

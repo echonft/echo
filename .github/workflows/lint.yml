@@ -39,10 +39,6 @@ jobs:
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint --filter=@echo/api -- --quiet
-      - name: auth lint
-        env:
-          NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint --filter=@echo/auth -- --quiet
       - name: backend lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"

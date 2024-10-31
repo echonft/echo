@@ -1,6 +1,5 @@
-import type { Chain } from '@echo/model/constants/chain'
-import type { Address } from '@echo/model/types/address'
 import type { Username } from '@echo/model/types/username'
+import type { Wallet } from '@echo/model/types/wallet'
 
 export interface User {
   discord: {
@@ -9,13 +8,7 @@ export interface User {
     globalName?: string
   }
   username: Username
+  wallet: Wallet
 }
 
 export type UserIndex = Pick<User, 'username'>
-
-export interface UserWithWallet extends User {
-  wallet: {
-    address: Address
-    chain?: Chain
-  }
-}

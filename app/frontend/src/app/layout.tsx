@@ -1,14 +1,15 @@
 import '@echo/ui-css/index.css'
-import { actions } from '@echo/backend/actions/actions'
+import { getSession } from '@echo/backend/helpers/auth/get-session'
 import { metadataDescription, metadataImageUrl, metadataTitle } from '@echo/frontend/lib/constants/metadata'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import type { User } from '@echo/model/types/user'
 import { baseUrl } from '@echo/routing/helpers/base-url'
+import { AuthManager } from '@echo/ui/components/auth/auth-manager'
 import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
 import { Dependencies } from '@echo/ui/components/base/layout/dependencies'
 import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
-import { ActionsProvider } from '@echo/ui/components/providers/actions-provider'
+import { Web3Provider } from '@echo/ui/components/providers/web3-provider'
 import { messages } from '@echo/ui/messages/en'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { type Metadata, type Viewport } from 'next'
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: metadataTitle,
     description: metadataDescription,
-    url: baseUrl(),
+    url: baseUrl,
     siteName: 'Echo Beta',
     images: [
       {
@@ -100,23 +101,25 @@ interface Props {
 
 const Header = dynamic(() => import('@echo/ui/components/base/header/header').then((mod) => mod.Header))
 
-function render({ user, children }: PropsWithChildren<Props>) {
+async function render({ user, children }: PropsWithChildren<Props>) {
   const locale = 'en'
+  const session = await getSession()
   return Promise.resolve(
     <html lang={locale} suppressHydrationWarning={true}>
       <body suppressHydrationWarning={true}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <PageLayout>
-            <ActionsProvider actions={actions}>
+          <Web3Provider>
+            <PageLayout>
               <Dependencies>
                 <Header user={user} />
                 <MainSectionLayout>
                   {children}
                   <CalloutManager />
+                  <AuthManager session={session} />
                 </MainSectionLayout>
               </Dependencies>
-            </ActionsProvider>
-          </PageLayout>
+            </PageLayout>
+          </Web3Provider>
         </NextIntlClientProvider>
         <SpeedInsights />
       </body>

@@ -77,7 +77,7 @@ function getMock(collectionReferenceName: CollectionPath): Nullable<Record<strin
 async function initializeFirestoreCollection(collectionReferenceName: CollectionPath) {
   await pipe(
     getMock,
-    ifElse<Nullable<Record<string, DocumentData>>, undefined | null, Promise<WriteResult[]>, Promise<WriteResult[]>>(
+    ifElse<Nullable<Record<string, DocumentData>>, Nullable, Promise<WriteResult[]>, Promise<WriteResult[]>>(
       isNil,
       always<Promise<WriteResult[]>>(Promise.resolve([])),
       pipe(

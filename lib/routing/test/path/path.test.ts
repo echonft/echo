@@ -12,7 +12,7 @@ describe('path', () => {
     })
 
     test('getUrl', () => {
-      expect(path.getUrl()).toBe(`${baseUrl()}${pathString}`)
+      expect(path.getUrl()).toBe(`${baseUrl}${pathString}`)
     })
 
     test('test(...)', () => {
@@ -31,7 +31,7 @@ describe('path', () => {
     })
 
     test('getUrl', () => {
-      expect(path.getUrl({ param1: '1', param2: '2' })).toBe(`${baseUrl()}/path/1/2`)
+      expect(path.getUrl({ param1: '1', param2: '2' })).toBe(`${baseUrl}/path/1/2`)
     })
 
     test('test(...)', () => {
@@ -50,7 +50,7 @@ describe('path', () => {
     })
 
     test('getUrl', () => {
-      expect(path.getUrl()).toBe(`${baseUrl()}/my/path`)
+      expect(path.getUrl()).toBe(`${baseUrl}/my/path`)
     })
 
     test('get with query', () => {
@@ -58,7 +58,7 @@ describe('path', () => {
     })
 
     test('getUrl with query', () => {
-      expect(path.withQuery({ param1: '1', param2: '2' }).getUrl()).toBe(`${baseUrl()}/my/path?param1=1&param2=2`)
+      expect(path.withQuery({ param1: '1', param2: '2' }).getUrl()).toBe(`${baseUrl}/my/path?param1=1&param2=2`)
     })
 
     test('test(...)', () => {
@@ -83,7 +83,7 @@ describe('path', () => {
     })
 
     test('getUrl', () => {
-      expect(path.getUrl({ param1: '1', param2: '2' })).toBe(`${baseUrl()}/my/path/1/2`)
+      expect(path.getUrl({ param1: '1', param2: '2' })).toBe(`${baseUrl}/my/path/1/2`)
     })
 
     test('get with query', () => {
@@ -92,7 +92,7 @@ describe('path', () => {
 
     test('getUrl with query', () => {
       expect(path.withQuery({ param3: '3' }).getUrl({ param1: '1', param2: '2' })).toBe(
-        `${baseUrl()}/my/path/1/2?param3=3`
+        `${baseUrl}/my/path/1/2?param3=3`
       )
     })
 

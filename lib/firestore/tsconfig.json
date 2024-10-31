@@ -6,7 +6,6 @@
       "@echo/firestore/*": ["src/*"],
       "@echo/test/firestore/*": ["test/*"],
       "@echo/api/*": ["../api/src/*"],
-      "@echo/auth/*": ["../auth/src/*"],
       "@echo/backend/*": ["../backend/src/*"],
       "@echo/model/*": ["../model/src/*"],
       "@echo/nft-scan/*": ["../nft-scan/src/*"],

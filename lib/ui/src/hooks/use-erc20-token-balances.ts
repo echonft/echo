@@ -5,23 +5,24 @@ import type { TokenBalance } from '@echo/model/types/token-balance'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { useDependencies } from '@echo/ui/hooks/use-dependencies'
-import { useWalletStore } from '@echo/ui/hooks/use-wallet-store'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
+import { AccountStatus } from '@echo/web3-dom/constants/account-status'
 import { supportedErc20Tokens } from '@echo/web3-dom/constants/supported-erc20-tokens'
-import { assoc, isNil, type NonEmptyArray, objOf, pick, pipe, prop } from 'ramda'
+import { assoc, type NonEmptyArray, objOf, pipe, prop } from 'ramda'
 import useSWR from 'swr'
 
 export function useErc20TokenBalances(): NonEmptyArray<TokenBalance<Erc20Token>> {
-  const account = useWalletStore((state) => state.account)
+  const { getAccount } = useDependencies()
+  const { address, chain, status } = getAccount()
   const { getAllErc20TokenBalances } = useDependencies()
   const { data } = useSWR(
-    isNil(account.address) || isNil(account.chain)
+    status !== AccountStatus.Connected
       ? undefined
       : {
           name: SWRKeys.contract.getAllTokensBalance,
-          contract: pick(['address', 'chain'], account),
-          tokens: prop(account.chain, supportedErc20Tokens)
+          contract: { address, chain },
+          tokens: prop(chain, supportedErc20Tokens)
         },
     getAllErc20TokenBalances,
     {
@@ -33,7 +34,7 @@ export function useErc20TokenBalances(): NonEmptyArray<TokenBalance<Erc20Token>>
       })
     }
   )
-  if (isNil(account.address) || isNil(account.chain)) {
+  if (status !== AccountStatus.Connected) {
     // Not the best UX as it might not be supported on every chains, but
     // 1) wallet should be connected when calling this hook
     // 2) lets see what we support and we can reassess after
@@ -52,7 +53,7 @@ export function useErc20TokenBalances(): NonEmptyArray<TokenBalance<Erc20Token>>
   }
   if (isNilOrEmpty(data)) {
     return pipe<[typeof supportedErc20Tokens], NonEmptyArray<Erc20Token>, NonEmptyArray<TokenBalance<Erc20Token>>>(
-      prop(account.chain),
+      prop(chain),
       nonEmptyMap(pipe(objOf('token'), assoc('balance', 0)))
     )(supportedErc20Tokens)
   }
