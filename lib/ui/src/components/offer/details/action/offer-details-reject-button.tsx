@@ -1,17 +1,14 @@
 'use client'
-
-import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { Slug } from '@echo/model/types/slug'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
-import { SWRKeys } from '@echo/ui/constants/swr-keys'
-import { useDependencies } from '@echo/ui/hooks/use-dependencies'
-import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
+import { errorCallback } from '@echo/ui/helpers/error-callback'
+import { useActions } from '@echo/ui/hooks/use-actions'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { useTranslations } from 'next-intl'
 import { assoc } from 'ramda'
-import { type FunctionComponent } from 'react'
+import { type FunctionComponent, useCallback } from 'react'
 
 interface Props {
   offer: OfferWithRole
@@ -32,23 +29,23 @@ export const OfferDetailsRejectButton: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.details.rejectBtn')
   const tError = useTranslations('error.offer')
-  const { rejectOffer } = useDependencies()
-  const { trigger } = useSWRTrigger<OfferResponse, Record<'slug', Slug>>({
-    key: SWRKeys.offer.reject(offer),
-    fetcher: rejectOffer,
-    onSuccess: (response) => {
-      onSuccess?.(assoc('role', offer.role, response.offer))
-    },
-    onError: {
-      alert: { severity: CalloutSeverity.Error, message: tError('reject') },
-      onError,
-      loggerContext: {
-        component: OfferDetailsRejectButton.name,
-        fetcher: rejectOffer.name,
-        offer
+  const { rejectOffer } = useActions()
+
+  const onReject = useCallback(
+    async (slug: Slug) => {
+      try {
+        const rejectedOffer = await rejectOffer(slug)
+        onSuccess?.(assoc('role', offer.role, rejectedOffer))
+      } catch (err) {
+        errorCallback({
+          alert: { severity: CalloutSeverity.Error, message: tError('reject') },
+          loggerContext: { offer }
+        })(err)
+        onError?.()
       }
-    }
-  })
+    },
+    [offer, onError, onSuccess, rejectOffer, tError]
+  )
 
   if (show) {
     return (
@@ -59,7 +56,7 @@ export const OfferDetailsRejectButton: FunctionComponent<Props> = ({
         disabled={disabled}
         onFinish={() => {
           onClick?.()
-          void trigger({ slug: offer.slug })
+          void onReject(offer.slug)
         }}
       />
     )

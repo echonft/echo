@@ -3,9 +3,11 @@ import type { Chain } from '@echo/model/constants/chain'
 import { WalletStatus } from '@echo/model/constants/wallet-status'
 import type { Address } from '@echo/model/types/address'
 import type { Contract } from '@echo/model/types/contract'
+import type { Offer } from '@echo/model/types/offer'
 import type { SearchResult } from '@echo/model/types/search-result'
 import type { Slug } from '@echo/model/types/slug'
 import type { Username } from '@echo/model/types/username'
+import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { createContext, type FunctionComponent, type PropsWithChildren } from 'react'
 import { create, type StoreApi } from 'zustand'
@@ -13,6 +15,7 @@ import { create, type StoreApi } from 'zustand'
 // TODO move server actions to their own packaege so that we don't have to redefine the types every time here
 export interface Actions {
   addWallet: (args: { address: Address; chain: Chain; message: string; signature: string }) => Promise<void>
+  rejectOffer: (slug: Slug) => Promise<Offer>
   getWalletStatus: (wallet: Contract) => Promise<
     | {
         status: WalletStatus.NeedsSignature
@@ -22,6 +25,7 @@ export interface Actions {
         status: Exclude<WalletStatus, WalletStatus.NeedsSignature>
       }
   >
+  getOfferByIdContract: (idContract: HexString) => Promise<Offer>
   searchCollections: (query: string) => Promise<SearchResult<Slug>[]>
   searchUsers: (query: string) => Promise<SearchResult<Username>[]>
 }

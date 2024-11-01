@@ -83,7 +83,7 @@ export const messages = {
     offer: {
       accept: 'An error occurred while trying to accept the offer. Please try again',
       cancel: 'An error occurred while trying to cancel the offer. Please try again',
-      new: 'An error occurred while trying to create the offer. Please try again',
+      create: 'An error occurred while trying to create the offer. Please try again',
       redeem: 'An error occured while trying to redeem your {count, plural, =1 {NFT} other {NFTs}}. Please try again',
       reject: 'An error occurred while trying to reject the offer. Please try again',
       swap: 'An error occurred while trying to swap the assets. Please try again'

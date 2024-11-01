@@ -10,12 +10,7 @@ import { offerToEchoOffer } from '@echo/web3/mappers/offer-to-echo-offer'
 import { head, type NonEmptyArray, path, pipe, prop } from 'ramda'
 import { simulateContract, waitForTransactionReceipt, writeContract } from 'wagmi/actions'
 
-export interface CreateEchoOfferArgs {
-  offer: BaseOffer
-}
-
-export async function createOffer(args: CreateEchoOfferArgs): Promise<HexString> {
-  const { offer } = args
+export async function createOffer(offer: BaseOffer): Promise<HexString> {
   // We take the chain from the first sender items as this is where the creation is executed
   // Also works for multichain
   const chain = pipe<[BaseOffer], NonEmptyArray<Item>, Item, Chain>(

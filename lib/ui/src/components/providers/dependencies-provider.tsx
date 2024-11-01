@@ -1,7 +1,7 @@
 'use client'
 import type { CreateListingRequestBuilderArgs } from '@echo/api/types/request-builders/create-listing-request-builder-args'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
-import type { OfferResponse } from '@echo/api/types/responses/offer-response'
+import type { BaseOffer } from '@echo/model/types/base-offer'
 import type { Erc20Token } from '@echo/model/types/erc20-token'
 import type { Slug } from '@echo/model/types/slug'
 import type { TokenBalance } from '@echo/model/types/token-balance'
@@ -11,7 +11,6 @@ import type { AcceptOfferArgs } from '@echo/web3-dom/services/accept-offer'
 import type { ApproveErc721ContractArgs } from '@echo/web3-dom/services/approve-erc721-contract'
 import type { AreNftsInEscrowArgs } from '@echo/web3-dom/services/are-nfts-in-escrow'
 import type { CancelOfferArgs } from '@echo/web3-dom/services/cancel-offer'
-import type { CreateEchoOfferArgs } from '@echo/web3-dom/services/create-offer'
 import type { AccountResult } from '@echo/web3-dom/services/get-account'
 import type { GetEchoTradingFeesArgs } from '@echo/web3-dom/services/get-echo-trading-fees'
 import type { GetErc721ContractApprovalArgs } from '@echo/web3-dom/services/get-erc721-contract-approval'
@@ -47,18 +46,16 @@ export interface Dependencies {
   cancelListing: (args: Record<'slug', Slug>) => Promise<ListingResponse>
   cancelOffer: (args: CancelOfferArgs) => Promise<HexString>
   createListing: (args: CreateListingRequestBuilderArgs) => Promise<ListingResponse>
-  createOffer: (args: CreateEchoOfferArgs) => Promise<HexString>
+  createOffer: (offer: BaseOffer) => Promise<HexString>
   disconnectWallet: () => Promise<void>
   getAccount: () => AccountResult
   getErc20TokenBalance: (token: Erc20Token) => Promise<TokenBalance<Erc20Token>>
   getAllErc20TokenBalances: (tokens: NonEmptyArray<Erc20Token>) => Promise<NonEmptyArray<TokenBalance<Erc20Token>>>
   getEchoTradingFees: (args: GetEchoTradingFeesArgs) => Promise<bigint>
   getErc721ContractApproval: (args: GetErc721ContractApprovalArgs) => Promise<boolean>
-  getOfferByIdContract: (args: Record<'idContract', HexString>) => Promise<OfferResponse>
   login: (args: SignInArgs) => Promise<Nullable<SignInResponse>>
   logout: (options?: LogoutOptions) => Promise<Nullable<Record<'url', string>>>
   redeemOffer: (args: RedeemOfferArgs) => Promise<HexString>
-  rejectOffer: (args: Record<'slug', Slug>) => Promise<OfferResponse>
   signNonce: (args: SignNonceArgs) => Promise<SignNonceResult>
   swap: (args: SwapArgs) => Promise<HexString>
   switchChain: () => Promise<void>

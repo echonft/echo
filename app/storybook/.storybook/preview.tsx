@@ -44,7 +44,16 @@ const preview: Preview = {
       return (
         <NextIntlClientProvider messages={messages} locale={'en'}>
           <Web3Provider>
-            <ActionsProvider actions={{ addWallet, getWalletStatus, searchCollections, searchUsers }}>
+            <ActionsProvider
+              actions={{
+                addWallet,
+                getOfferByIdContract,
+                getWalletStatus,
+                rejectOffer,
+                searchCollections,
+                searchUsers
+              }}
+            >
               <DependenciesProvider
                 dependencies={{
                   approveErc721Contract,
@@ -62,10 +71,8 @@ const preview: Preview = {
                   getAllErc20TokenBalances,
                   getEchoTradingFees,
                   getErc721ContractApproval,
-                  getOfferByIdContract,
                   login,
                   logout,
-                  rejectOffer,
                   signNonce,
                   switchChain,
                   watchAccount

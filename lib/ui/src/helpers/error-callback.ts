@@ -12,7 +12,7 @@ export interface ErrorCallback {
 }
 
 interface OnErrorArgs extends ErrorCallback {
-  error: Error
+  error: unknown
 }
 
 function onError(args: OnErrorArgs) {
@@ -30,7 +30,7 @@ function onError(args: OnErrorArgs) {
 }
 
 export function errorCallback(args?: ErrorCallback) {
-  return function (err: Error) {
+  return function (err: unknown) {
     onError(assoc('error', err, args ?? {}))
   }
 }

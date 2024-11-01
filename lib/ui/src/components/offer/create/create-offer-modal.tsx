@@ -1,25 +1,22 @@
 'use client'
-import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { Expiration } from '@echo/model/constants/expiration'
 import { expirationToDateNumber } from '@echo/model/helpers/expiration-to-date-number'
 import { buildBaseOffer } from '@echo/model/helpers/offer/build-base-offer'
+import type { BaseOffer } from '@echo/model/types/base-offer'
 import type { OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalDescription } from '@echo/ui/components/base/modal/modal-description'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
-import { SWRKeys } from '@echo/ui/constants/swr-keys'
+import { errorCallback } from '@echo/ui/helpers/error-callback'
+import { useActions } from '@echo/ui/hooks/use-actions'
 import { useDependencies } from '@echo/ui/hooks/use-dependencies'
-import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import type { HexString } from '@echo/utils/types/hex-string'
-import { generateOfferId } from '@echo/web3-dom/helpers/generate-offer-id'
-import type { CreateEchoOfferArgs } from '@echo/web3-dom/services/create-offer'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { NonEmptyArray } from 'ramda'
-import { type FunctionComponent, useMemo } from 'react'
+import { type NonEmptyArray } from 'ramda'
+import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
 
 interface Props {
   senderItems: NonEmptyArray<OwnedNft>
@@ -40,7 +37,9 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.create.modal')
   const tError = useTranslations('error.offer')
-  const { getOfferByIdContract, createOffer } = useDependencies()
+  const [loading, setLoading] = useState(false)
+  const { getOfferByIdContract } = useActions()
+  const { createOffer } = useDependencies()
   const baseOffer = useMemo(
     () =>
       buildBaseOffer({
@@ -50,52 +49,38 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
       }),
     [expiration, receiverItems, senderItems]
   )
-  const idContract = useMemo(() => generateOfferId(baseOffer), [baseOffer])
-  const { trigger: getOfferTrigger, isMutating: isGetOfferMutating } = useSWRTrigger<
-    OfferResponse,
-    Record<'idContract', HexString>
-  >({
-    key: SWRKeys.offer.getByIdContract(idContract),
-    fetcher: getOfferByIdContract,
-    onSuccess: (response) => {
-      onSuccess?.(response.offer)
+  const onCreate = useCallback(
+    async (baseOffer: BaseOffer) => {
+      try {
+        const idContract = await createOffer(baseOffer)
+        const offer = await getOfferByIdContract(idContract)
+        onSuccess?.(offer)
+        setLoading(false)
+      } catch (err) {
+        errorCallback({
+          alert: { severity: CalloutSeverity.Error, message: tError('create') },
+          loggerContext: { offer: baseOffer }
+        })(err)
+      }
     },
-    // TODO better error handling?
-    onError: {
-      loggerContext: { component: CreateOfferModal.name, fetcher: getOfferByIdContract.name, offer: baseOffer }
-    }
-  })
-  const { trigger: triggerContractCreate, isMutating: isContractCreateMutating } = useSWRTrigger<
-    HexString,
-    CreateEchoOfferArgs
-  >({
-    key: SWRKeys.offer.contractCreate,
-    fetcher: createOffer,
-    onSuccess: () => {
-      void getOfferTrigger({ idContract })
-    },
-    onError: {
-      alert: { severity: CalloutSeverity.Error, message: tError('new') },
-      loggerContext: { component: CreateOfferModal.name, fetcher: createOffer.name, offer: baseOffer }
-    }
-  })
-
-  const isMutating = isGetOfferMutating || isContractCreateMutating
+    [createOffer, getOfferByIdContract, onSuccess, tError]
+  )
 
   return (
-    <Modal open={open} onClose={isMutating ? undefined : onClose}>
+    <Modal open={open} onClose={loading ? undefined : onClose}>
       <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
         <ModalSubtitle>{t('create.subtitle')}</ModalSubtitle>
         <ModalDescription>{t('create.description', { count: baseOffer.senderItems.length })}</ModalDescription>
         <button
-          className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
+          className={clsx('btn-gradient', 'btn-size-alt', 'group', loading && 'animate-pulse')}
           onClick={() => {
-            void triggerContractCreate({ offer: baseOffer })
+            setLoading(true)
+            void onCreate(baseOffer)
           }}
-          disabled={isMutating}
+          disabled={loading}
         >
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>
-            {t(isMutating ? 'create.btn.loading' : 'create.btn.label')}
+            {t(loading ? 'create.btn.loading' : 'create.btn.label')}
           </span>
         </button>
       </div>
