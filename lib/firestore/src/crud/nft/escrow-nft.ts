@@ -5,9 +5,8 @@ import { escrowedNftsCollection } from '@echo/firestore/helpers/collection/colle
 import { setReference } from '@echo/firestore/helpers/reference/set-reference'
 import { NftError } from '@echo/model/constants/errors/nft-error'
 import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
-import type { Nft } from '@echo/model/types/nft'
+import type { Nft, OwnedNftIndex } from '@echo/model/types/nft'
 
-import type { OwnedNftIndex } from '@echo/model/types/owned-nft'
 import { isNil } from 'ramda'
 
 export async function escrowNft(nft: OwnedNftIndex): Promise<string> {

@@ -1,7 +1,7 @@
 'use client'
 
 import type { Contract } from '@echo/model/types/contract'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import { OfferDetailsContractApprovalModalButton } from '@echo/ui/components/offer/details/offer-details-contract-approval-modal-button'

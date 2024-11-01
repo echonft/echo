@@ -2,36 +2,29 @@ import { Chain } from '@echo/model/constants/chain'
 import { walletMockCrew } from '@echo/model/mocks/wallet-mock'
 import { accountStatusStore } from '@echo/storybook/mocks/stores/account-status-store'
 import { AccountStatus } from '@echo/web3-dom/constants/account-status'
-import type { AccountProviderResult, AccountResult } from '@echo/web3-dom/services/get-account'
-import { isNil } from 'ramda'
+import type { AccountResult } from '@echo/web3-dom/services/get-account'
 
-export function getAccount(onChange?: (account: AccountResult) => void): AccountProviderResult {
-  function getResultFromStatus(status: AccountStatus): AccountResult {
-    if (status === AccountStatus.Connected) {
-      return { address: walletMockCrew.address, chain: Chain.Ethereum, status }
-    }
-    return { address: undefined, chain: undefined, status }
+function getResultFromStatus(status: AccountStatus): AccountResult {
+  if (status === AccountStatus.Connected) {
+    return { address: walletMockCrew.address, chain: Chain.Ethereum, status }
   }
+  return { address: undefined, chain: undefined, status }
+}
 
-  const status = accountStatusStore.getState().status
-  const account = getResultFromStatus(status)
-  if (isNil(onChange)) {
-    return {
-      account,
-      unsubscribe: () => {
-        // nothing to do
-      }
-    }
-  }
+export function getAccount(): AccountResult {
+  return getResultFromStatus(accountStatusStore.getState().status)
+}
+
+export function watchAccount(onChange: (account: AccountResult, prevAccount: AccountResult) => void): VoidFunction {
   const unsubscribe = accountStatusStore.subscribe((state) => {
-    onChange(getResultFromStatus(state.status))
+    const result = getResultFromStatus(state.status)
+    onChange(result, result)
   })
-  onChange(account)
-  return {
-    account,
-    unsubscribe: () => {
-      accountStatusStore.getState().disconnect()
-      unsubscribe()
-    }
+  const status = accountStatusStore.getState().status
+  const result = getResultFromStatus(status)
+  onChange(result, result)
+  return () => {
+    accountStatusStore.getState().disconnect()
+    unsubscribe()
   }
 }

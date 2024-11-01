@@ -1,6 +1,6 @@
 'use client'
 
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { ImagePlaceholder } from '@echo/ui/components/base/image-placeholder'
 import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
 import { PictureSize } from '@echo/ui/constants/picture-size'

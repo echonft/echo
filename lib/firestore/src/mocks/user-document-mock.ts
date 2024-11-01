@@ -2,7 +2,7 @@ import type { UserDocument } from '@echo/firestore/types/model/user-document'
 import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
 import { walletMockCrew, walletMockJohnny } from '@echo/model/mocks/wallet-mock'
 
-export const userDocumentMockCrew: UserDocument = {
+export const userDocumentMockCrew: UserDocument & Required<Pick<UserDocument, 'wallet'>> = {
   username: userMockCrew.username,
   discord: {
     ...userMockCrew.discord,
@@ -10,7 +10,7 @@ export const userDocumentMockCrew: UserDocument = {
   },
   wallet: walletMockCrew
 }
-export const userDocumentMockJohnny: UserDocument = {
+export const userDocumentMockJohnny: UserDocument & Required<Pick<UserDocument, 'wallet'>> = {
   username: userMockJohnny.username,
   discord: {
     ...userMockJohnny.discord,

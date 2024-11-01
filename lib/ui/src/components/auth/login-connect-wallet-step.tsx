@@ -18,7 +18,7 @@ export const LoginConnectWalletStep: FunctionComponent<Props> = ({ onContinue, o
     <LoginStepLayout
       title={t('title')}
       subtitle={t('subtitle')}
-      btnLabel={t(`continueBtn.${status}`)}
+      btnLabel={status === AccountStatus.Connected ? t('btn.continue') : t('btn.skip')}
       btnDisabled={status === AccountStatus.Connecting}
       onBtnClick={onContinue}
     >

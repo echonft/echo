@@ -18,7 +18,7 @@ export async function redeemOffer(args: RedeemOfferArgs) {
     abi: echoAbi,
     functionName: 'redeemOffer',
     address,
-    chainId: chainId(chain),
+    chainId: chainId(chain) as number,
     args: [offerId]
   })
   const hash = await writeContract(wagmiConfig, request)

@@ -6,7 +6,7 @@ import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { cancelOffer } from '@echo/firestore/crud/offer/cancel-offer'
 import { getOffersForNft } from '@echo/firestore/crud/offer/get-offers-for-nft'
 import { getUserByWallet } from '@echo/firestore/crud/user/get-user-by-wallet'
-import { chains } from '@echo/model/constants/chain'
+import { chainVirtualMachine } from '@echo/model/helpers/chain/chain-virtual-machine'
 import type { Address } from '@echo/model/types/address'
 import type { Nft, NftIndex } from '@echo/model/types/nft'
 import { error, info } from '@echo/tasks/helpers/logger'
@@ -61,7 +61,7 @@ export async function updateNftOwner({ nft, ownerAddress }: UpdateNftOwnerArgs):
       error({ err, owner: ownerAddress }, 'could not get wallet owner')
       return undefined
     })
-  )({ address: ownerAddress, vm: chains[nft.collection.contract.chain].vm })
+  )({ address: ownerAddress, vm: chainVirtualMachine(nft.collection.contract.chain) })
   if (isNil(user)) {
     return pipe(
       removeNftOwner,

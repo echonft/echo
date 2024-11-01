@@ -20,7 +20,7 @@ export async function swap(args: SwapArgs) {
     abi: echoAbi,
     functionName: 'executeOffer',
     address,
-    chainId: chainId(chain),
+    chainId: chainId(chain) as number,
     args: [offerId],
     value: tradingFees
   })

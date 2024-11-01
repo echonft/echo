@@ -8,7 +8,8 @@ export interface User {
     globalName?: string
   }
   username: Username
-  wallet: Wallet
+  wallet?: Wallet
 }
 
 export type UserIndex = Pick<User, 'username'>
+export type UserWithWallet = Omit<User, 'wallet'> & Record<'wallet', Wallet>

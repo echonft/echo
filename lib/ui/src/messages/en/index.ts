@@ -14,11 +14,9 @@ export const messages = {
       title: 'Hey there {username}!'
     },
     step2: {
-      continueBtn: {
-        connected: 'Continue',
-        connecting: 'Skip',
-        reconnecting: 'Skip',
-        disconnected: 'Skip'
+      btn: {
+        continue: 'Continue',
+        skip: 'Skip'
       },
       subtitle: 'Connect your wallet to start swapping',
       title: 'Connect your wallet'
@@ -116,7 +114,7 @@ export const messages = {
   layout: {
     header: {
       button: {
-        login: 'Login'
+        login: 'Connect'
       },
       search: {
         placeHolder: 'Search for collections or users'
@@ -432,6 +430,10 @@ Don't worry, its safe with us.`
     modal: {
       title: 'Oops! Wallet not connected',
       subtitle: 'Looks like your wallet is not connected. Connect and sign with the button below'
+    },
+    status: {
+      linkToOtherUser: 'This wallet is already linked to another user',
+      unavailable: 'Please connect with the wallet you used to sign up'
     }
   }
 }

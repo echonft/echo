@@ -1,4 +1,3 @@
-import type { Address } from '@echo/model/types/address'
 import type { User } from '@echo/model/types/user'
 import { LogoutButtonManager } from '@echo/ui/components/auth/logout-button-manager'
 import { CountsDetails } from '@echo/ui/components/base/counts-details'
@@ -12,7 +11,6 @@ import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  address: Address
   user: User
   listingsCount: number
   nftsCount: number
@@ -21,7 +19,6 @@ interface Props {
 }
 
 export const AuthUserProfile: FunctionComponent<Props> = ({
-  address,
   listingsCount,
   nftsCount,
   swapsCount,
@@ -37,7 +34,7 @@ export const AuthUserProfile: FunctionComponent<Props> = ({
           <UserProfileDetailsLayout>
             <UserTag user={user} />
             <div className={clsx('flex', 'flex-row', 'h-max', 'w-max', 'gap-2.5')}>
-              <WalletConnectedButton address={address} />
+              <WalletConnectedButton wallet={user.wallet} />
               <LogoutButtonManager />
             </div>
           </UserProfileDetailsLayout>

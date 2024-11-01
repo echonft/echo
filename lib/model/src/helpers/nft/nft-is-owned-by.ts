@@ -1,5 +1,4 @@
-import type { Nft } from '@echo/model/types/nft'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import type { Username } from '@echo/model/types/username'
 import { pathEq } from 'ramda'
 

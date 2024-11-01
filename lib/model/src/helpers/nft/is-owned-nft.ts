@@ -1,5 +1,4 @@
-import type { Nft } from '@echo/model/types/nft'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import { propIsNotNil } from '@echo/utils/helpers/prop-is-not-nil'
 
 export function isOwnedNft(nft: Nft): nft is OwnedNft {

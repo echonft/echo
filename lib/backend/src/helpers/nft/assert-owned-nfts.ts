@@ -1,7 +1,6 @@
 import { NftError } from '@echo/model/constants/errors/nft-error'
 import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
-import type { Nft } from '@echo/model/types/nft'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import { any, complement } from 'ramda'
 
 /**

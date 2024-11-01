@@ -46,8 +46,8 @@ const { auth } = NextAuth({
 })
 export default auth((req): void | Response | Promise<void | Response> => {
   const path = req.nextUrl.pathname as PathString
-  console.log(`--------- MIDDLEWARE --------`)
-  console.log(`auth ${JSON.stringify(auth)}`)
+  // console.log(`--------- MIDDLEWARE --------`)
+  // console.log(`auth ${JSON.stringify(auth)}`)
   if (isApiPath(path)) {
     if (isApiPathSecure(path) && isNilOrEmpty(req.auth?.user)) {
       return NextResponse.json('unauthorized', { status: 401 })

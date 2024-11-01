@@ -1,4 +1,6 @@
 export enum WalletStatus {
-  Linked,
-  NeedsSignature
+  Linked = 'linked',
+  LinkedToOtherUser = 'linked-to-other-user',
+  NeedsSignature = 'needs-signature',
+  Unavailable = 'unavailable'
 }

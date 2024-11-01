@@ -1,6 +1,6 @@
 'use client'
 
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { SelectableNfts } from '@echo/ui/components/nft/selectable/selectable-nfts'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'

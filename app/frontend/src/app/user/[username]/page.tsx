@@ -4,7 +4,6 @@ import { getPendingOffersForUser } from '@echo/firestore/crud/offer/get-pending-
 import { getSwapsForUser } from '@echo/firestore/crud/swap/get-swaps-for-user'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { getUserOffersCount } from '@echo/firestore/crud/user/get-user-offers-count'
-import { getWalletForUser } from '@echo/firestore/crud/wallet/get-wallet-for-user'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import { toListingsWithRole } from '@echo/frontend/lib/helpers/listing/to-listings-with-role'
@@ -39,7 +38,6 @@ async function render({ params: { username }, searchParams, user: authUser }: Pr
   if (isNil(user)) {
     notFound()
   }
-  const wallet = await pipe(getWalletForUser, otherwise(pipe(captureAndLogError, always(undefined))))(user.username)
   const isAuthUser = username === authUser?.username
   const nfts = await pipe(getNftsForOwner, otherwise(pipe(captureAndLogError, always([]))))(username)
   const listings = await pipe(
@@ -60,7 +58,6 @@ async function render({ params: { username }, searchParams, user: authUser }: Pr
     <NavigationLayout>
       <SectionLayout>
         <UserProfile
-          address={wallet.address}
           user={user}
           listingsCount={listings.length}
           nftsCount={nfts.length}

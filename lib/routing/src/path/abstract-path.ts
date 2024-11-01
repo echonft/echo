@@ -48,7 +48,6 @@ export abstract class AbstractPath<
   test(path: string) {
     return pipe(match(this.path), complement(propIsNilOrEmpty('path')))(path.replace(/\?.*$/, ''))
   }
-
   get(...params: PathParamsArgs<TParams>): string {
     const compiledPath = compile(this.path, { encode: encodeURIComponent })(...params)
     if (isNilOrEmpty(this.query)) {
@@ -56,11 +55,9 @@ export abstract class AbstractPath<
     }
     return concat(compiledPath, this.query)
   }
-
   getUrl(...params: PathParamsArgs<TParams>): string {
     return `${this.baseUrl}${this.get(...params)}`
   }
-
   withQuery(queryParams: TQueryParams): this {
     this.query = stringify(this.queryParamsMapper(queryParams), {
       addQueryPrefix: true,
@@ -69,7 +66,6 @@ export abstract class AbstractPath<
     })
     return this
   }
-
   protected setBaseUrl(baseUrl: string) {
     const url = this.getBaseUrl(baseUrl)
     if (nodeEnvironment === NodeEnvironment.Production && url.protocol !== 'https:') {
@@ -81,7 +77,6 @@ export abstract class AbstractPath<
     }
     this.baseUrl = baseUrl
   }
-
   private getBaseUrl(baseUrl: string): URL {
     try {
       return new URL(baseUrl)

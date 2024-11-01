@@ -18,7 +18,7 @@ export async function cancelOffer(args: CancelOfferArgs) {
     abi: echoAbi,
     functionName: 'cancelOffer',
     address,
-    chainId: chainId(chain),
+    chainId: chainId(chain) as number,
     args: [offerId]
   })
   const hash = await writeContract(wagmiConfig, request)

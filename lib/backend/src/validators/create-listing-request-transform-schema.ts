@@ -21,15 +21,13 @@ import { listingSignature } from '@echo/model/helpers/listing/listing-signature'
 import { erc1155NftToItem } from '@echo/model/mappers/nft/erc1155-nft-to-item'
 import { erc721NftToItem } from '@echo/model/mappers/nft/erc721-nft-to-item'
 import type { Erc1155Item } from '@echo/model/types/erc1155-item'
-import type { Erc1155Nft } from '@echo/model/types/erc1155-nft'
+import type { Erc1155Nft, OwnedErc1155Nft } from '@echo/model/types/erc1155-nft'
 import type { Erc721Item } from '@echo/model/types/erc721-item'
-import type { Erc721Nft } from '@echo/model/types/erc721-nft'
+import type { Erc721Nft, OwnedErc721Nft } from '@echo/model/types/erc721-nft'
 import type { Listing } from '@echo/model/types/listing'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { NftItem } from '@echo/model/types/nft-item'
-import type { OwnedErc1155Nft } from '@echo/model/types/owned-erc1155-nft'
-import type { OwnedErc721Nft } from '@echo/model/types/owned-erc721-nft'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
-import type { User } from '@echo/model/types/user'
+import type { User, UserWithWallet } from '@echo/model/types/user'
 import type { Username } from '@echo/model/types/username'
 import { promiseAll } from '@echo/utils/helpers/promise-all'
 import { toNonEmptyArray } from '@echo/utils/helpers/to-non-empty-array'
@@ -58,11 +56,11 @@ interface Erc1155ItemRequestWithOwnedNft extends Erc1155ItemRequest {
 type NftItemRequestWithOwnedNft = Erc721ItemRequestWithOwnedNft | Erc1155ItemRequestWithOwnedNft
 
 interface Erc721ItemWithOwner extends Erc721Item {
-  owner: User
+  owner: UserWithWallet
 }
 
 interface Erc1155ItemWithOwner extends Erc1155Item {
-  owner: User
+  owner: UserWithWallet
 }
 
 type NftItemWithOwner = Erc721ItemWithOwner | Erc1155ItemWithOwner
@@ -189,7 +187,7 @@ export async function createListingRequestTransformSchema(username: Username) {
       }
       return dissoc('owner', item)
     }
-    const creator = pipe<[NonEmptyArray<NftItemWithOwner>], NftItemWithOwner, User>(
+    const creator = pipe<[NonEmptyArray<NftItemWithOwner>], NftItemWithOwner, UserWithWallet>(
       head,
       prop('owner')
     )(params.items as NonEmptyArray<NftItemWithOwner>)
@@ -203,7 +201,7 @@ export async function createListingRequestTransformSchema(username: Username) {
     >(
       dissoc('expiration'),
       listingSignature
-    )(listingWithExpiration)
+    )(listingWithExpiration as Listing & Record<'expiration', Expiration>)
     const existingListing = await getListingBySignature(signature)
     if (!isNil(existingListing)) {
       ctx.addIssue({

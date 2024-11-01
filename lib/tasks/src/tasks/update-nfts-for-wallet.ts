@@ -1,9 +1,10 @@
-import { getNftsForOwnerWallet } from '@echo/firestore/crud/nft/get-nfts-for-owner-wallet'
+import { getNftsForWallet } from '@echo/firestore/crud/nft/get-nfts-for-wallet'
 import type { Chain } from '@echo/model/constants/chain'
 import { chainsForVirtualMachine } from '@echo/model/helpers/chain/chains-for-virtual-machine'
 import { eqNftContract } from '@echo/model/helpers/nft/eq-nft-contract'
 import type { EvmAddress } from '@echo/model/types/address'
 import type { Contract } from '@echo/model/types/contract'
+import type { Nft } from '@echo/model/types/nft'
 import type { Wallet } from '@echo/model/types/wallet'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import { error, info } from '@echo/tasks/helpers/logger'
@@ -32,11 +33,11 @@ async function updateNftsForAddress(address: EvmAddress, chain: Chain): Promise<
   }
   // check if there are any NFTs owned by the wallet in our database for which ownership changed
   const nfts = flatten(nftGroups)
-  const walletNfts = await getNftsForOwnerWallet({ address, chain })
+  const walletNfts = await getNftsForWallet({ address, chain })
   for (const walletNft of walletNfts) {
     if (!isInWith(nfts, eqNftContract, walletNft)) {
       const ownerWallet = await getNftOwner(walletNft)
-      await updateNftOwner({ nft: walletNft, ownerAddress: ownerWallet.address })
+      await updateNftOwner({ nft: walletNft as Nft, ownerAddress: ownerWallet.address })
     }
   }
 }

@@ -16,7 +16,7 @@ export async function approveErc721Contract(args: ApproveErc721ContractArgs) {
     abi: erc721Abi,
     functionName: 'setApprovalForAll',
     address: contract.address,
-    chainId: chainId(contract.chain),
+    chainId: chainId(contract.chain) as number,
     args: [address, true]
   })
   const hash = await writeContract(wagmiConfig, request)

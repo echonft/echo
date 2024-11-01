@@ -8,19 +8,18 @@ import { echoAddress } from '@echo/web3/helpers/echo-address'
 import { simulateContract, waitForTransactionReceipt, writeContract } from 'wagmi/actions'
 
 export interface AcceptOfferArgs {
-  offerId: Lowercase<HexString>
-  chain: Chain
+  readonly offerId: Lowercase<HexString>
+  readonly chain: Chain
 }
 
 export async function acceptOffer(args: AcceptOfferArgs) {
   const { offerId, chain } = args
-  const address = echoAddress(chain)
   const tradingFees = await getEchoTradingFees({ chain })
   const { request } = await simulateContract(wagmiConfig, {
     abi: echoAbi,
     functionName: 'acceptOffer',
-    address,
-    chainId: chainId(chain),
+    address: echoAddress(chain),
+    chainId: chainId(chain) as number,
     args: [offerId],
     value: tradingFees
   })

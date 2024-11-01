@@ -5,7 +5,7 @@ import type { ChainId } from '@echo/model/types/chain'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { AccountStatus } from '@echo/web3-dom/constants/account-status'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
-import { isNil, pipe, toLower } from 'ramda'
+import { equals, isNil, pipe, toLower } from 'ramda'
 import {
   getAccount as wagmiGetAccount,
   type GetAccountReturnType,
@@ -69,7 +69,11 @@ export function getAccount(): AccountResult {
 export function watchAccount(onChange: (account: AccountResult, prevAccount: AccountResult) => void) {
   return wagmiWatchAccount(wagmiConfig, {
     onChange: (account, prevAccount) => {
-      onChange(mapResult(account), mapResult(prevAccount))
+      const mappedAccount = mapResult(account)
+      const mappedPrevAccount = mapResult(prevAccount)
+      if (!equals(mappedAccount, mappedPrevAccount)) {
+        onChange(mappedAccount, mappedPrevAccount)
+      }
     }
   })
 }

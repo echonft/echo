@@ -2,15 +2,12 @@
 import type { User } from '@echo/model/types/user'
 import { LoginDiscordButton } from '@echo/ui/components/auth/login-discord-button'
 import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
-import { SWRKeys } from '@echo/ui/constants/swr-keys'
-import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { useDependencies } from '@echo/ui/hooks/use-dependencies'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
-import { mutate } from 'swr'
 
 interface Props {
   user: Nullable<User>
@@ -23,14 +20,10 @@ export const LoginDiscordConnect: FunctionComponent<Props> = ({ user }) => {
     return (
       <LoginDiscordButton
         onClick={() => {
-          login()
-            .then(() => {
-              void mutate(SWRKeys.profile.wallet.get, undefined, {})
-            })
-            .catch(errorCallback({ loggerContext: { component: LoginDiscordConnect.name, fetcher: login.name } }))
+          void login({ provider: 'discord' })
         }}
       >
-        {t('loginBtn')}
+        <span className={clsx('btn-label-auth')}>{t('loginBtn')}</span>
       </LoginDiscordButton>
     )
   }

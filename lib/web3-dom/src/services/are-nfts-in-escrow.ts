@@ -1,11 +1,11 @@
 import type { Chain } from '@echo/model/constants/chain'
 import type { Nft } from '@echo/model/types/nft'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { walletClient } from '@echo/web3-dom/helpers/wallet-client'
+import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import { echoAddress } from '@echo/web3/helpers/echo-address'
 import { all, always, applySpec, equals, head, isNil, map, path, pipe, prop, reject, toLower } from 'ramda'
 import { type ContractFunctionParameters, erc721Abi } from 'viem'
-import { multicall } from 'viem/actions'
+import { multicall } from 'wagmi/actions'
 
 export interface AreNftsInEscrowArgs {
   nfts: Nft[]
@@ -22,8 +22,7 @@ export async function areNftsInEscrow({ nfts }: AreNftsInEscrowArgs): Promise<bo
     }),
     nfts
   )
-  const client = walletClient(chain)
-  const results = await multicall(client, {
+  const results = await multicall(wagmiConfig, {
     contracts: contractCalls
   })
   const echoContractAddress = echoAddress(chain)

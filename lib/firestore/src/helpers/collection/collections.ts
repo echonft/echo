@@ -13,7 +13,6 @@ import type { OfferUpdatePostDocument } from '@echo/firestore/types/model/offer-
 import type { SwapDocument } from '@echo/firestore/types/model/swap-document'
 import type { SwapPostDocument } from '@echo/firestore/types/model/swap-post-document'
 import type { UserDocument } from '@echo/firestore/types/model/user-document'
-import type { WalletDocument } from '@echo/firestore/types/model/wallet-document'
 import { CollectionReference } from 'firebase-admin/firestore'
 
 export function collectionDiscordGuildsCollection() {
@@ -56,7 +55,4 @@ export function swapsCollection() {
 }
 export function usersCollection() {
   return firestoreApp().collection(CollectionPath.Users) as CollectionReference<UserDocument>
-}
-export function walletsCollection() {
-  return firestoreApp().collection(CollectionPath.Wallets) as CollectionReference<WalletDocument>
 }

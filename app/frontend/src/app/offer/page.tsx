@@ -4,10 +4,9 @@ import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-u
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import { eqOwnedNftOwner } from '@echo/model/helpers/nft/eq-owned-nft-owner'
 import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
-import type { Nft } from '@echo/model/types/nft'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import type { Slug } from '@echo/model/types/slug'
-import type { User } from '@echo/model/types/user'
+import type { User, UserWithWallet } from '@echo/model/types/user'
 import { getNftIndexFromSearchParam } from '@echo/routing/search-params/get-nft-index-from-search-param'
 import { CreateOfferManager } from '@echo/ui/components/offer/create/create-offer-manager'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
@@ -101,7 +100,7 @@ async function render({ searchParams: { items, target }, user }: Props) {
       receiverNftsSelection={receiverNftsSelection}
       receiver={receiver}
       senderNfts={senderNfts}
-      sender={user}
+      sender={user as UserWithWallet} // TODO gatekeep these routes with connected wallet
     />
   )
 }

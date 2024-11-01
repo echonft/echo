@@ -1,5 +1,5 @@
 'use client'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { Swap } from '@echo/model/types/swap'
 import type { Selection } from '@echo/routing/types/selection'
 import { ListingsPanel } from '@echo/ui/components/base/navigation/panels/listings-panel'

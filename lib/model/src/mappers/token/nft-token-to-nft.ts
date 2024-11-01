@@ -1,8 +1,8 @@
+import type { OwnedErc1155Nft } from '@echo/model/types/erc1155-nft'
+import type { OwnedErc721Nft } from '@echo/model/types/erc721-nft'
 import type { Erc721Token } from '@echo/model/types/erc721-token'
 import type { NftCollection } from '@echo/model/types/nft'
 import type { NftToken } from '@echo/model/types/nft-token'
-import type { OwnedErc1155Nft } from '@echo/model/types/owned-erc1155-nft'
-import type { OwnedErc721Nft } from '@echo/model/types/owned-erc721-nft'
 import type { User } from '@echo/model/types/user'
 import { assoc, dissoc, modify, pipe } from 'ramda'
 

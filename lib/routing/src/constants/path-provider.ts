@@ -10,10 +10,14 @@ import type { SelectionQueryParams } from '@echo/routing/types/query-params/sele
 import type { ListingSearchParams } from '@echo/routing/types/search-params/listing-search-params'
 import type { OfferSearchParams } from '@echo/routing/types/search-params/offer-search-params'
 import type { SelectionSearchParams } from '@echo/routing/types/search-params/selection-search-params'
+import type { OptionalRecord } from '@echo/utils/types/optional-record'
 
 export const pathProvider = {
   auth: {
-    signIn: new Path({ path: '/login', secure: false })
+    signIn: new Path<never, OptionalRecord<'callbackUrl', string>, OptionalRecord<'callbackUrl', string>>({
+      path: '/login',
+      secure: false
+    })
   },
   base: {
     home: new Path({ path: '/', secure: false })

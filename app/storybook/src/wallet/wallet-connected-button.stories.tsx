@@ -19,7 +19,7 @@ export default metadata
 
 export const ConnectedButton: StoryObj<typeof Component> = {
   args: {
-    address: walletMockCrew.address,
+    wallet: walletMockCrew,
     chain: Chain.Sepolia
   }
 }

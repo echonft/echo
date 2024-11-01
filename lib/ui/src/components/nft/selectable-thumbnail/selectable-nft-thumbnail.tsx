@@ -1,6 +1,6 @@
 'use client'
 
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { RemoveIconSvg } from '@echo/ui/components/base/svg/remove-icon-svg'
 import { SelectableNftThumbnailImage } from '@echo/ui/components/nft/selectable-thumbnail/selectable-nft-thumbnail-image'
 import { clsx } from 'clsx'

@@ -2,7 +2,6 @@
 
 import '@echo/ui-css/index.css'
 import { acceptOffer } from '@echo/storybook/mocks/accept-offer'
-import { addWallet } from '@echo/storybook/mocks/add-wallet'
 import { approveErc721Contract } from '@echo/storybook/mocks/approve-erc721-contract'
 import { areNftsInEscrow } from '@echo/storybook/mocks/are-nfts-in-escrow'
 import { cancelListing } from '@echo/storybook/mocks/cancel-listing'
@@ -10,14 +9,12 @@ import { cancelOffer } from '@echo/storybook/mocks/cancel-offer'
 import { createListing } from '@echo/storybook/mocks/create-listing'
 import { createOffer } from '@echo/storybook/mocks/create-offer'
 import { disconnectWallet } from '@echo/storybook/mocks/disconnect-wallet'
-import { getAccount } from '@echo/storybook/mocks/get-account'
+import { getAccount, watchAccount } from '@echo/storybook/mocks/get-account'
 import { getAllErc20TokenBalances } from '@echo/storybook/mocks/get-all-erc20-token-balances'
 import { getEchoTradingFees } from '@echo/storybook/mocks/get-echo-trading-fees'
 import { getErc20TokenBalance } from '@echo/storybook/mocks/get-erc20-token-balance'
 import { getErc721ContractApproval } from '@echo/storybook/mocks/get-erc721-contract-approval'
-import { getNonce } from '@echo/storybook/mocks/get-nonce'
 import { getOfferByIdContract } from '@echo/storybook/mocks/get-offer-by-id-contract'
-import { getWallets } from '@echo/storybook/mocks/get-wallets'
 import { login } from '@echo/storybook/mocks/login'
 import { logout } from '@echo/storybook/mocks/logout'
 import { redeemOffer } from '@echo/storybook/mocks/redeem-offer'
@@ -46,7 +43,6 @@ const preview: Preview = {
           <Web3Provider>
             <DependenciesProvider
               dependencies={{
-                addWallet,
                 approveErc721Contract,
                 areNftsInEscrow,
                 cancelListing,
@@ -62,16 +58,15 @@ const preview: Preview = {
                 getAllErc20TokenBalances,
                 getEchoTradingFees,
                 getErc721ContractApproval,
-                getNonce,
                 getOfferByIdContract,
-                getWallets,
                 login,
                 logout,
                 rejectOffer,
                 searchCollections,
                 searchUsers,
                 signNonce,
-                switchChain
+                switchChain,
+                watchAccount
               }}
             >
               <Story />

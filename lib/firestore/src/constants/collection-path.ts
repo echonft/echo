@@ -11,6 +11,5 @@ export enum CollectionPath {
   Listings = 'listings',
   Swaps = 'swaps',
   SwapPosts = 'swap-posts',
-  Users = 'users',
-  Wallets = 'wallets'
+  Users = 'users'
 }

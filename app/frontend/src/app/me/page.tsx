@@ -3,7 +3,6 @@ import { getPendingListingsForUser } from '@echo/firestore/crud/listing/get-pend
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { getOffersForUser } from '@echo/firestore/crud/offer/get-offers-for-user'
 import { getSwapsForUser } from '@echo/firestore/crud/swap/get-swaps-for-user'
-import { getWalletForUser } from '@echo/firestore/crud/wallet/get-wallet-for-user'
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import { getLogger } from '@echo/frontend/lib/helpers/get-logger'
@@ -31,7 +30,6 @@ interface Props {
 
 async function render({ searchParams, user }: Props) {
   getLogger().info({ user }, 'logged user')
-  const wallet = await pipe(getWalletForUser, otherwise(pipe(captureAndLogError, always(undefined))))(user.username)
   const nfts = await pipe(prop('username'), getNftsForOwner, otherwise(pipe(captureAndLogError, always([]))))(user)
   const listings = await pipe(
     prop('username'),
@@ -63,7 +61,6 @@ async function render({ searchParams, user }: Props) {
     <NavigationLayout>
       <SectionLayout>
         <AuthUserProfile
-          address={wallet.address}
           user={user}
           listingsCount={listings.length}
           nftsCount={nfts.length}

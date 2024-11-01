@@ -29,7 +29,7 @@ export async function createOffer(args: CreateEchoOfferArgs): Promise<HexString>
     abi: echoAbi,
     functionName: 'createOffer',
     address,
-    chainId: chainId(chain),
+    chainId: chainId(chain) as number,
     args: [offerToEchoOffer(offer) as never]
   })
   const hash = await writeContract(wagmiConfig, request)

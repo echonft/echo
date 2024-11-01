@@ -1,14 +1,13 @@
-import Credentials from '@auth/core/providers/credentials'
-import { credentialsSchema } from '@echo/backend/validators/credentials-schema'
-import { addUser } from '@echo/firestore/crud/user/add-user'
-import { getUserSnapshotByWallet } from '@echo/firestore/crud/user/get-user-by-wallet'
+import { discordProfileSchema } from '@echo/backend/validators/discord-profile-schema'
+import { userDocumentToModel } from '@echo/firestore/converters/user-document-to-model'
+import { addUser, type AddUserArgs, type AddUserReturn } from '@echo/firestore/crud/user/add-user'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { chainById } from '@echo/model/helpers/chain/chain-by-id'
-import { walletFromContract } from '@echo/model/helpers/wallet/wallet-from-contract'
+import type { UserDocument } from '@echo/firestore/types/model/user-document'
 import { propIsNil } from '@echo/utils/helpers/prop-is-nil'
 import NextAuth, { type NextAuthResult, type User } from 'next-auth'
 import Discord, { type DiscordProfile } from 'next-auth/providers/discord'
-import { assoc, dissoc, either, isNil, objOf, pipe } from 'ramda'
+import { andThen, assoc, dissoc, either, isNil, objOf, path, pipe } from 'ramda'
+import { generateNonce } from 'siwe'
 
 const {
   handlers: { GET, POST },
@@ -16,17 +15,12 @@ const {
 }: NextAuthResult = NextAuth({
   callbacks: {
     jwt: function ({ token, user }) {
-      console.log(`-------- JWT CALLBACK ----------`)
-      console.log(`token ${JSON.stringify(token)}`)
       if (!isNil(user)) {
         return assoc('user', dissoc('id', user), token)
       }
       return token
     },
     session: function ({ session, token }) {
-      console.log(`-------- SESSION CALLBACK ----------`)
-      console.log(`token ${JSON.stringify(token)}`)
-      console.log(`session ${JSON.stringify(session)}`)
       if (either(isNil, propIsNil<typeof token, 'user'>('user'))(token)) {
         return session
       }
@@ -37,41 +31,25 @@ const {
     signIn: '/login'
   },
   providers: [
-    Credentials({
-      credentials: {},
-      authorize: async (credentials): Promise<User> => {
-        const { address, chainId } = await credentialsSchema.parseAsync(credentials)
-        await initializeFirebase()
-        const wallet = walletFromContract({ address, chain: chainById(chainId) })
-        const snapshot = await getUserSnapshotByWallet(wallet)
-        if (isNil(snapshot)) {
-          return pipe(addUser, objOf('id'), assoc('wallet', wallet))(wallet) as unknown as User
-        }
-        const user = snapshot.data()
-        if (isNil(user.username)) {
-          return { id: snapshot.id, wallet: wallet } as User
-        }
-        return { id: snapshot.id, ...user } as User
-      }
-    }),
     Discord({
       authorization: 'https://discord.com/api/oauth2/authorize?scope=identify',
-      profile: async (profile: DiscordProfile, token) => {
-        console.log(`-------- PROFILE ----------`)
-        console.log(`profile ${JSON.stringify(profile)}`)
-        console.log(`token ${JSON.stringify(token)}`)
-        // return await pipe(fetch, andThen(pipe(parseResponse(userSchema), assoc('id', profile.id))))(
-        //   apiPathProvider.user.update.getUrl(),
-        //   {
-        //     headers: {
-        //       'Content-Type': 'application/json'
-        //     },
-        //     method: 'POST',
-        //     body: JSON.stringify(token)
-        //   }
-        // )
-        // return parseResponse(userSchema)(profile)
-        return profile
+      profile: async (profile: DiscordProfile, _token) => {
+        await initializeFirebase()
+        const nonce = generateNonce()
+        return pipe<
+          [DiscordProfile],
+          UserDocument,
+          Record<'user', UserDocument>,
+          AddUserArgs,
+          Promise<AddUserReturn>,
+          Promise<User>
+        >(
+          (profile) => discordProfileSchema.parse(profile),
+          objOf('user'),
+          assoc('nonce', nonce),
+          addUser,
+          andThen(pipe(path(['user', 'data']), userDocumentToModel, assoc('id', profile.id)))
+        )(profile)
       }
     })
   ]

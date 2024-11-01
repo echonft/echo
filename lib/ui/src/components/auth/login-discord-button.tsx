@@ -16,7 +16,7 @@ export const LoginDiscordButton: FunctionComponent<PropsWithChildren<Props>> = (
         onClick?.(event)
       }}
     >
-      <span className={clsx('btn-label-auth')}>{children}</span>
+      {children}
     </button>
   )
 }

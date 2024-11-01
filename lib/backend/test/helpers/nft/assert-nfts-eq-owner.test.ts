@@ -1,6 +1,6 @@
 import { assertNftsEqOwner } from '@echo/backend/helpers/nft/assert-nfts-eq-owner'
 import { nftMockSpiral1 } from '@echo/model/mocks/nft-mock'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { describe, expect, test } from '@jest/globals'
 import { assoc } from 'ramda'
 

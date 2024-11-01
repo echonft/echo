@@ -24,14 +24,8 @@ export const apiPathProvider = {
     }),
     reject: new ApiPath<Record<'slug', Slug>>({ path: '/offer/:slug/reject', secure: true })
   },
-  profile: {
-    nonce: new ApiPath({ path: '/profile/nonce', secure: true }),
-    wallet: new ApiPath({ path: '/profile/wallet', secure: true }),
-    wallets: new ApiPath({ path: '/profile/wallets', secure: true })
-  },
   user: {
-    search: new ApiPath<Record<'q', string>>({ path: '/search/user', secure: false, queryParamsMapper: identity }),
-    update: new ApiPath({ path: '/user/update', secure: false })
+    search: new ApiPath<Record<'q', string>>({ path: '/search/user', secure: false, queryParamsMapper: identity })
   },
   webhook: {
     echo: new ApiPath<Record<'chain', string>>({ path: '/webhook/:chain/echo', secure: false }),

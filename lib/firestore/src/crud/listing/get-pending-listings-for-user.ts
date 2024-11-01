@@ -4,8 +4,8 @@ import { getQueriesDocuments } from '@echo/firestore/helpers/query/get-queries-d
 import { queryOrderBy } from '@echo/firestore/helpers/query/query-order-by'
 import { queryWhere } from '@echo/firestore/helpers/query/query-where'
 import type { ListingDocument } from '@echo/firestore/types/model/listing-document'
+import type { OwnedNftDocument } from '@echo/firestore/types/model/nft-document'
 import { nftsCollectionSlug } from '@echo/model/helpers/nft/nfts-collection-slug'
-import type { Nft } from '@echo/model/types/nft'
 import type { Username } from '@echo/model/types/username'
 import type { CollectionReference, Query } from 'firebase-admin/firestore'
 import { eqProps, isEmpty, juxt, map, partial, partialRight, pipe, splitEvery } from 'ramda'
@@ -16,7 +16,7 @@ export async function getPendingListingsForUser(username: Username): Promise<Lis
     return []
   }
   // we need to split every 30 because 'in' constraints accepts a maximum of 30 values
-  const collectionSlugs = pipe<[Nft[]], string[], string[][]>(nftsCollectionSlug, splitEvery(30))(nfts)
+  const collectionSlugs = pipe<[OwnedNftDocument[]], string[], string[][]>(nftsCollectionSlug, splitEvery(30))(nfts)
   return pipe<
     [],
     CollectionReference<ListingDocument>,

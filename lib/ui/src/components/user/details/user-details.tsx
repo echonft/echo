@@ -31,7 +31,7 @@ export const UserDetails: FunctionComponent<Props> = ({ user, isAuthUser = false
       </InternalLink>
       <UserDetailsDiscordTagAndWalletLayout>
         <UserTag user={user} isAuthUser={isAuthUser} />
-        <WalletConnectedButton address={user.wallet.address} chain={user.wallet.chain} />
+        <WalletConnectedButton wallet={user.wallet} />
       </UserDetailsDiscordTagAndWalletLayout>
     </UserDetailsLayout>
   )

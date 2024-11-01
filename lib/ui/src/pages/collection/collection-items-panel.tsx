@@ -1,7 +1,6 @@
 'use client'
 import type { Collection } from '@echo/model/types/collection'
-import type { Nft } from '@echo/model/types/nft'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import { pathProvider } from '@echo/routing/constants/path-provider'
 import { BottomBarLayout } from '@echo/ui/components/base/layout/bottom-bar-layout'
 import { TraitFilterPanel } from '@echo/ui/components/nft/filters/by-traits/trait-filter-panel'

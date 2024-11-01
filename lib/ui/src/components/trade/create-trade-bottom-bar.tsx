@@ -1,5 +1,5 @@
 import type { Collection } from '@echo/model/types/collection'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
 import { CreateTradeBottomBarItems } from '@echo/ui/components/trade/create-trade-bottom-bar-items'
 import { CreateTradeBottomBarButtonLayout } from '@echo/ui/components/trade/layout/create-trade-bottom-bar-button-layout'

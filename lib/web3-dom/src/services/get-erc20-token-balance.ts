@@ -1,18 +1,14 @@
 import type { Erc20Token } from '@echo/model/types/erc20-token'
 import type { TokenBalance } from '@echo/model/types/token-balance'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
+import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
+import { getAccount } from '@echo/web3-dom/services/get-account'
 import { backOff } from 'exponential-backoff'
-import { erc20Abi, formatUnits, type WalletClient } from 'viem'
-import { readContract } from 'viem/actions'
+import { erc20Abi, formatUnits } from 'viem'
+import { readContract } from 'wagmi/actions'
 
-export interface GetErc20TokenBalanceArgs {
-  client: WalletClient
-  token: Erc20Token
-}
-
-export async function getErc20TokenBalance(args: GetErc20TokenBalanceArgs): Promise<TokenBalance<Erc20Token>> {
-  const { token, client } = args
-  const address = client.account?.address
+export async function getErc20TokenBalance(token: Erc20Token): Promise<TokenBalance<Erc20Token>> {
+  const { address } = getAccount()
 
   if (isNilOrEmpty(address)) {
     return { token, balance: 0 }
@@ -20,7 +16,7 @@ export async function getErc20TokenBalance(args: GetErc20TokenBalanceArgs): Prom
 
   const balance = await backOff(
     () =>
-      readContract(client, {
+      readContract(wagmiConfig, {
         abi: erc20Abi,
         functionName: 'balanceOf',
         address: token.contract.address,

@@ -1,6 +1,6 @@
 'use client'
 
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { pathProvider } from '@echo/routing/constants/path-provider'
 import { NftsWithFilters } from '@echo/ui/components/nft/filters/nfts-with-filters'
 import { SelectableNftsWithFilters } from '@echo/ui/components/nft/filters/selectable-nfts-with-filters'

@@ -1,8 +1,8 @@
 'use client'
 import { OfferRole } from '@echo/model/constants/offer-role'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
-import type { User } from '@echo/model/types/user'
+import type { UserWithWallet } from '@echo/model/types/user'
 import { CreateOfferFlow } from '@echo/ui/components/offer/create/create-offer-flow'
 import { CreatedOfferSwitch } from '@echo/ui/components/offer/created/created-offer-switch'
 import { useRouter } from 'next/navigation'
@@ -10,11 +10,11 @@ import { assoc, isNil, type NonEmptyArray } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  receiver: User
+  receiver: UserWithWallet
   // TODO replace with items
   receiverNfts: OwnedNft[]
   receiverNftsSelection: NonEmptyArray<OwnedNft>
-  sender: User
+  sender: UserWithWallet
   // TODO replace with items
   senderNfts: OwnedNft[]
 }
@@ -28,10 +28,8 @@ export const CreateOfferManager: FunctionComponent<Props> = ({
 }) => {
   const router = useRouter()
   const [createdOffer] = useState<Offer>()
-  // TODO
   if (isNil(createdOffer)) {
     return (
-      // FIXME Need to adjust the values here
       <CreateOfferFlow
         receiver={receiver}
         receiverNfts={receiverNfts}

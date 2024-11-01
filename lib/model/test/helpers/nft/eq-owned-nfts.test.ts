@@ -1,7 +1,7 @@
 import { eqOwnedNfts } from '@echo/model/helpers/nft/eq-owned-nfts'
 import { nftMockSpiral1, nftMockSpiral2 } from '@echo/model/mocks/nft-mock'
+import type { OwnedNft } from '@echo/model/types/nft'
 
-import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { describe, expect, it } from '@jest/globals'
 import { assoc } from 'ramda'
 
