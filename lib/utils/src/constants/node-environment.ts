@@ -6,6 +6,6 @@ export enum NodeEnvironment {
   Test = 'test'
 }
 
-export const nodeEnvironment = isNil(process.env.NODE_ENV)
-  ? NodeEnvironment.Development
-  : (process.env.NODE_ENV as NodeEnvironment)
+export function nodeEnvironment() {
+  return isNil(process.env.NODE_ENV) ? NodeEnvironment.Development : (process.env.NODE_ENV as NodeEnvironment)
+}

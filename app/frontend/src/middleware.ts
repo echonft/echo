@@ -54,7 +54,7 @@ export default auth((req): void | Response | Promise<void | Response> => {
     }
     if (!isApiWebhookPath(path)) {
       // set CORS headers
-      const allowedOrigins = [baseUrl]
+      const allowedOrigins = [baseUrl()]
       const corsOptions = {
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization'

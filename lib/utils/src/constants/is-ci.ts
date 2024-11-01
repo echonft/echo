@@ -1,1 +1,3 @@
-export const isCI = Boolean(process.env.CI)
+export function isCI() {
+  return Boolean(process.env.CI)
+}

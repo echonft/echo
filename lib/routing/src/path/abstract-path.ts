@@ -68,7 +68,7 @@ export abstract class AbstractPath<
   }
   protected setBaseUrl(baseUrl: string) {
     const url = this.getBaseUrl(baseUrl)
-    if (nodeEnvironment === NodeEnvironment.Production && url.protocol !== 'https:') {
+    if (nodeEnvironment() === NodeEnvironment.Production && url.protocol !== 'https:') {
       throw new Error(PathError.BaseUrlInvalidScheme)
     } else {
       if (url.protocol !== 'http:' && url.protocol !== 'https:') {

@@ -8,4 +8,6 @@ export enum Environment {
   Testnet = 'testnet'
 }
 
-export const environment = isNil(process.env.ENV) ? Environment.Development : (process.env.ENV as Environment)
+export function environment() {
+  return isNil(process.env.ENV) ? Environment.Development : (process.env.ENV as Environment)
+}

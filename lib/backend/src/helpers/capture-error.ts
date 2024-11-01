@@ -7,8 +7,8 @@ import { assoc, isNil } from 'ramda'
 export function captureError(err: unknown, severity?: Nullable<SeverityLevel>) {
   const baseHint = {
     tags: {
-      app_environement: environment,
-      network
+      app_environement: environment(),
+      network: network()
     }
   }
   const hint = isNil(severity) ? baseHint : assoc('level', severity, baseHint)

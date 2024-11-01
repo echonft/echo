@@ -23,21 +23,22 @@ function getSerializers(serializers?: LoggerSerializer | LoggerSerializer[]): Lo
 }
 
 function getLogLevel(): LevelWithSilentOrString {
-  if (isNil(logLevel)) {
-    if (nodeEnvironment === NodeEnvironment.Production) {
+  const level = logLevel()
+  if (isNil(level)) {
+    if (nodeEnvironment() === NodeEnvironment.Production) {
       return 'info'
     }
-    if (nodeEnvironment === NodeEnvironment.Test) {
+    if (nodeEnvironment() === NodeEnvironment.Test) {
       return 'silent'
     }
     return 'trace'
   }
-  return logLevel
+  return level
 }
 export function getBaseLogger(name: string, options?: LoggerOptions, stream?: DestinationStream) {
   return pino(
     {
-      enabled: !isCI && environment !== Environment.Test,
+      enabled: !isCI() && environment() !== Environment.Test,
       level: getLogLevel(),
       name,
       formatters: {

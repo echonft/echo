@@ -7,7 +7,9 @@ import { both, filter, map, type NonEmptyArray, pipe, prop, propEq, values } fro
 export function chainsForVirtualMachine(vm: VirtualMachine): NonEmptyArray<Chain> {
   return pipe(
     values,
-    filter(both<[ChainProps]>(propEq<Network, 'network'>(network, 'network'), propEq<VirtualMachine, 'vm'>(vm, 'vm'))),
+    filter(
+      both<[ChainProps]>(propEq<Network, 'network'>(network(), 'network'), propEq<VirtualMachine, 'vm'>(vm, 'vm'))
+    ),
     map(prop('name'))
   )(chains) as NonEmptyArray<Chain>
 }

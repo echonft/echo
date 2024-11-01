@@ -8,7 +8,7 @@ export function supportedChains() {
     values,
     filter(
       both<[ChainProps]>(
-        propEq<Network, 'network'>(network, 'network'),
+        propEq<Network, 'network'>(network(), 'network'),
         propEq<boolean, 'supported'>(true, 'supported')
       )
     ),

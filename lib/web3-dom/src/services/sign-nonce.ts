@@ -23,12 +23,12 @@ export async function signNonce({ address, chain, nonce }: SignNonceArgs): Promi
   const siweMessage = new SiweMessage({
     address: getAddress(address),
     chainId: chainId(chain),
-    domain: hostname,
+    domain: hostname(),
     nonce,
     scheme: 'https',
     statement: 'Sign this message to add your wallet to Echo',
     version: '1',
-    uri: `https://${hostname}`
+    uri: `https://${hostname()}`
   })
   const message = siweMessage.prepareMessage()
   const signature = await signMessage(wagmiConfig, { message })

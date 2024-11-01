@@ -17,10 +17,10 @@ function getCurrentHostnameSrc(src: string): string {
   const match = regex.exec(src)
   if (
     match &&
-    match[2] !== productionHostname &&
+    match[2] !== productionHostname() &&
     (match[2] === 'dev.echonft.xyz' || match[2] === 'staging.echonft.xyz' || match[2] === 'app.echonft.xyz')
   ) {
-    return src.replace(regex, `${baseUrl}$3`)
+    return src.replace(regex, `${baseUrl()}$3`)
   }
   return src
 }
@@ -55,7 +55,7 @@ export function addPictureSize(
     // update the src to the current environment
     const src = getCurrentHostnameSrc(args.src)
     // our IPFS gateway
-    if (src.startsWith(`${baseUrl}/api/ipfs`)) {
+    if (src.startsWith(`${baseUrl()}/api/ipfs`)) {
       return concat(src, `?img-width=${size}`)
     }
     // NFT storage

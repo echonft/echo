@@ -3,4 +3,6 @@ export enum Network {
   Testnet = 'testnet'
 }
 
-export const network = process.env.NEXT_PUBLIC_IS_TESTNET === '1' ? Network.Testnet : Network.Mainnet
+export function network() {
+  return process.env.NEXT_PUBLIC_IS_TESTNET === '1' ? Network.Testnet : Network.Mainnet
+}

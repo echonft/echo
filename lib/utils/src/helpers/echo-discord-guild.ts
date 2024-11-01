@@ -1,7 +1,8 @@
 import { Environment, environment } from '@echo/utils/constants/environment'
 
 export function echoDiscordGuild() {
-  if (environment === Environment.Development || environment === Environment.Staging) {
+  const env = environment()
+  if (env === Environment.Development || env === Environment.Staging) {
     return {
       id: '1002691062374088794',
       channelId: '1032728052209295450'

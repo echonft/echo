@@ -22,7 +22,7 @@ const HeaderDiscordButton: FunctionComponent<Props> = ({ user }) => {
   const t = useTranslations('layout.header.button')
   if (isNil(user)) {
     return (
-      <InternalLink path={pathProvider.auth.signIn.withQuery({ callbackUrl: `${baseUrl}${path}` }).get()}>
+      <InternalLink path={pathProvider.auth.signIn.withQuery({ callbackUrl: `${baseUrl()}${path}` }).get()}>
         <LoginDiscordButton>
           <span className={'text-white'}>
             <DiscordIconSvg width={24} height={24} />

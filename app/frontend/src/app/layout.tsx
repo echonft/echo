@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: metadataTitle,
     description: metadataDescription,
-    url: baseUrl,
+    url: baseUrl(),
     siteName: 'Echo Beta',
     images: [
       {

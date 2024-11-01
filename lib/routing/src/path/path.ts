@@ -12,11 +12,11 @@ export class Path<
   TSearchParams extends SearchParams = TQueryParams extends SearchParams ? TQueryParams : SearchParams
 > extends AbstractPath<TParams, TQueryParams, TSearchParams> {
   constructor(args: Omit<PathArgs<TQueryParams, TSearchParams>, 'baseUrl'>) {
-    super(assoc('baseUrl', baseUrl, args))
+    super(assoc('baseUrl', baseUrl(), args))
   }
 
   getProductionUrl(...params: PathParamsArgs<TParams>): string {
-    return `https://${productionHostname}${this.get(...params)}`
+    return `https://${productionHostname()}${this.get(...params)}`
   }
 
   withQuery(queryParams: TQueryParams): this {

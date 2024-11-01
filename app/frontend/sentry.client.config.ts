@@ -8,7 +8,7 @@ import { extraErrorDataIntegration } from '@sentry/browser'
 import * as Sentry from '@sentry/nextjs'
 
 Sentry.init({
-  enabled: !isCI && vercelEnvironment === VercelEnvironment.Production,
+  enabled: !isCI() && vercelEnvironment() === VercelEnvironment.Production,
   dsn: 'https://90f90a5ace372a2805407eeeb7d7fc15@o4506149604098048.ingest.us.sentry.io/4506149609472000',
   // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: 1,

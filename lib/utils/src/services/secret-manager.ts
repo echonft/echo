@@ -34,7 +34,8 @@ function getCredentials(): Credentials {
 }
 
 async function connect(projectId: string): Promise<SecretManagerServiceClient> {
-  if (nodeEnvironment === NodeEnvironment.Development || (!isCI && nodeEnvironment === NodeEnvironment.Test)) {
+  const nodeEnv = nodeEnvironment()
+  if (nodeEnv === NodeEnvironment.Development || (!isCI() && nodeEnv === NodeEnvironment.Test)) {
     // logger?.trace('connecting without credentials')
     const client = new SecretManagerServiceClient({ projectId })
     await client.initialize()

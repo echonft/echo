@@ -6,6 +6,8 @@ export enum VercelEnvironment {
   Preview = 'preview'
 }
 
-export const vercelEnvironment = isNil(process.env.VERCEL_ENV)
-  ? (process.env.NEXT_PUBLIC_VERCEL_ENV as VercelEnvironment)
-  : (process.env.VERCEL_ENV as VercelEnvironment)
+export function vercelEnvironment() {
+  return isNil(process.env.VERCEL_ENV)
+    ? (process.env.NEXT_PUBLIC_VERCEL_ENV as VercelEnvironment)
+    : (process.env.VERCEL_ENV as VercelEnvironment)
+}

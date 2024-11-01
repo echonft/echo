@@ -4,10 +4,10 @@ import { NodeEnvironment, nodeEnvironment } from '@echo/utils/constants/node-env
 
 export function gcloudProjectId() {
   // when NODE_ENV is "test", it takes precedence over ENV
-  if (nodeEnvironment === NodeEnvironment.Test) {
+  if (nodeEnvironment() === NodeEnvironment.Test) {
     return 'echo-test-7787f'
   }
-  switch (environment) {
+  switch (environment()) {
     case Environment.Test:
       throw Error(EnvironmentError.Test)
     case Environment.Production:
