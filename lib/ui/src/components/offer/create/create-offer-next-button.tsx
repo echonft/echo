@@ -1,7 +1,7 @@
 'use client'
 import type { Expiration } from '@echo/model/constants/expiration'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
 import { CreateOfferModalSwitch } from '@echo/ui/components/offer/create/create-offer-modal-switch'
 import { isCreateOfferNextButtonDisabled } from '@echo/ui/helpers/offer/is-create-offer-next-button-disabled'
 import clsx from 'clsx'

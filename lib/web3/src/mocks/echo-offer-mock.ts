@@ -7,15 +7,16 @@ export const echoOfferMock: EchoOffer = {
   receiver: baseOfferMockFromJohnnycage.receiver.wallet.address,
   receiverItems: {
     chainId: 1,
-    items: [{ tokenId: 3, tokenAddress: '0x12c63bbd266db84e117356e664f3604055166cec' }]
+    items: [{ tokenIdOrAmount: 3, tokenAddress: '0x12c63bbd266db84e117356e664f3604055166cec', tokenType: 1 }]
   },
   senderItems: {
     chainId: 1,
     items: [
-      { tokenId: 1, tokenAddress: '0x320e2fa93a4010ba47edcde762802374bac8d3f7' },
+      { tokenIdOrAmount: 1, tokenAddress: '0x320e2fa93a4010ba47edcde762802374bac8d3f7', tokenType: 1 },
       {
-        tokenId: 2,
-        tokenAddress: '0x320e2fa93a4010ba47edcde762802374bac8d3f7'
+        tokenIdOrAmount: 2,
+        tokenAddress: '0x320e2fa93a4010ba47edcde762802374bac8d3f7',
+        tokenType: 1
       }
     ]
   },

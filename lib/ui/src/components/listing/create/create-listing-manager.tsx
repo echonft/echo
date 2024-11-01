@@ -1,5 +1,6 @@
 'use client'
 import type { Expiration } from '@echo/model/constants/expiration'
+import { VirtualMachine } from '@echo/model/constants/virtual-machine'
 import { erc721NftToItem } from '@echo/model/mappers/nft/erc721-nft-to-item'
 import type { Collection } from '@echo/model/types/collection'
 import type { Erc721Item } from '@echo/model/types/item'

@@ -1,5 +1,5 @@
 import type { Listing } from '@echo/model/types/listing'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil } from 'ramda'
 

@@ -1,6 +1,6 @@
 'use client'
 import type { Collection } from '@echo/model/types/collection'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { UserWithWallet } from '@echo/model/types/user'
 import { CollectionSelector } from '@echo/ui/components/trade/collection-selector/collection-selector'
 import { CreateTradeUserNftsSelection } from '@echo/ui/components/trade/create-trade-user-nfts-selection'

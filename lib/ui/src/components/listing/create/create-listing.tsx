@@ -2,7 +2,7 @@
 import { Expiration } from '@echo/model/constants/expiration'
 import type { Collection } from '@echo/model/types/collection'
 import type { Listing } from '@echo/model/types/listing'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { UserWithWallet } from '@echo/model/types/user'
 import { CreateListingFirstStep } from '@echo/ui/components/listing/create/create-listing-first-step'
 import { CreateListingReviewStep } from '@echo/ui/components/listing/create/create-listing-review-step'

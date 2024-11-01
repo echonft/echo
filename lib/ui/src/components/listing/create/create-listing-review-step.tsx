@@ -1,7 +1,7 @@
 import { Expiration } from '@echo/model/constants/expiration'
 import { ListingRole } from '@echo/model/constants/listing-role'
 import type { Listing } from '@echo/model/types/listing'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { UserWithWallet } from '@echo/model/types/user'
 import { ListingDetailsItems } from '@echo/ui/components/listing/details/listing-details-items'
 import { CreateTradeReviewTitle } from '@echo/ui/components/trade/create-trade-review-title'

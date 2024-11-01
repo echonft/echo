@@ -2,7 +2,7 @@
 
 import { collectionMockPx } from '@echo/model/mocks/collection-mock'
 import { nftMocksJohnny } from '@echo/model/mocks/nft-mock'
-import { userWithWalletMockJohnny } from '@echo/model/mocks/user-mock'
+import { userMockJohnny } from '@echo/model/mocks/user-mock'
 import { CreateListing as Component } from '@echo/ui/components/listing/create/create-listing'
 import type { Meta, StoryObj } from '@storybook/react'
 import { filter, pathEq } from 'ramda'
@@ -11,7 +11,7 @@ const metadata: Meta<typeof Component> = {
   title: 'Listing/Create',
   component: Component,
   args: {
-    creator: userWithWalletMockJohnny,
+    creator: userMockJohnny,
     creatorNfts: nftMocksJohnny,
     loading: false
   },

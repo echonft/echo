@@ -1,7 +1,7 @@
 'use client'
 import { ListingRole } from '@echo/model/constants/listing-role'
 import type { Listing } from '@echo/model/types/listing'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { UserWithWallet } from '@echo/model/types/user'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { ListingDetailsTargetLayout } from '@echo/ui/components/listing/details/layout/listing-details-target-layout'

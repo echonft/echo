@@ -1,6 +1,6 @@
 'use client'
 import type { Listing } from '@echo/model/types/listing'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { isCreateTargetNextButtonDisabled } from '@echo/ui/helpers/offer/is-create-target-next-button-disabled'
 import type { Nullable } from '@echo/utils/types/nullable'
 import clsx from 'clsx'

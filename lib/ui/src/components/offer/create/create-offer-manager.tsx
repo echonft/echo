@@ -4,9 +4,8 @@ import type { OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
 import { CreateOfferFlow } from '@echo/ui/components/offer/create/create-offer-flow'
-import { useAccount } from '@echo/ui/hooks/use-account'
 import { useRouter } from 'next/navigation'
-import { assoc, type NonEmptyArray } from 'ramda'
+import { type NonEmptyArray } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -19,6 +18,7 @@ interface Props {
   senderNfts: OwnedNft[]
 }
 
+// TODO Refactor this, not very useful, its just for the onCancel, could all be in the flow
 export const CreateOfferManager: FunctionComponent<Props> = ({
   sender,
   receiver,
@@ -27,14 +27,12 @@ export const CreateOfferManager: FunctionComponent<Props> = ({
   senderNfts
 }) => {
   const router = useRouter()
-  const { address, chain } = useAccount()
-  const senderWithWallet = assoc('wallet', { address, chain }, sender) as UserWithWallet
   return (
     <CreateOfferFlow
       receiver={receiver}
       receiverNfts={receiverNfts}
       receiverNftsSelection={receiverNftsSelection}
-      sender={senderWithWallet}
+      sender={sender}
       senderNfts={senderNfts}
       onCancel={() => {
         router.back()

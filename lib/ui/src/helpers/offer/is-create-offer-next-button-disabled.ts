@@ -1,4 +1,4 @@
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 
 export function isCreateOfferNextButtonDisabled(
   senderSelection: OwnedNft[],

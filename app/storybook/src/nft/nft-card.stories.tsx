@@ -2,7 +2,7 @@
 
 import { Chain } from '@echo/model/constants/chain'
 import { nftMockSpiral1 } from '@echo/model/mocks/nft-mock'
-import type { OwnedNft } from '@echo/model/types/owned-nft'
+import type { OwnedNft } from '@echo/model/types/nft'
 import { NftCard as Component } from '@echo/ui/components/nft/card/nft-card'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { assocPath } from 'ramda'
