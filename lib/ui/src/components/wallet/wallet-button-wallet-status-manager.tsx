@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const WalletButtonWalletStatusManager: FunctionComponent<Props> = ({ onWalletLinked }) => {
-  const { addUserWallet, getWalletStatus } = useActions()
+  const { addWallet, getWalletStatus } = useActions()
   const { disconnectWallet } = useDependencies()
   const signingRef = useRef(false)
   const walletStatusRef = useRef<WalletStatus>()
@@ -53,7 +53,7 @@ export const WalletButtonWalletStatusManager: FunctionComponent<Props> = ({ onWa
         if (walletStatus.status === WalletStatus.NeedsSignature) {
           try {
             const { message, signature } = await signNonce({ address, chain, nonce: walletStatus.nonce })
-            await addUserWallet({ address, chain, message: base64Encode(message), signature: base64Encode(signature) })
+            await addWallet({ address, chain, message: base64Encode(message), signature: base64Encode(signature) })
             onWalletLinked?.()
           } catch (err) {
             logError(err)

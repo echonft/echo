@@ -3,10 +3,8 @@ import type { CreateListingRequestBuilderArgs } from '@echo/api/types/request-bu
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { Erc20Token } from '@echo/model/types/erc20-token'
-import type { SearchResult } from '@echo/model/types/search-result'
 import type { Slug } from '@echo/model/types/slug'
 import type { TokenBalance } from '@echo/model/types/token-balance'
-import type { Username } from '@echo/model/types/username'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { AcceptOfferArgs } from '@echo/web3-dom/services/accept-offer'
@@ -61,8 +59,6 @@ export interface Dependencies {
   logout: (options?: LogoutOptions) => Promise<Nullable<Record<'url', string>>>
   redeemOffer: (args: RedeemOfferArgs) => Promise<HexString>
   rejectOffer: (args: Record<'slug', Slug>) => Promise<OfferResponse>
-  searchCollections: (args: string) => Promise<SearchResult<Slug>[]>
-  searchUsers: (args: string) => Promise<SearchResult<Username>[]>
   signNonce: (args: SignNonceArgs) => Promise<SignNonceResult>
   swap: (args: SwapArgs) => Promise<HexString>
   switchChain: () => Promise<void>

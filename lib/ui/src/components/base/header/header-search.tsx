@@ -3,7 +3,7 @@ import { SearchResultCategory } from '@echo/model/constants/search-result-catego
 import type { SearchResult } from '@echo/model/types/search-result'
 import { pathProvider } from '@echo/routing/constants/path-provider'
 import { SearchBox } from '@echo/ui/components/base/search/search-box'
-import { useDependencies } from '@echo/ui/hooks/use-dependencies'
+import { useActions } from '@echo/ui/hooks/use-actions'
 import { promiseAll } from '@echo/utils/helpers/promise-all'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -13,7 +13,7 @@ import type { FunctionComponent } from 'react'
 
 export const HeaderSearch: FunctionComponent = () => {
   const t = useTranslations('layout.header.search')
-  const { searchCollections, searchUsers } = useDependencies()
+  const { searchCollections, searchUsers } = useActions()
   const router = useRouter()
 
   return (

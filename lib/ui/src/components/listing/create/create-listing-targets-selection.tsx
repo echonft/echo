@@ -4,7 +4,7 @@ import type { Listing } from '@echo/model/types/listing'
 import { QuantityPicker } from '@echo/ui/components/base/quantity-picker'
 import { SearchBox } from '@echo/ui/components/base/search/search-box'
 import { SelectableCollectionThumbnail } from '@echo/ui/components/collection/thumbnail/selectable-collection-thumbnail'
-import { useDependencies } from '@echo/ui/hooks/use-dependencies'
+import { useActions } from '@echo/ui/hooks/use-actions'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -25,7 +25,7 @@ export const CreateListingTargetsSelection: FunctionComponent<CreateListingTarge
   onSelect
 }) => {
   const t = useTranslations('listing.create')
-  const { searchCollections } = useDependencies()
+  const { searchCollections } = useActions()
   if (isNil(target)) {
     return (
       <div className={clsx('flex', 'flex-col', 'w-full', 'h-max', 'gap-6')}>

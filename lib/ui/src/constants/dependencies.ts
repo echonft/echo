@@ -2,8 +2,6 @@ import { cancelListing } from '@echo/api/fetchers/cancel-listing'
 import { createListing } from '@echo/api/fetchers/create-listing'
 import { getOfferByIdContract } from '@echo/api/fetchers/get-offer-by-id-contract'
 import { rejectOffer } from '@echo/api/fetchers/reject-offer'
-import { searchCollections } from '@echo/api/fetchers/search-collections'
-import { searchUsers } from '@echo/api/fetchers/search-users'
 import type { Dependencies, LogoutOptions, SignInArgs } from '@echo/ui/components/providers/dependencies-provider'
 import { acceptOffer } from '@echo/web3-dom/services/accept-offer'
 import { approveErc721Contract } from '@echo/web3-dom/services/approve-erc721-contract'
@@ -52,8 +50,6 @@ export const dependencies: Dependencies = {
   logout,
   redeemOffer,
   rejectOffer,
-  searchCollections,
-  searchUsers,
   signNonce,
   swap,
   switchChain,
