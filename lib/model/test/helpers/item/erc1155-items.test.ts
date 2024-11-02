@@ -1,6 +1,7 @@
 import { erc1155Items } from '@echo/model/helpers/item/erc1155-items'
 import { erc1155ItemMock, erc20ItemMock, erc721ItemMock } from '@echo/model/mocks/item-mock'
-import type { Erc1155Item } from '@echo/model/types/erc1155-item'
+
+import type { Erc1155Item } from '@echo/model/types/item'
 import { describe, expect, test } from '@jest/globals'
 import { assocPath } from 'ramda'
 

@@ -2,7 +2,8 @@
 
 import { erc721NftToToken } from '@echo/model/mappers/nft/erc721-nft-to-token'
 import { nftMockSpiral1 } from '@echo/model/mocks/nft-mock'
-import type { Erc721Nft } from '@echo/model/types/erc721-nft'
+
+import type { Erc721Nft } from '@echo/model/types/nft'
 import { NftStack as Component } from '@echo/ui/components/nft/stack/nft-stack'
 import { nftLabel } from '@echo/ui/helpers/nft/nft-label'
 import type { NftStack } from '@echo/ui/types/nft-stack'

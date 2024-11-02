@@ -2,8 +2,7 @@ import { Chain } from '@echo/model/constants/chain'
 import { OfferState } from '@echo/model/constants/offer-state'
 import { TokenType } from '@echo/model/constants/token-type'
 import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
-import type { BaseOffer } from '@echo/model/types/base-offer'
-import { type Offer } from '@echo/model/types/offer'
+import { type BaseOffer, type Offer } from '@echo/model/types/offer'
 
 export const offerMockToJohnnycage: Offer = {
   expiresAt: 2324074781,

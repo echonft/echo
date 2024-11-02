@@ -1,5 +1,5 @@
 import { ItemError } from '@echo/model/constants/errors/item-error'
-import type { AbstractItem } from '@echo/model/types/abstract-item'
+import type { AbstractItem } from '@echo/model/types/item'
 import { listElementsEq } from '@echo/utils/helpers/list-elements-eq'
 import { complement, map, path, pipe } from 'ramda'
 

@@ -1,10 +1,6 @@
 'use client'
-import type { CreateListingRequestBuilderArgs } from '@echo/api/types/request-builders/create-listing-request-builder-args'
-import type { ListingResponse } from '@echo/api/types/responses/listing-response'
-import type { BaseOffer } from '@echo/model/types/base-offer'
-import type { Erc20Token } from '@echo/model/types/erc20-token'
-import type { Slug } from '@echo/model/types/slug'
-import type { TokenBalance } from '@echo/model/types/token-balance'
+import type { BaseOffer } from '@echo/model/types/offer'
+import type { Erc20Token, TokenBalance } from '@echo/model/types/token'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { AcceptOfferArgs } from '@echo/web3-dom/services/accept-offer'
@@ -43,9 +39,7 @@ export interface Dependencies {
   acceptOffer: (args: AcceptOfferArgs) => Promise<HexString>
   approveErc721Contract: (args: ApproveErc721ContractArgs) => Promise<HexString>
   areNftsInEscrow: (args: AreNftsInEscrowArgs) => Promise<boolean>
-  cancelListing: (args: Record<'slug', Slug>) => Promise<ListingResponse>
   cancelOffer: (args: CancelOfferArgs) => Promise<HexString>
-  createListing: (args: CreateListingRequestBuilderArgs) => Promise<ListingResponse>
   createOffer: (offer: BaseOffer) => Promise<HexString>
   disconnectWallet: () => Promise<void>
   getAccount: () => AccountResult

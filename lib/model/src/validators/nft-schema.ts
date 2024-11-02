@@ -1,0 +1,38 @@
+import { TokenType } from '@echo/model/constants/token-type'
+import { collectionSchema } from '@echo/model/validators/collection-schema'
+import { nftTokenTypeSchema } from '@echo/model/validators/nft-token-type-schema'
+import { withSlugSchema } from '@echo/model/validators/slug-schema'
+import { userSchema } from '@echo/model/validators/user-schema'
+import { literal, number, object, string } from 'zod'
+
+export const nftAttributeSchema = object({
+  trait: string().min(1),
+  value: string().min(1)
+})
+
+export const nftSchema = object({
+  attributes: nftAttributeSchema.array(),
+  collection: collectionSchema.pick({ contract: true, name: true, slug: true, totalSupply: true }),
+  name: string().min(1),
+  owner: userSchema.optional(),
+  pictureUrl: string().url().optional(), // TODO add without query params
+  tokenId: number().int().positive(),
+  type: nftTokenTypeSchema
+})
+
+export const nftIndexSchema = object({
+  collection: withSlugSchema,
+  tokenId: number().int().positive()
+})
+
+export const ownedNftSchema = nftSchema.omit({ owner: true }).extend({ owner: userSchema })
+
+export const ownedNftIndexSchema = nftIndexSchema.extend({ owner: userSchema })
+
+export const erc721NftSchema = nftSchema.omit({ type: true }).extend({ type: literal(TokenType.Erc721) })
+
+export const ownedErc721NftSchema = ownedNftSchema.omit({ type: true }).extend({ type: literal(TokenType.Erc721) })
+
+export const erc1155NftSchema = nftSchema.omit({ type: true }).extend({ type: literal(TokenType.Erc1155) })
+
+export const ownedErc1155NftSchema = ownedNftSchema.omit({ type: true }).extend({ type: literal(TokenType.Erc1155) })

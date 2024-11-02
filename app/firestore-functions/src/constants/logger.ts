@@ -2,6 +2,7 @@ import { modelLoggerSerializers } from '@echo/model/constants/logger-serializers
 import { getBaseLogger } from '@echo/utils/services/logger'
 import { error as ffError, info as ffInfo } from 'firebase-functions/logger'
 
+// noinspection JSUnusedGlobalSymbols
 enum LogLevel {
   Trace = 10,
   Debug = 20,

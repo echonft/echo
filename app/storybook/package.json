@@ -28,7 +28,6 @@
     "zustand": "5.0.0"
   },
   "devDependencies": {
-    "@echo/api": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/ui": "workspace:*",
     "@echo/utils": "workspace:*",

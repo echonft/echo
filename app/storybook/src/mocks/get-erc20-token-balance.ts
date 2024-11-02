@@ -1,5 +1,4 @@
-import type { Erc20Token } from '@echo/model/types/erc20-token'
-import type { TokenBalance } from '@echo/model/types/token-balance'
+import type { Erc20Token, TokenBalance } from '@echo/model/types/token'
 
 export function getErc20TokenBalance(token: Erc20Token): Promise<TokenBalance<Erc20Token>> {
   switch (token.name) {

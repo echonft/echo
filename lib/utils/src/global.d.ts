@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import type { Awaitable } from '@echo/utils/types/awaitable'
 import 'ramda'
 import type { NonEmptyArray } from 'ramda'
@@ -66,6 +68,9 @@ declare module 'ramda' {
     K7 extends keyof S[K0][K1][K2][K3][K4][K5][K6],
     K8 extends keyof S[K0][K1][K2][K3][K4][K5][K6][K7]
   >(path: [K0, K1, K2, K3, K4, K5, K6, K7, K8]): (obj: S) => S[K0][K1][K2][K3][K4][K5][K6][K7][K8]
+  export function dissocPath<S, K0 extends keyof S, K1 extends keyof S[K0]>(
+    path: [K0, K1]
+  ): (obj: S) => Omit<S, K0> & Record<K0, Omit<S[K0], K1>>
   export function take<T>(n: number): (xs: T[]) => NonEmptyArray<T>
   export function reverse(str: string): string
   export function reverse<T extends T[]>(list: T): T

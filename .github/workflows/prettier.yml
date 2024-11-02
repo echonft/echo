@@ -27,8 +27,6 @@ jobs:
         run: pnpm exec turbo run prettier --filter=@echo/frontend -- --log-level=silent
       - name: storybook prettier
         run: pnpm exec turbo run prettier --filter=@echo/storybook -- --log-level=silent
-      - name: api prettier
-        run: pnpm exec turbo run prettier --filter=@echo/api -- --log-level=silent
       - name: backend prettier
         run: pnpm exec turbo run prettier --filter=@echo/backend -- --log-level=silent
       - name: firestore prettier

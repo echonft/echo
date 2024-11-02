@@ -1,6 +1,6 @@
-import type { Erc1155Nft } from '@echo/model/types/erc1155-nft'
-import type { NftCollection } from '@echo/model/types/nft'
-import type { Erc1155Token } from '@echo/model/types/erc1155-token'
+import type { Erc1155Nft, NftCollection } from '@echo/model/types/nft'
+
+import type { Erc1155Token } from '@echo/model/types/token'
 import { assoc, dissoc, modify, pipe } from 'ramda'
 
 export function erc1155NftToToken(nft: Erc1155Nft): Erc1155Token {

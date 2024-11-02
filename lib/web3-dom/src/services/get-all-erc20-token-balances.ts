@@ -1,5 +1,4 @@
-import type { Erc20Token } from '@echo/model/types/erc20-token'
-import type { TokenBalance } from '@echo/model/types/token-balance'
+import type { Erc20Token, TokenBalance } from '@echo/model/types/token'
 import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
 import { nonEmptyPromiseAll } from '@echo/utils/helpers/non-empty-promise-all'
 import { getErc20TokenBalance } from '@echo/web3-dom/services/get-erc20-token-balance'

@@ -1,7 +1,5 @@
 import { erc1155TokenMock, erc20TokenMock, erc721TokenMock } from '@echo/model/mocks/token-mock'
-import type { Erc1155Item } from '@echo/model/types/erc1155-item'
-import type { Erc20Item } from '@echo/model/types/erc20-item'
-import type { Erc721Item } from '@echo/model/types/erc721-item'
+import type { Erc1155Item, Erc20Item, Erc721Item } from '@echo/model/types/item'
 
 export const erc721ItemMock: Erc721Item = {
   token: erc721TokenMock

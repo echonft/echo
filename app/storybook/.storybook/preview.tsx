@@ -47,6 +47,8 @@ const preview: Preview = {
             <ActionsProvider
               actions={{
                 addWallet,
+                cancelListing,
+                createListing,
                 getOfferByIdContract,
                 getWalletStatus,
                 rejectOffer,
@@ -58,13 +60,11 @@ const preview: Preview = {
                 dependencies={{
                   approveErc721Contract,
                   areNftsInEscrow,
-                  cancelListing,
                   acceptOffer,
                   cancelOffer,
                   createOffer,
                   swap,
                   redeemOffer,
-                  createListing,
                   disconnectWallet,
                   getAccount,
                   getErc20TokenBalance,

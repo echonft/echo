@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import 'ramda'
 import 'next-auth'
 import '@auth/core'

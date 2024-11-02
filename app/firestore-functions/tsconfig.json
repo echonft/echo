@@ -5,7 +5,6 @@
     "outDir": "dist",
     "paths": {
       "@echo/firestore-functions/*": ["./src/*"],
-      "@echo/api/*": ["../../lib/api/src/*"],
       "@echo/backend/*": ["../../lib/backend/src/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],

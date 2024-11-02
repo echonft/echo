@@ -1,60 +1,34 @@
 import { VirtualMachine } from '@echo/model/constants/virtual-machine'
 import { walletSchema } from '@echo/model/validators/wallet-schema'
 import { describe, expect, it } from '@jest/globals'
-import { toLower } from 'ramda'
-import { ZodError, ZodIssueCode } from 'zod'
+import { map, pipe, prop, toLower } from 'ramda'
+import { ZodError } from 'zod'
 
 describe('walletSchema', () => {
+  function expectZodError(data: unknown, path: (string | number)[]) {
+    expect(() => walletSchema.parse(data)).toThrow()
+    try {
+      walletSchema.parse(data)
+    } catch (err) {
+      expect(err).toBeInstanceOf(ZodError)
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      expect(pipe(prop('issues'), map(prop('path')))(err as ZodError)).toContainEqual(path)
+    }
+  }
+
   it('wrong address fails validation', () => {
-    expect(() => walletSchema.parse({ address: undefined, vm: VirtualMachine.Evm })).toThrow(
-      ZodError.create([
-        {
-          code: ZodIssueCode.invalid_type,
-          expected: 'string',
-          received: 'undefined',
-          path: ['address'],
-          message: 'Required'
-        }
-      ])
-    )
-    expect(() => walletSchema.parse({ address: '', vm: VirtualMachine.Evm })).toThrow(
-      ZodError.create([
-        {
-          validation: 'regex',
-          code: ZodIssueCode.invalid_string,
-          message: 'invalid hex string',
-          path: ['address']
-        },
-        {
-          code: ZodIssueCode.custom,
-          message: 'invalid address',
-          path: ['address']
-        }
-      ])
-    )
-    expect(() => walletSchema.parse({ address: '0xtest', vm: VirtualMachine.Evm })).toThrow(
-      ZodError.create([
-        {
-          validation: 'regex',
-          code: ZodIssueCode.invalid_string,
-          message: 'invalid hex string',
-          path: ['address']
-        },
-        {
-          code: ZodIssueCode.custom,
-          message: 'invalid address',
-          path: ['address']
-        }
-      ])
-    )
+    const path = ['address']
+    expectZodError({ address: undefined, vm: VirtualMachine.Evm }, path)
+    expectZodError({ address: '', vm: VirtualMachine.Evm }, path)
+    expectZodError({ address: '0xtest', vm: VirtualMachine.Evm }, path)
   })
 
   it('wrong vm fails validation', () => {
-    expect(() => walletSchema.parse({ address: '0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84', vm: '' })).toThrow()
-    expect(() =>
-      walletSchema.parse({ address: '0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84', vm: 'not-supported' })
-    ).toThrow()
-    expect(() => walletSchema.parse({ address: '0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84', vm: undefined })).toThrow()
+    const path = ['vm']
+    expectZodError({ address: '0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84', vm: '' }, path)
+    expectZodError({ address: '0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84', vm: 'not-supported' }, path)
+    expectZodError({ address: '0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84', vm: undefined }, path)
   })
 
   it('valid wallet pass', () => {

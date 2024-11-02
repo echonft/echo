@@ -1,8 +1,6 @@
 import { TokenType } from '@echo/model/constants/token-type'
 import { collectionMockSpiral, nftCollectionMockPx } from '@echo/model/mocks/collection-mock'
-import type { Erc1155Token } from '@echo/model/types/erc1155-token'
-import type { Erc20Token } from '@echo/model/types/erc20-token'
-import type { Erc721Token } from '@echo/model/types/erc721-token'
+import type { Erc1155Token, Erc20Token, Erc721Token } from '@echo/model/types/token'
 
 export const erc721TokenMock: Erc721Token = {
   contract: collectionMockSpiral.contract,

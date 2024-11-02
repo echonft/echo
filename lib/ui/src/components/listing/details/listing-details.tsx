@@ -1,5 +1,4 @@
 'use client'
-import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import { ListingRole } from '@echo/model/constants/listing-role'
 import { listingItems } from '@echo/model/helpers/listing/listing-items'
 import { nftItemToNft } from '@echo/model/mappers/item/nft-item-to-nft'
@@ -16,15 +15,14 @@ import { TradeDetailsListingState } from '@echo/ui/components/trade/trade-detail
 import { UserDetails } from '@echo/ui/components/user/details/user-details'
 import { Alignment } from '@echo/ui/constants/alignments'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
-import { SWRKeys } from '@echo/ui/constants/swr-keys'
-import { useDependencies } from '@echo/ui/hooks/use-dependencies'
-import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
+import { errorCallback } from '@echo/ui/helpers/error-callback'
+import { useActions } from '@echo/ui/hooks/use-actions'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { assoc, pipe } from 'ramda'
-import { type FunctionComponent } from 'react'
+import { type FunctionComponent, useCallback, useState } from 'react'
 
 export interface ListingDetailsProps {
   // TODO update to have a listing where NFT items token are OwnedNft
@@ -35,18 +33,24 @@ export interface ListingDetailsProps {
 export const ListingDetails: FunctionComponent<ListingDetailsProps> = ({ listing, onUpdate }) => {
   const t = useTranslations('error.listing')
   // const router = useRouter()
-  const { cancelListing } = useDependencies()
-  const { trigger, isMutating } = useSWRTrigger<ListingResponse, Record<'slug', Slug>>({
-    key: SWRKeys.listing.cancel(listing),
-    fetcher: cancelListing,
-    onSuccess: (response) => {
-      onUpdate?.(assoc('role', listing.role, response.listing))
+  const [loading, setLoading] = useState(false)
+  const { cancelListing } = useActions()
+  const onCancel = useCallback(
+    async (slug: Slug) => {
+      try {
+        const cancelledListing = await cancelListing(slug)
+        onUpdate?.(assoc('role', listing.role, cancelledListing))
+      } catch (err) {
+        errorCallback({
+          alert: { severity: CalloutSeverity.Error, message: t('cancel') },
+          loggerContext: { listing }
+        })(err)
+      } finally {
+        setLoading(false)
+      }
     },
-    onError: {
-      alert: { severity: CalloutSeverity.Error, message: t('cancel') },
-      loggerContext: { component: ListingDetails.name, fetcher: cancelListing.name, listing }
-    }
-  })
+    [cancelListing, listing, onUpdate, t]
+  )
   const { target, creator, role } = listing
   const { collection } = target
   const { pictureUrl } = collection
@@ -71,9 +75,10 @@ export const ListingDetails: FunctionComponent<ListingDetailsProps> = ({ listing
       </TradeDetailsInfoLayout>
       <ListingDetailsButtons
         listing={listing}
-        isMutating={isMutating}
+        isMutating={loading}
         onCancel={(listing) => {
-          void trigger({ slug: listing.slug })
+          setLoading(true)
+          void onCancel(listing.slug)
         }}
         onFill={() => {
           // FIXME

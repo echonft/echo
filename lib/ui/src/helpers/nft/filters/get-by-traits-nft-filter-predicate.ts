@@ -1,5 +1,4 @@
-import type { Nft } from '@echo/model/types/nft'
-import type { NftAttribute } from '@echo/model/types/nft-attribute'
+import type { Nft, NftAttribute } from '@echo/model/types/nft'
 import type { TraitFilter } from '@echo/ui/types/trait-filter'
 import { intersects } from '@echo/utils/helpers/intersects'
 import type { Nullable } from '@echo/utils/types/nullable'

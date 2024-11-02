@@ -2,8 +2,8 @@
 
 import { ListingState } from '@echo/model/constants/listing-state'
 import { listingMock } from '@echo/model/mocks/listing-mock'
+import type { NftItem } from '@echo/model/types/item'
 import type { Listing } from '@echo/model/types/listing'
-import type { NftItem } from '@echo/model/types/nft-item'
 import { ListingCard } from '@echo/ui/components/listing/card/listing-card'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { always, assoc, head, modify, type NonEmptyArray, pipe, unless, values } from 'ramda'

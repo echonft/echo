@@ -7,7 +7,7 @@ import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-usernam
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { offerReceiverNftItems } from '@echo/model/helpers/offer/offer-receiver-nft-items'
 import { offerSenderNftItems } from '@echo/model/helpers/offer/offer-sender-nft-items'
-import type { NftItem } from '@echo/model/types/nft-item'
+import type { NftItem } from '@echo/model/types/item'
 import type { Offer } from '@echo/model/types/offer'
 import type { Username } from '@echo/model/types/username'
 import { type Client, userMention } from 'discord.js'

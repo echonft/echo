@@ -1,9 +1,7 @@
 import { TokenType } from '@echo/model/constants/token-type'
 import { nftCollectionMockPx, nftCollectionMockSpiral } from '@echo/model/mocks/collection-mock'
 import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
-import type { OwnedErc1155Nft } from '@echo/model/types/erc1155-nft'
-import type { OwnedErc721Nft } from '@echo/model/types/erc721-nft'
-import type { OwnedNft } from '@echo/model/types/nft'
+import type { OwnedErc1155Nft, OwnedErc721Nft, OwnedNft } from '@echo/model/types/nft'
 
 export const nftMockSpiral1: OwnedNft = {
   attributes: [

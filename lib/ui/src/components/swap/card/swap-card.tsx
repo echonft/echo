@@ -1,6 +1,6 @@
 'use client'
 import { swapSenderNftItems } from '@echo/model/helpers/swap/swap-sender-nft-items'
-import type { NftItem } from '@echo/model/types/nft-item'
+import type { NftItem } from '@echo/model/types/item'
 import type { Swap } from '@echo/model/types/swap'
 import { StackLayout } from '@echo/ui/components/base/stack/layout/stack-layout'
 import { StackFooter } from '@echo/ui/components/base/stack/stack-footer'

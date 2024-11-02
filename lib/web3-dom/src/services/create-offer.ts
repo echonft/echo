@@ -1,7 +1,7 @@
 import type { Chain } from '@echo/model/constants/chain'
 import { chainId } from '@echo/model/helpers/chain/chain-id'
-import type { BaseOffer } from '@echo/model/types/base-offer'
 import type { Item } from '@echo/model/types/item'
+import type { BaseOffer } from '@echo/model/types/offer'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import { echoAbi } from '@echo/web3/constants/echo-abi'

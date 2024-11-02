@@ -1,19 +1,26 @@
-import { assertNftsOwner } from '@echo/backend/helpers/nft/assert-owned-nfts'
+import { assertOwnedNfts } from '@echo/backend/helpers/nft/assert-owned-nfts'
 import { NftError } from '@echo/model/constants/errors/nft-error'
-import { eqUser } from '@echo/model/helpers/user/eq-user'
 import type { Nft, OwnedNft } from '@echo/model/types/nft'
-import type { User } from '@echo/model/types/user'
-import { listElementsEqWith } from '@echo/utils/helpers/list-elements-eq-with'
-import { complement, map, pipe, prop } from 'ramda'
+import type { Username } from '@echo/model/types/username'
+import { complement, equals, filter, length, map, path, pipe } from 'ramda'
 
 /**
- * @param nfts
- * @throws Error if the NFTs do not all have the same owner
+ * @param username
+ * @throws Error if the NFTs do not all have the same owner specified by username
  */
-export function assertNftsEqOwner(nfts: Nft[]): OwnedNft[] {
-  assertNftsOwner(nfts)
-  if (complement(pipe<[OwnedNft[]], User[], boolean>(map(prop('owner')), listElementsEqWith(eqUser)))(nfts)) {
-    throw Error(NftError.Ownership)
+export function assertNftsEqOwner(username: Username) {
+  return function (nfts: Nft[]): OwnedNft[] {
+    assertOwnedNfts(nfts)
+    if (
+      pipe(
+        map<OwnedNft, Username>(path(['owner', 'username'])),
+        filter(equals(username)),
+        length,
+        complement(equals(nfts.length))
+      )(nfts)
+    ) {
+      throw Error(NftError.Ownership)
+    }
+    return nfts
   }
-  return nfts
 }

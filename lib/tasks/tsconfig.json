@@ -5,7 +5,6 @@
     "outDir": "dist",
     "paths": {
       "@echo/tasks/*": ["src/*"],
-      "@echo/api/*": ["../api/src/*"],
       "@echo/backend/*": ["../backend/src/*"],
       "@echo/firestore/*": ["../firestore/src/*"],
       "@echo/model/*": ["../model/src/*"],

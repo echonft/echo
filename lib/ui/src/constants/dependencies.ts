@@ -1,5 +1,3 @@
-import { cancelListing } from '@echo/api/fetchers/cancel-listing'
-import { createListing } from '@echo/api/fetchers/create-listing'
 import type { Dependencies, LogoutOptions, SignInArgs } from '@echo/ui/components/providers/dependencies-provider'
 import { acceptOffer } from '@echo/web3-dom/services/accept-offer'
 import { approveErc721Contract } from '@echo/web3-dom/services/approve-erc721-contract'
@@ -33,9 +31,7 @@ export const dependencies: Dependencies = {
   acceptOffer,
   approveErc721Contract,
   areNftsInEscrow,
-  cancelListing,
   cancelOffer,
-  createListing,
   createOffer,
   disconnectWallet,
   getAccount: getAccount,

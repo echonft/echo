@@ -7,7 +7,7 @@ import { any, complement } from 'ramda'
  * @param nfts
  * @throws Error if one or more NFTs do not have an owner
  */
-export function assertNftsOwner(nfts: Nft[]): asserts nfts is OwnedNft[] {
+export function assertOwnedNfts(nfts: Nft[]): asserts nfts is OwnedNft[] {
   if (any(complement(isOwnedNft), nfts)) {
     throw Error(NftError.Ownership)
   }

@@ -2,6 +2,7 @@ import { useDependencies } from '@echo/ui/hooks/use-dependencies'
 import type { Awaitable } from '@echo/utils/types/awaitable'
 import { AccountStatus } from '@echo/web3-dom/constants/account-status'
 import type { AccountResult, AccountResultConnected } from '@echo/web3-dom/services/get-account'
+import { isNil } from 'ramda'
 import { useCallback, useEffect, useState } from 'react'
 
 interface Handlers {
@@ -34,8 +35,21 @@ export function useAccount(handlers?: Handlers): AccountResult {
   )
 
   useEffect(() => {
+    // trigger the handlers with the initial state
+    if (!isNil(onChange)) {
+      const account = getAccount()
+      if (account.status === AccountStatus.UnsupportedChain) {
+        handlers?.onUnsupportedChain?.(account)
+      }
+      if (account.status === AccountStatus.Connected) {
+        handlers?.onConnect?.(account)
+      }
+      if (account.status === AccountStatus.Disconnected) {
+        handlers?.onDisconnect?.(account)
+      }
+    }
     return watchAccount(onChange)
-  }, [watchAccount, onChange])
+  }, [watchAccount, onChange, getAccount, handlers])
 
   return account
 }

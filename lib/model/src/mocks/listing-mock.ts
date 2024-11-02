@@ -20,8 +20,7 @@ export const listingMock: Listing = {
         pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
         tokenId: 1,
         type: TokenType.Erc721
-      },
-      quantity: 1
+      }
     },
     {
       token: {
@@ -35,8 +34,7 @@ export const listingMock: Listing = {
         pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/c8ced259cc0a40a5a42d22182e82f9de',
         tokenId: 2,
         type: TokenType.Erc721
-      },
-      quantity: 1
+      }
     }
   ],
   locked: false,

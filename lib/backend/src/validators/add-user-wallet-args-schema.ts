@@ -3,18 +3,18 @@ import { chainById } from '@echo/model/helpers/chain/chain-by-id'
 import { chainId } from '@echo/model/helpers/chain/chain-id'
 import { walletFromContract } from '@echo/model/helpers/wallet/wallet-from-contract'
 import { base64DecodeSchema } from '@echo/model/validators/base64-decode-schema'
-import { contractAugmentation } from '@echo/model/validators/contract-schema'
+import { contractSchema } from '@echo/model/validators/contract-schema'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { modify, toLower } from 'ramda'
 import { SiweMessage } from 'siwe'
-import { NEVER, object, string, ZodIssueCode } from 'zod'
+import { NEVER, string, ZodIssueCode } from 'zod'
 
-export const addUserWalletArgsSchema = object({
-  nonce: string().min(1),
-  signature: base64DecodeSchema,
-  message: base64DecodeSchema
-})
-  .extend(contractAugmentation)
+export const addUserWalletArgsSchema = contractSchema
+  .extend({
+    nonce: string().min(1),
+    signature: base64DecodeSchema,
+    message: base64DecodeSchema
+  })
   .transform((params) => {
     return modify('message', (message) => new SiweMessage(message), params)
   })

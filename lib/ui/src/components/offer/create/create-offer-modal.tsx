@@ -2,9 +2,8 @@
 import type { Expiration } from '@echo/model/constants/expiration'
 import { expirationToDateNumber } from '@echo/model/helpers/expiration-to-date-number'
 import { buildBaseOffer } from '@echo/model/helpers/offer/build-base-offer'
-import type { BaseOffer } from '@echo/model/types/base-offer'
 import type { OwnedNft } from '@echo/model/types/nft'
-import type { Offer } from '@echo/model/types/offer'
+import type { BaseOffer, Offer } from '@echo/model/types/offer'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalDescription } from '@echo/ui/components/base/modal/modal-description'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
@@ -55,12 +54,13 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
         const idContract = await createOffer(baseOffer)
         const offer = await getOfferByIdContract(idContract)
         onSuccess?.(offer)
-        setLoading(false)
       } catch (err) {
         errorCallback({
           alert: { severity: CalloutSeverity.Error, message: tError('create') },
           loggerContext: { offer: baseOffer }
         })(err)
+      } finally {
+        setLoading(false)
       }
     },
     [createOffer, getOfferByIdContract, onSuccess, tError]

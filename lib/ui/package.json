@@ -49,7 +49,6 @@
     "@babel/preset-env": "7.26.0",
     "@babel/preset-react": "7.25.9",
     "@babel/preset-typescript": "7.26.0",
-    "@echo/api": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/routing": "workspace:*",
     "@echo/utils": "workspace:*",

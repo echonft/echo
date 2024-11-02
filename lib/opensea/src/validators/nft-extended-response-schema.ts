@@ -1,6 +1,6 @@
 import type { Chain } from '@echo/model/constants/chain'
 import type { Collection } from '@echo/model/types/collection'
-import type { NftAttribute } from '@echo/model/types/nft-attribute'
+import type { NftAttribute } from '@echo/model/types/nft'
 import { evmAddressSchema } from '@echo/model/validators/evm-address-schema'
 import type { PartialNft } from '@echo/opensea/types/partial-nft'
 import { nftResponseAugmentation } from '@echo/opensea/validators/nft-response-schema'

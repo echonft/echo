@@ -1,7 +1,8 @@
 import { buildBaseOffer } from '@echo/model/helpers/offer/build-base-offer'
 import { erc721NftToItem } from '@echo/model/mappers/nft/erc721-nft-to-item'
 import { nftMockPx3, nftMockSpiral1 } from '@echo/model/mocks/nft-mock'
-import type { OwnedErc721Nft } from '@echo/model/types/erc721-nft'
+
+import type { OwnedErc721Nft } from '@echo/model/types/nft'
 import { describe, expect, it } from '@jest/globals'
 import type { NonEmptyArray } from 'ramda'
 

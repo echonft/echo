@@ -23,7 +23,6 @@ const nextConfig = {
   },
   swcMinify: true,
   transpilePackages: [
-    '@echo/api',
     '@echo/backend',
     '@echo/firestore',
     '@echo/model',

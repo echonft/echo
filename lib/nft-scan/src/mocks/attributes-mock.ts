@@ -1,4 +1,4 @@
-import type { NftAttribute } from '@echo/model/types/nft-attribute'
+import type { NftAttribute } from '@echo/model/types/nft'
 
 export const attributesMock: NftAttribute[] = [
   { trait: 'Backgrounds', value: 'Purple' },

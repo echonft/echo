@@ -4,7 +4,7 @@ import { HeaderLayout } from '@echo/ui/components/base/header/header-layout'
 import { HeaderSearch } from '@echo/ui/components/base/header/header-search'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { EchoLogoSvg } from '@echo/ui/components/base/svg/echo-logo-svg'
-import { ConnectWalletButtonSkeleton } from '@echo/ui/components/wallet/skeleton/connect-wallet-button-skeleton'
+import { WalletButtonSkeleton } from '@echo/ui/components/wallet/skeleton/wallet-button-skeleton'
 import { HeaderStyle } from '@echo/ui/constants/header-style'
 import { useHeaderStore } from '@echo/ui/hooks/use-header-store'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -17,7 +17,7 @@ interface Props {
 
 const HeaderButton = dynamic(
   () => import('@echo/ui/components/base/header/header-button').then((mod) => mod.HeaderButton),
-  { ssr: false, loading: () => <ConnectWalletButtonSkeleton /> }
+  { ssr: false, loading: () => <WalletButtonSkeleton /> }
 )
 
 export const Header: FunctionComponent<Props> = ({ user }) => {

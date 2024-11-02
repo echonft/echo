@@ -6,19 +6,20 @@ import { assoc } from 'ramda'
 
 describe('helpers - nft - assertNftsEqOwner', () => {
   const ownedNft = nftMockSpiral1
+  const owner = nftMockSpiral1.owner.username
   const differentOwnerNft: OwnedNft = assoc('owner', assoc('username', 'other-username', ownedNft.owner), ownedNft)
 
-  test('does not throw if all the NFTs in the list have the same owner', () => {
+  test('does not throw if all the NFTs in the list have the owner passed as argument', () => {
     expect(() => {
-      assertNftsEqOwner([ownedNft, ownedNft, ownedNft, ownedNft, ownedNft])
+      assertNftsEqOwner(owner)([ownedNft, ownedNft, ownedNft, ownedNft, ownedNft])
     }).not.toThrow()
   })
-  test('throws if the NFTs in the list do not all have the same owner', () => {
+  test('throws if the NFTs in the list do not all have the owner passed as argument', () => {
     expect(() => {
-      assertNftsEqOwner([ownedNft, ownedNft, differentOwnerNft, ownedNft, ownedNft, ownedNft])
+      assertNftsEqOwner(owner)([ownedNft, ownedNft, differentOwnerNft, ownedNft, ownedNft, ownedNft])
     }).toThrow()
     expect(() => {
-      assertNftsEqOwner([ownedNft, ownedNft, differentOwnerNft, ownedNft, ownedNft, ownedNft, differentOwnerNft])
+      assertNftsEqOwner(owner)([ownedNft, ownedNft, differentOwnerNft, ownedNft, ownedNft, ownedNft, differentOwnerNft])
     }).toThrow()
   })
 })

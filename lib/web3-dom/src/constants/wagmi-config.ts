@@ -16,5 +16,3 @@ export const wagmiConfig = createConfig({
     })
   }
 })
-
-export type WagmiConfig = typeof wagmiConfig

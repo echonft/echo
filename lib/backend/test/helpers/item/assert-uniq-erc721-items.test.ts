@@ -1,7 +1,7 @@
 import { assertUniqErc721Items } from '@echo/backend/helpers/item/assert-uniq-erc721-items'
 import { erc1155ItemMock, erc721ItemMock } from '@echo/model/mocks/item-mock'
-import type { Erc1155Item } from '@echo/model/types/erc1155-item'
-import type { Erc721Item } from '@echo/model/types/erc721-item'
+
+import type { Erc1155Item, Erc721Item } from '@echo/model/types/item'
 import { describe, expect, test } from '@jest/globals'
 import { assocPath } from 'ramda'
 

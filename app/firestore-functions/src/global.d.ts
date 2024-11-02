@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import '@echo/utils/global'
 
 declare global {

@@ -1,9 +1,13 @@
 import { TokenType } from '@echo/model/constants/token-type'
 import { type Collection, type CollectionContract, type CollectionIndex } from '@echo/model/types/collection'
-import { type NftAttribute } from '@echo/model/types/nft-attribute'
 import { type UserWithWallet } from '@echo/model/types/user'
 
 export type NftCollection = Pick<Collection, 'contract' | 'name' | 'slug' | 'totalSupply'>
+
+export interface NftAttribute {
+  trait: string
+  value: string
+}
 
 export interface Nft {
   attributes: NftAttribute[]
@@ -29,4 +33,20 @@ export interface OwnedNft extends Omit<Nft, 'owner'> {
 
 export interface OwnedNftIndex extends NftIndex {
   owner: UserWithWallet
+}
+
+export interface Erc721Nft extends Omit<Nft, 'type'> {
+  type: TokenType.Erc721
+}
+
+export interface OwnedErc721Nft extends Omit<OwnedNft, 'type'> {
+  type: TokenType.Erc721
+}
+
+export interface Erc1155Nft extends Omit<Nft, 'type'> {
+  type: TokenType.Erc1155
+}
+
+export interface OwnedErc1155Nft extends Omit<OwnedNft, 'type'> {
+  type: TokenType.Erc1155
 }

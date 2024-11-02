@@ -4,7 +4,6 @@
     "baseUrl": ".",
     "paths": {
       "@echo/model/*": ["src/*"],
-      "@echo/api/*": ["../api/src/*"],
       "@echo/backend/*": ["../backend/src/*"],
       "@echo/firestore/*": ["../firestore/src/*"],
       "@echo/nft-scan/*": ["../nft-scan/src/*"],

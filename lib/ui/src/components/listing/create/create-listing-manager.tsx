@@ -1,25 +1,21 @@
 'use client'
-import type { CreateListingRequestBuilderArgs } from '@echo/api/types/request-builders/create-listing-request-builder-args'
-import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import type { Expiration } from '@echo/model/constants/expiration'
 import { erc721NftToItem } from '@echo/model/mappers/nft/erc721-nft-to-item'
 import type { Collection } from '@echo/model/types/collection'
-import type { Erc721Item } from '@echo/model/types/erc721-item'
-import type { Erc721Nft } from '@echo/model/types/erc721-nft'
+import type { Erc721Item } from '@echo/model/types/item'
 import type { Listing } from '@echo/model/types/listing'
-import type { OwnedNft } from '@echo/model/types/nft'
+import type { Erc721Nft, OwnedNft } from '@echo/model/types/nft'
 import { pathProvider } from '@echo/routing/constants/path-provider'
 import { CreateListing } from '@echo/ui/components/listing/create/create-listing'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
-import { SWRKeys } from '@echo/ui/constants/swr-keys'
-import { useDependencies } from '@echo/ui/hooks/use-dependencies'
-import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
+import { errorCallback } from '@echo/ui/helpers/error-callback'
+import { useActions } from '@echo/ui/hooks/use-actions'
 import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { type NonEmptyArray } from 'ramda'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent, useCallback, useState } from 'react'
 
 interface Props {
   creatorNfts: OwnedNft[]
@@ -30,35 +26,45 @@ interface Props {
 
 export const CreateListingManager: FunctionComponent<Props> = ({ creatorNfts, items, target }) => {
   const t = useTranslations('error.listing')
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
-  const { createListing } = useDependencies()
-  const { trigger, isMutating } = useSWRTrigger<ListingResponse, CreateListingRequestBuilderArgs>({
-    key: SWRKeys.listing.create,
-    fetcher: createListing,
-    onSuccess: ({ listing }) => {
-      router.replace(
-        pathProvider.collection.default.withQuery({ listing: listing }).getUrl({ slug: listing.target.collection.slug })
-      )
+  const { createListing } = useActions()
+
+  const onCreate = useCallback(
+    async (items: NonEmptyArray<OwnedNft>, target: Listing['target'], expiration: Expiration) => {
+      try {
+        const listing = await createListing({
+          // TODO add ERC1155
+          items: nonEmptyMap<Erc721Nft, Erc721Item>(erc721NftToItem, items as NonEmptyArray<Erc721Nft>),
+          target: target,
+          expiration
+        })
+        router.replace(
+          pathProvider.collection.default
+            .withQuery({ listing: listing })
+            .getUrl({ slug: listing.target.collection.slug })
+        )
+      } catch (err) {
+        errorCallback({
+          alert: { severity: CalloutSeverity.Error, message: t('new') },
+          loggerContext: { listing: { items, target, expiration } }
+        })(err)
+      } finally {
+        setLoading(false)
+      }
     },
-    onError: {
-      alert: { severity: CalloutSeverity.Error, message: t('new') },
-      loggerContext: { component: CreateListingManager.name, fetcher: createListing.name }
-    }
-  })
+    [createListing, router, t]
+  )
 
   return (
     <CreateListing
       creatorNfts={creatorNfts}
       items={items}
       target={target}
-      loading={isMutating}
+      loading={loading}
       onComplete={(items: NonEmptyArray<OwnedNft>, target: Listing['target'], expiration: Expiration) => {
-        void trigger({
-          // TODO add ERC1155
-          items: nonEmptyMap<Erc721Nft, Erc721Item>(erc721NftToItem, items as NonEmptyArray<Erc721Nft>),
-          target: target,
-          expiration
-        })
+        setLoading(true)
+        void onCreate(items, target, expiration)
       }}
       onCancel={() => {
         router.back()

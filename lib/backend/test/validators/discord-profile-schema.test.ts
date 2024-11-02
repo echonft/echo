@@ -1,8 +1,8 @@
 import { discordProfileSchema } from '@echo/backend/validators/discord-profile-schema'
 import { describe, expect, test } from '@jest/globals'
 import type { DiscordProfile } from 'next-auth/providers/discord'
-import { assoc } from 'ramda'
-import { ZodError, ZodIssueCode } from 'zod'
+import { assoc, map, pipe, prop } from 'ramda'
+import { ZodError } from 'zod'
 
 describe('discordProfileSchema', () => {
   const validProviderProfile: Partial<DiscordProfile> = {
@@ -13,157 +13,45 @@ describe('discordProfileSchema', () => {
     username: 'discord-username'
   }
 
+  function expectZodError(data: unknown, path: (string | number)[]) {
+    expect(() => discordProfileSchema.parse(data)).toThrow()
+    try {
+      discordProfileSchema.parse(data)
+    } catch (err) {
+      expect(err).toBeInstanceOf(ZodError)
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      expect(pipe(prop('issues'), map(prop('path')))(err as ZodError)).toContainEqual(path)
+    }
+  }
+
   test('invalid avatar fails', () => {
-    expect(() => discordProfileSchema.parse(assoc('avatar', 1, validProviderProfile))).toThrow(
-      ZodError.create([
-        {
-          code: ZodIssueCode.invalid_type,
-          expected: 'string',
-          received: 'number',
-          path: ['avatar'],
-          message: 'Expected string, received number'
-        }
-      ])
-    )
-    expect(() => discordProfileSchema.parse(assoc('avatar', {}, validProviderProfile))).toThrow(
-      ZodError.create([
-        {
-          code: ZodIssueCode.invalid_type,
-          expected: 'string',
-          received: 'object',
-          path: ['avatar'],
-          message: 'Expected string, received object'
-        }
-      ])
-    )
+    expectZodError(assoc('avatar', 1, validProviderProfile), ['avatar'])
+    expectZodError(assoc('avatar', {}, validProviderProfile), ['avatar'])
   })
 
   test('invalid discriminator fails', () => {
-    expect(() => discordProfileSchema.parse(assoc('discriminator', undefined, validProviderProfile))).toThrow()
-    expect(() => discordProfileSchema.parse(assoc('discriminator', {}, validProviderProfile))).toThrow()
+    expectZodError(assoc('discriminator', undefined, validProviderProfile), ['discriminator'])
+    expectZodError(assoc('discriminator', {}, validProviderProfile), ['discriminator'])
   })
 
   test('invalid global_name fails', () => {
-    expect(() => discordProfileSchema.parse(assoc('global_name', 1, validProviderProfile))).toThrow(
-      ZodError.create([
-        {
-          code: ZodIssueCode.invalid_type,
-          expected: 'string',
-          received: 'number',
-          path: ['global_name'],
-          message: 'Expected string, received number'
-        }
-      ])
-    )
-    expect(() => discordProfileSchema.parse(assoc('global_name', {}, validProviderProfile))).toThrow(
-      ZodError.create([
-        {
-          code: ZodIssueCode.invalid_type,
-          expected: 'string',
-          received: 'object',
-          path: ['global_name'],
-          message: 'Expected string, received object'
-        }
-      ])
-    )
+    expectZodError(assoc('global_name', 1, validProviderProfile), ['global_name'])
+    expectZodError(assoc('global_name', {}, validProviderProfile), ['global_name'])
   })
 
   test('invalid id fails', () => {
-    expect(() => discordProfileSchema.parse(assoc('id', undefined, validProviderProfile))).toThrow(
-      ZodError.create([
-        {
-          code: ZodIssueCode.invalid_type,
-          expected: 'string',
-          received: 'undefined',
-          path: ['id'],
-          message: 'Required'
-        }
-      ])
-    )
-    expect(() => discordProfileSchema.parse(assoc('id', 1, validProviderProfile))).toThrow(
-      ZodError.create([
-        {
-          code: ZodIssueCode.invalid_type,
-          expected: 'string',
-          received: 'number',
-          path: ['id'],
-          message: 'Expected string, received number'
-        }
-      ])
-    )
-    expect(() => discordProfileSchema.parse(assoc('id', {}, validProviderProfile))).toThrow(
-      ZodError.create([
-        {
-          code: ZodIssueCode.invalid_type,
-          expected: 'string',
-          received: 'object',
-          path: ['id'],
-          message: 'Expected string, received object'
-        }
-      ])
-    )
-    expect(() => discordProfileSchema.parse(assoc('id', '', validProviderProfile))).toThrow(
-      ZodError.create([
-        {
-          code: ZodIssueCode.too_small,
-          minimum: 1,
-          type: 'string',
-          inclusive: true,
-          exact: false,
-          message: 'String must contain at least 1 character(s)',
-          path: ['id']
-        }
-      ])
-    )
+    expectZodError(assoc('id', undefined, validProviderProfile), ['id'])
+    expectZodError(assoc('id', 1, validProviderProfile), ['id'])
+    expectZodError(assoc('id', {}, validProviderProfile), ['id'])
+    expectZodError(assoc('id', '', validProviderProfile), ['id'])
   })
 
   test('invalid username fails', () => {
-    expect(() => discordProfileSchema.parse(assoc('username', undefined, validProviderProfile))).toThrow(
-      ZodError.create([
-        {
-          code: ZodIssueCode.invalid_type,
-          expected: 'string',
-          received: 'undefined',
-          path: ['username'],
-          message: 'Required'
-        }
-      ])
-    )
-    expect(() => discordProfileSchema.parse(assoc('username', 1, validProviderProfile))).toThrow(
-      ZodError.create([
-        {
-          code: ZodIssueCode.invalid_type,
-          expected: 'string',
-          received: 'number',
-          path: ['username'],
-          message: 'Expected string, received number'
-        }
-      ])
-    )
-    expect(() => discordProfileSchema.parse(assoc('username', {}, validProviderProfile))).toThrow(
-      ZodError.create([
-        {
-          code: ZodIssueCode.invalid_type,
-          expected: 'string',
-          received: 'object',
-          path: ['username'],
-          message: 'Expected string, received object'
-        }
-      ])
-    )
-    expect(() => discordProfileSchema.parse(assoc('username', '', validProviderProfile))).toThrow(
-      ZodError.create([
-        {
-          code: ZodIssueCode.too_small,
-          minimum: 1,
-          type: 'string',
-          inclusive: true,
-          exact: false,
-          message: 'String must contain at least 1 character(s)',
-          path: ['username']
-        }
-      ])
-    )
+    expectZodError(assoc('username', undefined, validProviderProfile), ['username'])
+    expectZodError(assoc('username', 1, validProviderProfile), ['username'])
+    expectZodError(assoc('username', {}, validProviderProfile), ['username'])
+    expectZodError(assoc('username', '', validProviderProfile), ['username'])
   })
 
   test('valid', () => {

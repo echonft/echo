@@ -28,7 +28,6 @@
     "@babel/core": "7.26.0",
     "@babel/preset-env": "7.26.0",
     "@babel/preset-typescript": "7.26.0",
-    "@echo/api": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/routing": "workspace:*",

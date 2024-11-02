@@ -1,5 +1,4 @@
-import type { Erc20Token } from '@echo/model/types/erc20-token'
-import type { TokenBalance } from '@echo/model/types/token-balance'
+import type { Erc20Token, TokenBalance } from '@echo/model/types/token'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import { getAccount } from '@echo/web3-dom/services/get-account'

@@ -1,4 +1,5 @@
 // noinspection JSUnusedGlobalSymbols
+
 import '@echo/utils/global'
 import 'next-auth'
 import '@auth/core'

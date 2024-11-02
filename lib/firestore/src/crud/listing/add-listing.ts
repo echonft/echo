@@ -13,9 +13,11 @@ import { type Listing } from '@echo/model/types/listing'
 import { nowMsSlug } from '@echo/utils/helpers/now-ms-slug'
 import { assoc, dissoc, isNil, pipe } from 'ramda'
 
-export async function addListing(
-  args: Pick<Listing, 'creator' | 'items' | 'target'> & Record<'expiration', Expiration>
-): Promise<NewDocument<ListingDocument>> {
+export interface AddListingArgs extends Pick<Listing, 'creator' | 'items' | 'target'> {
+  expiration: Expiration
+}
+
+export async function addListing(args: AddListingArgs): Promise<NewDocument<ListingDocument>> {
   const signature = listingSignature(args)
   const listing = await getListingBySignature(signature)
   if (!isNil(listing)) {

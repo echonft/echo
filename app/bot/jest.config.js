@@ -6,7 +6,6 @@ export default {
   coverageReporters: ['json-summary', 'text'],
   moduleNameMapper: {
     '^@echo/bot/(.*)$': '<rootDir>/src/$1',
-    '^@echo/api/(.*)$': '<rootDir>/../../lib/api/src/$1',
     '^@echo/backend/(.*)$': '<rootDir>/../../lib/backend/src/$1',
     '^@echo/firestore/(.*)$': '<rootDir>/../../lib/firestore/src/$1',
     '^@echo/model/(.*)$': '<rootDir>/../../lib/model/src/$1',

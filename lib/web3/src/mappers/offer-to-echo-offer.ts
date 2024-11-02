@@ -1,6 +1,6 @@
 import { chainId } from '@echo/model/helpers/chain/chain-id'
-import type { BaseOffer } from '@echo/model/types/base-offer'
 import type { Item } from '@echo/model/types/item'
+import type { BaseOffer } from '@echo/model/types/offer'
 import { EchoOfferState } from '@echo/web3/constants/echo-offer-state'
 import type { EchoOffer } from '@echo/web3/types/echo-offer'
 import { always, applySpec, head, map, type NonEmptyArray, path, pipe, prop } from 'ramda'

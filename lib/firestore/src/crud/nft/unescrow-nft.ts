@@ -1,5 +1,5 @@
 import { getEscrowedNftSnapshot } from '@echo/firestore/crud/nft/get-escrowed-nft-snapshot'
-import { getNftReferenceById } from '@echo/firestore/crud/nft/get-nft-by-id'
+import { getNftReferenceById } from '@echo/firestore/crud/nft/get-nft-reference-by-id'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { escrowedNftsCollection } from '@echo/firestore/helpers/collection/collections'
 import { deleteReference } from '@echo/firestore/helpers/reference/delete-reference'

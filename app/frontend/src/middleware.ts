@@ -1,8 +1,7 @@
+import { apiPathProvider } from '@echo/routing/constants/api-path-provider'
 import { pathProvider } from '@echo/routing/constants/path-provider'
 import { baseUrl } from '@echo/routing/helpers/base-url'
 import { isApiPath } from '@echo/routing/path/is-api-path'
-import { isApiPathSecure } from '@echo/routing/path/is-api-path-secure'
-import { isApiWebhookPath } from '@echo/routing/path/is-api-webhook-path'
 import { isPathSecure } from '@echo/routing/path/is-path-secure'
 import type { PathString } from '@echo/routing/types/path-string'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
@@ -46,13 +45,8 @@ const { auth } = NextAuth({
 })
 export default auth((req): void | Response | Promise<void | Response> => {
   const path = req.nextUrl.pathname as PathString
-  // console.log(`--------- MIDDLEWARE --------`)
-  // console.log(`auth ${JSON.stringify(auth)}`)
   if (isApiPath(path)) {
-    if (isApiPathSecure(path) && isNilOrEmpty(req.auth?.user)) {
-      return NextResponse.json('unauthorized', { status: 401 })
-    }
-    if (!isApiWebhookPath(path)) {
+    if (apiPathProvider.ipfs.proxy.test(path)) {
       // set CORS headers
       const allowedOrigins = [baseUrl()]
       const corsOptions = {
