@@ -5,6 +5,8 @@ import { userToSearchResult } from '@echo/model/mappers/user/user-to-search-resu
 import { collectionMockPx, collectionMockSpiral } from '@echo/model/mocks/collection-mock'
 import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
 import type { SearchResult } from '@echo/model/types/search-result'
+import type { Slug } from '@echo/model/types/slug'
+import type { Username } from '@echo/model/types/username'
 import { SearchResultsPanel } from '@echo/ui/components/base/search/search-results-panel'
 import { Combobox } from '@headlessui/react'
 import type { Meta, StoryObj } from '@storybook/react'
@@ -13,7 +15,7 @@ import { type FunctionComponent, useMemo } from 'react'
 
 type ComponentType = FunctionComponent<{
   showCategories: boolean
-  onSelect: (selection: SearchResult<string>) => void
+  onSelect: (selection: SearchResult<Username>) => void
 }>
 
 const metadata: Meta<ComponentType> = {
@@ -46,7 +48,7 @@ export const Default: StoryObj<ComponentType> = {
     const users = [userMockCrew, userMockJohnny]
     const results = useMemo(() => {
       if (showCategories) {
-        return concat<SearchResult<string>, SearchResult<string>>(
+        return concat<SearchResult<Username>, SearchResult<Slug>>(
           map(collectionToSearchResult, collections),
           map(userToSearchResult, users)
         )

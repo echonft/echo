@@ -1,7 +1,7 @@
 import { walletMockCrew, walletMockJohnny } from '@echo/model/mocks/wallet-mock'
-import type { User, UserWithWallet } from '@echo/model/types/user'
+import type { User } from '@echo/model/types/user'
 
-export const userMockCrew: UserWithWallet = {
+export const userMockCrew: User & Required<Pick<User, 'wallet'>> = {
   username: 'crewnft_',
   discord: {
     username: 'crewnft_',
@@ -11,7 +11,7 @@ export const userMockCrew: UserWithWallet = {
   wallet: walletMockCrew
 }
 
-export const userMockJohnny: UserWithWallet = {
+export const userMockJohnny: User & Required<Pick<User, 'wallet'>> = {
   username: 'johnnycagewins',
   discord: {
     username: 'johnnycagewins',

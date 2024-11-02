@@ -5,7 +5,7 @@ import type { User } from '@echo/model/types/user'
 import type { Username } from '@echo/model/types/username'
 import { always, applySpec, concat, path, pipe, prop } from 'ramda'
 
-export function userToSearchResult(user: User): SearchResult<Username> {
+export function userToSearchResult(user: Pick<User, 'discord' | 'username'>): SearchResult<Username> {
   return applySpec<SearchResult<Username>>({
     category: always(SearchResultCategory.User),
     label: path(['discord', 'username']),

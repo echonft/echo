@@ -1,6 +1,6 @@
 'use server'
 import { AuthError } from '@echo/backend/errors/messages/auth-error'
-import { getAuthUser } from '@echo/backend/helpers/auth/get-auth-user'
+import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
 import { addNonce } from '@echo/firestore/crud/nonce/add-nonce'
 import { getNonce } from '@echo/firestore/crud/nonce/get-nonce'
 import { getUserSnapshotByUsername } from '@echo/firestore/crud/user/get-user-by-username'
@@ -30,7 +30,7 @@ export async function getWalletStatus(args: Contract): Promise<GetWalletStatusRe
   }
   const wallet = contractSchema.transform(walletFromContract).parse(args)
   await initializeFirebase()
-  const userSnapshot = await getUserSnapshotByUsername(authUser.username)
+  const userSnapshot = await getUserSnapshotByUsername(authUser)
   if (isNil(userSnapshot)) {
     return Promise.reject(Error(UserError.NotFound))
   }

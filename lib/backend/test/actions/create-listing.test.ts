@@ -1,6 +1,6 @@
 import { createListing } from '@echo/backend/actions/create-listing'
 import { AuthError } from '@echo/backend/errors/messages/auth-error'
-import { getAuthUser } from '@echo/backend/helpers/auth/get-auth-user'
+import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
 import { addListing, type AddListingArgs } from '@echo/firestore/crud/listing/add-listing'
 import { getListingBySignature } from '@echo/firestore/crud/listing/get-listing-by-signature'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
@@ -28,7 +28,7 @@ import { getTokenBalance } from '@echo/web3/services/get-token-balance'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { andThen, assocPath, dissoc, find, modify, pipe } from 'ramda'
 
-jest.mock('@echo/backend/helpers/auth/get-auth-user')
+jest.mock('@echo/backend/helpers/get-auth-user')
 jest.mock('@echo/firestore/services/initialize-firebase')
 jest.mock('@echo/firestore/crud/listing/add-listing')
 jest.mock('@echo/firestore/crud/listing/get-listing-by-signature')
@@ -50,7 +50,7 @@ describe('createListing', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
-    jest.mocked(getAuthUser).mockResolvedValue(userMockJohnny)
+    jest.mocked(getAuthUser).mockResolvedValue(userMockJohnny.username)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-empty-function

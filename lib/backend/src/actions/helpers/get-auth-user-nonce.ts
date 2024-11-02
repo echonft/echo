@@ -1,5 +1,5 @@
 import { AuthError } from '@echo/backend/errors/messages/auth-error'
-import { getAuthUser } from '@echo/backend/helpers/auth/get-auth-user'
+import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
 import { addNonce } from '@echo/firestore/crud/nonce/add-nonce'
 import { getNonce } from '@echo/firestore/crud/nonce/get-nonce'
 import { getUserSnapshotByUsername } from '@echo/firestore/crud/user/get-user-by-username'
@@ -9,11 +9,11 @@ import { isNil } from 'ramda'
 import { generateNonce } from 'siwe'
 
 export async function getAuthUserNonce(): Promise<NonceDocument> {
-  const user = await getAuthUser()
-  if (isNil(user)) {
+  const authUser = await getAuthUser()
+  if (isNil(authUser)) {
     return Promise.reject(Error(AuthError.Unauthorized))
   }
-  const userSnapshot = await getUserSnapshotByUsername(user.username)
+  const userSnapshot = await getUserSnapshotByUsername(authUser)
   if (isNil(userSnapshot)) {
     return Promise.reject(Error(UserError.NotFound))
   }

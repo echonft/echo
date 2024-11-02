@@ -13,7 +13,7 @@ import type { Erc721Item } from '@echo/model/types/item'
 
 import type { OwnedErc721Nft } from '@echo/model/types/nft'
 import type { BaseOffer } from '@echo/model/types/offer'
-import type { UserWithWallet } from '@echo/model/types/user'
+import type { User } from '@echo/model/types/user'
 import { isNonEmptyArray } from '@echo/utils/helpers/is-non-empty-array'
 import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
 import { nonEmptyPromiseAll } from '@echo/utils/helpers/non-empty-promise-all'
@@ -24,7 +24,7 @@ type EchoOfferItems = EchoOffer['senderItems']
 type EchoOfferItem = EchoOfferItems['items'][number]
 
 interface Erc721ItemWithOwner extends Erc721Item {
-  owner: UserWithWallet
+  owner: User & Required<Pick<User, 'wallet'>>
 }
 
 // TODO add ERC20 and ERC1155
@@ -67,11 +67,15 @@ export async function echoOfferToBaseOffer(contractOffer: EchoOffer): Promise<Ba
   if (!isNonEmptyArray(receiverItems)) {
     return Promise.reject(new BadRequestError({ severity: 'warning' }))
   }
-  const receiver = pipe<[NonEmptyArray<Erc721ItemWithOwner>], Erc721ItemWithOwner, UserWithWallet>(
+  const receiver = pipe<
+    [NonEmptyArray<Erc721ItemWithOwner>],
+    Erc721ItemWithOwner,
+    User & Required<Pick<User, 'wallet'>>
+  >(
     head,
     prop('owner')
   )(receiverItems)
-  const sender = pipe<[NonEmptyArray<Erc721ItemWithOwner>], Erc721ItemWithOwner, UserWithWallet>(
+  const sender = pipe<[NonEmptyArray<Erc721ItemWithOwner>], Erc721ItemWithOwner, User & Required<Pick<User, 'wallet'>>>(
     head,
     prop('owner')
   )(senderItems)

@@ -1,6 +1,6 @@
 'use server'
 import { AuthError } from '@echo/backend/errors/messages/auth-error'
-import { getAuthUser } from '@echo/backend/helpers/auth/get-auth-user'
+import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
 import { offerDocumentToModel } from '@echo/firestore/converters/offer-document-to-model'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { rejectOffer as firestoreRejectOffer } from '@echo/firestore/crud/offer/reject-offer'
@@ -20,7 +20,7 @@ export async function rejectOffer(slug: Slug): Promise<Offer> {
   if (isNil(offer)) {
     return Promise.reject(Error(OfferError.NotFound))
   }
-  if (offer.locked || offer.receiver.username !== authUser.username) {
+  if (offer.locked || offer.receiver.username !== authUser) {
     return Promise.reject(Error(AuthError.Forbidden))
   }
   return pipe(firestoreRejectOffer, andThen(offerDocumentToModel))(slug)

@@ -1,6 +1,6 @@
 'use server'
 import { AuthError } from '@echo/backend/errors/messages/auth-error'
-import { getAuthUser } from '@echo/backend/helpers/auth/get-auth-user'
+import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
 import { listingDocumentToModel } from '@echo/firestore/converters/listing-document-to-model'
 import { cancelListing as firestoreCancelListing } from '@echo/firestore/crud/listing/cancel-listing'
 import { getListing } from '@echo/firestore/crud/listing/get-listing'
@@ -20,7 +20,7 @@ export async function cancelListing(slug: Slug): Promise<Listing> {
   if (isNil(listing)) {
     return Promise.reject(Error(ListingError.NotFound))
   }
-  if (listing.locked || listing.creator.username !== authUser.username) {
+  if (listing.locked || listing.creator.username !== authUser) {
     return Promise.reject(Error(AuthError.Forbidden))
   }
   return pipe(firestoreCancelListing, andThen(listingDocumentToModel))(slug)

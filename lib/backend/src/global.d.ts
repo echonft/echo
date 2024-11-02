@@ -4,12 +4,12 @@ import 'ramda'
 import 'next-auth'
 import '@auth/core'
 import '@echo/utils/global'
-import type { User, User as ModelUser } from '@echo/model/types/user'
+import type { Username } from '@echo/model/types/username'
 import type { Awaitable } from '@echo/utils/types/awaitable'
 import type { Nullable } from '@echo/utils/types/nullable'
 
 declare module '@sentry/nextjs' {
-  export declare function setUser(user: Nullable<User>): void
+  export declare function setUser(username: Username): void
 }
 
 declare module 'ramda' {
@@ -24,26 +24,16 @@ declare module 'next/server' {
 }
 
 declare module 'next-auth' {
-  interface User extends ModelUser {}
+  interface User {
+    username: Username
+  }
 
   interface JWT {
-    user?: ModelUser
+    user?: Nullable<User>
   }
 
   interface Session {
-    user?: ModelUser
-  }
-}
-
-declare module '@auth/core' {
-  interface User extends ModelUser {}
-
-  interface JWT {
-    user?: ModelUser
-  }
-
-  interface Session {
-    user?: ModelUser
+    user?: Nullable<User>
   }
 }
 

@@ -1,6 +1,6 @@
 'use server'
 import { AuthError } from '@echo/backend/errors/messages/auth-error'
-import { getAuthUser } from '@echo/backend/helpers/auth/get-auth-user'
+import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
 import { assertItemsChain } from '@echo/backend/helpers/item/assert-items-chain'
 import { assertUniqErc1155Items } from '@echo/backend/helpers/item/assert-uniq-erc1155-items'
 import { assertUniqErc721Items } from '@echo/backend/helpers/item/assert-uniq-erc721-items'
@@ -19,8 +19,8 @@ import { UserError } from '@echo/model/constants/errors/user-error'
 import { WalletError } from '@echo/model/constants/errors/wallet-error'
 import { isErc1155Item } from '@echo/model/helpers/item/is-erc1155-item'
 import { listingSignature } from '@echo/model/helpers/listing/listing-signature'
+import { userHasWallet } from '@echo/model/helpers/user/user-has-wallet'
 import type { Listing } from '@echo/model/types/listing'
-import type { UserWithWallet } from '@echo/model/types/user'
 import { unlessNil } from '@echo/utils/helpers/unless-nil'
 import { getTokenBalance } from '@echo/web3/services/get-token-balance'
 import { andThen, equals, filter, isNil, pipe, prop } from 'ramda'
@@ -32,11 +32,11 @@ export async function createListing(args: Omit<AddListingArgs, 'creator'>): Prom
     return Promise.reject(Error(AuthError.Unauthorized))
   }
   await initializeFirebase()
-  const owner = await pipe(getUserByUsername, andThen(unlessNil(userDocumentToModel)))(authUser.username)
+  const owner = await pipe(getUserByUsername, andThen(unlessNil(userDocumentToModel)))(authUser)
   if (isNil(owner)) {
     return Promise.reject(Error(UserError.NotFound))
   }
-  if (isNil(owner.wallet)) {
+  if (!userHasWallet(owner)) {
     return Promise.reject(Error(WalletError.NotFound))
   }
   // Ensure all items are unique and on the same chain
@@ -68,7 +68,7 @@ export async function createListing(args: Omit<AddListingArgs, 'creator'>): Prom
     }
   }
   // Ensure listing is not a duplicate
-  const signature = listingSignature({ creator: owner as UserWithWallet, items, target })
+  const signature = listingSignature({ creator: owner, items, target })
   const existingListing = await getListingBySignature(signature)
   if (!isNil(existingListing)) {
     return Promise.reject(Error(ListingError.Exists))
@@ -76,5 +76,5 @@ export async function createListing(args: Omit<AddListingArgs, 'creator'>): Prom
   return pipe(
     addListing,
     andThen(pipe(prop('data'), listingDocumentToModel))
-  )({ creator: owner as UserWithWallet, expiration, items, target })
+  )({ creator: owner, expiration, items, target })
 }

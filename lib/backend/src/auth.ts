@@ -1,12 +1,13 @@
+import { AuthError } from '@echo/backend/errors/messages/auth-error'
+import { error } from '@echo/backend/helpers/logger'
 import { discordProfileSchema } from '@echo/backend/validators/discord-profile-schema'
-import { userDocumentToModel } from '@echo/firestore/converters/user-document-to-model'
-import { addUser, type AddUserArgs, type AddUserReturn } from '@echo/firestore/crud/user/add-user'
+import { addUser } from '@echo/firestore/crud/user/add-user'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import type { UserDocument } from '@echo/firestore/types/model/user-document'
+import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { propIsNil } from '@echo/utils/helpers/prop-is-nil'
-import NextAuth, { type NextAuthResult, type User } from 'next-auth'
+import NextAuth, { type NextAuthResult } from 'next-auth'
 import Discord, { type DiscordProfile } from 'next-auth/providers/discord'
-import { andThen, assoc, dissoc, either, isNil, objOf, path, pipe } from 'ramda'
+import { assoc, either, isNil } from 'ramda'
 import { generateNonce } from 'siwe'
 
 const {
@@ -15,10 +16,10 @@ const {
 }: NextAuthResult = NextAuth({
   callbacks: {
     jwt: function ({ token, user }) {
-      if (!isNil(user)) {
-        return assoc('user', dissoc('id', user), token)
+      if (isNilOrEmpty(user)) {
+        return token
       }
-      return token
+      return assoc('user', user, token)
     },
     session: function ({ session, token }) {
       if (either(isNil, propIsNil<typeof token, 'user'>('user'))(token)) {
@@ -36,20 +37,14 @@ const {
       profile: async (profile: DiscordProfile, _token) => {
         await initializeFirebase()
         const nonce = generateNonce()
-        return pipe<
-          [DiscordProfile],
-          UserDocument,
-          Record<'user', UserDocument>,
-          AddUserArgs,
-          Promise<AddUserReturn>,
-          Promise<User>
-        >(
-          (profile) => discordProfileSchema.parse(profile),
-          objOf('user'),
-          assoc('nonce', nonce),
-          addUser,
-          andThen(pipe(path(['user', 'data']), userDocumentToModel, assoc('id', profile.id)))
-        )(profile)
+        const user = discordProfileSchema.parse(profile)
+        try {
+          await addUser({ nonce, user })
+          return { id: user.username, username: user.username }
+        } catch (err) {
+          error({ err, user }, AuthError.AddUser)
+          return { id: user.username, username: user.username }
+        }
       }
     })
   ]

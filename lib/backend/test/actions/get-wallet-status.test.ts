@@ -1,6 +1,6 @@
 import { getWalletStatus } from '@echo/backend/actions/get-wallet-status'
 import { AuthError } from '@echo/backend/errors/messages/auth-error'
-import { getAuthUser } from '@echo/backend/helpers/auth/get-auth-user'
+import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
 import { addNonce } from '@echo/firestore/crud/nonce/add-nonce'
 import { getNonce } from '@echo/firestore/crud/nonce/get-nonce'
 import { getUserSnapshotByUsername } from '@echo/firestore/crud/user/get-user-by-username'
@@ -15,7 +15,7 @@ import type { Contract } from '@echo/model/types/contract'
 import { beforeEach, describe, expect, jest, test } from '@jest/globals'
 import { assoc, dissoc } from 'ramda'
 
-jest.mock('@echo/backend/helpers/auth/get-auth-user')
+jest.mock('@echo/backend/helpers/get-auth-user')
 jest.mock('@echo/firestore/services/initialize-firebase')
 jest.mock('@echo/firestore/crud/user/get-user-by-username')
 jest.mock('@echo/firestore/crud/user/get-user-by-wallet')
@@ -30,7 +30,7 @@ describe('getWalletStatus', () => {
   const nonce = 'nonce'
   beforeEach(() => {
     jest.clearAllMocks()
-    jest.mocked(getAuthUser).mockResolvedValue(userMockJohnny)
+    jest.mocked(getAuthUser).mockResolvedValue(userMockJohnny.username)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-empty-function

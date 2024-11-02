@@ -12,4 +12,3 @@ export interface User {
 }
 
 export type UserIndex = Pick<User, 'username'>
-export type UserWithWallet = Omit<User, 'wallet'> & Record<'wallet', Wallet>

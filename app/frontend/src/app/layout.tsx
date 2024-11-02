@@ -5,6 +5,7 @@ import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import type { User } from '@echo/model/types/user'
 import { baseUrl } from '@echo/routing/helpers/base-url'
 import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
+import { HeaderSkeleton } from '@echo/ui/components/base/header/skeleton/header-skeleton'
 import { Dependencies } from '@echo/ui/components/base/layout/dependencies'
 import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
@@ -99,7 +100,9 @@ interface Props {
   user: User
 }
 
-const Header = dynamic(() => import('@echo/ui/components/base/header/header').then((mod) => mod.Header))
+const Header = dynamic(() => import('@echo/ui/components/base/header/header').then((mod) => mod.Header), {
+  loading: () => <HeaderSkeleton />
+})
 
 async function render({ user, children }: PropsWithChildren<Props>) {
   const locale = 'en'

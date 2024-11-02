@@ -1,6 +1,6 @@
 import { TokenType } from '@echo/model/constants/token-type'
 import { type Collection, type CollectionContract, type CollectionIndex } from '@echo/model/types/collection'
-import { type UserWithWallet } from '@echo/model/types/user'
+import { type User } from '@echo/model/types/user'
 
 export type NftCollection = Pick<Collection, 'contract' | 'name' | 'slug' | 'totalSupply'>
 
@@ -13,7 +13,7 @@ export interface Nft {
   attributes: NftAttribute[]
   collection: NftCollection
   name: string
-  owner?: UserWithWallet
+  owner?: User & Required<Pick<User, 'wallet'>>
   pictureUrl?: string
   tokenId: number
   type: TokenType.Erc721 | TokenType.Erc1155
@@ -27,12 +27,10 @@ export interface NftWithContract extends Omit<NftIndex, 'collection'> {
   collection: CollectionContract
 }
 
-export interface OwnedNft extends Omit<Nft, 'owner'> {
-  owner: UserWithWallet
-}
+export type OwnedNft = Nft & Required<Pick<Nft, 'owner'>>
 
 export interface OwnedNftIndex extends NftIndex {
-  owner: UserWithWallet
+  owner: User
 }
 
 export interface Erc721Nft extends Omit<Nft, 'type'> {

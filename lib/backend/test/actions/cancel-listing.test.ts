@@ -1,6 +1,6 @@
 import { cancelListing } from '@echo/backend/actions/cancel-listing'
 import { AuthError } from '@echo/backend/errors/messages/auth-error'
-import { getAuthUser } from '@echo/backend/helpers/auth/get-auth-user'
+import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
 import { cancelListing as firestoreCancelListing } from '@echo/firestore/crud/listing/cancel-listing'
 import { getListing } from '@echo/firestore/crud/listing/get-listing'
 import { listingDocumentMock } from '@echo/firestore/mocks/listing-document-mock'
@@ -12,7 +12,7 @@ import { userMockJohnny } from '@echo/model/mocks/user-mock'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { assoc, modify } from 'ramda'
 
-jest.mock('@echo/backend/helpers/auth/get-auth-user')
+jest.mock('@echo/backend/helpers/get-auth-user')
 jest.mock('@echo/firestore/services/initialize-firebase')
 jest.mock('@echo/firestore/crud/listing/get-listing')
 jest.mock('@echo/firestore/crud/listing/cancel-listing')
@@ -22,7 +22,7 @@ describe('request-handlers - listing - cancelListing', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
-    jest.mocked(getAuthUser).mockResolvedValue(userMockJohnny)
+    jest.mocked(getAuthUser).mockResolvedValue(userMockJohnny.username)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-empty-function

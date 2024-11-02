@@ -1,7 +1,7 @@
 'use client'
 import type { Chain } from '@echo/model/constants/chain'
 import type { OwnedNft } from '@echo/model/types/nft'
-import type { UserWithWallet } from '@echo/model/types/user'
+import type { User } from '@echo/model/types/user'
 import { Profile } from '@echo/ui/components/base/profile'
 import { SelectableNftsWithoutThumbnail } from '@echo/ui/components/nft/selectable/selectable-nfts-without-thumbnail'
 import { UserProfileDetailsLayout } from '@echo/ui/components/user/profile/layout/user-profile-details-layout'
@@ -12,7 +12,7 @@ import { head, path, pipe } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  user: UserWithWallet
+  user: User & Required<Pick<User, 'wallet'>>
   nfts: OwnedNft[]
   selection: OwnedNft[]
   onSelect?: (nft: OwnedNft) => unknown

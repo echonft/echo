@@ -1,6 +1,6 @@
 import { rejectOffer } from '@echo/backend/actions/reject-offer'
 import { AuthError } from '@echo/backend/errors/messages/auth-error'
-import { getAuthUser } from '@echo/backend/helpers/auth/get-auth-user'
+import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { rejectOffer as firestoreRejectOffer } from '@echo/firestore/crud/offer/reject-offer'
 import { offerDocumentMockToJohnnycage } from '@echo/firestore/mocks/offer-document-mock'
@@ -12,7 +12,7 @@ import { userMockJohnny } from '@echo/model/mocks/user-mock'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { assoc, modify } from 'ramda'
 
-jest.mock('@echo/backend/helpers/auth/get-auth-user')
+jest.mock('@echo/backend/helpers/get-auth-user')
 jest.mock('@echo/firestore/services/initialize-firebase')
 jest.mock('@echo/firestore/crud/offer/get-offer')
 jest.mock('@echo/firestore/crud/offer/reject-offer')
@@ -21,7 +21,7 @@ describe('rejectOffer', () => {
   const slug = offerDocumentMockToJohnnycage.slug
   beforeEach(() => {
     jest.clearAllMocks()
-    jest.mocked(getAuthUser).mockResolvedValue(userMockJohnny)
+    jest.mocked(getAuthUser).mockResolvedValue(userMockJohnny.username)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-empty-function
