@@ -1,5 +1,5 @@
 import type { User } from '@echo/model/types/user'
-import { LogoutButtonManager } from '@echo/ui/components/auth/logout-button-manager'
+import { LogoutButton } from '@echo/ui/components/auth/logout-button'
 import { CountsDetails } from '@echo/ui/components/base/counts-details'
 import { PaddedLayout } from '@echo/ui/components/base/layout/padded-layout'
 import { ProfileLayout } from '@echo/ui/components/base/layout/profile-layout'
@@ -35,7 +35,7 @@ export const AuthUserProfile: FunctionComponent<Props> = ({
             <UserTag user={user} />
             <div className={clsx('flex', 'flex-row', 'h-max', 'w-max', 'gap-2.5')}>
               <WalletConnectedButton wallet={user.wallet} />
-              <LogoutButtonManager />
+              <LogoutButton />
             </div>
           </UserProfileDetailsLayout>
         </Profile>

@@ -1,6 +1,6 @@
-import { clsx } from 'clsx'
+import { WalletButtonLayout } from '@echo/ui/components/wallet/layout/wallet-button-layout'
 import { type FunctionComponent } from 'react'
 
 export const WalletButtonSkeleton: FunctionComponent = () => {
-  return <div className={clsx('btn-auth', 'animate-pulse')} />
+  return <WalletButtonLayout isConnecting={true} />
 }

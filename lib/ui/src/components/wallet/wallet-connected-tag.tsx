@@ -11,7 +11,7 @@ interface Props {
 
 export const WalletConnectedTag: FunctionComponent<Props> = ({ address }) => {
   return (
-    <div className={clsx('btn-auth', '!enabled:hover:bg-white/[0.08]')}>
+    <div className={clsx('btn-auth')}>
       <WalletIconSvg width={24} />
       <span className={clsx('btn-label-auth')}>{shortenAddress(address)}</span>
     </div>

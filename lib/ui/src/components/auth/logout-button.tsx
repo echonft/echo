@@ -1,15 +1,21 @@
+'use client'
 import { LogoutIconSvg } from '@echo/ui/components/base/svg/logout-icon-svg'
+import { useDependencies } from '@echo/ui/hooks/use-dependencies'
 import { clsx } from 'clsx'
-import type { FunctionComponent, MouseEventHandler } from 'react'
+import { type FunctionComponent, useState } from 'react'
 
-interface Props {
-  loading?: boolean
-  onClick?: MouseEventHandler
-}
-
-export const LogoutButton: FunctionComponent<Props> = ({ loading, onClick }) => {
+export const LogoutButton: FunctionComponent = () => {
+  const { logout } = useDependencies()
+  const [loading, setLoading] = useState(false)
   return (
-    <button className={clsx('btn-auth-alt', loading && 'animate-pulse')} onClick={onClick} disabled={loading}>
+    <button
+      className={clsx('btn-auth-alt', loading && 'animate-pulse')}
+      onClick={() => {
+        setLoading(true)
+        void logout()
+      }}
+      disabled={loading}
+    >
       <LogoutIconSvg />
     </button>
   )
