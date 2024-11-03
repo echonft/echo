@@ -1,7 +1,6 @@
 import { itemToken } from '@echo/model/helpers/item/item-token'
 import { nftTokenCollection } from '@echo/model/helpers/token/nft-token-collection'
 import type { NftItem } from '@echo/model/types/item'
-
 import type { NftToken } from '@echo/model/types/token'
 import type { User } from '@echo/model/types/user'
 import { nftLabel } from '@echo/ui/helpers/nft/nft-label'

@@ -1,10 +1,11 @@
 'use client'
 import type { Collection } from '@echo/model/types/collection'
+import type { SearchResult } from '@echo/model/types/search-result'
 import { SearchBox } from '@echo/ui/components/base/search/search-box'
 import { CollectionSelectorInfo } from '@echo/ui/components/trade/collection-selector/collection-selector-info'
 import { CollectionSelectorInput } from '@echo/ui/components/trade/collection-selector/collection-selector-input'
 import { TokenSelectorLayout } from '@echo/ui/components/trade/token-selector/token-selector-layout'
-import { useDependencies } from '@echo/ui/hooks/use-dependencies'
+import { useActions } from '@echo/ui/hooks/use-actions'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -20,7 +21,7 @@ interface Props {
 export const CollectionSelector: FunctionComponent<Props> = ({ collection, onAddQuantity }) => {
   const t = useTranslations('trade.collectionSelector')
   const [quantity, setQuantity] = useState<number>()
-  const { searchCollections } = useDependencies()
+  const { searchCollections } = useActions()
 
   if (isNil(collection)) {
     return (
@@ -30,9 +31,9 @@ export const CollectionSelector: FunctionComponent<Props> = ({ collection, onAdd
             <span className={clsx('prose-paragraph-md', 'text-white')}>{t('search.title')}</span>
             <SearchBox
               resultsProvider={searchCollections}
-              // TODO Implement the fetching of the collection from the slug
-              // onSelect={(result: SearchResult<Lowercase<string>>) => {
-              // }}
+              onSelect={(_result: SearchResult<Lowercase<string>>) => {
+                // TODO Implement the fetching of the collection from the slug
+              }}
               style={{
                 categories: {
                   show: false

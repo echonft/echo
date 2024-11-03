@@ -1,6 +1,6 @@
 import { Expiration } from '@echo/model/constants/expiration'
 import type { OwnedNft } from '@echo/model/types/nft'
-import type { User } from '@echo/model/types/user'
+import type { Offer } from '@echo/model/types/offer'
 import { CreateTradeReviewTitle } from '@echo/ui/components/trade/create-trade-review-title'
 import { ExpirationSelector } from '@echo/ui/components/trade/expiration-selector/expiration-selector'
 import { CreateTradeExpirationLayout } from '@echo/ui/components/trade/layout/create-trade-expiration-layout'
@@ -14,9 +14,9 @@ interface Props {
   selectedExpiration: Expiration
   onSelectExpiration?: (selected: Expiration) => void
   loading?: boolean
-  sender: User & Required<Pick<User, 'wallet'>>
+  sender: Offer['sender']
   senderNftsSelection: OwnedNft[]
-  receiver: User & Required<Pick<User, 'wallet'>>
+  receiver: Offer['receiver']
   receiverNftsSelection: OwnedNft[]
 }
 

@@ -5,10 +5,9 @@ import { network, Network } from '@echo/utils/constants/network'
 import { both, filter, map, type NonEmptyArray, pipe, prop, propEq, values } from 'ramda'
 
 export function chainsForVirtualMachine(vm: VirtualMachine): NonEmptyArray<Chain> {
-  // FIXME Typing is broken here
   return pipe(
     values,
-    filter(prop('supported')),
+    filter<(typeof chains)[Chain]>(prop('supported')),
     filter(
       both<[ChainProps]>(propEq<Network, 'network'>(network(), 'network'), propEq<VirtualMachine, 'vm'>(vm, 'vm'))
     ),

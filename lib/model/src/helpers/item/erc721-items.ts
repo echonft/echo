@@ -1,5 +1,4 @@
 import { isErc721Item } from '@echo/model/helpers/item/is-erc721-item'
-
 import type { AbstractItem, Erc721Item } from '@echo/model/types/item'
 import { filter } from 'ramda'
 

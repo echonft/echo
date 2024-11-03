@@ -14,7 +14,6 @@ import { isNonEmptyArray } from '@echo/utils/helpers/is-non-empty-array'
 import { promiseAll } from '@echo/utils/helpers/promise-all'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound } from 'next/navigation'
-
 import {
   always,
   andThen,
@@ -100,7 +99,7 @@ async function render({ searchParams: { items, target }, user }: Props) {
       receiverNftsSelection={receiverNftsSelection}
       receiver={receiver}
       senderNfts={senderNfts}
-      sender={user as User & Required<Pick<User, 'wallet'>>} // TODO gatekeep these routes with connected wallet
+      sender={user as User & Required<Pick<User, 'wallet'>>} // TODO gatekeep route with connected wallet
     />
   )
 }

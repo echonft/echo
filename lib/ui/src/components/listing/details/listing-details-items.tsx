@@ -2,7 +2,6 @@
 import { ListingRole } from '@echo/model/constants/listing-role'
 import type { Listing } from '@echo/model/types/listing'
 import type { OwnedNft } from '@echo/model/types/nft'
-import type { UserWithWallet } from '@echo/model/types/user'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { ListingDetailsTargetLayout } from '@echo/ui/components/listing/details/layout/listing-details-target-layout'
 import { ListingDetailsTarget } from '@echo/ui/components/listing/details/listing-details-target'
@@ -16,7 +15,7 @@ import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  creator: UserWithWallet
+  creator: Listing['creator']
   nfts: OwnedNft[]
   target: Listing['target']
   role: Nullable<ListingRole>

@@ -8,9 +8,7 @@ import { NftError } from '@echo/model/constants/errors/nft-error'
 import { chainById } from '@echo/model/helpers/chain/chain-by-id'
 import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
 import { erc721NftToItem } from '@echo/model/mappers/nft/erc721-nft-to-item'
-
 import type { Erc721Item } from '@echo/model/types/item'
-
 import type { OwnedErc721Nft } from '@echo/model/types/nft'
 import type { BaseOffer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
@@ -31,12 +29,12 @@ interface Erc721ItemWithOwner extends Erc721Item {
 export async function contractOfferItemToErc721Item(
   item: EchoOfferItem & Record<'chain', Chain>
 ): Promise<Erc721ItemWithOwner> {
-  const { chain, tokenAddress, tokenId } = item
+  const { chain, tokenAddress, tokenIdOrAmount } = item
   const collection = await getCollectionByAddress({ address: tokenAddress, chain })
   if (isNil(collection)) {
     return Promise.reject(new NotFoundError({ message: CollectionError.NotFound, severity: 'warning' }))
   }
-  const nft = await getNftByIndex({ collection, tokenId })
+  const nft = await getNftByIndex({ collection, tokenId: tokenIdOrAmount })
   if (isNil(nft)) {
     return Promise.reject(new NotFoundError({ message: NftError.NotFound, severity: 'warning' }))
   }

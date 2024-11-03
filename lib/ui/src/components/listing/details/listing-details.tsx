@@ -1,5 +1,4 @@
 'use client'
-import { ListingRole } from '@echo/model/constants/listing-role'
 import { listingItems } from '@echo/model/helpers/listing/listing-items'
 import { nftItemToNft } from '@echo/model/mappers/item/nft-item-to-nft'
 import type { Slug } from '@echo/model/types/slug'

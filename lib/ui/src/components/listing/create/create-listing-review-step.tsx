@@ -2,7 +2,6 @@ import { Expiration } from '@echo/model/constants/expiration'
 import { ListingRole } from '@echo/model/constants/listing-role'
 import type { Listing } from '@echo/model/types/listing'
 import type { OwnedNft } from '@echo/model/types/nft'
-import type { UserWithWallet } from '@echo/model/types/user'
 import { ListingDetailsItems } from '@echo/ui/components/listing/details/listing-details-items'
 import { CreateTradeReviewTitle } from '@echo/ui/components/trade/create-trade-review-title'
 import { ExpirationSelector } from '@echo/ui/components/trade/expiration-selector/expiration-selector'
@@ -14,12 +13,12 @@ import type { NonEmptyArray } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
+  creator: Listing['creator']
+  items: NonEmptyArray<OwnedNft>
+  target: Listing['target']
   selectedExpiration: Expiration
   onSelectExpiration?: (selected: Expiration) => void
   loading?: boolean
-  creator: UserWithWallet
-  items: NonEmptyArray<OwnedNft>
-  target: Listing['target']
 }
 
 export const CreateListingReviewStep: FunctionComponent<Props> = ({

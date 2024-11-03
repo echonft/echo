@@ -1,5 +1,4 @@
 import type { NftCollection } from '@echo/model/types/nft'
-
 import type { NftToken } from '@echo/model/types/token'
 import type { User } from '@echo/model/types/user'
 import type { NonEmptyArray } from 'ramda'

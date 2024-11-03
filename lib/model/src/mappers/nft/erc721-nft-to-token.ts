@@ -1,5 +1,4 @@
 import type { Erc721Nft, NftCollection } from '@echo/model/types/nft'
-
 import type { Erc721Token } from '@echo/model/types/token'
 import { assoc, dissoc, modify, pipe } from 'ramda'
 

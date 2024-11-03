@@ -6,5 +6,5 @@ export const listingDocumentMock: ListingDocument = {
   ...listingMock,
   itemCollections: [collectionMockSpiral.slug],
   itemIndexes: [`${collectionMockSpiral.slug}.1`, `${collectionMockSpiral.slug}.2`],
-  signature: 'a7e5c4e564e9a6c74571dfe9f770c135e20c3a94'
+  signature: '912033ed05750bcf8aa74126011cbdef5a907424'
 }

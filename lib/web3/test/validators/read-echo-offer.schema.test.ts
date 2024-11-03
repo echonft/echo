@@ -13,16 +13,27 @@ describe('readEchoOfferSchema', () => {
       {
         chainId: BigInt(1),
         items: [
-          { tokenId: BigInt(1), tokenAddress: '0x320e2fa93a4010ba47edcde762802374bac8d3f7' },
           {
-            tokenId: BigInt(2),
-            tokenAddress: '0x320e2fa93a4010ba47edcde762802374bac8d3f7'
+            tokenIdOrAmount: BigInt(1),
+            tokenAddress: '0x320e2fa93a4010ba47edcde762802374bac8d3f7',
+            tokenType: BigInt(1) // TODO token type
+          },
+          {
+            tokenIdOrAmount: BigInt(2),
+            tokenAddress: '0x320e2fa93a4010ba47edcde762802374bac8d3f7',
+            tokenType: BigInt(1) // TODO token type
           }
         ]
       },
       {
         chainId: BigInt(1),
-        items: [{ tokenId: BigInt(3), tokenAddress: '0x12c63bbd266db84e117356e664f3604055166cec' }]
+        items: [
+          {
+            tokenIdOrAmount: BigInt(3),
+            tokenAddress: '0x12c63bbd266db84e117356e664f3604055166cec',
+            tokenType: BigInt(1) // TODO token type
+          }
+        ]
       },
       BigInt(baseOfferMockFromJohnnycage.expiresAt),
       EchoOfferState.Open

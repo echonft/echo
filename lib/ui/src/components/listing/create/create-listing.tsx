@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 'use client'
 import { Expiration } from '@echo/model/constants/expiration'
 import type { Collection } from '@echo/model/types/collection'
 import type { Listing } from '@echo/model/types/listing'
 import type { OwnedNft } from '@echo/model/types/nft'
-import type { UserWithWallet } from '@echo/model/types/user'
 import { CreateListingFirstStep } from '@echo/ui/components/listing/create/create-listing-first-step'
 import { CreateListingReviewStep } from '@echo/ui/components/listing/create/create-listing-review-step'
 import { CreateTargetNextButton } from '@echo/ui/components/listing/create/create-target-next-button'
@@ -15,11 +15,11 @@ import { useNfts } from '@echo/ui/hooks/use-nfts'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { assoc, isNil, values, type NonEmptyArray } from 'ramda'
-import { useState, type FunctionComponent } from 'react'
+import { assoc, isNil, type NonEmptyArray, values } from 'ramda'
+import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  creator: UserWithWallet
+  creator: Listing['creator']
   creatorNfts: OwnedNft[]
   // TODO Remove this, I don't think we should allow this
   items: Nullable<OwnedNft[]>
@@ -46,10 +46,9 @@ export const CreateListing: FunctionComponent<Props> = ({
   })
   const [targetSelection, setTargetSelection] = useState<Nullable<Listing['target']>>(
     // FIXME Should be undefined to begin with
-    isNil(target) ? undefined : { collection: target }
+    isNil(target) ? undefined : { collection: target, quantity: 1 }
   )
   const [expiration, setExpiration] = useState(Expiration.OneDay)
-
   const [currentStep, setCurrentStep] = useState(0)
   const steps = values(ListingCreationSteps)
   const totalSteps = steps.length
@@ -80,7 +79,7 @@ export const CreateListing: FunctionComponent<Props> = ({
       <CreateTradeStepLayout>
         {currentStep === 0 && (
           <CreateListingFirstStep
-            user={creator}
+            creator={creator}
             nfts={creatorNfts}
             selection={selection.nfts}
             onSelect={selectNft}

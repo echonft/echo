@@ -4,6 +4,7 @@ import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import { nftIsOwnedBy } from '@echo/model/helpers/nft/nft-is-owned-by'
+import type { Listing } from '@echo/model/types/listing'
 import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import type { Slug } from '@echo/model/types/slug'
 import type { User } from '@echo/model/types/user'
@@ -73,11 +74,14 @@ async function render({ searchParams: { items, target }, user }: Props) {
   }
 
   return (
-    <PageLayout user={user}>
-      <NavigationSectionLayout>
-        <CreateListingManager creator={user} creatorNfts={creatorNfts} items={listingItems} target={listingTarget} />
-      </NavigationSectionLayout>
-    </PageLayout>
+    <NavigationSectionLayout>
+      <CreateListingManager
+        creator={user as Listing['creator']} // TODO gatekeep route with connected wallet
+        creatorNfts={creatorNfts}
+        items={listingItems}
+        target={listingTarget}
+      />
+    </NavigationSectionLayout>
   )
 }
 

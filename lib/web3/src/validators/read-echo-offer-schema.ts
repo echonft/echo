@@ -13,7 +13,7 @@ type ReadContractOfferItems = z.infer<typeof itemsSchema>
 const itemSchema = object({
   tokenAddress: evmAddressSchema,
   tokenIdOrAmount: bigint().positive(),
-  tokenType: bigint().positive()
+  tokenType: bigint().positive() // TODO transform? what are the possible types?
 })
 
 const itemsSchema = object({

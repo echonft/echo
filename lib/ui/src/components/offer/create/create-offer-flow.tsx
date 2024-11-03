@@ -1,7 +1,8 @@
 'use client'
 import { Expiration } from '@echo/model/constants/expiration'
 import type { OwnedNft } from '@echo/model/types/nft'
-import type { User } from '@echo/model/types/user'
+import type { Offer } from '@echo/model/types/offer'
+import { CreateOfferNextButton } from '@echo/ui/components/offer/create/create-offer-next-button'
 import { CreateOfferReviewStep } from '@echo/ui/components/offer/create/create-offer-review-step'
 import { CreatedOfferCreated } from '@echo/ui/components/offer/created/created-offer-created'
 import { CreateTradeBottomBar } from '@echo/ui/components/trade/create-trade-bottom-bar'
@@ -16,11 +17,11 @@ import { type NonEmptyArray, values } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  sender: User & Required<Pick<User, 'wallet'>>
-  senderNfts: OwnedNft[]
-  receiver: User & Required<Pick<User, 'wallet'>>
+  receiver: Offer['receiver']
   receiverNfts: OwnedNft[]
   receiverNftsSelection: NonEmptyArray<OwnedNft>
+  sender: Offer['sender']
+  senderNfts: OwnedNft[]
   onCancel?: VoidFunction
 }
 

@@ -10,10 +10,10 @@ import type { NonEmptyArray } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  senderItems: NonEmptyArray<OwnedNft>
-  receiverItems: NonEmptyArray<OwnedNft>
   expiration: Expiration
   open: boolean
+  senderItems: NonEmptyArray<OwnedNft>
+  receiverItems: NonEmptyArray<OwnedNft>
   onClose?: EmptyFunction
   onSuccess?: (offer: Offer) => unknown
 }

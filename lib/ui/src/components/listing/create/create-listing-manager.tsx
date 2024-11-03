@@ -1,6 +1,5 @@
 'use client'
 import type { Expiration } from '@echo/model/constants/expiration'
-import { VirtualMachine } from '@echo/model/constants/virtual-machine'
 import { erc721NftToItem } from '@echo/model/mappers/nft/erc721-nft-to-item'
 import type { Collection } from '@echo/model/types/collection'
 import type { Erc721Item } from '@echo/model/types/item'
@@ -19,7 +18,7 @@ import { type NonEmptyArray } from 'ramda'
 import { type FunctionComponent, useCallback, useState } from 'react'
 
 interface Props {
-  creator: User
+  creator: Listing['creator']
   creatorNfts: OwnedNft[]
   items: Nullable<OwnedNft[]>
   target: Nullable<Collection>
@@ -59,7 +58,7 @@ export const CreateListingManager: FunctionComponent<Props> = ({ creator, creato
 
   return (
     <CreateListing
-      creator={creatorWithWallet}
+      creator={creator}
       creatorNfts={creatorNfts}
       items={items}
       target={target}

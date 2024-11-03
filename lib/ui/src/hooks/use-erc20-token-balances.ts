@@ -1,6 +1,5 @@
 import { Chain } from '@echo/model/constants/chain'
 import { TokenType } from '@echo/model/constants/token-type'
-
 import type { Erc20Token, TokenBalance } from '@echo/model/types/token'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { errorCallback } from '@echo/ui/helpers/error-callback'

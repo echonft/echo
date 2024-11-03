@@ -10,12 +10,12 @@ import type { NonEmptyArray } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
+  currentStep: number
+  expiration: Expiration
   senderItems: OwnedNft[]
   receiverItems: OwnedNft[]
-  expiration: Expiration
-  currentStep: number
   totalSteps: number
-  onNext: () => void
+  onNext?: () => void
   onSuccess?: (offer: Offer) => unknown
 }
 
@@ -34,7 +34,7 @@ export const CreateOfferNextButton: FunctionComponent<Props> = ({
 
   const handleNext = () => {
     if (currentStep < totalSteps - 2) {
-      onNext()
+      onNext?.()
     } else {
       setIsApproveModalOpen(true)
     }
