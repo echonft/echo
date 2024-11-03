@@ -1,15 +1,13 @@
+import { baseAuthConfig } from '@echo/backend/auth-config'
 import { apiPathProvider } from '@echo/routing/constants/api-path-provider'
 import { pathProvider } from '@echo/routing/constants/path-provider'
 import { baseUrl } from '@echo/routing/helpers/base-url'
 import { isPathSecure } from '@echo/routing/path/is-path-secure'
 import type { PathString } from '@echo/routing/types/path-string'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
-import { pathIsNil } from '@echo/utils/helpers/path-is-nil'
-import { propIsNil } from '@echo/utils/helpers/prop-is-nil'
 import NextAuth from 'next-auth'
 import type { NextAuthRequest } from 'next-auth/lib'
 import { NextResponse } from 'next/server'
-import { assoc, dissoc, either, isNil } from 'ramda'
 
 type RouteHandler = (
   req: NextAuthRequest,
@@ -19,30 +17,11 @@ type RouteHandler = (
 ) => void | Response | Promise<void | Response>
 
 const { auth } = NextAuth({
-  callbacks: {
-    jwt: function ({ token, user }) {
-      if (!isNil(user)) {
-        return assoc('user', dissoc('id', user), token)
-      }
-      return token
-    },
-    session: function (params) {
-      const {
-        session,
-        token: { user }
-      } = params
-      if (either(propIsNil('token'), pathIsNil(['token', 'user']))(params)) {
-        return session
-      }
-      return assoc('user', user, session)
-    }
-  },
-  pages: {
-    signIn: '/login'
-  },
+  ...baseAuthConfig,
   providers: []
 })
-export default auth((req): void | Response | Promise<void | Response> => {
+
+export default auth((req: NextAuthRequest): void | Response | Promise<void | Response> => {
   const path = req.nextUrl.pathname as PathString
   if (apiPathProvider.ipfs.proxy.test(path)) {
     // set CORS headers
