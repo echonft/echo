@@ -33,7 +33,7 @@ describe('addUser', () => {
     setReferenceSpy.mockRestore()
   })
 
-  it('adds the user and nonce if the user does not have a wallet', async () => {
+  it('adds the user and nonce', async () => {
     const nonce = 'nonce'
     const data: UserDocument = pipe(omit(['wallet']), assoc('username', 'new-user'))(userDocumentMockCrew)
     const {
@@ -48,29 +48,21 @@ describe('addUser', () => {
     expect(addedNonceDocument).toStrictEqual({ userId: newUserId, nonce })
   })
 
-  it('adds only the user if the user has a wallet', async () => {
-    const data = assoc('username', 'new-user', userDocumentMockCrew)
-    const {
-      user: { id }
-    } = await addUser({ user: data })
-    newUserId = id
-    const user = await getUserById(newUserId)
-    expect(user).toStrictEqual(data)
-    expect(setReferenceSpy).toHaveBeenCalledTimes(1)
-    await expect(getNonce(newUserId)).resolves.toBeUndefined()
-  })
-
   it('does not create the user if it already exists', async () => {
+    const nonce = 'nonce'
     const data = assoc('username', 'new-user', userDocumentMockCrew)
     const {
-      user: { id }
-    } = await addUser({ user: data })
+      user: { id },
+      nonce: addedNonce
+    } = await addUser({ nonce, user: data })
     newUserId = id
+    newNonceId = addedNonce!.id
     setReferenceSpy.mockClear()
     const {
-      user: { id: sameUserId }
-    } = await addUser({ user: data })
+      user: { id: sameUserId, data: sameUserData }
+    } = await addUser({ nonce, user: data })
     expect(setReferenceSpy).not.toHaveBeenCalled()
     expect(sameUserId).toEqual(newUserId)
+    expect(sameUserData).toStrictEqual(data)
   })
 })

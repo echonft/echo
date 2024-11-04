@@ -8,8 +8,7 @@ import { userDocumentMockCrew } from '@echo/firestore/mocks/user-document-mock'
 import type { UserDocument } from '@echo/firestore/types/model/user-document'
 import { UserError } from '@echo/model/constants/errors/user-error'
 import { WalletError } from '@echo/model/constants/errors/wallet-error'
-import { VirtualMachine } from '@echo/model/constants/virtual-machine'
-import type { Wallet } from '@echo/model/types/wallet'
+import type { Address } from '@echo/model/types/address'
 import { deleteUser } from '@echo/test/firestore/crud/user/delete-user'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals'
@@ -39,9 +38,7 @@ describe('addUserWallet', () => {
   })
 
   it('throws if the user does not exist', async () => {
-    await expect(
-      addUserWallet({ userId: 'not-found', wallet: { address: '0xaddress', vm: VirtualMachine.Evm } })
-    ).rejects.toEqual(Error(UserError.NotFound))
+    await expect(addUserWallet({ userId: 'not-found', wallet: '0xaddress' })).rejects.toEqual(Error(UserError.NotFound))
   })
 
   it('throws if the user already has the wallet', async () => {
@@ -51,14 +48,14 @@ describe('addUserWallet', () => {
       user: { id: userId }
     } = await addUser({ nonce: 'nonce', user: data })
     newUserIds = [userId]
-    await expect(
-      addUserWallet({ userId: newUserIds[0]!, wallet: { address: '0xaddress', vm: VirtualMachine.Evm } })
-    ).rejects.toEqual(Error(WalletError.Exists))
+    await expect(addUserWallet({ userId: newUserIds[0]!, wallet: '0xaddress' })).rejects.toEqual(
+      Error(WalletError.Exists)
+    )
   })
 
   it('throws if the wallet is already linked to another user', async () => {
     const username = 'new-user'
-    const wallet: Wallet = { address: '0xaddress', vm: VirtualMachine.Evm }
+    const wallet: Address = '0xaddress'
     const data: UserDocument = pipe(omit(['wallet']), assoc('username', username))(userDocumentMockCrew)
     const {
       user: { id: userId },
@@ -78,7 +75,7 @@ describe('addUserWallet', () => {
 
   it('adds the wallet to the user', async () => {
     const username = 'new-user'
-    const wallet: Wallet = { address: '0xaddress', vm: VirtualMachine.Evm }
+    const wallet: Address = '0xaddress'
     const data: UserDocument = pipe(omit(['wallet']), assoc('username', username))(userDocumentMockCrew)
     const {
       user: { id: userId },

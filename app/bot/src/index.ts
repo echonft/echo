@@ -18,7 +18,6 @@ import { assoc, otherwise, pick, pipe } from 'ramda'
 
 global.client = new Client({ intents: [GatewayIntentBits.Guilds] })
 logger = getBaseLogger('Bot', {
-  hideNetwork: true,
   serializers: [{ channel: pick(['id']), thread: pick(['id']) }, modelLoggerSerializers]
 })
 global.keepAliveTimer = setInterval(() => {

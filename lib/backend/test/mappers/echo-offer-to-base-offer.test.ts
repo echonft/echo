@@ -1,5 +1,5 @@
 import { echoOfferToBaseOffer } from '@echo/backend/mappers/echo-offer-to-base-offer'
-import { getCollectionByAddress } from '@echo/firestore/crud/collection/get-collection-by-address'
+import { getCollectionByContract } from '@echo/firestore/crud/collection/get-collection-by-contract'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { eqNft } from '@echo/model/helpers/nft/eq-nft'
 import { collectionMocks } from '@echo/model/mocks/collection-mock'
@@ -13,12 +13,12 @@ import { echoOfferMock } from '@echo/web3/mocks/echo-offer-mock'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { find, pipe, propEq } from 'ramda'
 
-jest.mock('@echo/firestore/crud/collection/get-collection-by-address')
+jest.mock('@echo/firestore/crud/collection/get-collection-by-contract')
 jest.mock('@echo/firestore/crud/nft/get-nft-by-index')
 
 describe('mappers - contractOfferToBaseOffer', () => {
   jest
-    .mocked(getCollectionByAddress)
+    .mocked(getCollectionByContract)
     .mockImplementation((contract) => pipe(find<Collection>(propEq(contract, 'contract')), toPromise)(collectionMocks))
   jest
     .mocked(getNftByIndex)

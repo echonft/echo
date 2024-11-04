@@ -41,7 +41,6 @@ export const OfferCard: FunctionComponent<OfferCardProps> = ({ offer, options, o
           }}
         >
           <OfferStackPicture
-            chain={stack.collection.contract.chain}
             pictureUrl={stack.pictureUrl}
             label={stack.label}
             state={offer.state}
@@ -60,7 +59,6 @@ export const OfferCard: FunctionComponent<OfferCardProps> = ({ offer, options, o
         }}
       >
         <OfferCardPicture
-          chain={item.token.contract.chain}
           pictureUrl={item.token.pictureUrl}
           label={nftLabel(item.token)}
           state={offer.state}

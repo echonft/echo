@@ -8,9 +8,7 @@ import { getUserByWallet } from '@echo/firestore/crud/user/get-user-by-wallet'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { UserError } from '@echo/model/constants/errors/user-error'
 import { WalletStatus } from '@echo/model/constants/wallet-status'
-import { walletFromContract } from '@echo/model/helpers/wallet/wallet-from-contract'
-import type { Contract } from '@echo/model/types/contract'
-import { contractSchema } from '@echo/model/validators/contract-schema'
+import type { Address } from '@echo/model/types/address'
 import { equals, isNil } from 'ramda'
 import { generateNonce } from 'siwe'
 
@@ -23,12 +21,11 @@ type GetWalletStatusReturn =
       status: Exclude<WalletStatus, WalletStatus.NeedsSignature>
     }
 
-export async function getWalletStatus(args: Contract): Promise<GetWalletStatusReturn> {
+export async function getWalletStatus(wallet: Address): Promise<GetWalletStatusReturn> {
   const authUser = await getAuthUser()
   if (isNil(authUser)) {
     return Promise.reject(Error(AuthError.Unauthorized))
   }
-  const wallet = contractSchema.transform(walletFromContract).parse(args)
   await initializeFirebase()
   const userSnapshot = await getUserSnapshotByUsername(authUser)
   if (isNil(userSnapshot)) {

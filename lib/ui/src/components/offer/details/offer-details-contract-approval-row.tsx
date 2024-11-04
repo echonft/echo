@@ -1,6 +1,5 @@
 'use client'
-import type { EvmAddress } from '@echo/model/types/address'
-import type { Contract } from '@echo/model/types/contract'
+import type { Address } from '@echo/model/types/address'
 import { OfferDetailsContractApprovalRowIcon } from '@echo/ui/components/offer/details/offer-details-contract-approval-row-icon'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
@@ -13,22 +12,22 @@ import useSWR from 'swr'
 
 interface Props {
   collectionName: string
-  contract: Contract
-  address: EvmAddress
+  contract: Address
+  wallet: Address
   approved?: boolean
-  onSuccess?: (contract: Contract, approved: boolean) => unknown
+  onSuccess?: (contract: Address, approved: boolean) => unknown
 }
 
 export const OfferDetailsContractApprovalRow: FunctionComponent<Props> = ({
   collectionName,
   contract,
-  address,
+  wallet,
   approved,
   onSuccess
 }) => {
   const { getErc721ContractApproval } = useDependencies()
   useSWR<boolean, Error, (GetErc721ContractApprovalArgs & Record<'name', string>) | undefined>(
-    isNil(approved) ? { name: SWRKeys.contract.getErc721approval(contract), contract, address } : undefined,
+    isNil(approved) ? { name: SWRKeys.contract.getErc721approval(contract), contract, wallet: wallet } : undefined,
     getErc721ContractApproval,
     {
       onSuccess: (data) => {

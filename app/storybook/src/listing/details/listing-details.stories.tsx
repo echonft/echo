@@ -2,7 +2,6 @@
 
 import { ListingRole } from '@echo/model/constants/listing-role'
 import { ListingState } from '@echo/model/constants/listing-state'
-import { shouldLockListing } from '@echo/model/helpers/listing/should-lock-listing'
 import { listingMock } from '@echo/model/mocks/listing-mock'
 import type { Listing } from '@echo/model/types/listing'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
@@ -59,7 +58,7 @@ export const Details: StoryObj<ComponentType> = {
       if (listing.state === ListingState.Expired) {
         return pipe<[Listing], Listing, Listing>(assoc('expiresAt', expiredDate()), assoc('locked', true))(listing)
       }
-      if (shouldLockListing(listing.state)) {
+      if (listing.state !== ListingState.Open) {
         return pipe<[Listing], Listing, Listing>(assoc('expiresAt', notExpiredDate()), assoc('locked', true))(listing)
       }
       return pipe<[Listing], Listing, Listing>(assoc('expiresAt', notExpiredDate()), assoc('locked', false))(listing)

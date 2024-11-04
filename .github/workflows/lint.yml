@@ -52,10 +52,6 @@ jobs:
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint --filter=@echo/nft-scan -- --quiet
-      - name: opensea lint
-        env:
-          NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint --filter=@echo/opensea -- --quiet
       - name: routing lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"

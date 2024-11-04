@@ -5,9 +5,8 @@ import type { AbstractItem } from '@echo/model/types/item'
 import { listHasDuplicates } from '@echo/utils/helpers/list-has-duplicates'
 import { pipe } from 'ramda'
 
-export function assertUniqErc721Items<T extends AbstractItem>(items: T[]): T[] {
+export function assertUniqErc721Items<T extends AbstractItem>(items: T[]) {
   if (pipe(erc721Items, listHasDuplicates(eqErc721Item))(items)) {
     throw Error(ItemError.Duplicates)
   }
-  return items
 }

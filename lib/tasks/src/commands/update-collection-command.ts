@@ -1,11 +1,11 @@
 import { updateCollection } from '@echo/firestore/crud/collection/update-collection'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import type { Contract } from '@echo/model/types/contract'
+import type { Address } from '@echo/model/types/address'
 import { error, info, warn } from '@echo/tasks/helpers/logger'
 import { fetchCollection } from '@echo/tasks/tasks/fetch-collection'
 import { andThen, isNil, otherwise, pipe, tap } from 'ramda'
 
-export async function updateCollectionCommand(contract: Contract) {
+export async function updateCollectionCommand(contract: Address) {
   await initializeFirebase()
   const collection = await pipe(
     fetchCollection,

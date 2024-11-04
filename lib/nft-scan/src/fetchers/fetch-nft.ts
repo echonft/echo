@@ -7,16 +7,14 @@ import type { FetchNftRequest } from '@echo/nft-scan/types/request/fetch-nft-req
 import { fetchNftResponseSchema } from '@echo/nft-scan/validators/fetch-nft-response-schema'
 import { parseResponse } from '@echo/utils/helpers/parse-response'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { assoc, pick } from 'ramda'
+import { pick } from 'ramda'
 
 export async function fetchNft({
   contract,
   identifier,
   showAttribute
 }: FetchNftRequest): Promise<Nullable<PartialNft>> {
-  const url = nftScanApiPathProvider.nft.fetch
-    .withQuery({ showAttribute })
-    .getUrl(assoc('identifier', identifier, contract))
+  const url = nftScanApiPathProvider.nft.fetch.withQuery({ showAttribute }).getUrl({ address: contract, identifier })
   const init = await fetchInit()
   const response = await fetch(url, init)
   if (!response.ok) {
@@ -30,5 +28,5 @@ export async function fetchNft({
     )
     return Promise.reject(Error(FetchError.Nft))
   }
-  return parseResponse(fetchNftResponseSchema(contract.chain))(response)
+  return parseResponse(fetchNftResponseSchema)(response)
 }

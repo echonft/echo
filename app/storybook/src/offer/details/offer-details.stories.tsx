@@ -2,7 +2,6 @@
 
 import { OfferRole } from '@echo/model/constants/offer-role'
 import { OfferState } from '@echo/model/constants/offer-state'
-import { shouldLockOffer } from '@echo/model/helpers/offer/should-lock-offer'
 import { offerMockToJohnnycage } from '@echo/model/mocks/offer-mock'
 import type { Offer } from '@echo/model/types/offer'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
@@ -56,7 +55,7 @@ export const Details: StoryObj<ComponentType> = {
       if (offer.state === OfferState.Expired) {
         return pipe<[Offer], Offer, Offer>(assoc('expiresAt', expiredDate()), assoc('locked', true))(offer)
       }
-      if (shouldLockOffer(offer.state)) {
+      if (offer.state !== OfferState.Open) {
         return pipe<[Offer], Offer, Offer>(assoc('expiresAt', notExpiredDate()), assoc('locked', true))(offer)
       }
       return pipe<[Offer], Offer, Offer>(assoc('expiresAt', notExpiredDate()), assoc('locked', false))(offer)

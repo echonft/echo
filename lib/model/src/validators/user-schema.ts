@@ -1,5 +1,5 @@
+import { addressSchema } from '@echo/model/validators/address-schema'
 import { usernameSchema } from '@echo/model/validators/username-schema'
-import { walletSchema } from '@echo/model/validators/wallet-schema'
 import { object, string } from 'zod'
 
 export const userSchema = object({
@@ -9,7 +9,9 @@ export const userSchema = object({
     globalName: string().optional()
   }),
   username: usernameSchema,
-  wallet: walletSchema
+  wallet: addressSchema.optional()
 })
+
+export const userWithWalletSchema = userSchema.omit({ wallet: true }).extend({ wallet: addressSchema })
 
 export const userIndexSchema = userSchema.pick({ username: true })

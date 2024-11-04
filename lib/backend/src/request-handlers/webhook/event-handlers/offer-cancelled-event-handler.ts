@@ -4,11 +4,10 @@ import { info } from '@echo/backend/helpers/logger'
 import { cancelOffer } from '@echo/firestore/crud/offer/cancel-offer'
 import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
-import type { EchoEvent } from '@echo/web3/types/echo-event'
+import type { HexString } from '@echo/utils/types/hex-string'
 import { isNil } from 'ramda'
 
-export async function offerCancelledEventHandler(event: EchoEvent) {
-  const { offerId } = event
+export async function offerCancelledEventHandler(offerId: HexString) {
   const offer = await getOfferByIdContract(offerId)
   if (isNil(offer)) {
     return Promise.reject(new NotFoundError({ message: OfferError.NotFound, severity: 'warning' }))

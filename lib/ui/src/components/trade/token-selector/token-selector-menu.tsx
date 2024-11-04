@@ -57,7 +57,7 @@ export const TokenSelectorMenu: FunctionComponent<Props> = ({ selectedToken, tok
       >
         {map(
           (token) => (
-            <MenuItem key={token.contract.address}>
+            <MenuItem key={token.contract}>
               <button
                 className={clsx(
                   'flex',

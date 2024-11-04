@@ -30,7 +30,6 @@ export const ListingCard = <T extends Listing>({ listing, options, onSelect }: L
         }}
       >
         <ListingStackPicture
-          chain={stack.collection.contract.chain}
           pictureUrl={stack.pictureUrl}
           state={listing.state}
           label={stack.label}
@@ -48,7 +47,6 @@ export const ListingCard = <T extends Listing>({ listing, options, onSelect }: L
       }}
     >
       <ListingCardPicture
-        chain={item.token.contract.chain}
         pictureUrl={item.token.pictureUrl}
         state={listing.state}
         label={nftLabel(item.token)}

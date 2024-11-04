@@ -1,4 +1,5 @@
 'use client'
+import { serializeNft } from '@echo/model/serializers/serialize-nft'
 import type { OwnedNft } from '@echo/model/types/nft'
 import {
   SelectableNftCard,
@@ -33,7 +34,7 @@ export const SelectableNftsWithoutThumbnail: FunctionComponent<Props> = ({
           (nft) => (
             <SelectableNftCard
               className={clsx(isSelected(nft) && 'border-yellow-500')}
-              key={`${nft.collection.contract.address}:${nft.tokenId}`}
+              key={serializeNft(nft)}
               nft={nft}
               selected={isSelected(nft)}
               action={isEmpty(selection) ? action : undefined}

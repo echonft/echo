@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Chain } from '@echo/model/constants/chain'
-import type { Contract } from '@echo/model/types/contract'
+import { intStringSchema } from '@echo/model/validators/int-string-schema'
 import { fetchCollectionCommand } from '@echo/tasks/commands/fetch-collection-command'
 import { fetchNftCommand } from '@echo/tasks/commands/fetch-nft-command'
 import { fetchNftsForWalletCommand } from '@echo/tasks/commands/fetch-nfts-for-wallet-command'
@@ -10,13 +9,11 @@ import { updateCollectionCommand } from '@echo/tasks/commands/update-collection-
 import { updateUserNftsCommand } from '@echo/tasks/commands/update-user-nfts-command'
 import { updateUsersNftsCommand } from '@echo/tasks/commands/update-users-nfts-command'
 import { updateWalletNftsCommand } from '@echo/tasks/commands/update-wallet-nfts-command'
-import { stringComparator } from '@echo/utils/helpers/string-comparator'
+import { as } from '@echo/utils/helpers/as'
 import type { HexString } from '@echo/utils/types/hex-string'
-import { getAddress } from '@echo/web3/helpers/get-address'
 import { isAddress } from '@echo/web3/helpers/is-address'
 import input from '@inquirer/input'
-import select from '@inquirer/select'
-import { applySpec, map, objOf, pipe, prop, sort, toLower, values } from 'ramda'
+import { pipe, toLower } from 'ramda'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
@@ -27,7 +24,7 @@ await yargs(hideBin(process.argv))
     () => {},
     async (_yargs) => {
       const address = await input({
-        message: 'Address:',
+        message: 'Contract address:',
         validate: (input: string) => {
           if (!isAddress(input, { strict: false })) {
             return 'invalid address'
@@ -35,16 +32,7 @@ await yargs(hideBin(process.argv))
           return true
         }
       })
-      const chain = await select({
-        message: 'Chain:',
-        choices: pipe(values, sort(stringComparator), map(objOf('value')))(Chain),
-        default: Chain.Ethereum
-      })
-      const contract: Contract = applySpec<Contract>({
-        address: pipe(getAddress, toLower<HexString>),
-        chain: prop('chain')
-      })({ address, chain })
-      await fetchCollectionCommand(contract)
+      await pipe(as<HexString, string>, toLower<HexString>, fetchCollectionCommand)(address)
       process.exit(0)
     }
   )
@@ -54,7 +42,7 @@ await yargs(hideBin(process.argv))
     () => {},
     async (_yargs) => {
       const address = await input({
-        message: 'Collection address:',
+        message: 'Collection contract address:',
         validate: (input: string) => {
           if (!isAddress(input, { strict: false })) {
             return 'invalid address'
@@ -62,19 +50,13 @@ await yargs(hideBin(process.argv))
           return true
         }
       })
-      const chain = await select({
-        message: 'Collection chain:',
-        choices: pipe(values, sort(stringComparator), map(objOf('value')))(Chain),
-        default: Chain.Ethereum
-      })
       const tokenId = await input({
-        message: 'Token ID:'
+        message: 'Token ID:',
+        validate: (input: string) => {
+          return intStringSchema.safeParse(input).success
+        }
       })
-      const contract: Contract = applySpec<Contract>({
-        address: pipe(getAddress, toLower<HexString>),
-        chain: prop('chain')
-      })({ address, chain })
-      await fetchNftCommand(contract, tokenId)
+      await fetchNftCommand(pipe(as<HexString, string>, toLower<HexString>)(address), parseInt(tokenId, 10))
       process.exit(0)
     }
   )
@@ -84,7 +66,7 @@ await yargs(hideBin(process.argv))
     () => {},
     async (_yargs) => {
       const address = await input({
-        message: 'Address:',
+        message: 'Wallet address:',
         validate: (input: string) => {
           if (!isAddress(input, { strict: false })) {
             return 'invalid address'
@@ -92,16 +74,7 @@ await yargs(hideBin(process.argv))
           return true
         }
       })
-      const chain = await select({
-        message: 'Chain:',
-        choices: pipe(values, sort(stringComparator), map(objOf('value')))(Chain),
-        default: Chain.Ethereum
-      })
-      const contract: Contract = applySpec<Contract>({
-        address: pipe(getAddress, toLower<HexString>),
-        chain: prop('chain')
-      })({ address, chain })
-      await fetchNftsForWalletCommand(contract)
+      await pipe(as<HexString, string>, toLower<HexString>, fetchNftsForWalletCommand)(address)
       process.exit(0)
     }
   )
@@ -111,7 +84,7 @@ await yargs(hideBin(process.argv))
     () => {},
     async (_yargs) => {
       const address = await input({
-        message: 'Address:',
+        message: 'Collection contract address:',
         validate: (input: string) => {
           if (!isAddress(input, { strict: false })) {
             return 'invalid address'
@@ -119,16 +92,7 @@ await yargs(hideBin(process.argv))
           return true
         }
       })
-      const chain = await select({
-        message: 'Chain:',
-        choices: pipe(values, sort(stringComparator), map(objOf('value')))(Chain),
-        default: Chain.Ethereum
-      })
-      const contract: Contract = applySpec<Contract>({
-        address: pipe(getAddress, toLower<HexString>),
-        chain: prop('chain')
-      })({ address, chain })
-      await updateCollectionCommand(contract)
+      await pipe(as<HexString, string>, toLower<HexString>, updateCollectionCommand)(address)
       process.exit(0)
     }
   )
@@ -158,16 +122,7 @@ await yargs(hideBin(process.argv))
           return true
         }
       })
-      const chain = await select({
-        message: 'Wallet chain:',
-        choices: pipe(values, sort(stringComparator), map(objOf('value')))(Chain),
-        default: Chain.Ethereum
-      })
-      const wallet: Contract = applySpec<Contract>({
-        address: pipe(getAddress, toLower<HexString>),
-        chain: prop('chain')
-      })({ address, chain })
-      await updateWalletNftsCommand(wallet)
+      await pipe(as<HexString, string>, toLower<HexString>, updateWalletNftsCommand)(address)
       process.exit(0)
     }
   )

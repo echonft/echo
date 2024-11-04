@@ -29,7 +29,6 @@ export const SwapCard: FunctionComponent<SwapCardProps> = ({ swap, options, onSe
       }}
     >
       <SwapStackPicture
-        chain={item.token.contract.chain}
         pictureUrl={item.token.pictureUrl}
         label={nftLabel(item.token)}
         scaleDisabled={options?.scaleDisabled}

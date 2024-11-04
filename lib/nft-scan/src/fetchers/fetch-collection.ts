@@ -13,7 +13,7 @@ export async function fetchCollection({
   contract,
   showAttribute
 }: FetchCollectionRequest): Promise<Nullable<Collection>> {
-  const url = nftScanApiPathProvider.collection.fetch.withQuery({ showAttribute }).getUrl(contract)
+  const url = nftScanApiPathProvider.collection.fetch.withQuery({ showAttribute }).getUrl({ address: contract })
   const init = await fetchInit()
   const response = await fetch(url, init)
   if (!response.ok) {
@@ -22,7 +22,7 @@ export async function fetchCollection({
   }
 
   return pipe(
-    parseResponse(fetchCollectionResponseSchema(contract.chain)),
+    parseResponse(fetchCollectionResponseSchema),
     andThen(
       ifElse(
         prop('isSpam'),

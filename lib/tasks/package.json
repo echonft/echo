@@ -21,7 +21,6 @@
   "devDependencies": {
     "@echo/model": "workspace:*",
     "@echo/firestore": "workspace:*",
-    "@echo/opensea": "workspace:*",
     "@echo/nft-scan": "workspace:*",
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",

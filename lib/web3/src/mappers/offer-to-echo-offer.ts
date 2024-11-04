@@ -1,14 +1,13 @@
-import { chainId } from '@echo/model/helpers/chain/chain-id'
 import type { Item } from '@echo/model/types/item'
 import type { BaseOffer } from '@echo/model/types/offer'
 import { EchoOfferState } from '@echo/web3/constants/echo-offer-state'
 import type { EchoOffer } from '@echo/web3/types/echo-offer'
-import { always, applySpec, head, map, type NonEmptyArray, path, pipe, prop } from 'ramda'
+import { always, applySpec, map, type NonEmptyArray, path, pipe, prop } from 'ramda'
 import { getAddress } from 'viem'
 
 function mapItem(item: Item) {
   return applySpec({
-    tokenAddress: path(['token', 'contract', 'address']),
+    tokenAddress: path(['token', 'contract']),
     // FIXME Adjust to handle ERC20s
     tokenType: always(1),
     tokenIdOrAmount: path(['token', 'tokenId'])
@@ -16,16 +15,16 @@ function mapItem(item: Item) {
 }
 
 function mapItems(items: NonEmptyArray<Item>) {
+  // FIXME chainId was removed here
   return applySpec({
-    chainId: pipe(head, path<Item, 'token', 'contract', 'chain'>(['token', 'contract', 'chain']), chainId),
     items: map(mapItem)
   })(items)
 }
 
 export function offerToEchoOffer(offer: BaseOffer): EchoOffer {
   return applySpec<EchoOffer>({
-    sender: pipe(path<BaseOffer, 'sender', 'wallet', 'address'>(['sender', 'wallet', 'address']), getAddress),
-    receiver: pipe(path<BaseOffer, 'receiver', 'wallet', 'address'>(['receiver', 'wallet', 'address']), getAddress),
+    sender: pipe(path<BaseOffer, 'sender', 'wallet'>(['sender', 'wallet']), getAddress),
+    receiver: pipe(path<BaseOffer, 'receiver', 'wallet'>(['receiver', 'wallet']), getAddress),
     senderItems: pipe(prop('senderItems'), mapItems),
     receiverItems: pipe(prop('receiverItems'), mapItems),
     expiration: prop('expiresAt'),

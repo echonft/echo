@@ -35,8 +35,6 @@ jobs:
         run: pnpm exec turbo run prettier --filter=@echo/model -- --log-level=silent
       - name: nft-scan prettier
         run: pnpm exec turbo run prettier --filter=@echo/nft-scan -- --log-level=silent
-      - name: opensea prettier
-        run: pnpm exec turbo run prettier --filter=@echo/opensea -- --log-level=silent
       - name: routing prettier
         run: pnpm exec turbo run prettier --filter=@echo/routing -- --log-level=silent
       - name: tasks prettier

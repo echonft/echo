@@ -24,14 +24,14 @@ export const WalletButtonWalletStatusManager: FunctionComponent<Props> = ({ onWa
   const { show } = useAlertStore()
   const t = useTranslations('wallet.status')
   useAccount({
-    onConnect: async ({ address, chain }: AccountResultConnected) => {
+    onConnect: async ({ address }: AccountResultConnected) => {
       if (
         !signingRef.current &&
         walletStatusRef.current !== WalletStatus.Linked &&
         walletStatusRef.current !== WalletStatus.LinkedToOtherUser
       ) {
         signingRef.current = true
-        const walletStatus = await getWalletStatus({ address, chain })
+        const walletStatus = await getWalletStatus(address)
         walletStatusRef.current = walletStatus.status
         if (walletStatus.status === WalletStatus.Linked) {
           onWalletLinked?.()
@@ -52,8 +52,8 @@ export const WalletButtonWalletStatusManager: FunctionComponent<Props> = ({ onWa
         }
         if (walletStatus.status === WalletStatus.NeedsSignature) {
           try {
-            const { message, signature } = await signNonce({ address, chain, nonce: walletStatus.nonce })
-            await addWallet({ address, chain, message: base64Encode(message), signature: base64Encode(signature) })
+            const { message, signature } = await signNonce({ address, nonce: walletStatus.nonce })
+            await addWallet({ wallet: address, message: base64Encode(message), signature: base64Encode(signature) })
             onWalletLinked?.()
           } catch (err) {
             logError(err)

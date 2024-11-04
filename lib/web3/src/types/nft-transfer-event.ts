@@ -1,8 +1,8 @@
-import type { Contract } from '@echo/model/types/contract'
+import type { Address } from '@echo/model/types/address'
 
 export interface NftTransferEvent {
-  contract: Contract
-  from: Contract
-  to: Contract
+  contract: Address
+  from: Address
+  to: Address
   tokenId: number
 }

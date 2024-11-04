@@ -1,4 +1,4 @@
-import { evmAddressSchema } from '@echo/model/validators/evm-address-schema'
+import { addressSchema } from '@echo/model/validators/address-schema'
 import { hexStringSchema } from '@echo/model/validators/hex-string-schema'
 import { EchoEventTopic } from '@echo/web3/constants/echo-event-topic'
 import { EchoEventType } from '@echo/web3/constants/echo-event-type'
@@ -24,9 +24,9 @@ function echoEventTopicToType(topic: EchoEventTopic): EchoEventType {
 
 export const echoEventSchema = object({
   logs: object({
-    address: evmAddressSchema,
+    address: addressSchema,
     topics: tuple([nativeEnum(EchoEventTopic).transform(echoEventTopicToType), topicSchema]).rest(
-      topicSchema.pipe(evmAddressSchema).optional()
+      topicSchema.pipe(addressSchema).optional()
     ),
     transactionHash: hexStringSchema
   })

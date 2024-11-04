@@ -1,4 +1,5 @@
-import { getCollection, getCollectionSnapshot } from '@echo/firestore/crud/collection/get-collection'
+import { getCollectionSnapshot } from '@echo/firestore/crud/collection/get-collection'
+import { getCollectionByContract } from '@echo/firestore/crud/collection/get-collection-by-contract'
 import { collectionsCollection } from '@echo/firestore/helpers/collection/collections'
 import { setReference } from '@echo/firestore/helpers/reference/set-reference'
 import type { CollectionDocument } from '@echo/firestore/types/model/collection-document'
@@ -30,11 +31,11 @@ function generateUniqueCollectionSlug(slug: Slug) {
 }
 
 export async function addCollection(args: Collection): Promise<NewDocument<CollectionDocument>> {
-  const uniqueSlug = await generateUniqueCollectionSlug(args.slug)
-  const collectionBySlug = await getCollection(uniqueSlug)
-  if (!isNil(collectionBySlug)) {
+  const existingCollection = await getCollectionByContract(args.contract)
+  if (!isNil(existingCollection)) {
     return Promise.reject(Error(CollectionError.Exists))
   }
+  const uniqueSlug = await generateUniqueCollectionSlug(args.slug)
   const data = assoc('slug', uniqueSlug, args)
   const id = await setReference({
     collectionReference: collectionsCollection(),

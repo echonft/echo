@@ -18,7 +18,7 @@ export async function getErc20TokenBalance(token: Erc20Token): Promise<TokenBala
       readContract(wagmiConfig, {
         abi: erc20Abi,
         functionName: 'balanceOf',
-        address: token.contract.address,
+        address: token.contract,
         args: [address]
       }),
     { startingDelay: 1100 }

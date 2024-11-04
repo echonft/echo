@@ -1,36 +1,36 @@
 import { TokenType } from '@echo/model/constants/token-type'
-import { collectionMockSpiral, nftCollectionMockPx } from '@echo/model/mocks/collection-mock'
+import { erc1155NftMock, nftMockSpiral1 } from '@echo/model/mocks/nft-mock'
 import type { Erc1155Token, Erc20Token, Erc721Token } from '@echo/model/types/token'
 
 export const erc721TokenMock: Erc721Token = {
-  contract: collectionMockSpiral.contract,
+  contract: nftMockSpiral1.collection.contract,
   collection: {
-    name: 'Spiral Frequencies',
-    slug: 'spiral-frequencies',
-    totalSupply: 6315
+    name: nftMockSpiral1.collection.name,
+    slug: nftMockSpiral1.collection.slug,
+    totalSupply: nftMockSpiral1.collection.totalSupply
   },
-  name: 'Spiral Frequencies #1',
-  pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
-  tokenId: 1,
+  name: nftMockSpiral1.name,
+  pictureUrl: nftMockSpiral1.pictureUrl,
+  tokenId: nftMockSpiral1.tokenId,
   type: TokenType.Erc721
 }
 
 export const erc1155TokenMock: Erc1155Token = {
-  contract: nftCollectionMockPx.contract,
+  contract: erc1155NftMock.collection.contract,
   collection: {
-    name: 'pxMythics Genesis',
-    slug: 'pxmythics-genesis',
-    totalSupply: 1077
+    name: erc1155NftMock.collection.name,
+    slug: erc1155NftMock.collection.slug,
+    totalSupply: erc1155NftMock.collection.totalSupply
   },
-  name: 'Creative Demigod #1',
-  pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/c96b4f27dc8dec8a869932f36205bafa',
-  tokenId: 4,
+  name: erc1155NftMock.name,
+  pictureUrl: erc1155NftMock.pictureUrl,
+  tokenId: erc1155NftMock.tokenId,
   type: TokenType.Erc1155
 }
 
 export const erc20TokenMock: Erc20Token = {
-  contract: nftCollectionMockPx.contract,
-  decimals: 6,
-  name: 'USDC',
+  contract: '0xb75d0b03c06a926e488e2659df1a861f860bd3d1',
+  decimals: 18,
+  name: 'USDT',
   type: TokenType.Erc20
 }

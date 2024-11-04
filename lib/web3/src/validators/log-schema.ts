@@ -1,9 +1,9 @@
-import { evmAddressSchema } from '@echo/model/validators/evm-address-schema'
+import { addressSchema } from '@echo/model/validators/address-schema'
 import { hexStringSchema } from '@echo/model/validators/hex-string-schema'
 import { object } from 'zod'
 
 export const logSchema = object({
-  address: evmAddressSchema,
+  address: addressSchema,
   topics: hexStringSchema.array().nonempty(),
   transactionHash: hexStringSchema
 })

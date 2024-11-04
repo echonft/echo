@@ -17,7 +17,6 @@ interface Props {
 /**
  * Shared between listings and offers
  * Shows the picture of the user (if listing = creator, if offer = sender) and their wallet address
- * @param chain
  * @param user
  * @param isAuthUser
  */

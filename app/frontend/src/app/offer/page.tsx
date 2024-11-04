@@ -27,7 +27,6 @@ import {
   juxt,
   map,
   otherwise,
-  path,
   pathSatisfies,
   pipe,
   prop,
@@ -68,23 +67,18 @@ async function render({ searchParams: { items, target }, user }: Props) {
     notFound()
   }
   const receiver = pipe(head, prop('owner')<OwnedNft>)(receiverNftsSelection)
-  const receiverChain = pipe(head, path(['collection', 'contract', 'chain']))(receiverNftsSelection)
   const receiverNfts = await pipe(
     prop('username'),
     getNftsForOwner,
-    andThen(filter(pathSatisfies(equals(receiverChain), ['collection', 'contract', 'chain']))),
     otherwise(pipe(captureAndLogError, always([])))
   )(receiver)
   const senderNfts = await pipe(
     prop('username'),
     getNftsForOwner,
     andThen(
-      pipe(
-        filter(pathSatisfies(equals(receiverChain), ['collection', 'contract', 'chain'])),
-        unless<OwnedNft[], OwnedNft[]>(
-          always(isNil(target)),
-          filter(pathSatisfies(equals(target), ['collection', 'slug']))
-        )
+      unless<OwnedNft[], OwnedNft[]>(
+        always(isNil(target)),
+        filter(pathSatisfies(equals(target), ['collection', 'slug']))
       )
     ),
     otherwise(pipe(captureAndLogError, always([])))

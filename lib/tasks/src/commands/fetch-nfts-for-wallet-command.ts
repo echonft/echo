@@ -1,13 +1,13 @@
-import type { Contract } from '@echo/model/types/contract'
+import type { Address } from '@echo/model/types/address'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import { error, info, warn } from '@echo/tasks/helpers/logger'
 import { fetchCollection } from '@echo/tasks/tasks/fetch-collection'
-import { fetchNftsByAccount } from '@echo/tasks/tasks/fetch-nfts-by-account'
+import { fetchNftsByWallet } from '@echo/tasks/tasks/fetch-nfts-by-wallet'
 import { andThen, assoc, head, isEmpty, isNil, otherwise, path, pipe, tap } from 'ramda'
 
-export async function fetchNftsForWalletCommand(wallet: Contract) {
+export async function fetchNftsForWalletCommand(wallet: Address) {
   const groups = await pipe(
-    fetchNftsByAccount,
+    fetchNftsByWallet,
     andThen(
       tap((groups) => {
         if (isEmpty(groups)) {
@@ -21,7 +21,7 @@ export async function fetchNftsForWalletCommand(wallet: Contract) {
     })
   )(wallet)
   for (const group of groups) {
-    const contract = pipe<[PartialNft[]], PartialNft, Contract>(head, path(['collection', 'contract']))(group)
+    const contract = pipe<[PartialNft[]], PartialNft, Address>(head, path(['collection', 'contract']))(group)
     const collection = await pipe(
       fetchCollection,
       andThen(

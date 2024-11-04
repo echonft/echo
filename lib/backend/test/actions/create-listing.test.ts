@@ -98,6 +98,7 @@ describe('createListing', () => {
   })
 
   it('throws if the listing already exists', async () => {
+    jest.mocked(getNftByIndex).mockImplementation(findNftByIndex)
     jest.mocked(getListingBySignature).mockResolvedValueOnce(listingDocumentMock)
     await expect(createListing(args)).rejects.toEqual(Error(ListingError.Exists))
   })

@@ -5,23 +5,20 @@ import { getUserByWallet } from '@echo/firestore/crud/user/get-user-by-wallet'
 import { usersCollection } from '@echo/firestore/helpers/collection/collections'
 import { updateReference } from '@echo/firestore/helpers/reference/update-reference'
 import type { UserDocument } from '@echo/firestore/types/model/user-document'
-import type { NewDocument } from '@echo/firestore/types/new-document'
 import { UserError } from '@echo/model/constants/errors/user-error'
 import { WalletError } from '@echo/model/constants/errors/wallet-error'
-import type { Wallet } from '@echo/model/types/wallet'
+import type { Address } from '@echo/model/types/address'
 import { isNil } from 'ramda'
 
 interface AddUserWalletArgs {
   userId: string
-  wallet: Wallet
+  wallet: Address
 }
 
-interface AddUserWalletReturn {
-  user: UserDocument
-  wallet?: NewDocument<Wallet>
-}
-
-export async function addUserWallet({ userId, wallet }: AddUserWalletArgs): Promise<AddUserWalletReturn> {
+export async function addUserWallet({
+  userId,
+  wallet
+}: AddUserWalletArgs): Promise<UserDocument & Required<Pick<UserDocument, 'wallet'>>> {
   const user = await getUserById(userId)
   if (isNil(user)) {
     return Promise.reject(Error(UserError.NotFound))
@@ -42,5 +39,5 @@ export async function addUserWallet({ userId, wallet }: AddUserWalletArgs): Prom
   if (!isNil(nonceSnapshot)) {
     await deleteNonce(nonceSnapshot.id)
   }
-  return { user: updatedUser }
+  return updatedUser as UserDocument & Required<Pick<UserDocument, 'wallet'>>
 }

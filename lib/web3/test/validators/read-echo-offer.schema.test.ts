@@ -1,4 +1,3 @@
-import { Chain } from '@echo/model/constants/chain'
 import { baseOfferMockFromJohnnycage } from '@echo/model/mocks/offer-mock'
 import { EchoOfferState } from '@echo/web3/constants/echo-offer-state'
 import { echoOfferMock } from '@echo/web3/mocks/echo-offer-mock'
@@ -8,8 +7,8 @@ import { describe, expect, test } from '@jest/globals'
 describe('readEchoOfferSchema', () => {
   test('maps correctly', () => {
     const readValues = [
-      baseOfferMockFromJohnnycage.sender.wallet.address,
-      baseOfferMockFromJohnnycage.receiver.wallet.address,
+      baseOfferMockFromJohnnycage.sender.wallet,
+      baseOfferMockFromJohnnycage.receiver.wallet,
       {
         chainId: BigInt(1),
         items: [
@@ -38,6 +37,6 @@ describe('readEchoOfferSchema', () => {
       BigInt(baseOfferMockFromJohnnycage.expiresAt),
       EchoOfferState.Open
     ]
-    expect(readEchoOfferSchema(Chain.Ethereum).parse(readValues)).toStrictEqual(echoOfferMock)
+    expect(readEchoOfferSchema.parse(readValues)).toStrictEqual(echoOfferMock)
   })
 })

@@ -35,8 +35,6 @@ jobs:
         run: pnpm exec turbo run tsc --filter=@echo/model
       - name: nft-scan tsc
         run: pnpm exec turbo run tsc --filter=@echo/nft-scan
-      - name: opensea tsc
-        run: pnpm exec turbo run tsc --filter=@echo/opensea
       - name: routing tsc
         run: pnpm exec turbo run tsc --filter=@echo/routing
       - name: tasks tsc

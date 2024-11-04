@@ -1,5 +1,5 @@
-import { Chain } from '@echo/model/constants/chain'
 import { TokenType } from '@echo/model/constants/token-type'
+import { nftMockPx3, nftMockSpiral1 } from '@echo/model/mocks/nft-mock'
 import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
 import type { Swap } from '@echo/model/types/swap'
 
@@ -8,18 +8,15 @@ export const swapMock: Swap = {
   receiverItems: [
     {
       token: {
-        contract: {
-          address: '0x320e2fa93a4010ba47edcde762802374bac8d3f7',
-          chain: Chain.Ethereum
-        },
+        contract: nftMockSpiral1.collection.contract,
         collection: {
-          name: 'Spiral Frequencies',
-          slug: 'spiral-frequencies',
-          totalSupply: 6315
+          name: nftMockSpiral1.collection.name,
+          slug: nftMockSpiral1.collection.slug,
+          totalSupply: nftMockSpiral1.collection.totalSupply
         },
-        name: 'Spiral Frequencies #1',
-        pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
-        tokenId: 1,
+        name: nftMockSpiral1.name,
+        pictureUrl: nftMockSpiral1.pictureUrl,
+        tokenId: nftMockSpiral1.tokenId,
         type: TokenType.Erc721
       }
     }
@@ -28,18 +25,15 @@ export const swapMock: Swap = {
   senderItems: [
     {
       token: {
-        contract: {
-          address: '0x12c63bbd266db84e117356e664f3604055166cec',
-          chain: Chain.Ethereum
-        },
+        contract: nftMockPx3.collection.contract,
         collection: {
-          name: 'pxMythics Genesis',
-          slug: 'pxmythics-genesis',
-          totalSupply: 1077
+          name: nftMockPx3.collection.name,
+          slug: nftMockPx3.collection.slug,
+          totalSupply: nftMockPx3.collection.totalSupply
         },
-        name: 'Creative Demigod #3',
-        pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/d4ccdfe6a54889abc408c34335b6fb55',
-        tokenId: 3,
+        name: nftMockPx3.name,
+        pictureUrl: nftMockPx3.pictureUrl,
+        tokenId: nftMockPx3.tokenId,
         type: TokenType.Erc721
       }
     }

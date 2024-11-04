@@ -1,7 +1,7 @@
-import type { Contract } from '@echo/model/types/contract'
+import type { Address } from '@echo/model/types/address'
 
 export interface FetchNftRequest {
-  contract: Contract
+  contract: Address
   identifier: string
   showAttribute?: boolean // To fetch NFT attributes. Default: true
 }

@@ -1,16 +1,12 @@
-import type { Chain } from '@echo/model/constants/chain'
-import { chainId } from '@echo/model/helpers/chain/chain-id'
-import type { EvmAddress } from '@echo/model/types/address'
+import type { Address } from '@echo/model/types/address'
 import { hostname } from '@echo/routing/constants/hostname'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import { SiweMessage } from 'siwe'
-import { getAddress } from 'viem'
 import { signMessage } from 'wagmi/actions'
 
 export interface SignNonceArgs {
-  address: EvmAddress
-  chain: Chain
+  address: Address
   nonce: string
 }
 
@@ -19,10 +15,9 @@ export interface SignNonceResult {
   signature: HexString
 }
 
-export async function signNonce({ address, chain, nonce }: SignNonceArgs): Promise<SignNonceResult> {
+export async function signNonce({ address, nonce }: SignNonceArgs): Promise<SignNonceResult> {
   const siweMessage = new SiweMessage({
-    address: getAddress(address),
-    chainId: chainId(chain),
+    address,
     domain: hostname(),
     nonce,
     scheme: 'https',

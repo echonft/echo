@@ -1,12 +1,12 @@
 import { TokenType } from '@echo/model/constants/token-type'
+import { addressSchema } from '@echo/model/validators/address-schema'
 import { collectionSchema } from '@echo/model/validators/collection-schema'
-import { contractSchema } from '@echo/model/validators/contract-schema'
 import { nftIndexSchema, nftSchema } from '@echo/model/validators/nft-schema'
 import { tokenTypeSchema } from '@echo/model/validators/token-type-schema'
 import { literal, number, object, string } from 'zod'
 
 export const tokenSchema = object({
-  contract: contractSchema,
+  contract: addressSchema,
   name: string().min(1),
   type: tokenTypeSchema
 })

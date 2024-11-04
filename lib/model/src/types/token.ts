@@ -1,9 +1,9 @@
 import type { TokenType } from '@echo/model/constants/token-type'
-import type { Contract } from '@echo/model/types/contract'
+import type { Address } from '@echo/model/types/address'
 import type { Erc721Nft, NftCollection, NftIndex } from '@echo/model/types/nft'
 
 export interface AbstractToken {
-  contract: Contract
+  contract: Address
   name: string
   type: TokenType
 }

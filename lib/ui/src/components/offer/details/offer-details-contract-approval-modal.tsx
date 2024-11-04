@@ -1,6 +1,6 @@
 'use client'
 
-import type { Contract } from '@echo/model/types/contract'
+import type { Address } from '@echo/model/types/address'
 import type { OwnedNft } from '@echo/model/types/nft'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
@@ -45,7 +45,7 @@ export const OfferDetailsContractApprovalModal: FunctionComponent<Props> = ({
   )
 
   const updateApprovalStatus = useCallback(
-    (contract: Contract, approved: Nullable<boolean>) => {
+    (contract: Address, approved: Nullable<boolean>) => {
       const foundApproval = find(propEq(contract, 'contract'), approvals)
       if (!isNil(foundApproval)) {
         setApprovals(
@@ -73,10 +73,10 @@ export const OfferDetailsContractApprovalModal: FunctionComponent<Props> = ({
           {map(
             (approval) => (
               <OfferDetailsContractApprovalRow
-                key={approval.contract.address}
+                key={approval.contract}
                 contract={approval.contract}
                 collectionName={approval.name}
-                address={approval.address}
+                wallet={approval.wallet}
                 approved={approval.approved}
                 onSuccess={updateApprovalStatus}
               />

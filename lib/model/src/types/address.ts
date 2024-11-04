@@ -1,5 +1,3 @@
 import type { HexString } from '@echo/utils/types/hex-string'
 
-export type EvmAddress = Lowercase<HexString>
-
-export type Address = EvmAddress
+export type Address = Lowercase<HexString>

@@ -3,7 +3,6 @@ import { offersCollection } from '@echo/firestore/helpers/collection/collections
 import { updateReference } from '@echo/firestore/helpers/reference/update-reference'
 import type { OfferDocument } from '@echo/firestore/types/model/offer-document'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
-import { shouldLockOffer } from '@echo/model/helpers/offer/should-lock-offer'
 import { isNil } from 'ramda'
 
 export async function updateOfferState(args: Pick<OfferDocument, 'slug' | 'state'>): Promise<OfferDocument> {
@@ -22,6 +21,6 @@ export async function updateOfferState(args: Pick<OfferDocument, 'slug' | 'state
   return updateReference({
     collectionReference: offersCollection(),
     id: snapshot.id,
-    data: { state, locked: shouldLockOffer(state) }
+    data: { state, locked: true }
   })
 }

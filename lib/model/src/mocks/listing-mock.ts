@@ -1,6 +1,7 @@
 import { ListingState } from '@echo/model/constants/listing-state'
 import { TokenType } from '@echo/model/constants/token-type'
-import { collectionMockPx, collectionMockSpiral } from '@echo/model/mocks/collection-mock'
+import { collectionMockPx } from '@echo/model/mocks/collection-mock'
+import { nftMockSpiral1, nftMockSpiral2 } from '@echo/model/mocks/nft-mock'
 import { userMockJohnny } from '@echo/model/mocks/user-mock'
 import { type Listing } from '@echo/model/types/listing'
 
@@ -10,29 +11,29 @@ export const listingMock: Listing = {
   items: [
     {
       token: {
-        contract: collectionMockSpiral.contract,
+        contract: nftMockSpiral1.collection.contract,
         collection: {
-          name: 'Spiral Frequencies',
-          slug: collectionMockSpiral.slug,
-          totalSupply: 6315
+          name: nftMockSpiral1.collection.name,
+          slug: nftMockSpiral1.collection.slug,
+          totalSupply: nftMockSpiral1.collection.totalSupply
         },
-        name: 'Spiral Frequencies #1',
-        pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
-        tokenId: 1,
+        name: nftMockSpiral1.name,
+        pictureUrl: nftMockSpiral1.pictureUrl,
+        tokenId: nftMockSpiral1.tokenId,
         type: TokenType.Erc721
       }
     },
     {
       token: {
-        contract: collectionMockSpiral.contract,
+        contract: nftMockSpiral2.collection.contract,
         collection: {
-          name: 'Spiral Frequencies',
-          slug: collectionMockSpiral.slug,
-          totalSupply: 6315
+          name: nftMockSpiral2.collection.name,
+          slug: nftMockSpiral2.collection.slug,
+          totalSupply: nftMockSpiral2.collection.totalSupply
         },
-        name: 'Spiral Frequencies #2',
-        pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/c8ced259cc0a40a5a42d22182e82f9de',
-        tokenId: 2,
+        name: nftMockSpiral2.name,
+        pictureUrl: nftMockSpiral2.pictureUrl,
+        tokenId: nftMockSpiral2.tokenId,
         type: TokenType.Erc721
       }
     }

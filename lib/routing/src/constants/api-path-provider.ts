@@ -5,7 +5,7 @@ export const apiPathProvider = {
     proxy: new ApiPath<{ path: string }>({ path: '/ipfs/:path', secure: false })
   },
   webhook: {
-    echo: new ApiPath<Record<'chain', string>>({ path: '/webhook/:chain/echo', secure: false }),
-    nftTransfer: new ApiPath<Record<'chain', string>>({ path: '/webhook/:chain/nft/transfer', secure: false })
+    echo: new ApiPath({ path: '/webhook/echo', secure: false }),
+    nftTransfer: new ApiPath({ path: '/webhook/nft/transfer', secure: false })
   }
 }

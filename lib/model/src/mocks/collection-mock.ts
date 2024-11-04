@@ -1,13 +1,9 @@
-import { Chain } from '@echo/model/constants/chain'
 import { TokenType } from '@echo/model/constants/token-type'
 import { type Collection, type CollectionWithCounts } from '@echo/model/types/collection'
 import type { NftCollection } from '@echo/model/types/nft'
 
 export const collectionMockPx: Collection = {
-  contract: {
-    address: '0x12c63bbd266db84e117356e664f3604055166cec',
-    chain: Chain.Ethereum
-  },
+  contract: '0x12c63bbd266db84e117356e664f3604055166cec',
   description: 'pxMythics is an 1,077 piece NFT collection based on the greatest mythologies throughout history.',
   discordUrl: 'https://discord.gg/pxmythics',
   name: 'pxMythics Genesis',
@@ -20,20 +16,14 @@ export const collectionMockPx: Collection = {
 }
 
 export const nftCollectionMockPx: NftCollection = {
-  contract: {
-    address: '0x12c63bbd266db84e117356e664f3604055166cec',
-    chain: Chain.Ethereum
-  },
+  contract: '0x12c63bbd266db84e117356e664f3604055166cec',
   name: 'pxMythics Genesis',
   slug: 'pxmythics-genesis',
   totalSupply: 1077
 }
 
 export const collectionMockSpiral: Collection = {
-  contract: {
-    address: '0x320e2fa93a4010ba47edcde762802374bac8d3f7',
-    chain: Chain.Ethereum
-  },
+  contract: '0x320e2fa93a4010ba47edcde762802374bac8d3f7',
   description: 'A Genetic Chain Project.',
   discordUrl: 'https://discord.gg/genetic-chain',
   name: 'Spiral Frequencies',
@@ -46,10 +36,7 @@ export const collectionMockSpiral: Collection = {
 }
 
 export const nftCollectionMockSpiral: NftCollection = {
-  contract: {
-    address: '0x320e2fa93a4010ba47edcde762802374bac8d3f7',
-    chain: Chain.Ethereum
-  },
+  contract: '0x320e2fa93a4010ba47edcde762802374bac8d3f7',
   name: 'Spiral Frequencies',
   slug: 'spiral-frequencies',
   totalSupply: 6315

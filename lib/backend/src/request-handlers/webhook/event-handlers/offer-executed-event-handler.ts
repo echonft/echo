@@ -9,8 +9,10 @@ import type { Swap } from '@echo/model/types/swap'
 import type { EchoEvent } from '@echo/web3/types/echo-event'
 import { assoc, isNil, pick, pipe } from 'ramda'
 
-export async function offerExecutedEventHandler(event: EchoEvent) {
-  const { offerId, transactionHash } = event
+export async function offerExecutedEventHandler({
+  offerId,
+  transactionHash
+}: Pick<EchoEvent, 'offerId' | 'transactionHash'>) {
   const offerSnapshot = await getOfferSnapshotByIdContract(offerId)
   if (isNil(offerSnapshot)) {
     return Promise.reject(new NotFoundError({ message: OfferError.NotFound, severity: 'warning' }))

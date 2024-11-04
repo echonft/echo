@@ -8,7 +8,6 @@
       "@echo/firestore/*": ["../firestore/src/*"],
       "@echo/model/*": ["../model/src/*"],
       "@echo/nft-scan/*": ["../nft-scan/src/*"],
-      "@echo/opensea/*": ["../opensea/src/*"],
       "@echo/routing/*": ["../routing/src/*"],
       "@echo/tasks/*": ["../tasks/src/*"],
       "@echo/ui/*": ["../ui/src/*"],

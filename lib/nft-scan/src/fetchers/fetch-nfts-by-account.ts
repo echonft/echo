@@ -9,18 +9,20 @@ import { parseResponse } from '@echo/utils/helpers/parse-response'
 import { pick } from 'ramda'
 
 export async function fetchNftsByAccount({
-  contract,
+  account,
   showAttribute,
   limit,
   next
 }: FetchNftsByAccountRequest): Promise<Promise<FetchNftsResponse>> {
-  const url = nftScanApiPathProvider.nfts.fetchByAccount.withQuery({ showAttribute, limit, next }).getUrl(contract)
+  const url = nftScanApiPathProvider.nfts.fetchByAccount
+    .withQuery({ showAttribute, limit, next })
+    .getUrl({ address: account })
   const init = await fetchInit()
   const response = await fetch(url, init)
   if (!response.ok) {
     error(
       {
-        contract,
+        account: account,
         url,
         response: pick(['status'], response)
       },
@@ -28,5 +30,5 @@ export async function fetchNftsByAccount({
     )
     return Promise.reject(Error(FetchError.Nfts))
   }
-  return parseResponse(fetchNftsResponseSchema(contract.chain))(response)
+  return parseResponse(fetchNftsResponseSchema)(response)
 }

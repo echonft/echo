@@ -1,21 +1,20 @@
-import type { EvmAddress } from '@echo/model/types/address'
-import type { Contract } from '@echo/model/types/contract'
+import type { Address } from '@echo/model/types/address'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
-import { echoAddress } from '@echo/web3/helpers/echo-address'
+import { echoAddress } from '@echo/web3/constants/echo-address'
 import { erc721Abi } from 'viem'
 import { readContract } from 'wagmi/actions'
 
 export interface GetErc721ContractApprovalArgs {
-  contract: Contract
-  address: EvmAddress
+  contract: Address
+  wallet: Address
 }
 
 export async function getErc721ContractApproval(args: GetErc721ContractApprovalArgs) {
-  const { contract, address } = args
+  const { contract, wallet } = args
   return await readContract(wagmiConfig, {
     abi: erc721Abi,
     functionName: 'isApprovedForAll',
-    address: contract.address,
-    args: [address, echoAddress(contract.chain)]
+    address: contract,
+    args: [wallet, echoAddress]
   })
 }

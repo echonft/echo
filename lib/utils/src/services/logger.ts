@@ -2,10 +2,10 @@ import { Environment, environment } from '@echo/utils/constants/environment'
 import { isCI } from '@echo/utils/constants/is-ci'
 import { logLevel } from '@echo/utils/constants/log-level'
 import { NodeEnvironment, nodeEnvironment } from '@echo/utils/constants/node-environment'
-import type { LoggerOptions } from '@echo/utils/types/logger-options'
+import type { LoggerOptions } from '@echo/utils/types/logger'
 import type { LoggerSerializer } from '@echo/utils/types/logger-serializer'
 import pino, { type DestinationStream, type LevelWithSilentOrString } from 'pino'
-import { always, assoc, equals, is, isNil, mergeAll, mergeLeft, pipe, unless } from 'ramda'
+import { assoc, is, isNil, mergeAll, mergeLeft, pipe } from 'ramda'
 
 export type { Logger } from 'pino'
 
@@ -47,13 +47,9 @@ export function getBaseLogger(name: string, options?: LoggerOptions, stream?: De
         }
       },
       mixin(mergeObject: object, _level: number) {
-        const baseMergeObject = pipe<[object], object, object, object>(
+        const baseMergeObject = pipe<[object], object, object>(
           assoc('env', process.env.ENV),
-          assoc('node_env', process.env.NODE_ENV),
-          unless<object, object>(
-            always(Boolean(options?.hideNetwork)),
-            assoc('network', equals(process.env.NEXT_PUBLIC_IS_TESTNET, '1') ? 'testnet' : 'mainnet')
-          )
+          assoc('node_env', process.env.NODE_ENV)
         )(mergeObject)
         if (!isNil(options) && !isNil(options.baseMergeObject)) {
           return mergeLeft(options.baseMergeObject, baseMergeObject)

@@ -6,16 +6,18 @@ import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { cancelOffer } from '@echo/firestore/crud/offer/cancel-offer'
 import { getOffersForNft } from '@echo/firestore/crud/offer/get-offers-for-nft'
 import { getUserByWallet } from '@echo/firestore/crud/user/get-user-by-wallet'
-import { chainVirtualMachine } from '@echo/model/helpers/chain/chain-virtual-machine'
+import { eqAddress } from '@echo/model/helpers/eq-address'
+import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
 import type { Address } from '@echo/model/types/address'
 import type { Nft, NftIndex } from '@echo/model/types/nft'
 import { error, info } from '@echo/tasks/helpers/logger'
+import { unlessNil } from '@echo/utils/helpers/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { andThen, assoc, equals, isNil, otherwise, pipe, tap } from 'ramda'
+import { andThen, isNil, isNotNil, otherwise, pipe, tap } from 'ramda'
 
 export interface UpdateNftOwnerArgs {
   readonly nft: Nft
-  readonly ownerAddress: Nullable<Address>
+  readonly wallet: Nullable<Address>
 }
 
 async function cancelTiedListings(nft: NftIndex) {
@@ -38,14 +40,17 @@ async function cancelTiedOffers(nft: NftIndex) {
  * Else, it removes the owner
  * @param args
  */
-export async function updateNftOwner({ nft, ownerAddress }: UpdateNftOwnerArgs): Promise<Nft> {
-  if (equals(ownerAddress, nft.owner?.wallet.address)) {
+export async function updateNftOwner({ nft, wallet }: UpdateNftOwnerArgs): Promise<Nft> {
+  if (
+    (isOwnedNft(nft) && isNotNil(wallet) && eqAddress(nft.owner.wallet, wallet)) ||
+    (!isOwnedNft(nft) && isNil(wallet))
+  ) {
     // NFT owner is already set to the right value in Firestore, return it
     return nft
   }
   await cancelTiedOffers(nft)
   await cancelTiedListings(nft)
-  if (isNil(ownerAddress)) {
+  if (isNil(wallet)) {
     return pipe(
       removeNftOwner,
       andThen(
@@ -55,14 +60,15 @@ export async function updateNftOwner({ nft, ownerAddress }: UpdateNftOwnerArgs):
       )
     )(nft)
   }
-  const user = await pipe(
+  const owner = await pipe(
     getUserByWallet,
+    andThen(unlessNil(userDocumentToModel)),
     otherwise((err) => {
-      error({ err, owner: ownerAddress }, 'could not get wallet owner')
+      error({ err, owner: wallet }, 'could not get wallet owner')
       return undefined
     })
-  )({ address: ownerAddress, vm: chainVirtualMachine(nft.collection.contract.chain) })
-  if (isNil(user)) {
+  )(wallet)
+  if (isNil(owner)) {
     return pipe(
       removeNftOwner,
       andThen(
@@ -72,7 +78,6 @@ export async function updateNftOwner({ nft, ownerAddress }: UpdateNftOwnerArgs):
       )
     )(nft)
   } else {
-    const nftOwner = pipe(userDocumentToModel, assoc('wallet', { address: ownerAddress }))(user)
     return pipe(
       setNftOwner,
       andThen(
@@ -80,6 +85,6 @@ export async function updateNftOwner({ nft, ownerAddress }: UpdateNftOwnerArgs):
           info({ nft }, 'updated NFT owner')
         })
       )
-    )({ nft, owner: nftOwner })
+    )({ nft, owner })
   }
 }

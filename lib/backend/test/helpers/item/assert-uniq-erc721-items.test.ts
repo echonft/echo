@@ -13,7 +13,7 @@ describe('helpers - item - assertUniqErc721Items', () => {
   const erc1155Item4: Erc1155Item = assocPath(['token', 'tokenId'], 40, erc1155ItemMock)
 
   test('does not throw if there are no erc721 item duplicates in the list', () => {
-    expect(() =>
+    expect(() => {
       assertUniqErc721Items([
         erc721ItemMock,
         erc1155ItemMock,
@@ -24,8 +24,8 @@ describe('helpers - item - assertUniqErc721Items', () => {
         erc721Item4,
         erc1155Item4
       ])
-    ).not.toThrow()
-    expect(() =>
+    }).not.toThrow()
+    expect(() => {
       assertUniqErc721Items([
         erc1155Item4,
         erc721ItemMock,
@@ -38,11 +38,11 @@ describe('helpers - item - assertUniqErc721Items', () => {
         erc1155Item4,
         erc1155Item4
       ])
-    ).not.toThrow()
+    }).not.toThrow()
   })
 
   test('throws if there are one or more erc721 item duplicates in the list', () => {
-    expect(() =>
+    expect(() => {
       assertUniqErc721Items([
         erc721ItemMock,
         erc1155ItemMock,
@@ -54,8 +54,8 @@ describe('helpers - item - assertUniqErc721Items', () => {
         erc721Item4,
         erc1155Item4
       ])
-    ).toThrow()
-    expect(() =>
+    }).toThrow()
+    expect(() => {
       assertUniqErc721Items([
         erc1155Item4,
         erc721ItemMock,
@@ -70,6 +70,6 @@ describe('helpers - item - assertUniqErc721Items', () => {
         erc1155Item4,
         erc1155Item4
       ])
-    ).toThrow()
+    }).toThrow()
   })
 })

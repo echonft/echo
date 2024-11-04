@@ -2,25 +2,19 @@ import { offerAcceptedEventHandler } from '@echo/backend/request-handlers/webhoo
 import { offerCancelledEventHandler } from '@echo/backend/request-handlers/webhook/event-handlers/offer-cancelled-event-handler'
 import { offerCreatedEventHandler } from '@echo/backend/request-handlers/webhook/event-handlers/offer-created-event-handler'
 import { offerExecutedEventHandler } from '@echo/backend/request-handlers/webhook/event-handlers/offer-executed-event-handler'
-import type { Chain } from '@echo/model/constants/chain'
 import { EchoEventType } from '@echo/web3/constants/echo-event-type'
 import type { EchoEvent } from '@echo/web3/types/echo-event'
 
-export interface EchoEventHandlerArgs {
-  readonly event: EchoEvent
-  readonly chain: Chain
-}
-
-export function echoEventHandler(args: EchoEventHandlerArgs) {
-  switch (args.event.type) {
+export function echoEventHandler(event: EchoEvent) {
+  switch (event.type) {
     case EchoEventType.OfferCreated:
-      return offerCreatedEventHandler(args)
+      return offerCreatedEventHandler(event.offerId)
     case EchoEventType.OfferExecuted:
-      return offerExecutedEventHandler(args.event)
+      return offerExecutedEventHandler(event)
     case EchoEventType.OfferAccepted:
-      return offerAcceptedEventHandler(args)
+      return offerAcceptedEventHandler(event.offerId)
     case EchoEventType.OfferCancelled:
-      return offerCancelledEventHandler(args.event)
+      return offerCancelledEventHandler(event.offerId)
     default:
       return
   }

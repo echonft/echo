@@ -1,10 +1,10 @@
 import { TokenType } from '@echo/model/constants/token-type'
-import type { Contract } from '@echo/model/types/contract'
+import type { Address } from '@echo/model/types/address'
 import type { Counts } from '@echo/model/types/counts'
 import type { Slug } from '@echo/model/types/slug'
 
 export interface Collection {
-  contract: Contract
+  contract: Address
   description?: string
   discordUrl?: string
   name: string

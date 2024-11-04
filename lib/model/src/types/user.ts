@@ -1,5 +1,5 @@
+import type { Address } from '@echo/model/types/address'
 import type { Username } from '@echo/model/types/username'
-import type { Wallet } from '@echo/model/types/wallet'
 
 export interface User {
   discord: {
@@ -8,7 +8,7 @@ export interface User {
     globalName?: string
   }
   username: Username
-  wallet?: Wallet
+  wallet?: Address
 }
 
 export type UserIndex = Pick<User, 'username'>

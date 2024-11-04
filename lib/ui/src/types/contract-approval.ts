@@ -1,9 +1,8 @@
-import type { EvmAddress } from '@echo/model/types/address'
-import type { Contract } from '@echo/model/types/contract'
+import type { Address } from '@echo/model/types/address'
 
 export interface ContractApproval {
-  address: EvmAddress
-  contract: Contract
+  contract: Address
   name: string
+  wallet: Address
   approved?: boolean
 }

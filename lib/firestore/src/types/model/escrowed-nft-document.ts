@@ -2,5 +2,5 @@ import type { User } from '@echo/model/types/user'
 
 export interface EscrowedNftDocument {
   nftId: string
-  owner: User
+  owner: User & Required<Pick<User, 'wallet'>>
 }

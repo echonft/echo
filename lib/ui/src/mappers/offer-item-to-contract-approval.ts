@@ -6,6 +6,6 @@ export function offerItemToContractApproval(item: OwnedNft) {
   return applySpec<ContractApproval>({
     contract: pipe(path(['collection', 'contract'])),
     name: path(['collection', 'name']),
-    address: path(['owner', 'wallet'])
+    wallet: path(['owner', 'wallet'])
   })(item)
 }

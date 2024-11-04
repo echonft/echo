@@ -32,7 +32,7 @@ export const Row: StoryObj<ComonentType> = {
       <Component
         collectionName={nftMockSpiral1.collection.name}
         contract={nftMockSpiral1.collection.contract}
-        address={nftMockSpiral1.owner.wallet.address}
+        wallet={nftMockSpiral1.owner.wallet}
         approved={contractApproved}
       />
     )

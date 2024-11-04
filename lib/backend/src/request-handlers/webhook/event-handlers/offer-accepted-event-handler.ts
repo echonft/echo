@@ -1,15 +1,13 @@
 import { BadRequestError } from '@echo/backend/errors/bad-request-error'
 import { NotFoundError } from '@echo/backend/errors/not-found-error'
 import { info } from '@echo/backend/helpers/logger'
-import type { EchoEventHandlerArgs } from '@echo/backend/request-handlers/webhook/event-handlers/echo-event-handler'
 import { acceptOffer } from '@echo/firestore/crud/offer/accept-offer'
 import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
+import type { HexString } from '@echo/utils/types/hex-string'
 import { isNil } from 'ramda'
 
-export async function offerAcceptedEventHandler(args: EchoEventHandlerArgs) {
-  const { event } = args
-  const { offerId } = event
+export async function offerAcceptedEventHandler(offerId: HexString) {
   const offer = await getOfferByIdContract(offerId)
   if (isNil(offer)) {
     return Promise.reject(new NotFoundError({ message: OfferError.NotFound, severity: 'warning' }))

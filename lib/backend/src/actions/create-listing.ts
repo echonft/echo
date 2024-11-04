@@ -1,7 +1,6 @@
 'use server'
 import { AuthError } from '@echo/backend/errors/messages/auth-error'
 import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
-import { assertItemsChain } from '@echo/backend/helpers/item/assert-items-chain'
 import { assertUniqErc1155Items } from '@echo/backend/helpers/item/assert-uniq-erc1155-items'
 import { assertUniqErc721Items } from '@echo/backend/helpers/item/assert-uniq-erc721-items'
 import { createListingArgsSchema } from '@echo/backend/validators/create-listing-args-schema'
@@ -40,7 +39,8 @@ export async function createListing(args: Omit<AddListingArgs, 'creator'>): Prom
     return Promise.reject(Error(WalletError.NotFound))
   }
   // Ensure all items are unique and on the same chain
-  pipe(assertUniqErc721Items, assertUniqErc1155Items, assertItemsChain)(items)
+  assertUniqErc721Items(items)
+  assertUniqErc1155Items(items)
   for (const item of items) {
     const nft = await getNftByIndex(item.token)
     // Ensure the NFT exists
@@ -60,8 +60,8 @@ export async function createListing(args: Omit<AddListingArgs, 'creator'>): Prom
   const erc1155Items = filter(isErc1155Item, items)
   for (const item of erc1155Items) {
     const balance = await getTokenBalance({
-      owner: owner.wallet.address,
-      token: item.token
+      token: item.token,
+      wallet: owner.wallet
     })
     if (item.quantity > balance) {
       return Promise.reject(Error(ItemError.Quantity))

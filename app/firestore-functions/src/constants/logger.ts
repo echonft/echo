@@ -19,7 +19,7 @@ interface Log extends Record<string, unknown> {
 
 const logger = getBaseLogger(
   'firestore-functions',
-  { serializers: modelLoggerSerializers, hideNetwork: true },
+  { serializers: modelLoggerSerializers },
   {
     write: (msg: string) => {
       const { level, ...rest } = JSON.parse<Log>(msg)

@@ -1,29 +1,10 @@
 import { apiPathProvider } from '@echo/routing/constants/api-path-provider'
-import { productionHostname } from '@echo/routing/constants/production-hostname'
-import { baseUrl } from '@echo/routing/helpers/base-url'
 import { PictureSize } from '@echo/ui/constants/picture-size'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { ImageProps } from 'next/image'
-import { concat, filter, isNil, length, lte, reduce, values } from 'ramda'
+import { filter, isNil, length, lte, reduce, split, values } from 'ramda'
 
-/**
- * If src is pointing to our IPFS route but has another base URL, switch it to the current one
- * TODO do this in the Firestore data converter
- * @param src
- */
-function getCurrentHostnameSrc(src: string): string {
-  const regex = /^(https?:\/\/)([^/]+)(\/.*)?$/
-  const match = regex.exec(src)
-  if (
-    match &&
-    match[2] !== productionHostname() &&
-    (match[2] === 'dev.echonft.xyz' || match[2] === 'staging.echonft.xyz' || match[2] === 'app.echonft.xyz')
-  ) {
-    return src.replace(regex, `${baseUrl()}$3`)
-  }
-  return src
-}
 function getSize(width: number): Nullable<PictureSize> {
   const pictureSizes = values(PictureSize)
   const lteSizes: PictureSize[] = filter(lte(width), pictureSizes)
@@ -52,11 +33,11 @@ export function addPictureSize(
     return 'https://storage.googleapis.com/echo-dev-public/not-found-nft.png?alt=media'
   }
   try {
-    // update the src to the current environment
-    const src = getCurrentHostnameSrc(args.src)
-    // our IPFS gateway
-    if (src.startsWith(`${baseUrl()}/api/ipfs`)) {
-      return concat(src, `?img-width=${size}`)
+    const { src } = args
+    // IPFS
+    const splittedUrl = split('://', src)
+    if (length(splittedUrl) === 1) {
+      return `${apiPathProvider.ipfs.proxy.getProductionUrl({ path: src })}?img-width=${size}`
     }
     // NFT storage
     const nftStorageMatch = /^https:\/\/([^.]+)\.ipfs\.nftstorage\.link\/(.+)$/.exec(src)

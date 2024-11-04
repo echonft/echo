@@ -10,7 +10,6 @@ export default {
     '^@echo/firestore/(.*)$': '<rootDir>/../../lib/firestore/src/$1',
     '^@echo/model/(.*)$': '<rootDir>/../../lib/model/src/$1',
     '^@echo/nft-scan/(.*)$': '<rootDir>/../../lib/nft-scan/src/$1',
-    '^@echo/opensea/(.*)$': '<rootDir>/../../lib/opensea/src/$1',
     '^@echo/routing/(.*)$': '<rootDir>/../../lib/routing/src/$1',
     '^@echo/tasks/(.*)$': '<rootDir>/../../lib/tasks/src/$1',
     '^@echo/ui/(.*)$': '<rootDir>/../../lib/ui/src/$1',

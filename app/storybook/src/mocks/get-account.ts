@@ -1,14 +1,13 @@
-import { Chain } from '@echo/model/constants/chain'
-import { walletMockCrew } from '@echo/model/mocks/wallet-mock'
+import { userMockCrew } from '@echo/model/mocks/user-mock'
 import { accountStatusStore } from '@echo/storybook/mocks/stores/account-status-store'
 import { AccountStatus } from '@echo/web3-dom/constants/account-status'
 import type { AccountResult } from '@echo/web3-dom/services/get-account'
 
 function getResultFromStatus(status: AccountStatus): AccountResult {
   if (status === AccountStatus.Connected) {
-    return { address: walletMockCrew.address, chain: Chain.Ethereum, status }
+    return { address: userMockCrew.wallet, status }
   }
-  return { address: undefined, chain: undefined, status }
+  return { address: undefined, status }
 }
 
 export function getAccount(): AccountResult {

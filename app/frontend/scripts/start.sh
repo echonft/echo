@@ -2,13 +2,10 @@
 
 if [ "${ENV}" = "development" ]; then
   project_id="echo-dev-fallback"
-  NEXT_PUBLIC_IS_TESTNET="1"
 elif [ "${ENV}" = "staging" ]; then
   project_id="echo-staging-ba121"
-  NEXT_PUBLIC_IS_TESTNET="0"
 elif [ "${ENV}" = "production" ]; then
   project_id="echo-prod-b71e2"
-  NEXT_PUBLIC_IS_TESTNET="0"
 else
   printf "\e[31mWrong ENV\n\e[0m"
   exit 1
@@ -47,6 +44,5 @@ AUTH_DISCORD_ID="${AUTH_DISCORD_ID}" \
 AUTH_DISCORD_SECRET="${AUTH_DISCORD_SECRET}" \
 SECRET_MANAGER_EMAIL="${SECRET_MANAGER_EMAIL}" \
 SECRET_MANAGER_PRIVATE_KEY="${SECRET_MANAGER_PRIVATE_KEY}" \
-NEXT_PUBLIC_IS_TESTNET="${NEXT_PUBLIC_IS_TESTNET}" \
 NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL="localhost:3000" \
  next start

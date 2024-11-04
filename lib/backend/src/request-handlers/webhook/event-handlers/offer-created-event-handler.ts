@@ -2,21 +2,16 @@ import { BadRequestError } from '@echo/backend/errors/bad-request-error'
 import { NotFoundError } from '@echo/backend/errors/not-found-error'
 import { info } from '@echo/backend/helpers/logger'
 import { echoOfferToBaseOffer } from '@echo/backend/mappers/echo-offer-to-base-offer'
-import type { EchoEventHandlerArgs } from '@echo/backend/request-handlers/webhook/event-handlers/echo-event-handler'
 import { addOffer } from '@echo/firestore/crud/offer/add-offer'
 import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
+import type { HexString } from '@echo/utils/types/hex-string'
 import { EchoContractError } from '@echo/web3/constants/errors/echo-contract-error'
 import { getEchoOffer } from '@echo/web3/services/get-echo-offer'
 import { andThen, assoc, isNil, pipe, toLower } from 'ramda'
 
-export async function offerCreatedEventHandler(args: EchoEventHandlerArgs) {
-  const { event, chain } = args
-  const { offerId } = event
-  const echoOffer = await getEchoOffer({
-    chain,
-    offerId
-  })
+export async function offerCreatedEventHandler(offerId: HexString) {
+  const echoOffer = await getEchoOffer(offerId)
   if (isNil(echoOffer)) {
     return Promise.reject(new NotFoundError({ message: EchoContractError.OfferNotFound, severity: 'warning' }))
   }

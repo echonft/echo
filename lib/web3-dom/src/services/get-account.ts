@@ -1,11 +1,8 @@
-import type { Chain } from '@echo/model/constants/chain'
-import { chainById } from '@echo/model/helpers/chain/chain-by-id'
-import type { EvmAddress } from '@echo/model/types/address'
-import type { ChainId } from '@echo/model/types/chain'
-import type { Nullable } from '@echo/utils/types/nullable'
+import type { Address } from '@echo/model/types/address'
 import { AccountStatus } from '@echo/web3-dom/constants/account-status'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
-import { equals, isNil, pipe, toLower } from 'ramda'
+import { equals, pipe, toLower } from 'ramda'
+import { sei } from 'viem/chains'
 import {
   getAccount as wagmiGetAccount,
   type GetAccountReturnType,
@@ -14,8 +11,7 @@ import {
 
 export interface AccountResultConnected {
   status: AccountStatus.Connected
-  address: EvmAddress
-  chain: Chain
+  address: Address
 }
 
 export type AccountResult =
@@ -23,41 +19,25 @@ export type AccountResult =
   | {
       status: Exclude<AccountStatus, AccountStatus.Connected>
       address: undefined
-      chain: undefined
     }
 
 function mapResult(result: GetAccountReturnType): AccountResult {
-  function getChain(chainId: Nullable<number>): Nullable<Chain> {
-    if (isNil(chainId)) {
-      return undefined
-    }
-    try {
-      return chainById(chainId as ChainId)
-    } catch (_err) {
-      // chain is not supported
-      return undefined
-    }
-  }
-
   if (result.status === 'connected') {
-    const chain = getChain(result.chainId)
-    if (isNil(chain)) {
+    const { chainId } = result
+    if (chainId !== sei.id) {
       return {
         address: undefined,
-        chain: undefined,
         status: AccountStatus.UnsupportedChain
       }
     }
     return {
       address: toLower(result.address),
-      chain,
       status: AccountStatus.Connected
     }
   }
 
   return {
     address: undefined,
-    chain: undefined,
     status: result.status === 'disconnected' ? AccountStatus.Disconnected : AccountStatus.Connecting
   }
 }

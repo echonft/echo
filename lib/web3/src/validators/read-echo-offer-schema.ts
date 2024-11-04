@@ -1,5 +1,4 @@
-import type { Chain } from '@echo/model/constants/chain'
-import { evmAddressSchema } from '@echo/model/validators/evm-address-schema'
+import { addressSchema } from '@echo/model/validators/address-schema'
 import { hexStringSchema } from '@echo/model/validators/hex-string-schema'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { EchoOfferState } from '@echo/web3/constants/echo-offer-state'
@@ -11,7 +10,7 @@ type ReadContractOfferItem = z.infer<typeof itemSchema>
 type ReadContractOfferItems = z.infer<typeof itemsSchema>
 
 const itemSchema = object({
-  tokenAddress: evmAddressSchema,
+  tokenAddress: addressSchema,
   tokenIdOrAmount: bigint().positive(),
   tokenType: bigint().positive() // TODO transform? what are the possible types?
 })
@@ -36,24 +35,22 @@ function mapItems(readContractOfferItems: ReadContractOfferItems) {
   })(readContractOfferItems)
 }
 
-export function readEchoOfferSchema(chain: Chain) {
-  return tuple([
-    hexStringSchema,
-    hexStringSchema,
-    itemsSchema,
-    itemsSchema,
-    bigint().positive(),
-    nativeEnum(EchoOfferState)
-  ])
-    .transform(
-      applySpec({
-        sender: pipe(head, toLower),
-        receiver: pipe(prop(1), toLower),
-        senderItems: pipe(prop(2), mapItems),
-        receiverItems: pipe(prop(3), mapItems),
-        expiration: pipe(prop(4), Number),
-        state: prop(5)
-      })
-    )
-    .pipe(echoOfferSchema(chain))
-}
+export const readEchoOfferSchema = tuple([
+  hexStringSchema,
+  hexStringSchema,
+  itemsSchema,
+  itemsSchema,
+  bigint().positive(),
+  nativeEnum(EchoOfferState)
+])
+  .transform(
+    applySpec({
+      sender: pipe(head, toLower),
+      receiver: pipe(prop(1), toLower),
+      senderItems: pipe(prop(2), mapItems),
+      receiverItems: pipe(prop(3), mapItems),
+      expiration: pipe(prop(4), Number),
+      state: prop(5)
+    })
+  )
+  .pipe(echoOfferSchema)
