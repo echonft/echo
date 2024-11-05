@@ -4,6 +4,7 @@ import { EchoOfferState } from '@echo/web3/constants/echo-offer-state'
 import type { EchoOffer } from '@echo/web3/types/echo-offer'
 import { always, applySpec, map, type NonEmptyArray, path, pipe, prop } from 'ramda'
 import { getAddress } from 'viem'
+import { sei } from 'viem/chains'
 
 function mapItem(item: Item) {
   return applySpec({
@@ -15,8 +16,8 @@ function mapItem(item: Item) {
 }
 
 function mapItems(items: NonEmptyArray<Item>) {
-  // FIXME chainId was removed here
   return applySpec({
+    chainId: always(sei.id),
     items: map(mapItem)
   })(items)
 }

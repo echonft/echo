@@ -270,4 +270,39 @@ describe('validators - echoEventSchema', () => {
       }
     ])
   })
+  it('logs from echo and other contracts', () => {
+    expect(
+      echoEventSchema.parse([
+        {
+          logs: [
+            {
+              ...baseLog,
+              topics: [
+                '0x10e82270e7877745d674722466656a6c8029b331c5ffb182cac9c49fe996beac',
+                '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358'
+              ],
+              transactionHash: '0x2921f7cdaec9455be87841e32afb7d0b10f249d6bfda169788cf9a596ac2b159'
+            },
+            {
+              ...baseLog,
+              topics: [
+                '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
+                '0x00000000000000000000000007d31999c2bae29086133a5c93b07a481c5ddaea',
+                '0x00000000000000000000000007d31999c2bae29086133a5c93b07a481c5ddaea',
+                '0x000000000000000000000000000000000000000000000000000000000000012c'
+              ],
+              transactionHash: '0xf980299c11f10a47db3719305ab9d2a9c1332d4fa4b1404e6f1e3176c2b120e2'
+            }
+          ]
+        }
+      ])
+    ).toStrictEqual([
+      {
+        transactionHash: '0x2921f7cdaec9455be87841e32afb7d0b10f249d6bfda169788cf9a596ac2b159',
+        offerId: '0x020edd13cfab51c04b7c29f447a18b1cdb70c989fc0c01471ad1aa0ec32fe358',
+        type: 'OFFER_ACCEPTED',
+        from: undefined
+      }
+    ])
+  })
 })
