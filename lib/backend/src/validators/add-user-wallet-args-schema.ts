@@ -7,7 +7,7 @@ import { SiweMessage } from 'siwe'
 import { NEVER, object, string, ZodIssueCode } from 'zod'
 
 export const addUserWalletArgsSchema = object({
-  address: addressSchema,
+  wallet: addressSchema,
   nonce: string().min(1),
   signature: base64DecodeSchema,
   message: base64DecodeSchema
@@ -15,7 +15,7 @@ export const addUserWalletArgsSchema = object({
   .transform((params) => {
     return modify('message', (message) => new SiweMessage(message), params)
   })
-  .transform(async ({ address, message, nonce, signature }, ctx) => {
+  .transform(async ({ wallet, message, nonce, signature }, ctx) => {
     try {
       const { data } = await message.verify({
         scheme: message.scheme,
@@ -23,7 +23,7 @@ export const addUserWalletArgsSchema = object({
         domain: message.domain,
         nonce: message.nonce
       })
-      if (data.nonce !== nonce || toLower(data.address) !== toLower(address)) {
+      if (data.nonce !== nonce || toLower(data.address) !== toLower(wallet)) {
         ctx.addIssue({
           code: ZodIssueCode.custom,
           message: WalletError.SignatureInvalid

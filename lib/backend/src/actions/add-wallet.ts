@@ -28,12 +28,13 @@ export async function addWallet(args: AddUserWalletArgs): Promise<void> {
   if (isNil(userSnapshot)) {
     return Promise.reject(Error(UserError.NotFound))
   }
-  const nonce = await getNonce(userSnapshot.id)
+  let nonce = await getNonce(userSnapshot.id)
   if (isNil(nonce)) {
     // for backward compatibility
-    await addNonce({ userId: userSnapshot.id, nonce: generateNonce() })
+    const newNonce = await addNonce({ userId: userSnapshot.id, nonce: generateNonce() })
+    nonce = newNonce.data
   }
-  const wallet = await addUserWalletArgsSchema.parseAsync(assoc('nonce', nonce, args))
+  const wallet = await addUserWalletArgsSchema.parseAsync(assoc('nonce', nonce.nonce, args))
   await addUserWallet({
     userId: userSnapshot.id,
     wallet
