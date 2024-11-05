@@ -1,10 +1,11 @@
 import type { Address } from '@echo/model/types/address'
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { HexString } from '@echo/model/types/hex-string'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { EchoEventType } from '@echo/web3/constants/echo-event-type'
 
 export interface EchoEvent {
-  transactionHash: HexString
-  offerId: HexString
+  transactionHash: Lowercase<HexString>
   type: EchoEventType
-  from?: Address
+  offerId: Lowercase<HexString>
+  from: Nullable<Address>
 }

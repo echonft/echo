@@ -6,7 +6,7 @@ import { NftScanApiPath } from '@echo/nft-scan/routing/nft-scan-api-path'
 import type { FetchNftsByAccountSearchParams } from '@echo/nft-scan/types/routing/fetch-nfts-by-account-search-params'
 import type { FetchNftsByContractSearchParams } from '@echo/nft-scan/types/routing/fetch-nfts-by-contract-search-params'
 import type { FetchNftsQueryParams } from '@echo/nft-scan/types/routing/fetch-nfts-query-params'
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { HexString } from '@echo/model/types/hex-string'
 import type { OptionalRecord } from '@echo/utils/types/optional-record'
 
 export const nftScanApiPathProvider = {

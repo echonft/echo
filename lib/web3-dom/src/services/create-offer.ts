@@ -1,5 +1,5 @@
 import type { BaseOffer } from '@echo/model/types/offer'
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { HexString } from '@echo/model/types/hex-string'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import { echoAbi } from '@echo/web3/constants/echo-abi'
 import { echoAddress } from '@echo/web3/constants/echo-address'

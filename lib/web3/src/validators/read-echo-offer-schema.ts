@@ -1,6 +1,6 @@
 import { addressSchema } from '@echo/model/validators/address-schema'
 import { hexStringSchema } from '@echo/model/validators/hex-string-schema'
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { HexString } from '@echo/model/types/hex-string'
 import { EchoOfferState } from '@echo/web3/constants/echo-offer-state'
 import { echoOfferSchema } from '@echo/web3/validators/echo-offer-schema'
 import { applySpec, head, map, pipe, prop, toLower } from 'ramda'

@@ -4,7 +4,7 @@ import { getOfferByIdContract as firestoreGetOfferByIdContract } from '@echo/fir
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import type { Offer } from '@echo/model/types/offer'
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { HexString } from '@echo/model/types/hex-string'
 import { isNil } from 'ramda'
 
 export async function getOfferByIdContract(idContract: HexString): Promise<Offer> {

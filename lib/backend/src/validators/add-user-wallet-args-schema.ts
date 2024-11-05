@@ -1,7 +1,7 @@
 import { WalletError } from '@echo/model/constants/errors/wallet-error'
 import { addressSchema } from '@echo/model/validators/address-schema'
 import { base64DecodeSchema } from '@echo/model/validators/base64-decode-schema'
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { HexString } from '@echo/model/types/hex-string'
 import { modify, toLower } from 'ramda'
 import { SiweMessage } from 'siwe'
 import { NEVER, object, string, ZodIssueCode } from 'zod'

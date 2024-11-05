@@ -1,4 +1,5 @@
 import { eqAddress } from '@echo/model/helpers/eq-address'
+import type { HexString } from '@echo/model/types/hex-string'
 import { addressSchema } from '@echo/model/validators/address-schema'
 import { hexStringSchema } from '@echo/model/validators/hex-string-schema'
 import { echoAddress } from '@echo/web3/constants/echo-address'
@@ -6,7 +7,7 @@ import { EchoEventTopic } from '@echo/web3/constants/echo-event-topic'
 import { EchoEventType } from '@echo/web3/constants/echo-event-type'
 import type { EchoEvent } from '@echo/web3/types/echo-event'
 import { topicSchema } from '@echo/web3/validators/topic-schema'
-import { applySpec, filter, flatten, map, path, pipe, prop } from 'ramda'
+import { applySpec, filter, flatten, map, path, pipe, prop, toLower } from 'ramda'
 import { nativeEnum, object, tuple } from 'zod'
 
 function echoEventTopicToType(topic: EchoEventTopic): EchoEventType {
@@ -24,7 +25,22 @@ function echoEventTopicToType(topic: EchoEventTopic): EchoEventType {
   }
 }
 
-const echoEventBaseSchema = object({
+export const echoEventSchema = object({
+  address: addressSchema,
+  topics: tuple([nativeEnum(EchoEventTopic).transform(echoEventTopicToType), topicSchema]).rest(
+    topicSchema.pipe(addressSchema).optional()
+  ),
+  transactionHash: hexStringSchema
+}).transform((data) =>
+  applySpec<EchoEvent>({
+    transactionHash: pipe(prop('transactionHash'), toLower),
+    type: path(['topics', 0]),
+    offerId: pipe<[typeof data], HexString, Lowercase<HexString>>(path(['topics', 1]), toLower<HexString>),
+    from: path(['topics', 2])
+  })(data)
+)
+
+export const echoEventsSchema = object({
   logs: object({
     address: addressSchema,
     topics: hexStringSchema.array().nonempty(),
@@ -35,29 +51,11 @@ const echoEventBaseSchema = object({
 })
   .array()
   .nonempty()
-
-export const echoEventSchema = echoEventBaseSchema.pipe(
-  object({
-    logs: object({
-      address: addressSchema,
-      topics: tuple([nativeEnum(EchoEventTopic).transform(echoEventTopicToType), topicSchema]).rest(
-        topicSchema.pipe(addressSchema).optional()
-      ),
-      transactionHash: hexStringSchema
+  .pipe(
+    object({
+      logs: echoEventSchema.array()
     })
       .array()
-      .transform(
-        map(
-          applySpec<EchoEvent>({
-            transactionHash: prop('transactionHash'),
-            type: path(['topics', 0]),
-            offerId: path(['topics', 1]),
-            from: path(['topics', 2])
-          })
-        )
-      )
-  })
-    .array()
-    .nonempty()
-    .transform(pipe(map(prop('logs')), flatten))
-)
+      .nonempty()
+      .transform(pipe(map(prop('logs')), flatten))
+  )

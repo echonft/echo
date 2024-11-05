@@ -5,7 +5,7 @@ import { echoOfferToBaseOffer } from '@echo/backend/mappers/echo-offer-to-base-o
 import { addOffer } from '@echo/firestore/crud/offer/add-offer'
 import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { HexString } from '@echo/model/types/hex-string'
 import { EchoContractError } from '@echo/web3/constants/errors/echo-contract-error'
 import { getEchoOffer } from '@echo/web3/services/get-echo-offer'
 import { andThen, assoc, isNil, pipe, toLower } from 'ramda'

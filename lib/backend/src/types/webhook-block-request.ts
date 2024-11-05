@@ -1,4 +1,4 @@
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { HexString } from '@echo/model/types/hex-string'
 
 interface LogRequest {
   address: HexString

@@ -1,3 +1,4 @@
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { addressSchema } from '@echo/model/validators/address-schema'
+import { z } from 'zod'
 
-export type Address = Lowercase<HexString>
+export type Address = z.infer<typeof addressSchema>

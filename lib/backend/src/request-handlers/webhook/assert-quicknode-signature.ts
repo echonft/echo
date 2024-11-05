@@ -8,7 +8,7 @@ import { getSecret } from '@echo/utils/services/secret-manager'
 import { createHmac } from 'crypto'
 import { isNil, pipe } from 'ramda'
 
-interface AssertQuicknodeSignatureArgs {
+export interface AssertQuicknodeSignatureArgs {
   readonly req: NextRequest<WebhookBlockRequest>
   readonly type: QuicknodeSignatureType
 }

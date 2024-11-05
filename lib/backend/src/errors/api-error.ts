@@ -1,4 +1,4 @@
-import type { ErrorResponse } from '@echo/utils/types/error-response'
+import type { ErrorResponse } from '@echo/backend/types/error-response'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { SeverityLevel } from '@sentry/nextjs'
 import { NextResponse } from 'next/server'

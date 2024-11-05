@@ -1,5 +1,5 @@
 import type { RequestHandlerArgsWithParams } from '@echo/backend/types/request-handler'
-import type { ErrorResponse } from '@echo/utils/types/error-response'
+import type { ErrorResponse } from '@echo/backend/types/error-response'
 import { NextResponse } from 'next/server'
 
 interface Params {

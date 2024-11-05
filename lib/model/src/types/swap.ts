@@ -1,3 +1,4 @@
+import type { HexString } from '@echo/model/types/hex-string'
 import type { Item } from '@echo/model/types/item'
 import type { Slug } from '@echo/model/types/slug'
 import type { User } from '@echo/model/types/user'
@@ -9,5 +10,5 @@ export interface Swap {
   sender: User
   senderItems: NonEmptyArray<Item>
   slug: Slug
-  transactionId: string
+  transactionId: Lowercase<HexString>
 }

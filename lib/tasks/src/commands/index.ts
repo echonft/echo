@@ -10,7 +10,7 @@ import { updateUserNftsCommand } from '@echo/tasks/commands/update-user-nfts-com
 import { updateUsersNftsCommand } from '@echo/tasks/commands/update-users-nfts-command'
 import { updateWalletNftsCommand } from '@echo/tasks/commands/update-wallet-nfts-command'
 import { as } from '@echo/utils/helpers/as'
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { HexString } from '@echo/model/types/hex-string'
 import { isAddress } from '@echo/web3/helpers/is-address'
 import input from '@inquirer/input'
 import { pipe, toLower } from 'ramda'

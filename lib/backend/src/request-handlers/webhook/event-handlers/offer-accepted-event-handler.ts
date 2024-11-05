@@ -4,7 +4,7 @@ import { info } from '@echo/backend/helpers/logger'
 import { acceptOffer } from '@echo/firestore/crud/offer/accept-offer'
 import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { HexString } from '@echo/model/types/hex-string'
 import { isNil } from 'ramda'
 
 export async function offerAcceptedEventHandler(offerId: HexString) {

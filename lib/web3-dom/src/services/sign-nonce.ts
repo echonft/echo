@@ -1,6 +1,6 @@
 import type { Address } from '@echo/model/types/address'
 import { hostname } from '@echo/routing/constants/hostname'
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { HexString } from '@echo/model/types/hex-string'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import { formatAddress } from '@echo/web3-dom/helpers/format-address'
 import { SiweMessage } from 'siwe'

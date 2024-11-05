@@ -1,4 +1,4 @@
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { HexString } from '@echo/model/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { echoAbi } from '@echo/web3/constants/echo-abi'
 import { echoAddress } from '@echo/web3/constants/echo-address'

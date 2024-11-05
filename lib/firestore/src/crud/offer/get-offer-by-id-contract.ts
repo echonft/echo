@@ -3,7 +3,7 @@ import { getDocumentSnapshotData } from '@echo/firestore/helpers/document/get-do
 import { getQueryUniqueDocumentSnapshot } from '@echo/firestore/helpers/query/get-query-unique-document-snapshot'
 import { queryWhere } from '@echo/firestore/helpers/query/query-where'
 import type { OfferDocument } from '@echo/firestore/types/model/offer-document'
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { HexString } from '@echo/model/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, pipe } from 'ramda'
