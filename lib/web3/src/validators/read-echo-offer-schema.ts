@@ -4,7 +4,7 @@ import type { HexString } from '@echo/utils/types/hex-string'
 import { EchoOfferState } from '@echo/web3/constants/echo-offer-state'
 import { echoOfferSchema } from '@echo/web3/validators/echo-offer-schema'
 import { applySpec, head, map, pipe, prop, toLower } from 'ramda'
-import { bigint, nativeEnum, object, tuple, z } from 'zod'
+import { bigint, nativeEnum, number, object, tuple, z } from 'zod'
 
 type ReadContractOfferItem = z.infer<typeof itemSchema>
 type ReadContractOfferItems = z.infer<typeof itemsSchema>
@@ -12,7 +12,7 @@ type ReadContractOfferItems = z.infer<typeof itemsSchema>
 const itemSchema = object({
   tokenAddress: addressSchema,
   tokenIdOrAmount: bigint().positive(),
-  tokenType: bigint().positive() // TODO transform? what are the possible types?
+  tokenType: number().positive() // TODO transform? what are the possible types?
 })
 
 const itemsSchema = object({
