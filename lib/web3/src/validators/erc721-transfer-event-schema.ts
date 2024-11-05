@@ -2,7 +2,7 @@ import { addressSchema } from '@echo/model/validators/address-schema'
 import { hexStringSchema } from '@echo/model/validators/hex-string-schema'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import type { NftTransferEvent } from '@echo/web3/types/nft-transfer-event'
-import { blockDataSchema } from '@echo/web3/validators/block-data-schema'
+import { eventBlockDataSchema } from '@echo/web3/validators/event-block-data-schema'
 import { hexNumberSchema } from '@echo/web3/validators/hex-number-schema'
 import { topicSchema } from '@echo/web3/validators/topic-schema'
 import { applySpec, equals, F, filter, flatten, ifElse, length, map, path, pipe, prop } from 'ramda'
@@ -25,7 +25,7 @@ const erc721TransferEventLogSchema = object({
     )
   )
 
-export const erc721TransferEventSchema = blockDataSchema
+export const erc721TransferEventSchema = eventBlockDataSchema
   .array()
   .nonempty()
   .transform(

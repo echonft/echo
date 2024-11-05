@@ -24,7 +24,7 @@ function echoEventTopicToType(topic: EchoEventTopic): EchoEventType {
   }
 }
 
-export const echoEventSchema = object({
+const echoEventBaseSchema = object({
   logs: object({
     address: addressSchema,
     topics: hexStringSchema.array().nonempty(),
@@ -32,26 +32,32 @@ export const echoEventSchema = object({
   })
     .array()
     .transform(filter(pipe(prop('address'), eqAddress(echoAddress))))
-    .pipe(
-      object({
-        address: addressSchema,
-        topics: tuple([nativeEnum(EchoEventTopic).transform(echoEventTopicToType), topicSchema]).rest(
-          topicSchema.pipe(addressSchema).optional()
-        ),
-        transactionHash: hexStringSchema
-      }).array()
-    )
-    .transform(
-      map(
-        applySpec<EchoEvent>({
-          transactionHash: prop('transactionHash'),
-          type: path(['topics', 0]),
-          offerId: path(['topics', 1]),
-          from: path(['topics', 2])
-        })
-      )
-    )
 })
   .array()
   .nonempty()
-  .transform(pipe(map(prop('logs')), flatten))
+
+export const echoEventSchema = echoEventBaseSchema.pipe(
+  object({
+    logs: object({
+      address: addressSchema,
+      topics: tuple([nativeEnum(EchoEventTopic).transform(echoEventTopicToType), topicSchema]).rest(
+        topicSchema.pipe(addressSchema).optional()
+      ),
+      transactionHash: hexStringSchema
+    })
+      .array()
+      .transform(
+        map(
+          applySpec<EchoEvent>({
+            transactionHash: prop('transactionHash'),
+            type: path(['topics', 0]),
+            offerId: path(['topics', 1]),
+            from: path(['topics', 2])
+          })
+        )
+      )
+  })
+    .array()
+    .nonempty()
+    .transform(pipe(map(prop('logs')), flatten))
+)
