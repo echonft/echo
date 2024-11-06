@@ -19,7 +19,7 @@ function getSerializers(serializers?: LoggerSerializer | LoggerSerializer[]): Lo
   if (is(Array, serializers)) {
     return mergeAll<LoggerSerializer>([...serializers, baseSerializer])
   }
-  return mergeLeft(baseSerializer, serializers)
+  return mergeLeft(serializers, baseSerializer)
 }
 
 function getLogLevel(): LevelWithSilentOrString {

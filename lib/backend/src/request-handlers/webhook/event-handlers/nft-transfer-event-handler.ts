@@ -7,10 +7,10 @@ import { getOrAddCollection } from '@echo/tasks/tasks/get-or-add-collection'
 import { updateNftOwner } from '@echo/tasks/tasks/update-nft-owner'
 import { echoAddress } from '@echo/web3/constants/echo-address'
 import type { Erc721TransferEvent } from '@echo/web3/types/erc721-transfer-event'
-import { isNil } from 'ramda'
+import { always, isNil, otherwise, pipe } from 'ramda'
 
 export async function nftTransferEventHandler({ contract, from, to, tokenId }: Erc721TransferEvent): Promise<void> {
-  const collection = await getOrAddCollection(contract)
+  const collection = await pipe(getOrAddCollection, otherwise(always(undefined)))(contract)
   if (isNil(collection)) {
     return
   }

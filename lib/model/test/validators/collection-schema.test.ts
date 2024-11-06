@@ -24,8 +24,7 @@ describe('collectionSchema', () => {
       name: 'Valid Name',
       slug: 'valid-slug',
       totalSupply: 100,
-      type: TokenType.Erc721,
-      verified: true
+      type: TokenType.Erc721
     }
     expectZodError(invalidData, ['contract'])
   })
@@ -37,8 +36,7 @@ describe('collectionSchema', () => {
       name: 'Valid Name',
       slug: 'valid-slug',
       totalSupply: 100,
-      type: TokenType.Erc721,
-      verified: true
+      type: TokenType.Erc721
     }
     expectZodError(invalidData, ['description'])
   })
@@ -51,8 +49,7 @@ describe('collectionSchema', () => {
       name: 'Valid Name',
       slug: 'valid-slug',
       totalSupply: 100,
-      type: TokenType.Erc721,
-      verified: true
+      type: TokenType.Erc721
     }
     expectZodError(invalidData, ['discordUrl'])
   })
@@ -63,8 +60,7 @@ describe('collectionSchema', () => {
       description: 'A valid description',
       slug: 'valid-slug',
       totalSupply: 100,
-      type: TokenType.Erc721,
-      verified: true
+      type: TokenType.Erc721
     }
     expectZodError(invalidData, ['name'])
   })
@@ -77,8 +73,7 @@ describe('collectionSchema', () => {
       pictureUrl: 'not-a-url',
       slug: 'valid-slug',
       totalSupply: 100,
-      type: TokenType.Erc721,
-      verified: true
+      type: TokenType.Erc721
     }
     expectZodError(invalidData, ['pictureUrl'])
   })
@@ -89,8 +84,7 @@ describe('collectionSchema', () => {
       description: 'A valid description',
       name: 'Valid Name',
       totalSupply: 100,
-      type: TokenType.Erc721,
-      verified: true
+      type: TokenType.Erc721
     }
     expectZodError(invalidData, ['slug'])
   })
@@ -102,8 +96,7 @@ describe('collectionSchema', () => {
       name: 'Valid Name',
       slug: 'valid-slug',
       totalSupply: -1,
-      type: TokenType.Erc721,
-      verified: true
+      type: TokenType.Erc721
     }
     expectZodError(invalidData, ['totalSupply'])
   })
@@ -116,8 +109,7 @@ describe('collectionSchema', () => {
       slug: 'valid-slug',
       totalSupply: 100,
       twitterUsername: '',
-      type: TokenType.Erc721,
-      verified: true
+      type: TokenType.Erc721
     }
     expectZodError(invalidData, ['twitterUsername'])
   })
@@ -128,8 +120,7 @@ describe('collectionSchema', () => {
       description: 'A valid description',
       name: 'Valid Name',
       slug: 'valid-slug',
-      totalSupply: 100,
-      verified: true
+      totalSupply: 100
     }
     expectZodError(invalidData, ['type'])
   })
@@ -142,7 +133,6 @@ describe('collectionSchema', () => {
       slug: 'valid-slug',
       totalSupply: 100,
       type: TokenType.Erc721,
-      verified: true,
       websiteUrl: 'not-a-url'
     }
     expectZodError(invalidData, ['websiteUrl'])

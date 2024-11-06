@@ -17,7 +17,6 @@ export const CollectionDetails: FunctionComponent<Props> = ({ collection }) => {
     pictureUrl,
     discordUrl,
     twitterUsername,
-    verified,
     websiteUrl,
     offersCount,
     nftsCount,
@@ -34,7 +33,6 @@ export const CollectionDetails: FunctionComponent<Props> = ({ collection }) => {
         discordUrl={discordUrl}
         websiteUrl={websiteUrl}
         twitterUsername={twitterUsername}
-        verified={verified}
       />
       <CountsDetails
         listingsCount={listingsCount}

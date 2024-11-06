@@ -1,6 +1,5 @@
 import type { Address } from '@echo/model/types/address'
 import { fetchNftsByContract } from '@echo/nft-scan/fetchers/fetch-nfts-by-contract'
-import { info } from '@echo/nft-scan/helpers/logger'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import type { FetchNftsByContractRequest } from '@echo/nft-scan/types/request/fetch-nfts-by-contract-request'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
@@ -13,7 +12,6 @@ async function handlePaging(args: FetchNftsByContractRequest, accNfts: PartialNf
   }
   const { next, content } = response
   const mergedResponse = concat(accNfts, content)
-  info({ contract: args.contract, request: content.length, total: mergedResponse.length }, 'fetched NFTs')
   if (isNilOrEmpty(next)) {
     return mergedResponse
   }

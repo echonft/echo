@@ -2,14 +2,14 @@ import { getNftsForWallet } from '@echo/firestore/crud/nft/get-nfts-for-wallet'
 import { eqNftContract } from '@echo/model/helpers/nft/eq-nft-contract'
 import type { Address } from '@echo/model/types/address'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
-import { error, info } from '@echo/tasks/helpers/logger'
+import { info, warn } from '@echo/tasks/helpers/logger'
 import { addOrUpdateNft } from '@echo/tasks/tasks/add-or-update-nft'
 import { fetchNftsByWallet } from '@echo/tasks/tasks/fetch-nfts-by-wallet'
 import { getOrAddCollection } from '@echo/tasks/tasks/get-or-add-collection'
 import { updateNftOwner } from '@echo/tasks/tasks/update-nft-owner'
 import { isInWith } from '@echo/utils/helpers/is-in-with'
 import { getNftOwner } from '@echo/web3/services/get-nft-owner'
-import { assoc, flatten, head, map, path, pipe } from 'ramda'
+import { assoc, flatten, head, isNil, map, otherwise, path, pipe } from 'ramda'
 
 /**
  * To update NFTs for a wallet, we query an NFT API to fetch the NFTs owned by the wallet, compare the results
@@ -28,15 +28,23 @@ export async function updateNftsForWallet(wallet: Address): Promise<void> {
   const nftGroups = await fetchNftsByWallet(wallet)
   for (const nftGroup of nftGroups) {
     const contract = pipe<[PartialNft[]], PartialNft, Address>(head, path(['collection', 'contract']))(nftGroup)
-    // Use a try to avoid the command from crashing in some cases (i.e. if collection is spam)
-    try {
-      const collection = await getOrAddCollection(contract)
+    const collection = await pipe(
+      getOrAddCollection,
+      otherwise((err) => {
+        warn({ err, collection: { contract } }, 'could not get/add collection')
+        return undefined
+      })
+    )(contract)
+    if (!isNil(collection)) {
       const nfts = map(assoc('collection', collection), nftGroup)
       for (const nft of nfts) {
-        await addOrUpdateNft(nft)
+        await pipe(
+          addOrUpdateNft,
+          otherwise((err) => {
+            warn({ err, nft }, 'could not add/update NFT')
+          })
+        )(nft)
       }
-    } catch (err) {
-      error({ err, nftGroup }, 'could not get/add collection or NFT')
     }
   }
   // check if there are any NFTs owned by the wallet in our database for which ownership changed

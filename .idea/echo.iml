@@ -32,6 +32,8 @@
       <excludePattern pattern="tsconfig.tsbuildinfo" />
       <excludePattern pattern="Object.d.ts" />
       <excludePattern pattern="ts-toolbelt*" />
+      <excludePattern pattern=".vscode" />
+      <excludePattern pattern=".husky" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

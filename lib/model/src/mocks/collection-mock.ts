@@ -11,8 +11,7 @@ export const collectionMockPx: Collection = {
   pictureUrl:
     'https://i.seadn.io/gae/R3b_Ju-BF7Ae45pp1f7UxCS5wF06dfFG7ydux_v9S8lJ7CL3j4kgv7a0nM4yVw-GhOH21ZigeaNluK-nuo6Dclq9LdQYH2Cvj8PfMQ',
   totalSupply: 1077,
-  type: TokenType.Erc721,
-  verified: true
+  type: TokenType.Erc721
 }
 
 export const nftCollectionMockPx: NftCollection = {
@@ -31,8 +30,7 @@ export const collectionMockSpiral: Collection = {
   pictureUrl:
     'https://i.seadn.io/gae/dPCp-lwVmhNgEqZCIsTVos7mDu7qY5A_LARb8PMULBrIfTIlRSlX58fphv8AQm8axjszuT-LOwbBlIbXRwZuA6Ua9Btp3aJWpMCMWu8',
   totalSupply: 6315,
-  type: TokenType.Erc721,
-  verified: false
+  type: TokenType.Erc721
 }
 
 export const nftCollectionMockSpiral: NftCollection = {

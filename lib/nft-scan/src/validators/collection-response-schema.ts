@@ -9,7 +9,7 @@ import { propIsNotNil } from '@echo/utils/helpers/prop-is-not-nil'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import { unlessNil } from '@echo/utils/helpers/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { applySpec, assoc, F, ifElse, objOf, pipe, prop } from 'ramda'
+import { applySpec, assoc, ifElse, objOf, pipe, prop } from 'ramda'
 import { boolean, number, object, string } from 'zod'
 
 function removeNullOrEmptyString(value: string | null): string | undefined {
@@ -62,8 +62,7 @@ export const collectionResponseSchema = baseCollectionResponseSchema
         totalSupply: prop('items_total'),
         twitterUsername: pipe(prop('twitter'), removeNullOrEmptyString),
         type: prop('erc_type'),
-        websiteUrl: pipe(prop('website'), removeNullOrEmptyString),
-        verified: F
+        websiteUrl: pipe(prop('website'), removeNullOrEmptyString)
       }),
       objOf('collection'),
       assoc('isSpam', false)

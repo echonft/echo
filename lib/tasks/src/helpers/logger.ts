@@ -1,8 +1,7 @@
-import { modelLoggerSerializers } from '@echo/model/constants/logger-serializers'
 import { getBaseLogger } from '@echo/utils/services/logger'
 import pretty from 'pino-pretty'
 
-const baseLogger = getBaseLogger('tasks', { serializers: modelLoggerSerializers }, pretty())
+const baseLogger = getBaseLogger('tasks', undefined, pretty())
 export function fatal(objOrMsg: object | string, msg?: string): void {
   baseLogger.fatal(objOrMsg, msg)
 }

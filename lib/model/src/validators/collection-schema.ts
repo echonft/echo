@@ -1,7 +1,7 @@
 import { addressSchema } from '@echo/model/validators/address-schema'
 import { nftTokenTypeSchema } from '@echo/model/validators/nft-token-type-schema'
 import { slugSchema } from '@echo/model/validators/slug-schema'
-import { boolean, number, object, string } from 'zod'
+import { number, object, string } from 'zod'
 
 export const collectionSchema = object({
   contract: addressSchema,
@@ -13,6 +13,5 @@ export const collectionSchema = object({
   totalSupply: number().int().positive(),
   twitterUsername: string().min(1).optional(),
   type: nftTokenTypeSchema,
-  verified: boolean(),
   websiteUrl: string().url().optional()
 })

@@ -1,8 +1,7 @@
 import type { Address } from '@echo/model/types/address'
-import type { Collection } from '@echo/model/types/collection'
 import { fetchCollection } from '@echo/nft-scan/fetchers/fetch-collection'
-import type { Nullable } from '@echo/utils/types/nullable'
+import type { FetchCollectionResponse } from '@echo/nft-scan/types/response/fetch-collection-response'
 
-export function getCollectionByContract(contract: Address): Promise<Nullable<Collection>> {
+export function getCollectionByContract(contract: Address): Promise<FetchCollectionResponse> {
   return fetchCollection({ contract })
 }

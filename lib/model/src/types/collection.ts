@@ -13,7 +13,6 @@ export interface Collection {
   totalSupply: number
   twitterUsername?: string
   type: TokenType.Erc721 | TokenType.Erc1155
-  verified: boolean
   websiteUrl?: string
 }
 
