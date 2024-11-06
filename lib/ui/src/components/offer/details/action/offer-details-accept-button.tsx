@@ -25,7 +25,6 @@ export const OfferDetailsAcceptButton: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.details')
   const [modalShown, setModalShown] = useState(false)
-
   if (show) {
     return (
       <>

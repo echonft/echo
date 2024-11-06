@@ -12,6 +12,7 @@ interface Props {
 }
 
 export const OfferDetailsSwapModalSwitch: FunctionComponent<Props> = ({ offer, open, onClose, onSuccess }) => {
+  // FIXME
   // if (status !== AccountStatus.Connected) {
   //   return <ConnectWalletModal open={open} onClose={onClose} />
   // }

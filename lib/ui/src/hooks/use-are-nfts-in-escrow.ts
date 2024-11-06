@@ -5,7 +5,7 @@ import { useDependencies } from '@echo/ui/hooks/use-dependencies'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import useSWR from 'swr'
 
-export function useAreNfsInEscrow(nfts: Nft[] | undefined): boolean | undefined {
+export function useAreNftsInEscrow(nfts: Nft[] | undefined): boolean | undefined {
   const { areNftsInEscrow } = useDependencies()
   const { data } = useSWR<boolean, Error>(
     isNilOrEmpty(nfts) ? undefined : { name: SWRKeys.contract.areNftsInEscrow(nfts), nfts },
@@ -15,7 +15,7 @@ export function useAreNfsInEscrow(nfts: Nft[] | undefined): boolean | undefined 
       errorRetryCount: 3,
       errorRetryInterval: 500,
       onError: errorCallback({
-        loggerContext: { component: useAreNfsInEscrow.name, fetcher: areNftsInEscrow.name }
+        loggerContext: { component: useAreNftsInEscrow.name, fetcher: areNftsInEscrow.name }
       })
     }
   )

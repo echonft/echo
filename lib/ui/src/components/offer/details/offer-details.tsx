@@ -21,7 +21,6 @@ export interface OfferDetailsProps {
 export const OfferDetails: FunctionComponent<OfferDetailsProps> = ({ offer, onUpdate }) => {
   const { sender, receiver } = offer
   const { discord } = receiver
-  const { avatarUrl } = discord
   // remove
   const receiverNfts = pipe(
     offerReceiverNftItems,
@@ -32,7 +31,8 @@ export const OfferDetails: FunctionComponent<OfferDetailsProps> = ({ offer, onUp
     nonEmptyMap(pipe(nftItemToNft(offer.sender), assoc('attributes', [])))
   )(offer)
   return (
-    <TradeDetailsLayout backgroundPictureUrl={avatarUrl}>
+    // TODO No background for now as we use modal only
+    <TradeDetailsLayout>
       <TradeDetailsOfferState trade={offer} />
       <TradeDetailsItems
         sender={sender}
