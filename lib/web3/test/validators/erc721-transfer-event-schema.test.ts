@@ -1,4 +1,4 @@
-import { erc721TransferEventSchema } from '@echo/web3/validators/erc721-transfer-event-schema'
+import { erc721TransferEventsSchema } from '@echo/web3/validators/erc721-transfer-event-schema'
 import { describe, expect, it } from '@jest/globals'
 import { assoc } from 'ramda'
 
@@ -76,11 +76,11 @@ describe('validators - erc721TransferEventSchema', () => {
 
   it('throws if data is not valid', () => {
     expect(() => {
-      erc721TransferEventSchema.parse(assoc('data', undefined, validRequest))
+      erc721TransferEventsSchema.parse(assoc('data', undefined, validRequest))
     }).toThrow()
   })
   it('valid', () => {
-    expect(erc721TransferEventSchema.parse(validRequest)).toStrictEqual([
+    expect(erc721TransferEventsSchema.parse(validRequest)).toStrictEqual([
       {
         contract: '0x43be93945e168a205d708f1a41a124fa302e1f76',
         from: '0x213be2f484ab480db4f18b0fe4c38e1c25877f09',

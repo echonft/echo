@@ -3,8 +3,6 @@ import { isNil, pipe, prop } from 'ramda'
 
 function innerPropIsNilOrEmpty<V, P extends keyof V>(propKey: P) {
   return function (obj: V) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     return pipe(prop(propKey), isNilOrEmpty)(obj)
   }
 }

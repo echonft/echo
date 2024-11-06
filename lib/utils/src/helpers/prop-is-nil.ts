@@ -2,8 +2,6 @@ import { complement, either, has, isNil, pipe, prop } from 'ramda'
 
 function innerPropIsNil<V, P extends keyof V>(propKey: P) {
   return function (obj: V): obj is V & { [P in keyof V]: null | undefined } {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     return either(complement(has(propKey)), pipe(prop(propKey), isNil))(obj)
   }
 }
