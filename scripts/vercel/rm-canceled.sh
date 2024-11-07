@@ -1,7 +1,7 @@
 #!/bin/sh
 
-if [ "${VERCEL_PROJECT}" = "dev" ] || [ "${VERCEL_PROJECT}" = "staging" ] || [ "${VERCEL_PROJECT}" = "echo" ] || [ "${VERCEL_PROJECT}" = "storybook" ]; then
-  printf "\e[36mDeleting all canceled deployments on %s...\n\e[0m" "${VERCEL_PROJECT}"
+if [ "$VERCEL_PROJECT" = "dev" ] || [ "$VERCEL_PROJECT" = "staging" ] || [ "$VERCEL_PROJECT" = "echo" ] || [ "$VERCEL_PROJECT" = "storybook" ]; then
+  printf "\e[36mDeleting all canceled deployments on %s...\n\e[0m" "$VERCEL_PROJECT"
   vercel link -y -p "$VERCEL_PROJECT" 1>/dev/null 2>&1
   EXIT_STATUS=0
   while [ $EXIT_STATUS -eq 0 ]
@@ -15,7 +15,7 @@ if [ "${VERCEL_PROJECT}" = "dev" ] || [ "${VERCEL_PROJECT}" = "staging" ] || [ "
     echo "$DEPLOYMENTS" | xargs -n 1 -I {} sh -c 'vercel rm -y "{}" 2>/dev/null'
     EXIT_STATUS=$?
   done
-  printf "\e[32m\nDone deleting all canceled deployments on %s\n\e[0m" "${VERCEL_PROJECT}"
+  printf "\e[32m\nDone deleting all canceled deployments on %s\n\e[0m" "$VERCEL_PROJECT"
   exit 0
 else
   printf "\e[31mCanceled\n\e[0m"

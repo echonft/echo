@@ -1,17 +1,10 @@
 #!/bin/sh
 
-# shellcheck disable=SC3028
-# shellcheck disable=SC2128
-dir=$(cd "$(dirname "$BASH_SOURCE")" && pwd)
-if ! sh "${dir}"/../base/check-newt.sh; then
-  exit 1
-fi
-
 printf "\e[36mMirroring staging database...\n\e[0m"
 # deleting current database
 firebase use staging 1>/dev/null
 gsutil -m rm -r "gs://echo-firestore-prod-backup/**" 1>/dev/null
-output=$(firebase firestore:databases:delete "(default)" --force 1>/dev/null)
+output=$(firebase firestore:databases:delete "(default)" --force)
 if ! echo "$output" | grep -q "^Error:"; then
   printf "\e[35m\nDeleted staging database, waiting 5 minutes...\n\e[0m"
   duration=300
@@ -26,7 +19,8 @@ else
 fi
 # Getting production database
 firebase use production 1>/dev/null
-firebase firestore:indexes > "${dir}"/../../firestore.indexes.json
+dir=$(cd "$(dirname "$0")" && pwd)
+firebase firestore:indexes > "$dir"/../../firestore.indexes.json
 printf "\e[35m\nPulled indexes from production\n\e[0m"
 gcloud firestore export gs://echo-firestore-prod-backup/default --project=echo-prod-b71e2 1>/dev/null
 printf "\e[35m\nExported production database to bucket\n\e[0m"

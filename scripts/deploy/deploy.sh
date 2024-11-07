@@ -2,31 +2,23 @@
 
 deploy_firestore_functions() {
   local_env="$1"
-  ENV=${local_env} sh "${dir}"/../firestore/deploy-functions.sh
+  ENV="$local_env" sh "$dir"/../firestore/deploy-functions.sh
 }
 
 deploy_bot() {
   local_env="$1"
-  ENV=${local_env} sh "${dir}"/../bot/deploy.sh
+  ENV="$local_env" sh "$dir"/../bot/deploy.sh
 }
 
 deploy_frontend() {
   local_env="$1"
-  ENV=${local_env} sh "${dir}"/../frontend/deploy.sh
+  ENV=${local_env} sh "$dir"/../frontend/deploy.sh
 }
 
 mirror_staging() {
-  sh "${dir}"/../firestore/mirror-staging.sh
+  sh "$dir"/../firestore/mirror-staging.sh
   printf "\n\e[32mDone mirroring staging database\n\e[0m"
 }
-
-
-# shellcheck disable=SC3028
-# shellcheck disable=SC2128
-dir=$(cd "$(dirname "$BASH_SOURCE")" && pwd)
-if ! sh "${dir}"/../base/check-newt.sh; then
-  exit 1
-fi
 
 ENV=$(whiptail --default-item=staging --notags --menu "Pick an environment" 10 30 3 \
 "development" "Development" \
@@ -44,8 +36,9 @@ if [ "$ENV" = "development" ] || [ "$ENV" = "staging" ] || [ "$ENV" = "productio
     exit 1
   fi
 
-  printf "\e[35mSelected environment: %s\n\e[0m" "${ENV}"
-  printf "\e[35mSelected targets: %s\n\e[0m" "${DEPLOYMENTS}"
+  printf "\e[35mSelected environment: %s\n\e[0m" "$ENV"
+  printf "\e[35mSelected targets: %s\n\e[0m" "$DEPLOYMENTS"
+  dir=$(cd "$(dirname "$0")" && pwd)
   # if env is staging or production (since we deploy staging also), we always need to mirror prod
   if [ "$ENV" = "staging" ] || [ "$ENV" = "production" ]; then
     mirror_staging

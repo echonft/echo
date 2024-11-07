@@ -13,7 +13,7 @@ export async function fetchNftsByAccount({
   showAttribute,
   limit,
   next
-}: FetchNftsByAccountRequest): Promise<Promise<FetchNftsResponse>> {
+}: FetchNftsByAccountRequest): Promise<FetchNftsResponse> {
   const url = nftScanApiPathProvider.nfts.fetchByAccount
     .withQuery({ showAttribute, limit, next })
     .getUrl({ address: account })

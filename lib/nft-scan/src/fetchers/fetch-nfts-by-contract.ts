@@ -13,7 +13,7 @@ export async function fetchNftsByContract({
   showAttribute,
   next,
   limit
-}: FetchNftsByContractRequest): Promise<Promise<FetchNftsResponse>> {
+}: FetchNftsByContractRequest): Promise<FetchNftsResponse> {
   const url = nftScanApiPathProvider.nfts.fetchByContract
     .withQuery({ showAttribute, next, limit })
     .getUrl({ address: contract })

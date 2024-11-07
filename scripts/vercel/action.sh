@@ -2,21 +2,14 @@
 
 rm_canceled() {
   project="$1"
-  VERCEL_PROJECT=${project} sh "${dir}"/rm-canceled.sh
+  VERCEL_PROJECT="$project" sh "$dir"/rm-canceled.sh
 }
 
 rm_production() {
   project="$1"
-  VERCEL_PROJECT=${project} sh "${dir}"/rm-production.sh
+  VERCEL_PROJECT="$project" sh "$dir"/rm-production.sh
 }
 
-
-# shellcheck disable=SC3028
-# shellcheck disable=SC2128
-dir=$(cd "$(dirname "$BASH_SOURCE")" && pwd)
-if ! sh "${dir}"/../base/check-newt.sh; then
-  exit 1
-fi
 
 ACTION=$(whiptail --default-item=dev --notags --menu "Wat do?" 15 50 4 \
 "rm-canceled" "delete canceled deployments" \
@@ -35,8 +28,9 @@ if [ "$ACTION" = "rm-canceled" ] || [ "$ACTION" = "rm-production" ] || [ "$ACTIO
     printf "\e[31mCanceled\n\e[0m"
     exit 1
   fi
-  printf "\e[35mSelected action: %s\n\e[0m" "${ACTION}"
-  printf "\e[35mSelected project: %s\n\e[0m" "${VERCEL_PROJECT}"
+  printf "\e[35mSelected action: %s\n\e[0m" "$ACTION"
+  printf "\e[35mSelected project: %s\n\e[0m" "$VERCEL_PROJECT"
+  dir=$(cd "$(dirname "$0")" && pwd)
   if [ "$ACTION" = "rm-canceled" ]; then
       if [ "$VERCEL_PROJECT" = "all" ]; then
         rm_canceled "dev"
@@ -71,7 +65,7 @@ if [ "$ACTION" = "rm-canceled" ] || [ "$ACTION" = "rm-production" ] || [ "$ACTIO
     fi
   fi
 elif [ "$ACTION" = "deploy" ]; then
-  sh "${dir}"/deploy.sh
+  sh "$dir"/deploy.sh
 else
   printf "\e[31mCanceled\n\e[0m"
   exit 1

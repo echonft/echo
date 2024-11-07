@@ -67,8 +67,8 @@ export const TokenSelectorMenu: FunctionComponent<Props> = ({ selectedToken, tok
                   'rounded',
                   'prose-label-xs-semi',
                   'text-white',
-                  selectedToken == token ? 'bg-white/[0.08]' : 'bg-transparent',
-                  selectedToken != token && 'hover:bg-white/5'
+                  selectedToken === token ? 'bg-white/[0.08]' : 'bg-transparent',
+                  selectedToken !== token && 'hover:bg-white/5'
                 )}
                 onClick={() => onTokenChanged?.(token)}
               >

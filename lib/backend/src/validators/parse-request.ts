@@ -10,7 +10,7 @@ export function parseRequest<Request, Output = unknown, Def extends ZodTypeDef =
   return function (request: NextRequest<Request>) {
     return pipe(
       invoker(0, 'json'),
-      otherwise((err) => Promise.reject(new BadRequestError({ err, message: RequestError.Invalid }))),
+      otherwise<Output>((err) => Promise.reject(new BadRequestError({ err, message: RequestError.Invalid }))),
       andThen(async (body) => {
         try {
           return await schema.parseAsync(body)

@@ -4,11 +4,14 @@ import { getPendingListingsForCollection } from '@echo/firestore/crud/listing/ge
 import { getNftsForCollection } from '@echo/firestore/crud/nft/get-nfts-for-collection'
 import { getPendingOffersForCollection } from '@echo/firestore/crud/offer/get-pending-offers-for-collection'
 import { getSwapsForCollection } from '@echo/firestore/crud/swap/get-swaps-for-collection'
+import type { OwnedNftDocument } from '@echo/firestore/types/model/nft-document'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import { toListingsWithRole } from '@echo/frontend/lib/helpers/listing/to-listings-with-role'
 import { toOffersWithRole } from '@echo/frontend/lib/helpers/offer/to-offers-with-role'
+import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-array'
 import { toSwaps } from '@echo/frontend/lib/helpers/swap/to-swaps'
+import type { Collection } from '@echo/model/types/collection'
 import type { Slug } from '@echo/model/types/slug'
 import type { User } from '@echo/model/types/user'
 import { getSelectionFromSearchParams } from '@echo/routing/search-params/get-selection-from-search-params'
@@ -34,29 +37,27 @@ interface Props {
 }
 
 async function render({ params: { slug }, searchParams, user }: Props) {
-  const collection = await pipe(getCollection, otherwise(pipe(captureAndLogError, always(undefined))))(slug)
+  const collection = await pipe(
+    getCollection,
+    otherwise<Nullable<Collection>>(pipe(captureAndLogError, always(undefined)))
+  )(slug)
   if (isNil(collection)) {
     notFound()
   }
   const counts = await pipe(prop('slug'), getCollectionCounts)(collection)
-  const nfts = await pipe(getNftsForCollection, otherwise(pipe(captureAndLogError, always([]))))(slug, {
-    excludeOwner: user?.username
-  })
+  const nfts = await pipe(getNftsForCollection, otherwise<OwnedNftDocument[]>(pipe(captureAndLogError, always([]))))(
+    slug,
+    {
+      excludeOwner: user?.username
+    }
+  )
   const listings = await pipe(
     getPendingListingsForCollection,
     andThen(toListingsWithRole(user)),
-    otherwise(pipe(captureAndLogError, always([])))
+    otherwiseEmptyArray
   )(slug)
-  const offers = await pipe(
-    getPendingOffersForCollection,
-    andThen(toOffersWithRole(user)),
-    otherwise(pipe(captureAndLogError, always([])))
-  )(slug)
-  const swaps = await pipe(
-    getSwapsForCollection,
-    andThen(toSwaps),
-    otherwise(pipe(captureAndLogError, always([])))
-  )(slug)
+  const offers = await pipe(getPendingOffersForCollection, andThen(toOffersWithRole(user)), otherwiseEmptyArray)(slug)
+  const swaps = await pipe(getSwapsForCollection, andThen(toSwaps), otherwiseEmptyArray)(slug)
   const selection = getSelectionFromSearchParams({ listings, offers, swaps, searchParams })
 
   return (

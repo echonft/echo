@@ -3,16 +3,17 @@ import { addCollection as addCollectionToFirestore } from '@echo/firestore/crud/
 import { getCollectionByContract as getCollectionByAddressFromFirestore } from '@echo/firestore/crud/collection/get-collection-by-contract'
 import { addNft } from '@echo/firestore/crud/nft/add-nft'
 import { getUserByWallet } from '@echo/firestore/crud/user/get-user-by-wallet'
+import type { NftDocument } from '@echo/firestore/types/model/nft-document'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { CollectionError } from '@echo/model/constants/errors/collection-error'
 import type { Address } from '@echo/model/types/address'
 import type { Collection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
 import { getCollectionByContract } from '@echo/nft-scan/services/get-collection-by-contract'
+import { getNftsByCollectionContract } from '@echo/nft-scan/services/get-nfts-by-collection-contract'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import { CollectionSource } from '@echo/tasks/constants/collection-source'
 import { error, info } from '@echo/tasks/helpers/logger'
-import { fetchNftsByCollectionContract } from '@echo/tasks/tasks/fetch-nfts-by-collection-contract'
 import { unlessNil } from '@echo/utils/helpers/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { getNftOwner } from '@echo/web3/services/get-nft-owner'
@@ -59,15 +60,15 @@ export async function getOrAddCollection(contract: Address): Promise<Collection>
     const { data, id } = await addCollectionToFirestore(collection)
     info({ collection: assoc('id', id, data) }, 'added collection')
     // add collection NFTs
-    const nfts = await fetchNftsByCollectionContract(contract)
+    const nfts = await getNftsByCollectionContract(contract)
     for (const nft of nfts) {
       const ownerWallet = await getNftOwner(nft)
       const owner = await pipe(getUserByWallet, andThen(unlessNil(userDocumentToModel)))(ownerWallet)
-      await pipe<[PartialNft], Nft, Nft, Promise<NewDocument<Nft>>, Promise<NewDocument<Nft>>>(
+      await pipe<[PartialNft], Nft, Nft, Promise<NewDocument<Nft>>, Promise<void>>(
         assoc('collection', collection),
         assoc('owner', owner),
         addNft,
-        otherwise((err) => {
+        otherwise<NewDocument<NftDocument>, void>((err) => {
           error({ nft, collection, err }, 'could not add NFT')
         })
       )(nft)

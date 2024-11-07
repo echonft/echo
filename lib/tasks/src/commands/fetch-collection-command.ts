@@ -1,22 +1,19 @@
-import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { CollectionError } from '@echo/model/constants/errors/collection-error'
 import type { Address } from '@echo/model/types/address'
-import { error, info, warn } from '@echo/tasks/helpers/logger'
-import { fetchCollection } from '@echo/tasks/tasks/fetch-collection'
-import { andThen, isNil, otherwise, pipe } from 'ramda'
+import { getCollectionByContract } from '@echo/nft-scan/services/get-collection-by-contract'
+import { error, warn } from '@echo/tasks/helpers/logger'
+import { andThen, otherwise, pipe } from 'ramda'
 
 export async function fetchCollectionCommand(contract: Address) {
-  await initializeFirebase()
   await pipe(
-    fetchCollection,
-    andThen((collection) => {
-      if (isNil(collection)) {
-        warn({ collection: { contract } }, 'collection not found')
-      } else {
-        info({ collection }, 'fetched collection')
+    getCollectionByContract,
+    andThen(({ collection, isSpam }) => {
+      if (isSpam) {
+        warn({ collection }, CollectionError.Spam)
       }
     }),
     otherwise((err) => {
-      error({ err, collection: { contract } }, 'could not fetch collection')
+      error({ err, collection: { contract } }, 'could not fetch collection from API')
     })
   )(contract)
 }

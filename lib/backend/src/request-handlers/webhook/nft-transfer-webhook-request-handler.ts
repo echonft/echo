@@ -1,5 +1,5 @@
 import { assertQuicknodeSignature } from '@echo/backend/request-handlers/webhook/assert-quicknode-signature'
-import { nftTransferEventHandler } from '@echo/backend/request-handlers/webhook/event-handlers/nft-transfer-event-handler'
+import { erc721TransferEventHandler } from '@echo/backend/request-handlers/webhook/event-handlers/erc721-transfer-event-handler'
 import type { RequestHandlerArgs } from '@echo/backend/types/request-handler'
 import type { WebhookBlockRequest } from '@echo/backend/types/webhook-block-request'
 import { parseRequest } from '@echo/backend/validators/parse-request'
@@ -13,7 +13,7 @@ export async function nftTransferWebhookRequestHandler({ req }: RequestHandlerAr
     andThen(parseRequest(erc721TransferEventsSchema))
   )({ req, type: 'nft-transfer' })
   for (const transfer of transfers) {
-    await nftTransferEventHandler(transfer)
+    await erc721TransferEventHandler(transfer)
   }
   return NextResponse.json({})
 }

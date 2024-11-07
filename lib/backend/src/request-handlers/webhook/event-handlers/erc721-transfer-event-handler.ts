@@ -1,16 +1,18 @@
+import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { escrowNft } from '@echo/firestore/crud/nft/escrow-nft'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
 import { unescrowNft } from '@echo/firestore/crud/nft/unescrow-nft'
 import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
-import { getOrAddCollection } from '@echo/tasks/tasks/get-or-add-collection'
+import type { Collection } from '@echo/model/types/collection'
 import { updateNftOwner } from '@echo/tasks/tasks/update-nft-owner'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { echoAddress } from '@echo/web3/constants/echo-address'
 import type { Erc721TransferEvent } from '@echo/web3/types/erc721-transfer-event'
 import { always, isNil, otherwise, pipe } from 'ramda'
 
-export async function nftTransferEventHandler({ contract, from, to, tokenId }: Erc721TransferEvent): Promise<void> {
-  const collection = await pipe(getOrAddCollection, otherwise(always(undefined)))(contract)
+export async function erc721TransferEventHandler({ contract, from, to, tokenId }: Erc721TransferEvent): Promise<void> {
+  const collection = await pipe(getCollection, otherwise(always<Nullable<Collection>>(undefined)))(contract)
   if (isNil(collection)) {
     return
   }

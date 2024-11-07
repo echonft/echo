@@ -6,6 +6,7 @@ import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { cancelOffer } from '@echo/firestore/crud/offer/cancel-offer'
 import { getOffersForNft } from '@echo/firestore/crud/offer/get-offers-for-nft'
 import { getUserByWallet } from '@echo/firestore/crud/user/get-user-by-wallet'
+import type { UserDocument } from '@echo/firestore/types/model/user-document'
 import { eqAddress } from '@echo/model/helpers/eq-address'
 import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
 import type { Address } from '@echo/model/types/address'
@@ -65,7 +66,7 @@ export async function updateNftOwner({ nft, wallet }: UpdateNftOwnerArgs): Promi
     andThen(unlessNil(userDocumentToModel)),
     otherwise((err) => {
       error({ err, owner: wallet }, 'could not get wallet owner')
-      return undefined
+      return undefined as Nullable<UserDocument & Required<Pick<UserDocument, 'wallet'>>>
     })
   )(wallet)
   if (isNil(owner)) {

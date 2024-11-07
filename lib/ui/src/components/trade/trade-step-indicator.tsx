@@ -16,14 +16,14 @@ export const TradeStepIndicator: FunctionComponent<TradeStepIndicatorProps> = ({
       {map(
         (index) => (
           <div className={clsx('flex', 'flex-col', 'gap-y-5')} key={index}>
-            <div className={clsx('flex', 'flex-row', 'items-center', 'relative', index == 0 && 'pl-1')}>
+            <div className={clsx('flex', 'flex-row', 'items-center', 'relative', index === 0 && 'pl-1')}>
               <div
                 className={clsx(
                   'h-0.75',
                   'grow',
                   'basis-0',
                   'transition-colors',
-                  index == 0 && 'rounded-l-xl',
+                  index === 0 && 'rounded-l-xl',
                   index <= step && 'bg-yellow-500'
                 )}
               />
@@ -47,7 +47,7 @@ export const TradeStepIndicator: FunctionComponent<TradeStepIndicatorProps> = ({
                   'grow',
                   'basis-0',
                   'transition-colors',
-                  index == step &&
+                  index === step &&
                     index < totalSteps - 1 && [
                       'bg-gradientYellowToTransparent',
                       'bg-gradient-to-r',

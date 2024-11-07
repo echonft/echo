@@ -9,8 +9,10 @@ declare module 'ramda' {
     f: (a: T) => a is RT1,
     g: (a: RT1) => a is RT2
   ): (a: T) => a is RT1 & RT2
-  export function otherwise<T>(onError: (error: unknown) => Awaitable<T | void>): <T>(promise: Promise<T>) => Promise<T>
-  export function otherwise<T>(onError: (error: unknown) => Awaitable<T | void>, promise: Promise<T>): Promise<T>
+  export function otherwise<A, B = A>(
+    onError: (error: unknown) => Awaitable<B | void>
+  ): (promise: Promise<A>) => Promise<B>
+  export function otherwise<A, B = A>(onError: (error: unknown) => Awaitable<B | void>, promise: Promise<A>): Promise<B>
   export function path<S, K0 extends keyof S, K1 extends keyof S[K0]>(path: [K0, K1]): (obj: S) => S[K0][K1]
   export function path<S, K0 extends keyof S, K1 extends keyof S[K0], K2 extends keyof S[K0][K1]>(
     path: [K0, K1, K2]

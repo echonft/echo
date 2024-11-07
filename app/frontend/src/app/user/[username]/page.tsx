@@ -8,6 +8,8 @@ import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
 import { toListingsWithRole } from '@echo/frontend/lib/helpers/listing/to-listings-with-role'
 import { toOffersWithRole } from '@echo/frontend/lib/helpers/offer/to-offers-with-role'
+import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-array'
+import { otherwiseUndefined } from '@echo/frontend/lib/helpers/otherwise-undefined'
 import { toSwaps } from '@echo/frontend/lib/helpers/swap/to-swaps'
 import type { Slug } from '@echo/model/types/slug'
 import type { User } from '@echo/model/types/user'
@@ -34,24 +36,20 @@ interface Props {
 }
 
 async function render({ params: { username }, searchParams, user: authUser }: Props) {
-  const user = await pipe(getUserByUsername, otherwise(pipe(captureAndLogError, always(undefined))))(username)
+  const user = await pipe(getUserByUsername, otherwiseUndefined)(username)
   if (isNil(user)) {
     notFound()
   }
   const isAuthUser = username === authUser?.username
-  const nfts = await pipe(getNftsForOwner, otherwise(pipe(captureAndLogError, always([]))))(username)
+  const nfts = await pipe(getNftsForOwner, otherwiseEmptyArray)(username)
   const listings = await pipe(
     getListingsForCreator,
     andThen(toListingsWithRole(authUser)),
-    otherwise(pipe(captureAndLogError, always([])))
+    otherwiseEmptyArray
   )(username)
-  const offers = await pipe(
-    getPendingOffersForUser,
-    andThen(toOffersWithRole(authUser)),
-    otherwise(pipe(captureAndLogError, always([])))
-  )(username)
+  const offers = await pipe(getPendingOffersForUser, andThen(toOffersWithRole(authUser)), otherwiseEmptyArray)(username)
   const offersCount = await pipe(getUserOffersCount, otherwise(pipe(captureAndLogError, always(0))))(username)
-  const swaps = await pipe(getSwapsForUser, andThen(toSwaps), otherwise(pipe(captureAndLogError, always([]))))(username)
+  const swaps = await pipe(getSwapsForUser, andThen(toSwaps), otherwiseEmptyArray)(username)
   const selection = getSelectionFromSearchParams({ listings, offers, swaps, searchParams })
 
   return (

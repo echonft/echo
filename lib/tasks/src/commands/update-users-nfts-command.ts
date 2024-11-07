@@ -1,5 +1,6 @@
 import { getAllUsers } from '@echo/firestore/crud/user/get-all-users'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import type { UserDocument } from '@echo/firestore/types/model/user-document'
 import { error, info } from '@echo/tasks/helpers/logger'
 import { updateNftsForUser } from '@echo/tasks/tasks/update-nfts-for-user'
 import { andThen, otherwise, pipe } from 'ramda'
@@ -10,7 +11,7 @@ export async function updateUsersNftsCommand() {
     getAllUsers,
     otherwise((err) => {
       error({ err }, 'could not fetch users from Firestore')
-      return []
+      return [] as UserDocument[]
     })
   )()
   for (const user of users) {

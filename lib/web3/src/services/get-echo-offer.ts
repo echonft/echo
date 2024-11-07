@@ -23,6 +23,6 @@ export async function getEchoOffer(offerId: HexString): Promise<Nullable<EchoOff
     // @ts-ignore
     readContract,
     andThen((data) => readEchoOfferSchema.parse(data)),
-    otherwise(always(undefined))
+    otherwise(always<Nullable<EchoOffer>>(undefined))
   )(client, parameters)
 }

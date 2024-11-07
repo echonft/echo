@@ -2,6 +2,7 @@ import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
+import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-array'
 import { eqOwnedNftOwner } from '@echo/model/helpers/nft/eq-owned-nft-owner'
 import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
 import type { Nft, OwnedNft } from '@echo/model/types/nft'
@@ -61,17 +62,13 @@ async function render({ searchParams: { items, target }, user }: Props) {
         head
       )
     ),
-    otherwise(pipe(captureAndLogError, always([])))
+    otherwiseEmptyArray
   )(items)
   if (!isNonEmptyArray(receiverNftsSelection)) {
     notFound()
   }
   const receiver = pipe(head, prop('owner')<OwnedNft>)(receiverNftsSelection)
-  const receiverNfts = await pipe(
-    prop('username'),
-    getNftsForOwner,
-    otherwise(pipe(captureAndLogError, always([])))
-  )(receiver)
+  const receiverNfts = await pipe(prop('username'), getNftsForOwner, otherwiseEmptyArray)(receiver)
   const senderNfts = await pipe(
     prop('username'),
     getNftsForOwner,
@@ -81,7 +78,7 @@ async function render({ searchParams: { items, target }, user }: Props) {
         filter(pathSatisfies(equals(target), ['collection', 'slug']))
       )
     ),
-    otherwise(pipe(captureAndLogError, always([])))
+    otherwise<OwnedNft[]>(pipe(captureAndLogError, always([])))
   )(user)
   if (!isNonEmptyArray(senderNfts)) {
     notFound()

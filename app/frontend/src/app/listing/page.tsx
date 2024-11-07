@@ -2,7 +2,8 @@ import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
-import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-error'
+import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-array'
+import { otherwiseUndefined } from '@echo/frontend/lib/helpers/otherwise-undefined'
 import { nftIsOwnedBy } from '@echo/model/helpers/nft/nft-is-owned-by'
 import type { Listing } from '@echo/model/types/listing'
 import type { Nft, OwnedNft } from '@echo/model/types/nft'
@@ -16,22 +17,7 @@ import { promiseAll } from '@echo/utils/helpers/promise-all'
 import { unlessNil } from '@echo/utils/helpers/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound } from 'next/navigation'
-import {
-  always,
-  andThen,
-  filter,
-  identity,
-  is,
-  isEmpty,
-  isNil,
-  juxt,
-  map,
-  otherwise,
-  pipe,
-  prop,
-  reject,
-  unless
-} from 'ramda'
+import { andThen, filter, identity, is, isEmpty, isNil, juxt, map, pipe, prop, reject, unless } from 'ramda'
 
 interface Props {
   searchParams: {
@@ -55,20 +41,14 @@ async function render({ searchParams: { items, target }, user }: Props) {
       andThen<Nullable<Nft>[], OwnedNft[]>(
         pipe<[Nullable<Nft>[]], Nft[], OwnedNft[]>(reject(isNil), filter(nftIsOwnedBy(user.username)))
       ),
-      otherwise(pipe(captureAndLogError, always([])))
+      otherwiseEmptyArray
     )
   )(items)
-  const listingTarget = await unlessNil(pipe(getCollection, otherwise(pipe(captureAndLogError, always(undefined)))))(
-    target
-  )
+  const listingTarget = await unlessNil(pipe(getCollection, otherwiseUndefined))(target)
   if (isNilOrEmpty(listingItems) && isNil(listingTarget)) {
     notFound()
   }
-  const creatorNfts = await pipe(
-    prop('username'),
-    getNftsForOwner,
-    otherwise(pipe(captureAndLogError, always([])))
-  )(user)
+  const creatorNfts = await pipe(prop('username'), getNftsForOwner, otherwiseEmptyArray)(user)
   if (isEmpty(listingItems) && isEmpty(creatorNfts)) {
     notFound()
   }
