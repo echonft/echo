@@ -4,7 +4,6 @@ import type { CollectionResponse } from '@echo/nft-scan/types/response/collectio
 import { collectionResponseSchema } from '@echo/nft-scan/validators/collection-response-schema'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, pipe } from 'ramda'
-import { undefined } from 'zod'
 
 describe('validators - collectionResponseSchema', () => {
   const collectionResponseMock: CollectionResponse = {
@@ -36,7 +35,7 @@ describe('validators - collectionResponseSchema', () => {
   }
 
   it('maps correctly with no slug', () => {
-    expect(collectionResponseSchema.parse(collectionResponseMock)).toEqual({
+    expect(collectionResponseSchema.parse(collectionResponseMock)).toStrictEqual({
       collection: expectedResult,
       isSpam: false
     })
@@ -45,18 +44,18 @@ describe('validators - collectionResponseSchema', () => {
   it('maps correctly with no slug name with space', () => {
     const response = assoc('name', 'Name With Space', collectionResponseMock)
     const resultWithSlug = pipe(assoc('name', 'Name With Space'), assoc('slug', 'name-with-space'))(expectedResult)
-    expect(collectionResponseSchema.parse(response)).toEqual({ collection: resultWithSlug, isSpam: false })
+    expect(collectionResponseSchema.parse(response)).toStrictEqual({ collection: resultWithSlug, isSpam: false })
   })
 
   it('maps correctly with slug', () => {
     const response = assoc('opensea_slug', 'opensea-slug', collectionResponseMock)
     const resultWithSlug = assoc('slug', 'opensea-slug', expectedResult)
-    expect(collectionResponseSchema.parse(response)).toEqual({ collection: resultWithSlug, isSpam: false })
+    expect(collectionResponseSchema.parse(response)).toStrictEqual({ collection: resultWithSlug, isSpam: false })
   })
 
   it('returns isSpam true if the collection is a spam collection', () => {
     const response = assoc('is_spam', true, collectionResponseMock)
-    expect(collectionResponseSchema.parse(response)).toEqual({ collection: undefined, isSpam: true })
+    expect(collectionResponseSchema.parse(response)).toStrictEqual({ collection: undefined, isSpam: true })
   })
 
   it('SEI test', () => {
@@ -114,6 +113,6 @@ describe('validators - collectionResponseSchema', () => {
       type: TokenType.Erc721,
       websiteUrl: 'https://yrrrrrlabz.vercel.app/'
     }
-    expect(collectionResponseSchema.parse(response)).toEqual({ collection: expected, isSpam: false })
+    expect(collectionResponseSchema.parse(response)).toStrictEqual({ collection: expected, isSpam: false })
   })
 })

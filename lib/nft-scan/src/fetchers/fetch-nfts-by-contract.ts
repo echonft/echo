@@ -1,5 +1,5 @@
 import { FetchError } from '@echo/nft-scan/constants/errors/fetch-error'
-import { nftScanApiPathProvider } from '@echo/nft-scan/constants/nft-scan-api-path-provider'
+import { nftScanApiRoutes } from '@echo/nft-scan/constants/nft-scan-api-routes'
 import { fetchInit } from '@echo/nft-scan/helpers/fetch-init'
 import { error } from '@echo/nft-scan/helpers/logger'
 import type { FetchNftsByContractRequest } from '@echo/nft-scan/types/request/fetch-nfts-by-contract-request'
@@ -14,7 +14,7 @@ export async function fetchNftsByContract({
   next,
   limit
 }: FetchNftsByContractRequest): Promise<FetchNftsResponse> {
-  const url = nftScanApiPathProvider.nfts.fetchByContract
+  const url = nftScanApiRoutes.nfts.fetchByAccount
     .withQuery({ showAttribute, next, limit })
     .getUrl({ address: contract })
   const init = await fetchInit()

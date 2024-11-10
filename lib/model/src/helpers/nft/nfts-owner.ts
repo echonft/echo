@@ -7,6 +7,6 @@ import { head, type NonEmptyArray, pipe, prop } from 'ramda'
  * We assume that the check for ownership equality has been done already
  * @param nfts
  */
-export function nftsOwner(nfts: NonEmptyArray<OwnedNft>): User {
+export function nftsOwner<T extends OwnedNft>(nfts: NonEmptyArray<T>): User {
   return pipe<[NonEmptyArray<OwnedNft>], OwnedNft, User>(head, prop('owner'))(nfts)
 }

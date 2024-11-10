@@ -1,12 +1,11 @@
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import type { User } from '@echo/model/types/user'
+import type { SignInQueryParams } from '@echo/routing/types/frontend/query-params/sign-in-query-params'
 import { LoginPage } from '@echo/ui/pages/login/login-page'
 import type { Nullable } from '@echo/utils/types/nullable'
 
 interface Props {
-  searchParams: {
-    callbackUrl?: string
-  }
+  searchParams: SignInQueryParams
   user: Nullable<User>
 }
 

@@ -4,7 +4,7 @@ import { type UserDocument } from '@echo/firestore/types/model/user-document'
 import { nftItems } from '@echo/model/helpers/item/nft-items'
 import type { NftItem } from '@echo/model/types/item'
 import { type Listing } from '@echo/model/types/listing'
-import { pathProvider } from '@echo/routing/constants/path-provider'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { type APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import i18next from 'i18next'
 import { addIndex, flatten, map, type NonEmptyArray } from 'ramda'
@@ -16,7 +16,7 @@ export function buildListingEmbed(listing: Listing, creator: UserDocument) {
     .setColor(0x00ff66)
     .setFields(fields(listing.items, listing.target))
     .setURL(
-      pathProvider.collection.default.withQuery({ listing: listing }).getUrl({ slug: listing.target.collection.slug })
+      frontendRoutes.collection.details.withQuery({ listing: listing }).getUrl({ slug: listing.target.collection.slug })
     )
 }
 

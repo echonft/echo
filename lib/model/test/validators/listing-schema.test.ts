@@ -5,103 +5,121 @@ import { userIndex } from '@echo/model/helpers/user/user-index'
 import { collectionMockPx } from '@echo/model/mocks/collection-mock'
 import { erc1155ItemMock, erc20ItemMock, erc721ItemMock } from '@echo/model/mocks/item-mock'
 import { listingMock } from '@echo/model/mocks/listing-mock'
+import { serializeListing } from '@echo/model/serializers/serialize-listing'
 import type { Erc721Item } from '@echo/model/types/item'
-import { listingSchema, listingSignatureSchema } from '@echo/model/validators/listing-schema'
-import { describe, expect, test } from '@jest/globals'
-import { assoc, assocPath, dissoc, map, pipe, prop, reverse } from 'ramda'
+import {
+  listingSchema,
+  listingSignatureSchema,
+  serializedListingSchema,
+  serializeListingSchema
+} from '@echo/model/validators/listing-schema'
+import { describe, expect, it, test } from '@jest/globals'
+import { assoc, assocPath, dissoc, map, pick, pipe, prop, reverse } from 'ramda'
 import { ZodError } from 'zod'
 
 describe('listingSchema', () => {
-  function expectZodError(data: unknown, path: (string | number)[]) {
-    expect(() => listingSchema.parse(data)).toThrow()
-    try {
-      listingSchema.parse(data)
-    } catch (err) {
-      expect(err).toBeInstanceOf(ZodError)
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      expect(pipe(prop('issues'), map(prop('path')))(err as ZodError)).toContainEqual(path)
+  describe('listingSchema', () => {
+    function expectZodError(data: unknown, path: (string | number)[]) {
+      expect(() => listingSchema.parse(data)).toThrow()
+      try {
+        listingSchema.parse(data)
+      } catch (err) {
+        expect(err).toBeInstanceOf(ZodError)
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        expect(pipe(prop('issues'), map(prop('path')))(err as ZodError)).toContainEqual(path)
+      }
     }
-  }
 
-  test('fails if creator is missing', () => {
-    expectZodError(dissoc('creator', listingMock), ['creator'])
-  })
+    test('fails if creator is missing', () => {
+      expectZodError(dissoc('creator', listingMock), ['creator'])
+    })
 
-  test('fails if expiresAt is missing or invalid', () => {
-    const prop = 'expiresAt'
-    const path = [prop]
-    expectZodError(dissoc(prop, listingMock), path)
-    expectZodError(assoc(prop, undefined, listingMock), path)
-    expectZodError(assoc(prop, -1, listingMock), path)
-    expectZodError(assoc(prop, '', listingMock), path)
-    expectZodError(assoc(prop, 'string', listingMock), path)
-    expectZodError(assoc(prop, {}, listingMock), path)
-    expectZodError(assoc(prop, [], listingMock), path)
-    expectZodError(assoc(prop, ['string'], listingMock), path)
-  })
+    test('fails if expiresAt is missing or invalid', () => {
+      const prop = 'expiresAt'
+      const path = [prop]
+      expectZodError(dissoc(prop, listingMock), path)
+      expectZodError(assoc(prop, undefined, listingMock), path)
+      expectZodError(assoc(prop, -1, listingMock), path)
+      expectZodError(assoc(prop, '', listingMock), path)
+      expectZodError(assoc(prop, 'string', listingMock), path)
+      expectZodError(assoc(prop, {}, listingMock), path)
+      expectZodError(assoc(prop, [], listingMock), path)
+      expectZodError(assoc(prop, ['string'], listingMock), path)
+    })
 
-  test('fails if items is missing or invalid', () => {
-    const prop = 'items'
-    const path = [prop]
-    expectZodError(dissoc(prop, listingMock), path)
-    expectZodError(assoc(prop, undefined, listingMock), path)
-    expectZodError(assoc(prop, erc721ItemMock, listingMock), path)
-    expectZodError(assoc(prop, [], listingMock), path)
-    expectZodError(assoc(prop, [erc20ItemMock], listingMock), [prop, 0])
-  })
+    test('fails if items are missing or invalid', () => {
+      const prop = 'items'
+      const path = [prop]
+      expectZodError(dissoc(prop, listingMock), path)
+      expectZodError(assoc(prop, undefined, listingMock), path)
+      expectZodError(assoc(prop, erc721ItemMock, listingMock), path)
+      expectZodError(assoc(prop, [], listingMock), path)
+      expectZodError(assoc(prop, [erc20ItemMock], listingMock), [prop, 0])
+    })
 
-  test('fails if locked is missing or invalid', () => {
-    const prop = 'locked'
-    const path = [prop]
-    expectZodError(dissoc(prop, listingMock), path)
-    expectZodError(assoc(prop, undefined, listingMock), path)
-    expectZodError(assoc(prop, -1, listingMock), path)
-    expectZodError(assoc(prop, '', listingMock), path)
-    expectZodError(assoc(prop, 'string', listingMock), path)
-    expectZodError(assoc(prop, {}, listingMock), path)
-    expectZodError(assoc(prop, [], listingMock), path)
-    expectZodError(assoc(prop, ['string'], listingMock), path)
-  })
+    test('fails if items contain duplicates', () => {
+      const prop = 'items'
+      const path = [prop]
+      expectZodError(assoc(prop, [erc721ItemMock, erc1155ItemMock, erc721ItemMock], listingMock), path)
+      expectZodError(assoc(prop, [erc1155ItemMock, erc1155ItemMock, erc721ItemMock], listingMock), path)
+    })
 
-  test('fails if slug is missing', () => {
-    expectZodError(dissoc('slug', listingMock), ['slug'])
-  })
+    test('fails if locked is missing or invalid', () => {
+      const prop = 'locked'
+      const path = [prop]
+      expectZodError(dissoc(prop, listingMock), path)
+      expectZodError(assoc(prop, undefined, listingMock), path)
+      expectZodError(assoc(prop, -1, listingMock), path)
+      expectZodError(assoc(prop, '', listingMock), path)
+      expectZodError(assoc(prop, 'string', listingMock), path)
+      expectZodError(assoc(prop, {}, listingMock), path)
+      expectZodError(assoc(prop, [], listingMock), path)
+      expectZodError(assoc(prop, ['string'], listingMock), path)
+    })
 
-  test('fails if state is missing or invalid', () => {
-    const prop = 'state'
-    const path = [prop]
-    expectZodError(dissoc(prop, listingMock), path)
-    expectZodError(assoc(prop, undefined, listingMock), path)
-    expectZodError(assoc(prop, -1, listingMock), path)
-    expectZodError(assoc(prop, '', listingMock), path)
-    expectZodError(assoc(prop, 'string', listingMock), path)
-    expectZodError(assoc(prop, {}, listingMock), path)
-    expectZodError(assoc(prop, [], listingMock), path)
-    expectZodError(assoc(prop, ['string'], listingMock), path)
-  })
+    test('fails if slug is missing', () => {
+      expectZodError(dissoc('slug', listingMock), ['slug'])
+    })
 
-  test('fails if target is missing or invalid', () => {
-    const prop = 'target'
-    const path = [prop]
-    expectZodError(dissoc(prop, listingMock), path)
-    expectZodError(assoc(prop, undefined, listingMock), path)
-    expectZodError(assoc(prop, -1, listingMock), path)
-    expectZodError(assoc(prop, '', listingMock), path)
-    expectZodError(assoc(prop, 'string', listingMock), path)
-    expectZodError(assoc(prop, [], listingMock), path)
-    expectZodError(assoc(prop, ['string'], listingMock), path)
-    expectZodError(assoc(prop, { quantity: 1 }, listingMock), [prop, 'collection'])
-    expectZodError(assoc(prop, { collection: collectionMockPx }, listingMock), [prop, 'quantity'])
-    expectZodError(assoc(prop, { collection: collectionMockPx, quantity: -1 }, listingMock), [prop, 'quantity'])
-    expectZodError(assoc(prop, { collection: collectionMockPx, quantity: '' }, listingMock), [prop, 'quantity'])
-    expectZodError(assoc(prop, { collection: collectionMockPx, quantity: undefined }, listingMock), [prop, 'quantity'])
-    expectZodError(assoc(prop, { collection: collectionMockPx, quantity: [1] }, listingMock), [prop, 'quantity'])
-    expectZodError(assoc(prop, { collection: collectionMockPx, quantity: {} }, listingMock), [prop, 'quantity'])
-  })
+    test('fails if state is missing or invalid', () => {
+      const prop = 'state'
+      const path = [prop]
+      expectZodError(dissoc(prop, listingMock), path)
+      expectZodError(assoc(prop, undefined, listingMock), path)
+      expectZodError(assoc(prop, -1, listingMock), path)
+      expectZodError(assoc(prop, '', listingMock), path)
+      expectZodError(assoc(prop, 'string', listingMock), path)
+      expectZodError(assoc(prop, {}, listingMock), path)
+      expectZodError(assoc(prop, [], listingMock), path)
+      expectZodError(assoc(prop, ['string'], listingMock), path)
+    })
 
-  test('valid', () => {
-    expect(listingSchema.parse(listingMock)).toStrictEqual(listingMock)
+    test('fails if target is missing or invalid', () => {
+      const prop = 'target'
+      const path = [prop]
+      expectZodError(dissoc(prop, listingMock), path)
+      expectZodError(assoc(prop, undefined, listingMock), path)
+      expectZodError(assoc(prop, -1, listingMock), path)
+      expectZodError(assoc(prop, '', listingMock), path)
+      expectZodError(assoc(prop, 'string', listingMock), path)
+      expectZodError(assoc(prop, [], listingMock), path)
+      expectZodError(assoc(prop, ['string'], listingMock), path)
+      expectZodError(assoc(prop, { quantity: 1 }, listingMock), [prop, 'collection'])
+      expectZodError(assoc(prop, { collection: collectionMockPx }, listingMock), [prop, 'quantity'])
+      expectZodError(assoc(prop, { collection: collectionMockPx, quantity: -1 }, listingMock), [prop, 'quantity'])
+      expectZodError(assoc(prop, { collection: collectionMockPx, quantity: '' }, listingMock), [prop, 'quantity'])
+      expectZodError(assoc(prop, { collection: collectionMockPx, quantity: undefined }, listingMock), [
+        prop,
+        'quantity'
+      ])
+      expectZodError(assoc(prop, { collection: collectionMockPx, quantity: [1] }, listingMock), [prop, 'quantity'])
+      expectZodError(assoc(prop, { collection: collectionMockPx, quantity: {} }, listingMock), [prop, 'quantity'])
+    })
+
+    test('valid', () => {
+      expect(listingSchema.parse(listingMock)).toStrictEqual(listingMock)
+    })
   })
 
   describe('listingSignatureSchema', () => {
@@ -140,6 +158,18 @@ describe('listingSchema', () => {
         }
       }
       expect(listingSignatureSchema.parse(listing)).toStrictEqual(expected)
+    })
+  })
+
+  describe('serializeListingSchema', () => {
+    it('transform correctly', () => {
+      expect(serializeListingSchema.parse(listingMock)).toStrictEqual(serializeListing(listingMock))
+    })
+  })
+
+  describe('serializedListingSchema', () => {
+    it('transform correctly', () => {
+      expect(serializedListingSchema.parse(serializeListing(listingMock))).toStrictEqual(pick(['slug'], listingMock))
     })
   })
 })

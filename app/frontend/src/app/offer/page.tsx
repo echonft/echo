@@ -6,11 +6,10 @@ import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-
 import { eqOwnedNftOwner } from '@echo/model/helpers/nft/eq-owned-nft-owner'
 import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
 import type { Nft, OwnedNft } from '@echo/model/types/nft'
-import type { Slug } from '@echo/model/types/slug'
 import type { User } from '@echo/model/types/user'
-import { getNftIndexFromSearchParam } from '@echo/routing/search-params/get-nft-index-from-search-param'
+import type { OfferSearchParams } from '@echo/routing/types/frontend/search-params/offer-search-params'
+import { offerSearchParamsDataSchema } from '@echo/routing/validators/frontend/offer/offer-search-params-data-schema'
 import { CreateOfferManager } from '@echo/ui/components/offer/create/create-offer-manager'
-import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { isNonEmptyArray } from '@echo/utils/helpers/is-non-empty-array'
 import { promiseAll } from '@echo/utils/helpers/promise-all'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -22,10 +21,7 @@ import {
   filter,
   groupWith,
   head,
-  identity,
-  is,
   isNil,
-  juxt,
   map,
   otherwise,
   pathSatisfies,
@@ -36,21 +32,13 @@ import {
 } from 'ramda'
 
 interface Props {
-  searchParams: {
-    items: string[] | string
-    target?: Slug
-  }
+  searchParams: OfferSearchParams
   user: User
 }
 
-async function render({ searchParams: { items, target }, user }: Props) {
-  // Cannot go to that page without previously selected data
-  if (isNilOrEmpty(items)) {
-    notFound()
-  }
+async function render({ searchParams, user }: Props) {
+  const { items, target } = offerSearchParamsDataSchema.parse(searchParams)
   const receiverNftsSelection = await pipe(
-    unless(is(Array), juxt([identity])),
-    map(getNftIndexFromSearchParam),
     map(getNftByIndex),
     promiseAll,
     andThen<Nullable<Nft>[], OwnedNft[]>(

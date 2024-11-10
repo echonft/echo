@@ -1,5 +1,5 @@
 import { FetchError } from '@echo/nft-scan/constants/errors/fetch-error'
-import { nftScanApiPathProvider } from '@echo/nft-scan/constants/nft-scan-api-path-provider'
+import { nftScanApiRoutes } from '@echo/nft-scan/constants/nft-scan-api-routes'
 import { fetchInit } from '@echo/nft-scan/helpers/fetch-init'
 import { error } from '@echo/nft-scan/helpers/logger'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
@@ -14,7 +14,7 @@ export async function fetchNft({
   identifier,
   showAttribute
 }: FetchNftRequest): Promise<Nullable<PartialNft>> {
-  const url = nftScanApiPathProvider.nft.fetch.withQuery({ showAttribute }).getUrl({ address: contract, identifier })
+  const url = nftScanApiRoutes.nft.fetch.withQuery({ showAttribute }).getUrl({ address: contract, identifier })
   const init = await fetchInit()
   const response = await fetch(url, init)
   if (!response.ok) {

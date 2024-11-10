@@ -1,4 +1,5 @@
 import type { Slug } from '@echo/model/types/slug'
+import { as } from '@echo/utils/helpers/as'
 import { pipe, replace, toLower } from 'ramda'
 
 /**
@@ -9,5 +10,5 @@ import { pipe, replace, toLower } from 'ramda'
  * @param str
  */
 export function toSlug(str: string): Slug {
-  return pipe(toLower, replace(/\s+/g, '-'), replace(/[^a-zA-Z0-9-_]/g, ''))(str) as Slug
+  return pipe(toLower, replace(/\s+/g, '-'), replace(/[^a-z0-9-_]/g, ''), as<Slug>)(str)
 }

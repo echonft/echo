@@ -114,7 +114,7 @@ export const messages = {
   layout: {
     header: {
       button: {
-        login: 'Connect'
+        login: 'Login'
       },
       search: {
         placeHolder: 'Search for collections or users'

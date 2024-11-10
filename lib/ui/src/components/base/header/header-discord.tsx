@@ -1,6 +1,6 @@
 'use client'
 import type { User } from '@echo/model/types/user'
-import { pathProvider } from '@echo/routing/constants/path-provider'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { baseUrl } from '@echo/routing/helpers/base-url'
 import { LoginDiscordButton } from '@echo/ui/components/auth/login-discord-button'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
@@ -22,7 +22,7 @@ const HeaderDiscordButton: FunctionComponent<Props> = ({ user }) => {
   const t = useTranslations('layout.header.button')
   if (isNil(user)) {
     return (
-      <InternalLink path={pathProvider.auth.signIn.withQuery({ callbackUrl: `${baseUrl()}${path}` }).get()}>
+      <InternalLink path={frontendRoutes.auth.signIn.withQuery({ callbackUrl: `${baseUrl()}${path}` }).get()}>
         <LoginDiscordButton>
           <span className={'text-white'}>
             <DiscordIconSvg width={24} height={24} />
@@ -44,7 +44,7 @@ const HeaderDiscordImg: FunctionComponent<Props> = ({ user }) => {
     discord: { avatarUrl, username }
   } = user
   return (
-    <InternalLink path={pathProvider.profile.default.get()}>
+    <InternalLink path={frontendRoutes.user.profile.get()}>
       <div
         className={clsx('w-12', 'h-12', 'rounded-lg', 'bg-dark-500', 'border', 'border-solid', 'border-white/[0.08]')}
       >

@@ -1,6 +1,6 @@
 'use client'
 import type { User } from '@echo/model/types/user'
-import { pathProvider } from '@echo/routing/constants/path-provider'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { Login } from '@echo/ui/components/auth/login'
 import { HeaderStyle } from '@echo/ui/constants/header-style'
 import { useHeaderStore } from '@echo/ui/hooks/use-header-store'
@@ -32,7 +32,7 @@ export const LoginPage: FunctionComponent<Props> = ({ callbackUrl, user }) => {
         user={user}
         onFinish={() => {
           if (isNilOrEmpty(callbackUrl)) {
-            router.replace(pathProvider.base.home.get())
+            router.replace(frontendRoutes.base.home.get())
           } else {
             router.replace(callbackUrl)
           }

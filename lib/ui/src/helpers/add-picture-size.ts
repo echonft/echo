@@ -1,4 +1,4 @@
-import { apiPathProvider } from '@echo/routing/constants/api-path-provider'
+import { apiRoutes } from '@echo/routing/constants/api-routes'
 import { PictureSize } from '@echo/ui/constants/picture-size'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -37,7 +37,7 @@ export function addPictureSize(
     // IPFS
     const splittedUrl = split('://', src)
     if (length(splittedUrl) === 1) {
-      return `${apiPathProvider.ipfs.proxy.getProductionUrl({ path: src })}?img-width=${size}`
+      return `${apiRoutes.ipfs.proxy.getProductionUrl({ path: src })}?img-width=${size}`
     }
     // NFT storage
     const nftStorageMatch = /^https:\/\/([^.]+)\.ipfs\.nftstorage\.link\/(.+)$/.exec(src)
@@ -45,7 +45,7 @@ export function addPictureSize(
       const path1 = nftStorageMatch[1]
       const path2 = nftStorageMatch[2]
       if (!isNil(path1) && !isNil(path2)) {
-        return apiPathProvider.ipfs.proxy.getUrl({ path: `${path1}/${path2}?img-width=${size}` })
+        return apiRoutes.ipfs.proxy.getUrl({ path: `${path1}/${path2}?img-width=${size}` })
       }
     }
     // w3s
@@ -54,7 +54,7 @@ export function addPictureSize(
       const path1 = w3sMatch[1]
       const path2 = w3sMatch[2]
       if (!isNil(path1) && !isNil(path2)) {
-        return apiPathProvider.ipfs.proxy.getUrl({ path: `${path1}/${path2}?img-width=${size}` })
+        return apiRoutes.ipfs.proxy.getUrl({ path: `${path1}/${path2}?img-width=${size}` })
       }
     }
     const urlObject = new URL(src)
@@ -65,7 +65,7 @@ export function addPictureSize(
       if (isNil(match) || length(match) < 2 || isNil(match[1])) {
         return src
       }
-      return `${apiPathProvider.ipfs.proxy.getUrl({ path: match[1] })}?img-width=${size}`
+      return `${apiRoutes.ipfs.proxy.getUrl({ path: match[1] })}?img-width=${size}`
     }
     // discord
     if (hostname.includes('discordapp.com')) {

@@ -14,7 +14,8 @@ import { toSwaps } from '@echo/frontend/lib/helpers/swap/to-swaps'
 import type { Collection } from '@echo/model/types/collection'
 import type { Slug } from '@echo/model/types/slug'
 import type { User } from '@echo/model/types/user'
-import { getSelectionFromSearchParams } from '@echo/routing/search-params/get-selection-from-search-params'
+import type { SelectionSearchParams } from '@echo/routing/types/frontend/search-params/selection-search-params'
+import { selectionSearchParamsDataSchema } from '@echo/routing/validators/frontend/selection/selection-search-params-data-schema'
 import { NavigationLayout } from '@echo/ui/components/base/layout/navigation-layout'
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
@@ -28,11 +29,7 @@ interface Props {
   params: {
     slug: Slug
   }
-  searchParams: {
-    offer?: Slug
-    listing?: Slug
-    swap?: Slug
-  }
+  searchParams?: SelectionSearchParams
   user: Nullable<User>
 }
 
@@ -58,7 +55,7 @@ async function render({ params: { slug }, searchParams, user }: Props) {
   )(slug)
   const offers = await pipe(getPendingOffersForCollection, andThen(toOffersWithRole(user)), otherwiseEmptyArray)(slug)
   const swaps = await pipe(getSwapsForCollection, andThen(toSwaps), otherwiseEmptyArray)(slug)
-  const selection = getSelectionFromSearchParams({ listings, offers, swaps, searchParams })
+  const selection = selectionSearchParamsDataSchema.parse({ listings, offers, swaps, searchParams })
 
   return (
     <NavigationLayout>

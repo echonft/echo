@@ -1,5 +1,5 @@
 import type { Listing } from '@echo/model/types/listing'
-import { pathProvider } from '@echo/routing/constants/path-provider'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 import i18next from 'i18next'
 
@@ -8,7 +8,9 @@ export function buildListingLinkButton(listing: Listing) {
     new ButtonBuilder()
       .setLabel(i18next.t('listing.button'))
       .setURL(
-        pathProvider.collection.default.withQuery({ listing: listing }).getUrl({ slug: listing.target.collection.slug })
+        frontendRoutes.collection.details
+          .withQuery({ listing: listing })
+          .getUrl({ slug: listing.target.collection.slug })
       )
       .setStyle(ButtonStyle.Link)
   )

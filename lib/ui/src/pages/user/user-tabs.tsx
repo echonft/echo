@@ -2,7 +2,8 @@
 
 import type { OwnedNft } from '@echo/model/types/nft'
 import type { Swap } from '@echo/model/types/swap'
-import type { Selection } from '@echo/routing/types/selection'
+import { FrontendSelectionType } from '@echo/routing/constants/frontend-selection-type'
+import type { FrontendRouteSelection } from '@echo/routing/types/frontend/search-params/frontend-route-selection'
 import { ListingsPanel } from '@echo/ui/components/base/navigation/panels/listings-panel'
 import { OffersPanel } from '@echo/ui/components/base/navigation/panels/offers-panel'
 import { SwapsPanel } from '@echo/ui/components/base/navigation/panels/swaps-panel'
@@ -28,7 +29,7 @@ interface Props {
   nfts: OwnedNft[]
   offers: OfferWithRole[]
   swaps: Swap[]
-  selection?: Nullable<Selection>
+  selection?: Nullable<FrontendRouteSelection>
 }
 
 export const UserTabs: FunctionComponent<Props> = ({ isAuthUser, listings, nfts, offers, swaps, selection }) => {
@@ -59,11 +60,12 @@ export const UserTabs: FunctionComponent<Props> = ({ isAuthUser, listings, nfts,
       return {}
     }
     switch (selection.type) {
-      case 'listing':
+      case FrontendSelectionType.Listing:
         return { defaultIndex: findIndex(propEq('listings', 'name'), tabs) }
-      case 'offer':
+      case FrontendSelectionType.Offer:
         return { defaultIndex: findIndex(propEq('offers', 'name'), tabs) }
-      case 'swap':
+      case FrontendSelectionType.Swap:
+      default:
         return { defaultIndex: findIndex(propEq('swaps', 'name'), tabs) }
     }
   }

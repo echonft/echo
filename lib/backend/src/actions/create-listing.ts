@@ -1,8 +1,6 @@
 'use server'
 import { AuthError } from '@echo/backend/errors/messages/auth-error'
 import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
-import { assertUniqErc1155Items } from '@echo/backend/helpers/item/assert-uniq-erc1155-items'
-import { assertUniqErc721Items } from '@echo/backend/helpers/item/assert-uniq-erc721-items'
 import { createListingArgsSchema } from '@echo/backend/validators/create-listing-args-schema'
 import { listingDocumentToModel } from '@echo/firestore/converters/listing-document-to-model'
 import { userDocumentToModel } from '@echo/firestore/converters/user-document-to-model'
@@ -38,9 +36,6 @@ export async function createListing(args: Omit<AddListingArgs, 'creator'>): Prom
   if (!userHasWallet(owner)) {
     return Promise.reject(Error(WalletError.NotFound))
   }
-  // Ensure all items are unique and on the same chain
-  assertUniqErc721Items(items)
-  assertUniqErc1155Items(items)
   for (const item of items) {
     const nft = await getNftByIndex(item.token)
     // Ensure the NFT exists

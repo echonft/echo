@@ -1,4 +1,4 @@
-import { pathProvider } from '@echo/routing/constants/path-provider'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
 import { CollectionRowLabel } from '@echo/ui/components/collection/row/collection-row-label'
@@ -18,7 +18,7 @@ export const CollectionRow: FunctionComponent<Props> = ({
   collection: { name, pictureUrl, rank, slug, swapsCount }
 }) => {
   return (
-    <InternalLink path={pathProvider.collection.default.get({ slug })}>
+    <InternalLink path={frontendRoutes.collection.details.get({ slug })}>
       <CollectionRowLayout>
         <CollectionRowNameRankPictureLayout>
           <CollectionRowRankPictureLayout>

@@ -1,7 +1,7 @@
 'use client'
 import type { Collection } from '@echo/model/types/collection'
 import type { Nft, OwnedNft } from '@echo/model/types/nft'
-import { pathProvider } from '@echo/routing/constants/path-provider'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { BottomBarLayout } from '@echo/ui/components/base/layout/bottom-bar-layout'
 import { TraitFilterPanel } from '@echo/ui/components/nft/filters/by-traits/trait-filter-panel'
 import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panels-layout'
@@ -13,7 +13,7 @@ import { CollectionItemsButton } from '@echo/ui/pages/collection/collection-item
 import { TabPanel } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/navigation'
-import { isNil } from 'ramda'
+import { isNil, type NonEmptyArray } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
@@ -29,13 +29,17 @@ export const CollectionItemsPanel: FunctionComponent<Props> = ({ collection, nft
     sortBy: 'owner'
   })
   function onCreateListing() {
-    router.push(pathProvider.listing.new.withQuery({ target: collection }).get())
+    router.push(frontendRoutes.listing.create.withQuery({ target: collection }).get())
   }
   function onCreateOffer(nft?: Nft) {
     if (isNil(nft)) {
-      router.push(pathProvider.offer.new.withQuery({ items: selection.nfts }).get())
+      router.push(
+        frontendRoutes.offer.create
+          .withQuery({ items: selection.nfts as NonEmptyArray<OwnedNft>, target: collection })
+          .get()
+      )
     } else {
-      router.push(pathProvider.offer.new.withQuery({ items: nft }).get())
+      router.push(frontendRoutes.offer.create.withQuery({ items: [nft], target: collection }).get())
     }
   }
 

@@ -59,12 +59,12 @@ describe('validator - nftResponseSchema', () => {
   it('maps correctly with no name', () => {
     const noNameResponse = { ...response, name: null }
     const noNameResult = { ...expectedResult, name: '2944' }
-    expect(nftResponseSchema.parse(noNameResponse)).toEqual(noNameResult)
+    expect(nftResponseSchema.parse(noNameResponse)).toStrictEqual(noNameResult)
   })
 
   it('maps correctly with no attributes', () => {
     const noAttributesResponse = { ...response, attributes: null }
     const noAttributesResult = { ...expectedResult, attributes: [] }
-    expect(nftResponseSchema.parse(noAttributesResponse)).toEqual(noAttributesResult)
+    expect(nftResponseSchema.parse(noAttributesResponse)).toStrictEqual(noAttributesResult)
   })
 })

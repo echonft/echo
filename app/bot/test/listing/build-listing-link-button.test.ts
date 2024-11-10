@@ -1,7 +1,7 @@
 import { buildListingLinkButton } from '@echo/bot/listing/build-listing-link-button'
 import { initializeTranslations } from '@echo/bot/messages/initialize-translations'
 import { listingMock } from '@echo/model/mocks/listing-mock'
-import { pathProvider } from '@echo/routing/constants/path-provider'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { beforeAll, describe, expect, it } from '@jest/globals'
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 import i18next from 'i18next'
@@ -13,7 +13,7 @@ describe('builders - buildNewListingButtons', () => {
 
   it('should build a new listing button with a link to the listing', () => {
     const result = buildListingLinkButton(listingMock)
-    const expectedLink = pathProvider.collection.default
+    const expectedLink = frontendRoutes.collection.details
       .withQuery({ listing: listingMock })
       .getUrl({ slug: listingMock.target.collection.slug })
     expect(result).toBeInstanceOf(ActionRowBuilder)

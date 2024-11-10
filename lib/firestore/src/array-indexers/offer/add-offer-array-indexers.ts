@@ -5,9 +5,12 @@ import { offerReceiverNftItems } from '@echo/model/helpers/offer/offer-receiver-
 import { offerSenderNftItems } from '@echo/model/helpers/offer/offer-sender-nft-items'
 import { assoc, pipe, uniq } from 'ramda'
 
-export function addOfferArrayIndexers<
-  T extends Partial<OfferDocument> & Required<Pick<OfferDocument, 'receiverItems' | 'senderItems'>>
->(data: T) {
+export function addOfferArrayIndexers(
+  data: Omit<
+    OfferDocument,
+    'receiverItemCollections' | 'receiverItemIndexes' | 'senderItemCollections' | 'senderItemIndexes'
+  >
+): OfferDocument {
   const receiverItems = offerReceiverNftItems(data)
   const senderItems = offerSenderNftItems(data)
   const receiverItemCollections = pipe(itemsCollectionArrayIndexer, uniq)(receiverItems)
@@ -19,9 +22,5 @@ export function addOfferArrayIndexers<
     assoc('receiverItemIndexes', receiverItemIndexes),
     assoc('senderItemCollections', senderItemCollections),
     assoc('senderItemIndexes', senderItemIndexes)
-  )(data) as T &
-    Pick<
-      OfferDocument,
-      'receiverItemCollections' | 'receiverItemIndexes' | 'senderItemCollections' | 'senderItemIndexes'
-    >
+  )(data)
 }

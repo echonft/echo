@@ -5,9 +5,12 @@ import { swapReceiverNftItems } from '@echo/model/helpers/swap/swap-receiver-nft
 import { swapSenderNftItems } from '@echo/model/helpers/swap/swap-sender-nft-items'
 import { assoc, pipe, uniq } from 'ramda'
 
-export function addSwapArrayIndexers<
-  T extends Partial<SwapDocument> & Required<Pick<SwapDocument, 'receiverItems' | 'senderItems'>>
->(data: T) {
+export function addSwapArrayIndexers(
+  data: Omit<
+    SwapDocument,
+    'receiverItemCollections' | 'receiverItemIndexes' | 'senderItemCollections' | 'senderItemIndexes'
+  >
+): SwapDocument {
   const receiverItems = swapReceiverNftItems(data)
   const senderItems = swapSenderNftItems(data)
   const receiverItemCollections = pipe(itemsCollectionArrayIndexer, uniq)(receiverItems)
@@ -19,9 +22,5 @@ export function addSwapArrayIndexers<
     assoc('receiverItemIndexes', receiverItemIndexes),
     assoc('senderItemCollections', senderItemCollections),
     assoc('senderItemIndexes', senderItemIndexes)
-  )(data) as T &
-    Pick<
-      SwapDocument,
-      'receiverItemCollections' | 'receiverItemIndexes' | 'senderItemCollections' | 'senderItemIndexes'
-    >
+  )(data)
 }

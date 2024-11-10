@@ -1,12 +1,13 @@
 'use client'
 
 import type { OwnedNft } from '@echo/model/types/nft'
-import { pathProvider } from '@echo/routing/constants/path-provider'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { SelectableNftsWithFilters } from '@echo/ui/components/nft/filters/selectable-nfts-with-filters'
 import { NftAction } from '@echo/ui/constants/nft-actions'
 import { TabPanel } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/navigation'
+import type { NonEmptyArray } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
@@ -24,7 +25,7 @@ export const ProfileItemsPanel: FunctionComponent<Props> = ({ nfts, show }) => {
           sortBy={'collection'}
           action={NftAction.Listing}
           onSelectionAction={(selection) => {
-            router.push(pathProvider.listing.new.withQuery({ items: selection }).get())
+            router.push(frontendRoutes.listing.create.withQuery({ items: selection as NonEmptyArray<OwnedNft> }).get())
           }}
         />
       </TabPanel>

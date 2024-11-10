@@ -1,8 +1,11 @@
 import { TokenType } from '@echo/model/constants/token-type'
+import { serializeNft } from '@echo/model/serializers/serialize-nft'
+import type { NftIndex } from '@echo/model/types/nft'
 import { collectionSchema } from '@echo/model/validators/collection-schema'
 import { nftTokenTypeSchema } from '@echo/model/validators/nft-token-type-schema'
 import { withSlugSchema } from '@echo/model/validators/slug-schema'
 import { userSchema } from '@echo/model/validators/user-schema'
+import { applySpec, head, last, partialRight, pipe, split } from 'ramda'
 import { literal, number, object, string } from 'zod'
 
 export const nftAttributeSchema = object({
@@ -36,3 +39,19 @@ export const ownedErc721NftSchema = ownedNftSchema.omit({ type: true }).extend({
 export const erc1155NftSchema = nftSchema.omit({ type: true }).extend({ type: literal(TokenType.Erc1155) })
 
 export const ownedErc1155NftSchema = ownedNftSchema.omit({ type: true }).extend({ type: literal(TokenType.Erc1155) })
+
+export const serializeNftSchema = nftIndexSchema.transform(serializeNft)
+
+export const serializedNftSchema = string()
+  .regex(/^[a-z0-9-_]+\.[1-9][0-9]*$/)
+  .transform<NftIndex>((serialized) => {
+    return pipe(
+      split('.'),
+      applySpec<NftIndex>({
+        collection: {
+          slug: head
+        },
+        tokenId: pipe(last, partialRight(parseInt, [10]))
+      })
+    )(serialized)
+  })

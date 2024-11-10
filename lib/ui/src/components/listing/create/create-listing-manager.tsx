@@ -5,7 +5,7 @@ import type { Collection } from '@echo/model/types/collection'
 import type { Erc721Item } from '@echo/model/types/item'
 import type { Listing } from '@echo/model/types/listing'
 import type { Erc721Nft, OwnedNft } from '@echo/model/types/nft'
-import { pathProvider } from '@echo/routing/constants/path-provider'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { CreateListing } from '@echo/ui/components/listing/create/create-listing'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
@@ -40,7 +40,7 @@ export const CreateListingManager: FunctionComponent<Props> = ({ creator, creato
           expiration
         })
         router.replace(
-          pathProvider.collection.default
+          frontendRoutes.collection.details
             .withQuery({ listing: listing })
             .getUrl({ slug: listing.target.collection.slug })
         )

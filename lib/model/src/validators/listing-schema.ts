@@ -1,14 +1,34 @@
+import { ItemError } from '@echo/model/constants/errors/item-error'
 import { ListingState } from '@echo/model/constants/listing-state'
 import { TokenType } from '@echo/model/constants/token-type'
 import { erc1155ItemComparator } from '@echo/model/helpers/item/erc1155-item-comparator'
 import { erc721ItemComparator } from '@echo/model/helpers/item/erc721-item-comparator'
+import { serializeListing } from '@echo/model/serializers/serialize-listing'
 import type { Erc1155ItemIndex, Erc721ItemIndex } from '@echo/model/types/item'
+import type { Slug } from '@echo/model/types/slug'
 import { collectionSchema } from '@echo/model/validators/collection-schema'
+import { itemsContainErc1155Duplicates } from '@echo/model/validators/helpers/items-contain-erc1155-duplicates'
+import { itemsContainErc721Duplicates } from '@echo/model/validators/helpers/items-contain-erc721-duplicates'
 import { erc1155ItemIndexSchema, erc721ItemIndexSchema, nftItemSchema } from '@echo/model/validators/item-schema'
 import { slugSchema, withSlugSchema } from '@echo/model/validators/slug-schema'
-import { userIndexSchema, userSchema } from '@echo/model/validators/user-schema'
-import { concat, converge, groupBy, has, modify, type NonEmptyArray, path, pipe, propOr, sort, when } from 'ramda'
-import { boolean, nativeEnum, number, object } from 'zod'
+import { userIndexSchema, userWithWalletSchema } from '@echo/model/validators/user-schema'
+import { as } from '@echo/utils/helpers/as'
+import {
+  complement,
+  concat,
+  converge,
+  groupBy,
+  has,
+  modify,
+  type NonEmptyArray,
+  objOf,
+  path,
+  pipe,
+  propOr,
+  sort,
+  when
+} from 'ramda'
+import { boolean, nativeEnum, number, object, string } from 'zod'
 
 const listingTargetSchema = object({
   collection: collectionSchema,
@@ -16,9 +36,13 @@ const listingTargetSchema = object({
 })
 
 export const listingSchema = object({
-  creator: userSchema,
-  expiresAt: number().positive(),
-  items: nftItemSchema.array().nonempty(),
+  creator: userWithWalletSchema,
+  expiresAt: number().int().positive(),
+  items: nftItemSchema
+    .array()
+    .nonempty()
+    .refine(complement(itemsContainErc721Duplicates), { message: ItemError.Duplicates })
+    .refine(complement(itemsContainErc1155Duplicates), { message: ItemError.Duplicates }),
   locked: boolean(),
   slug: slugSchema,
   state: nativeEnum(ListingState),
@@ -58,3 +82,10 @@ export const listingSignatureSchema = object({
     }),
   target: listingSchema.shape.target.pipe(listingTargetIndexSchema)
 })
+
+export const serializeListingSchema = withSlugSchema.transform(serializeListing)
+
+export const serializedListingSchema = string()
+  .regex(/^[a-z0-9-_]+$/)
+  .transform(as<Slug, string>)
+  .transform(objOf('slug'))

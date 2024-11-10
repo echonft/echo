@@ -1,15 +1,13 @@
 'use client'
 import type { NextErrorParams } from '@echo/frontend/lib/types/next-error-params'
+import { HeaderSkeleton } from '@echo/ui/components/base/header/skeleton/header-skeleton'
 import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { messages } from '@echo/ui/messages/en'
 import { Error500Page } from '@echo/ui/pages/error/error-500-page'
 import { captureException } from '@sentry/nextjs'
 import { NextIntlClientProvider } from 'next-intl'
-import dynamic from 'next/dynamic'
 import { useEffect } from 'react'
-
-const Header = dynamic(() => import('@echo/ui/components/base/header/header').then((mod) => mod.Header))
 
 export default function ({ error, reset }: NextErrorParams) {
   const locale = 'en'
@@ -22,7 +20,7 @@ export default function ({ error, reset }: NextErrorParams) {
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <PageLayout>
-            <Header user={undefined} />
+            <HeaderSkeleton />
             <MainSectionLayout>
               <Error500Page onReset={reset} />
             </MainSectionLayout>

@@ -1,4 +1,4 @@
-import { pathProvider } from '@echo/routing/constants/path-provider'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import type { CardDiscordTagProps } from '@echo/ui/components/base/card/card-discord-tag'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
@@ -11,7 +11,7 @@ export const CardDiscordTagWrapper: FunctionComponent<PropsWithChildren<CardDisc
   if (asLink) {
     return (
       <InternalLink
-        path={pathProvider.user.default.get({ username })}
+        path={frontendRoutes.user.details.get({ username })}
         onClick={(event) => {
           event.stopPropagation()
         }}

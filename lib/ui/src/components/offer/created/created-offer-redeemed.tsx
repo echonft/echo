@@ -1,4 +1,4 @@
-import { pathProvider } from '@echo/routing/constants/path-provider'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { CreatedOfferSuccessImg } from '@echo/ui/components/offer/created/created-offer-success-img'
 import { OfferCreationLayout } from '@echo/ui/components/offer/created/layout/offer-creation-layout'
 import { OfferCreationSubLayout } from '@echo/ui/components/offer/created/layout/offer-creation-sub-layout'
@@ -17,7 +17,7 @@ export const CreatedOfferRedeemed: FunctionComponent<Props> = ({ count }) => {
   const router = useRouter()
 
   const onClick = () => {
-    router.replace(pathProvider.base.home.get())
+    router.replace(frontendRoutes.base.home.get())
   }
   return (
     <OfferCreationLayout>

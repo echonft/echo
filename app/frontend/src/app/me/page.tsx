@@ -8,9 +8,9 @@ import { toListingsWithRole } from '@echo/frontend/lib/helpers/listing/to-listin
 import { toOffersWithRole } from '@echo/frontend/lib/helpers/offer/to-offers-with-role'
 import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-array'
 import { toSwaps } from '@echo/frontend/lib/helpers/swap/to-swaps'
-import type { Slug } from '@echo/model/types/slug'
 import type { User } from '@echo/model/types/user'
-import { getSelectionFromSearchParams } from '@echo/routing/search-params/get-selection-from-search-params'
+import type { SelectionSearchParams } from '@echo/routing/types/frontend/search-params/selection-search-params'
+import { selectionSearchParamsDataSchema } from '@echo/routing/validators/frontend/selection/selection-search-params-data-schema'
 import { NavigationLayout } from '@echo/ui/components/base/layout/navigation-layout'
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
@@ -19,11 +19,7 @@ import { ProfileTabs } from '@echo/ui/pages/profile/profile-tabs'
 import { andThen, pipe, prop } from 'ramda'
 
 interface Props {
-  searchParams: {
-    offer?: Slug
-    listing?: Slug
-    swap?: Slug
-  }
+  searchParams?: SelectionSearchParams
   user: User
 }
 
@@ -48,7 +44,7 @@ async function render({ searchParams, user }: Props) {
     otherwiseEmptyArray
   )(user)
   const swaps = await pipe(prop('username'), getSwapsForUser, andThen(toSwaps), otherwiseEmptyArray)(user)
-  const selection = getSelectionFromSearchParams({ listings, offers, swaps, searchParams })
+  const selection = selectionSearchParamsDataSchema.parse({ listings, offers, swaps, searchParams })
 
   return (
     <NavigationLayout>

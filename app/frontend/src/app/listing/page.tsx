@@ -7,9 +7,9 @@ import { otherwiseUndefined } from '@echo/frontend/lib/helpers/otherwise-undefin
 import { nftIsOwnedBy } from '@echo/model/helpers/nft/nft-is-owned-by'
 import type { Listing } from '@echo/model/types/listing'
 import type { Nft, OwnedNft } from '@echo/model/types/nft'
-import type { Slug } from '@echo/model/types/slug'
 import type { User } from '@echo/model/types/user'
-import { getNftIndexFromSearchParam } from '@echo/routing/search-params/get-nft-index-from-search-param'
+import type { ListingSearchParams } from '@echo/routing/types/frontend/search-params/listing-search-params'
+import { listingSearchParamsDataSchema } from '@echo/routing/validators/frontend/listing/listing-search-params-data-schema'
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { CreateListingManager } from '@echo/ui/components/listing/create/create-listing-manager'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
@@ -17,39 +17,26 @@ import { promiseAll } from '@echo/utils/helpers/promise-all'
 import { unlessNil } from '@echo/utils/helpers/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound } from 'next/navigation'
-import { andThen, filter, identity, is, isEmpty, isNil, juxt, map, pipe, prop, reject, unless } from 'ramda'
+import { andThen, filter, isEmpty, isNil, map, pipe, prop, reject } from 'ramda'
 
 interface Props {
-  searchParams: {
-    items?: string[] | string
-    target?: Slug
-  }
+  searchParams: ListingSearchParams
   user: User
 }
 
-async function render({ searchParams: { items, target }, user }: Props) {
-  // Cannot go to that page without previously selected data
-  if (isNilOrEmpty(items) && isNilOrEmpty(target)) {
-    notFound()
-  }
-  const listingItems = await unlessNil(
-    pipe(
-      unless(is(Array), juxt([identity])),
-      map(getNftIndexFromSearchParam),
-      map(getNftByIndex),
-      promiseAll,
-      andThen<Nullable<Nft>[], OwnedNft[]>(
-        pipe<[Nullable<Nft>[]], Nft[], OwnedNft[]>(reject(isNil), filter(nftIsOwnedBy(user.username)))
-      ),
-      otherwiseEmptyArray
-    )
+async function render({ searchParams, user }: Props) {
+  const { items, target } = listingSearchParamsDataSchema.parse(searchParams)
+  const listingItems = await pipe(
+    map(getNftByIndex),
+    promiseAll,
+    andThen<Nullable<Nft>[], OwnedNft[]>(
+      pipe<[Nullable<Nft>[]], Nft[], OwnedNft[]>(reject(isNil), filter(nftIsOwnedBy(user.username)))
+    ),
+    otherwiseEmptyArray
   )(items)
-  const listingTarget = await unlessNil(pipe(getCollection, otherwiseUndefined))(target)
-  if (isNilOrEmpty(listingItems) && isNil(listingTarget)) {
-    notFound()
-  }
+  const listingTarget = await unlessNil(pipe(prop('slug'), getCollection, otherwiseUndefined))(target)
   const creatorNfts = await pipe(prop('username'), getNftsForOwner, otherwiseEmptyArray)(user)
-  if (isEmpty(listingItems) && isEmpty(creatorNfts)) {
+  if (isEmpty(creatorNfts) || (isNilOrEmpty(listingItems) && isNil(listingTarget))) {
     notFound()
   }
 

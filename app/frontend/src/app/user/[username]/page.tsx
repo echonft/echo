@@ -11,10 +11,10 @@ import { toOffersWithRole } from '@echo/frontend/lib/helpers/offer/to-offers-wit
 import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-array'
 import { otherwiseUndefined } from '@echo/frontend/lib/helpers/otherwise-undefined'
 import { toSwaps } from '@echo/frontend/lib/helpers/swap/to-swaps'
-import type { Slug } from '@echo/model/types/slug'
 import type { User } from '@echo/model/types/user'
 import type { Username } from '@echo/model/types/username'
-import { getSelectionFromSearchParams } from '@echo/routing/search-params/get-selection-from-search-params'
+import type { SelectionSearchParams } from '@echo/routing/types/frontend/search-params/selection-search-params'
+import { selectionSearchParamsDataSchema } from '@echo/routing/validators/frontend/selection/selection-search-params-data-schema'
 import { NavigationLayout } from '@echo/ui/components/base/layout/navigation-layout'
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
@@ -28,10 +28,7 @@ interface Props {
   params: {
     username: Username
   }
-  searchParams: {
-    items: string[] | string
-    target?: Slug
-  }
+  searchParams: SelectionSearchParams
   user: Nullable<User>
 }
 
@@ -50,7 +47,7 @@ async function render({ params: { username }, searchParams, user: authUser }: Pr
   const offers = await pipe(getPendingOffersForUser, andThen(toOffersWithRole(authUser)), otherwiseEmptyArray)(username)
   const offersCount = await pipe(getUserOffersCount, otherwise(pipe(captureAndLogError, always(0))))(username)
   const swaps = await pipe(getSwapsForUser, andThen(toSwaps), otherwiseEmptyArray)(username)
-  const selection = getSelectionFromSearchParams({ listings, offers, swaps, searchParams })
+  const selection = selectionSearchParamsDataSchema.parse({ listings, offers, swaps, searchParams })
 
   return (
     <NavigationLayout>

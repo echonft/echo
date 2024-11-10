@@ -1,5 +1,5 @@
 import type { Offer } from '@echo/model/types/offer'
-import { pathProvider } from '@echo/routing/constants/path-provider'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { OfferCreationSubLayout } from '@echo/ui/components/offer/created/layout/offer-creation-sub-layout'
 import { OfferCreationSuccessLayout } from '@echo/ui/components/offer/created/layout/offer-creation-success-layout'
 import { OfferCreationTextLayout } from '@echo/ui/components/offer/created/layout/offer-creation-text-layout'
@@ -16,9 +16,6 @@ export const CreatedOfferCreated: FunctionComponent<Props> = ({ offer }) => {
   const t = useTranslations('offer.created')
   const router = useRouter()
 
-  const onClick = () => {
-    router.replace(pathProvider.profile.default.withQuery({ offer }).get())
-  }
   return (
     <OfferCreationSuccessLayout>
       <OfferCreationSubLayout>
@@ -43,7 +40,12 @@ export const CreatedOfferCreated: FunctionComponent<Props> = ({ offer }) => {
             {t('description', { count: offer.senderItems.length })}
           </span>
         </OfferCreationTextLayout>
-        <button className={clsx('btn-gradient', 'h-max', 'w-full', 'py-2.5', 'group')} onClick={onClick}>
+        <button
+          className={clsx('btn-gradient', 'h-max', 'w-full', 'py-2.5', 'group')}
+          onClick={() => {
+            router.replace(frontendRoutes.user.profile.withQuery({ offer }).get())
+          }}
+        >
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('offerBtn')}</span>
         </button>
       </OfferCreationSubLayout>

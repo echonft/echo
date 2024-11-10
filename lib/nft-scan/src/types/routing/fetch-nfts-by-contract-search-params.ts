@@ -1,6 +1,6 @@
-import type { SearchParams } from '@echo/routing/types/search-params/search-params'
+import type { RouteSearchParams } from '@echo/routing/types/route'
 
-export interface FetchNftsByContractSearchParams extends SearchParams {
+export interface FetchNftsByContractSearchParams extends RouteSearchParams {
   cursor?: string
   limit: number
   show_attribute: boolean

@@ -2,6 +2,7 @@ import { TokenType } from '@echo/model/constants/token-type'
 import { collectionMockPx } from '@echo/model/mocks/collection-mock'
 import { erc1155NftMock, erc721NftMock, nftMockPx1, nftMockPx2 } from '@echo/model/mocks/nft-mock'
 import { userMockJohnny } from '@echo/model/mocks/user-mock'
+import { serializeNft } from '@echo/model/serializers/serialize-nft'
 import type { NftAttribute } from '@echo/model/types/nft'
 import {
   erc1155NftSchema,
@@ -12,7 +13,9 @@ import {
   ownedErc1155NftSchema,
   ownedErc721NftSchema,
   ownedNftIndexSchema,
-  ownedNftSchema
+  ownedNftSchema,
+  serializedNftSchema,
+  serializeNftSchema
 } from '@echo/model/validators/nft-schema'
 import { describe, expect, it } from '@jest/globals'
 import { dissoc, map, pipe, prop } from 'ramda'
@@ -341,6 +344,51 @@ describe('nftSchema', () => {
 
     it('valid', () => {
       expect(ownedErc1155NftSchema.parse(erc1155NftMock)).toStrictEqual(erc1155NftMock)
+    })
+  })
+
+  describe('serializeNftSchema', () => {
+    it('transform correctly', () => {
+      expect(serializeNftSchema.parse(nftMockPx1)).toStrictEqual(serializeNft(nftMockPx1))
+    })
+  })
+
+  describe('serializedNftSchema', () => {
+    function expectZodError(data: unknown, path: (string | number)[]) {
+      expect(() => serializedNftSchema.parse(data)).toThrow()
+      try {
+        serializedNftSchema.parse(data)
+      } catch (err) {
+        expect(err).toBeInstanceOf(ZodError)
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        expect(pipe(prop('issues'), map(prop('path')))(err as ZodError)).toContainEqual(path)
+      }
+    }
+
+    it('should fail if the string does not have the right format', () => {
+      const invalidData = [
+        '',
+        '.111',
+        'slug-only',
+        'slug-only.',
+        'inv@lid Slug.10',
+        'valid-slug.-2',
+        'valid-slug.2.0',
+        'valid-slug.2,12'
+      ]
+      for (const data of invalidData) {
+        expectZodError(data, [])
+      }
+    })
+
+    it('valid serialized nft should return the nft index', () => {
+      expect(serializedNftSchema.parse('valid-slug.666')).toStrictEqual({
+        collection: {
+          slug: 'valid-slug'
+        },
+        tokenId: 666
+      })
     })
   })
 })

@@ -1,7 +1,7 @@
 'use client'
 import { SearchResultCategory } from '@echo/model/constants/search-result-category'
 import type { SearchResult } from '@echo/model/types/search-result'
-import { pathProvider } from '@echo/routing/constants/path-provider'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { SearchBox } from '@echo/ui/components/base/search/search-box'
 import { useActions } from '@echo/ui/hooks/use-actions'
 import { promiseAll } from '@echo/utils/helpers/promise-all'
@@ -22,10 +22,10 @@ export const HeaderSearch: FunctionComponent = () => {
         resultsProvider={pipe(juxt([searchCollections, searchUsers]), promiseAll, andThen(flatten))}
         onSelect={(result: SearchResult<Lowercase<string>>) => {
           if (result.category === SearchResultCategory.Collection) {
-            router.push(pathProvider.collection.default.get({ slug: result.value }))
+            router.push(frontendRoutes.collection.details.get({ slug: result.value }))
           }
           if (result.category === SearchResultCategory.User) {
-            router.push(pathProvider.user.default.get({ username: result.value }))
+            router.push(frontendRoutes.user.details.get({ username: result.value }))
           }
         }}
         style={{

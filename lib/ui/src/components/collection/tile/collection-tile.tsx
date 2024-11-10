@@ -1,5 +1,5 @@
 import type { Slug } from '@echo/model/types/slug'
-import { pathProvider } from '@echo/routing/constants/path-provider'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { PictureSize } from '@echo/ui/constants/picture-size'
 import { Size } from '@echo/ui/constants/size'
@@ -22,7 +22,7 @@ export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, nam
   const t = useTranslations('collection')
   const url = addPictureSize({ src: pictureUrl ?? '', width: PictureSize.LG })
   return (
-    <InternalLink path={pathProvider.collection.default.get({ slug })}>
+    <InternalLink path={frontendRoutes.collection.details.get({ slug })}>
       <div
         className={clsx(
           'rounded-2xl',

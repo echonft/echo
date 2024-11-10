@@ -1,13 +1,14 @@
 import { baseAuthConfig } from '@echo/backend/auth-config'
-import { apiPathProvider } from '@echo/routing/constants/api-path-provider'
-import { pathProvider } from '@echo/routing/constants/path-provider'
+import { apiRoutes } from '@echo/routing/constants/api-routes'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { baseUrl } from '@echo/routing/helpers/base-url'
-import { isPathSecure } from '@echo/routing/path/is-path-secure'
-import type { PathString } from '@echo/routing/types/path-string'
+import { frontendRouteMatch } from '@echo/routing/helpers/frontend/frontend-route-match'
+import type { Path } from '@echo/routing/types/path'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import NextAuth from 'next-auth'
 import type { NextAuthRequest } from 'next-auth/lib'
 import { NextResponse } from 'next/server'
+import { isNil } from 'ramda'
 
 type RouteHandler = (
   req: NextAuthRequest,
@@ -21,9 +22,18 @@ const { auth } = NextAuth({
   providers: []
 })
 
+function isSecureFrontendPath(path: Path) {
+  const route = frontendRouteMatch(path)
+  if (isNil(route)) {
+    return false
+  }
+  return route.secure
+}
+
 export default auth((req: NextAuthRequest): void | Response | Promise<void | Response> => {
-  const path = req.nextUrl.pathname as PathString
-  if (apiPathProvider.ipfs.proxy.test(path)) {
+  const path = req.nextUrl.pathname as Path
+
+  if (apiRoutes.ipfs.proxy.test(path)) {
     // set CORS headers
     const allowedOrigins = [baseUrl()]
     const corsOptions = {
@@ -52,10 +62,10 @@ export default auth((req: NextAuthRequest): void | Response | Promise<void | Res
     })
     return response
   }
-  if (isPathSecure(path) && isNilOrEmpty(req.auth?.user)) {
+  if (isSecureFrontendPath(path) && isNilOrEmpty(req.auth?.user)) {
     // Redirect to login page
     const signInUrl = req.nextUrl.clone()
-    signInUrl.pathname = pathProvider.auth.signIn.get()
+    signInUrl.pathname = frontendRoutes.auth.signIn.get()
     signInUrl.searchParams.set('callbackUrl', req.nextUrl.href)
     return NextResponse.redirect(signInUrl)
   }

@@ -1,5 +1,5 @@
 import type { User } from '@echo/model/types/user'
-import { pathProvider } from '@echo/routing/constants/path-provider'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { ProfilePicture } from '@echo/ui/components/base/profile-picture'
 import { UserDetailsDiscordTagAndWalletLayout } from '@echo/ui/components/user/details/layout/user-details-discord-tag-and-wallet-layout'
@@ -25,7 +25,7 @@ export const UserDetails: FunctionComponent<Props> = ({ user, isAuthUser = false
   const { username, avatarUrl } = discord
   return (
     <UserDetailsLayout>
-      <InternalLink path={pathProvider.user.default.get({ username }).toString()}>
+      <InternalLink path={frontendRoutes.user.details.get({ username }).toString()}>
         <ProfilePicture alt={username} pictureUrl={avatarUrl} size={Size.MD} />
       </InternalLink>
       <UserDetailsDiscordTagAndWalletLayout>

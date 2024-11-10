@@ -1,19 +1,15 @@
-import type { CollectionContract } from '@echo/model/types/collection'
 import type { NftWithContract } from '@echo/model/types/nft'
-import { eqBy, isNil, modify, pick, pipe } from 'ramda'
+import { applySpec, eqBy, isNil, path, prop } from 'ramda'
 
-export function eqNftContract(nftA: NftWithContract, nftB: NftWithContract): boolean
-export function eqNftContract(nftA: NftWithContract): (nftB: NftWithContract) => boolean
-export function eqNftContract(
-  nftA: NftWithContract,
-  nftB?: NftWithContract
-): boolean | ((nftB: NftWithContract) => boolean) {
-  const predicate = pipe<[NftWithContract], NftWithContract, NftWithContract>(
-    pick(['tokenId', 'collection']),
-    modify<'collection', CollectionContract, CollectionContract>('collection', pick(['contract']))
-  )
+export function eqNftContract<T extends NftWithContract>(nftA: T, nftB: T): boolean
+export function eqNftContract<T extends NftWithContract>(nftA: T): (nftB: T) => boolean
+export function eqNftContract<T extends NftWithContract>(nftA: T, nftB?: T): boolean | ((nftB: T) => boolean) {
+  const predicate = applySpec<NftWithContract>({
+    contract: path(['collection', 'contract']),
+    tokenId: prop('tokenId')
+  })
   if (isNil(nftB)) {
-    return eqBy(predicate, nftA)
+    return eqBy<T>(predicate, nftA)
   }
-  return eqBy(predicate, nftA, nftB)
+  return eqBy<T>(predicate, nftA, nftB)
 }

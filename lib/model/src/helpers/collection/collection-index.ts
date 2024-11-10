@@ -1,8 +1,6 @@
-import type { Collection, CollectionIndex } from '@echo/model/types/collection'
-import { pick } from 'ramda'
+import type { CollectionIndex } from '@echo/model/types/collection'
+import { withSlugSchema } from '@echo/model/validators/slug-schema'
 
-export function collectionIndex<T extends Collection>(
-  collection: Partial<T> & Required<CollectionIndex>
-): CollectionIndex {
-  return pick(['slug'], collection)
+export function collectionIndex<T extends CollectionIndex>(collection: T): CollectionIndex {
+  return withSlugSchema.parse(collection)
 }

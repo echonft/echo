@@ -7,7 +7,7 @@ import { type BaseOffer, type Offer } from '@echo/model/types/offer'
 export const offerMockToJohnnycage: Offer = {
   expiresAt: 2324074781,
   locked: false,
-  idContract: '0xlycfl6eg7jkud7xj6ipi',
+  idContract: '0xc3ed30ca38c1deab7eb40928d96928ab48d678dca39fe437aa5e04ab89b51696',
   receiver: userMockJohnny,
   receiverItems: [
     {
@@ -87,7 +87,7 @@ export const baseOfferMockToJohnnycage: BaseOffer = {
 export const offerMockFromJohnnycage: Offer = {
   expiresAt: 2324074781,
   locked: true,
-  idContract: '0xaskfpkohehvh0gd69t1g',
+  idContract: '0x6130b878f32097ce8a831834c44ee5d1c58627cfb00085c27da76c77cecfda0b',
   receiver: userMockCrew,
   receiverItems: [
     {
