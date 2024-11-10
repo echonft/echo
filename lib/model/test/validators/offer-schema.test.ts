@@ -181,13 +181,13 @@ describe('offerSchema', () => {
   })
 
   describe('serializeOfferSchema', () => {
-    it('transform correctly', () => {
+    it('transforms correctly', () => {
       expect(serializeOfferSchema.parse(offerMockToJohnnycage)).toStrictEqual(serializeOffer(offerMockToJohnnycage))
     })
   })
 
   describe('serializedOfferSchema', () => {
-    it('transform correctly', () => {
+    it('transforms correctly', () => {
       expect(serializedOfferSchema.parse(serializeOffer(offerMockToJohnnycage))).toStrictEqual(
         pick(['slug'], offerMockToJohnnycage)
       )

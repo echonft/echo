@@ -6,13 +6,13 @@ import { offerQueryParamsTransformSchema } from '@echo/routing/validators/fronte
 import { describe, expect, test } from '@jest/globals'
 
 describe('offerQueryParamsTransformSchema', () => {
-  test('transform correctly without target', () => {
+  test('transforms correctly without target', () => {
     expect(offerQueryParamsTransformSchema.parse({ items: [nftMockPx1, nftMockPx2] })).toStrictEqual({
       items: [serializeNft(nftMockPx1), serializeNft(nftMockPx2)]
     })
   })
 
-  test('transform correctly with target', () => {
+  test('transforms correctly with target', () => {
     expect(
       offerQueryParamsTransformSchema.parse({ items: [nftMockPx1, nftMockPx2], target: collectionMockPx })
     ).toStrictEqual({

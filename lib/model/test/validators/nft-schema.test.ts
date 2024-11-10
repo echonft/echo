@@ -348,7 +348,7 @@ describe('nftSchema', () => {
   })
 
   describe('serializeNftSchema', () => {
-    it('transform correctly', () => {
+    it('transforms correctly', () => {
       expect(serializeNftSchema.parse(nftMockPx1)).toStrictEqual(serializeNft(nftMockPx1))
     })
   })

@@ -7,7 +7,7 @@ import { listingSearchParamsDataSchema } from '@echo/routing/validators/frontend
 import { describe, expect, test } from '@jest/globals'
 
 describe('listingSearchParamsDataSchema', () => {
-  test('transform items correctly', () => {
+  test('transforms items correctly', () => {
     expect(
       listingSearchParamsDataSchema.parse({ items: [serializeNft(nftMockPx1), serializeNft(nftMockPx2)] })
     ).toStrictEqual({
@@ -16,7 +16,7 @@ describe('listingSearchParamsDataSchema', () => {
     })
   })
 
-  test('transform target correctly', () => {
+  test('transforms target correctly', () => {
     expect(listingSearchParamsDataSchema.parse({ target: collectionMockPx.slug })).toStrictEqual({
       items: [],
       target: serializeCollection(collectionMockPx)

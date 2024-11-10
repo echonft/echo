@@ -3,18 +3,19 @@ import { offerSchema } from '@echo/model/validators/offer-schema'
 import { swapSchema } from '@echo/model/validators/swap-schema'
 import { FrontendSelectionType } from '@echo/routing/constants/frontend-selection-type'
 import { selectionSearchParamsSchema } from '@echo/routing/validators/frontend/selection/selection-search-params-schema'
+import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { findIndex, has, isNil, propEq } from 'ramda'
+import { findIndex, has, propEq } from 'ramda'
 import { object } from 'zod'
 
 export const selectionSearchParamsDataSchema = object({
   listings: listingSchema.array(),
   offers: offerSchema.array(),
   swaps: swapSchema.array(),
-  searchParams: selectionSearchParamsSchema.optional()
+  searchParams: selectionSearchParamsSchema.or(object({})).optional()
 }).transform<Nullable<Record<'index', number> & Record<'type', FrontendSelectionType>>>(
   ({ listings, offers, swaps, searchParams }) => {
-    if (isNil(searchParams)) {
+    if (isNilOrEmpty(searchParams)) {
       return undefined
     }
     if (has('listing', searchParams)) {
@@ -37,13 +38,16 @@ export const selectionSearchParamsDataSchema = object({
         type: FrontendSelectionType.Offer
       }
     }
-    const index = findIndex(propEq(searchParams.swap, 'slug'), swaps)
-    if (index === -1) {
-      return undefined
+    if (has('swap', searchParams)) {
+      const index = findIndex(propEq(searchParams.swap, 'slug'), swaps)
+      if (index === -1) {
+        return undefined
+      }
+      return {
+        index,
+        type: FrontendSelectionType.Swap
+      }
     }
-    return {
-      index,
-      type: FrontendSelectionType.Swap
-    }
+    return undefined
   }
 )

@@ -1,11 +1,16 @@
 'use client'
 import { PageLayoutBackground } from '@echo/ui/constants/page-layout-background'
-import { usePageLayoutStore } from '@echo/ui/hooks/use-page-layout-store'
 import { clsx } from 'clsx'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
-export const PageLayout: FunctionComponent<PropsWithChildren> = ({ children }) => {
-  const background = usePageLayoutStore((state) => state.background)
+interface Props {
+  background?: PageLayoutBackground
+}
+
+export const PageLayout: FunctionComponent<PropsWithChildren<Props>> = ({
+  background = PageLayoutBackground.Default,
+  children
+}) => {
   return (
     <div
       className={clsx(

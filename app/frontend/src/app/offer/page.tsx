@@ -9,6 +9,10 @@ import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
 import type { OfferSearchParams } from '@echo/routing/types/frontend/search-params/offer-search-params'
 import { offerSearchParamsDataSchema } from '@echo/routing/validators/frontend/offer/offer-search-params-data-schema'
+import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
+import { Header } from '@echo/ui/components/base/header/header'
+import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
+import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { CreateOfferManager } from '@echo/ui/components/offer/create/create-offer-manager'
 import { isNonEmptyArray } from '@echo/utils/helpers/is-non-empty-array'
 import { promiseAll } from '@echo/utils/helpers/promise-all'
@@ -73,13 +77,19 @@ async function render({ searchParams, user }: Props) {
   }
 
   return (
-    <CreateOfferManager
-      receiverNfts={receiverNfts}
-      receiverNftsSelection={receiverNftsSelection}
-      receiver={receiver}
-      senderNfts={senderNfts}
-      sender={user as User & Required<Pick<User, 'wallet'>>} // TODO gatekeep route with connected wallet
-    />
+    <PageLayout>
+      <Header user={user} />
+      <MainSectionLayout>
+        <CreateOfferManager
+          receiverNfts={receiverNfts}
+          receiverNftsSelection={receiverNftsSelection}
+          receiver={receiver}
+          senderNfts={senderNfts}
+          sender={user as User & Required<Pick<User, 'wallet'>>} // TODO gatekeep route with connected wallet
+        />
+        <CalloutManager />
+      </MainSectionLayout>
+    </PageLayout>
   )
 }
 

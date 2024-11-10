@@ -1,8 +1,9 @@
 'use client'
 import type { NextErrorParams } from '@echo/frontend/lib/types/next-error-params'
-import { HeaderSkeleton } from '@echo/ui/components/base/header/skeleton/header-skeleton'
+import { Header } from '@echo/ui/components/base/header/header'
 import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
+import { HeaderStyle } from '@echo/ui/constants/header-style'
 import { messages } from '@echo/ui/messages/en'
 import { Error500Page } from '@echo/ui/pages/error/error-500-page'
 import { captureException } from '@sentry/nextjs'
@@ -20,7 +21,7 @@ export default function ({ error, reset }: NextErrorParams) {
       <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <PageLayout>
-            <HeaderSkeleton />
+            <Header style={HeaderStyle.Plain} />
             <MainSectionLayout>
               <Error500Page onReset={reset} />
             </MainSectionLayout>

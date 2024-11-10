@@ -6,13 +6,13 @@ import { HeaderButtonSkeleton } from '@echo/ui/components/base/header/skeleton/h
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { EchoLogoSvg } from '@echo/ui/components/base/svg/echo-logo-svg'
 import { HeaderStyle } from '@echo/ui/constants/header-style'
-import { useHeaderStore } from '@echo/ui/hooks/use-header-store'
 import type { Nullable } from '@echo/utils/types/nullable'
 import dynamic from 'next/dynamic'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  user: Nullable<User>
+  style?: HeaderStyle
+  user?: Nullable<User>
 }
 
 const HeaderButton = dynamic(
@@ -20,9 +20,7 @@ const HeaderButton = dynamic(
   { ssr: false, loading: () => <HeaderButtonSkeleton /> }
 )
 
-export const Header: FunctionComponent<Props> = ({ user }) => {
-  const style = useHeaderStore((state) => state.style)
-
+export const Header: FunctionComponent<Props> = ({ style = HeaderStyle.Default, user }) => {
   if (style === HeaderStyle.Plain) {
     return (
       <HeaderLayout>

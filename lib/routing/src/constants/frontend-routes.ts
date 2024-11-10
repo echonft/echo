@@ -17,42 +17,45 @@ export const frontendRoutes = {
   auth: {
     signIn: new FrontendRoute<never, SignInQueryParams, SignInQueryParams>(
       '/login',
-      false,
+      { secure: false },
       (params: SignInQueryParams) => signInQueryParamsSchema.parse(params)
     )
   },
   base: {
-    home: new FrontendRoute('/', false)
+    home: new FrontendRoute('/', { secure: false }),
+    notFound: new FrontendRoute('/_not-found', { secure: false })
   },
   collection: {
-    all: new FrontendRoute('/collections', false),
+    all: new FrontendRoute('/collections', { secure: false }),
     details: new FrontendRoute<Record<'slug', Slug>, SelectionQueryParams, SelectionSearchParams>(
       '/collection/:slug',
-      false,
+      { secure: false },
       (params: SelectionQueryParams) => selectionQueryParamsTransformSchema.parse(params)
     )
   },
   listing: {
     create: new FrontendRoute<never, ListingQueryParams, ListingSearchParams>(
       '/listing',
-      true,
+      { secure: true },
       (params: ListingQueryParams) => listingQueryParamsTransformSchema.parse(params)
     )
   },
   offer: {
-    create: new FrontendRoute<never, OfferQueryParams, OfferSearchParams>('/offer', true, (params: OfferQueryParams) =>
-      offerQueryParamsTransformSchema.parse(params)
+    create: new FrontendRoute<never, OfferQueryParams, OfferSearchParams>(
+      '/offer',
+      { secure: true },
+      (params: OfferQueryParams) => offerQueryParamsTransformSchema.parse(params)
     )
   },
   user: {
     details: new FrontendRoute<Record<'username', Username>, SelectionQueryParams, SelectionSearchParams>(
       '/user/:username',
-      false,
+      { secure: false },
       (params: SelectionQueryParams) => selectionQueryParamsTransformSchema.parse(params)
     ),
     profile: new FrontendRoute<never, SelectionQueryParams, SelectionSearchParams>(
       '/me',
-      true,
+      { secure: false },
       (params: SelectionQueryParams) => selectionQueryParamsTransformSchema.parse(params)
     )
   }

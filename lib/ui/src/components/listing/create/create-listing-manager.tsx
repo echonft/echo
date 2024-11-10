@@ -20,7 +20,7 @@ import { type FunctionComponent, useCallback, useState } from 'react'
 interface Props {
   creator: Listing['creator']
   creatorNfts: OwnedNft[]
-  items: Nullable<OwnedNft[]>
+  items: OwnedNft[]
   target: Nullable<Collection>
 }
 

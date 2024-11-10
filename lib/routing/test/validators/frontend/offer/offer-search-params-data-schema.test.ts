@@ -7,7 +7,7 @@ import { offerSearchParamsDataSchema } from '@echo/routing/validators/frontend/o
 import { describe, expect, test } from '@jest/globals'
 
 describe('offerSearchParamsDataSchema', () => {
-  test('transform correctly without target', () => {
+  test('transforms correctly without target', () => {
     expect(
       offerSearchParamsDataSchema.parse({ items: [serializeNft(nftMockPx1), serializeNft(nftMockPx2)] })
     ).toStrictEqual({
@@ -15,7 +15,7 @@ describe('offerSearchParamsDataSchema', () => {
     })
   })
 
-  test('transform correctly with target', () => {
+  test('transforms correctly with target', () => {
     expect(
       offerSearchParamsDataSchema.parse({
         items: [serializeNft(nftMockPx1), serializeNft(nftMockPx2)],

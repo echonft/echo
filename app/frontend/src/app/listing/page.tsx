@@ -10,7 +10,11 @@ import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
 import type { ListingSearchParams } from '@echo/routing/types/frontend/search-params/listing-search-params'
 import { listingSearchParamsDataSchema } from '@echo/routing/validators/frontend/listing/listing-search-params-data-schema'
+import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
+import { Header } from '@echo/ui/components/base/header/header'
+import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
+import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { CreateListingManager } from '@echo/ui/components/listing/create/create-listing-manager'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { promiseAll } from '@echo/utils/helpers/promise-all'
@@ -41,14 +45,20 @@ async function render({ searchParams, user }: Props) {
   }
 
   return (
-    <NavigationSectionLayout>
-      <CreateListingManager
-        creator={user as Listing['creator']} // TODO gatekeep route with connected wallet
-        creatorNfts={creatorNfts}
-        items={listingItems}
-        target={listingTarget}
-      />
-    </NavigationSectionLayout>
+    <PageLayout>
+      <Header user={user} />
+      <MainSectionLayout>
+        <NavigationSectionLayout>
+          <CreateListingManager
+            creator={user as Listing['creator']} // TODO gatekeep route with connected wallet
+            creatorNfts={creatorNfts}
+            items={listingItems}
+            target={listingTarget}
+          />
+        </NavigationSectionLayout>
+        <CalloutManager />
+      </MainSectionLayout>
+    </PageLayout>
   )
 }
 

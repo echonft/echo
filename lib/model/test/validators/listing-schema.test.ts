@@ -162,13 +162,13 @@ describe('listingSchema', () => {
   })
 
   describe('serializeListingSchema', () => {
-    it('transform correctly', () => {
+    it('transforms correctly', () => {
       expect(serializeListingSchema.parse(listingMock)).toStrictEqual(serializeListing(listingMock))
     })
   })
 
   describe('serializedListingSchema', () => {
-    it('transform correctly', () => {
+    it('transforms correctly', () => {
       expect(serializedListingSchema.parse(serializeListing(listingMock))).toStrictEqual(pick(['slug'], listingMock))
     })
   })

@@ -8,12 +8,12 @@ import { forEach, identity } from 'ramda'
 
 describe('routeMatch', () => {
   const routes = [
-    new FrontendRoute<never>('/this/is/a/path', false),
-    new FrontendRoute<{ param1: string; param2: string }>('/path/:param1/:param2', true),
-    new FrontendRoute<never, { param1: string; param2: string }>('/my/path', false, identity),
+    new FrontendRoute<never>('/this/is/a/path', { secure: false }),
+    new FrontendRoute<{ param1: string; param2: string }>('/path/:param1/:param2', { secure: false }),
+    new FrontendRoute<never, { param1: string; param2: string }>('/my/path', { secure: false }, identity),
     new FrontendRoute<{ param1: string; param2: string }, { param3: string }>(
       '/another/path/:param1/:param2',
-      true,
+      { secure: false },
       identity
     )
   ] as Route<RouteParams, RouteQueryParams, RouteSearchParams>[]

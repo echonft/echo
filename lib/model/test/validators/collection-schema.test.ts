@@ -151,13 +151,13 @@ describe('collectionSchema', () => {
   })
 
   describe('serializeCollectionSchema', () => {
-    it('transform correctly', () => {
+    it('transforms correctly', () => {
       expect(serializeCollectionSchema.parse(collectionMockPx)).toStrictEqual(serializeCollection(collectionMockPx))
     })
   })
 
   describe('serializedCollectionSchema', () => {
-    it('transform correctly', () => {
+    it('transforms correctly', () => {
       expect(serializedCollectionSchema.parse(serializeCollection(collectionMockPx))).toStrictEqual(
         collectionIndex(collectionMockPx)
       )

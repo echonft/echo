@@ -8,19 +8,19 @@ import { selectionQueryParamsTransformSchema } from '@echo/routing/validators/fr
 import { describe, expect, test } from '@jest/globals'
 
 describe('selectionQueryParamsTransformSchema', () => {
-  test('transform listing correctly', () => {
+  test('transforms listing correctly', () => {
     expect(selectionQueryParamsTransformSchema.parse({ listing: listingMock })).toStrictEqual({
       listing: serializeListing(listingMock)
     })
   })
 
-  test('transform offer correctly', () => {
+  test('transforms offer correctly', () => {
     expect(selectionQueryParamsTransformSchema.parse({ offer: offerMockToJohnnycage })).toStrictEqual({
       offer: serializeOffer(offerMockToJohnnycage)
     })
   })
 
-  test('transform swap correctly', () => {
+  test('transforms swap correctly', () => {
     expect(selectionQueryParamsTransformSchema.parse({ swap: swapMock })).toStrictEqual({
       swap: serializeSwap(swapMock)
     })

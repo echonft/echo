@@ -6,13 +6,13 @@ import { listingQueryParamsTransformSchema } from '@echo/routing/validators/fron
 import { describe, expect, test } from '@jest/globals'
 
 describe('listingQueryParamsTransformSchema', () => {
-  test('transform items correctly', () => {
+  test('transforms items correctly', () => {
     expect(listingQueryParamsTransformSchema.parse({ items: [nftMockPx1, nftMockPx2] })).toStrictEqual({
       items: [serializeNft(nftMockPx1), serializeNft(nftMockPx2)]
     })
   })
 
-  test('transform target correctly', () => {
+  test('transforms target correctly', () => {
     expect(listingQueryParamsTransformSchema.parse({ target: collectionMockPx })).toStrictEqual({
       target: serializeCollection(collectionMockPx)
     })

@@ -95,13 +95,13 @@ describe('swapSchema', () => {
   })
 
   describe('serializeSwapSchema', () => {
-    it('transform correctly', () => {
+    it('transforms correctly', () => {
       expect(serializeSwapSchema.parse(swapMock)).toStrictEqual(serializeSwap(swapMock))
     })
   })
 
   describe('serializedSwapSchema', () => {
-    it('transform correctly', () => {
+    it('transforms correctly', () => {
       expect(serializedSwapSchema.parse(serializeSwap(swapMock))).toStrictEqual(pick(['slug'], swapMock))
     })
   })

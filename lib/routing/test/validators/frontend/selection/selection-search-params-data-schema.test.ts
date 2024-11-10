@@ -19,7 +19,7 @@ describe('selectionSearchParamsDataSchema', () => {
     ).toBeUndefined()
   })
 
-  test('transform listing selection correctly', () => {
+  test('transforms listing selection correctly', () => {
     const searchParams: SelectionSearchParams = {
       listing: listingMock.slug
     }
@@ -54,7 +54,7 @@ describe('selectionSearchParamsDataSchema', () => {
     ).toBeUndefined()
   })
 
-  test('transform offer selection correctly', () => {
+  test('transforms offer selection correctly', () => {
     const searchParams: SelectionSearchParams = {
       offer: offerMockToJohnnycage.slug
     }
@@ -89,7 +89,7 @@ describe('selectionSearchParamsDataSchema', () => {
     ).toBeUndefined()
   })
 
-  test('transform swap selection correctly', () => {
+  test('transforms swap selection correctly', () => {
     const searchParams: SelectionSearchParams = {
       swap: swapMock.slug
     }

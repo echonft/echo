@@ -19,7 +19,7 @@ export abstract class Route<
   TSearchParams extends RouteSearchParams = TQueryParams extends RouteSearchParams ? TQueryParams : RouteSearchParams
 > {
   protected readonly baseUrl: string
-  protected readonly path: Path
+  protected readonly _path: Path
   protected readonly queryParamsMapper: Nullable<RouteQueryParamsMapper<TQueryParams, TSearchParams>>
   protected query: Nullable<string>
 
@@ -29,17 +29,18 @@ export abstract class Route<
     ...queryParamsMapper: [TQueryParams] extends [never] ? [] : [RouteQueryParamsMapper<TQueryParams, TSearchParams>]
   ) {
     this.baseUrl = baseUrl
-    this.path = path
+    this._path = path
     this.queryParamsMapper = head(queryParamsMapper)
     this.query = undefined
   }
-
-  test(path: string) {
-    return pipe(match(this.path), complement(propIsNilOrEmpty('path')))(path.replace(/\?.*$/, ''))
+  get path() {
+    return this._path
   }
-
+  test(path: string) {
+    return pipe(match(this._path), complement(propIsNilOrEmpty('path')))(path.replace(/\?.*$/, ''))
+  }
   get(...params: RouteParamsArgs<TParams>): string {
-    const compiledPath = compile(this.path, { encode: encodeURIComponent })(...params)
+    const compiledPath = compile(this._path, { encode: encodeURIComponent })(...params)
     if (isNilOrEmpty(this.query)) {
       return compiledPath
     }

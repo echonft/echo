@@ -30,9 +30,8 @@ function isSecureFrontendPath(path: Path) {
   return route.secure
 }
 
-export default auth((req: NextAuthRequest): void | Response | Promise<void | Response> => {
-  const path = req.nextUrl.pathname as Path
-
+export default auth((request: NextAuthRequest): void | Response | Promise<void | Response> => {
+  const path = request.nextUrl.pathname as Path
   if (apiRoutes.ipfs.proxy.test(path)) {
     // set CORS headers
     const allowedOrigins = [baseUrl()]
@@ -41,10 +40,10 @@ export default auth((req: NextAuthRequest): void | Response | Promise<void | Res
       'Access-Control-Allow-Headers': 'Content-Type, Authorization'
     }
     // Check the origin from the request
-    const origin = req.headers.get('origin') ?? ''
+    const origin = request.headers.get('origin') ?? ''
     const isAllowedOrigin = allowedOrigins.includes(origin)
     // Handle preflighted requests
-    const isPreflight = req.method === 'OPTIONS'
+    const isPreflight = request.method === 'OPTIONS'
     if (isPreflight) {
       const preflightHeaders = {
         ...(isAllowedOrigin && { 'Access-Control-Allow-Origin': origin }),
@@ -62,15 +61,17 @@ export default auth((req: NextAuthRequest): void | Response | Promise<void | Res
     })
     return response
   }
-  if (isSecureFrontendPath(path) && isNilOrEmpty(req.auth?.user)) {
+  if (isSecureFrontendPath(path) && isNilOrEmpty(request.auth?.user)) {
     // Redirect to login page
-    const signInUrl = req.nextUrl.clone()
+    const signInUrl = request.nextUrl.clone()
     signInUrl.pathname = frontendRoutes.auth.signIn.get()
-    signInUrl.searchParams.set('callbackUrl', req.nextUrl.href)
+    signInUrl.searchParams.set('callbackUrl', request.nextUrl.href)
     return NextResponse.redirect(signInUrl)
   }
 }) as RouteHandler
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)']
+  matcher: [
+    '/((?!_next/static|_next/image|instrumentation|favicon.ico|manifest.webmanifest|icon(?:-\\d+x\\d+)?\\.png).*)'
+  ]
 }

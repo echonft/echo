@@ -11,8 +11,12 @@ import { toSwaps } from '@echo/frontend/lib/helpers/swap/to-swaps'
 import type { User } from '@echo/model/types/user'
 import type { SelectionSearchParams } from '@echo/routing/types/frontend/search-params/selection-search-params'
 import { selectionSearchParamsDataSchema } from '@echo/routing/validators/frontend/selection/selection-search-params-data-schema'
+import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
+import { Header } from '@echo/ui/components/base/header/header'
+import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
 import { NavigationLayout } from '@echo/ui/components/base/layout/navigation-layout'
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
+import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { AuthUserProfile } from '@echo/ui/components/user/profile/auth-user-profile'
 import { ProfileTabs } from '@echo/ui/pages/profile/profile-tabs'
@@ -47,27 +51,33 @@ async function render({ searchParams, user }: Props) {
   const selection = selectionSearchParamsDataSchema.parse({ listings, offers, swaps, searchParams })
 
   return (
-    <NavigationLayout>
-      <SectionLayout>
-        <AuthUserProfile
-          user={user}
-          listingsCount={listings.length}
-          nftsCount={nfts.length}
-          offersCount={offers.length}
-          swapsCount={swaps.length}
-        />
-      </SectionLayout>
-      <NavigationSectionLayout>
-        <ProfileTabs
-          listings={listings}
-          nfts={nfts}
-          offers={offers}
-          pendingListings={pendingListings}
-          swaps={swaps}
-          selection={selection}
-        />
-      </NavigationSectionLayout>
-    </NavigationLayout>
+    <PageLayout>
+      <Header user={user} />
+      <MainSectionLayout>
+        <NavigationLayout>
+          <SectionLayout>
+            <AuthUserProfile
+              user={user}
+              listingsCount={listings.length}
+              nftsCount={nfts.length}
+              offersCount={offers.length}
+              swapsCount={swaps.length}
+            />
+          </SectionLayout>
+          <NavigationSectionLayout>
+            <ProfileTabs
+              listings={listings}
+              nfts={nfts}
+              offers={offers}
+              pendingListings={pendingListings}
+              swaps={swaps}
+              selection={selection}
+            />
+          </NavigationSectionLayout>
+        </NavigationLayout>
+        <CalloutManager />
+      </MainSectionLayout>
+    </PageLayout>
   )
 }
 

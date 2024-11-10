@@ -21,8 +21,7 @@ import { type FunctionComponent, useState } from 'react'
 interface Props {
   creator: Listing['creator']
   creatorNfts: OwnedNft[]
-  // TODO Remove this, I don't think we should allow this
-  items: Nullable<OwnedNft[]>
+  items: OwnedNft[]
   target: Nullable<Collection>
   loading?: boolean
   onCancel?: VoidFunction

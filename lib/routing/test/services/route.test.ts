@@ -6,7 +6,7 @@ import { identity } from 'ramda'
 describe('route', () => {
   describe('route !params !query-params', () => {
     const pathString = '/this/is/a/path'
-    const path = new FrontendRoute(pathString, false)
+    const path = new FrontendRoute(pathString, { secure: false })
 
     test('get', () => {
       expect(path.get()).toBe(pathString)
@@ -25,7 +25,7 @@ describe('route', () => {
   })
 
   describe('route params !query-params', () => {
-    const path = new FrontendRoute<{ param1: string; param2: string }>('/path/:param1/:param2', false)
+    const path = new FrontendRoute<{ param1: string; param2: string }>('/path/:param1/:param2', { secure: false })
 
     test('get', () => {
       expect(path.get({ param1: '1', param2: '2' })).toBe('/path/1/2')
@@ -44,7 +44,7 @@ describe('route', () => {
   })
 
   describe('route !params query-params', () => {
-    const path = new FrontendRoute<never, { param1: string; param2: string }>('/my/path', false, identity)
+    const path = new FrontendRoute<never, { param1: string; param2: string }>('/my/path', { secure: false }, identity)
 
     test('get', () => {
       expect(path.get()).toBe('/my/path')
@@ -76,7 +76,7 @@ describe('route', () => {
   describe('route params query-params', () => {
     const path = new FrontendRoute<{ param1: string; param2: string }, { param3: string }>(
       '/my/path/:param1/:param2',
-      false,
+      { secure: false },
       identity
     )
 

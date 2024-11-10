@@ -20,7 +20,7 @@ export const LoginDiscordConnect: FunctionComponent<Props> = ({ user }) => {
     return (
       <LoginDiscordButton
         onClick={() => {
-          void login({ provider: 'discord' })
+          void login()
         }}
       >
         <span className={clsx('btn-label-auth')}>{t('loginBtn')}</span>
