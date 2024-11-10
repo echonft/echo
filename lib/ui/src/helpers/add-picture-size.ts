@@ -37,7 +37,7 @@ export function addPictureSize(
     // IPFS
     const splittedUrl = split('://', src)
     if (length(splittedUrl) === 1) {
-      return `${apiRoutes.ipfs.proxy.getProductionUrl({ path: src })}?img-width=${size}`
+      return `${apiRoutes.ipfs.proxy.getUrl({ path: src })}?img-width=${size}`
     }
     // NFT storage
     const nftStorageMatch = /^https:\/\/([^.]+)\.ipfs\.nftstorage\.link\/(.+)$/.exec(src)

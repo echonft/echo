@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const LoginDiscordConnect: FunctionComponent<Props> = ({ user }) => {
-  const t = useTranslations('auth.step0')
+  const t = useTranslations('auth.discord')
   const { login } = useDependencies()
   if (isNil(user)) {
     return (

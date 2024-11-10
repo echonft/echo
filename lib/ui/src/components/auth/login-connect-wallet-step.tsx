@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const LoginConnectWalletStep: FunctionComponent<Props> = ({ onContinue, onWalletButtonClick }) => {
-  const t = useTranslations('auth.step2')
+  const t = useTranslations('auth.wallet')
   const { status } = useAccount()
   return (
     <LoginStepLayout

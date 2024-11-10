@@ -1,5 +1,4 @@
 import { hostname } from '@echo/routing/constants/hostname'
-import { productionHostname } from '@echo/routing/constants/production-hostname'
 import { NodeEnvironment, nodeEnvironment } from '@echo/utils/constants/node-environment'
 import { VercelEnvironment, vercelEnvironment } from '@echo/utils/constants/vercel-environment'
 
@@ -9,5 +8,5 @@ export function baseUrl() {
     ? 'http://localhost:3000'
     : vercelEnvironment() === VercelEnvironment.Preview
       ? `https://${hostname()}`
-      : `https://${productionHostname()}`
+      : `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
 }

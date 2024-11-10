@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const LoginDiscordStep: FunctionComponent<Props> = ({ user, onContinue }) => {
-  const t = useTranslations('auth.step0')
+  const t = useTranslations('auth.discord')
   return (
     <LoginStepLayout
       title={t('title')}

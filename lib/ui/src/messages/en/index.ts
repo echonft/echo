@@ -1,19 +1,19 @@
 export const messages = {
   auth: {
-    step0: {
+    discord: {
       continueBtn: 'Continue',
       loginBtn: 'Link Discord',
       subtitle: 'Start by linking your Discord profile to Echo!',
       title: 'Link your Discord'
     },
-    step1: {
+    'join-discord': {
       continueBtn: 'Skip',
       joinBtn: 'Join our Discord Now!',
       subtitle:
         'If you have come this far it is because you want to be part of the future of NFT swapping, get ready to live the Echo experience and transform the Web3 space with us!',
       title: 'Hey there {username}!'
     },
-    step2: {
+    wallet: {
       btn: {
         continue: 'Continue',
         skip: 'Skip'

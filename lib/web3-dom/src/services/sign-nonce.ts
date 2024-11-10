@@ -1,6 +1,6 @@
 import type { Address } from '@echo/model/types/address'
-import { hostname } from '@echo/routing/constants/hostname'
 import type { HexString } from '@echo/model/types/hex-string'
+import { productionHostname } from '@echo/routing/constants/production-hostname'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import { formatAddress } from '@echo/web3-dom/helpers/format-address'
 import { SiweMessage } from 'siwe'
@@ -20,13 +20,13 @@ export interface SignNonceResult {
 export async function signNonce({ address, nonce }: SignNonceArgs): Promise<SignNonceResult> {
   const siweMessage = new SiweMessage({
     address: formatAddress(address),
-    domain: hostname(),
+    domain: productionHostname(),
     nonce,
     scheme: 'https',
     statement: 'Sign this message to add your wallet to Echo',
     version: '1',
     chainId: sei.id,
-    uri: `https://${hostname()}`
+    uri: `https://${productionHostname()}`
   })
   const message = siweMessage.prepareMessage()
   const signature = await signMessage(wagmiConfig, { message })

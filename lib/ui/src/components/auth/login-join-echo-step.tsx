@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const LoginJoinEchoStep: FunctionComponent<Props> = ({ username, onSkip }) => {
-  const t = useTranslations('auth.step1')
+  const t = useTranslations('auth.join-discord')
   return (
     <LoginStepLayout
       title={t('title', { username })}
