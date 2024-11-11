@@ -1,16 +1,18 @@
 import { TokenType } from '@echo/model/constants/token-type'
+import { userMockJohnny } from '@echo/model/mocks/user-mock'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
 import type { NftResponse } from '@echo/nft-scan/types/response/nft-response'
 import { nftResponseSchema } from '@echo/nft-scan/validators/nft-response-schema'
 import { describe, expect, it } from '@jest/globals'
 
-describe('validator - nftResponseSchema', () => {
+describe('nftResponseSchema', () => {
   const response: NftResponse = {
     contract_address: '0x71da4d5805c1f2ecce2a41a9f9e026287f2b1f39',
     token_id: '2944',
     erc_type: TokenType.Erc721,
     name: 'Blast Penguins #2944',
     image_uri: 'bafybeibfviw32fzcimiobx2shiukbwis5cyufmenvddajvzbr3u4uwco3a/2944.png',
+    owner: userMockJohnny.wallet,
     attributes: [
       {
         attribute_name: 'Backgrounds',
@@ -45,6 +47,7 @@ describe('validator - nftResponseSchema', () => {
     tokenId: 2944,
     pictureUrl: 'bafybeibfviw32fzcimiobx2shiukbwis5cyufmenvddajvzbr3u4uwco3a/2944.png',
     name: 'Blast Penguins #2944',
+    owner: userMockJohnny.wallet,
     attributes: [
       { trait: 'Backgrounds', value: 'Purple' },
       { trait: 'Base', value: 'Purple Gradient' },

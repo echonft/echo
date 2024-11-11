@@ -1,8 +1,7 @@
 import type { Address } from '@echo/model/types/address'
+import type { PagingRequest } from '@echo/nft-scan/types/request/paging-request'
 
-export interface FetchNftsByAccountRequest {
+export interface FetchNftsByAccountRequest extends PagingRequest {
   account: Address
   showAttribute?: boolean // To fetch NFT attributes. Default: true
-  limit?: number // Must be between 1 and 100. Default: 20
-  next?: string
 }

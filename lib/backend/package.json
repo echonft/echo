@@ -32,7 +32,6 @@
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/routing": "workspace:*",
-    "@echo/tasks": "workspace:*",
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
     "@jest/globals": "29.7.0",

@@ -32,7 +32,6 @@ const nextConfig = {
     '@echo/model',
     '@echo/nft-scan',
     '@echo/routing',
-    '@echo/tasks',
     '@echo/ui',
     '@echo/utils',
     '@echo/web3',

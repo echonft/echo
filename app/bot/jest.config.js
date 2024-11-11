@@ -11,7 +11,6 @@ export default {
     '^@echo/model/(.*)$': '<rootDir>/../../lib/model/src/$1',
     '^@echo/nft-scan/(.*)$': '<rootDir>/../../lib/nft-scan/src/$1',
     '^@echo/routing/(.*)$': '<rootDir>/../../lib/routing/src/$1',
-    '^@echo/tasks/(.*)$': '<rootDir>/../../lib/tasks/src/$1',
     '^@echo/ui/(.*)$': '<rootDir>/../../lib/ui/src/$1',
     '^@echo/utils/(.*)$': '<rootDir>/../../lib/utils/src/$1',
     '^@echo/web3/(.*)$': '<rootDir>/../../lib/web3/src/$1',

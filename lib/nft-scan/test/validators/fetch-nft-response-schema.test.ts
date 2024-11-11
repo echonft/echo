@@ -1,10 +1,11 @@
 import { TokenType } from '@echo/model/constants/token-type'
+import { userMockCrew } from '@echo/model/mocks/user-mock'
 import type { NftResponse } from '@echo/nft-scan/types/response/nft-response'
 import { fetchNftResponseSchema } from '@echo/nft-scan/validators/fetch-nft-response-schema'
 import { nftResponseSchema } from '@echo/nft-scan/validators/nft-response-schema'
 import { describe, expect, it } from '@jest/globals'
 
-describe('validators - fetchNftResponseSchema', () => {
+describe('fetchNftResponseSchema', () => {
   it('maps correctly', () => {
     const response: NftResponse = {
       contract_address: '0x71da4d5805c1f2ecce2a41a9f9e026287f2b1f39',
@@ -12,6 +13,7 @@ describe('validators - fetchNftResponseSchema', () => {
       erc_type: TokenType.Erc721,
       name: 'Blast Penguins #2944',
       image_uri: 'bafybeibfviw32fzcimiobx2shiukbwis5cyufmenvddajvzbr3u4uwco3a/2944.png',
+      owner: userMockCrew.wallet,
       attributes: [
         {
           attribute_name: 'Backgrounds',

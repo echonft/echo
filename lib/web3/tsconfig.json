@@ -9,7 +9,6 @@
       "@echo/model/*": ["../model/src/*"],
       "@echo/nft-scan/*": ["../nft-scan/src/*"],
       "@echo/routing/*": ["../routing/src/*"],
-      "@echo/tasks/*": ["../tasks/src/*"],
       "@echo/ui/*": ["../ui/src/*"],
       "@echo/utils/*": ["../utils/src/*"],
       "@echo/web3-dom/*": ["../web3-dom/src/*"]

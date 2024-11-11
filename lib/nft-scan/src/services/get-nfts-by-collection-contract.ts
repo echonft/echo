@@ -1,4 +1,5 @@
 import type { Address } from '@echo/model/types/address'
+import { FetchError } from '@echo/nft-scan/constants/errors/fetch-error'
 import { fetchNftsByContract } from '@echo/nft-scan/fetchers/fetch-nfts-by-contract'
 import { error, info } from '@echo/nft-scan/helpers/logger'
 import type { PartialNft } from '@echo/nft-scan/types/partial-nft'
@@ -12,7 +13,7 @@ async function handlePaging(args: FetchNftsByContractRequest, accNfts: PartialNf
   const response = await pipe(
     fetchNftsByContract,
     otherwise<FetchNftsResponse, Nullable<FetchNftsResponse>>((err) => {
-      error({ err, collection: { contract: args.contract } }, 'could not fetch nfts from NFTScan')
+      error({ err, collection: { contract: args.contract } }, FetchError.Nfts)
       return undefined
     })
   )(args)

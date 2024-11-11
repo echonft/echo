@@ -5,7 +5,6 @@ import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
 import { unescrowNft } from '@echo/firestore/crud/nft/unescrow-nft'
 import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
 import type { Collection } from '@echo/model/types/collection'
-import { updateNftOwner } from '@echo/tasks/tasks/update-nft-owner'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { echoAddress } from '@echo/web3/constants/echo-address'
 import type { Erc721TransferEvent } from '@echo/web3/types/erc721-transfer-event'
@@ -33,7 +32,8 @@ export async function erc721TransferEventHandler({ contract, from, to, tokenId }
     return
   }
   if (!isNil(nft)) {
-    await updateNftOwner({ nft, wallet: to })
+    // TODO
+    // await updateNftOwner({ nft, wallet: to })
   }
   return
 }

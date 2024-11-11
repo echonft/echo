@@ -1,7 +1,5 @@
-import type { RouteSearchParams } from '@echo/routing/types/route'
+import type { PagingSearchParams } from '@echo/nft-scan/types/routing/paging-search-params'
 
-export interface FetchNftsByContractSearchParams extends RouteSearchParams {
-  cursor?: string
-  limit: number
+export interface FetchNftsByContractSearchParams extends PagingSearchParams {
   show_attribute: boolean
 }

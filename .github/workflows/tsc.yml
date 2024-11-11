@@ -37,8 +37,6 @@ jobs:
         run: pnpm exec turbo run tsc --filter=@echo/nft-scan
       - name: routing tsc
         run: pnpm exec turbo run tsc --filter=@echo/routing
-      - name: tasks tsc
-        run: pnpm exec turbo run tsc --filter=@echo/tasks
       - name: ui tsc
         run: pnpm exec turbo run tsc --filter=@echo/ui
       - name: utils tsc

@@ -20,6 +20,7 @@ export const baseNftResponseSchema = object({
   contract_address: addressSchema,
   erc_type: nftTokenTypeSchema,
   image_uri: string().nullable().optional(),
+  owner: addressSchema,
   name: string().nullable().optional(),
   token_id: string().min(1)
 })
@@ -49,6 +50,7 @@ export const nftResponseSchema = baseNftResponseSchema
         attributes: prop('attributes'),
         collection: pipe(prop('contract_address'), objOf('contract')),
         name: ifElse(pipe(prop('name'), isNilOrEmpty), pipe(prop('token_id'), invoker(0, 'toString')), prop('name')),
+        owner: prop('owner'),
         pictureUrl: prop('image_uri'),
         tokenId: prop('token_id'),
         type: prop('erc_type')

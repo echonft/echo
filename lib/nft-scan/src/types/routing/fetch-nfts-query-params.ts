@@ -1,7 +1,5 @@
-import type { RouteQueryParams } from '@echo/routing/types/route'
+import type { PagingQueryParams } from '@echo/nft-scan/types/routing/paging-query-params'
 
-export interface FetchNftsQueryParams extends RouteQueryParams {
+export interface FetchNftsQueryParams extends PagingQueryParams {
   showAttribute?: boolean // To fetch NFT attributes. Default: true
-  limit?: number // Must be between 1 and 100. Default: 20
-  next?: string
 }

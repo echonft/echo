@@ -4,7 +4,7 @@ import { collectionResponseSchema } from '@echo/nft-scan/validators/collection-r
 import { fetchCollectionResponseSchema } from '@echo/nft-scan/validators/fetch-collection-response-schema'
 import { describe, expect, it } from '@jest/globals'
 
-describe('validators - fetchCollectionResponseSchema', () => {
+describe('fetchCollectionResponseSchema', () => {
   const collectionResponseMock: CollectionResponse = {
     contract_address: '0xcfc4c2b14af5b1f8ed97e1717b009dca461d8461',
     name: 'BACGenesis',

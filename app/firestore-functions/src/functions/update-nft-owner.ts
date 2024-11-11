@@ -11,9 +11,9 @@ import { eqAddress } from '@echo/model/helpers/eq-address'
 import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
 import type { Address } from '@echo/model/types/address'
 import type { Nft, NftIndex } from '@echo/model/types/nft'
-import { error, info } from '@echo/tasks/helpers/logger'
 import { unlessNil } from '@echo/utils/helpers/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
+import { error, info } from 'firebase-functions/logger'
 import { andThen, isNil, isNotNil, otherwise, pipe, tap } from 'ramda'
 
 export interface UpdateNftOwnerArgs {

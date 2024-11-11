@@ -1,9 +1,7 @@
 import type { NftTokenType } from '@echo/model/constants/token-type'
-import type { RouteSearchParams } from '@echo/routing/types/route'
+import type { PagingSearchParams } from '@echo/nft-scan/types/routing/paging-search-params'
 
-export interface FetchNftsByAccountSearchParams extends RouteSearchParams {
+export interface FetchNftsByAccountSearchParams extends PagingSearchParams {
   erc_type: NftTokenType
-  cursor?: string
-  limit: number
   show_attribute: boolean
 }

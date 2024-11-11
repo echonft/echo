@@ -10,7 +10,6 @@
       "@echo/model/*": ["../../lib/model/src/*"],
       "@echo/nft-scan/*": ["../../lib/nft-scan/src/*"],
       "@echo/routing/*": ["../../lib/routing/src/*"],
-      "@echo/tasks/*": ["../../lib/tasks/src/*"],
       "@echo/ui/*": ["../../lib/ui/src/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"],
       "@echo/web3/*": ["../../lib/web3/src/*"],

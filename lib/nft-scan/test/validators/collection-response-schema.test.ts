@@ -5,7 +5,7 @@ import { collectionResponseSchema } from '@echo/nft-scan/validators/collection-r
 import { describe, expect, it } from '@jest/globals'
 import { assoc, pipe } from 'ramda'
 
-describe('validators - collectionResponseSchema', () => {
+describe('collectionResponseSchema', () => {
   const collectionResponseMock: CollectionResponse = {
     contract_address: '0xcfc4c2b14af5b1f8ed97e1717b009dca461d8461',
     name: 'BACGenesis',

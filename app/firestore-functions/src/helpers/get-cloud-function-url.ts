@@ -20,7 +20,7 @@ export async function getCloudFunctionUrl(name: CloudFunctionName) {
   const uri = res.data.serviceConfig?.uri
   if (!uri) {
     error({ url, projectId, name }, CloudFunctionError.Uri)
-    return undefined
+    return Promise.reject(Error(CloudFunctionError.Uri))
   }
   return uri
 }

@@ -56,10 +56,6 @@ jobs:
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint --filter=@echo/routing -- --quiet
-      - name: tasks lint
-        env:
-          NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint --filter=@echo/tasks -- --quiet
       - name: ui lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
