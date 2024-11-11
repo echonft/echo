@@ -20,7 +20,8 @@ export interface OfferDetailsProps {
 
 export const OfferDetails: FunctionComponent<OfferDetailsProps> = ({ offer, onUpdate }) => {
   const { sender, receiver } = offer
-  const { discord } = receiver
+  // TODO
+  // const { discord } = receiver
   // remove
   const receiverNfts = pipe(
     offerReceiverNftItems,

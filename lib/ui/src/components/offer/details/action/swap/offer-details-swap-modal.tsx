@@ -24,7 +24,7 @@ interface Props {
 }
 
 // TODO ERC20
-export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ open, offer, onClose, onSuccess }) => {
+export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ open, offer, onClose }) => {
   const t = useTranslations('offer.details.swapModal')
   const tError = useTranslations('error.offer')
   const { swap } = useDependencies()

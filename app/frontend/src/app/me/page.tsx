@@ -62,7 +62,7 @@ async function render({ searchParams, user }: Props) {
               user={user}
               listingsCount={listings.length}
               nftsCount={nfts.length}
-              offersCount={offers.length}
+              offersCount={offersCount}
               swapsCount={swaps.length}
             />
           </SectionLayout>
