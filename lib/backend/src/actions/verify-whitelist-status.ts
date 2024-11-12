@@ -1,20 +1,15 @@
-import { getUserByDiscordId } from '@echo/firestore/crud/user/get-user-by-discord-id'
 import { getAllWhitelistedContracts } from '@echo/firestore/crud/whitelisted-contract/get-all-whitelisted-contracts'
 import { addWhitelistedUser } from '@echo/firestore/crud/whitelisted-user/add-whitelisted-user'
+import type { Address } from '@echo/model/types/address'
 import { getNftBalances } from '@echo/web3/services/get-nft-balances'
-import { andThen, isNil, map, pipe, prop } from 'ramda'
+import { andThen, map, pipe, prop } from 'ramda'
 
-export async function verifyWhitelistStatus(discordId: string): Promise<boolean> {
-  const user = await getUserByDiscordId(discordId)
-  if (isNil(user) || isNil(user.wallet)) {
-    return false
-  }
-
+export async function verifyWhitelistStatus(discordId: string, wallet: Address): Promise<boolean> {
   // Get all whitelisted contracts and check NFT balances
   const contracts = await pipe(getAllWhitelistedContracts, andThen(map(prop('address'))))()
 
   const balance = await getNftBalances({
-    wallet: user.wallet,
+    wallet,
     contracts
   })
 
