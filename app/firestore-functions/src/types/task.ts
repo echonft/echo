@@ -1,8 +1,6 @@
 import type { CloudFunctionName } from '@echo/firestore-functions/constants/cloud-function-name'
 
-export type TaskData = Record<string, unknown>
-
-export interface Task<T extends TaskData> {
+export interface Task<T> {
   data: T
   name: CloudFunctionName
   options: {

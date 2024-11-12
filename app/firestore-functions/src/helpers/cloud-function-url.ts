@@ -9,7 +9,7 @@ interface Request {
   serviceConfig?: { uri: string }
 }
 
-export async function getCloudFunctionUrl(name: CloudFunctionName) {
+export async function cloudFunctionUrl(name: CloudFunctionName) {
   const auth = new GoogleAuth({
     scopes
   })

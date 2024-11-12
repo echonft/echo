@@ -1,6 +1,12 @@
 export enum CloudFunctionName {
-  AddNft = 'addNft',
+  AddCollection = 'addCollection',
   AddCollectionNfts = 'addCollectionNfts',
+  AddNft = 'addNft',
+  CancelNftListings = 'cancelNftListings',
+  CancelNftOffers = 'cancelNftOffers',
+  CancelListing = 'cancelListing',
   ExpireListing = 'expireListing',
-  ExpireOffer = 'expireOffer'
+  CancelOffer = 'cancelOffer',
+  ExpireOffer = 'expireOffer',
+  UpdateNftOwner = 'updateNftOwner'
 }

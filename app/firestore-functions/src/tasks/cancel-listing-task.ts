@@ -5,17 +5,16 @@ import type { ListingDocument } from '@echo/firestore/types/model/listing-docume
 import { serializeListing } from '@echo/model/serializers/serialize-listing'
 import { pick } from 'ramda'
 
-export type ExpireListingTaskData = Pick<ListingDocument, 'slug'>
+export type CancelListingTaskData = Pick<ListingDocument, 'slug'>
 
-export async function expireListingTask(listing: ListingDocument): Promise<Task<ExpireListingTaskData>> {
-  const name = CloudFunctionName.ExpireListing
+export async function cancelListingTask(listing: ListingDocument): Promise<Task<CancelListingTaskData>> {
+  const name = CloudFunctionName.CancelListing
   const uri = await cloudFunctionUrl(name)
   return {
     data: pick(['slug'], listing),
     name,
     options: {
       id: `${name}-${serializeListing(listing)}`,
-      scheduleTime: new Date(listing.expiresAt * 1000),
       uri
     }
   }

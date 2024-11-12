@@ -3,15 +3,14 @@ import { cloudFunctionUrl } from '@echo/firestore-functions/helpers/cloud-functi
 import type { Task } from '@echo/firestore-functions/types/task'
 import type { CollectionDocument } from '@echo/firestore/types/model/collection-document'
 import { serializeCollection } from '@echo/model/serializers/serialize-collection'
-import { pick } from 'ramda'
 
-export type AddCollectionNftsTaskData = Pick<CollectionDocument, 'contract'>
+export type AddCollectionTaskData = CollectionDocument
 
-export async function addCollectionNftsTask(collection: CollectionDocument): Promise<Task<AddCollectionNftsTaskData>> {
-  const name = CloudFunctionName.AddCollectionNfts
+export async function addCollectionTask(collection: CollectionDocument): Promise<Task<AddCollectionTaskData>> {
+  const name = CloudFunctionName.AddCollection
   const uri = await cloudFunctionUrl(name)
   return {
-    data: pick(['contract'], collection),
+    data: collection,
     name,
     options: {
       id: `${name}-${serializeCollection(collection)}`,
