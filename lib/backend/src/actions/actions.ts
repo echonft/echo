@@ -8,6 +8,7 @@ import { getWalletStatus } from '@echo/backend/actions/get-wallet-status'
 import { rejectOffer } from '@echo/backend/actions/reject-offer'
 import { searchCollections } from '@echo/backend/actions/search-collections'
 import { searchUsers } from '@echo/backend/actions/search-users'
+import { verifyWhitelistStatus } from '@echo/backend/actions/verify-whitelist-status'
 
 export const actions = {
   addWallet,
@@ -17,5 +18,6 @@ export const actions = {
   getWalletStatus,
   rejectOffer,
   searchCollections,
-  searchUsers
+  searchUsers,
+  verifyWhitelistStatus
 }
