@@ -6,10 +6,10 @@
     "source.organizeImports": "always",
   },
   "javascript.preferences.importModuleSpecifier": "non-relative",
-  "javascript.experimental.updateImportsOnPaste": true,
   "typescript.experimental.updateImportsOnPaste": true,
   "javascript.preferences.organizeImports": {
     "typeOrder": "auto"
   },
-  "prettier.prettierPath": "./node_modules/prettier"
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false
 }

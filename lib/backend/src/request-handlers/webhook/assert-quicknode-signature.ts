@@ -3,6 +3,7 @@ import { UnauthorizedError } from '@echo/backend/errors/unauthorized-error'
 import type { NextRequest } from '@echo/backend/types/next-request'
 import type { QuicknodeSignatureType } from '@echo/backend/types/quicknode-signature-type'
 import type { WebhookBlockRequest } from '@echo/backend/types/webhook-block-request'
+import { Environment, environment } from '@echo/utils/constants/environment'
 import { Secret } from '@echo/utils/constants/secret'
 import { getSecret } from '@echo/utils/services/secret-manager'
 import { createHmac } from 'crypto'
@@ -26,6 +27,11 @@ export async function assertQuicknodeSignature(
   args: AssertQuicknodeSignatureArgs
 ): Promise<NextRequest<WebhookBlockRequest>> {
   const { req, type } = args
+
+  if (environment() === Environment.Development) {
+    return req
+  }
+
   const signature = req.headers.get('x-qn-signature')
   const nonce = req.headers.get('x-qn-nonce')
   const contentHash = req.headers.get('x-qn-content-hash')
