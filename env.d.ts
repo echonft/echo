@@ -9,6 +9,7 @@ declare namespace NodeJS {
       AUTH_SECRET: string
       CI?: 'true' | '1'
       ENV?: 'production' | 'staging' | 'testnet' | 'development' | 'test'
+      K_SERVICE?: string
       LOG_LEVEL?: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
       NEXT_PUBLIC_VERCEL_ENV: 'production' | 'preview' | 'development'
       NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL: string

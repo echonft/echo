@@ -22,12 +22,10 @@ interface AccessSecretArgs {
 function getCredentials(): Credentials {
   const clientEmail = process.env.SECRET_MANAGER_EMAIL
   if (isNilOrEmpty(clientEmail)) {
-    // logger?.error('SECRET_MANAGER_EMAIL env not set')
     throw Error(SecretManagerError.CredentialsMissing)
   }
   const privateKey = base64DecodeSchema.parse(process.env.SECRET_MANAGER_PRIVATE_KEY)
   if (isNilOrEmpty(privateKey)) {
-    // logger?.error('SECRET_MANAGER_PRIVATE_KEY env not set')
     throw Error(SecretManagerError.CredentialsMissing)
   }
   return { clientEmail, privateKey }
@@ -35,11 +33,13 @@ function getCredentials(): Credentials {
 
 async function connect(projectId: string): Promise<SecretManagerServiceClient> {
   const nodeEnv = nodeEnvironment()
-  if (nodeEnv === NodeEnvironment.Development || (!isCI() && nodeEnv === NodeEnvironment.Test)) {
-    // logger?.trace('connecting without credentials')
+  if (
+    nodeEnv === NodeEnvironment.Development ||
+    (!isCI() && nodeEnv === NodeEnvironment.Test) ||
+    !isNil(process.env.K_SERVICE)
+  ) {
     const client = new SecretManagerServiceClient({ projectId })
     await client.initialize()
-    // logger?.trace('connected')
     return client
   } else {
     const credentials = getCredentials()
@@ -52,22 +52,18 @@ async function connect(projectId: string): Promise<SecretManagerServiceClient> {
       }
     })
     await client.initialize()
-    // logger?.trace('connected')
     return client
   }
 }
 
 async function accessSecret(args: AccessSecretArgs): Promise<Record<Secret, string>> {
   const { client, name, projectId } = args
-  // logger?.trace(`fetching secret ${name}`)
   const [version] = await client.accessSecretVersion({
     name: `projects/${projectId}/secrets/${name}/versions/latest`
   })
   if (isNil(version.payload) || isNil(version.payload.data)) {
-    // logger?.error(`secret ${name} not found`)
     return Promise.reject(Error(SecretManagerError.NotFound))
   }
-  // logger?.trace(`secret ${name} found. Delivering it...`)
   return objOf(name, version.payload.data.toString())
 }
 
