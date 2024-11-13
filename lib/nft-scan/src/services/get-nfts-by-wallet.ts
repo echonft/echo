@@ -32,6 +32,6 @@ async function handlePaging(args: FetchNftsByAccountRequest, accNfts: PartialNft
 export async function getNftsByWallet(wallet: Address): Promise<PartialNft[]> {
   info({ wallet }, 'fetching nfts from NFTScan...')
   const nfts = await handlePaging({ account: wallet }, [])
-  info({ wallet, count: nfts.length }, 'complted fetching nfts from NFTScan')
+  info({ wallet, count: nfts.length }, 'completed fetching nfts from NFTScan')
   return nfts
 }

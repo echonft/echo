@@ -22,18 +22,13 @@ describe('fetchCollectionsResponseSchema', () => {
   }
 
   it('maps correctly', () => {
-    const next = 'next'
     const content = [collectionResponseMock, collectionResponseMock, collectionResponseMock]
     const response = {
       code: 200,
-      data: {
-        next,
-        content
-      }
+      data: content
     }
-    expect(fetchCollectionsResponseSchema.parse(response)).toEqual({
-      next,
-      content: map((response) => collectionResponseSchema.parse(response), content)
-    })
+    expect(fetchCollectionsResponseSchema.parse(response)).toEqual(
+      map((response) => collectionResponseSchema.parse(response), content)
+    )
   })
 })
