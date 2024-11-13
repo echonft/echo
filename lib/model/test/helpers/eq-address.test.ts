@@ -21,7 +21,11 @@ describe('eqAddress', () => {
   })
 
   it('should return true for same addresses with different cases', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     expect(eqAddress('0xABCD', '0xabcd')).toBe(true)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     expect(eqAddress('0xabcd', '0xABCD')).toBe(true)
   })
 

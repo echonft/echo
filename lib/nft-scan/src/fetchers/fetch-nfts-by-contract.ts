@@ -14,7 +14,7 @@ export async function fetchNftsByContract({
   next,
   limit
 }: FetchNftsByContractRequest): Promise<FetchNftsResponse> {
-  const url = nftScanApiRoutes.nfts.fetchByAccount
+  const url = nftScanApiRoutes.nfts.fetchByContract
     .withQuery({ showAttribute, next, limit })
     .getUrl({ address: contract })
   const init = await fetchInit()
