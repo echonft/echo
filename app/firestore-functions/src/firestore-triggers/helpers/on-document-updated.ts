@@ -13,6 +13,11 @@ export function onDocumentUpdated<AppModelType>(
   collectionPath: CollectionPath,
   handler: (args: FirestoreEventChangeSnapshotDataReturn<AppModelType>) => Awaitable<void>
 ) {
-  const opts = pipe(concat(__, '/{id}'), objOf('document'), setMaxInstances, setMaxTimeout)(collectionPath)
+  const opts = pipe(
+    concat<string>(__, '/{documentId}'),
+    objOf('document'),
+    setMaxInstances,
+    setMaxTimeout
+  )(collectionPath)
   return firestoreOnDocumentUpdated(opts, pipe(firestoreEventChangeSnapshotData, handler))
 }

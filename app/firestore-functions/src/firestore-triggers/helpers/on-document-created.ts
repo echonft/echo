@@ -11,6 +11,11 @@ export function onDocumentCreated<AppModelType>(
   collectionPath: CollectionPath,
   handler: (document: Nullable<AppModelType>) => Awaitable<void>
 ) {
-  const opts = pipe(concat(__, '/{id}'), objOf('document'), setMaxInstances, setMaxTimeout)(collectionPath)
+  const opts = pipe(
+    concat<string>(__, '/{documentId}'),
+    objOf('document'),
+    setMaxInstances,
+    setMaxTimeout
+  )(collectionPath)
   return firestoreOnDocumentCreated(opts, pipe(firestoreEventSnapshotData<AppModelType>, handler))
 }
