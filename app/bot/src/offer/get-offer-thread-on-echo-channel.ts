@@ -4,28 +4,20 @@ import { getOfferThreadByOfferSlug } from '@echo/firestore/crud/offer-thread/get
 import type { OfferThreadDocument } from '@echo/firestore/types/model/offer-thread-document'
 import type { Offer } from '@echo/model/types/offer'
 import type { Nullable } from '@echo/utils/types/nullable'
-import type { AnyThreadChannel, Client } from 'discord.js'
+import type { AnyThreadChannel } from 'discord.js'
 import { isNil } from 'ramda'
-
-interface GetOfferThreadOnEchoChannelArgs {
-  readonly client: Client
-  readonly offer: Offer
-}
 
 interface GetOfferThreadOnEchoChannelReturn {
   readonly offerThread: Nullable<OfferThreadDocument>
   readonly thread: Nullable<AnyThreadChannel>
 }
 
-export async function getOfferThreadOnEchoChannel({
-  client,
-  offer
-}: GetOfferThreadOnEchoChannelArgs): Promise<GetOfferThreadOnEchoChannelReturn> {
+export async function getOfferThreadOnEchoChannel(offer: Offer): Promise<GetOfferThreadOnEchoChannelReturn> {
   const offerThread = await getOfferThreadByOfferSlug(offer.slug)
   if (isNil(offerThread) || offerThread.state === OfferThreadState.Archived) {
     return { offerThread: undefined, thread: undefined }
   }
-  const thread = await getThreadOnEchoChannel({ client, threadId: offerThread.guild.threadId })
+  const thread = await getThreadOnEchoChannel(offerThread.guild.threadId)
   if (isNil(thread)) {
     return { offerThread, thread: undefined }
   }

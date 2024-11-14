@@ -5,17 +5,11 @@ import { getOfferThreadOnEchoChannel } from '@echo/bot/offer/get-offer-thread-on
 import { archiveOfferThread as firestoreArchiveOfferThread } from '@echo/firestore/crud/offer-thread/archive-offer-thread'
 import type { Offer } from '@echo/model/types/offer'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
-import type { Client } from 'discord.js'
 import i18next from 'i18next'
 import { isNil, pipe } from 'ramda'
 
-interface ArchiveOfferThreadArgs {
-  readonly client: Client
-  readonly offer: Offer
-}
-
-export async function archiveOfferThread(args: ArchiveOfferThreadArgs) {
-  const { offerThread, thread } = await getOfferThreadOnEchoChannel(args)
+export async function archiveOfferThread(offer: Offer) {
+  const { offerThread, thread } = await getOfferThreadOnEchoChannel(offer)
   if (!isNil(thread) && !isNil(offerThread)) {
     await sendToThread(thread, {
       content: i18next.t('offer.thread.close')

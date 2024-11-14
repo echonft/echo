@@ -4,17 +4,10 @@ import { getOfferThreadOnEchoChannel } from '@echo/bot/offer/get-offer-thread-on
 import { buildSwapEmbed } from '@echo/bot/swap/build-swap-embed'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import type { Offer } from '@echo/model/types/offer'
-import type { Client } from 'discord.js'
 import i18next from 'i18next'
 import { isNil } from 'ramda'
 
-interface PostSwapArgs {
-  readonly client: Client
-  readonly offer: Offer
-}
-
-export async function postSwap(args: PostSwapArgs) {
-  const { client, offer } = args
+export async function postSwap(offer: Offer) {
   const { sender, receiver } = offer
   const foundSender = await getUserByUsername(sender.username)
   if (isNil(foundSender)) {
@@ -27,13 +20,10 @@ export async function postSwap(args: PostSwapArgs) {
     return
   }
   await sendToEchoChannel({
-    client,
-    payload: {
-      embeds: [buildSwapEmbed(offer, foundSender, foundReceiver)]
-    }
+    embeds: [buildSwapEmbed(offer, foundSender, foundReceiver)]
   })
   logger.info({ offer }, 'posted swap to echo channel')
-  const { offerThread, thread } = await getOfferThreadOnEchoChannel(args)
+  const { offerThread, thread } = await getOfferThreadOnEchoChannel(offer)
   if (!isNil(thread) && !isNil(offerThread)) {
     await sendToThread(thread, {
       content: i18next.t('swap.update')

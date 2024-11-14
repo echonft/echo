@@ -5,22 +5,26 @@ import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import type { UserDocument } from '@echo/firestore/types/model/user-document'
 import type { Offer } from '@echo/model/types/offer'
 import { now } from '@echo/utils/helpers/now'
-import { ChannelType, type Client, ThreadAutoArchiveDuration, userMention } from 'discord.js'
+import { ChannelType, ThreadAutoArchiveDuration, userMention } from 'discord.js'
 import i18next from 'i18next'
 
 interface CreateOfferThreadArgs {
-  readonly client: Client
   readonly offer: Offer
   readonly sender: UserDocument
   readonly receiver: UserDocument
 }
 
-export async function createOfferThread(args: CreateOfferThreadArgs): Promise<{
-  threadId: string
-  archive?: true
-}> {
-  const { client, offer, receiver, sender } = args
-  const channel = await getEchoChannel(client)
+interface CreateOfferThreadReturn {
+  readonly threadId: string
+  readonly archive?: true
+}
+
+export async function createOfferThread({
+  offer,
+  receiver,
+  sender
+}: CreateOfferThreadArgs): Promise<CreateOfferThreadReturn> {
+  const channel = await getEchoChannel()
   const thread = await channel.threads.create({
     name: i18next.t('offer.thread.name', { timestamp: now() }),
     autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
