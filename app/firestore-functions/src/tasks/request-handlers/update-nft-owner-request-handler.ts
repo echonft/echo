@@ -8,14 +8,14 @@ import { eqUser } from '@echo/model/helpers/user/eq-user'
 import type { User } from '@echo/model/types/user'
 import { unlessNil } from '@echo/utils/helpers/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { always, andThen, isNil, otherwise, pipe } from 'ramda'
+import { always, andThen, assoc, isNil, otherwise, pipe } from 'ramda'
 
 export async function updateNftOwnerRequestHandler(data: UpdateNftOwnerTaskData) {
   const nft = await getNftByCollectionContract(data)
   if (!isNil(nft)) {
     const owner = await pipe(
       getUserByWallet,
-      andThen(unlessNil(userDocumentToModel)),
+      andThen(unlessNil(pipe(userDocumentToModel, assoc('wallet', data.owner)))),
       otherwise(always(undefined as Nullable<User & Required<Pick<User, 'wallet'>>>))
     )(data.owner)
     if (!eqUser(nft.owner, owner)) {

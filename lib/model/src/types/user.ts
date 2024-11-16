@@ -1,13 +1,12 @@
 import type { Address } from '@echo/model/types/address'
-import type { Username } from '@echo/model/types/username'
 
 export interface User {
   discord: {
     avatarUrl: string
-    username: Username
+    username: string
     globalName?: string
   }
-  username: Username
+  username: string
   wallet?: Address
 }
 

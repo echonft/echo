@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { userMockCrew } from '@echo/model/mocks/user-mock'
-import { WalletConnectedButton as Component } from '@echo/ui/components/wallet/wallet-connected-button'
+import { WalletCopyToClipboardButton as Component } from '@echo/ui/components/wallet/wallet-copy-to-clipboard-button'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

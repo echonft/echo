@@ -16,6 +16,7 @@ interface Props {
 }
 
 async function render({ user }: Props) {
+  console.log(`rendering home`)
   const collections = await pipe<[number], Promise<CollectionWithRank[]>, Promise<CollectionWithRank[]>>(
     getRankedCollections,
     otherwiseEmptyArray

@@ -3,7 +3,6 @@ import { getQueryData } from '@echo/firestore/helpers/query/get-query-data'
 import { queryOrderBy } from '@echo/firestore/helpers/query/query-order-by'
 import { queryWhereFilter } from '@echo/firestore/helpers/query/query-where-filter'
 import type { OfferDocument } from '@echo/firestore/types/model/offer-document'
-import type { Username } from '@echo/model/types/username'
 import { Filter, type Query } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
@@ -11,7 +10,7 @@ import { pipe } from 'ramda'
  * Returns all offers for a user, that is if the user is either the sender or the receiver
  * @param username
  */
-export function getOffersForUserQuery(username: Username): Query<OfferDocument> {
+export function getOffersForUserQuery(username: string): Query<OfferDocument> {
   return pipe(
     offersCollection,
     queryWhereFilter(
@@ -21,6 +20,6 @@ export function getOffersForUserQuery(username: Username): Query<OfferDocument> 
   )()
 }
 
-export function getOffersForUser(username: Username): Promise<OfferDocument[]> {
+export function getOffersForUser(username: string): Promise<OfferDocument[]> {
   return pipe(getOffersForUserQuery, getQueryData)(username)
 }

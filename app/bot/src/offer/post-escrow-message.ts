@@ -9,12 +9,11 @@ import { offerReceiverNftItems } from '@echo/model/helpers/offer/offer-receiver-
 import { offerSenderNftItems } from '@echo/model/helpers/offer/offer-sender-nft-items'
 import type { NftItem } from '@echo/model/types/item'
 import type { Offer } from '@echo/model/types/offer'
-import type { Username } from '@echo/model/types/username'
 import { userMention } from 'discord.js'
 import i18next from 'i18next'
 import { always, andThen, complement, isNil, type NonEmptyArray, otherwise, pipe, prop } from 'ramda'
 
-async function getUserDiscordId(username: Username) {
+async function getUserDiscordId(username: string) {
   const user = await getUserByUsername(username)
   if (isNil(user)) {
     return Promise.reject(Error(OfferError.NotFound))

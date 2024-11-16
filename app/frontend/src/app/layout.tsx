@@ -8,6 +8,7 @@ import { Web3Provider } from '@echo/ui/components/providers/web3-provider'
 import { messages } from '@echo/ui/messages/en'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { type Metadata, type Viewport } from 'next'
+import { SessionProvider } from 'next-auth/react'
 import { NextIntlClientProvider } from 'next-intl'
 import type { PropsWithChildren } from 'react'
 
@@ -99,7 +100,9 @@ export default async function render({ children }: PropsWithChildren) {
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Web3Provider>
             <ActionsProvider actions={actions}>
-              <Dependencies>{children}</Dependencies>
+              <Dependencies>
+                <SessionProvider>{children}</SessionProvider>
+              </Dependencies>
             </ActionsProvider>
           </Web3Provider>
         </NextIntlClientProvider>

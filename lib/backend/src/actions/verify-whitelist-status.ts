@@ -1,3 +1,4 @@
+'use server'
 import { getAllWhitelistedContracts } from '@echo/firestore/crud/whitelisted-contract/get-all-whitelisted-contracts'
 import { addWhitelistedUser } from '@echo/firestore/crud/whitelisted-user/add-whitelisted-user'
 import type { Address } from '@echo/model/types/address'

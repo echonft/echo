@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { accountStatusStore } from '@echo/storybook/mocks/stores/account-status-store'
-import { LoginConnectWalletStep as Component } from '@echo/ui/components/auth/login-connect-wallet-step'
+import { LoginWalletStep as Component } from '@echo/ui/components/auth/login-wallet-step'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { useEffect } from 'react'
 

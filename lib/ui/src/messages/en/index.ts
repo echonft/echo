@@ -1,25 +1,21 @@
 export const messages = {
   auth: {
     discord: {
-      continueBtn: 'Continue',
-      loginBtn: 'Link Discord',
-      subtitle: 'Start by linking your Discord profile to Echo!',
-      title: 'Link your Discord'
+      btn: 'Link Discord',
+      title: 'Link your Discord profile to start swapping'
     },
     'join-discord': {
-      continueBtn: 'Skip',
-      joinBtn: 'Join our Discord Now!',
-      subtitle:
-        'If you have come this far it is because you want to be part of the future of NFT swapping, get ready to live the Echo experience and transform the Web3 space with us!',
-      title: 'Hey there {username}!'
+      btn: 'Join our Discord Now!',
+      skipBtn: 'Skip',
+      title:
+        'Hey {username}! If you have come this far it is because you want to be part of the future of NFT swapping. Get ready to live the Echo experience and transform the Web3 space with us!'
+    },
+    sign: {
+      btn: 'Sign',
+      title: 'Please sign a message to link your wallet to your profile'
     },
     wallet: {
-      btn: {
-        continue: 'Continue',
-        skip: 'Skip'
-      },
-      subtitle: 'Connect your wallet to start swapping',
-      title: 'Connect your wallet'
+      title: 'Start by connecting your wallet'
     }
   },
   collection: {
