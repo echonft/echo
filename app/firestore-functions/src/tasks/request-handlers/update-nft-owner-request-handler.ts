@@ -16,7 +16,7 @@ export async function updateNftOwnerRequestHandler(data: UpdateNftOwnerTaskData)
     const owner = await pipe(
       getUserByWallet,
       andThen(unlessNil(pipe(userDocumentToModel, assoc('wallet', data.owner)))),
-      otherwise(always(undefined as Nullable<User & Required<Pick<User, 'wallet'>>>))
+      otherwise(always(undefined as Nullable<User>))
     )(data.owner)
     if (!eqUser(nft.owner, owner)) {
       if (isNil(owner)) {

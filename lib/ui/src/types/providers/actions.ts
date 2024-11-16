@@ -8,7 +8,6 @@ import type { Slug } from '@echo/model/types/slug'
 import type { Nullable } from '@echo/utils/types/nullable'
 
 export interface Actions {
-  addWallet: (args: { message: string; signature: string; wallet: Address }) => Promise<void>
   cancelListing: (slug: Slug) => Promise<Listing>
   createListing: (args: Pick<Listing, 'items' | 'target'> & Record<'expiration', Expiration>) => Promise<Listing>
   getOfferByIdContract: (idContract: HexString) => Promise<Offer>

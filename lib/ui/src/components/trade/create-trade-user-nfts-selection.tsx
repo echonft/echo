@@ -10,7 +10,7 @@ import clsx from 'clsx'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  user: User & Required<Pick<User, 'wallet'>>
+  user: User
   nfts: OwnedNft[]
   selection: OwnedNft[]
   onSelect?: (nft: OwnedNft) => unknown

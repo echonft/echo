@@ -8,9 +8,7 @@ export const userSchema = object({
     globalName: string().optional()
   }),
   username: string().min(1),
-  wallet: addressSchema.optional()
+  wallet: addressSchema
 })
-
-export const userWithWalletSchema = userSchema.omit({ wallet: true }).extend({ wallet: addressSchema })
 
 export const userIndexSchema = userSchema.pick({ username: true })

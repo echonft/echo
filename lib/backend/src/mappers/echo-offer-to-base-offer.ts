@@ -19,7 +19,7 @@ type EchoOfferItems = EchoOffer['senderItems']
 type EchoOfferItem = EchoOfferItems['items'][number]
 
 interface Erc721ItemWithOwner extends Erc721Item {
-  owner: User & Required<Pick<User, 'wallet'>>
+  owner: User
 }
 
 // TODO add ERC20 and ERC1155
@@ -52,18 +52,11 @@ export async function echoOfferToBaseOffer(contractOffer: EchoOffer): Promise<Ba
     nonEmptyMap(contractOfferItemToErc721Item),
     nonEmptyPromiseAll<Erc721ItemWithOwner>
   )(contractOffer)
-  const receiver = pipe<
-    [NonEmptyArray<Erc721ItemWithOwner>],
-    Erc721ItemWithOwner,
-    User & Required<Pick<User, 'wallet'>>
-  >(
+  const receiver = pipe<[NonEmptyArray<Erc721ItemWithOwner>], Erc721ItemWithOwner, User>(
     head,
     prop('owner')
   )(receiverItems)
-  const sender = pipe<[NonEmptyArray<Erc721ItemWithOwner>], Erc721ItemWithOwner, User & Required<Pick<User, 'wallet'>>>(
-    head,
-    prop('owner')
-  )(senderItems)
+  const sender = pipe<[NonEmptyArray<Erc721ItemWithOwner>], Erc721ItemWithOwner, User>(head, prop('owner'))(senderItems)
   return {
     expiresAt: contractOffer.expiration,
     receiver,

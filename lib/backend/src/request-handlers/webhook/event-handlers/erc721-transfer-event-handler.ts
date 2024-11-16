@@ -43,7 +43,7 @@ export async function erc721TransferEventHandler({ contract, from, to, tokenId }
     const owner = await pipe(
       getUserByWallet,
       andThen(unlessNil(userDocumentToModel)),
-      otherwise(always(undefined as Nullable<User & Required<Pick<User, 'wallet'>>>))
+      otherwise(always(undefined as Nullable<User>))
     )(to)
     if (!eqUser(nft.owner, owner)) {
       if (isNil(owner)) {

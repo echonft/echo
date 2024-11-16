@@ -7,9 +7,9 @@ import type { NonEmptyArray } from 'ramda'
 
 export interface BaseOffer {
   expiresAt: number
-  receiver: User & Required<Pick<User, 'wallet'>>
+  receiver: User
   receiverItems: NonEmptyArray<Item>
-  sender: User & Required<Pick<User, 'wallet'>>
+  sender: User
   senderItems: NonEmptyArray<Item>
 }
 

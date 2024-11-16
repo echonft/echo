@@ -78,14 +78,14 @@ async function render({ searchParams, user }: Props) {
 
   return (
     <PageLayout>
-      <Header user={user} />
+      <Header />
       <MainSectionLayout>
         <CreateOfferManager
           receiverNfts={receiverNfts}
           receiverNftsSelection={receiverNftsSelection}
           receiver={receiver}
           senderNfts={senderNfts}
-          sender={user as User & Required<Pick<User, 'wallet'>>} // TODO gatekeep route with connected wallet
+          sender={user}
         />
         <CalloutManager />
       </MainSectionLayout>

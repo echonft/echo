@@ -4,16 +4,18 @@ import { fetchDiscordProfile } from '@echo/backend/auth/discord/fetch-discord-pr
 import { revokeDiscordAccessToken } from '@echo/backend/auth/discord/revoke-discord-access-token'
 import { error } from '@echo/backend/helpers/logger'
 import { credentialsSchema } from '@echo/backend/validators/credentials-schema'
+import { userDocumentToModel } from '@echo/firestore/converters/user-document-to-model'
 import { addUser } from '@echo/firestore/crud/user/add-user'
 import { getUserByWallet } from '@echo/firestore/crud/user/get-user-by-wallet'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import type { UserDocument } from '@echo/firestore/types/model/user-document'
 import type { NewDocument } from '@echo/firestore/types/new-document'
+import type { User } from '@echo/model/types/user'
 import { addressSchema } from '@echo/model/validators/address-schema'
 import { unlessNil } from '@echo/utils/helpers/unless-nil'
 import NextAuth, { type NextAuthResult } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { andThen, assoc, isNil, otherwise, pick, pipe, prop, tap } from 'ramda'
+import { andThen, assoc, isNil, otherwise, pipe, prop, tap } from 'ramda'
 import { SiweMessage } from 'siwe'
 
 const {
@@ -37,6 +39,7 @@ const {
             return null
           }
           const wallet = addressSchema.parse(address)
+          // TODO verify that the wallet has WL NFTs using wlContracts + a call to NFTScan (GetNftsByAccount + contract_address parameter)
           if (isNil(code)) {
             await initializeFirebase()
             const user = await getUserByWallet(wallet)
@@ -44,8 +47,7 @@ const {
               error({ wallet }, 'code not provided and user is not found')
               return null
             } else {
-              console.log(`found user ${JSON.stringify(user)}`)
-              return pick(['username'], user)
+              return userDocumentToModel(user)
             }
           }
           const token = await fetchDiscordAccessToken(code)
@@ -64,12 +66,7 @@ const {
                     })
                   )(token)
                 }),
-                unlessNil(
-                  pipe<[NewDocument<UserDocument>], UserDocument, Record<'username', string>>(
-                    prop('data'),
-                    pick(['username'])
-                  )
-                )
+                unlessNil(pipe<[NewDocument<UserDocument>], UserDocument, User>(prop('data'), userDocumentToModel))
               )
             ),
             otherwise(async (err) => {

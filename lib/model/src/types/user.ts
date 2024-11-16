@@ -7,7 +7,7 @@ export interface User {
     globalName?: string
   }
   username: string
-  wallet?: Address
+  wallet: Address
 }
 
 export type UserIndex = Pick<User, 'username'>

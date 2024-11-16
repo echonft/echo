@@ -6,7 +6,6 @@ import type { EscrowedNftDocument } from '@echo/firestore/types/model/escrowed-n
 import type { ListingDocument } from '@echo/firestore/types/model/listing-document'
 import type { ListingPostDocument } from '@echo/firestore/types/model/listing-post-document'
 import type { NftDocument } from '@echo/firestore/types/model/nft-document'
-import type { NonceDocument } from '@echo/firestore/types/model/nonce-document'
 import type { OfferDocument } from '@echo/firestore/types/model/offer-document'
 import type { OfferThreadDocument } from '@echo/firestore/types/model/offer-thread-document'
 import type { OfferUpdatePostDocument } from '@echo/firestore/types/model/offer-update-post-document'
@@ -34,9 +33,6 @@ export function listingsCollection() {
 }
 export function nftsCollection() {
   return firestoreApp().collection(CollectionPath.Nfts) as CollectionReference<NftDocument>
-}
-export function noncesCollection() {
-  return firestoreApp().collection(CollectionPath.Nonces) as CollectionReference<NonceDocument>
 }
 export function offerThreadsCollection() {
   return firestoreApp().collection(CollectionPath.OfferThreads) as CollectionReference<OfferThreadDocument>

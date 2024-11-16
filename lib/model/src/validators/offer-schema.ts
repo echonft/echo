@@ -10,7 +10,7 @@ import { itemsContainOnlyErc20Items } from '@echo/model/validators/helpers/items
 import { hexStringSchema } from '@echo/model/validators/hex-string-schema'
 import { itemSchema } from '@echo/model/validators/item-schema'
 import { slugSchema, withSlugSchema } from '@echo/model/validators/slug-schema'
-import { userWithWalletSchema } from '@echo/model/validators/user-schema'
+import { userSchema } from '@echo/model/validators/user-schema'
 import { as } from '@echo/utils/helpers/as'
 import { complement, objOf, toLower } from 'ramda'
 import { boolean, nativeEnum, number, object, string } from 'zod'
@@ -25,9 +25,9 @@ const offerItemsSchema = itemSchema
 
 export const baseOfferSchema = object({
   expiresAt: number().int().positive(),
-  receiver: userWithWalletSchema,
+  receiver: userSchema,
   receiverItems: offerItemsSchema,
-  sender: userWithWalletSchema,
+  sender: userSchema,
   senderItems: offerItemsSchema
 })
 

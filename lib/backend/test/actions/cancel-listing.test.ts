@@ -22,7 +22,7 @@ describe('request-handlers - listing - cancelListing', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
-    jest.mocked(getAuthUser).mockResolvedValue(userMockJohnny.username)
+    jest.mocked(getAuthUser).mockResolvedValue(userMockJohnny)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-empty-function

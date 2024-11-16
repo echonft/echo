@@ -1,18 +1,15 @@
 'use client'
-import type { User } from '@echo/model/types/user'
 import { HeaderLayout } from '@echo/ui/components/base/header/header-layout'
 import { HeaderSearch } from '@echo/ui/components/base/header/header-search'
 import { HeaderButtonSkeleton } from '@echo/ui/components/base/header/skeleton/header-button-skeleton'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { EchoLogoSvg } from '@echo/ui/components/base/svg/echo-logo-svg'
 import { HeaderStyle } from '@echo/ui/constants/header-style'
-import type { Nullable } from '@echo/utils/types/nullable'
 import dynamic from 'next/dynamic'
 import { type FunctionComponent } from 'react'
 
 interface Props {
   style?: HeaderStyle
-  user?: Nullable<User>
 }
 
 const HeaderButton = dynamic(
@@ -20,7 +17,7 @@ const HeaderButton = dynamic(
   { ssr: false, loading: () => <HeaderButtonSkeleton /> }
 )
 
-export const Header: FunctionComponent<Props> = ({ style = HeaderStyle.Default, user }) => {
+export const Header: FunctionComponent<Props> = ({ style = HeaderStyle.Default }) => {
   if (style === HeaderStyle.Plain) {
     return (
       <HeaderLayout>
@@ -37,7 +34,7 @@ export const Header: FunctionComponent<Props> = ({ style = HeaderStyle.Default, 
         <EchoLogoSvg width={144} />
       </InternalLink>
       <HeaderSearch />
-      <HeaderButton user={user} />
+      <HeaderButton />
     </HeaderLayout>
   )
 }

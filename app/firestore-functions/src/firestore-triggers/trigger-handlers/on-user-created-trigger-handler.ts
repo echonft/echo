@@ -6,7 +6,7 @@ import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { getUserByWallet } from '@echo/firestore/crud/user/get-user-by-wallet'
 import type { NftDocument } from '@echo/firestore/types/model/nft-document'
-import type { WalletDocument } from '@echo/firestore/types/model/wallet-document'
+import type { UserDocument } from '@echo/firestore/types/model/user-document'
 import { eqUser } from '@echo/model/helpers/user/eq-user'
 import type { Collection } from '@echo/model/types/collection'
 import type { User } from '@echo/model/types/user'
@@ -19,10 +19,10 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { error, info } from 'firebase-functions/logger'
 import { always, andThen, assoc, isNil, map, otherwise, pipe, prop, reject } from 'ramda'
 
-export async function onWalletCreatedTriggerHandler(document: Nullable<WalletDocument>) {
+export async function onUserCreatedTriggerHandler(document: Nullable<UserDocument>) {
   if (!isNil(document)) {
-    info({ wallet: document }, 'wallet was created')
-    const { address } = document
+    info({ user: document }, 'user was created')
+    const { wallet } = document
     const collections = await pipe(
       getCollectionsByWallet,
       andThen(
@@ -33,7 +33,7 @@ export async function onWalletCreatedTriggerHandler(document: Nullable<WalletDoc
         )
       ),
       otherwise(always([] as Collection[]))
-    )(address)
+    )(wallet)
     for (const collection of collections) {
       const existingCollection = await pipe(
         prop('contract'),
@@ -53,7 +53,7 @@ export async function onWalletCreatedTriggerHandler(document: Nullable<WalletDoc
       }
     }
 
-    const nfts = await pipe(getNftsByWallet, otherwise(always([] as PartialNft[])))(address)
+    const nfts = await pipe(getNftsByWallet, otherwise(always([] as PartialNft[])))(wallet)
     for (const nft of nfts) {
       const existingNft = await pipe(
         getNftByCollectionContract,
@@ -63,7 +63,7 @@ export async function onWalletCreatedTriggerHandler(document: Nullable<WalletDoc
         const owner = await pipe(
           getUserByWallet,
           andThen(unlessNil(userDocumentToModel)),
-          otherwise(always(undefined as Nullable<User & Required<Pick<User, 'wallet'>>>))
+          otherwise(always(undefined as Nullable<User>))
         )(nft.owner)
         if (!eqUser(existingNft.owner, owner)) {
           if (isNil(owner)) {

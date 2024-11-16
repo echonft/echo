@@ -1,18 +1,14 @@
 'use client'
-import type { User } from '@echo/model/types/user'
 import type { Path } from '@echo/routing/types/path'
 import { useAccount } from '@echo/ui/hooks/use-account'
+import { useAuthUser } from '@echo/ui/hooks/use-auth-user'
 import { useDependencies } from '@echo/ui/hooks/use-dependencies'
-import type { Nullable } from '@echo/utils/types/nullable'
 import { usePathname } from 'next/navigation'
 import { isNil } from 'ramda'
 import { type FunctionComponent, useCallback } from 'react'
 
-interface Props {
-  user: Nullable<User>
-}
-
-export const WalletStatusManager: FunctionComponent<Props> = ({ user }) => {
+export const WalletStatusManager: FunctionComponent = () => {
+  const user = useAuthUser()
   const path = usePathname() as Path
   const { disconnectWallet, logout } = useDependencies()
   const onConnect = useCallback(async () => {

@@ -3,7 +3,6 @@ export enum CollectionPath {
   CollectionDiscordGuilds = 'collection-discord-guilds',
   EscrowedNfts = 'escrowed-nfts',
   Nfts = 'nfts',
-  Nonces = 'nonces',
   OfferThreads = 'offer-threads',
   OfferUpdatePosts = 'offer-update-posts',
   Offers = 'offers',

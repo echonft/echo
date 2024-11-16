@@ -48,8 +48,8 @@ export const Default: StoryObj<ComponentType> = {
     const results = useMemo(() => {
       if (showCategories) {
         return concat<SearchResult<string>, SearchResult<Slug>>(
-          map(collectionToSearchResult, collections),
-          map(userToSearchResult, users)
+          map(userToSearchResult, users),
+          map(collectionToSearchResult, collections)
         )
       }
       return map(collectionToSearchResult, collections)

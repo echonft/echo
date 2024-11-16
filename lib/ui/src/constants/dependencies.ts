@@ -29,9 +29,7 @@ function login(
 }
 
 function logout(path: Path): Promise<Record<'url', string> | undefined> {
-  console.log(`path ${path}`)
   const route = frontendRouteMatch(path)
-  console.log(`route found? ${!isNil(route)}`)
   if (!isNil(route) && route.secure) {
     return signOut({ redirectTo: frontendRoutes.base.home.getUrl(), redirect: true })
   }

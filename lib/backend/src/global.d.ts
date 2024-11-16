@@ -4,11 +4,8 @@ import 'ramda'
 import 'next-auth'
 import '@auth/core'
 import '@echo/utils/global'
+import type { User as ModelUser } from '@echo/model/types/user'
 import type { Nullable } from '@echo/utils/types/nullable'
-
-declare module '@sentry/nextjs' {
-  export declare function setUser(username: string): void
-}
 
 declare module 'next/server' {
   interface NextResponse {
@@ -17,9 +14,7 @@ declare module 'next/server' {
 }
 
 declare module 'next-auth' {
-  interface User {
-    username: string
-  }
+  interface User extends ModelUser {}
 
   interface JWT {
     user?: Nullable<User>

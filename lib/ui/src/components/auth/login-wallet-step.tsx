@@ -29,7 +29,6 @@ export const LoginWalletStep: FunctionComponent = () => {
             modify('signature', base64Encode),
             login,
             andThen(async (response) => {
-              console.log(`response ${JSON.stringify(response)}`)
               if (isNil(response) || !response.ok) {
                 await disconnectWallet()
               } else {

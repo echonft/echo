@@ -2,7 +2,6 @@
 
 import { collectionMocks } from '@echo/model/mocks/collection-mock'
 import { swapMocks } from '@echo/model/mocks/swap-mock'
-import { userMockCrew } from '@echo/model/mocks/user-mock'
 import { type Collection } from '@echo/model/types/collection'
 import { Header } from '@echo/ui/components/base/header/header'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
@@ -27,7 +26,7 @@ const metadata: Meta<typeof Component> = {
   decorators: [
     (Story) => (
       <PageLayout background={PageLayoutBackground.Home}>
-        <Header user={userMockCrew} />
+        <Header />
         <Story />
       </PageLayout>
     )

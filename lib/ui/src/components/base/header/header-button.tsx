@@ -1,5 +1,4 @@
 'use client'
-import type { User } from '@echo/model/types/user'
 import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import type { Path } from '@echo/routing/types/path'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
@@ -9,8 +8,8 @@ import { WalletButtonLayout } from '@echo/ui/components/wallet/layout/wallet-but
 import { WalletChainManager } from '@echo/ui/components/wallet/wallet-chain-manager'
 import { WalletStatusManager } from '@echo/ui/components/wallet/wallet-status-manager'
 import { useAccount } from '@echo/ui/hooks/use-account'
+import { useAuthUser } from '@echo/ui/hooks/use-auth-user'
 import { useLoginStore } from '@echo/ui/hooks/use-login-store'
-import type { Nullable } from '@echo/utils/types/nullable'
 import { AccountStatus } from '@echo/web3-dom/constants/account-status'
 import { shortenAddress } from '@echo/web3-dom/helpers/shorten-address'
 import { clsx } from 'clsx'
@@ -18,11 +17,8 @@ import { usePathname } from 'next/navigation'
 import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
-interface Props {
-  user: Nullable<User>
-}
-
-const HeaderButtonProfilePicture: FunctionComponent<Props> = ({ user }) => {
+const HeaderButtonProfilePicture: FunctionComponent = () => {
+  const user = useAuthUser()
   if (isNil(user)) {
     return null
   }
@@ -57,10 +53,10 @@ const HeaderButtonWallet: FunctionComponent = () => {
   return <WalletButtonLayout />
 }
 
-export const HeaderButton: FunctionComponent<Props> = ({ user }) => {
+export const HeaderButton: FunctionComponent = () => {
+  const user = useAuthUser()
   const path = usePathname() as Path
   const { setCallbackPath } = useLoginStore.getState()
-  console.log(`user ${JSON.stringify(user)}`)
   return (
     <InternalLink
       path={isNil(user) ? frontendRoutes.login.wallet.get() : frontendRoutes.user.profile.get()}
@@ -70,9 +66,9 @@ export const HeaderButton: FunctionComponent<Props> = ({ user }) => {
     >
       <div className={clsx('flex', 'flex-row', 'gap-4', 'h-max', 'w-max', 'group')}>
         <HeaderButtonWallet />
-        <HeaderButtonProfilePicture user={user} />
+        <HeaderButtonProfilePicture />
         <WalletChainManager />
-        <WalletStatusManager user={user} />
+        <WalletStatusManager />
       </div>
     </InternalLink>
   )

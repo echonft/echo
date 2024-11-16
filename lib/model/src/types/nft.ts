@@ -13,7 +13,7 @@ export interface Nft {
   attributes: NftAttribute[]
   collection: NftCollection
   name: string
-  owner?: User & Required<Pick<User, 'wallet'>>
+  owner?: User
   pictureUrl?: string
   tokenId: number
   type: TokenType.Erc721 | TokenType.Erc1155
