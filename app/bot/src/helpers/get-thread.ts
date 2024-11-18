@@ -6,8 +6,7 @@ interface GetThreadArgs {
   readonly threadId: string
 }
 
-export async function getThread(args: GetThreadArgs) {
-  const { channel, threadId } = args
+export async function getThread({ channel, threadId }: GetThreadArgs) {
   try {
     const thread = await channel.threads.fetch(threadId)
     if (isNil(thread)) {
@@ -15,7 +14,7 @@ export async function getThread(args: GetThreadArgs) {
     }
     return thread
   } catch (err) {
-    logger.error({ err, channel }, `could not get thread ${threadId}`)
+    logger.error({ err, channel: { id: channel.id }, thread: { id: threadId } }, 'could not get thread')
     return undefined
   }
 }

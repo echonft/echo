@@ -1,13 +1,6 @@
-import { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
-interface GetGuildArgs {
-  readonly client: Client
-  readonly guildId: string
-}
-
-export async function getGuild(args: GetGuildArgs) {
-  const { client, guildId } = args
+export async function getGuild(guildId: string) {
   const cachedGuild = client.guilds.cache.get(guildId)
   if (isNil(cachedGuild)) {
     return await client.guilds.fetch(guildId)

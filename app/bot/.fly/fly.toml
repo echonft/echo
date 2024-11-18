@@ -7,7 +7,7 @@ app = 'echobot'
 primary_region = 'yul'
 
 [build]
-dockerfile = '../../../Dockerfile'
+image = "registry.fly.io/echobot:latest"
 
 [[vm]]
 cpu_kind = 'shared'

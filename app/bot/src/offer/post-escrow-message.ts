@@ -10,7 +10,7 @@ import { offerSenderNftItems } from '@echo/model/helpers/offer/offer-sender-nft-
 import type { NftItem } from '@echo/model/types/item'
 import type { Offer } from '@echo/model/types/offer'
 import type { Username } from '@echo/model/types/username'
-import { type Client, userMention } from 'discord.js'
+import { userMention } from 'discord.js'
 import i18next from 'i18next'
 import { always, andThen, complement, isNil, type NonEmptyArray, otherwise, pipe, prop } from 'ramda'
 
@@ -40,14 +40,8 @@ async function areNftsFromItemsInEscrow(items: NonEmptyArray<NftItem>): Promise<
   return false
 }
 
-interface PostEscrowMessageArgs {
-  readonly client: Client
-  readonly offer: Offer
-}
-
-export async function postEscrowMessage(args: PostEscrowMessageArgs) {
-  const { offer } = args
-  const { offerThread, thread } = await getOfferThreadOnEchoChannel(args)
+export async function postEscrowMessage(offer: Offer) {
+  const { offerThread, thread } = await getOfferThreadOnEchoChannel(offer)
   if (!isNil(thread) && !isNil(offerThread)) {
     const senderNftsInEscrow = await pipe(offerSenderNftItems, areNftsFromItemsInEscrow)(offer)
     const receiverNftsInEscrow = await pipe(offerReceiverNftItems, areNftsFromItemsInEscrow)(offer)

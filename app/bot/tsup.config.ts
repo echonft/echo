@@ -7,7 +7,7 @@ export default defineConfig((options: Options) => ({
   format: 'esm',
   inject: ['src/cjs-shim.ts'],
   minify: true,
-  splitting: true,
+  splitting: false,
   platform: 'node',
   shims: true,
   sourcemap: true,

@@ -7,7 +7,7 @@ import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { UserError } from '@echo/model/constants/errors/user-error'
 import { OfferState } from '@echo/model/constants/offer-state'
 import type { Offer } from '@echo/model/types/offer'
-import { type Client, userMention } from 'discord.js'
+import { userMention } from 'discord.js'
 import i18next from 'i18next'
 import { assoc, isNil } from 'ramda'
 
@@ -36,14 +36,8 @@ async function getMessage(offer: Offer) {
   }
 }
 
-interface PostOfferStateUpdateArgs {
-  readonly client: Client
-  readonly offer: Offer
-}
-
-export async function postOfferUpdate(args: PostOfferStateUpdateArgs) {
-  const { offer } = args
-  const { offerThread, thread } = await getOfferThreadOnEchoChannel(args)
+export async function postOfferUpdate(offer: Offer) {
+  const { offerThread, thread } = await getOfferThreadOnEchoChannel(offer)
   if (!isNil(thread) && !isNil(offerThread)) {
     const content = await getMessage(offer)
     await sendToThread(thread, {

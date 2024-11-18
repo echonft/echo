@@ -5,15 +5,9 @@ import { getSwapPost } from '@echo/firestore/crud/swap-post/get-swap-post'
 import { getSwapOffer } from '@echo/firestore/crud/swap/get-swap-offer'
 import type { SwapChangeHandlerArgs } from '@echo/firestore/types/change-handler/swap-change-handler'
 import { echoDiscordGuild } from '@echo/utils/helpers/echo-discord-guild'
-import type { Client } from 'discord.js'
 import { assoc, isNil } from 'ramda'
 
-interface Args extends SwapChangeHandlerArgs {
-  readonly client: Client
-}
-
-export async function swapChangeHandler(args: Args) {
-  const { client, changeType, snapshot } = args
+export async function swapChangeHandler({ changeType, snapshot }: SwapChangeHandlerArgs) {
   if (changeType === 'added') {
     const swapId = snapshot.id
     const swap = snapshot.data()
@@ -27,10 +21,10 @@ export async function swapChangeHandler(args: Args) {
     const echoGuild = echoDiscordGuild()
     const post = await getSwapPost({ swapId, guildId: echoGuild.id })
     if (isNil(post)) {
-      await postSwap({ client, offer })
+      await postSwap(offer)
       const { id, data } = await addSwapPost({ swapId, guild: echoGuild })
       logger.info({ offer, swap: swapWithId, swapPost: assoc('id', id, data) }, 'added swap post to Firestore')
-      await archiveOfferThread({ client, offer })
+      await archiveOfferThread(offer)
     }
   }
 }

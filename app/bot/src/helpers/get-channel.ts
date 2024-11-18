@@ -1,14 +1,8 @@
 import { ChannelError } from '@echo/bot/constants/errors/channel-error'
-import { type Client, TextChannel } from 'discord.js'
+import { TextChannel } from 'discord.js'
 import { isNil } from 'ramda'
 
-interface GetChannelArgs {
-  readonly client: Client
-  readonly channelId: string
-}
-
-export async function getChannel(args: GetChannelArgs): Promise<TextChannel> {
-  const { client, channelId } = args
+export async function getChannel(channelId: string): Promise<TextChannel> {
   const cachedChannel = client.channels.cache.get(channelId)
   if (isNil(cachedChannel)) {
     const channel = await client.channels.fetch(channelId)

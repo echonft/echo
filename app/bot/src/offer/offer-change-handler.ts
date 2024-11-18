@@ -10,15 +10,9 @@ import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-usernam
 import type { OfferChangeHandlerArgs } from '@echo/firestore/types/change-handler/offer-change-handler'
 import { OfferState } from '@echo/model/constants/offer-state'
 import { echoDiscordGuild } from '@echo/utils/helpers/echo-discord-guild'
-import type { Client } from 'discord.js'
 import { assoc, isNil } from 'ramda'
 
-interface Args extends OfferChangeHandlerArgs {
-  readonly client: Client
-}
-
-export async function offerChangeHandler(args: Args) {
-  const { client, changeType, snapshot } = args
+export async function offerChangeHandler({ changeType, snapshot }: OfferChangeHandlerArgs) {
   const { id } = snapshot
   if (changeType === 'added') {
     logger.info({ offer: { id } }, 'offer was added')
@@ -36,7 +30,7 @@ export async function offerChangeHandler(args: Args) {
         logger.error({ offer: offerWithId }, 'receiver not found')
         return
       }
-      const { threadId, archive } = await createOfferThread({ client, offer: offerWithId, sender, receiver })
+      const { threadId, archive } = await createOfferThread({ offer: offerWithId, sender, receiver })
       try {
         const guild = assoc('threadId', threadId, echoDiscordGuild())
         const { id: offerThreadId, data } = await addOfferThread({ offerId: id, guild })
@@ -58,15 +52,14 @@ export async function offerChangeHandler(args: Args) {
     const postArgs = { offerId: id, state: offer.state }
     const post = await getOfferUpdatePost(postArgs)
     if (isNil(post)) {
-      await postOfferUpdate({ client, offer })
+      await postOfferUpdate(offer)
       if (offer.state === OfferState.Rejected || offer.state === OfferState.Cancelled) {
-        await archiveOfferThread({ client, offer })
+        await archiveOfferThread(offer)
         return
       }
       if (offer.state === OfferState.Expired) {
-        const args = { client, offer }
-        await postEscrowMessage(args)
-        await archiveOfferThread(args)
+        await postEscrowMessage(offer)
+        await archiveOfferThread(offer)
         return
       }
     }

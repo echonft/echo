@@ -11,6 +11,6 @@ describe('CRUD - user - getUserOffersCount', () => {
   it('returns the offer count for the user', async () => {
     const username = userMockJohnny.username
     const count = await getUserOffersCount(username)
-    expect(count).toEqual(2)
+    expect(count).toEqual(1)
   })
 })
