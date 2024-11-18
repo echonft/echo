@@ -12,7 +12,6 @@ import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-
 import { otherwiseUndefined } from '@echo/frontend/lib/helpers/otherwise-undefined'
 import { toSwaps } from '@echo/frontend/lib/helpers/swap/to-swaps'
 import type { User } from '@echo/model/types/user'
-import type { Username } from '@echo/model/types/username'
 import type { SelectionSearchParams } from '@echo/routing/types/frontend/search-params/selection-search-params'
 import { selectionSearchParamsDataSchema } from '@echo/routing/validators/frontend/selection/selection-search-params-data-schema'
 import { NavigationLayout } from '@echo/ui/components/base/layout/navigation-layout'
@@ -26,7 +25,7 @@ import { always, andThen, isNil, otherwise, pipe } from 'ramda'
 
 interface Props {
   params: {
-    username: Username
+    username: string
   }
   searchParams: SelectionSearchParams
   user: Nullable<User>

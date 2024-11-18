@@ -5,6 +5,7 @@ import type { BaseOffer, Offer } from '@echo/model/types/offer'
 import type { Erc20Token, TokenBalance } from '@echo/model/types/token'
 import type { Path } from '@echo/routing/types/path'
 import type { Nullable } from '@echo/utils/types/nullable'
+import type { OptionalRecord } from '@echo/utils/types/optional-record'
 import type { AccountResult } from '@echo/web3-dom/services/get-account'
 import type { GetErc721ContractApprovalArgs } from '@echo/web3-dom/services/get-erc721-contract-approval'
 import type { SignNonceArgs, SignNonceResult } from '@echo/web3-dom/services/sign-nonce'
@@ -23,7 +24,9 @@ export interface Dependencies {
   getAllErc20TokenBalances: (tokens: NonEmptyArray<Erc20Token>) => Promise<NonEmptyArray<TokenBalance<Erc20Token>>>
   getEchoTradingFees: () => Promise<bigint>
   getErc721ContractApproval: (args: GetErc721ContractApprovalArgs) => Promise<boolean>
-  login: () => Promise<Nullable<SignInResponse>>
+  login: (
+    options: Record<'message', string> & Record<'signature', string> & OptionalRecord<'code', string>
+  ) => Promise<Nullable<SignInResponse>>
   logout: (path: Path) => Promise<Nullable<Record<'url', string>>>
   redeemOffer: (offerId: Offer['idContract']) => Promise<HexString>
   signNonce: (args: SignNonceArgs) => Promise<SignNonceResult>

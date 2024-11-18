@@ -1,17 +1,14 @@
 import { addressSchema } from '@echo/model/validators/address-schema'
-import { usernameSchema } from '@echo/model/validators/username-schema'
 import { object, string } from 'zod'
 
 export const userSchema = object({
   discord: object({
     avatarUrl: string().url(),
-    username: usernameSchema,
+    username: string().min(1),
     globalName: string().optional()
   }),
-  username: usernameSchema,
-  wallet: addressSchema.optional()
+  username: string().min(1),
+  wallet: addressSchema
 })
-
-export const userWithWalletSchema = userSchema.omit({ wallet: true }).extend({ wallet: addressSchema })
 
 export const userIndexSchema = userSchema.pick({ username: true })

@@ -5,7 +5,7 @@ import { ProfilePicture } from '@echo/ui/components/base/profile-picture'
 import { UserDetailsDiscordTagAndWalletLayout } from '@echo/ui/components/user/details/layout/user-details-discord-tag-and-wallet-layout'
 import { UserDetailsLayout } from '@echo/ui/components/user/details/layout/user-details-layout'
 import { UserTag } from '@echo/ui/components/user/profile/user-tag'
-import { WalletConnectedButton } from '@echo/ui/components/wallet/wallet-connected-button'
+import { WalletCopyToClipboardButton } from '@echo/ui/components/wallet/wallet-copy-to-clipboard-button'
 import { Size } from '@echo/ui/constants/size'
 import { type FunctionComponent } from 'react'
 
@@ -30,7 +30,7 @@ export const UserDetails: FunctionComponent<Props> = ({ user, isAuthUser = false
       </InternalLink>
       <UserDetailsDiscordTagAndWalletLayout>
         <UserTag user={user} isAuthUser={isAuthUser} />
-        <WalletConnectedButton wallet={user.wallet} />
+        <WalletCopyToClipboardButton wallet={user.wallet} />
       </UserDetailsDiscordTagAndWalletLayout>
     </UserDetailsLayout>
   )

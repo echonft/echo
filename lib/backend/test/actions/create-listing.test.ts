@@ -13,7 +13,6 @@ import { ItemError } from '@echo/model/constants/errors/item-error'
 import { ListingError } from '@echo/model/constants/errors/listing-error'
 import { NftError } from '@echo/model/constants/errors/nft-error'
 import { UserError } from '@echo/model/constants/errors/user-error'
-import { WalletError } from '@echo/model/constants/errors/wallet-error'
 import { Expiration } from '@echo/model/constants/expiration'
 import { type NftTokenType, TokenType } from '@echo/model/constants/token-type'
 import { eqNft } from '@echo/model/helpers/nft/eq-nft'
@@ -26,7 +25,7 @@ import { unlessNil } from '@echo/utils/helpers/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { getTokenBalance } from '@echo/web3/services/get-token-balance'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
-import { andThen, assocPath, dissoc, find, modify, pipe } from 'ramda'
+import { andThen, assocPath, find, modify, pipe } from 'ramda'
 
 jest.mock('@echo/backend/helpers/get-auth-user')
 jest.mock('@echo/firestore/services/initialize-firebase')
@@ -50,7 +49,7 @@ describe('createListing', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
-    jest.mocked(getAuthUser).mockResolvedValue(userMockJohnny.username)
+    jest.mocked(getAuthUser).mockResolvedValue(userMockJohnny)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -111,11 +110,6 @@ describe('createListing', () => {
   it('throws if the user is not found', async () => {
     jest.mocked(getUserByUsername).mockResolvedValue(undefined)
     await expect(createListing(args)).rejects.toEqual(Error(UserError.NotFound))
-  })
-
-  it('throws if the user does not have a wallet', async () => {
-    jest.mocked(getUserByUsername).mockResolvedValue(dissoc('wallet', userDocumentMockJohnny))
-    await expect(createListing(args)).rejects.toEqual(Error(WalletError.NotFound))
   })
 
   it('valid', async () => {

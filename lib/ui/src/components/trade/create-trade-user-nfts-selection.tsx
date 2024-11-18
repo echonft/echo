@@ -5,12 +5,12 @@ import { Profile } from '@echo/ui/components/base/profile'
 import { SelectableNftsWithoutThumbnail } from '@echo/ui/components/nft/selectable/selectable-nfts-without-thumbnail'
 import { UserProfileDetailsLayout } from '@echo/ui/components/user/profile/layout/user-profile-details-layout'
 import { UserTag } from '@echo/ui/components/user/profile/user-tag'
-import { WalletConnectedButton } from '@echo/ui/components/wallet/wallet-connected-button'
+import { WalletCopyToClipboardButton } from '@echo/ui/components/wallet/wallet-copy-to-clipboard-button'
 import clsx from 'clsx'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  user: User & Required<Pick<User, 'wallet'>>
+  user: User
   nfts: OwnedNft[]
   selection: OwnedNft[]
   onSelect?: (nft: OwnedNft) => unknown
@@ -35,7 +35,7 @@ export const CreateTradeUserNftsSelection: FunctionComponent<Props> = ({
       <Profile picture={{ pictureUrl: avatarUrl, alt: username }}>
         <UserProfileDetailsLayout>
           <UserTag user={user} />
-          <WalletConnectedButton wallet={wallet} />
+          <WalletCopyToClipboardButton wallet={wallet} />
         </UserProfileDetailsLayout>
       </Profile>
       <SelectableNftsWithoutThumbnail

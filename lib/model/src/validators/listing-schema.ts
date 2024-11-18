@@ -11,7 +11,7 @@ import { itemsContainErc1155Duplicates } from '@echo/model/validators/helpers/it
 import { itemsContainErc721Duplicates } from '@echo/model/validators/helpers/items-contain-erc721-duplicates'
 import { erc1155ItemIndexSchema, erc721ItemIndexSchema, nftItemSchema } from '@echo/model/validators/item-schema'
 import { slugSchema, withSlugSchema } from '@echo/model/validators/slug-schema'
-import { userIndexSchema, userWithWalletSchema } from '@echo/model/validators/user-schema'
+import { userIndexSchema, userSchema } from '@echo/model/validators/user-schema'
 import { as } from '@echo/utils/helpers/as'
 import {
   complement,
@@ -36,7 +36,7 @@ const listingTargetSchema = object({
 })
 
 export const listingSchema = object({
-  creator: userWithWalletSchema,
+  creator: userSchema,
   expiresAt: number().int().positive(),
   items: nftItemSchema
     .array()

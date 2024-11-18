@@ -1,28 +1,28 @@
 'use client'
-import type { User } from '@echo/model/types/user'
 import { LoginStepLayout } from '@echo/ui/components/auth/layout/login-step-layout'
-import { LoginDiscordConnect } from '@echo/ui/components/auth/login-discord-connect'
-import type { Nullable } from '@echo/utils/types/nullable'
+import { DiscordIconSvg } from '@echo/ui/components/base/svg/discord-icon-svg'
+import { discordOAuthUrl } from '@echo/ui/constants/discord-oauth-url'
+import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { isNil } from 'ramda'
+import { useRouter } from 'next/navigation'
 import type { FunctionComponent } from 'react'
 
-interface Props {
-  user: Nullable<User>
-  onContinue?: VoidFunction
-}
-
-export const LoginDiscordStep: FunctionComponent<Props> = ({ user, onContinue }) => {
+export const LoginDiscordStep: FunctionComponent = () => {
+  const router = useRouter()
   const t = useTranslations('auth.discord')
   return (
-    <LoginStepLayout
-      title={t('title')}
-      subtitle={t('subtitle')}
-      btnLabel={t('continueBtn')}
-      btnDisabled={isNil(user)}
-      onBtnClick={onContinue}
-    >
-      <LoginDiscordConnect user={user} />
+    <LoginStepLayout title={t('title')}>
+      <button
+        className={clsx('btn-auth')}
+        onClick={() => {
+          router.push(discordOAuthUrl())
+        }}
+      >
+        <span className={'text-white'}>
+          <DiscordIconSvg width={24} height={24} />
+        </span>
+        <span className={clsx('btn-label-auth')}>{t('btn')}</span>
+      </button>
     </LoginStepLayout>
   )
 }

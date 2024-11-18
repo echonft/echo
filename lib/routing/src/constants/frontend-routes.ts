@@ -1,5 +1,4 @@
 import type { Slug } from '@echo/model/types/slug'
-import type { Username } from '@echo/model/types/username'
 import { FrontendRoute } from '@echo/routing/services/frontend/frontend-route'
 import type { ListingQueryParams } from '@echo/routing/types/frontend/query-params/listing-query-params'
 import type { OfferQueryParams } from '@echo/routing/types/frontend/query-params/offer-query-params'
@@ -22,8 +21,7 @@ export const frontendRoutes = {
     )
   },
   base: {
-    home: new FrontendRoute('/', { secure: false }),
-    notFound: new FrontendRoute('/_not-found', { secure: false })
+    home: new FrontendRoute('/', { secure: false })
   },
   collection: {
     all: new FrontendRoute('/collections', { secure: false }),
@@ -40,6 +38,12 @@ export const frontendRoutes = {
       (params: ListingQueryParams) => listingQueryParamsTransformSchema.parse(params)
     )
   },
+  login: {
+    discord: new FrontendRoute('/login/discord', { secure: false }),
+    join: new FrontendRoute('/login/join', { secure: false }),
+    sign: new FrontendRoute('/login/sign', { secure: false }),
+    wallet: new FrontendRoute('/login/wallet', { secure: false })
+  },
   offer: {
     create: new FrontendRoute<never, OfferQueryParams, OfferSearchParams>(
       '/offer',
@@ -48,7 +52,7 @@ export const frontendRoutes = {
     )
   },
   user: {
-    details: new FrontendRoute<Record<'username', Username>, SelectionQueryParams, SelectionSearchParams>(
+    details: new FrontendRoute<Record<'username', string>, SelectionQueryParams, SelectionSearchParams>(
       '/user/:username',
       { secure: false },
       (params: SelectionQueryParams) => selectionQueryParamsTransformSchema.parse(params)

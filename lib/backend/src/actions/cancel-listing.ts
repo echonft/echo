@@ -6,6 +6,7 @@ import { cancelListing as firestoreCancelListing } from '@echo/firestore/crud/li
 import { getListing } from '@echo/firestore/crud/listing/get-listing'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { ListingError } from '@echo/model/constants/errors/listing-error'
+import { eqUser } from '@echo/model/helpers/user/eq-user'
 import type { Listing } from '@echo/model/types/listing'
 import type { Slug } from '@echo/model/types/slug'
 import { andThen, isNil, pipe } from 'ramda'
@@ -20,7 +21,7 @@ export async function cancelListing(slug: Slug): Promise<Listing> {
   if (isNil(listing)) {
     return Promise.reject(Error(ListingError.NotFound))
   }
-  if (listing.locked || listing.creator.username !== authUser) {
+  if (listing.locked || !eqUser(listing.creator, authUser)) {
     return Promise.reject(Error(AuthError.Forbidden))
   }
   return pipe(firestoreCancelListing, andThen(listingDocumentToModel))(slug)

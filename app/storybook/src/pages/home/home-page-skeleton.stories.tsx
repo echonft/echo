@@ -1,6 +1,5 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { userMockCrew } from '@echo/model/mocks/user-mock'
 import { Header } from '@echo/ui/components/base/header/header'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { PageLayoutBackground } from '@echo/ui/constants/page-layout-background'
@@ -13,7 +12,7 @@ const metadata: Meta<typeof Component> = {
   decorators: [
     (Story) => (
       <PageLayout background={PageLayoutBackground.Home}>
-        <Header user={userMockCrew} />
+        <Header />
         <Story />
       </PageLayout>
     )

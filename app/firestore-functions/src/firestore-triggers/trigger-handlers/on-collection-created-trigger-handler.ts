@@ -15,8 +15,8 @@ import { error, info } from 'firebase-functions/logger'
 import { always, andThen, assoc, dissoc, isNil, otherwise, pipe, prop, unless } from 'ramda'
 
 export async function onCollectionCreatedTriggerHandler(document: Nullable<CollectionDocument>) {
-  info({ collection: document }, 'collection was created')
   if (!isNil(document)) {
+    info({ collection: document }, 'collection was created')
     const collection = await pipe(
       prop('contract'),
       getCollectionByContract,

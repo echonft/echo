@@ -7,7 +7,6 @@ import { userMockJohnny } from '@echo/model/mocks/user-mock'
 import { OfferDetailsContractApprovalModal as Component } from '@echo/ui/components/offer/details/offer-details-contract-approval-modal'
 import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
 import type { Meta, StoryObj } from '@storybook/react'
-import { useTranslations } from 'next-intl'
 import { assoc, pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
@@ -36,7 +35,6 @@ export default metadata
 
 export const Modal: StoryObj<typeof Component> = {
   render: ({ onSuccess, onClose }) => {
-    const t = useTranslations('offer.details.swapModal')
     const items = pipe(
       offerReceiverNftItems,
       nonEmptyMap(pipe(nftItemToNft(userMockJohnny), assoc('attributes', [])))
@@ -45,8 +43,8 @@ export const Modal: StoryObj<typeof Component> = {
       <Component
         items={items}
         open={true}
-        title={t('title')}
-        subtitle={t('approval.subtitle')}
+        title={'Execute Swap'}
+        subtitle={'To create the offer, you first need to approve the Echo contract to escrow your NFTs'}
         onSuccess={onSuccess}
         onClose={onClose}
       />

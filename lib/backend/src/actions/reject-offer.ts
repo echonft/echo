@@ -6,6 +6,7 @@ import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { rejectOffer as firestoreRejectOffer } from '@echo/firestore/crud/offer/reject-offer'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
+import { eqUser } from '@echo/model/helpers/user/eq-user'
 import type { Offer } from '@echo/model/types/offer'
 import type { Slug } from '@echo/model/types/slug'
 import { andThen, isNil, pipe } from 'ramda'
@@ -20,7 +21,7 @@ export async function rejectOffer(slug: Slug): Promise<Offer> {
   if (isNil(offer)) {
     return Promise.reject(Error(OfferError.NotFound))
   }
-  if (offer.locked || offer.receiver.username !== authUser) {
+  if (offer.locked || !eqUser(offer.receiver, authUser)) {
     return Promise.reject(Error(AuthError.Forbidden))
   }
   return pipe(firestoreRejectOffer, andThen(offerDocumentToModel))(slug)

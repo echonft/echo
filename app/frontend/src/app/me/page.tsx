@@ -54,7 +54,7 @@ async function render({ searchParams, user }: Props) {
 
   return (
     <PageLayout>
-      <Header user={user} />
+      <Header />
       <MainSectionLayout>
         <NavigationLayout>
           <SectionLayout>

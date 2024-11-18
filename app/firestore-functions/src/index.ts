@@ -4,7 +4,7 @@ export { onCollectionCreated } from '@echo/firestore-functions/functions/on-coll
 export { onListingCreated } from '@echo/firestore-functions/functions/on-listing-created'
 export { onNftUpdated } from '@echo/firestore-functions/functions/on-nft-updated'
 export { onOfferCreated } from '@echo/firestore-functions/functions/on-offer-created'
-export { onUserUpdated } from '@echo/firestore-functions/functions/on-user-updated'
+export { onUserCreated } from '@echo/firestore-functions/functions/on-user-created'
 import { initializeApp } from 'firebase-admin/app'
 import { initializeFirestore } from 'firebase-admin/firestore'
 

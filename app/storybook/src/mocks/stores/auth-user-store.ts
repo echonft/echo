@@ -1,22 +1,21 @@
 import { userMocks } from '@echo/model/mocks/user-mock'
 import type { User } from '@echo/model/types/user'
-import type { Username } from '@echo/model/types/username'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { assoc, find, propEq } from 'ramda'
 import { create } from 'zustand'
 
 interface AuthUserStore {
   user: Nullable<User>
-  signIn: (username: Username) => void
+  signIn: (username: string) => void
   signOut: () => void
 }
 
-function getUserByUsername(username: Username) {
+function getUserByUsername(username: string) {
   return find(propEq(username, 'username'), userMocks)
 }
 export const authUserStore = create<AuthUserStore>((set) => ({
   user: undefined,
-  signIn: (username: Username) => {
+  signIn: (username: string) => {
     set(assoc('user', getUserByUsername(username)))
   },
   signOut: () => {

@@ -1,11 +1,10 @@
-import type { Username } from '@echo/model/types/username'
 import { CardDiscordTag } from '@echo/ui/components/base/card/card-discord-tag'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 interface Props {
   hideOwner?: boolean
-  username: Username
+  username: string
 }
 
 export const NftStackDiscordTag: FunctionComponent<Props> = ({ username, hideOwner }) => {

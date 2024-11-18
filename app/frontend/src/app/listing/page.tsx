@@ -5,7 +5,6 @@ import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-u
 import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-array'
 import { otherwiseUndefined } from '@echo/frontend/lib/helpers/otherwise-undefined'
 import { nftIsOwnedBy } from '@echo/model/helpers/nft/nft-is-owned-by'
-import type { Listing } from '@echo/model/types/listing'
 import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
 import type { ListingSearchParams } from '@echo/routing/types/frontend/search-params/listing-search-params'
@@ -46,15 +45,10 @@ async function render({ searchParams, user }: Props) {
 
   return (
     <PageLayout>
-      <Header user={user} />
+      <Header />
       <MainSectionLayout>
         <NavigationSectionLayout>
-          <CreateListingManager
-            creator={user as Listing['creator']} // TODO gatekeep route with connected wallet
-            creatorNfts={creatorNfts}
-            items={listingItems}
-            target={listingTarget}
-          />
+          <CreateListingManager creator={user} creatorNfts={creatorNfts} items={listingItems} target={listingTarget} />
         </NavigationSectionLayout>
         <CalloutManager />
       </MainSectionLayout>

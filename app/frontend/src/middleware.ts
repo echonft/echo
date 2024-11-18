@@ -1,6 +1,5 @@
-import { baseAuthConfig } from '@echo/backend/auth-config'
+import { baseAuthConfig } from '@echo/backend/auth/auth-config'
 import { apiRoutes } from '@echo/routing/constants/api-routes'
-import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { baseUrl } from '@echo/routing/helpers/base-url'
 import { frontendRouteMatch } from '@echo/routing/helpers/frontend/frontend-route-match'
 import type { Path } from '@echo/routing/types/path'
@@ -63,10 +62,10 @@ export default auth((request: NextAuthRequest): void | Response | Promise<void |
   }
   if (isSecureFrontendPath(path) && isNilOrEmpty(request.auth?.user)) {
     // Redirect to login page
-    const signInUrl = request.nextUrl.clone()
-    signInUrl.pathname = frontendRoutes.auth.signIn.get()
-    signInUrl.searchParams.set('callbackUrl', request.nextUrl.href)
-    return NextResponse.redirect(signInUrl)
+    // const signInUrl = request.nextUrl.clone()
+    // signInUrl.pathname = frontendRoutes.auth.signIn.get()
+    // signInUrl.searchParams.set('callbackUrl', request.nextUrl.href)
+    // return NextResponse.redirect(signInUrl)
   }
 }) as RouteHandler
 

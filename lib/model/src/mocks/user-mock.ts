@@ -1,6 +1,6 @@
 import type { User } from '@echo/model/types/user'
 
-export const userMockCrew: User & Required<Pick<User, 'wallet'>> = {
+export const userMockCrew: User = {
   username: 'crewnft_',
   discord: {
     username: 'crewnft_',
@@ -10,7 +10,7 @@ export const userMockCrew: User & Required<Pick<User, 'wallet'>> = {
   wallet: '0xf672715f2ba85794659a7150e8c21f8d157bfe1d'
 }
 
-export const userMockJohnny: User & Required<Pick<User, 'wallet'>> = {
+export const userMockJohnny: User = {
   username: 'johnnycagewins',
   discord: {
     username: 'johnnycagewins',

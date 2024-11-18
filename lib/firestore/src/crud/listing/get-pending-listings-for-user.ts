@@ -6,11 +6,10 @@ import { queryWhere } from '@echo/firestore/helpers/query/query-where'
 import type { ListingDocument } from '@echo/firestore/types/model/listing-document'
 import type { OwnedNftDocument } from '@echo/firestore/types/model/nft-document'
 import { nftsCollectionSlug } from '@echo/model/helpers/nft/nfts-collection-slug'
-import type { Username } from '@echo/model/types/username'
 import type { CollectionReference, Query } from 'firebase-admin/firestore'
 import { eqProps, isEmpty, juxt, map, partial, partialRight, pipe, splitEvery } from 'ramda'
 
-export async function getPendingListingsForUser(username: Username): Promise<ListingDocument[]> {
+export async function getPendingListingsForUser(username: string): Promise<ListingDocument[]> {
   const nfts = await getNftsForOwner(username)
   if (isEmpty(nfts)) {
     return []

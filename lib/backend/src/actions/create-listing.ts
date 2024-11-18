@@ -13,10 +13,8 @@ import { ItemError } from '@echo/model/constants/errors/item-error'
 import { ListingError } from '@echo/model/constants/errors/listing-error'
 import { NftError } from '@echo/model/constants/errors/nft-error'
 import { UserError } from '@echo/model/constants/errors/user-error'
-import { WalletError } from '@echo/model/constants/errors/wallet-error'
 import { isErc1155Item } from '@echo/model/helpers/item/is-erc1155-item'
 import { listingSignature } from '@echo/model/helpers/listing/listing-signature'
-import { userHasWallet } from '@echo/model/helpers/user/user-has-wallet'
 import type { Listing } from '@echo/model/types/listing'
 import { unlessNil } from '@echo/utils/helpers/unless-nil'
 import { getTokenBalance } from '@echo/web3/services/get-token-balance'
@@ -29,12 +27,9 @@ export async function createListing(args: Omit<AddListingArgs, 'creator'>): Prom
     return Promise.reject(Error(AuthError.Unauthorized))
   }
   await initializeFirebase()
-  const owner = await pipe(getUserByUsername, andThen(unlessNil(userDocumentToModel)))(authUser)
+  const owner = await pipe(getUserByUsername, andThen(unlessNil(userDocumentToModel)))(authUser.username)
   if (isNil(owner)) {
     return Promise.reject(Error(UserError.NotFound))
-  }
-  if (!userHasWallet(owner)) {
-    return Promise.reject(Error(WalletError.NotFound))
   }
   for (const item of items) {
     const nft = await getNftByIndex(item.token)

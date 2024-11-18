@@ -1,7 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { collectionMocks } from '@echo/model/mocks/collection-mock'
-import { userMockCrew } from '@echo/model/mocks/user-mock'
 import { type Collection } from '@echo/model/types/collection'
 import { Header } from '@echo/ui/components/base/header/header'
 import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
@@ -19,7 +18,7 @@ const metadata: Meta<typeof Component> = {
   decorators: [
     (Story) => (
       <PageLayout background={PageLayoutBackground.Collections}>
-        <Header style={HeaderStyle.Default} user={userMockCrew} />
+        <Header style={HeaderStyle.Default} />
         <MainSectionLayout>
           <Story />
         </MainSectionLayout>

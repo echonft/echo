@@ -6,7 +6,7 @@ import { ProfileLayout } from '@echo/ui/components/base/layout/profile-layout'
 import { Profile } from '@echo/ui/components/base/profile'
 import { UserProfileDetailsLayout } from '@echo/ui/components/user/profile/layout/user-profile-details-layout'
 import { UserTag } from '@echo/ui/components/user/profile/user-tag'
-import { WalletConnectedButton } from '@echo/ui/components/wallet/wallet-connected-button'
+import { WalletCopyToClipboardButton } from '@echo/ui/components/wallet/wallet-copy-to-clipboard-button'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
@@ -34,7 +34,7 @@ export const AuthUserProfile: FunctionComponent<Props> = ({
           <UserProfileDetailsLayout>
             <UserTag user={user} />
             <div className={clsx('flex', 'flex-row', 'h-max', 'w-max', 'gap-2.5')}>
-              <WalletConnectedButton wallet={user.wallet} />
+              <WalletCopyToClipboardButton wallet={user.wallet} />
               <LogoutButton />
             </div>
           </UserProfileDetailsLayout>

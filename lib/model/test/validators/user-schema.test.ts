@@ -1,7 +1,7 @@
 import { userMockJohnny } from '@echo/model/mocks/user-mock'
 import { userIndexSchema, userSchema } from '@echo/model/validators/user-schema'
 import { describe, expect, it } from '@jest/globals'
-import { assocPath, map, pick, pipe, prop } from 'ramda'
+import { assoc, assocPath, dissoc, map, pick, pipe, prop } from 'ramda'
 import { ZodError } from 'zod'
 
 describe('userSchema', () => {
@@ -46,6 +46,15 @@ describe('userSchema', () => {
   it('invalid when discord global name is not valid', () => {
     const path = ['discord', 'globalName']
     expectZodError(assocPath(path, {}, userMockJohnny), path)
+  })
+
+  it('invalid when wallet is missing or not valid', () => {
+    const prop = 'wallet'
+    const path = [prop]
+    expectZodError(dissoc(prop, userMockJohnny), path)
+    expectZodError(assoc(prop, {}, userMockJohnny), path)
+    expectZodError(assoc(prop, undefined, userMockJohnny), path)
+    expectZodError(assoc(prop, '', userMockJohnny), path)
   })
 
   it('valid without globalName', () => {

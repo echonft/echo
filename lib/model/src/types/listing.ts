@@ -6,7 +6,7 @@ import type { User } from '@echo/model/types/user'
 import type { NonEmptyArray } from 'ramda'
 
 export interface Listing {
-  creator: User & Required<Pick<User, 'wallet'>>
+  creator: User
   expiresAt: number
   items: NonEmptyArray<NftItem>
   locked: boolean
