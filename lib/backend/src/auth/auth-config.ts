@@ -19,6 +19,7 @@ export const baseAuthConfig: Omit<NextAuthConfig, 'providers'> = {
     }
   },
   pages: {
-    signIn: '/login'
+    signIn: '/login',
+    signOut: '/logout'
   }
 }

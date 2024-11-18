@@ -412,6 +412,9 @@ importers:
       '@echo/model':
         specifier: workspace:*
         version: link:../model
+      '@echo/nft-scan':
+        specifier: workspace:*
+        version: link:../nft-scan
       '@echo/routing':
         specifier: workspace:*
         version: link:../routing

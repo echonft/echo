@@ -2,6 +2,7 @@ import { baseAuthConfig } from '@echo/backend/auth/auth-config'
 import { fetchDiscordAccessToken } from '@echo/backend/auth/discord/fetch-discord-access-token'
 import { fetchDiscordProfile } from '@echo/backend/auth/discord/fetch-discord-profile'
 import { revokeDiscordAccessToken } from '@echo/backend/auth/discord/revoke-discord-access-token'
+import { isUserWhitelisted } from '@echo/backend/helpers/is-user-whitelisted'
 import { error } from '@echo/backend/helpers/logger'
 import { credentialsSchema } from '@echo/backend/validators/credentials-schema'
 import { userDocumentToModel } from '@echo/firestore/converters/user-document-to-model'
@@ -39,7 +40,11 @@ const {
             return null
           }
           const wallet = addressSchema.parse(address)
-          // TODO verify that the wallet has WL NFTs using wlContracts + a call to NFTScan (GetNftsByAccount + contract_address parameter)
+          const isWhitelisted = await isUserWhitelisted(wallet)
+          if (!isWhitelisted) {
+            error({ wallet }, 'user is not whitelisted')
+            return null
+          }
           if (isNil(code)) {
             await initializeFirebase()
             const user = await getUserByWallet(wallet)
@@ -89,4 +94,4 @@ const {
   ]
 })
 
-export { GET, POST, auth }
+export { auth, GET, POST }
