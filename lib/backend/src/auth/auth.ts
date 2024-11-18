@@ -3,7 +3,7 @@ import { fetchDiscordAccessToken } from '@echo/backend/auth/discord/fetch-discor
 import { fetchDiscordProfile } from '@echo/backend/auth/discord/fetch-discord-profile'
 import { revokeDiscordAccessToken } from '@echo/backend/auth/discord/revoke-discord-access-token'
 import { isUserWhitelisted } from '@echo/backend/helpers/is-user-whitelisted'
-import { error } from '@echo/backend/helpers/logger'
+import { error, info } from '@echo/backend/helpers/logger'
 import { credentialsSchema } from '@echo/backend/validators/credentials-schema'
 import { userDocumentToModel } from '@echo/firestore/converters/user-document-to-model'
 import { addUser } from '@echo/firestore/crud/user/add-user'
@@ -42,7 +42,7 @@ const {
           const wallet = addressSchema.parse(address)
           const isWhitelisted = await isUserWhitelisted(wallet)
           if (!isWhitelisted) {
-            error({ wallet }, 'user is not whitelisted')
+            info({ wallet }, 'user is not whitelisted')
             return null
           }
           if (isNil(code)) {
