@@ -10,7 +10,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { isNil } from 'ramda'
 import { type FunctionComponent, useCallback } from 'react'
 
-export const WalletStatusManager: FunctionComponent = () => {
+export const HeaderButtonWalletStatusManager: FunctionComponent = () => {
   const { status } = useAuthUser()
   const router = useRouter()
   const path = usePathname() as Path

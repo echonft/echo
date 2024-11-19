@@ -1,4 +1,4 @@
-import { ProfileSkeleton } from '@echo/ui/components/base/profile-skeleton'
+import { ProfileSkeleton } from '@echo/ui/components/base/profile/skeleton/profile-skeleton'
 import { CollectionProfileDetailsLayout } from '@echo/ui/components/collection/profile/layout/collection-profile-details-layout'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'

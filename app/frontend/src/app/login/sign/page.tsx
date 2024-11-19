@@ -1,4 +1,4 @@
-import { LoginSignStep } from '@echo/ui/components/auth/login-sign-step'
+import { LoginSignStep } from '@echo/ui/components/base/auth/login-sign-step'
 
 interface Props {
   searchParams?: {

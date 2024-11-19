@@ -1,6 +1,6 @@
 'use client'
 import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
-import { LoginStepLayout } from '@echo/ui/components/auth/layout/login-step-layout'
+import { LoginStepLayout } from '@echo/ui/components/base/auth/layout/login-step-layout'
 import { WalletIconSvg } from '@echo/ui/components/base/svg/wallet-icon-svg'
 import { useAccount } from '@echo/ui/hooks/use-account'
 import { useDependencies } from '@echo/ui/hooks/use-dependencies'

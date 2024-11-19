@@ -11,13 +11,10 @@ else
   exit 1
 fi
 
-AUTH_DISCORD_ID=$(gcloud secrets versions access 'latest' --secret="DISCORD_CLIENT_ID" --project="$project_id")
-AUTH_DISCORD_SECRET=$(gcloud secrets versions access 'latest' --secret="DISCORD_CLIENT_SECRET" --project="$project_id")
 AUTH_SECRET=$(gcloud secrets versions access 'latest' --secret="AUTH_SECRET" --project="$project_id")
 printf "\e[36mStarting frontend development on %s environment\n\e[0m" "$ENV"
-sleep 3
+sleep 1
 ENV="$ENV" \
 AUTH_SECRET="$AUTH_SECRET" \
-AUTH_DISCORD_ID="$AUTH_DISCORD_ID" \
-AUTH_DISCORD_SECRET="$AUTH_DISCORD_SECRET" \
+NEXT_PUBLIC_VERCEL_URL="localhost:3000" \
  pnpm exec turbo dev --filter=@echo/frontend --filter=@echo/ui

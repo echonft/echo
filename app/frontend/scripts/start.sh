@@ -12,16 +12,6 @@ else
 fi
 
 # Get the secrets
-AUTH_DISCORD_ID=$(gcloud secrets versions access 'latest' --secret="DISCORD_CLIENT_ID" --project="$project_id")
-if [ ! "$AUTH_DISCORD_ID" ]; then
-  printf "\e[31mDISCORD_CLIENT_ID secret not found\n\e[0m"
-  exit 1
-fi
-AUTH_DISCORD_SECRET=$(gcloud secrets versions access 'latest' --secret="DISCORD_CLIENT_SECRET" --project="$project_id")
-if [ ! "$AUTH_DISCORD_SECRET" ]; then
-  printf "\e[31mDISCORD_CLIENT_SECRET secret not found\n\e[0m"
-  exit 1
-fi
 AUTH_SECRET=$(gcloud secrets versions access 'latest' --secret="AUTH_SECRET" --project="$project_id")
 if [ ! "$AUTH_SECRET" ]; then
   printf "\e[31mAUTH_SECRET secret not found\n\e[0m"
@@ -40,9 +30,8 @@ fi
 
 # start with the env vars
 AUTH_SECRET="$AUTH_SECRET" \
-AUTH_DISCORD_ID="$AUTH_DISCORD_ID" \
-AUTH_DISCORD_SECRET="$AUTH_DISCORD_SECRET" \
 SECRET_MANAGER_EMAIL="$SECRET_MANAGER_EMAIL" \
 SECRET_MANAGER_PRIVATE_KEY="$SECRET_MANAGER_PRIVATE_KEY" \
-NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL="localhost:3000" \
+NEXT_PUBLIC_VERCEL_URL="localhost:3000" \
+NODE_ENV="production" \
  next start

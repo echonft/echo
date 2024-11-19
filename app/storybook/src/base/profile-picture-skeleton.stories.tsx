@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { ProfilePictureSkeleton as Component } from '@echo/ui/components/base/profile-picture-skeleton'
+import { ProfilePictureSkeleton as Component } from '@echo/ui/components/base/profile/skeleton/profile-picture-skeleton'
 import { Size } from '@echo/ui/constants/size'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { values } from 'ramda'

@@ -5,6 +5,6 @@ const i18n = getRequestConfig(() => ({
   locale: 'en',
   messages,
   timeZone: 'America/New_York'
-})) as unknown
+}))
 
 export default i18n

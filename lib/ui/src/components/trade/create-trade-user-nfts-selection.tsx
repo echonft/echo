@@ -1,11 +1,11 @@
 'use client'
 import type { OwnedNft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
-import { Profile } from '@echo/ui/components/base/profile'
+import { Profile } from '@echo/ui/components/base/profile/profile'
+import { WalletCopyToClipboardButton } from '@echo/ui/components/base/wallet/wallet-copy-to-clipboard-button'
 import { SelectableNftsWithoutThumbnail } from '@echo/ui/components/nft/selectable/selectable-nfts-without-thumbnail'
 import { UserProfileDetailsLayout } from '@echo/ui/components/user/profile/layout/user-profile-details-layout'
 import { UserTag } from '@echo/ui/components/user/profile/user-tag'
-import { WalletCopyToClipboardButton } from '@echo/ui/components/wallet/wallet-copy-to-clipboard-button'
 import clsx from 'clsx'
 import type { FunctionComponent } from 'react'
 

@@ -1,5 +1,5 @@
-import { ProfileDetailsLayout } from '@echo/ui/components/base/layout/profile-details-layout'
-import { ProfilePicture, type ProfilePictureProps } from '@echo/ui/components/base/profile-picture'
+import { ProfileDetailsLayout } from '@echo/ui/components/base/profile/layout/profile-details-layout'
+import { ProfilePicture, type ProfilePictureProps } from '@echo/ui/components/base/profile/profile-picture'
 import { Size } from '@echo/ui/constants/size'
 import type { FunctionComponent, PropsWithChildren } from 'react'
 

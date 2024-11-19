@@ -15,8 +15,8 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@auth/core": "0.37.3",
-    "@sentry/nextjs": "8.38.0",
+    "@auth/core": "0.37.4",
+    "@sentry/nextjs": "8.39.0",
     "dayjs": "1.11.13",
     "next": "14.2.18",
     "next-auth": "5.0.0-beta.25",

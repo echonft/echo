@@ -1,17 +1,16 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
+  "globalPassThroughEnv": ["CI", "ENV", "LOG_LEVEL", "NODE_ENV"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**"],
-      "passThroughEnv": ["CI", "ENV"]
+      "outputs": ["dist/**"]
     },
     "clean": {
       "cache": false
     },
     "dev": {
-      "passThroughEnv": ["ENV", "LOG_LEVEL", "NODE_ENV"],
       "cache": false,
       "persistent": true
     },
@@ -26,6 +25,10 @@
       "cache": false
     },
     "prettier": {},
+    "start": {
+      "cache": false,
+      "persistent": true
+    },
     "test": {},
     "test:ci": {},
     "tsc": {}

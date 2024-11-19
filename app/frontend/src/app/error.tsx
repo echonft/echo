@@ -1,24 +1,11 @@
 'use client'
-import type { NextErrorParams } from '@echo/frontend/lib/types/next-error-params'
-import { Header } from '@echo/ui/components/base/header/header'
-import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
-import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
-import { HeaderStyle } from '@echo/ui/constants/header-style'
-import { Error500Page } from '@echo/ui/pages/error/error-500-page'
-import { captureException } from '@sentry/nextjs'
-import { useEffect } from 'react'
+import { Error as ErrorComponent } from '@echo/ui/components/error/error'
 
-export default function ({ error, reset }: NextErrorParams) {
-  useEffect(() => {
-    captureException(error)
-  }, [error])
+interface Props {
+  error: Error & Partial<Record<'digest', string>>
+  reset: VoidFunction
+}
 
-  return (
-    <PageLayout>
-      <Header style={HeaderStyle.Plain} />
-      <MainSectionLayout>
-        <Error500Page onReset={reset} />
-      </MainSectionLayout>
-    </PageLayout>
-  )
+export default function ({ error, reset }: Props) {
+  return <ErrorComponent error={error} reset={reset} />
 }

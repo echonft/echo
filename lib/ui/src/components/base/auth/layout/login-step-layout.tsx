@@ -1,4 +1,4 @@
-import { LoginTitle } from '@echo/ui/components/auth/login-title'
+import { LoginTitle } from '@echo/ui/components/base/auth/login-title'
 import { clsx } from 'clsx'
 import type { FunctionComponent, PropsWithChildren } from 'react'
 

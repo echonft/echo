@@ -1,6 +1,6 @@
 import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-user'
 import type { User } from '@echo/model/types/user'
-import { LoginJoinEchoStep } from '@echo/ui/components/auth/login-join-echo-step'
+import { LoginJoinEchoStep } from '@echo/ui/components/base/auth/login-join-echo-step'
 
 interface Props {
   user: User

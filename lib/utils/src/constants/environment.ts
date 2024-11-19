@@ -4,8 +4,7 @@ export enum Environment {
   Development = 'development',
   Staging = 'staging',
   Production = 'production',
-  Test = 'test',
-  Testnet = 'testnet'
+  Test = 'test'
 }
 
 export function environment() {

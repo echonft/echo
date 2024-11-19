@@ -1,6 +1,5 @@
 import type { Collection } from '@echo/model/types/collection'
-import { PaddedLayout } from '@echo/ui/components/base/layout/padded-layout'
-import { Profile } from '@echo/ui/components/base/profile'
+import { Profile } from '@echo/ui/components/base/profile/profile'
 import { CollectionLinks, type CollectionLinksProps } from '@echo/ui/components/collection/profile/collection-links'
 import { CollectionProfileSupply } from '@echo/ui/components/collection/profile/collection-profile-supply'
 import { CollectionProfileDetailsLayout } from '@echo/ui/components/collection/profile/layout/collection-profile-details-layout'
@@ -22,18 +21,16 @@ export const CollectionProfile: FunctionComponent<CollectionProfileProps> = ({
   websiteUrl
 }) => {
   return (
-    <PaddedLayout>
-      <Profile picture={{ pictureUrl: pictureUrl, alt: name }}>
-        <CollectionProfileDetailsLayout>
-          <CollectionProfileTitleLayout>
-            <h1 className={clsx('collection-title')}>{name}</h1>
-          </CollectionProfileTitleLayout>
-          <CollectionProfileSupplyAndLinksLayout>
-            <CollectionProfileSupply totalSupply={totalSupply} />
-            <CollectionLinks twitterUsername={twitterUsername} discordUrl={discordUrl} websiteUrl={websiteUrl} />
-          </CollectionProfileSupplyAndLinksLayout>
-        </CollectionProfileDetailsLayout>
-      </Profile>
-    </PaddedLayout>
+    <Profile picture={{ pictureUrl: pictureUrl, alt: name }}>
+      <CollectionProfileDetailsLayout>
+        <CollectionProfileTitleLayout>
+          <h1 className={clsx('collection-title')}>{name}</h1>
+        </CollectionProfileTitleLayout>
+        <CollectionProfileSupplyAndLinksLayout>
+          <CollectionProfileSupply totalSupply={totalSupply} />
+          <CollectionLinks twitterUsername={twitterUsername} discordUrl={discordUrl} websiteUrl={websiteUrl} />
+        </CollectionProfileSupplyAndLinksLayout>
+      </CollectionProfileDetailsLayout>
+    </Profile>
   )
 }

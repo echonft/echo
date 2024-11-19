@@ -20,11 +20,10 @@
         "name": "next"
       }
     ],
-    // Set `sourceRoot` to  "/" to strip the build path prefix
-    // from generated source code references.
+    // Set `sourceRoot` to  "/" to strip the build path prefix from generated source code references.
     // This improves issue grouping in Sentry.
     "sourceRoot": "/"
   },
-  "include": ["src", "next-env.d.ts", ".next/types/**/*.ts", "sentry.*.config.ts", "../../env.d.ts"],
+  "include": ["src", "next-env.d.ts", ".next/types/**/*.ts", "../../env.d.ts"],
   "exclude": ["node_modules", ".next"]
 }

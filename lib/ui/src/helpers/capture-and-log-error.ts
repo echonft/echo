@@ -1,7 +1,7 @@
 import { captureError } from '@echo/ui/helpers/capture-error'
 import { logError } from '@echo/ui/helpers/log-error'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { type SeverityLevel } from '@sentry/nextjs'
+import { type SeverityLevel } from '@sentry/react'
 
 interface Options {
   message?: string

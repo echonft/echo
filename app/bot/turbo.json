@@ -7,11 +7,6 @@
     },
     "sentry:sourcemaps:upload": {
       "dependsOn": ["sentry:sourcemaps:inject"]
-    },
-    "start": {
-      "passThroughEnv": ["ENV"],
-      "cache": false,
-      "persistent": true
     }
   }
 }

@@ -1,5 +1,5 @@
 'use client'
-import { LoginStepLayout } from '@echo/ui/components/auth/layout/login-step-layout'
+import { LoginStepLayout } from '@echo/ui/components/base/auth/layout/login-step-layout'
 import { DiscordIconSvg } from '@echo/ui/components/base/svg/discord-icon-svg'
 import { discordOAuthUrl } from '@echo/ui/constants/discord-oauth-url'
 import { clsx } from 'clsx'

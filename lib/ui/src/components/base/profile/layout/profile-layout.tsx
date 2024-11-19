@@ -1,3 +1,4 @@
+import { PaddedLayout } from '@echo/ui/components/base/layout/padded-layout'
 import { PictureSize } from '@echo/ui/constants/picture-size'
 import { addPictureSize } from '@echo/ui/helpers/add-picture-size'
 import { themeExtension } from '@echo/ui/helpers/theme/theme'
@@ -33,7 +34,7 @@ export const ProfileLayout: FunctionComponent<PropsWithChildren<ProfileBannerPro
       style={getStyle()}
     >
       <div className={clsx('flex', 'flex-col', 'gap-10', 'pt-16', !isBackgroundImageNilOrEmpty && 'backdrop-blur-md')}>
-        {children}
+        <PaddedLayout>{children}</PaddedLayout>
       </div>
     </div>
   )

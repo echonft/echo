@@ -8,8 +8,7 @@
     },
     "deploy": {
       "dependsOn": ["build"],
-      "cache": false,
-      "passThroughEnv": ["ENV"]
+      "cache": false
     }
   }
 }

@@ -1,4 +1,4 @@
-import { ProfilePicture } from '@echo/ui/components/base/profile-picture'
+import { ProfilePicture } from '@echo/ui/components/base/profile/profile-picture'
 import { defaultCollectionProfilePictureUrl } from '@echo/ui/constants/default-collection-profile-picture-url'
 import { Size } from '@echo/ui/constants/size'
 import type { Nullable } from '@echo/utils/types/nullable'

@@ -5,8 +5,6 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "storybook build --test",
-    "clean": "rimraf storybook-static",
     "dev": "storybook dev -p 6006",
     "lint": "eslint",
     "modules:remove": "rimraf node_modules",
@@ -17,7 +15,7 @@
   },
   "dependencies": {
     "@headlessui/react": "2.2.0",
-    "@sentry/nextjs": "8.38.0",
+    "@sentry/nextjs": "8.39.0",
     "@storybook/nextjs": "8.4.4",
     "dayjs": "1.11.13",
     "next-intl": "3.25.1",
@@ -42,7 +40,7 @@
     "@types/react-dom": "18.3.1",
     "css-loader": "7.1.2",
     "style-loader": "4.0.0",
-    "tsconfig-paths-webpack-plugin": "4.1.0",
+    "tsconfig-paths-webpack-plugin": "4.2.0",
     "typescript": "5.6.3"
   }
 }

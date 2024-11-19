@@ -1,7 +1,6 @@
 'use client'
 import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
-import { LoginStepLayout } from '@echo/ui/components/auth/layout/login-step-layout'
-import { LoginJoinDiscordButton } from '@echo/ui/components/auth/login-join-discord-button'
+import { LoginStepLayout } from '@echo/ui/components/base/auth/layout/login-step-layout'
 import { ExternalLink } from '@echo/ui/components/base/external-link'
 import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
 import { Direction } from '@echo/ui/constants/direction'
@@ -34,7 +33,26 @@ export const LoginJoinEchoStep: FunctionComponent<Props> = ({ username }) => {
     <LoginStepLayout title={t('title', { username })}>
       <div className={clsx('w-full')}>
         <ExternalLink href={discordInviteLink} onClick={onSkip}>
-          <LoginJoinDiscordButton>{t('btn')}</LoginJoinDiscordButton>
+          <div
+            className={clsx('w-full', 'bg-gradient-to-r', 'from-[#FFE70B]', 'to-[#0e0e0e]', 'rounded-lg', 'p-[1px]')}
+          >
+            <button
+              className={clsx(
+                'bg-[#0e0e0e]',
+                'rounded-lg',
+                'py-5',
+                'px-8',
+                'w-full',
+                'text-left',
+                'group',
+                'enabled:hover:bg-[#1f1e1e]'
+              )}
+            >
+              <span className={clsx('prose-header-md-semi', 'bg-joinDiscordLabel', 'italic', 'bg-clip-text')}>
+                {t('btn')}
+              </span>
+            </button>
+          </div>
         </ExternalLink>
       </div>
       <div className={clsx('flex', 'justify-end', 'w-full')}>

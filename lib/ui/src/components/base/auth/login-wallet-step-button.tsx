@@ -1,6 +1,6 @@
 'use client'
 import type { Address } from '@echo/model/types/address'
-import { WalletButtonLayout } from '@echo/ui/components/wallet/layout/wallet-button-layout'
+import { WalletButtonLayout } from '@echo/ui/components/base/wallet/layout/wallet-button-layout'
 import { useAccount } from '@echo/ui/hooks/use-account'
 import { useActions } from '@echo/ui/hooks/use-actions'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -13,7 +13,7 @@ interface Props {
   onWalletLinkedTo?: (address: Address, username: Nullable<string>) => void
 }
 
-export const WalletButton: FunctionComponent<Props> = ({ onWalletLinkedTo }) => {
+export const LoginWalletStepButton: FunctionComponent<Props> = ({ onWalletLinkedTo }) => {
   const loadingRef = useRef(false)
   const { walletLinkedTo } = useActions()
   const onConnect = async ({ address }: AccountResultConnected) => {

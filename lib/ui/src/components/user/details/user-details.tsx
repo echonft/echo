@@ -1,11 +1,11 @@
 import type { User } from '@echo/model/types/user'
 import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
-import { ProfilePicture } from '@echo/ui/components/base/profile-picture'
+import { ProfilePicture } from '@echo/ui/components/base/profile/profile-picture'
+import { WalletCopyToClipboardButton } from '@echo/ui/components/base/wallet/wallet-copy-to-clipboard-button'
 import { UserDetailsDiscordTagAndWalletLayout } from '@echo/ui/components/user/details/layout/user-details-discord-tag-and-wallet-layout'
 import { UserDetailsLayout } from '@echo/ui/components/user/details/layout/user-details-layout'
 import { UserTag } from '@echo/ui/components/user/profile/user-tag'
-import { WalletCopyToClipboardButton } from '@echo/ui/components/wallet/wallet-copy-to-clipboard-button'
 import { Size } from '@echo/ui/constants/size'
 import { type FunctionComponent } from 'react'
 

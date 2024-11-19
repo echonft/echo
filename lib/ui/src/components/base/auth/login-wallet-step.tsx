@@ -1,9 +1,9 @@
 'use client'
 import type { Address } from '@echo/model/types/address'
 import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
-import { LoginStepLayout } from '@echo/ui/components/auth/layout/login-step-layout'
-import { WalletButton } from '@echo/ui/components/auth/wallet-button'
-import { WalletChainManager } from '@echo/ui/components/wallet/wallet-chain-manager'
+import { LoginStepLayout } from '@echo/ui/components/base/auth/layout/login-step-layout'
+import { LoginWalletStepButton } from '@echo/ui/components/base/auth/login-wallet-step-button'
+import { WalletChainManager } from '@echo/ui/components/base/wallet/wallet-chain-manager'
 import { useDependencies } from '@echo/ui/hooks/use-dependencies'
 import { base64Encode } from '@echo/utils/helpers/base64-encode'
 import Cookies from 'js-cookie'
@@ -56,7 +56,7 @@ export const LoginWalletStep: FunctionComponent = () => {
   return (
     <LoginStepLayout title={t('title')}>
       <>
-        <WalletButton
+        <LoginWalletStepButton
           onWalletLinkedTo={(address, username) => {
             if (isNil(username)) {
               router.push(frontendRoutes.login.discord.getUrl())

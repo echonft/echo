@@ -1,7 +1,7 @@
 import { captureAndLogError } from '@echo/ui/helpers/capture-and-log-error'
 import type { Alert } from '@echo/ui/types/alert'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import { getCurrentScope } from '@sentry/nextjs'
+import { getCurrentScope } from '@sentry/react'
 import { assoc, isNil } from 'ramda'
 
 export interface ErrorCallback {

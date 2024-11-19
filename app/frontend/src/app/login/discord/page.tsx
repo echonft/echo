@@ -1,4 +1,4 @@
-import { LoginDiscordStep } from '@echo/ui/components/auth/login-discord-step'
+import { LoginDiscordStep } from '@echo/ui/components/base/auth/login-discord-step'
 
 export default function render() {
   return <LoginDiscordStep />
