@@ -3,7 +3,6 @@ import type { HexString } from '@echo/model/types/hex-string'
 import type { Nft } from '@echo/model/types/nft'
 import type { BaseOffer, Offer } from '@echo/model/types/offer'
 import type { Erc20Token, TokenBalance } from '@echo/model/types/token'
-import type { Path } from '@echo/routing/types/path'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { OptionalRecord } from '@echo/utils/types/optional-record'
 import type { AccountResult } from '@echo/web3-dom/services/get-account'
@@ -27,7 +26,7 @@ export interface Dependencies {
   login: (
     options: Record<'message', string> & Record<'signature', string> & OptionalRecord<'code', string>
   ) => Promise<Nullable<SignInResponse>>
-  logout: (path: Path) => Promise<Nullable<Record<'url', string>>>
+  logout: () => Promise<Nullable<Record<'url', string>>>
   redeemOffer: (offerId: Offer['idContract']) => Promise<HexString>
   signNonce: (args: SignNonceArgs) => Promise<SignNonceResult>
   swap: (offerId: Offer['idContract']) => Promise<HexString>

@@ -5,8 +5,8 @@ import { LoginStepLayout } from '@echo/ui/components/auth/layout/login-step-layo
 import { WalletButton } from '@echo/ui/components/auth/wallet-button'
 import { WalletChainManager } from '@echo/ui/components/wallet/wallet-chain-manager'
 import { useDependencies } from '@echo/ui/hooks/use-dependencies'
-import { useLoginStore } from '@echo/ui/hooks/use-login-store'
 import { base64Encode } from '@echo/utils/helpers/base64-encode'
+import Cookies from 'js-cookie'
 import { getCsrfToken } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
@@ -15,7 +15,6 @@ import { type FunctionComponent, useCallback } from 'react'
 
 export const LoginWalletStep: FunctionComponent = () => {
   const router = useRouter()
-  const { callbackPath, reset } = useLoginStore.getState()
   const t = useTranslations('auth.wallet')
   const { disconnectWallet, login, signNonce } = useDependencies()
   const sign = useCallback(
@@ -32,7 +31,8 @@ export const LoginWalletStep: FunctionComponent = () => {
               if (isNil(response) || !response.ok) {
                 await disconnectWallet()
               } else {
-                reset()
+                const callbackPath = Cookies.get('callbackPath')
+                Cookies.remove('callbackPath')
                 if (isNil(callbackPath)) {
                   router.replace(frontendRoutes.base.home.get())
                 } else {
@@ -50,7 +50,7 @@ export const LoginWalletStep: FunctionComponent = () => {
         })
       )({ address, nonce })
     },
-    [callbackPath, disconnectWallet, login, reset, router, signNonce]
+    [disconnectWallet, login, router, signNonce]
   )
 
   return (

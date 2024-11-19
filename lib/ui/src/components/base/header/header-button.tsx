@@ -7,18 +7,19 @@ import { SeiIconSvg } from '@echo/ui/components/base/svg/sei-icon-svg'
 import { WalletButtonLayout } from '@echo/ui/components/wallet/layout/wallet-button-layout'
 import { WalletChainManager } from '@echo/ui/components/wallet/wallet-chain-manager'
 import { WalletStatusManager } from '@echo/ui/components/wallet/wallet-status-manager'
+import { AuthUserStatus } from '@echo/ui/constants/auth-user-status'
 import { useAccount } from '@echo/ui/hooks/use-account'
 import { useAuthUser } from '@echo/ui/hooks/use-auth-user'
-import { useLoginStore } from '@echo/ui/hooks/use-login-store'
 import { AccountStatus } from '@echo/web3-dom/constants/account-status'
 import { shortenAddress } from '@echo/web3-dom/helpers/shorten-address'
 import { clsx } from 'clsx'
+import Cookies from 'js-cookie'
 import { usePathname } from 'next/navigation'
 import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 const HeaderButtonProfilePicture: FunctionComponent = () => {
-  const user = useAuthUser()
+  const { user } = useAuthUser()
   if (isNil(user)) {
     return null
   }
@@ -54,14 +55,15 @@ const HeaderButtonWallet: FunctionComponent = () => {
 }
 
 export const HeaderButton: FunctionComponent = () => {
-  const user = useAuthUser()
+  const { status } = useAuthUser()
   const path = usePathname() as Path
-  const { setCallbackPath } = useLoginStore.getState()
   return (
     <InternalLink
-      path={isNil(user) ? frontendRoutes.login.wallet.get() : frontendRoutes.user.profile.get()}
+      path={
+        status === AuthUserStatus.Authenticated ? frontendRoutes.user.profile.get() : frontendRoutes.login.wallet.get()
+      }
       onClick={() => {
-        setCallbackPath(path)
+        Cookies.set('callbackPath', path)
       }}
     >
       <div className={clsx('flex', 'flex-row', 'gap-4', 'h-max', 'w-max', 'group')}>

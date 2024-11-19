@@ -6,8 +6,8 @@ import { ExternalLink } from '@echo/ui/components/base/external-link'
 import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
 import { Direction } from '@echo/ui/constants/direction'
 import { discordInviteLink } from '@echo/ui/constants/discord-invite-link'
-import { useLoginStore } from '@echo/ui/hooks/use-login-store'
 import { clsx } from 'clsx'
+import Cookies from 'js-cookie'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { isNil } from 'ramda'
@@ -19,16 +19,16 @@ interface Props {
 
 export const LoginJoinEchoStep: FunctionComponent<Props> = ({ username }) => {
   const router = useRouter()
-  const { callbackPath, reset } = useLoginStore.getState()
   const t = useTranslations('auth.join-discord')
   const onSkip = useCallback(() => {
-    reset()
+    const callbackPath = Cookies.get('callbackPath')
+    Cookies.remove('callbackPath')
     if (isNil(callbackPath)) {
       router.replace(frontendRoutes.base.home.get())
     } else {
       router.replace(callbackPath)
     }
-  }, [callbackPath, reset, router])
+  }, [router])
 
   return (
     <LoginStepLayout title={t('title', { username })}>

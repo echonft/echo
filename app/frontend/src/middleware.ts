@@ -1,8 +1,10 @@
 import { baseAuthConfig } from '@echo/backend/auth/auth-config'
 import { apiRoutes } from '@echo/routing/constants/api-routes'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { baseUrl } from '@echo/routing/helpers/base-url'
 import { frontendRouteMatch } from '@echo/routing/helpers/frontend/frontend-route-match'
 import type { Path } from '@echo/routing/types/path'
+import { NodeEnvironment, nodeEnvironment } from '@echo/utils/constants/node-environment'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import NextAuth from 'next-auth'
 import type { NextAuthRequest } from 'next-auth/lib'
@@ -62,10 +64,15 @@ export default auth((request: NextAuthRequest): void | Response | Promise<void |
   }
   if (isSecureFrontendPath(path) && isNilOrEmpty(request.auth?.user)) {
     // Redirect to login page
-    // const signInUrl = request.nextUrl.clone()
-    // signInUrl.pathname = frontendRoutes.auth.signIn.get()
-    // signInUrl.searchParams.set('callbackUrl', request.nextUrl.href)
-    // return NextResponse.redirect(signInUrl)
+    const signInUrl = request.nextUrl.clone()
+    signInUrl.pathname = frontendRoutes.login.wallet.get()
+    const response = NextResponse.redirect(signInUrl)
+    response.cookies.set('callbackPath', request.nextUrl.pathname, {
+      httpOnly: false,
+      secure: nodeEnvironment() === NodeEnvironment.Production,
+      sameSite: 'lax'
+    })
+    return response
   }
 }) as RouteHandler
 
