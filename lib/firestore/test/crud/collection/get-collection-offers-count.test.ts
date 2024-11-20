@@ -1,16 +1,55 @@
+import { deleteCollection } from '@echo/firestore/crud/collection/delete-collection'
 import { getCollectionOffersCount } from '@echo/firestore/crud/collection/get-collection-offers-count'
-import { collectionMockPx } from '@echo/model/mocks/collection-mock'
-import { describe, expect, it } from '@jest/globals'
+import { collectionDocumentMockPx } from '@echo/firestore/mocks/collection-document-mock'
+import {
+  offerDocumentMockFromJohnnycage,
+  offerDocumentMockToJohnnycage
+} from '@echo/firestore/mocks/offer-document-mock'
+import { addCollection } from '@echo/test/firestore/crud/collection/add-collection'
+import { addOffer } from '@echo/test/firestore/crud/offer/add-offer'
+import { deleteOffer } from '@echo/test/firestore/crud/offer/delete-offer'
+import type { Nullable } from '@echo/utils/types/nullable'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
+import { andThen, isEmpty, isNil, pipe } from 'ramda'
 
 describe('CRUD - collection - getCollectionOffersCount', () => {
-  it('returns 0 if there are no listings for the collection', async () => {
-    const count = await getCollectionOffersCount('not-found')
-    expect(count).toEqual(0)
+  let collectionId: Nullable<string>
+  let offerIds: string[]
+
+  beforeEach(() => {
+    collectionId = undefined
+    offerIds = []
+  })
+  afterEach(async () => {
+    if (!isNil(collectionId)) {
+      await deleteCollection(collectionId)
+    }
+    if (!isEmpty(offerIds)) {
+      for (const id of offerIds) {
+        await deleteOffer(id)
+      }
+    }
   })
 
-  it('returns the offer count for the collection', async () => {
-    const collectionSlug = collectionMockPx.slug
-    const count = await getCollectionOffersCount(collectionSlug)
+  it('returns 0 if there are no offers for the collection', async () => {
+    await expect(getCollectionOffersCount('not-found')).resolves.toEqual(0)
+  })
+
+  it('returns the offers count for the collection', async () => {
+    collectionId = await addCollection(collectionDocumentMockPx)
+    await pipe(
+      addOffer,
+      andThen((id) => {
+        offerIds.push(id)
+      })
+    )(offerDocumentMockFromJohnnycage)
+    await pipe(
+      addOffer,
+      andThen((id) => {
+        offerIds.push(id)
+      })
+    )(offerDocumentMockToJohnnycage)
+    const count = await getCollectionOffersCount(collectionDocumentMockPx.slug)
     expect(count).toEqual(2)
   })
 })

@@ -1,5 +1,5 @@
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
-import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { initializeFirestore } from '@echo/firestore/services/initialize-firestore'
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import type { Logger } from 'pino'
@@ -10,7 +10,7 @@ export async function dumpDb(filename: string, logger?: Logger) {
   const __filename = fileURLToPath(import.meta.url)
   const __dirname = path.dirname(__filename)
   const folderPath = path.join(__dirname, '../../dist')
-  await initializeFirebase()
+  await initializeFirestore()
   const collections = await firestoreApp().listCollections()
   let data: Record<string, Record<'id', string>[]> = {}
   for (const collection of collections) {

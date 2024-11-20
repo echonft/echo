@@ -7,7 +7,7 @@ import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { listingDocumentMock } from '@echo/firestore/mocks/listing-document-mock'
 import { userDocumentMockJohnny } from '@echo/firestore/mocks/user-document-mock'
-import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { initializeFirestore } from '@echo/firestore/services/initialize-firestore'
 import type { NftDocument } from '@echo/firestore/types/model/nft-document'
 import { ItemError } from '@echo/model/constants/errors/item-error'
 import { ListingError } from '@echo/model/constants/errors/listing-error'
@@ -28,7 +28,7 @@ import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { andThen, assocPath, find, modify, pipe } from 'ramda'
 
 jest.mock('@echo/backend/helpers/get-auth-user')
-jest.mock('@echo/firestore/services/initialize-firebase')
+jest.mock('@echo/firestore/services/initialize-firestore')
 jest.mock('@echo/firestore/crud/listing/add-listing')
 jest.mock('@echo/firestore/crud/listing/get-listing-by-signature')
 jest.mock('@echo/firestore/crud/nft/get-nft-by-index')
@@ -53,7 +53,7 @@ describe('createListing', () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    jest.mocked(initializeFirebase).mockImplementation(() => {})
+    jest.mocked(initializeFirestore).mockImplementation(() => {})
     jest.mocked(getUserByUsername).mockResolvedValue(userDocumentMockJohnny)
     jest.mocked(getListingBySignature).mockResolvedValue(undefined)
     jest.mocked(getNftByIndex).mockImplementation(findNftByIndex)

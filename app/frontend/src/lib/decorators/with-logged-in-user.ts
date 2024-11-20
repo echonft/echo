@@ -1,5 +1,5 @@
 import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
-import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { initializeFirestore } from '@echo/firestore/services/initialize-firestore'
 import type { User } from '@echo/model/types/user'
 import type { Awaitable } from '@echo/utils/types/awaitable'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -12,7 +12,7 @@ export function withLoggedInUser<
   Return extends Nullable<Awaitable<void> | Awaitable<ReactElement>>
 >(fn: (args: Args) => Return) {
   return async function (args: Args): Promise<Return> {
-    await initializeFirebase()
+    await initializeFirestore()
     const user = await getAuthUser()
     if (isNil(user)) {
       return notFound()
