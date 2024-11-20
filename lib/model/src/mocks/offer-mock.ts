@@ -3,6 +3,7 @@ import { TokenType } from '@echo/model/constants/token-type'
 import { nftMockPx3, nftMockSpiral1, nftMockSpiral2 } from '@echo/model/mocks/nft-mock'
 import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
 import { type BaseOffer, type Offer } from '@echo/model/types/offer'
+import type { NonEmptyArray } from 'ramda'
 
 export const offerMockToJohnnycage: Offer = {
   expiresAt: 2324074781,
@@ -191,3 +192,5 @@ export const baseOfferMockFromJohnnycage: BaseOffer = {
     }
   ]
 }
+
+export const offerMocks: NonEmptyArray<Offer> = [offerMockToJohnnycage, offerMockFromJohnnycage]

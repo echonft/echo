@@ -14,16 +14,18 @@ export function getAccount(): AccountResult {
   return getResultFromStatus(accountStatusStore.getState().status)
 }
 
-export function watchAccount(onChange: (account: AccountResult, prevAccount: AccountResult) => void): VoidFunction {
-  const unsubscribe = accountStatusStore.subscribe((state) => {
-    const result = getResultFromStatus(state.status)
-    onChange(result, result)
-  })
-  const status = accountStatusStore.getState().status
-  const result = getResultFromStatus(status)
-  onChange(result, result)
-  return () => {
-    accountStatusStore.getState().disconnect()
-    unsubscribe()
-  }
+export function watchAccount(_onChange: (account: AccountResult, prevAccount: AccountResult) => void): VoidFunction {
+  // const unsubscribe = accountStatusStore.subscribe((state) => {
+  //   const result = getResultFromStatus(state.status)
+  //   onChange(result, result)
+  // })
+  // const status = accountStatusStore.getState().status
+  // const result = getResultFromStatus(status)
+  // onChange(result, result)
+  // return () => {
+  //   accountStatusStore.getState().disconnect()
+  //   unsubscribe()
+  // }
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  return () => {}
 }

@@ -33,6 +33,7 @@ import { init } from '@sentry/nextjs'
 import { type Preview } from '@storybook/react'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import { SessionProvider } from 'next-auth/react'
 import { NextIntlClientProvider } from 'next-intl'
 
 dayjs.extend(relativeTime)
@@ -76,7 +77,9 @@ const preview: Preview = {
                   watchAccount
                 }}
               >
-                <Story />
+                <SessionProvider>
+                  <Story />
+                </SessionProvider>
               </DependenciesProvider>
             </ActionsProvider>
           </Web3Provider>

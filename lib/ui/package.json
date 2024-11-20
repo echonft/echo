@@ -15,6 +15,7 @@
     "prettier": "prettier . -u -c --no-error-on-unmatched-pattern --ignore-path ../../.prettierignore --config ../../prettier.config.js",
     "test": "jest",
     "test:ci": "jest --ci --collectCoverage --reporters=default --reporters=jest-junit",
+    "test:clean": "rimraf test/.coverage",
     "tsc": "tsc --noEmit"
   },
   "dependencies": {

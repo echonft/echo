@@ -32,8 +32,8 @@ export const SelectableNftThumbnailImage: FunctionComponent<Props> = ({ nft, onL
     <div className={clsx('h-32', 'w-32', 'rounded-2xl')}>
       <SizeableImage
         className={clsx(
-          'w-auto',
-          'h-auto',
+          'h-32',
+          'w-32',
           'rounded-2xl',
           'transition-transform',
           'select-none',
@@ -42,7 +42,7 @@ export const SelectableNftThumbnailImage: FunctionComponent<Props> = ({ nft, onL
           'group-hover:scale-125'
         )}
         src={nft.pictureUrl}
-        alt={nft.tokenId.toString()}
+        alt={nftLabel(nft)}
         width={PictureSize.MD}
         height={PictureSize.MD}
         onLoad={() => {

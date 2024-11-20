@@ -6,7 +6,6 @@
     "production": "echo-prod-b71e2",
     "prod": "echo-prod-b71e2",
     "staging": "echo-staging-ba121",
-    "test": "echo-test-7787f",
-    "testnet": "echo-testnet"
+    "test": "echo-test-7787f"
   }
 }

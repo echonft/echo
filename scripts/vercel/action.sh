@@ -13,8 +13,8 @@ rm_production() {
 
 ACTION=$(whiptail --default-item=dev --notags --menu "Wat do?" 15 50 4 \
 "rm-canceled" "delete canceled deployments" \
-"rm-production" "delete old production deployments" \
-"rm-all" "delete all old deployments" \
+"rm-production" "delete past production deployments" \
+"rm-all" "delete canceled + past production deployments" \
 "deploy" "deploy" 3>&1 1>&2 2>&3)
 
 if [ "$ACTION" = "rm-canceled" ] || [ "$ACTION" = "rm-production" ] || [ "$ACTION" = "rm-all" ]; then

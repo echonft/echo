@@ -2,6 +2,7 @@ import { TokenType } from '@echo/model/constants/token-type'
 import { nftCollectionMockPx, nftCollectionMockSpiral } from '@echo/model/mocks/collection-mock'
 import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
 import type { OwnedErc1155Nft, OwnedErc721Nft, OwnedNft } from '@echo/model/types/nft'
+import type { NonEmptyArray } from 'ramda'
 
 export const nftMockSpiral1: OwnedNft = {
   attributes: [
@@ -273,7 +274,7 @@ export const erc721NftMock: OwnedErc721Nft = nftMockSpiral1 as OwnedErc721Nft
 
 export const erc1155NftMock: OwnedErc1155Nft = { ...nftMockPx1, tokenId: 4, type: TokenType.Erc1155 }
 
-export const nftMocks: OwnedNft[] = [
+export const nftMocks: NonEmptyArray<OwnedNft> = [
   nftMockSpiral1,
   nftMockSpiral2,
   nftMockSpiral3,

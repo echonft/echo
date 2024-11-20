@@ -13,7 +13,7 @@ import { type Meta, type StoryObj } from '@storybook/react'
 import { addIndex, assoc, concat, map, pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Pages',
+  title: 'Pages/Collections',
   component: Component,
   decorators: [
     (Story) => (
@@ -34,7 +34,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-export const Collections: StoryObj<typeof Component> = {
+export const Page: StoryObj<typeof Component> = {
   args: {
     collections: pipe<[Collection[]], Collection[], Collection[], Collection[], CollectionWithRank[]>(
       concat(collectionMocks),

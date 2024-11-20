@@ -1,6 +1,5 @@
 import { ProfilePicture } from '@echo/ui/components/base/profile/profile-picture'
 import { defaultCollectionProfilePictureUrl } from '@echo/ui/constants/default-collection-profile-picture-url'
-import { Size } from '@echo/ui/constants/size'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { type FunctionComponent } from 'react'
 
@@ -13,7 +12,5 @@ export const CollectionProfilePicture: FunctionComponent<CollectionProfilePictur
   collectionName,
   pictureUrl
 }) => {
-  return (
-    <ProfilePicture pictureUrl={pictureUrl ?? defaultCollectionProfilePictureUrl} alt={collectionName} size={Size.SM} />
-  )
+  return <ProfilePicture pictureUrl={pictureUrl ?? defaultCollectionProfilePictureUrl} alt={collectionName} />
 }

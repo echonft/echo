@@ -6,7 +6,6 @@ import { WalletCopyToClipboardButton } from '@echo/ui/components/base/wallet/wal
 import { UserDetailsDiscordTagAndWalletLayout } from '@echo/ui/components/user/details/layout/user-details-discord-tag-and-wallet-layout'
 import { UserDetailsLayout } from '@echo/ui/components/user/details/layout/user-details-layout'
 import { UserTag } from '@echo/ui/components/user/profile/user-tag'
-import { Size } from '@echo/ui/constants/size'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -26,7 +25,7 @@ export const UserDetails: FunctionComponent<Props> = ({ user, isAuthUser = false
   return (
     <UserDetailsLayout>
       <InternalLink path={frontendRoutes.user.details.get({ username }).toString()}>
-        <ProfilePicture alt={username} pictureUrl={avatarUrl} size={Size.MD} />
+        <ProfilePicture alt={username} pictureUrl={avatarUrl} />
       </InternalLink>
       <UserDetailsDiscordTagAndWalletLayout>
         <UserTag user={user} isAuthUser={isAuthUser} />

@@ -34,6 +34,8 @@ jobs:
         run: pnpm exec turbo run test:ci --filter=@echo/model
       - name: nft-scan tests
         run: pnpm exec turbo run test:ci --filter=@echo/nft-scan
+      - name: routing tests
+        run: pnpm exec turbo run test:ci --filter=@echo/routing
       - name: ui tests
         run: pnpm exec turbo run test:ci --filter=@echo/ui
       - name: utils tests

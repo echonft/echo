@@ -31,6 +31,9 @@
     },
     "test": {},
     "test:ci": {},
+    "test:clean": {
+      "cache": false
+    },
     "tsc": {}
   }
 }

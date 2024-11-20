@@ -3,13 +3,12 @@ import { WalletCopyToClipboardButtonSkeleton } from '@echo/ui/components/base/wa
 import { UserDetailsDiscordTagAndWalletLayout } from '@echo/ui/components/user/details/layout/user-details-discord-tag-and-wallet-layout'
 import { UserDetailsLayout } from '@echo/ui/components/user/details/layout/user-details-layout'
 import { UserDiscordTagSkeleton } from '@echo/ui/components/user/profile/skeleton/user-discord-tag-skeleton'
-import { Size } from '@echo/ui/constants/size'
 import { type FunctionComponent } from 'react'
 
 export const UserDetailsSkeleton: FunctionComponent = () => {
   return (
     <UserDetailsLayout>
-      <ProfilePictureSkeleton size={Size.MD} />
+      <ProfilePictureSkeleton />
       <UserDetailsDiscordTagAndWalletLayout>
         <UserDiscordTagSkeleton />
         <WalletCopyToClipboardButtonSkeleton />

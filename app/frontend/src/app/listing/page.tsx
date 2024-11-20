@@ -37,7 +37,7 @@ async function render({ searchParams, user }: Props) {
     ),
     otherwiseEmptyArray
   )(items)
-  const listingTarget = await unlessNil(pipe(prop('slug'), getCollection, otherwiseUndefined))(target)
+  const listingTarget = await unlessNil(pipe(getCollection, otherwiseUndefined))(target)
   const creatorNfts = await pipe(prop('username'), getNftsForOwner, otherwiseEmptyArray)(user)
   if (isEmpty(creatorNfts) || (isNilOrEmpty(listingItems) && isNil(listingTarget))) {
     notFound()

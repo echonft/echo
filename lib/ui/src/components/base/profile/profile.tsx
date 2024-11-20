@@ -1,6 +1,5 @@
 import { ProfileDetailsLayout } from '@echo/ui/components/base/profile/layout/profile-details-layout'
 import { ProfilePicture, type ProfilePictureProps } from '@echo/ui/components/base/profile/profile-picture'
-import { Size } from '@echo/ui/constants/size'
 import type { FunctionComponent, PropsWithChildren } from 'react'
 
 interface Props {
@@ -8,10 +7,10 @@ interface Props {
 }
 
 export const Profile: FunctionComponent<PropsWithChildren<Props>> = ({ picture, children }) => {
-  const { pictureUrl, alt, size = Size.LG, border } = picture
+  const { pictureUrl, alt } = picture
   return (
     <ProfileDetailsLayout>
-      <ProfilePicture pictureUrl={pictureUrl} alt={alt} size={size} border={border} />
+      <ProfilePicture pictureUrl={pictureUrl} alt={alt} />
       {children}
     </ProfileDetailsLayout>
   )

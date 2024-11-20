@@ -18,6 +18,7 @@
     "start": "node dist/index.js",
     "test": "jest",
     "test:ci": "jest --ci --collectCoverage --reporters=default --reporters=jest-junit",
+    "test:clean": "rimraf test/.coverage",
     "tsc": "tsc --noEmit"
   },
   "dependencies": {

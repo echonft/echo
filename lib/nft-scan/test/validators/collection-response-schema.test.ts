@@ -3,7 +3,7 @@ import type { Collection } from '@echo/model/types/collection'
 import type { CollectionResponse } from '@echo/nft-scan/types/response/collection-response'
 import { collectionResponseSchema } from '@echo/nft-scan/validators/collection-response-schema'
 import { describe, expect, it } from '@jest/globals'
-import { assoc, pipe } from 'ramda'
+import { assoc } from 'ramda'
 
 describe('collectionResponseSchema', () => {
   const collectionResponseMock: CollectionResponse = {
@@ -17,14 +17,13 @@ describe('collectionResponseSchema', () => {
     logo_url: 'https://image.nftscan.com/blast/logo/0xcfc4c2b14af5b1f8ed97e1717b009dca461d8461.jpg',
     erc_type: TokenType.Erc721,
     is_spam: false,
-    items_total: 3000,
-    opensea_slug: null
+    items_total: 3000
   }
 
   const expectedResult: Collection = {
     contract: '0xcfc4c2b14af5b1f8ed97e1717b009dca461d8461',
     name: 'BACGenesis',
-    slug: 'bacgenesis',
+    slug: '0xcfc4c2b14af5b1f8ed97e1717b009dca461d8461',
     totalSupply: 3000,
     pictureUrl: 'https://image.nftscan.com/blast/logo/0xcfc4c2b14af5b1f8ed97e1717b009dca461d8461.jpg',
     websiteUrl: 'https://bacgame.io/',
@@ -39,18 +38,6 @@ describe('collectionResponseSchema', () => {
       collection: expectedResult,
       isSpam: false
     })
-  })
-
-  it('maps correctly with no slug name with space', () => {
-    const response = assoc('name', 'Name With Space', collectionResponseMock)
-    const resultWithSlug = pipe(assoc('name', 'Name With Space'), assoc('slug', 'name-with-space'))(expectedResult)
-    expect(collectionResponseSchema.parse(response)).toStrictEqual({ collection: resultWithSlug, isSpam: false })
-  })
-
-  it('maps correctly with slug', () => {
-    const response = assoc('opensea_slug', 'opensea-slug', collectionResponseMock)
-    const resultWithSlug = assoc('slug', 'opensea-slug', expectedResult)
-    expect(collectionResponseSchema.parse(response)).toStrictEqual({ collection: resultWithSlug, isSpam: false })
   })
 
   it('returns isSpam true if the collection is a spam collection', () => {
@@ -107,7 +94,7 @@ describe('collectionResponseSchema', () => {
       discordUrl: 'https://discord.gg/8Svc2aW5za',
       name: 'AHOY FUCKERS!!!',
       pictureUrl: 'https://i.seadn.io/s/raw/files/dee8e71643fa7664aca74ee8cfa4fff7.webp',
-      slug: 'ahoyfuckers',
+      slug: '0x4f449569f9cfd517eacbc3e3302d45970812abb7',
       totalSupply: 666,
       twitterUsername: 'SeiFuckers',
       type: TokenType.Erc721,

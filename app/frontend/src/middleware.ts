@@ -64,10 +64,8 @@ export default auth((request: NextAuthRequest): void | Response | Promise<void |
   }
   if (isSecureFrontendPath(path) && isNilOrEmpty(request.auth?.user)) {
     // Redirect to login page
-    const signInUrl = request.nextUrl.clone()
-    signInUrl.pathname = frontendRoutes.login.wallet.get()
-    const response = NextResponse.redirect(signInUrl)
-    response.cookies.set('callbackPath', request.nextUrl.pathname, {
+    const response = NextResponse.redirect(frontendRoutes.login.wallet.getUrl())
+    response.cookies.set('callbackPath', request.nextUrl.href, {
       httpOnly: false,
       secure: nodeEnvironment() === NodeEnvironment.Production,
       sameSite: 'lax'

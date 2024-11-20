@@ -16,8 +16,7 @@ describe('fetchCollectionResponseSchema', () => {
     logo_url: 'https://image.nftscan.com/blast/logo/0xcfc4c2b14af5b1f8ed97e1717b009dca461d8461.jpg',
     erc_type: TokenType.Erc721,
     is_spam: false,
-    items_total: 3000,
-    opensea_slug: null
+    items_total: 3000
   }
 
   it('maps correctly', () => {

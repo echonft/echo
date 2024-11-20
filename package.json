@@ -13,11 +13,9 @@
   },
   "scripts": {
     "bot": "scripts/bot/action.sh",
-    "commands": "scripts/commands/action.sh",
     "dep": "scripts/deploy/deploy.sh",
     "dev:bot": "scripts/bot/dev.sh",
     "dev:frontend": "scripts/frontend/dev.sh",
-    "dev:storybook": "turbo dev --filter=@echo/storybook --filter=@echo/ui",
     "firestore": "scripts/firestore/action.sh",
     "frontend": "scripts/frontend/action.sh",
     "lint": "turbo lint",
@@ -26,6 +24,7 @@
     "modules:update": "ncu -u --deep; turbo modules:update",
     "modules:update-minor": "ncu -u --deep --target=minor; turbo modules:update-minor",
     "prettier": "turbo prettier",
+    "storybook": "turbo dev --filter=@echo/storybook --filter=@echo/ui",
     "test": "turbo test",
     "tsc": "turbo tsc",
     "vercel:actions": "scripts/vercel/action.sh"
