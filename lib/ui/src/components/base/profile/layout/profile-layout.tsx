@@ -33,9 +33,13 @@ export const ProfileLayout: FunctionComponent<PropsWithChildren<ProfileBannerPro
       )}
       style={getStyle()}
     >
-      <div className={clsx('flex', 'flex-col', 'gap-10', 'pt-16', !isBackgroundImageNilOrEmpty && 'backdrop-blur-md')}>
-        <PaddedLayout>{children}</PaddedLayout>
-      </div>
+      <PaddedLayout>
+        <div
+          className={clsx('flex', 'flex-col', 'gap-10', 'pt-16', !isBackgroundImageNilOrEmpty && 'backdrop-blur-md')}
+        >
+          {children}
+        </div>
+      </PaddedLayout>
     </div>
   )
 }
