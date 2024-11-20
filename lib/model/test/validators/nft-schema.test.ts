@@ -105,17 +105,18 @@ describe('nftSchema', () => {
       expectZodError(invalidData, ['name'])
     })
 
-    it('should fail if pictureUrl is not a valid URL', () => {
-      const invalidData = {
-        attributes: [{ trait: 'Color', value: 'Red' }],
-        collection: nftMockPx1.collection,
-        name: 'NFT Name',
-        pictureUrl: 'not-a-url',
-        tokenId: 1,
-        type: TokenType.Erc721
-      }
-      expectZodError(invalidData, ['pictureUrl'])
-    })
+    // TODO put back when we add the IPFS check
+    // it('should fail if pictureUrl is not a valid URL', () => {
+    //   const invalidData = {
+    //     attributes: [{ trait: 'Color', value: 'Red' }],
+    //     collection: nftMockPx1.collection,
+    //     name: 'NFT Name',
+    //     pictureUrl: 'not-a-url',
+    //     tokenId: 1,
+    //     type: TokenType.Erc721
+    //   }
+    //   expectZodError(invalidData, ['pictureUrl'])
+    // })
 
     it('should fail if tokenId is not a positive integer', () => {
       const invalidData = {

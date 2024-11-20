@@ -18,7 +18,7 @@ export const nftSchema = object({
   collection: collectionSchema.pick({ contract: true, name: true, slug: true, totalSupply: true }),
   name: string().min(1),
   owner: userSchema.optional(),
-  pictureUrl: string().url().optional(), // TODO add without query params
+  pictureUrl: string().url().optional().or(string().optional()), // TODO add without query params + add IPFS check
   tokenId: number().int().positive(),
   type: nftTokenTypeSchema
 })

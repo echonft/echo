@@ -25,6 +25,7 @@ import {
   filter,
   groupWith,
   head,
+  is,
   isNil,
   map,
   otherwise,
@@ -41,7 +42,13 @@ interface Props {
 }
 
 async function render({ searchParams, user }: Props) {
-  const { items, target } = offerSearchParamsDataSchema.parse(searchParams)
+  // FIXME Handle single item case, this works for now but is a hack
+  const normalizedSearchParams = {
+    ...searchParams,
+    items: is(String, searchParams.items) ? [searchParams.items] : searchParams.items
+  }
+
+  const { items, target } = offerSearchParamsDataSchema.parse(normalizedSearchParams)
   const receiverNftsSelection = await pipe(
     map(getNftByIndex),
     promiseAll,
