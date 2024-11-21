@@ -8,7 +8,7 @@
       "env": [
         "AUTH_SECRET",
         "NEXT_PUBLIC_SENTRY_DSN",
-        "NEXT_PUBLIC_VERCEL_PRODUCTION_URL",
+        "NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL",
         "SECRET_MANAGER_EMAIL",
         "SECRET_MANAGER_PRIVATE_KEY",
         "SENTRY_AUTH_TOKEN",
@@ -21,13 +21,13 @@
       "dependsOn": ["@echo/ui#build"],
       "cache": false,
       "persistent": true,
-      "env": ["AUTH_SECRET", "NEXT_PUBLIC_VERCEL_PRODUCTION_URL"]
+      "env": ["AUTH_SECRET", "NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL"]
     },
     "start": {
       "dependsOn": ["@echo/ui#build"],
       "cache": false,
       "persistent": true,
-      "env": ["AUTH_SECRET", "NEXT_PUBLIC_VERCEL_PRODUCTION_URL"]
+      "env": ["AUTH_SECRET", "NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL"]
     }
   }
 }

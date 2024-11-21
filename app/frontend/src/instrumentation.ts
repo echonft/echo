@@ -7,6 +7,7 @@ export function register() {
   init({
     enabled: nodeEnvironment() === NodeEnvironment.Production,
     dsn: 'https://90f90a5ace372a2805407eeeb7d7fc15@o4506149604098048.ingest.us.sentry.io/4506149609472000',
+    maxValueLength: 99999,
     tracesSampleRate: 1
   })
 }
