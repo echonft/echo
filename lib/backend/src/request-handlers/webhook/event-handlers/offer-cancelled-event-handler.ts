@@ -1,25 +1,14 @@
-import { BadRequestError } from '@echo/backend/errors/bad-request-error'
-import { NotFoundError } from '@echo/backend/errors/not-found-error'
-import { info } from '@echo/backend/helpers/logger'
 import { cancelOffer } from '@echo/firestore/crud/offer/cancel-offer'
 import { getOfferByIdContract } from '@echo/firestore/crud/offer/get-offer-by-id-contract'
-import { OfferError } from '@echo/model/constants/errors/offer-error'
+import type { OfferDocument } from '@echo/firestore/types/model/offer-document'
 import type { HexString } from '@echo/model/types/hex-string'
-import { isNil } from 'ramda'
+import { alwaysVoid } from '@echo/utils/helpers/always-void'
+import type { Nullable } from '@echo/utils/types/nullable'
+import { always, isNil, otherwise, pipe } from 'ramda'
 
 export async function offerCancelledEventHandler(offerId: HexString) {
-  const offer = await getOfferByIdContract(offerId)
-  if (isNil(offer)) {
-    return Promise.reject(new NotFoundError({ message: OfferError.NotFound, severity: 'warning' }))
+  const offer = await pipe(getOfferByIdContract, otherwise(always<Nullable<OfferDocument>>(undefined)))(offerId)
+  if (!isNil(offer) && !offer.locked) {
+    await pipe(cancelOffer, otherwise(alwaysVoid))(offer.slug)
   }
-  if (offer.locked) {
-    return Promise.reject(
-      new BadRequestError({
-        message: OfferError.Locked,
-        severity: 'warning'
-      })
-    )
-  }
-  await cancelOffer(offer.slug)
-  info({ offer }, 'cancelled offer')
 }

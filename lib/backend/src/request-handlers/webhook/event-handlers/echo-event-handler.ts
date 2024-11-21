@@ -5,17 +5,14 @@ import { offerExecutedEventHandler } from '@echo/backend/request-handlers/webhoo
 import { EchoEventType } from '@echo/web3/constants/echo-event-type'
 import type { EchoEvent } from '@echo/web3/types/echo-event'
 
-export function echoEventHandler(event: EchoEvent) {
-  switch (event.type) {
-    case EchoEventType.OfferCreated:
-      return offerCreatedEventHandler(event.offerId)
-    case EchoEventType.OfferExecuted:
-      return offerExecutedEventHandler(event)
-    case EchoEventType.OfferAccepted:
-      return offerAcceptedEventHandler(event.offerId)
-    case EchoEventType.OfferCancelled:
-      return offerCancelledEventHandler(event.offerId)
-    default:
-      return
+export async function echoEventHandler(event: EchoEvent) {
+  if (event.type === EchoEventType.OfferCreated) {
+    await offerCreatedEventHandler(event.offerId)
+  } else if (event.type === EchoEventType.OfferExecuted) {
+    await offerExecutedEventHandler(event)
+  } else if (event.type === EchoEventType.OfferAccepted) {
+    await offerAcceptedEventHandler(event.offerId)
+  } else if (event.type === EchoEventType.OfferCancelled) {
+    await offerCancelledEventHandler(event.offerId)
   }
 }

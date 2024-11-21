@@ -7,10 +7,13 @@ import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { unescrowNft } from '@echo/firestore/crud/nft/unescrow-nft'
 import { getUserByWallet } from '@echo/firestore/crud/user/get-user-by-wallet'
+import type { NftDocument } from '@echo/firestore/types/model/nft-document'
+import type { QueryDocumentSnapshot } from '@echo/firestore/types/query-document-snapshot'
 import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
 import { eqUser } from '@echo/model/helpers/user/eq-user'
 import type { Collection } from '@echo/model/types/collection'
 import type { User } from '@echo/model/types/user'
+import { alwaysVoid } from '@echo/utils/helpers/always-void'
 import { unlessNil } from '@echo/utils/helpers/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { echoAddress } from '@echo/web3/constants/echo-address'
@@ -23,19 +26,22 @@ export async function erc721TransferEventHandler({ contract, from, to, tokenId }
     return
   }
   if (from === echoAddress) {
-    const nftSnapshot = await getNftSnapshot({ collection, tokenId })
+    const nftSnapshot = await pipe(
+      getNftSnapshot,
+      otherwise(always<Nullable<QueryDocumentSnapshot<NftDocument>>>(undefined))
+    )({ collection, tokenId })
     if (isNil(nftSnapshot)) {
       return
     }
-    await unescrowNft(nftSnapshot.id)
+    await pipe(unescrowNft, otherwise(alwaysVoid))(nftSnapshot.id)
     return
   }
-  const nft = await getNftByIndex({ collection, tokenId })
+  const nft = await pipe(getNftByIndex, otherwise(always<Nullable<NftDocument>>(undefined)))({ collection, tokenId })
   if (to === echoAddress) {
     if (isNil(nft) || !isOwnedNft(nft)) {
       return
     }
-    await escrowNft(nft)
+    await pipe(escrowNft, otherwise(alwaysVoid))(nft)
     return
   }
   if (!isNil(nft)) {
@@ -43,15 +49,14 @@ export async function erc721TransferEventHandler({ contract, from, to, tokenId }
     const owner = await pipe(
       getUserByWallet,
       andThen(unlessNil(userDocumentToModel)),
-      otherwise(always(undefined as Nullable<User>))
+      otherwise(always<Nullable<User>>(undefined))
     )(to)
     if (!eqUser(nft.owner, owner)) {
       if (isNil(owner)) {
-        await removeNftOwner(nft)
+        await pipe(removeNftOwner, otherwise(alwaysVoid))(nft)
       } else {
-        await setNftOwner({ nft, owner })
+        await pipe(setNftOwner, otherwise(alwaysVoid))({ nft, owner })
       }
     }
   }
-  return
 }

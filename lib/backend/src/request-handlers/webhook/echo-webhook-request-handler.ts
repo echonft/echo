@@ -10,16 +10,18 @@ import { parseRequest } from '@echo/backend/validators/parse-request'
 import type { EchoEvent } from '@echo/web3/types/echo-event'
 import { echoEventsSchema } from '@echo/web3/validators/echo-event-schema'
 import { NextResponse } from 'next/server'
-import { andThen, pipe } from 'ramda'
+import { always, andThen, otherwise, pipe } from 'ramda'
 
 export async function echoWebhookRequestHandler({ req }: RequestHandlerArgs<WebhookBlockRequest>) {
   const echoEvents = await pipe<
     [AssertQuicknodeSignatureArgs],
     Promise<NextRequest<WebhookBlockRequest>>,
+    Promise<EchoEvent[]>,
     Promise<EchoEvent[]>
   >(
     assertQuicknodeSignature,
-    andThen(parseRequest(echoEventsSchema))
+    andThen(parseRequest(echoEventsSchema)),
+    otherwise(always<EchoEvent[]>([]))
   )({ req, type: 'echo' })
   for (const event of echoEvents) {
     await echoEventHandler(event)

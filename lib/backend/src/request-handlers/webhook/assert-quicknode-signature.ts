@@ -1,5 +1,4 @@
 import { QuickNodeError } from '@echo/backend/errors/messages/quicknode-error'
-import { UnauthorizedError } from '@echo/backend/errors/unauthorized-error'
 import type { NextRequest } from '@echo/backend/types/next-request'
 import type { QuicknodeSignatureType } from '@echo/backend/types/quicknode-signature-type'
 import type { WebhookBlockRequest } from '@echo/backend/types/webhook-block-request'
@@ -37,13 +36,13 @@ export async function assertQuicknodeSignature(
   const contentHash = req.headers.get('x-qn-content-hash')
   const timestamp = req.headers.get('x-qn-timestamp')
   if (isNil(signature) || isNil(contentHash) || isNil(nonce) || isNil(timestamp)) {
-    return Promise.reject(new UnauthorizedError({ message: QuickNodeError.SignatureNotFound }))
+    return Promise.reject(Error(QuickNodeError.SignatureNotFound))
   }
   const secret = await pipe(getSecretName, getSecret)(type)
   const hmac = createHmac('sha256', secret)
   hmac.update(nonce + contentHash + timestamp)
   if (signature !== hmac.digest('base64')) {
-    return Promise.reject(new UnauthorizedError({ message: QuickNodeError.SignatureInvalid }))
+    return Promise.reject(Error(QuickNodeError.SignatureInvalid))
   }
   return req
 }

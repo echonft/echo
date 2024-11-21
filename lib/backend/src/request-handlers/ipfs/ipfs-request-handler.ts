@@ -19,10 +19,10 @@ function getErrorResponse() {
 }
 
 export async function ipfsRequestHandler({ req, params: { path } }: RequestHandlerArgsWithParams<Params>) {
-  const width = req.nextUrl.searchParams.get('width')
-  const route = isNilOrEmpty(width) ? ipfsGatewayRoute : ipfsGatewayRoute.withQuery({ width })
-  const url = route.getUrl({ path: join('/', path) })
   try {
+    const width = req.nextUrl.searchParams.get('width')
+    const route = isNilOrEmpty(width) ? ipfsGatewayRoute : ipfsGatewayRoute.withQuery({ width })
+    const url = route.getUrl({ path: join('/', path) })
     const response = await fetch(url)
     if (!response.ok) {
       return getErrorResponse()
