@@ -16,5 +16,5 @@ printf "\e[36mStarting frontend development on %s environment\n\e[0m" "$ENV"
 sleep 1
 ENV="$ENV" \
 AUTH_SECRET="$AUTH_SECRET" \
-NEXT_PUBLIC_VERCEL_URL="localhost:3000" \
+NEXT_PUBLIC_VERCEL_PRODUCTION_URL="localhost:3000" \
  pnpm exec turbo dev --filter=@echo/frontend --filter=@echo/ui
