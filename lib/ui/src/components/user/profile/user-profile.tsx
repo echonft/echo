@@ -16,8 +16,8 @@ interface Props {
 }
 
 export const UserProfile: FunctionComponent<Props> = ({ listingsCount, nftsCount, swapsCount, offersCount, user }) => {
-  const { discord } = user
-  const { username, avatarUrl } = discord
+  const { discord, username } = user
+  const { avatarUrl } = discord
   return (
     <ProfileLayout bannerUrl={avatarUrl}>
       <Profile picture={{ pictureUrl: avatarUrl, alt: username }}>

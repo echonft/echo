@@ -42,9 +42,7 @@ async function render({ params: { slug }, searchParams, user }: Props) {
   const nfts: OwnedNft[] = await pipe(
     getNftsForCollection,
     otherwise<OwnedNftDocument[]>(pipe(captureAndLogError, always([] as OwnedNft[])))
-  )(slug, {
-    excludeOwner: user?.username
-  })
+  )(slug)
   const listings = await pipe(
     getPendingListingsForCollection,
     andThen(toListingsWithRole(user)),

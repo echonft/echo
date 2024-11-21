@@ -3,7 +3,7 @@ import { PictureSize } from '@echo/ui/constants/picture-size'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { ImageProps } from 'next/image'
-import { filter, isNil, length, lte, reduce, split, values } from 'ramda'
+import { filter, isNil, length, lte, reduce, values } from 'ramda'
 
 function getSize(width: number): Nullable<PictureSize> {
   const pictureSizes = values(PictureSize)
@@ -35,9 +35,12 @@ export function addPictureSize(
   try {
     const { src } = args
     // IPFS
-    const splittedUrl = split('://', src)
-    if (length(splittedUrl) === 1) {
-      return `${apiRoutes.ipfs.proxy.getUrl({ path: src })}?img-width=${size}`
+    const ipfsMatch = /^(ipfs):\/\/(.+)$/i.exec(src)
+    if (!isNil(ipfsMatch)) {
+      const path = ipfsMatch[2]
+      if (!isNil(path)) {
+        return `${apiRoutes.ipfs.proxy.getUrl({ path })}?img-width=${size}`
+      }
     }
     // NFT storage
     const nftStorageMatch = /^https:\/\/([^.]+)\.ipfs\.nftstorage\.link\/(.+)$/.exec(src)

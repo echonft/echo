@@ -14,7 +14,7 @@ export const NftStackPicture: FunctionComponent<Props> = ({ stack, hideOwner, sc
   return (
     <StackPictureLayout>
       <StackImage src={stack.pictureUrl} alt={stack.label} scaleDisabled={scaleDisabled} />
-      <NftStackDiscordTag username={stack.owner.discord.username} hideOwner={hideOwner} />
+      <NftStackDiscordTag owner={stack.owner} hideOwner={hideOwner} />
     </StackPictureLayout>
   )
 }

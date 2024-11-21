@@ -24,8 +24,8 @@ export const AuthUserProfile: FunctionComponent<Props> = ({
   offersCount,
   user
 }) => {
-  const { discord } = user
-  const { username, avatarUrl } = discord
+  const { discord, username } = user
+  const { avatarUrl } = discord
   return (
     <ProfileLayout bannerUrl={avatarUrl}>
       <Profile picture={{ pictureUrl: avatarUrl, alt: username }}>

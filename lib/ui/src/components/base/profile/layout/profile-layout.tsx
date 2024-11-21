@@ -29,7 +29,7 @@ export const ProfileLayout: FunctionComponent<PropsWithChildren<ProfileBannerPro
         'h-full',
         'select-none',
         'overflow-clip',
-        !isBackgroundImageNilOrEmpty && ['bg-no-repeat', 'bg-contain', 'bg-top']
+        !isBackgroundImageNilOrEmpty && ['bg-no-repeat', 'bg-cover', 'bg-center']
       )}
       style={getStyle()}
     >

@@ -19,7 +19,16 @@ export const baseNftResponseSchema = object({
   attributes: baseNftAttributeResponseSchema.array().nullable(),
   contract_address: addressSchema,
   erc_type: nftTokenTypeSchema,
-  image_uri: string().nullable().optional(),
+  image_uri: string()
+    .nullable()
+    .optional()
+    // TODO make a zod extension for this
+    .transform((val) => {
+      if (!isNil(val) && !/^[a-zA-Z]+:\/\//.test(val)) {
+        return `ipfs://${val}`
+      }
+      return val
+    }),
   owner: addressSchema,
   name: string().nullable().optional(),
   token_id: string().min(1)

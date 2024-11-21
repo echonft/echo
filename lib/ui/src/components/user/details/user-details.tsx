@@ -20,8 +20,8 @@ interface Props {
  * @param isAuthUser
  */
 export const UserDetails: FunctionComponent<Props> = ({ user, isAuthUser = false }) => {
-  const { discord } = user
-  const { username, avatarUrl } = discord
+  const { discord, username } = user
+  const { avatarUrl } = discord
   return (
     <UserDetailsLayout>
       <InternalLink path={frontendRoutes.user.details.get({ username }).toString()}>
