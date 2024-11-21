@@ -3,8 +3,8 @@
 import type { OwnedNft } from '@echo/model/types/nft'
 import { ImagePlaceholder } from '@echo/ui/components/base/image-placeholder'
 import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
-import { PictureSize } from '@echo/ui/constants/picture-size'
 import { nftLabel } from '@echo/ui/helpers/nft/nft-label'
+import { PictureSize } from '@echo/utils/constants/picture-size'
 import { clsx } from 'clsx'
 import { type FunctionComponent, useState } from 'react'
 

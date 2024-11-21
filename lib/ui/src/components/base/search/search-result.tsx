@@ -1,7 +1,7 @@
 import { SearchResultCategory } from '@echo/model/constants/search-result-category'
 import type { SearchResult as SearchResultModel } from '@echo/model/types/search-result'
 import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
-import { PictureSize } from '@echo/ui/constants/picture-size'
+import { PictureSize } from '@echo/utils/constants/picture-size'
 import { clsx } from 'clsx'
 
 export interface SearchResultProps<T> {

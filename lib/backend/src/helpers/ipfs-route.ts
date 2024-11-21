@@ -1,4 +1,3 @@
-import { baseUrl } from '@echo/routing/helpers/base-url'
 import { Route } from '@echo/routing/services/route'
 import type { Path } from '@echo/routing/types/path'
 import type {
@@ -7,18 +6,17 @@ import type {
   RouteQueryParamsMapper,
   RouteSearchParams
 } from '@echo/routing/types/route'
-import { concat } from 'ramda'
 
-export class ApiRoute<
-  TParams extends RouteParams = never,
-  TQueryParams extends RouteQueryParams = never,
-  TSearchParams extends RouteSearchParams = TQueryParams extends RouteSearchParams ? TQueryParams : RouteSearchParams
+export class IpfsRoute<
+  TParams extends RouteParams,
+  TQueryParams extends RouteQueryParams,
+  TSearchParams extends RouteSearchParams
 > extends Route<TParams, TQueryParams, TSearchParams> {
   constructor(
     path: Path,
     ...queryParamsMapper: [TQueryParams] extends [never] ? [] : [RouteQueryParamsMapper<TQueryParams, TSearchParams>]
   ) {
-    super(concat('/api', path), baseUrl(), ...queryParamsMapper)
+    super(path, 'https://echo-nft.quicknode-ipfs.com/ipfs', ...queryParamsMapper)
     this.compileOptions = { encode: false }
   }
 }

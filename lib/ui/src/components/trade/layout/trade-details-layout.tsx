@@ -1,6 +1,6 @@
-import { PictureSize } from '@echo/ui/constants/picture-size'
 import { addPictureSize } from '@echo/ui/helpers/add-picture-size'
 import { themeExtension } from '@echo/ui/helpers/theme/theme'
+import { PictureSize } from '@echo/utils/constants/picture-size'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'

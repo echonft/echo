@@ -1,9 +1,9 @@
 import { apiRoutes } from '@echo/routing/constants/api-routes'
-import { PictureSize } from '@echo/ui/constants/picture-size'
+import { PictureSize } from '@echo/utils/constants/picture-size'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { ImageProps } from 'next/image'
-import { filter, isNil, length, lte, reduce, values } from 'ramda'
+import { filter, isNil, lte, reduce, values } from 'ramda'
 
 function getSize(width: number): Nullable<PictureSize> {
   const pictureSizes = values(PictureSize)
@@ -39,7 +39,7 @@ export function addPictureSize(
     if (!isNil(ipfsMatch)) {
       const path = ipfsMatch[2]
       if (!isNil(path)) {
-        return `${apiRoutes.ipfs.proxy.getUrl({ path })}?img-width=${size}`
+        return apiRoutes.ipfs.proxy.withQuery({ width: size }).getUrl({ path })
       }
     }
     // NFT storage
@@ -51,25 +51,8 @@ export function addPictureSize(
         return apiRoutes.ipfs.proxy.getUrl({ path: `${path1}/${path2}?img-width=${size}` })
       }
     }
-    // w3s
-    const w3sMatch = /^https:\/\/([^.]+)\.ipfs\.w3s\.link\/(.+)$/.exec(src)
-    if (!isNil(w3sMatch)) {
-      const path1 = w3sMatch[1]
-      const path2 = w3sMatch[2]
-      if (!isNil(path1) && !isNil(path2)) {
-        return apiRoutes.ipfs.proxy.getUrl({ path: `${path1}/${path2}?img-width=${size}` })
-      }
-    }
     const urlObject = new URL(src)
     const hostname = urlObject.hostname
-    // ipfs.io
-    if (hostname.includes('ipfs.io')) {
-      const match = /ipfs\/([^/]+)\/?/.exec(urlObject.pathname)
-      if (isNil(match) || length(match) < 2 || isNil(match[1])) {
-        return src
-      }
-      return `${apiRoutes.ipfs.proxy.getUrl({ path: match[1] })}?img-width=${size}`
-    }
     // discord
     if (hostname.includes('discordapp.com')) {
       return `${urlObject.href}?size=${size}`
@@ -81,10 +64,6 @@ export function addPictureSize(
     // google buckets
     if (hostname.includes('googleusercontent.com')) {
       return `${urlObject.href}=s${size}`
-    }
-    // Alchemy CDN
-    if (hostname.includes('nft-cdn.alchemy.com')) {
-      return `https://res.cloudinary.com/alchemyapi/image/upload/w_${size}/scaled${urlObject.pathname}`
     }
     return src
   } catch (_err) {

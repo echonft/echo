@@ -9,7 +9,7 @@ import type {
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { propIsNilOrEmpty } from '@echo/utils/helpers/prop-is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { compile, match } from 'path-to-regexp'
+import { compile, type CompileOptions, match } from 'path-to-regexp'
 import { stringify } from 'qs'
 import { complement, concat, head, isNil, pipe } from 'ramda'
 
@@ -18,8 +18,9 @@ export abstract class Route<
   TQueryParams extends RouteQueryParams = never,
   TSearchParams extends RouteSearchParams = TQueryParams extends RouteSearchParams ? TQueryParams : RouteSearchParams
 > {
-  protected readonly baseUrl: string
   protected readonly _path: Path
+  protected readonly baseUrl: string
+  protected compileOptions: CompileOptions | undefined = { encode: encodeURIComponent }
   protected readonly queryParamsMapper: Nullable<RouteQueryParamsMapper<TQueryParams, TSearchParams>>
   protected query: Nullable<string>
 
@@ -36,11 +37,13 @@ export abstract class Route<
   get path() {
     return this._path
   }
+
   test(path: string) {
     return pipe(match(this._path), complement(propIsNilOrEmpty('path')))(path.replace(/\?.*$/, ''))
   }
+
   get(...params: RouteParamsArgs<TParams>): string {
-    const compiledPath = compile(this._path, { encode: encodeURIComponent })(...params)
+    const compiledPath = compile(this._path, this.compileOptions)(...params)
     if (isNilOrEmpty(this.query)) {
       return compiledPath
     }
@@ -53,7 +56,11 @@ export abstract class Route<
 
   withQuery(queryParams: TQueryParams): this {
     if (!isNil(this.queryParamsMapper)) {
-      this.query = stringify(this.queryParamsMapper(queryParams), {
+      const params = this.queryParamsMapper(queryParams)
+      if (isNil(params)) {
+        return this
+      }
+      this.query = stringify(params, {
         addQueryPrefix: true,
         arrayFormat: 'repeat',
         skipNulls: true
