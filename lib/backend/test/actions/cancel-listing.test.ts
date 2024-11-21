@@ -4,7 +4,7 @@ import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
 import { cancelListing as firestoreCancelListing } from '@echo/firestore/crud/listing/cancel-listing'
 import { getListing } from '@echo/firestore/crud/listing/get-listing'
 import { listingDocumentMock } from '@echo/firestore/mocks/listing-document-mock'
-import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { initializeFirestore } from '@echo/firestore/services/initialize-firestore'
 import { ListingError } from '@echo/model/constants/errors/listing-error'
 import { ListingState } from '@echo/model/constants/listing-state'
 import { listingMock } from '@echo/model/mocks/listing-mock'
@@ -13,7 +13,7 @@ import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { assoc, modify } from 'ramda'
 
 jest.mock('@echo/backend/helpers/get-auth-user')
-jest.mock('@echo/firestore/services/initialize-firebase')
+jest.mock('@echo/firestore/services/initialize-firestore')
 jest.mock('@echo/firestore/crud/listing/get-listing')
 jest.mock('@echo/firestore/crud/listing/cancel-listing')
 
@@ -26,7 +26,7 @@ describe('request-handlers - listing - cancelListing', () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    jest.mocked(initializeFirebase).mockImplementation(() => {})
+    jest.mocked(initializeFirestore).mockImplementation(() => {})
   })
 
   it('throws if the listing does not exist', async () => {

@@ -5,28 +5,17 @@ import { queryWhere } from '@echo/firestore/helpers/query/query-where'
 import type { NftDocument, OwnedNftDocument } from '@echo/firestore/types/model/nft-document'
 import type { Slug } from '@echo/model/types/slug'
 import type { Query } from 'firebase-admin/firestore'
-import { always, isNil, pipe, unless } from 'ramda'
+import { pipe } from 'ramda'
 
-export interface GetNftsForCollectionOptions {
-  excludeOwner?: string
-}
-
-export function getNftsForCollectionQuery(
-  collectionSlug: Slug,
-  options?: GetNftsForCollectionOptions
-): Query<NftDocument> {
+export function getNftsForCollectionQuery(slug: Slug): Query<NftDocument> {
   return pipe(
     nftsCollection,
-    queryWhere('collection.slug', '==', collectionSlug),
-    unless(always(isNil(options?.excludeOwner)), queryWhere('owner.username', '!=', options?.excludeOwner)),
-    queryOrderBy<NftDocument>('owner.discord.username'),
-    queryOrderBy<NftDocument>('tokenId')
+    queryWhere('collection.slug', '==', slug),
+    queryOrderBy('owner.username'),
+    queryOrderBy('tokenId')
   )()
 }
 
-export function getNftsForCollection(
-  collectionSlug: Slug,
-  options?: GetNftsForCollectionOptions
-): Promise<OwnedNftDocument[]> {
-  return pipe(getNftsForCollectionQuery, getQueryData)(collectionSlug, options) as Promise<OwnedNftDocument[]>
+export function getNftsForCollection(slug: Slug): Promise<OwnedNftDocument[]> {
+  return pipe(getNftsForCollectionQuery, getQueryData)(slug) as Promise<OwnedNftDocument[]>
 }

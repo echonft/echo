@@ -11,8 +11,7 @@ interface SetNftOwnerArgs {
   owner: OwnedNft['owner']
 }
 
-export async function setNftOwner(args: SetNftOwnerArgs): Promise<NftDocument> {
-  const { nft, owner } = args
+export async function setNftOwner({ nft, owner }: SetNftOwnerArgs): Promise<NftDocument> {
   const snapshot = await getNftSnapshot(nft)
   if (isNil(snapshot)) {
     return Promise.reject(Error(NftError.NotFound))

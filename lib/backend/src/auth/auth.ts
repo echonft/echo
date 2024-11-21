@@ -8,7 +8,7 @@ import { credentialsSchema } from '@echo/backend/validators/credentials-schema'
 import { userDocumentToModel } from '@echo/firestore/converters/user-document-to-model'
 import { addUser } from '@echo/firestore/crud/user/add-user'
 import { getUserByWallet } from '@echo/firestore/crud/user/get-user-by-wallet'
-import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { initializeFirestore } from '@echo/firestore/services/initialize-firestore'
 import type { UserDocument } from '@echo/firestore/types/model/user-document'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import type { User } from '@echo/model/types/user'
@@ -46,7 +46,7 @@ const {
             return null
           }
           if (isNil(code)) {
-            await initializeFirebase()
+            await initializeFirestore()
             const user = await getUserByWallet(wallet)
             if (isNil(user)) {
               error({ wallet }, 'code not provided and user is not found')
@@ -57,7 +57,7 @@ const {
           }
           const token = await fetchDiscordAccessToken(code)
           const userDocument = await fetchDiscordProfile(token)
-          await initializeFirebase()
+          await initializeFirestore()
           return await pipe(
             assoc('wallet', wallet),
             addUser,

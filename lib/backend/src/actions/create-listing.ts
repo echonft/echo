@@ -8,7 +8,7 @@ import { addListing, type AddListingArgs } from '@echo/firestore/crud/listing/ad
 import { getListingBySignature } from '@echo/firestore/crud/listing/get-listing-by-signature'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
-import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { initializeFirestore } from '@echo/firestore/services/initialize-firestore'
 import { ItemError } from '@echo/model/constants/errors/item-error'
 import { ListingError } from '@echo/model/constants/errors/listing-error'
 import { NftError } from '@echo/model/constants/errors/nft-error'
@@ -26,7 +26,7 @@ export async function createListing(args: Omit<AddListingArgs, 'creator'>): Prom
   if (isNil(authUser)) {
     return Promise.reject(Error(AuthError.Unauthorized))
   }
-  await initializeFirebase()
+  await initializeFirestore()
   const owner = await pipe(getUserByUsername, andThen(unlessNil(userDocumentToModel)))(authUser.username)
   if (isNil(owner)) {
     return Promise.reject(Error(UserError.NotFound))

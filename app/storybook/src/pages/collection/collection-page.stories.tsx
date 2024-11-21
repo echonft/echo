@@ -8,17 +8,28 @@ import { swapMocks } from '@echo/model/mocks/swap-mock'
 import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
 import { Header } from '@echo/ui/components/base/header/header'
 import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
-import { NavigationLayout } from '@echo/ui/components/base/layout/navigation-layout'
-import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
-import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
-import { CollectionDetails } from '@echo/ui/components/collection/details/collection-details'
-import { CollectionTabs } from '@echo/ui/pages/collection/collection-tabs'
+import { CollectionPage as Component } from '@echo/ui/pages/collection/collection-page'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { assoc, map, pipe } from 'ramda'
+import { assoc, map } from 'ramda'
 
-const metadata: Meta = {
+const metadata: Meta<typeof Component> = {
   title: 'Pages/Collection',
+  component: Component,
+  args: {
+    collection: collectionMockPx,
+    counts: {
+      offersCount: 4,
+      listingsCount: 8,
+      nftsCount: 666,
+      swapsCount: 1
+    },
+    listings: [assoc('role', undefined, listingMock)],
+    nfts: nftMocks,
+    offers: map(assoc('role', undefined), offerMocks),
+    swaps: swapMocks,
+    selection: undefined
+  },
   decorators: [
     (Story) => (
       <PageLayout>
@@ -34,29 +45,4 @@ const metadata: Meta = {
 
 export default metadata
 
-export const Page: StoryObj = {
-  render: () => {
-    const collection = pipe(
-      assoc('offersCount', 4),
-      assoc('listingsCount', 8),
-      assoc('nftsCount', 666),
-      assoc('swapsCount', 1)
-    )(collectionMockPx)
-    return (
-      <NavigationLayout>
-        <SectionLayout>
-          <CollectionDetails collection={collection} />
-        </SectionLayout>
-        <NavigationSectionLayout>
-          <CollectionTabs
-            collection={collection}
-            listings={[assoc('role', undefined, listingMock)]}
-            nfts={nftMocks}
-            offers={map(assoc('role', undefined), offerMocks)}
-            swaps={swapMocks}
-          />
-        </NavigationSectionLayout>
-      </NavigationLayout>
-    )
-  }
-}
+export const Page: StoryObj<typeof Component> = {}

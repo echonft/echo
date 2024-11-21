@@ -4,7 +4,7 @@ import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { rejectOffer as firestoreRejectOffer } from '@echo/firestore/crud/offer/reject-offer'
 import { offerDocumentMockToJohnnycage } from '@echo/firestore/mocks/offer-document-mock'
-import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { initializeFirestore } from '@echo/firestore/services/initialize-firestore'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { OfferState } from '@echo/model/constants/offer-state'
 import { offerMockToJohnnycage } from '@echo/model/mocks/offer-mock'
@@ -13,7 +13,7 @@ import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { assoc, modify } from 'ramda'
 
 jest.mock('@echo/backend/helpers/get-auth-user')
-jest.mock('@echo/firestore/services/initialize-firebase')
+jest.mock('@echo/firestore/services/initialize-firestore')
 jest.mock('@echo/firestore/crud/offer/get-offer')
 jest.mock('@echo/firestore/crud/offer/reject-offer')
 
@@ -25,7 +25,7 @@ describe('rejectOffer', () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    jest.mocked(initializeFirebase).mockImplementation(() => {})
+    jest.mocked(initializeFirestore).mockImplementation(() => {})
     jest.mocked(getOffer).mockResolvedValue(offerDocumentMockToJohnnycage)
     jest.mocked(firestoreRejectOffer).mockResolvedValue(offerDocumentMockToJohnnycage)
   })

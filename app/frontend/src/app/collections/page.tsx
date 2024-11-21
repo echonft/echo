@@ -1,5 +1,5 @@
 import { getRankedCollections } from '@echo/firestore/crud/collection/get-ranked-collections'
-import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { initializeFirestore } from '@echo/firestore/services/initialize-firestore'
 import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-array'
 import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
 import { Header } from '@echo/ui/components/base/header/header'
@@ -11,7 +11,7 @@ import type { CollectionWithRank } from '@echo/ui/types/collection-with-rank'
 import { pipe } from 'ramda'
 
 export default async function render() {
-  await initializeFirebase()
+  await initializeFirestore()
   const collections = await pipe<[], Promise<CollectionWithRank[]>, Promise<CollectionWithRank[]>>(
     getRankedCollections,
     otherwiseEmptyArray

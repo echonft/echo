@@ -1,20 +1,15 @@
-import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { clearDb } from '@echo/test/firestore/clear-db'
-import { initializeDb } from '@echo/test/firestore/initialize-db'
 import { eqList } from '@echo/utils/helpers/eq-list'
 import { beforeAll, expect } from '@jest/globals'
 import dayjs from 'dayjs'
-import type { ServiceAccount } from 'firebase-admin/app'
+import * as admin from 'firebase-admin'
 import { always, ifElse, isNil, partialRight, pipe, when } from 'ramda'
 
-beforeAll(async () => {
-  const clientEmail: string = global.clientEmail
-  const projectId: string = global.projectId
-  const privateKey: string = global.privateKey
-  const serviceAccount = { clientEmail, projectId, privateKey } as ServiceAccount
-  await initializeFirebase({ serviceAccount })
-  await clearDb()
-  await initializeDb()
+beforeAll(() => {
+  admin.initializeApp({
+    databaseURL: 'http://127.0.0.1:8080'
+  })
+  admin.database().useEmulator('localhost', 8080)
+  // await clearDb()
 })
 
 expect.extend({

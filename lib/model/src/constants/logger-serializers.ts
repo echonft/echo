@@ -9,7 +9,7 @@ function serializeCollection(collection: unknown) {
   return pick(['id', 'contract', 'slug'], collection)
 }
 function serializeUserDiscordProfile(profile: User['discord']) {
-  return pick(['username'], profile)
+  return pick(['username', 'globalName'], profile)
 }
 function serializeUser(user: unknown) {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

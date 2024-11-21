@@ -4,7 +4,7 @@ import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
 import { offerDocumentToModel } from '@echo/firestore/converters/offer-document-to-model'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { rejectOffer as firestoreRejectOffer } from '@echo/firestore/crud/offer/reject-offer'
-import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { initializeFirestore } from '@echo/firestore/services/initialize-firestore'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { eqUser } from '@echo/model/helpers/user/eq-user'
 import type { Offer } from '@echo/model/types/offer'
@@ -16,7 +16,7 @@ export async function rejectOffer(slug: Slug): Promise<Offer> {
   if (isNil(authUser)) {
     return Promise.reject(Error(AuthError.Unauthorized))
   }
-  await initializeFirebase()
+  await initializeFirestore()
   const offer = await getOffer(slug)
   if (isNil(offer)) {
     return Promise.reject(Error(OfferError.NotFound))

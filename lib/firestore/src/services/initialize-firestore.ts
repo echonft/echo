@@ -1,20 +1,16 @@
 import { FirestoreError } from '@echo/firestore/constants/errors/firestore-error'
 import { getFirebaseServiceAccount } from '@echo/firestore/services/get-firebase-service-account'
 import { isNonEmptyArray } from '@echo/utils/helpers/is-non-empty-array'
-import { cert, getApps, initializeApp, type ServiceAccount } from 'firebase-admin/app'
+import { cert, getApps, initializeApp } from 'firebase-admin/app'
 import { initializeFirestore as firebaseInitializeFirestore } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
-interface InitializeFirebaseArgs {
-  readonly serviceAccount?: ServiceAccount
-}
-
-export async function initializeFirebase(args?: InitializeFirebaseArgs) {
+export async function initializeFirestore() {
   const apps = getApps()
   if (isNonEmptyArray(apps)) {
     return
   }
-  const serviceAccount = args?.serviceAccount ?? (await getFirebaseServiceAccount())
+  const serviceAccount = await getFirebaseServiceAccount()
   if (isNil(serviceAccount)) {
     return Promise.reject(Error(FirestoreError.MissingCredentials))
   }

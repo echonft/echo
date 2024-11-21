@@ -80,6 +80,8 @@ declare module 'ramda' {
   export function take<T>(n: number): (xs: T[]) => NonEmptyArray<T>
   export function reverse(str: string): string
   export function reverse<T extends T[]>(list: T): T
+  export function split(sep: string | RegExp): (str: string) => NonEmptyArray<string>
+  export function split(sep: string | RegExp, str: string): NonEmptyArray<string>
 }
 
 export {}

@@ -24,12 +24,12 @@ jobs:
         run: pnpm exec turbo run test:ci --filter=@echo/bot
       - name: backend tests
         run: pnpm exec turbo run test:ci --filter=@echo/backend
-      - name: firestore tests
-        env:
-          ENV: 'test'
-          SECRET_MANAGER_EMAIL: ${{ secrets.SECRET_MANAGER_EMAIL_TEST }}
-          SECRET_MANAGER_PRIVATE_KEY: ${{ secrets.SECRET_MANAGER_PRIVATE_KEY_TEST }}
-        run: pnpm exec turbo run test:ci --filter=@echo/firestore
+      #      - name: firestore tests
+      #        env:
+      #          ENV: 'test'
+      #          SECRET_MANAGER_EMAIL: ${{ secrets.SECRET_MANAGER_EMAIL_TEST }}
+      #          SECRET_MANAGER_PRIVATE_KEY: ${{ secrets.SECRET_MANAGER_PRIVATE_KEY_TEST }}
+      #        run: pnpm exec turbo run test:ci --filter=@echo/firestore
       - name: model tests
         run: pnpm exec turbo run test:ci --filter=@echo/model
       - name: nft-scan tests

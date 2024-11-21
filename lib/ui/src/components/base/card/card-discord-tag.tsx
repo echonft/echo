@@ -1,16 +1,18 @@
+import type { User } from '@echo/model/types/user'
 import { CardDiscordTagWrapper } from '@echo/ui/components/base/card/card-discord-tag-wrapper'
 import { DiscordIconSvg } from '@echo/ui/components/base/svg/discord-icon-svg'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
-export interface CardDiscordTagProps {
-  username: string
+interface Props {
+  owner: User
   asLink?: boolean
 }
 
-export const CardDiscordTag: FunctionComponent<CardDiscordTagProps> = ({ username, asLink }) => {
+export const CardDiscordTag: FunctionComponent<Props> = ({ owner, asLink }) => {
+  const label = owner.discord.globalName ?? owner.discord.username
   return (
-    <CardDiscordTagWrapper username={username} asLink={asLink}>
+    <CardDiscordTagWrapper username={owner.username} asLink={asLink}>
       <div
         className={clsx(
           'flex',
@@ -25,7 +27,7 @@ export const CardDiscordTag: FunctionComponent<CardDiscordTagProps> = ({ usernam
         )}
       >
         <DiscordIconSvg width={12} />
-        <span className={clsx('font-inter', 'text-[0.625rem]', 'font-medium', 'leading-[220%]')}>{username}</span>
+        <span className={clsx('font-inter', 'text-[0.625rem]', 'font-medium', 'leading-[220%]')}>{label}</span>
       </div>
     </CardDiscordTagWrapper>
   )

@@ -17,7 +17,7 @@ const renderer = {
 export const CollectionDetailsDescription: FunctionComponent<Pick<Collection, 'description'>> = ({ description }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full')}>
-      <div className={clsx('prose-label-md-semi', 'text-white/60', 'w-[37rem]')}>
+      <div className={clsx('prose-label-md-semi', 'text-white/60', 'w-full')}>
         <Markdown renderer={renderer} value={description ?? undefined} />
       </div>
     </div>

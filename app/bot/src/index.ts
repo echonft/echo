@@ -5,7 +5,7 @@ import { listingChangeHandler } from '@echo/bot/listing/listing-change-handler'
 import { initializeTranslations } from '@echo/bot/messages/initialize-translations'
 import { offerChangeHandler } from '@echo/bot/offer/offer-change-handler'
 import { swapChangeHandler } from '@echo/bot/swap/swap-change-handler'
-import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { initializeFirestore } from '@echo/firestore/services/initialize-firestore'
 import { listenToListings } from '@echo/firestore/services/listen-to-listings'
 import { listenToOffers } from '@echo/firestore/services/listen-to-offers'
 import { listenToSwaps } from '@echo/firestore/services/listen-to-swaps'
@@ -34,7 +34,7 @@ client.once(Events.ClientReady, () => {
 })
 
 async function main() {
-  await initializeFirebase()
+  await initializeFirestore()
   logger.info('firebase initialized')
   initializeSentry()
   await initializeTranslations()

@@ -12,18 +12,15 @@ import { toOffersWithRole } from '@echo/frontend/lib/helpers/offer/to-offers-wit
 import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-array'
 import { toSwaps } from '@echo/frontend/lib/helpers/swap/to-swaps'
 import type { Collection } from '@echo/model/types/collection'
+import type { OwnedNft } from '@echo/model/types/nft'
 import type { Slug } from '@echo/model/types/slug'
 import type { User } from '@echo/model/types/user'
 import type { SelectionSearchParams } from '@echo/routing/types/frontend/search-params/selection-search-params'
 import { selectionSearchParamsDataSchema } from '@echo/routing/validators/frontend/selection/selection-search-params-data-schema'
-import { NavigationLayout } from '@echo/ui/components/base/layout/navigation-layout'
-import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
-import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
-import { CollectionDetails } from '@echo/ui/components/collection/details/collection-details'
-import { CollectionTabs } from '@echo/ui/pages/collection/collection-tabs'
+import { CollectionPage } from '@echo/ui/pages/collection/collection-page'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound } from 'next/navigation'
-import { always, andThen, isNil, mergeLeft, otherwise, pipe, prop } from 'ramda'
+import { always, andThen, isNil, otherwise, pipe, prop } from 'ramda'
 
 interface Props {
   params: {
@@ -42,12 +39,10 @@ async function render({ params: { slug }, searchParams, user }: Props) {
     notFound()
   }
   const counts = await pipe(prop('slug'), getCollectionCounts)(collection)
-  const nfts = await pipe(getNftsForCollection, otherwise<OwnedNftDocument[]>(pipe(captureAndLogError, always([]))))(
-    slug,
-    {
-      excludeOwner: user?.username
-    }
-  )
+  const nfts: OwnedNft[] = await pipe(
+    getNftsForCollection,
+    otherwise<OwnedNftDocument[]>(pipe(captureAndLogError, always([] as OwnedNft[])))
+  )(slug)
   const listings = await pipe(
     getPendingListingsForCollection,
     andThen(toListingsWithRole(user)),
@@ -58,21 +53,15 @@ async function render({ params: { slug }, searchParams, user }: Props) {
   const selection = selectionSearchParamsDataSchema.parse({ listings, offers, swaps, searchParams })
 
   return (
-    <NavigationLayout>
-      <SectionLayout>
-        <CollectionDetails collection={mergeLeft(collection, counts)} />
-      </SectionLayout>
-      <NavigationSectionLayout>
-        <CollectionTabs
-          collection={collection}
-          listings={listings}
-          nfts={nfts}
-          offers={offers}
-          swaps={swaps}
-          selection={selection}
-        />
-      </NavigationSectionLayout>
-    </NavigationLayout>
+    <CollectionPage
+      collection={collection}
+      counts={counts}
+      listings={listings}
+      nfts={nfts}
+      offers={offers}
+      selection={selection}
+      swaps={swaps}
+    />
   )
 }
 
