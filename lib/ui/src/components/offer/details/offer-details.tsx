@@ -20,12 +20,9 @@ export interface OfferDetailsProps {
 
 export const OfferDetails: FunctionComponent<OfferDetailsProps> = ({ offer, onUpdate }) => {
   const { sender, receiver } = offer
-  // TODO
-  // const { discord } = receiver
-  // remove
   const receiverNfts = pipe(
     offerReceiverNftItems,
-    nonEmptyMap(pipe(nftItemToNft(offer.sender), assoc('attributes', [])))
+    nonEmptyMap(pipe(nftItemToNft(offer.receiver), assoc('attributes', [])))
   )(offer)
   const senderNfts = pipe(
     offerSenderNftItems,

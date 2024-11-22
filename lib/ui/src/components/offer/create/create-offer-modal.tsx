@@ -12,6 +12,7 @@ import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { useActions } from '@echo/ui/hooks/use-actions'
 import { useDependencies } from '@echo/ui/hooks/use-dependencies'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
+import { generateOfferId } from '@echo/web3-dom/helpers/generate-offer-id'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type NonEmptyArray } from 'ramda'
@@ -51,7 +52,8 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
   const onCreate = useCallback(
     async (baseOffer: BaseOffer) => {
       try {
-        const idContract = await createOffer(baseOffer)
+        await createOffer(baseOffer)
+        const idContract = generateOfferId(baseOffer)
         const offer = await getOfferByIdContract(idContract)
         onSuccess?.(offer)
       } catch (err) {
