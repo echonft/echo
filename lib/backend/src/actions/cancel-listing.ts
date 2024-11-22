@@ -1,5 +1,5 @@
 'use server'
-import { AuthError } from '@echo/backend/errors/messages/auth-error'
+import { AuthError } from '@echo/backend/constants/errors/auth-error'
 import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
 import { listingDocumentToModel } from '@echo/firestore/converters/listing-document-to-model'
 import { cancelListing as firestoreCancelListing } from '@echo/firestore/crud/listing/cancel-listing'

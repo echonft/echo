@@ -1,5 +1,5 @@
 import { rejectOffer } from '@echo/backend/actions/reject-offer'
-import { AuthError } from '@echo/backend/errors/messages/auth-error'
+import { AuthError } from '@echo/backend/constants/errors/auth-error'
 import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { rejectOffer as firestoreRejectOffer } from '@echo/firestore/crud/offer/reject-offer'

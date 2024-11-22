@@ -23,10 +23,6 @@ export interface NftIndex extends Pick<Nft, 'tokenId'> {
   collection: CollectionIndex
 }
 
-export interface NftWithContract extends Omit<Nft, 'collection'> {
-  collection: Partial<NftCollection> & Required<Pick<Collection, 'contract'>>
-}
-
 export type OwnedNft = Nft & Required<Pick<Nft, 'owner'>>
 
 export interface OwnedNftIndex extends NftIndex {

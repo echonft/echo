@@ -1,5 +1,3 @@
-import { BadRequestError } from '@echo/backend/errors/bad-request-error'
-import { NotFoundError } from '@echo/backend/errors/not-found-error'
 import { getCollectionByContract } from '@echo/firestore/crud/collection/get-collection-by-contract'
 import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { CollectionError } from '@echo/model/constants/errors/collection-error'
@@ -27,14 +25,14 @@ export async function contractOfferItemToErc721Item(item: EchoOfferItem): Promis
   const { tokenAddress, tokenIdOrAmount } = item
   const collection = await getCollectionByContract(tokenAddress)
   if (isNil(collection)) {
-    return Promise.reject(new NotFoundError({ message: CollectionError.NotFound, severity: 'warning' }))
+    return Promise.reject(Error(CollectionError.NotFound))
   }
   const nft = await getNftByIndex({ collection, tokenId: tokenIdOrAmount })
   if (isNil(nft)) {
-    return Promise.reject(new NotFoundError({ message: NftError.NotFound, severity: 'warning' }))
+    return Promise.reject(Error(NftError.NotFound))
   }
   if (!isOwnedNft(nft)) {
-    return Promise.reject(new BadRequestError({ message: NftError.NoOwner, severity: 'warning' }))
+    return Promise.reject(Error(NftError.NoOwner))
   }
   // FIXME until the contract supports ERC1155, we can assume this
   return pipe(erc721NftToItem, assoc('owner', (nft as OwnedErc721Nft).owner))(nft as OwnedErc721Nft)

@@ -1,4 +1,4 @@
-import { QuickNodeError } from '@echo/backend/errors/messages/quicknode-error'
+import { QuickNodeError } from '@echo/backend/constants/errors/quicknode-error'
 import type { NextRequest } from '@echo/backend/types/next-request'
 import type { QuicknodeSignatureType } from '@echo/backend/types/quicknode-signature-type'
 import type { WebhookBlockRequest } from '@echo/backend/types/webhook-block-request'

@@ -1,5 +1,5 @@
 'use server'
-import { AuthError } from '@echo/backend/errors/messages/auth-error'
+import { AuthError } from '@echo/backend/constants/errors/auth-error'
 import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
 import { createListingArgsSchema } from '@echo/backend/validators/create-listing-args-schema'
 import { listingDocumentToModel } from '@echo/firestore/converters/listing-document-to-model'

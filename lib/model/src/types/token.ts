@@ -13,8 +13,6 @@ export interface Erc20Token extends AbstractToken {
   type: TokenType.Erc20
 }
 
-export type Erc20TokenIndex = Pick<Erc20Token, 'contract' | 'type'>
-
 export interface Erc721Token
   extends Omit<AbstractToken, 'type'>,
     Omit<Erc721Nft, 'attributes' | 'collection' | 'owner'> {

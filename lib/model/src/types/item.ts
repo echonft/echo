@@ -3,7 +3,6 @@ import type {
   Erc1155Token,
   Erc1155TokenIndex,
   Erc20Token,
-  Erc20TokenIndex,
   Erc721Token,
   Erc721TokenIndex
 } from '@echo/model/types/token'
@@ -14,11 +13,6 @@ export interface AbstractItem {
 
 export interface Erc20Item extends AbstractItem {
   token: Erc20Token
-  quantity: number
-}
-
-export interface Erc20ItemIndex {
-  token: Erc20TokenIndex
   quantity: number
 }
 

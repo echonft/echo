@@ -1,5 +1,5 @@
 import { cancelListing } from '@echo/backend/actions/cancel-listing'
-import { AuthError } from '@echo/backend/errors/messages/auth-error'
+import { AuthError } from '@echo/backend/constants/errors/auth-error'
 import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
 import { cancelListing as firestoreCancelListing } from '@echo/firestore/crud/listing/cancel-listing'
 import { getListing } from '@echo/firestore/crud/listing/get-listing'

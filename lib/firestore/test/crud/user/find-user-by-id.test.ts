@@ -1,5 +1,5 @@
-import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { userDocumentMockJohnny } from '@echo/firestore/mocks/user-document-mock'
+import { getUserById } from '@echo/test/firestore/crud/user/get-user-by-id'
 import { userDocumentMockJohnnyId } from '@echo/test/firestore/mocks'
 import { describe, expect, it } from '@jest/globals'
 

@@ -1,5 +1,5 @@
 'use server'
-import { AuthError } from '@echo/backend/errors/messages/auth-error'
+import { AuthError } from '@echo/backend/constants/errors/auth-error'
 import { getAuthUser } from '@echo/backend/helpers/get-auth-user'
 import { offerDocumentToModel } from '@echo/firestore/converters/offer-document-to-model'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
