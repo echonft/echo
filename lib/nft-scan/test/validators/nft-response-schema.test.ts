@@ -45,7 +45,7 @@ describe('nftResponseSchema', () => {
       contract: '0x71da4d5805c1f2ecce2a41a9f9e026287f2b1f39'
     },
     tokenId: 2944,
-    pictureUrl: 'bafybeibfviw32fzcimiobx2shiukbwis5cyufmenvddajvzbr3u4uwco3a/2944.png',
+    pictureUrl: 'ipfs://bafybeibfviw32fzcimiobx2shiukbwis5cyufmenvddajvzbr3u4uwco3a/2944.png',
     name: 'Blast Penguins #2944',
     owner: userMockJohnny.wallet,
     attributes: [

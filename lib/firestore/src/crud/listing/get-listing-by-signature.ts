@@ -6,5 +6,10 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { pipe } from 'ramda'
 
 export function getListingBySignature(signature: string): Promise<Nullable<ListingDocument>> {
-  return pipe(listingsCollection, queryWhere('signature', '==', signature), getQueryUniqueData)()
+  return pipe(
+    listingsCollection,
+    queryWhere('signature', '==', signature),
+    queryWhere('locked', '!=', true),
+    getQueryUniqueData
+  )()
 }

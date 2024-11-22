@@ -60,7 +60,7 @@ describe('collectionResponseSchema', () => {
       github: null,
       instagram: null,
       medium: null,
-      logo_url: 'https://i.seadn.io/s/raw/files/dee8e71643fa7664aca74ee8cfa4fff7.webp?w=500&auto=format',
+      logo_url: 'https://i.seadn.io/s/raw/files/dee8e71643fa7664aca74ee8cfa4fff7.webp',
       banner_url: null,
       featured_url: null,
       large_image_url: null,
