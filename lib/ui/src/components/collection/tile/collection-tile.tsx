@@ -1,4 +1,3 @@
-import type { Slug } from '@echo/model/types/slug'
 import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { Size } from '@echo/ui/constants/size'
@@ -11,7 +10,7 @@ import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  slug: Slug
+  slug: Lowercase<string>
   pictureUrl: Nullable<string>
   name: string
   swapsCount: Nullable<number>

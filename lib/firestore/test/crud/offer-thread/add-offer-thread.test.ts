@@ -4,7 +4,7 @@ import { getOfferThreadByOfferId } from '@echo/firestore/crud/offer-thread/get-o
 import type { OfferThreadDocument } from '@echo/firestore/types/model/offer-thread-document'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { deleteOfferThread } from '@echo/test/firestore/crud/offer-thread/delete-offer-thread'
-import { offerDocumentMockToJohnnycageId } from '@echo/test/firestore/initialize-db'
+import { offerDocumentMockToJohnnycageId } from '@echo/test/firestore/mocks'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNil, pipe } from 'ramda'

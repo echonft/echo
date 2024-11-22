@@ -1,6 +1,6 @@
 import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { userDocumentMockJohnny } from '@echo/firestore/mocks/user-document-mock'
-import { userDocumentMockJohnnyId } from '@echo/test/firestore/initialize-db'
+import { userDocumentMockJohnnyId } from '@echo/test/firestore/mocks'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - user - findUserById', () => {

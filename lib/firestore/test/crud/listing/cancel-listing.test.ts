@@ -5,7 +5,6 @@ import type { ListingDocument } from '@echo/firestore/types/model/listing-docume
 import { ListingError } from '@echo/model/constants/errors/listing-error'
 import { ListingState } from '@echo/model/constants/listing-state'
 import { listingMock } from '@echo/model/mocks/listing-mock'
-import type { Slug } from '@echo/model/types/slug'
 import { resetListing } from '@echo/test/firestore/crud/listing/reset-listing'
 import { updateListing } from '@echo/test/firestore/crud/listing/update-listing'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -15,7 +14,7 @@ import { isNil } from 'ramda'
 
 type SpiedFn = typeof updateReferenceModule.updateReference<ListingDocument>
 describe('CRUD - listing - cancelListing', () => {
-  let slug: Nullable<Slug>
+  let slug: Nullable<Lowercase<string>>
   let updateReferenceSpy: jest.MockedFunction<SpiedFn>
 
   beforeEach(() => {

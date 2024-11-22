@@ -2,7 +2,7 @@ import { nftIndexSchema } from '@echo/model/validators/nft-schema'
 import { withSlugSchema } from '@echo/model/validators/slug-schema'
 import { object } from 'zod'
 
-export const listingQueryParamsSchema = object({
+export const createListingQueryParamsSchema = object({
   items: nftIndexSchema.array().nonempty()
 })
   .strict()

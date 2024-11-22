@@ -3,16 +3,17 @@ import type { SearchResult as SearchResultModel } from '@echo/model/types/search
 import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
 import { PictureSize } from '@echo/utils/constants/picture-size'
 import { clsx } from 'clsx'
+import type { FunctionComponent } from 'react'
 
-export interface SearchResultProps<T> {
-  result: SearchResultModel<T>
+export interface SearchResultProps {
+  result: SearchResultModel
   style?: {
     rounded?: 'top' | 'bottom'
   }
-  onSelect?: (selection: SearchResultModel<T>) => unknown
+  onSelect?: (selection: SearchResultModel) => unknown
 }
 
-export const SearchResult = <T,>({ result, style, onSelect }: SearchResultProps<T>) => {
+export const SearchResult: FunctionComponent<SearchResultProps> = ({ result, style, onSelect }) => {
   const { label, pictureUrl } = result
   return (
     <button

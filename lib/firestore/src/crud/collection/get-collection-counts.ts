@@ -3,9 +3,8 @@ import { getCollectionNftsCount } from '@echo/firestore/crud/collection/get-coll
 import { getCollectionOffersCount } from '@echo/firestore/crud/collection/get-collection-offers-count'
 import { getCollectionSwapsCount } from '@echo/firestore/crud/collection/get-collection-swaps-count'
 import type { Counts } from '@echo/model/types/counts'
-import type { Slug } from '@echo/model/types/slug'
 
-export async function getCollectionCounts(slug: Slug): Promise<Counts> {
+export async function getCollectionCounts(slug: Lowercase<string>): Promise<Counts> {
   const listingsCount = await getCollectionListingsCount(slug)
   const nftsCount = await getCollectionNftsCount(slug)
   const offersCount = await getCollectionOffersCount(slug)

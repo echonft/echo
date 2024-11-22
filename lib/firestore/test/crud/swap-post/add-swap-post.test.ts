@@ -6,7 +6,7 @@ import { addSwapPost as testAddSwapPost } from '@echo/test/firestore/crud/swap-p
 import { deleteSwapPost } from '@echo/test/firestore/crud/swap-post/delete-swap-post'
 import { addSwap } from '@echo/test/firestore/crud/swap/add-swap'
 import { deleteSwap } from '@echo/test/firestore/crud/swap/delete-swap'
-import { offerDocumentMockToJohnnycageId } from '@echo/test/firestore/initialize-db'
+import { offerDocumentMockToJohnnycageId } from '@echo/test/firestore/mocks'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNil, pipe } from 'ramda'

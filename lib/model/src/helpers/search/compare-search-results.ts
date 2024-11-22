@@ -1,5 +1,5 @@
 import type { SearchResult } from '@echo/model/types/search-result'
 
-export function compareSearchResults<T, U>(resultA: SearchResult<T>, resultB: SearchResult<U>): number {
+export function compareSearchResults(resultA: SearchResult, resultB: SearchResult): number {
   return resultA.label.localeCompare(resultB.label)
 }

@@ -2,8 +2,8 @@ import type { SearchResultCategory } from '@echo/model/constants/search-result-c
 import type { SearchResult } from '@echo/model/types/search-result'
 import { filter, propEq } from 'ramda'
 
-export function filterSearchResultsByCategory<T>(
+export function filterSearchResultsByCategory(
   category: SearchResultCategory
-): (results: SearchResult<T>[]) => SearchResult<T>[] {
+): (results: SearchResult[]) => SearchResult[] {
   return filter(propEq(category, 'category'))
 }

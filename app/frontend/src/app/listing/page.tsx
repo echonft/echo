@@ -7,8 +7,8 @@ import { otherwiseUndefined } from '@echo/frontend/lib/helpers/otherwise-undefin
 import { nftIsOwnedBy } from '@echo/model/helpers/nft/nft-is-owned-by'
 import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
-import type { ListingSearchParams } from '@echo/routing/types/frontend/search-params/listing-search-params'
-import { listingSearchParamsDataSchema } from '@echo/routing/validators/frontend/listing/listing-search-params-data-schema'
+import type { CreateListingSearchParams } from '@echo/routing/types/frontend/search-params/create-listing-search-params'
+import { createListingSearchParamsDataSchema } from '@echo/routing/validators/frontend/listing/create-listing-search-params-data-schema'
 import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
 import { Header } from '@echo/ui/components/base/header/header'
 import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
@@ -23,12 +23,12 @@ import { notFound } from 'next/navigation'
 import { andThen, filter, isEmpty, isNil, map, pipe, prop, reject } from 'ramda'
 
 interface Props {
-  searchParams: ListingSearchParams
+  searchParams: CreateListingSearchParams
   user: User
 }
 
 async function render({ searchParams, user }: Props) {
-  const { items, target } = listingSearchParamsDataSchema.parse(searchParams)
+  const { items, target } = createListingSearchParamsDataSchema.parse(searchParams)
   const listingItems = await pipe(
     map(getNftByIndex),
     promiseAll,

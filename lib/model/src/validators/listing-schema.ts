@@ -5,14 +5,12 @@ import { erc1155ItemComparator } from '@echo/model/helpers/item/erc1155-item-com
 import { erc721ItemComparator } from '@echo/model/helpers/item/erc721-item-comparator'
 import { serializeListing } from '@echo/model/serializers/serialize-listing'
 import type { Erc1155ItemIndex, Erc721ItemIndex } from '@echo/model/types/item'
-import type { Slug } from '@echo/model/types/slug'
 import { collectionSchema } from '@echo/model/validators/collection-schema'
 import { itemsContainErc1155Duplicates } from '@echo/model/validators/helpers/items-contain-erc1155-duplicates'
 import { itemsContainErc721Duplicates } from '@echo/model/validators/helpers/items-contain-erc721-duplicates'
 import { erc1155ItemIndexSchema, erc721ItemIndexSchema, nftItemSchema } from '@echo/model/validators/item-schema'
 import { slugSchema, withSlugSchema } from '@echo/model/validators/slug-schema'
 import { userIndexSchema, userSchema } from '@echo/model/validators/user-schema'
-import { as } from '@echo/utils/helpers/as'
 import {
   complement,
   concat,
@@ -21,14 +19,13 @@ import {
   has,
   modify,
   type NonEmptyArray,
-  objOf,
   path,
   pipe,
   propOr,
   sort,
   when
 } from 'ramda'
-import { boolean, nativeEnum, number, object, string } from 'zod'
+import { boolean, nativeEnum, number, object } from 'zod'
 
 const listingTargetSchema = object({
   collection: collectionSchema,
@@ -84,8 +81,3 @@ export const listingSignatureSchema = object({
 })
 
 export const serializeListingSchema = withSlugSchema.transform(serializeListing)
-
-export const serializedListingSchema = string()
-  .regex(/^[a-z0-9-_]+$/)
-  .transform(as<Slug, string>)
-  .transform(objOf('slug'))

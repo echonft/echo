@@ -2,7 +2,7 @@ import { getOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/get-o
 import { OfferState } from '@echo/model/constants/offer-state'
 import { addOfferUpdatePost } from '@echo/test/firestore/crud/offer-update-post/add-offer-update-post'
 import { deleteOfferUpdatePost } from '@echo/test/firestore/crud/offer-update-post/delete-offer-update-post'
-import { offerDocumentMockToJohnnycageId } from '@echo/test/firestore/initialize-db'
+import { offerDocumentMockToJohnnycageId } from '@echo/test/firestore/mocks'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNil, pipe } from 'ramda'

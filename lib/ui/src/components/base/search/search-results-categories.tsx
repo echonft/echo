@@ -4,18 +4,19 @@ import { SearchResultCategories } from '@echo/ui/components/base/search/search-r
 import { mapSearchResultsToCategories } from '@echo/ui/helpers/search/map-search-results-to-categories'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil, length, lt, map, pipe, prop, uniq } from 'ramda'
+import type { FunctionComponent } from 'react'
 
-interface Props<T> {
+interface Props {
   show?: boolean
-  results: Nullable<SearchResultModel<T>[]>
+  results: Nullable<SearchResultModel[]>
   onChange?: (category?: SearchResultCategory) => void
 }
 
-export const SearchResultsCategories = <T,>({ show, results, onChange }: Props<T>) => {
+export const SearchResultsCategories: FunctionComponent<Props> = ({ show, results, onChange }) => {
   if (
     show &&
     !isNil(results) &&
-    pipe<[SearchResultModel<T>[]], SearchResultCategory[], SearchResultCategory[], number, boolean>(
+    pipe<[SearchResultModel[]], SearchResultCategory[], SearchResultCategory[], number, boolean>(
       map(prop('category')),
       uniq,
       length,

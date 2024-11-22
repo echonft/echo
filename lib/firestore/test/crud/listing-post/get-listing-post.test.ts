@@ -1,7 +1,7 @@
 import { getListingPost } from '@echo/firestore/crud/listing-post/get-listing-post'
 import { addListingPost } from '@echo/test/firestore/crud/listing-post/add-listing-post'
 import { deleteListingPost } from '@echo/test/firestore/crud/listing-post/delete-listing-post'
-import { listingDocumentMockId } from '@echo/test/firestore/initialize-db'
+import { listingDocumentMockId } from '@echo/test/firestore/mocks'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'

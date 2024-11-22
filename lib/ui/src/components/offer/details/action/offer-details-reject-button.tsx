@@ -1,5 +1,4 @@
 'use client'
-import type { Slug } from '@echo/model/types/slug'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
@@ -32,7 +31,7 @@ export const OfferDetailsRejectButton: FunctionComponent<Props> = ({
   const { rejectOffer } = useActions()
 
   const onReject = useCallback(
-    async (slug: Slug) => {
+    async (slug: Lowercase<string>) => {
       try {
         const rejectedOffer = await rejectOffer(slug)
         onSuccess?.(assoc('role', offer.role, rejectedOffer))

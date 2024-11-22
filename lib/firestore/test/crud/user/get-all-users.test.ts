@@ -1,5 +1,5 @@
 import { getAllUsers } from '@echo/firestore/crud/user/get-all-users'
-import { userDocumentMocks } from '@echo/test/firestore/initialize-db'
+import { userDocumentMocks } from '@echo/test/firestore/mocks'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - user - getAllUsers', () => {

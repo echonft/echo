@@ -6,7 +6,7 @@ import {
 import { nftMockPx3, nftMockSpiral2 } from '@echo/model/mocks/nft-mock'
 import { resetOffer } from '@echo/test/firestore/crud/offer/reset-offer'
 import { updateOffer } from '@echo/test/firestore/crud/offer/update-offer'
-import { offerDocumentMocks } from '@echo/test/firestore/initialize-db'
+import { offerDocumentMocks } from '@echo/test/firestore/mocks'
 import { afterEach, describe, expect, it } from '@jest/globals'
 import { head, last, omit, pipe } from 'ramda'
 

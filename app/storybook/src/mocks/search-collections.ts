@@ -1,13 +1,12 @@
 import { collectionToSearchResult } from '@echo/model/mappers/collection/collection-to-search-result'
 import { collectionMocks } from '@echo/model/mocks/collection-mock'
 import type { SearchResult } from '@echo/model/types/search-result'
-import type { Slug } from '@echo/model/types/slug'
+import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { promiseAll } from '@echo/utils/helpers/promise-all'
 import { toPromise } from '@echo/utils/helpers/to-promise'
-import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { either, filter, map, pipe, propSatisfies, test, toLower } from 'ramda'
 
-export function searchCollections(query: string): Promise<SearchResult<Slug>[]> {
+export function searchCollections(query: string): Promise<SearchResult[]> {
   const regex = new RegExp(toLower(query), 'ig')
   const search = pipe(toLower, test(regex))
   return pipe(

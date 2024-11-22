@@ -31,7 +31,7 @@ export const CollectionSelector: FunctionComponent<Props> = ({ collection, onAdd
             <span className={clsx('prose-paragraph-md', 'text-white')}>{t('search.title')}</span>
             <SearchBox
               resultsProvider={searchCollections}
-              onSelect={(_result: SearchResult<Lowercase<string>>) => {
+              onSelect={(_result: SearchResult) => {
                 // TODO Implement the fetching of the collection from the slug
               }}
               style={{

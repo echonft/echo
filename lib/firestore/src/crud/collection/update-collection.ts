@@ -4,11 +4,10 @@ import { updateReference } from '@echo/firestore/helpers/reference/update-refere
 import type { CollectionDocument } from '@echo/firestore/types/model/collection-document'
 import { CollectionError } from '@echo/model/constants/errors/collection-error'
 import type { Collection } from '@echo/model/types/collection'
-import type { Slug } from '@echo/model/types/slug'
 import { isNil } from 'ramda'
 
 export async function updateCollection(
-  slug: Slug,
+  slug: Lowercase<string>,
   data: Omit<Partial<Collection>, 'contract' | 'slug'>
 ): Promise<CollectionDocument> {
   const snapshot = await getCollectionSnapshot(slug)

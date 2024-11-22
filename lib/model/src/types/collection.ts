@@ -1,7 +1,6 @@
 import { TokenType } from '@echo/model/constants/token-type'
 import type { Address } from '@echo/model/types/address'
 import type { Counts } from '@echo/model/types/counts'
-import type { Slug } from '@echo/model/types/slug'
 
 export interface Collection {
   contract: Address
@@ -9,7 +8,7 @@ export interface Collection {
   discordUrl?: string
   name: string
   pictureUrl?: string
-  slug: Slug
+  slug: Lowercase<string>
   totalSupply: number
   twitterUsername?: string
   type: TokenType.Erc721 | TokenType.Erc1155

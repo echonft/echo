@@ -7,14 +7,9 @@ import { erc1155ItemMock, erc20ItemMock, erc721ItemMock } from '@echo/model/mock
 import { listingMock } from '@echo/model/mocks/listing-mock'
 import { serializeListing } from '@echo/model/serializers/serialize-listing'
 import type { Erc721Item } from '@echo/model/types/item'
-import {
-  listingSchema,
-  listingSignatureSchema,
-  serializedListingSchema,
-  serializeListingSchema
-} from '@echo/model/validators/listing-schema'
+import { listingSchema, listingSignatureSchema, serializeListingSchema } from '@echo/model/validators/listing-schema'
 import { describe, expect, it, test } from '@jest/globals'
-import { assoc, assocPath, dissoc, map, pick, pipe, prop, reverse } from 'ramda'
+import { assoc, assocPath, dissoc, map, pipe, prop, reverse } from 'ramda'
 import { ZodError } from 'zod'
 
 describe('listingSchema', () => {
@@ -164,12 +159,6 @@ describe('listingSchema', () => {
   describe('serializeListingSchema', () => {
     it('transforms correctly', () => {
       expect(serializeListingSchema.parse(listingMock)).toStrictEqual(serializeListing(listingMock))
-    })
-  })
-
-  describe('serializedListingSchema', () => {
-    it('transforms correctly', () => {
-      expect(serializedListingSchema.parse(serializeListing(listingMock))).toStrictEqual(pick(['slug'], listingMock))
     })
   })
 })

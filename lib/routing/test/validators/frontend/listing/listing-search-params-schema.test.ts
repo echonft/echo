@@ -1,16 +1,16 @@
 import { collectionMockPx } from '@echo/model/mocks/collection-mock'
 import { nftMockPx1, nftMockPx2 } from '@echo/model/mocks/nft-mock'
 import { serializeNft } from '@echo/model/serializers/serialize-nft'
-import { listingSearchParamsSchema } from '@echo/routing/validators/frontend/listing/listing-search-params-schema'
+import { createListingSearchParamsSchema } from '@echo/routing/validators/frontend/listing/create-listing-search-params-schema'
 import { describe, expect, test } from '@jest/globals'
 import { map, pipe, prop } from 'ramda'
 import { ZodError } from 'zod'
 
 describe('listingSearchParamsSchema', () => {
   function expectZodError(data: unknown, path: (string | number | undefined)[]) {
-    expect(() => listingSearchParamsSchema.parse(data)).toThrow()
+    expect(() => createListingSearchParamsSchema.parse(data)).toThrow()
     try {
-      listingSearchParamsSchema.parse(data)
+      createListingSearchParamsSchema.parse(data)
     } catch (err) {
       expect(err).toBeInstanceOf(ZodError)
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -38,11 +38,11 @@ describe('listingSearchParamsSchema', () => {
 
   test('valid items', () => {
     const valid = { items: [serializeNft(nftMockPx1), serializeNft(nftMockPx2)] }
-    expect(listingSearchParamsSchema.parse(valid)).toStrictEqual(valid)
+    expect(createListingSearchParamsSchema.parse(valid)).toStrictEqual(valid)
   })
 
   test('valid target', () => {
     const valid = { target: collectionMockPx.slug }
-    expect(listingSearchParamsSchema.parse(valid)).toStrictEqual(valid)
+    expect(createListingSearchParamsSchema.parse(valid)).toStrictEqual(valid)
   })
 })

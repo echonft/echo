@@ -2,16 +2,16 @@ import { collectionMockPx } from '@echo/model/mocks/collection-mock'
 import { nftMockPx1, nftMockPx2 } from '@echo/model/mocks/nft-mock'
 import { serializeCollection } from '@echo/model/serializers/serialize-collection'
 import { serializeNft } from '@echo/model/serializers/serialize-nft'
-import { offerSearchParamsSchema } from '@echo/routing/validators/frontend/offer/offer-search-params-schema'
+import { createOfferSearchParamsSchema } from '@echo/routing/validators/frontend/offer/create-offer-search-params-schema'
 import { describe, expect, test } from '@jest/globals'
 import { map, pipe, prop } from 'ramda'
 import { ZodError } from 'zod'
 
 describe('offerSearchParamsSchema', () => {
   function expectZodError(data: unknown, path: (string | number | undefined)[]) {
-    expect(() => offerSearchParamsSchema.parse(data)).toThrow()
+    expect(() => createOfferSearchParamsSchema.parse(data)).toThrow()
     try {
-      offerSearchParamsSchema.parse(data)
+      createOfferSearchParamsSchema.parse(data)
     } catch (err) {
       expect(err).toBeInstanceOf(ZodError)
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -35,7 +35,7 @@ describe('offerSearchParamsSchema', () => {
 
   test('valid without target', () => {
     const valid = { items: [serializeNft(nftMockPx1), serializeNft(nftMockPx2)] }
-    expect(offerSearchParamsSchema.parse(valid)).toStrictEqual(valid)
+    expect(createOfferSearchParamsSchema.parse(valid)).toStrictEqual(valid)
   })
 
   test('valid with target', () => {
@@ -43,6 +43,6 @@ describe('offerSearchParamsSchema', () => {
       items: [serializeNft(nftMockPx1), serializeNft(nftMockPx2)],
       target: serializeCollection(collectionMockPx)
     }
-    expect(offerSearchParamsSchema.parse(valid)).toStrictEqual(valid)
+    expect(createOfferSearchParamsSchema.parse(valid)).toStrictEqual(valid)
   })
 })

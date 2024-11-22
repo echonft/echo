@@ -2,9 +2,9 @@ import { erc1155ItemMock, erc20ItemMock, erc721ItemMock } from '@echo/model/mock
 import { swapMock } from '@echo/model/mocks/swap-mock'
 import { serializeSwap } from '@echo/model/serializers/serialize-swap'
 import type { Erc20Item } from '@echo/model/types/item'
-import { serializedSwapSchema, serializeSwapSchema, swapSchema } from '@echo/model/validators/swap-schema'
+import { serializeSwapSchema, swapSchema } from '@echo/model/validators/swap-schema'
 import { describe, expect, it, test } from '@jest/globals'
-import { assoc, assocPath, dissoc, map, pick, pipe, prop } from 'ramda'
+import { assoc, assocPath, dissoc, map, pipe, prop } from 'ramda'
 import { ZodError } from 'zod'
 
 describe('swapSchema', () => {
@@ -97,12 +97,6 @@ describe('swapSchema', () => {
   describe('serializeSwapSchema', () => {
     it('transforms correctly', () => {
       expect(serializeSwapSchema.parse(swapMock)).toStrictEqual(serializeSwap(swapMock))
-    })
-  })
-
-  describe('serializedSwapSchema', () => {
-    it('transforms correctly', () => {
-      expect(serializedSwapSchema.parse(serializeSwap(swapMock))).toStrictEqual(pick(['slug'], swapMock))
     })
   })
 })

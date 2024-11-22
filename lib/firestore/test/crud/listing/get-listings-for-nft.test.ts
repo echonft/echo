@@ -6,7 +6,6 @@ import type { ListingDocument } from '@echo/firestore/types/model/listing-docume
 import { ListingState } from '@echo/model/constants/listing-state'
 import { listingMock } from '@echo/model/mocks/listing-mock'
 import { nftMockPx3, nftMockSpiral1, nftMockSpiral2 } from '@echo/model/mocks/nft-mock'
-import type { Slug } from '@echo/model/types/slug'
 import { resetListing } from '@echo/test/firestore/crud/listing/reset-listing'
 import { updateListing } from '@echo/test/firestore/crud/listing/update-listing'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -14,7 +13,7 @@ import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNil, pipe } from 'ramda'
 
 describe('CRUD - listing - getListingsForNft', () => {
-  let slug: Nullable<Slug>
+  let slug: Nullable<Lowercase<string>>
   function updateListingMockToStateOpen(listing: ListingDocument): ListingDocument {
     return pipe(assoc('state', ListingState.Open), assoc('locked', false))(listing)
   }

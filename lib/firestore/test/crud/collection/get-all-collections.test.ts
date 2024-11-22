@@ -2,7 +2,7 @@ import { deleteCollection } from '@echo/firestore/crud/collection/delete-collect
 import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
 import { collectionDocumentMockPx, collectionDocumentMockSpiral } from '@echo/firestore/mocks/collection-document-mock'
 import { addCollection } from '@echo/test/firestore/crud/collection/add-collection'
-import { collectionDocumentMocks } from '@echo/test/firestore/initialize-db'
+import { collectionDocumentMocks } from '@echo/test/firestore/mocks'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { andThen, isEmpty, pipe } from 'ramda'
 

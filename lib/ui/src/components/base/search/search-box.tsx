@@ -8,12 +8,12 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { AnimatePresence } from 'framer-motion'
 import { pick } from 'ramda'
-import { useState } from 'react'
+import { type FunctionComponent, useState } from 'react'
 import { useDetectClickOutside } from 'react-detect-click-outside'
 import { debounce } from 'throttle-debounce'
 
-export interface SearchBoxProps<T> {
-  resultsProvider: (query: string) => Promise<SearchResult<T>[]>
+export interface SearchBoxProps {
+  resultsProvider: (query: string) => Promise<SearchResult[]>
   style?: {
     categories?: {
       show?: boolean
@@ -21,10 +21,10 @@ export interface SearchBoxProps<T> {
     placeHolder?: string
     backgroundColor?: string
   }
-  onSelect?: (result: SearchResult<T>) => void
+  onSelect?: (result: SearchResult) => void
 }
 
-export const SearchBox = <T,>({ resultsProvider, style, onSelect }: SearchBoxProps<T>) => {
+export const SearchBox: FunctionComponent<SearchBoxProps> = ({ resultsProvider, style, onSelect }) => {
   const ref = useDetectClickOutside({
     onTriggered: () => {
       setSearching(false)
@@ -34,7 +34,7 @@ export const SearchBox = <T,>({ resultsProvider, style, onSelect }: SearchBoxPro
   })
   const [query, setQuery] = useState<Nullable<string>>()
   const [searching, setSearching] = useState(false)
-  const [results, setResults] = useState<SearchResult<T>[] | undefined>(undefined)
+  const [results, setResults] = useState<SearchResult[] | undefined>(undefined)
   const search = debounce(800, async (query: string) => {
     setSearching(true)
     try {

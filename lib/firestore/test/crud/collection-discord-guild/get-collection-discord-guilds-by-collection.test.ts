@@ -2,7 +2,7 @@ import { getCollectionDiscordGuildsByCollection } from '@echo/firestore/crud/col
 import { deleteCollection } from '@echo/firestore/crud/collection/delete-collection'
 import { addCollectionDiscordGuild } from '@echo/test/firestore/crud/collection-discord-guild/add-collection-discord-guild'
 import { deleteCollectionDiscordGuild } from '@echo/test/firestore/crud/collection-discord-guild/delete-collection-discord-guild'
-import { collectionDocumentMockPxId } from '@echo/test/firestore/initialize-db'
+import { collectionDocumentMockPxId } from '@echo/test/firestore/mocks'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'

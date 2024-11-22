@@ -1,7 +1,6 @@
 'use client'
 import { listingItems } from '@echo/model/helpers/listing/listing-items'
 import { nftItemToNft } from '@echo/model/mappers/item/nft-item-to-nft'
-import type { Slug } from '@echo/model/types/slug'
 import { ListingDetailsButtons } from '@echo/ui/components/listing/details/listing-details-buttons'
 import { ListingDetailsItems } from '@echo/ui/components/listing/details/listing-details-items'
 import { TradeDetailsLayout } from '@echo/ui/components/trade/layout/trade-details-layout'
@@ -27,7 +26,7 @@ export const ListingDetails: FunctionComponent<ListingDetailsProps> = ({ listing
   const [loading, setLoading] = useState(false)
   const { cancelListing } = useActions()
   const onCancel = useCallback(
-    async (slug: Slug) => {
+    async (slug: Lowercase<string>) => {
       try {
         const cancelledListing = await cancelListing(slug)
         onUpdate?.(assoc('role', listing.role, cancelledListing))

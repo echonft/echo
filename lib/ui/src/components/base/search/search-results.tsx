@@ -3,19 +3,20 @@ import { SearchResult, type SearchResultProps } from '@echo/ui/components/base/s
 import { SearchResultEmpty } from '@echo/ui/components/base/search/search-result-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { addIndex, isEmpty, isNil, map } from 'ramda'
+import type { FunctionComponent } from 'react'
 
-interface Props<T> {
-  results: SearchResultModel<T>[]
+interface Props {
+  results: SearchResultModel[]
   style?: Nullable<{
     categories?: {
       show?: boolean
     }
   }>
-  onSelect?: (selection: SearchResultModel<T>) => unknown
+  onSelect?: (selection: SearchResultModel) => unknown
 }
 
-export const SearchResults = <T,>({ results, style, onSelect }: Props<T>) => {
-  function getSearchResultStyle(index: number): SearchResultProps<T>['style'] {
+export const SearchResults: FunctionComponent<Props> = ({ results, style, onSelect }) => {
+  function getSearchResultStyle(index: number): SearchResultProps['style'] {
     if (index === 0 && !style?.categories?.show) {
       return { rounded: 'top' }
     }
@@ -28,11 +29,11 @@ export const SearchResults = <T,>({ results, style, onSelect }: Props<T>) => {
   if (isEmpty(results)) {
     return <SearchResultEmpty />
   }
-  const mapIndexed = addIndex<SearchResultModel<T>>(map)
+  const mapIndexed = addIndex<SearchResultModel>(map)
   return (
     <>
       {mapIndexed(
-        (result: SearchResultModel<T>, index: number) => (
+        (result: SearchResultModel, index: number) => (
           <SearchResult key={result.id} result={result} style={getSearchResultStyle(index)} onSelect={onSelect} />
         ),
         results

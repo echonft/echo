@@ -2,7 +2,6 @@ import { ItemError } from '@echo/model/constants/errors/item-error'
 import { OfferState } from '@echo/model/constants/offer-state'
 import { serializeOffer } from '@echo/model/serializers/serialize-offer'
 import type { HexString } from '@echo/model/types/hex-string'
-import type { Slug } from '@echo/model/types/slug'
 import { itemsContainErc1155Duplicates } from '@echo/model/validators/helpers/items-contain-erc1155-duplicates'
 import { itemsContainErc20Duplicates } from '@echo/model/validators/helpers/items-contain-erc20-duplicates'
 import { itemsContainErc721Duplicates } from '@echo/model/validators/helpers/items-contain-erc721-duplicates'
@@ -11,9 +10,8 @@ import { hexStringSchema } from '@echo/model/validators/hex-string-schema'
 import { itemSchema } from '@echo/model/validators/item-schema'
 import { slugSchema, withSlugSchema } from '@echo/model/validators/slug-schema'
 import { userSchema } from '@echo/model/validators/user-schema'
-import { as } from '@echo/utils/helpers/as'
-import { complement, objOf, toLower } from 'ramda'
-import { boolean, nativeEnum, number, object, string } from 'zod'
+import { complement, toLower } from 'ramda'
+import { boolean, nativeEnum, number, object } from 'zod'
 
 const offerItemsSchema = itemSchema
   .array()
@@ -39,8 +37,3 @@ export const offerSchema = baseOfferSchema.extend({
 })
 
 export const serializeOfferSchema = withSlugSchema.transform(serializeOffer)
-
-export const serializedOfferSchema = string()
-  .regex(/^[a-z0-9-_]+$/)
-  .transform(as<Slug, string>)
-  .transform(objOf('slug'))

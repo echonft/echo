@@ -2,7 +2,7 @@ import { addListingPost } from '@echo/firestore/crud/listing-post/add-listing-po
 import { getListingPost } from '@echo/firestore/crud/listing-post/get-listing-post'
 import { ListingError } from '@echo/model/constants/errors/listing-error'
 import { deleteListingPost } from '@echo/test/firestore/crud/listing-post/delete-listing-post'
-import { listingDocumentMockId } from '@echo/test/firestore/initialize-db'
+import { listingDocumentMockId } from '@echo/test/firestore/mocks'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNil } from 'ramda'

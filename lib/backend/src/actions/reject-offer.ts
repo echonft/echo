@@ -8,10 +8,9 @@ import { initializeFirestore } from '@echo/firestore/services/initialize-firesto
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { eqUser } from '@echo/model/helpers/user/eq-user'
 import type { Offer } from '@echo/model/types/offer'
-import type { Slug } from '@echo/model/types/slug'
 import { andThen, isNil, pipe } from 'ramda'
 
-export async function rejectOffer(slug: Slug): Promise<Offer> {
+export async function rejectOffer(slug: Lowercase<string>): Promise<Offer> {
   const authUser = await getAuthUser()
   if (isNil(authUser)) {
     return Promise.reject(Error(AuthError.Unauthorized))

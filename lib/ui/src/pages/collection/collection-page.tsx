@@ -2,7 +2,6 @@ import type { Collection } from '@echo/model/types/collection'
 import type { Counts } from '@echo/model/types/counts'
 import type { OwnedNft } from '@echo/model/types/nft'
 import type { Swap } from '@echo/model/types/swap'
-import type { FrontendRouteSelection } from '@echo/routing/types/frontend/search-params/frontend-route-selection'
 import { NavigationLayout } from '@echo/ui/components/base/layout/navigation-layout'
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
@@ -10,7 +9,6 @@ import { CollectionDetails } from '@echo/ui/components/collection/details/collec
 import { CollectionTabs } from '@echo/ui/pages/collection/collection-tabs'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import type { Nullable } from '@echo/utils/types/nullable'
 import { mergeLeft } from 'ramda'
 import type { FunctionComponent } from 'react'
 
@@ -20,8 +18,8 @@ interface Props {
   listings: ListingWithRole[]
   nfts: OwnedNft[]
   offers: OfferWithRole[]
-  selection: Nullable<FrontendRouteSelection>
   swaps: Swap[]
+  selection?: number
 }
 
 export const CollectionPage: FunctionComponent<Props> = ({

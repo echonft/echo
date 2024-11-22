@@ -25,6 +25,7 @@ const nextConfig = {
     ],
     unoptimized: true
   },
+  productionBrowserSourceMaps: true,
   swcMinify: true,
   transpilePackages: [
     '@echo/backend',

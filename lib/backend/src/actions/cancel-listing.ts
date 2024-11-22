@@ -8,10 +8,9 @@ import { initializeFirestore } from '@echo/firestore/services/initialize-firesto
 import { ListingError } from '@echo/model/constants/errors/listing-error'
 import { eqUser } from '@echo/model/helpers/user/eq-user'
 import type { Listing } from '@echo/model/types/listing'
-import type { Slug } from '@echo/model/types/slug'
 import { andThen, isNil, pipe } from 'ramda'
 
-export async function cancelListing(slug: Slug): Promise<Listing> {
+export async function cancelListing(slug: Lowercase<string>): Promise<Listing> {
   const authUser = await getAuthUser()
   if (isNil(authUser)) {
     return Promise.reject(Error(AuthError.Unauthorized))

@@ -2,8 +2,6 @@
 import type { Collection } from '@echo/model/types/collection'
 import type { OwnedNft } from '@echo/model/types/nft'
 import type { Swap } from '@echo/model/types/swap'
-import { FrontendSelectionType } from '@echo/routing/constants/frontend-selection-type'
-import type { FrontendRouteSelection } from '@echo/routing/types/frontend/search-params/frontend-route-selection'
 import { ListingsPanel } from '@echo/ui/components/base/navigation/panels/listings-panel'
 import { OffersPanel } from '@echo/ui/components/base/navigation/panels/offers-panel'
 import { SwapsPanel } from '@echo/ui/components/base/navigation/panels/swaps-panel'
@@ -16,7 +14,6 @@ import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { TabOptions } from '@echo/ui/types/tab-options'
 import { isFalsy } from '@echo/utils/helpers/is-falsy'
-import type { Nullable } from '@echo/utils/types/nullable'
 import { TabGroup, TabList, TabPanels } from '@headlessui/react'
 import { all, always, find, findIndex, ifElse, isEmpty, isNil, map, pipe, prop, propEq } from 'ramda'
 import type { FunctionComponent } from 'react'
@@ -29,7 +26,7 @@ interface Props {
   nfts: OwnedNft[]
   offers: OfferWithRole[]
   swaps: Swap[]
-  selection?: Nullable<FrontendRouteSelection>
+  selection?: number
 }
 
 export const CollectionTabs: FunctionComponent<Props> = ({ collection, listings, nfts, offers, swaps, selection }) => {
@@ -59,15 +56,7 @@ export const CollectionTabs: FunctionComponent<Props> = ({ collection, listings,
     if (isNil(selection)) {
       return {}
     }
-    switch (selection.type) {
-      case FrontendSelectionType.Listing:
-        return { defaultIndex: findIndex(propEq('listings', 'name'), tabs) }
-      case FrontendSelectionType.Offer:
-        return { defaultIndex: findIndex(propEq('offers', 'name'), tabs) }
-      case FrontendSelectionType.Swap:
-      default:
-        return { defaultIndex: findIndex(propEq('swaps', 'name'), tabs) }
-    }
+    return { defaultIndex: findIndex(propEq('listings', 'name'), tabs) }
   }
   function showTab(name: TabName) {
     return pipe(find<TabOptions<TabName>>(propEq(name, 'name')), ifElse(isNil, always(false), prop('show')))(tabs)
@@ -86,21 +75,9 @@ export const CollectionTabs: FunctionComponent<Props> = ({ collection, listings,
       </TabList>
       <TabPanels>
         <CollectionItemsPanel show={showTab('items')} collection={collection} nfts={nfts} />
-        <ListingsPanel
-          show={showTab('listings')}
-          listings={listings}
-          selection={selection?.type === 'listing' ? selection.index : undefined}
-        />
-        <OffersPanel
-          show={showTab('offers')}
-          offers={offers}
-          selection={selection?.type === 'offer' ? selection.index : undefined}
-        />
-        <SwapsPanel
-          show={showTab('swaps')}
-          swaps={swaps}
-          selection={selection?.type === 'swap' ? selection.index : undefined}
-        />
+        <ListingsPanel show={showTab('listings')} listings={listings} selection={selection} />
+        <OffersPanel show={showTab('offers')} offers={offers} />
+        <SwapsPanel show={showTab('swaps')} swaps={swaps} />
       </TabPanels>
     </TabGroup>
   )

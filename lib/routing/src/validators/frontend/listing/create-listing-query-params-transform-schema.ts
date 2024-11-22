@@ -2,7 +2,7 @@ import { serializeCollectionSchema } from '@echo/model/validators/collection-sch
 import { serializeNftSchema } from '@echo/model/validators/nft-schema'
 import { object } from 'zod'
 
-export const listingQueryParamsTransformSchema = object({
+export const createListingQueryParamsTransformSchema = object({
   items: serializeNftSchema.array().nonempty()
 })
   .strict()

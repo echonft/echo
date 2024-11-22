@@ -5,7 +5,7 @@ import { SearchBox, type SearchBoxProps } from '@echo/ui/components/base/search/
 import type { Meta, StoryObj } from '@storybook/react'
 import { type FunctionComponent } from 'react'
 
-interface Props extends Pick<SearchBoxProps<string>, 'onSelect'> {
+interface Props extends Pick<SearchBoxProps, 'onSelect'> {
   showCategories: boolean
 }
 

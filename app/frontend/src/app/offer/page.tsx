@@ -7,8 +7,8 @@ import { eqOwnedNftOwner } from '@echo/model/helpers/nft/eq-owned-nft-owner'
 import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
 import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
-import type { OfferSearchParams } from '@echo/routing/types/frontend/search-params/offer-search-params'
-import { offerSearchParamsDataSchema } from '@echo/routing/validators/frontend/offer/offer-search-params-data-schema'
+import type { CreateOfferSearchParams } from '@echo/routing/types/frontend/search-params/create-offer-search-params'
+import { createOfferSearchParamsDataSchema } from '@echo/routing/validators/frontend/offer/create-offer-search-params-data-schema'
 import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
 import { Header } from '@echo/ui/components/base/header/header'
 import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
@@ -37,7 +37,7 @@ import {
 } from 'ramda'
 
 interface Props {
-  searchParams: OfferSearchParams
+  searchParams: CreateOfferSearchParams
   user: User
 }
 
@@ -48,7 +48,7 @@ async function render({ searchParams, user }: Props) {
     items: is(String, searchParams.items) ? [searchParams.items] : searchParams.items
   }
 
-  const { items, target } = offerSearchParamsDataSchema.parse(normalizedSearchParams)
+  const { items, target } = createOfferSearchParamsDataSchema.parse(normalizedSearchParams)
   const receiverNftsSelection = await pipe(
     map(getNftByIndex),
     promiseAll,

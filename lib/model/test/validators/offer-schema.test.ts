@@ -2,14 +2,9 @@ import { erc1155ItemMock, erc20ItemMock, erc721ItemMock } from '@echo/model/mock
 import { baseOfferMockFromJohnnycage, offerMockToJohnnycage } from '@echo/model/mocks/offer-mock'
 import { serializeOffer } from '@echo/model/serializers/serialize-offer'
 import type { Erc20Item } from '@echo/model/types/item'
-import {
-  baseOfferSchema,
-  offerSchema,
-  serializedOfferSchema,
-  serializeOfferSchema
-} from '@echo/model/validators/offer-schema'
+import { baseOfferSchema, offerSchema, serializeOfferSchema } from '@echo/model/validators/offer-schema'
 import { describe, expect, it, test } from '@jest/globals'
-import { assoc, assocPath, dissoc, map, pick, pipe, prop } from 'ramda'
+import { assoc, assocPath, dissoc, map, pipe, prop } from 'ramda'
 import { ZodError } from 'zod'
 
 describe('offerSchema', () => {
@@ -183,14 +178,6 @@ describe('offerSchema', () => {
   describe('serializeOfferSchema', () => {
     it('transforms correctly', () => {
       expect(serializeOfferSchema.parse(offerMockToJohnnycage)).toStrictEqual(serializeOffer(offerMockToJohnnycage))
-    })
-  })
-
-  describe('serializedOfferSchema', () => {
-    it('transforms correctly', () => {
-      expect(serializedOfferSchema.parse(serializeOffer(offerMockToJohnnycage))).toStrictEqual(
-        pick(['slug'], offerMockToJohnnycage)
-      )
     })
   })
 })

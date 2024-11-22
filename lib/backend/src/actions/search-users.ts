@@ -5,7 +5,7 @@ import { userToSearchResult } from '@echo/model/mappers/user/user-to-search-resu
 import type { SearchResult } from '@echo/model/types/search-result'
 import { andThen, filter, map, pipe, propSatisfies, test, toLower } from 'ramda'
 
-export async function searchUsers(query: string): Promise<SearchResult<string>[]> {
+export async function searchUsers(query: string): Promise<SearchResult[]> {
   await initializeFirestore()
   const regex = new RegExp(toLower(query), 'ig')
   const search = pipe(toLower, test(regex))

@@ -8,19 +8,19 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { motion } from 'framer-motion'
 import { isNil, pipe, sort } from 'ramda'
-import { useEffect, useMemo, useState } from 'react'
+import { type FunctionComponent, useEffect, useMemo, useState } from 'react'
 
-interface Props<T> {
-  results: Nullable<SearchResultModel<T>[]>
+interface Props {
+  results: Nullable<SearchResultModel[]>
   style?: Nullable<{
     categories?: {
       show?: boolean
     }
   }>
-  onSelect?: (selection: SearchResultModel<T>) => unknown
+  onSelect?: (selection: SearchResultModel) => unknown
 }
 
-export const SearchResultsPanel = <T,>({ results, style, onSelect }: Props<T>) => {
+export const SearchResultsPanel: FunctionComponent<Props> = ({ results, style, onSelect }) => {
   const [category, setCategory] = useState<Nullable<SearchResultCategory>>()
   const filteredResults = useMemo(() => {
     if (isNil(results)) {
@@ -29,7 +29,7 @@ export const SearchResultsPanel = <T,>({ results, style, onSelect }: Props<T>) =
     if (isNil(category)) {
       return sort(compareSearchResults, results)
     }
-    return pipe(filterSearchResultsByCategory<T>(category), sort(compareSearchResults))(results)
+    return pipe(filterSearchResultsByCategory(category), sort(compareSearchResults))(results)
   }, [category, results])
 
   // reset the picked category when results change

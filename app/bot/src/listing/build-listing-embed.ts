@@ -16,7 +16,7 @@ export function buildListingEmbed(listing: Listing, creator: UserDocument) {
     .setColor(0x00ff66)
     .setFields(fields(listing.items, listing.target))
     .setURL(
-      frontendRoutes.collection.details.withQuery({ listing: listing }).getUrl({ slug: listing.target.collection.slug })
+      frontendRoutes.listing.details.withQuery({ listing: listing }).getUrl({ slug: listing.target.collection.slug })
     )
 }
 

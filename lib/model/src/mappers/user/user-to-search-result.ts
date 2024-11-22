@@ -5,8 +5,8 @@ import type { User } from '@echo/model/types/user'
 import { pathIsNil } from '@echo/utils/helpers/path-is-nil'
 import { always, applySpec, concat, ifElse, path, pipe, prop } from 'ramda'
 
-export function userToSearchResult(user: Pick<User, 'discord' | 'username'>): SearchResult<string> {
-  return applySpec<SearchResult<string>>({
+export function userToSearchResult(user: Pick<User, 'discord' | 'username'>): SearchResult {
+  return applySpec<SearchResult>({
     category: always(SearchResultCategory.User),
     label: ifElse(pathIsNil(['discord', 'globalName']), prop('username'), path(['discord', 'globalName'])),
     id: pipe<[UserDocument], string, string>(prop('username'), concat(`${SearchResultCategory.User}-`)),
