@@ -10,7 +10,7 @@ interface Props {
   swapsCount: number
 }
 
-export const CountsDetails: FunctionComponent<Props> = ({ listingsCount, nftsCount, offersCount, swapsCount }) => {
+export const ProfileCounts: FunctionComponent<Props> = ({ listingsCount, nftsCount, offersCount, swapsCount }) => {
   const t = useTranslations('counts')
   return (
     <div className={clsx('flex', 'flex-row', 'gap-2.5', 'w-full')}>

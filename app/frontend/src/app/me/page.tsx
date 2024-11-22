@@ -10,25 +10,14 @@ import { toOffersWithRole } from '@echo/frontend/lib/helpers/offer/to-offers-wit
 import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-array'
 import { toSwaps } from '@echo/frontend/lib/helpers/swap/to-swaps'
 import type { User } from '@echo/model/types/user'
-import type { SelectionSearchParams } from '@echo/routing/types/frontend/search-params/selection-search-params'
-import { selectionSearchParamsDataSchema } from '@echo/routing/validators/frontend/selection/selection-search-params-data-schema'
-import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
-import { Header } from '@echo/ui/components/base/header/header'
-import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
-import { NavigationLayout } from '@echo/ui/components/base/layout/navigation-layout'
-import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
-import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
-import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
-import { AuthUserProfile } from '@echo/ui/components/user/profile/auth-user-profile'
-import { ProfileTabs } from '@echo/ui/pages/profile/profile-tabs'
+import { ProfilePage } from '@echo/ui/pages/profile/profile-page'
 import { always, andThen, otherwise, pipe, prop } from 'ramda'
 
 interface Props {
-  searchParams?: SelectionSearchParams
   user: User
 }
 
-async function render({ searchParams, user }: Props) {
+async function render({ user }: Props) {
   const nfts = await pipe(prop('username'), getNftsForOwner, otherwiseEmptyArray)(user)
   const listings = await pipe(
     prop('username'),
@@ -50,36 +39,22 @@ async function render({ searchParams, user }: Props) {
   )(user)
   const offersCount = await pipe(prop('username'), getUserOffersCount, otherwise(always(0)))(user)
   const swaps = await pipe(prop('username'), getSwapsForUser, andThen(toSwaps), otherwiseEmptyArray)(user)
-  const selection = selectionSearchParamsDataSchema.parse({ listings, offers, swaps, searchParams })
 
   return (
-    <PageLayout>
-      <Header />
-      <MainSectionLayout>
-        <NavigationLayout>
-          <SectionLayout>
-            <AuthUserProfile
-              user={user}
-              listingsCount={listings.length}
-              nftsCount={nfts.length}
-              offersCount={offersCount}
-              swapsCount={swaps.length}
-            />
-          </SectionLayout>
-          <NavigationSectionLayout>
-            <ProfileTabs
-              listings={listings}
-              nfts={nfts}
-              offers={offers}
-              pendingListings={pendingListings}
-              swaps={swaps}
-              selection={selection}
-            />
-          </NavigationSectionLayout>
-        </NavigationLayout>
-        <CalloutManager />
-      </MainSectionLayout>
-    </PageLayout>
+    <ProfilePage
+      counts={{
+        listingsCount: listings.length,
+        nftsCount: nfts.length,
+        offersCount: offersCount,
+        swapsCount: swaps.length
+      }}
+      listings={listings}
+      nfts={nfts}
+      offers={offers}
+      pendingListings={pendingListings}
+      swaps={swaps}
+      user={user}
+    />
   )
 }
 

@@ -15,7 +15,6 @@ import { assoc, pipe } from 'ramda'
 import { type FunctionComponent, useCallback, useState } from 'react'
 
 export interface ListingDetailsProps {
-  // TODO update to have a listing where NFT items token are OwnedNft
   listing: ListingWithRole
   onUpdate?: (listing: ListingWithRole) => unknown
 }

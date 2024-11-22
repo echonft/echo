@@ -43,7 +43,7 @@ export const CreatedOfferCreated: FunctionComponent<Props> = ({ offer }) => {
         <button
           className={clsx('btn-gradient', 'h-max', 'w-full', 'py-2.5', 'group')}
           onClick={() => {
-            router.replace(frontendRoutes.user.profile.withQuery({ offer }).get())
+            router.replace(frontendRoutes.offer.details.withQuery({ offer }).get({ username: offer.sender.username }))
           }}
         >
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('offerBtn')}</span>

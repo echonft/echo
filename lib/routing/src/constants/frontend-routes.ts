@@ -2,15 +2,15 @@ import { FrontendRoute } from '@echo/routing/services/frontend/frontend-route'
 import type { CreateListingQueryParams } from '@echo/routing/types/frontend/query-params/create-listing-query-params'
 import type { CreateOfferQueryParams } from '@echo/routing/types/frontend/query-params/create-offer-query-params'
 import type { ListingDetailsQueryParams } from '@echo/routing/types/frontend/query-params/listing-details-query-params'
-import type { SelectionQueryParams } from '@echo/routing/types/frontend/query-params/selection-query-params'
+import type { OfferDetailsQueryParams } from '@echo/routing/types/frontend/query-params/offer-details-query-params'
 import type { CreateListingSearchParams } from '@echo/routing/types/frontend/search-params/create-listing-search-params'
 import type { CreateOfferSearchParams } from '@echo/routing/types/frontend/search-params/create-offer-search-params'
 import type { ListingDetailsSearchParams } from '@echo/routing/types/frontend/search-params/listing-details-search-params'
-import type { SelectionSearchParams } from '@echo/routing/types/frontend/search-params/selection-search-params'
+import type { OfferDetailsSearchParams } from '@echo/routing/types/frontend/search-params/offer-details-search-params'
 import { createListingQueryParamsTransformSchema } from '@echo/routing/validators/frontend/listing/create-listing-query-params-transform-schema'
 import { listingDetailsSearchParamsSchema } from '@echo/routing/validators/frontend/listing/listing-details-search-params-schema'
 import { createOfferQueryParamsTransformSchema } from '@echo/routing/validators/frontend/offer/create-offer-query-params-transform-schema'
-import { selectionQueryParamsTransformSchema } from '@echo/routing/validators/frontend/selection/selection-query-params-transform-schema'
+import { offerDetailsSearchParamsSchema } from '@echo/routing/validators/frontend/offer/offer-details-search-params-schema'
 
 export const frontendRoutes = {
   base: {
@@ -45,18 +45,15 @@ export const frontendRoutes = {
       '/offer',
       { secure: true },
       (params: CreateOfferQueryParams) => createOfferQueryParamsTransformSchema.parse(params)
+    ),
+    details: new FrontendRoute<Record<'username', string>, OfferDetailsQueryParams, OfferDetailsSearchParams>(
+      '/user/:username',
+      { secure: false },
+      (params: OfferDetailsQueryParams) => offerDetailsSearchParamsSchema.parse(params)
     )
   },
   user: {
-    details: new FrontendRoute<Record<'username', string>, SelectionQueryParams, SelectionSearchParams>(
-      '/user/:username',
-      { secure: false },
-      (params: SelectionQueryParams) => selectionQueryParamsTransformSchema.parse(params)
-    ),
-    profile: new FrontendRoute<never, SelectionQueryParams, SelectionSearchParams>(
-      '/me',
-      { secure: true },
-      (params: SelectionQueryParams) => selectionQueryParamsTransformSchema.parse(params)
-    )
+    details: new FrontendRoute<Record<'username', string>>('/user/:username', { secure: false }),
+    profile: new FrontendRoute('/me', { secure: true })
   }
 }

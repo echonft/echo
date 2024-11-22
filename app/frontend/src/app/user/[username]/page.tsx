@@ -12,13 +12,9 @@ import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-
 import { otherwiseUndefined } from '@echo/frontend/lib/helpers/otherwise-undefined'
 import { toSwaps } from '@echo/frontend/lib/helpers/swap/to-swaps'
 import type { User } from '@echo/model/types/user'
-import type { SelectionSearchParams } from '@echo/routing/types/frontend/search-params/selection-search-params'
-import { selectionSearchParamsDataSchema } from '@echo/routing/validators/frontend/selection/selection-search-params-data-schema'
-import { NavigationLayout } from '@echo/ui/components/base/layout/navigation-layout'
-import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
-import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
-import { UserProfile } from '@echo/ui/components/user/profile/user-profile'
-import { UserTabs } from '@echo/ui/pages/user/user-tabs'
+import type { OfferDetailsSearchParams } from '@echo/routing/types/frontend/search-params/offer-details-search-params'
+import { offerDetailsSearchParamsTransformSchema } from '@echo/routing/validators/frontend/offer/offer-details-search-params-transform-schema'
+import { UserPage } from '@echo/ui/pages/user/user-page'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound } from 'next/navigation'
 import { always, andThen, isNil, otherwise, pipe } from 'ramda'
@@ -27,7 +23,7 @@ interface Props {
   params: {
     username: string
   }
-  searchParams: SelectionSearchParams
+  searchParams?: OfferDetailsSearchParams
   user: Nullable<User>
 }
 
@@ -46,30 +42,24 @@ async function render({ params: { username }, searchParams, user: authUser }: Pr
   const offers = await pipe(getPendingOffersForUser, andThen(toOffersWithRole(authUser)), otherwiseEmptyArray)(username)
   const offersCount = await pipe(getUserOffersCount, otherwise(pipe(captureAndLogError, always(0))))(username)
   const swaps = await pipe(getSwapsForUser, andThen(toSwaps), otherwiseEmptyArray)(username)
-  const selection = selectionSearchParamsDataSchema.parse({ listings, offers, swaps, searchParams })
+  const selection = offerDetailsSearchParamsTransformSchema.parse({ offers, searchParams })
 
   return (
-    <NavigationLayout>
-      <SectionLayout>
-        <UserProfile
-          user={user}
-          listingsCount={listings.length}
-          nftsCount={nfts.length}
-          offersCount={offersCount}
-          swapsCount={swaps.length}
-        />
-      </SectionLayout>
-      <NavigationSectionLayout>
-        <UserTabs
-          isAuthUser={isAuthUser}
-          listings={listings}
-          nfts={nfts}
-          offers={offers}
-          swaps={swaps}
-          selection={selection}
-        />
-      </NavigationSectionLayout>
-    </NavigationLayout>
+    <UserPage
+      isAuthUser={isAuthUser}
+      counts={{
+        listingsCount: listings.length,
+        nftsCount: nfts.length,
+        offersCount,
+        swapsCount: swaps.length
+      }}
+      listings={listings}
+      nfts={nfts}
+      offers={offers}
+      swaps={swaps}
+      user={user}
+      selection={selection}
+    />
   )
 }
 

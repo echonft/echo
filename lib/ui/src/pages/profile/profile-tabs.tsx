@@ -1,8 +1,6 @@
 'use client'
 import type { OwnedNft } from '@echo/model/types/nft'
 import type { Swap } from '@echo/model/types/swap'
-import { FrontendSelectionType } from '@echo/routing/constants/frontend-selection-type'
-import type { FrontendRouteSelection } from '@echo/routing/types/frontend/search-params/frontend-route-selection'
 import { ListingsPanel } from '@echo/ui/components/base/navigation/panels/listings-panel'
 import { OffersPanel } from '@echo/ui/components/base/navigation/panels/offers-panel'
 import { SwapsPanel } from '@echo/ui/components/base/navigation/panels/swaps-panel'
@@ -16,9 +14,8 @@ import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { TabOptions } from '@echo/ui/types/tab-options'
 import { isFalsy } from '@echo/utils/helpers/is-falsy'
-import type { Nullable } from '@echo/utils/types/nullable'
 import { TabGroup, TabList, TabPanels } from '@headlessui/react'
-import { all, always, find, findIndex, ifElse, isEmpty, isNil, map, pipe, prop, propEq } from 'ramda'
+import { all, always, find, ifElse, isEmpty, isNil, map, pipe, prop, propEq } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 type TabName = 'items' | 'listings' | 'offers' | 'swaps' | 'explore'
@@ -29,17 +26,9 @@ interface Props {
   offers: OfferWithRole[]
   pendingListings: ListingWithRole[]
   swaps: Swap[]
-  selection?: Nullable<FrontendRouteSelection>
 }
 
-export const ProfileTabs: FunctionComponent<Props> = ({
-  listings,
-  nfts,
-  offers,
-  pendingListings,
-  swaps,
-  selection
-}) => {
+export const ProfileTabs: FunctionComponent<Props> = ({ listings, nfts, offers, pendingListings, swaps }) => {
   const tabs: TabOptions<TabName>[] = [
     {
       name: 'items',
@@ -62,29 +51,17 @@ export const ProfileTabs: FunctionComponent<Props> = ({
       show: !isEmpty(pendingListings)
     }
   ]
-  function tabGroupProps() {
-    if (isNil(selection)) {
-      return {}
-    }
-    switch (selection.type) {
-      case FrontendSelectionType.Listing:
-        return { defaultIndex: findIndex(propEq('listings', 'name'), tabs) }
-      case FrontendSelectionType.Offer:
-        return { defaultIndex: findIndex(propEq('offers', 'name'), tabs) }
-      case FrontendSelectionType.Swap:
-      default:
-        return { defaultIndex: findIndex(propEq('swaps', 'name'), tabs) }
-    }
-  }
+
   function showTab(name: TabName) {
     return pipe(find<TabOptions<TabName>>(propEq(name, 'name')), ifElse(isNil, always(false), prop('show')))(tabs)
   }
+
   if (all(isFalsy, map(prop('show'), tabs))) {
     // TODO empty view https://linear.app/echobot/issue/DEV-343/pages-with-tabs-empty-views
     return null
   }
   return (
-    <TabGroup {...tabGroupProps()}>
+    <TabGroup>
       <TabList className={'tab-list'}>
         <ItemsTab show={showTab('items')} />
         <ListingsTab show={showTab('listings')} />
@@ -94,21 +71,9 @@ export const ProfileTabs: FunctionComponent<Props> = ({
       </TabList>
       <TabPanels>
         <ProfileItemsPanel show={showTab('items')} nfts={nfts} />
-        <ListingsPanel
-          show={showTab('listings')}
-          listings={listings}
-          selection={selection?.type === 'listing' ? selection.index : undefined}
-        />
-        <OffersPanel
-          show={showTab('offers')}
-          offers={offers}
-          selection={selection?.type === 'offer' ? selection.index : undefined}
-        />
-        <SwapsPanel
-          show={showTab('swaps')}
-          swaps={swaps}
-          selection={selection?.type === 'swap' ? selection.index : undefined}
-        />
+        <ListingsPanel show={showTab('listings')} listings={listings} />
+        <OffersPanel show={showTab('offers')} offers={offers} />
+        <SwapsPanel show={showTab('swaps')} swaps={swaps} />
         <ListingsPanel show={showTab('explore')} listings={pendingListings} />
       </TabPanels>
     </TabGroup>
