@@ -1,16 +1,15 @@
 import { offerSchema } from '@echo/model/validators/offer-schema'
 import { slugSchema } from '@echo/model/validators/slug-schema'
-import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
-import { findIndex, propEq } from 'ramda'
+import { findIndex, isEmpty, isNil, propEq } from 'ramda'
 import { object } from 'zod'
 
 export const offerDetailsSearchParamsTransformSchema = object({
   offers: offerSchema.array(),
   searchParams: object({
-    offer: slugSchema
-  }).optional()
+    offer: slugSchema.optional()
+  })
 }).transform(({ offers, searchParams }) => {
-  if (isNilOrEmpty(searchParams)) {
+  if (isEmpty(searchParams) || isNil(searchParams.offer)) {
     return undefined
   }
   const index = findIndex(propEq(searchParams.offer, 'slug'), offers)
