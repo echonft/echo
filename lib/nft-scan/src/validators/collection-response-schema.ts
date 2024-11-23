@@ -4,7 +4,8 @@ import { nftTokenTypeSchema } from '@echo/model/validators/nft-token-type-schema
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { propIsNil } from '@echo/utils/helpers/prop-is-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { applySpec, assoc, dissoc, isNil, objOf, pipe, prop, when } from 'ramda'
+import { pictureUrlSchema } from '@echo/utils/validators/picture-url-schema'
+import { applySpec, assoc, dissoc, objOf, pipe, prop, when } from 'ramda'
 import { boolean, number, object, string } from 'zod'
 
 function removeNullOrEmptyString(value: string | null): string | undefined {
@@ -21,16 +22,7 @@ export const baseCollectionResponseSchema = object({
   erc_type: nftTokenTypeSchema,
   is_spam: boolean(),
   items_total: number(),
-  logo_url: string()
-    .nullable()
-    .optional()
-    // TODO make a zod extension for this
-    .transform((val) => {
-      if (!isNil(val) && !/^[a-zA-Z]+:\/\//.test(val)) {
-        return `ipfs://${val}`
-      }
-      return val
-    }),
+  logo_url: pictureUrlSchema.nullable().optional(),
   name: string(),
   twitter: string().nullable(),
   website: string().nullable()

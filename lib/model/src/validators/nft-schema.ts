@@ -5,6 +5,7 @@ import { collectionSchema } from '@echo/model/validators/collection-schema'
 import { nftTokenTypeSchema } from '@echo/model/validators/nft-token-type-schema'
 import { withSlugSchema } from '@echo/model/validators/slug-schema'
 import { userSchema } from '@echo/model/validators/user-schema'
+import { ipfsSchema } from '@echo/utils/validators/ipfs-schema'
 import { applySpec, head, last, partialRight, pipe, split } from 'ramda'
 import { literal, number, object, string } from 'zod'
 
@@ -18,7 +19,7 @@ export const nftSchema = object({
   collection: collectionSchema.pick({ contract: true, name: true, slug: true, totalSupply: true }),
   name: string().min(1),
   owner: userSchema.optional(),
-  pictureUrl: string().url().optional().or(string().optional()), // TODO make an ipfs() zod extension
+  pictureUrl: string().url().or(ipfsSchema).optional(),
   tokenId: number().int().positive(),
   type: nftTokenTypeSchema
 })

@@ -7,6 +7,7 @@ import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { propIsNil } from '@echo/utils/helpers/prop-is-nil'
 import { propIsNilOrEmpty } from '@echo/utils/helpers/prop-is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
+import { pictureUrlSchema } from '@echo/utils/validators/picture-url-schema'
 import { always, applySpec, dissoc, either, ifElse, invoker, isNil, objOf, pipe, prop, reject, when } from 'ramda'
 import { object, string } from 'zod'
 
@@ -19,16 +20,7 @@ export const baseNftResponseSchema = object({
   attributes: baseNftAttributeResponseSchema.array().nullable(),
   contract_address: addressSchema,
   erc_type: nftTokenTypeSchema,
-  image_uri: string()
-    .nullable()
-    .optional()
-    // TODO make a zod extension for this
-    .transform((val) => {
-      if (!isNil(val) && !/^[a-zA-Z]+:\/\//.test(val)) {
-        return `ipfs://${val}`
-      }
-      return val
-    }),
+  image_uri: pictureUrlSchema.nullable().optional(),
   owner: addressSchema,
   name: string().nullable().optional(),
   token_id: string().min(1)
