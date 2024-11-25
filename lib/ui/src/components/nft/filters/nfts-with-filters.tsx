@@ -1,5 +1,4 @@
 'use client'
-
 import type { OwnedNft } from '@echo/model/types/nft'
 import type { NftCardProps } from '@echo/ui/components/nft/card/nft-card'
 import { NftCards } from '@echo/ui/components/nft/card/nft-cards'
@@ -16,10 +15,10 @@ import { type FunctionComponent } from 'react'
 interface Props {
   nfts: OwnedNft[]
   sortBy: NftSortBy
-  cardOptions: NftCardProps['options']
+  options: NftCardProps['options']
 }
 
-export const NftsWithFilters: FunctionComponent<Props> = ({ nfts, cardOptions, sortBy }) => {
+export const NftsWithFilters: FunctionComponent<Props> = ({ nfts, options, sortBy }) => {
   const { filteredByNfts, selection, toggleTraitFilterSelection, toggleCollectionFilterSelection } = useNfts({
     nfts,
     sortBy
@@ -41,7 +40,7 @@ export const NftsWithFilters: FunctionComponent<Props> = ({ nfts, cardOptions, s
             onToggleSelection={toggleTraitFilterSelection}
           />
         </NftFiltersPanelsLayout>
-        <NftCards nfts={filteredByNfts.byTraits} cardOptions={cardOptions} />
+        <NftCards nfts={filteredByNfts.byTraits} options={options} />
       </NftsAndFiltersLayout>
     </div>
   )

@@ -9,7 +9,7 @@ const metadata: Meta<typeof Component> = {
   title: 'Base/Header',
   component: Component,
   argTypes: {
-    style: {
+    options: {
       options: values(HeaderStyle),
       control: { type: 'select' }
     }

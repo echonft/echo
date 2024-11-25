@@ -1,37 +1,32 @@
 'use client'
-import type { WithChildrenProps } from '@echo/ui/types/props/with-children-props'
-import type { WithClassNameProps } from '@echo/ui/types/props/with-class-name-props'
-import type { WithLoadingProps } from '@echo/ui/types/props/with-loading-props'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
-import type { FunctionComponent, MouseEventHandler } from 'react'
+import type { FunctionComponent, MouseEventHandler, PropsWithChildren } from 'react'
 
-interface Props extends WithChildrenProps, WithLoadingProps, WithClassNameProps {
+interface Props {
   onClick?: MouseEventHandler
 }
 
-export const StackLayout: FunctionComponent<Props> = ({ loading, className, children, onClick }) => {
+export const StackLayout: FunctionComponent<PropsWithChildren<Props>> = ({ children, onClick }) => {
   return (
     <div
       className={clsx(
         'rounded-2xl',
         'w-[13.5rem]',
-        'h-[17.5rem]',
+        'card-height',
         'overflow-clip',
         'bg-stack',
-        'bg-[length:216px_289px]',
-        'bg-origin-border',
-        'border-transparent',
-        'border',
+        // 'bg-[length:208px_310px]',
+        'bg-no-repeat',
+        // 'bg-origin-border',
         'group',
         'transition ease-in-out',
         'outline-none',
-        loading ? 'animate-pulse' : !isNil(onClick) && 'cursor-pointer',
-        className
+        !isNil(onClick) && 'cursor-pointer'
       )}
-      onClick={loading ? undefined : onClick}
+      onClick={onClick}
     >
-      {children}
+      <div className={clsx('translate-x-0.5', 'translate-y-[1px]')}>{children}</div>
     </div>
   )
 }

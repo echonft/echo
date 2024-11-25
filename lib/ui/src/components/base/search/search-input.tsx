@@ -14,16 +14,16 @@ import { RotatingLines } from 'react-loader-spinner'
 interface Props {
   query: Nullable<string>
   searching?: boolean
-  style?: Nullable<{
+  options?: {
     placeHolder?: string
     backgroundColor?: string
-  }>
+  }
   onChange?: (query: Nullable<string>) => void
 }
 
-export const SearchInput: FunctionComponent<Props> = ({ query, searching, style, onChange }) => {
+export const SearchInput: FunctionComponent<Props> = ({ query, searching, options, onChange }) => {
   return (
-    <div className={clsx('items-center', style?.backgroundColor ?? 'bg-dark-350', 'rounded-lg', 'w-full')}>
+    <div className={clsx('items-center', options?.backgroundColor ?? 'bg-dark-350', 'rounded-lg', 'w-full')}>
       <span className={clsx('text-yellow-500', 'absolute', 'left-3', 'top-3')}>
         {searching ? (
           <RotatingLines
@@ -57,7 +57,7 @@ export const SearchInput: FunctionComponent<Props> = ({ query, searching, style,
           'outline-none'
         )}
         value={defaultTo('', query)}
-        placeholder={style?.placeHolder}
+        placeholder={options?.placeHolder}
         onChange={(event) => {
           onChange?.(event.target.value)
         }}

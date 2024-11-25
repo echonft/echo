@@ -8,15 +8,11 @@ import type { FunctionComponent } from 'react'
 
 export interface SelectableNftThumbnailContainerProps {
   nfts: OwnedNft[]
-  style?: {
-    minWitdh?: boolean
-  }
   onRemove?: (nft: OwnedNft) => unknown
 }
 
 export const SelectableNftThumbnails: FunctionComponent<SelectableNftThumbnailContainerProps> = ({
   nfts,
-  style,
   onRemove
 }) => {
   if (isEmpty(nfts)) {
@@ -35,8 +31,7 @@ export const SelectableNftThumbnails: FunctionComponent<SelectableNftThumbnailCo
         'rounded-3xl',
         'border-2',
         'border-dark-350',
-        'p-4',
-        style?.minWitdh && 'min-w-[28rem]'
+        'p-4'
       )}
     >
       <AnimatePresence initial={false}>

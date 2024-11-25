@@ -28,7 +28,7 @@ export const HeaderSearch: FunctionComponent = () => {
             router.push(frontendRoutes.user.details.get({ username: result.value }))
           }
         }}
-        style={{
+        options={{
           categories: {
             show: true
           },

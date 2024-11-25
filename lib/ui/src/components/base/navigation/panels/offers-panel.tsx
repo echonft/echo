@@ -5,7 +5,7 @@ import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { TabPanel } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { isNil, nth } from 'ramda'
+import { find, isNil, nth, pipe, propEq } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
@@ -20,7 +20,12 @@ export const OffersPanel: FunctionComponent<Props> = ({ offers, selection, show 
   if (show) {
     return (
       <TabPanel className={clsx('outline-none')}>
-        <OfferCards offers={offers} onSelect={setOffer} />
+        <OfferCards
+          offers={offers}
+          onSelect={(slug) => {
+            pipe(find<OfferWithRole>(propEq(slug, 'slug')), setOffer)(offers)
+          }}
+        />
         <OfferDetailsModal
           offer={offer}
           onUpdate={setOffer}

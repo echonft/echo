@@ -18,7 +18,7 @@ const metadata: Meta<typeof Component> = {
   decorators: [
     (Story) => (
       <PageLayout background={PageLayoutBackground.Collections}>
-        <Header style={HeaderStyle.Default} />
+        <Header options={HeaderStyle.Default} />
         <MainSectionLayout>
           <Story />
         </MainSectionLayout>

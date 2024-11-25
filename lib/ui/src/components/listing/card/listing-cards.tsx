@@ -1,21 +1,21 @@
 'use client'
+import type { Listing } from '@echo/model/types/listing'
 import { CardsLayout } from '@echo/ui/components/base/card/layout/cards-layout'
-import { ListingCard, type ListingCardProps } from '@echo/ui/components/listing/card/listing-card'
-import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
+import { ListingCard } from '@echo/ui/components/listing/card/listing-card'
 import { map } from 'ramda'
 import { type FunctionComponent } from 'react'
 
-interface Props extends Pick<ListingCardProps<ListingWithRole>, 'options'> {
-  listings: ListingWithRole[]
-  onSelect?: (listing: ListingWithRole) => unknown
+interface Props {
+  listings: Listing[]
+  onSelect?: (slug: Lowercase<string>) => void
 }
 
-export const ListingCards: FunctionComponent<Props> = ({ listings, options, onSelect }) => {
+export const ListingCards: FunctionComponent<Props> = ({ listings, onSelect }) => {
   return (
     <CardsLayout>
       {map(
         (listing) => (
-          <ListingCard key={listing.slug} listing={listing} options={options} onSelect={onSelect} />
+          <ListingCard key={listing.slug} listing={listing} onSelect={onSelect} />
         ),
         listings
       )}

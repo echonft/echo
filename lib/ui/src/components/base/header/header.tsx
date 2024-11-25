@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  style?: HeaderStyle
+  options?: HeaderStyle
 }
 
 const HeaderButton = dynamic(
@@ -17,8 +17,8 @@ const HeaderButton = dynamic(
   { ssr: false, loading: () => <HeaderButtonSkeleton /> }
 )
 
-export const Header: FunctionComponent<Props> = ({ style = HeaderStyle.Default }) => {
-  if (style === HeaderStyle.Plain) {
+export const Header: FunctionComponent<Props> = ({ options = HeaderStyle.Default }) => {
+  if (options === HeaderStyle.Plain) {
     return (
       <HeaderLayout>
         <InternalLink path={'/'}>

@@ -34,7 +34,7 @@ export const CollectionSelector: FunctionComponent<Props> = ({ collection, onAdd
               onSelect={(_result: SearchResult) => {
                 // TODO Implement the fetching of the collection from the slug
               }}
-              style={{
+              options={{
                 categories: {
                   show: false
                 },

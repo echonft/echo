@@ -8,7 +8,21 @@ import { propIsNil } from '@echo/utils/helpers/prop-is-nil'
 import { propIsNilOrEmpty } from '@echo/utils/helpers/prop-is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { pictureUrlSchema } from '@echo/utils/validators/picture-url-schema'
-import { always, applySpec, dissoc, either, ifElse, invoker, isNil, objOf, pipe, prop, reject, when } from 'ramda'
+import {
+  always,
+  applySpec,
+  dissoc,
+  either,
+  ifElse,
+  invoker,
+  isNil,
+  isNotNil,
+  objOf,
+  pipe,
+  prop,
+  reject,
+  when
+} from 'ramda'
 import { object, string } from 'zod'
 
 export const baseNftAttributeResponseSchema = object({
@@ -33,7 +47,7 @@ export const nftResponseSchema = baseNftResponseSchema
       .transform<Nullable<NftAttribute>>(
         ifElse(
           either(propIsNilOrEmpty('attribute_name'), propIsNilOrEmpty('attribute_value')),
-          always(null),
+          always<Nullable<NftAttribute>>(undefined),
           applySpec<NftAttribute>({
             trait: prop('attribute_name'),
             value: prop('attribute_value')
@@ -42,7 +56,7 @@ export const nftResponseSchema = baseNftResponseSchema
       )
       .array()
       .nullable()
-      .transform((attributes) => (isNil(attributes) ? [] : reject(isNil)(attributes))),
+      .transform(ifElse(isNotNil, reject<NftAttribute>(isNil), always<NftAttribute[]>([]))),
     token_id: intStringSchema
   })
   .transform<PartialNft>(

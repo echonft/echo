@@ -2,13 +2,13 @@
 
 import { nftMockSpiral1 } from '@echo/model/mocks/nft-mock'
 import { NftCard as Component } from '@echo/ui/components/nft/card/nft-card'
+import { Color } from '@echo/ui/constants/color'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { type FunctionComponent } from 'react'
 
 interface Args {
+  readonly border: 'default' | Color.Yellow
   readonly hideOwner: boolean
-  readonly hideOpenSeaLink: boolean
-  readonly scaleDisabled: boolean
 }
 
 type ComponentType = FunctionComponent<Args>
@@ -16,21 +16,16 @@ type ComponentType = FunctionComponent<Args>
 const metadata: Meta<ComponentType> = {
   title: 'NFT/Card',
   args: {
-    hideOwner: false,
-    hideOpenSeaLink: false,
-    scaleDisabled: false
+    border: 'default',
+    hideOwner: false
   },
   argTypes: {
+    border: {
+      control: { type: 'select' },
+      options: ['default', Color.Yellow]
+    },
     hideOwner: {
       description: 'Hide the owner Discord tag',
-      control: 'boolean'
-    },
-    hideOpenSeaLink: {
-      description: 'Hide the NFT OpenSea link icon',
-      control: 'boolean'
-    },
-    scaleDisabled: {
-      description: 'Disable scaling of the image on hover',
       control: 'boolean'
     }
   }
@@ -39,20 +34,21 @@ const metadata: Meta<ComponentType> = {
 export default metadata
 
 export const Default: StoryObj<ComponentType> = {
-  render: ({ hideOwner, hideOpenSeaLink, scaleDisabled }) => {
-    return (
-      <Component
-        nft={nftMockSpiral1}
-        options={{
-          owner: {
-            hide: hideOwner
-          },
-          style: {
-            hideOpenSeaLink,
-            scaleDisabled
+  render: ({ border, hideOwner }) => {
+    const options =
+      border === 'default'
+        ? {
+            owner: {
+              hide: hideOwner
+            }
           }
-        }}
-      />
-    )
+        : {
+            borderColor: Color.Yellow as const,
+            owner: {
+              hide: hideOwner
+            }
+          }
+
+    return <Component nft={nftMockSpiral1} options={options} />
   }
 }

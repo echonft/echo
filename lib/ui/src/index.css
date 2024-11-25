@@ -45,6 +45,9 @@
   .collection-title {
     @apply text-white prose-display-lg-bold uppercase truncate;
   }
+  .card-height {
+    @apply h-[18.125rem];
+  }
   .btn {
     @apply flex flex-row justify-center items-center disabled:opacity-40 rounded-lg select-none outline-none h-max w-max transition-colors;
   }

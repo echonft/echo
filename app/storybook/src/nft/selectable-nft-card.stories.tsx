@@ -12,6 +12,7 @@ import type { FunctionComponent } from 'react'
 interface Args extends Pick<SelectableNftCardProps, 'onSelect' | 'onAction'> {
   action: boolean
   hideOwner: boolean
+  selected: boolean
 }
 
 type ComponentType = FunctionComponent<Args>
@@ -19,13 +20,17 @@ const metadata: Meta<ComponentType> = {
   title: 'NFT/Selectable Card',
   args: {
     action: true,
-    hideOwner: false
+    hideOwner: false,
+    selected: false
   },
   argTypes: {
     action: {
       control: 'boolean'
     },
     hideOwner: {
+      control: 'boolean'
+    },
+    selected: {
       control: 'boolean'
     },
     onAction: {
@@ -44,12 +49,13 @@ const metadata: Meta<ComponentType> = {
 export default metadata
 
 export const SelectableCard: StoryObj<ComponentType> = {
-  render: ({ action, hideOwner, onSelect, onAction }) => {
+  render: ({ action, hideOwner, selected, onSelect, onAction }) => {
     return (
       <SelectableNftCard
         nft={nftMockSpiral1}
         options={{ owner: { hide: hideOwner } }}
         action={action ? NftAction.Offer : undefined}
+        selected={selected}
         onSelect={onSelect}
         onAction={onAction}
       />

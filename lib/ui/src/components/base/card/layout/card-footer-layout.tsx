@@ -1,14 +1,8 @@
-import type { WithChildrenProps } from '@echo/ui/types/props/with-children-props'
-import type { WithLoadingProps } from '@echo/ui/types/props/with-loading-props'
 import { clsx } from 'clsx'
-import { type FunctionComponent } from 'react'
+import { type FunctionComponent, type PropsWithChildren } from 'react'
 
-interface Props extends WithChildrenProps, WithLoadingProps {}
-
-export const CardFooterLayout: FunctionComponent<Props> = ({ loading, children }) => {
+export const CardFooterLayout: FunctionComponent<PropsWithChildren> = ({ children }) => {
   return (
-    <div className={clsx('w-full', 'min-w-0', 'h-max', 'rounded-b-2xl', 'px-2.75', loading && 'invisible')}>
-      {children}
-    </div>
+    <div className={clsx('w-full', 'min-w-0', 'h-max', 'rounded-b-2xl', 'px-2.75', 'pt-5', 'pb-6')}>{children}</div>
   )
 }

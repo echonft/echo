@@ -6,10 +6,10 @@ import { nftLabel } from '@echo/ui/helpers/nft/nft-label'
 import { type FunctionComponent } from 'react'
 
 export const NftCardPicture: FunctionComponent<NftCardProps> = (props) => {
-  const { nft, options } = props
+  const { nft } = props
   return (
     <CardPictureLayout>
-      <CardImage src={nft.pictureUrl} alt={nftLabel(nft)} scaleDisabled={options?.style?.scaleDisabled} />
+      <CardImage src={nft.pictureUrl} alt={nftLabel(nft)} />
       <NftCardDiscordTag {...props} />
     </CardPictureLayout>
   )

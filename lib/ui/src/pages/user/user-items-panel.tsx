@@ -24,7 +24,7 @@ export const UserItemsPanel: FunctionComponent<Props> = ({ isAuthUser, nfts, sho
     if (isAuthUser) {
       return (
         <TabPanel className={clsx('outline-none')}>
-          <NftsWithFilters nfts={nfts} sortBy={'collection'} cardOptions={{ owner: { hide: true } }} />
+          <NftsWithFilters nfts={nfts} sortBy={'collection'} options={{ owner: { hide: true } }} />
         </TabPanel>
       )
     }

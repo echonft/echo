@@ -56,7 +56,7 @@ export const Default: StoryObj<ComponentType> = {
 
     return (
       <Combobox onChange={onSelect}>
-        <SearchResultsPanel results={results} style={{ categories: { show: showCategories } }} />
+        <SearchResultsPanel results={results} options={{ categories: { show: showCategories } }} />
       </Combobox>
     )
   }

@@ -5,7 +5,7 @@ import { SwapDetailsModal } from '@echo/ui/components/swap/details/swap-details-
 import type { Nullable } from '@echo/utils/types/nullable'
 import { TabPanel } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { assoc, isNil, nth, pipe } from 'ramda'
+import { find, isNil, nth, pipe, propEq } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
@@ -20,10 +20,14 @@ export const SwapsPanel: FunctionComponent<Props> = ({ swaps, selection, show })
   if (show) {
     return (
       <TabPanel className={clsx('outline-none')}>
-        <SwapCards swaps={swaps} onSelect={pipe(assoc('role', undefined), setSwap)} />
+        <SwapCards
+          swaps={swaps}
+          onSelect={(slug) => {
+            pipe(find<Swap>(propEq(slug, 'slug')), setSwap)(swaps)
+          }}
+        />
         <SwapDetailsModal
           swap={swap}
-          onUpdate={setSwap}
           onClose={() => {
             setSwap(undefined)
           }}

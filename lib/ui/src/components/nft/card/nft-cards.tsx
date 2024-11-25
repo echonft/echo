@@ -9,15 +9,15 @@ import { type FunctionComponent } from 'react'
 interface Props {
   nfts: Nft[]
   alignment?: Alignment
-  cardOptions?: NftCardProps['options']
+  options?: NftCardProps['options']
 }
 
-export const NftCards: FunctionComponent<Props> = ({ nfts, alignment, cardOptions }) => {
+export const NftCards: FunctionComponent<Props> = ({ nfts, alignment, options }) => {
   return (
     <CardsLayout alignment={alignment}>
       {map(
         (nft) => (
-          <NftCard key={keyOf(nft)} nft={nft} options={cardOptions} />
+          <NftCard key={keyOf(nft)} nft={nft} options={options} />
         ),
         nfts
       )}

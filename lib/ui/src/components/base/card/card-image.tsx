@@ -8,10 +8,9 @@ import { type FunctionComponent, useState } from 'react'
 interface Props {
   alt: string
   src: Nullable<string>
-  scaleDisabled?: boolean
 }
 
-export const CardImage: FunctionComponent<Props> = ({ alt, src, scaleDisabled }) => {
+export const CardImage: FunctionComponent<Props> = ({ alt, src }) => {
   // TODO add error
   const [loaded, setLoaded] = useState(false)
   return (
@@ -25,12 +24,13 @@ export const CardImage: FunctionComponent<Props> = ({ alt, src, scaleDisabled })
           'h-auto',
           'object-center',
           'object-contain',
-          !scaleDisabled && 'group-hover:scale-125'
+          'group-hover:scale-125'
         )}
         width={200}
         height={200}
         alt={alt}
         src={src}
+        priority={true}
         onLoad={() => {
           setLoaded(true)
         }}

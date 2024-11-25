@@ -6,21 +6,19 @@ import type { NftItem } from '@echo/model/types/item'
 import type { Listing } from '@echo/model/types/listing'
 import { ListingCard } from '@echo/ui/components/listing/card/listing-card'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { always, assoc, head, modify, type NonEmptyArray, pipe, unless, values } from 'ramda'
-import { type FunctionComponent, useMemo } from 'react'
+import { always, assoc, modify, type NonEmptyArray, pipe, take, unless, values } from 'ramda'
+import { type FunctionComponent } from 'react'
 
 type ComponentType = FunctionComponent<{
   state: ListingState
   stack: boolean
-  scaleDisabled: boolean
 }>
 
 const metadata: Meta<ComponentType> = {
   title: 'Listing/Card',
   args: {
     state: ListingState.Open,
-    stack: false,
-    scaleDisabled: false
+    stack: false
   },
   argTypes: {
     state: {
@@ -29,26 +27,20 @@ const metadata: Meta<ComponentType> = {
     },
     stack: {
       control: 'boolean'
-    },
-    scaleDisabled: {
-      control: 'boolean'
     }
   }
 }
 export default metadata
+
 export const Default: StoryObj<ComponentType> = {
-  render: ({ state, stack, scaleDisabled }) => {
-    const listing: Listing = useMemo(
-      () =>
-        pipe<[Listing], Listing, Listing>(
-          assoc('state', state),
-          unless<Listing, Listing>(
-            always(stack),
-            modify<'items', NonEmptyArray<NftItem>, NonEmptyArray<NftItem>>('items', head)
-          )
-        )(listingMock),
-      [state, stack]
-    )
-    return <ListingCard listing={listing} options={{ scaleDisabled }} />
+  render: ({ state, stack }) => {
+    const listing = pipe<[Listing], Listing, Listing>(
+      assoc('state', state),
+      unless<Listing, Listing>(
+        always(stack),
+        modify<'items', NonEmptyArray<NftItem>, NonEmptyArray<NftItem>>('items', take(1))
+      )
+    )(listingMock)
+    return <ListingCard listing={listing} />
   }
 }

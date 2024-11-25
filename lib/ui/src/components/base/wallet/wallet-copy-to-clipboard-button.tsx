@@ -48,7 +48,7 @@ export const WalletCopyToClipboardButton: FunctionComponent<WalletConnectedButto
           closeEvents={{ mouseleave: true, blur: true, click: true, dblclick: true, mouseup: true }}
         />
       </div>
-      <ExternalLink href={blockExplorerLinkForAddress(wallet)} style={{ inline: true }}>
+      <ExternalLink href={blockExplorerLinkForAddress(wallet)} options={{ inline: true }}>
         <div
           className={clsx(
             'bg-white/[0.08]',

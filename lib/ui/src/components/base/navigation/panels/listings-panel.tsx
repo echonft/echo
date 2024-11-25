@@ -5,7 +5,7 @@ import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { TabPanel } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { isNil, nth } from 'ramda'
+import { find, isNil, nth, pipe, propEq } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
@@ -21,7 +21,12 @@ export const ListingsPanel: FunctionComponent<Props> = ({ listings, selection, s
   if (show) {
     return (
       <TabPanel className={clsx('outline-none')}>
-        <ListingCards listings={listings} onSelect={setListing} />
+        <ListingCards
+          listings={listings}
+          onSelect={(slug) => {
+            pipe(find<ListingWithRole>(propEq(slug, 'slug')), setListing)(listings)
+          }}
+        />
         <ListingDetailsModal
           listing={listing}
           onUpdate={setListing}

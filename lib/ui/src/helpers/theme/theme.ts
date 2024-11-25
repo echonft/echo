@@ -9,6 +9,7 @@ type fontSizeConfig = [
     fontWeight: string | number
   }>
 ]
+
 export const themeExtension = {
   backgroundImage: {
     'main/40': 'linear-gradient(95.27deg, rgba(239, 244, 39, 0.4) 7.68%, rgba(143, 39, 245, 0.4) 100%)',

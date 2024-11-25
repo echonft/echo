@@ -6,13 +6,12 @@ import { type FunctionComponent } from 'react'
 interface Props {
   pictureUrl: Nullable<string>
   label: string
-  scaleDisabled?: boolean
 }
 
-export const SwapStackPicture: FunctionComponent<Props> = ({ pictureUrl, label, scaleDisabled }) => {
+export const SwapStackPicture: FunctionComponent<Props> = ({ pictureUrl, label }) => {
   return (
     <StackPictureLayout>
-      <StackImage src={pictureUrl} alt={label} scaleDisabled={scaleDisabled} />
+      <StackImage src={pictureUrl} alt={label} />
     </StackPictureLayout>
   )
 }

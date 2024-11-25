@@ -1,21 +1,21 @@
 'use client'
+import type { Offer } from '@echo/model/types/offer'
 import { CardsLayout } from '@echo/ui/components/base/card/layout/cards-layout'
-import { OfferCard, type OfferCardProps } from '@echo/ui/components/offer/card/offer-card'
-import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
+import { OfferCard } from '@echo/ui/components/offer/card/offer-card'
 import { map } from 'ramda'
 import { type FunctionComponent } from 'react'
 
-interface Props extends Pick<OfferCardProps, 'options'> {
-  offers: OfferWithRole[]
-  onSelect?: (offer: OfferWithRole) => unknown
+interface Props {
+  offers: Offer[]
+  onSelect?: (slug: Lowercase<string>) => void
 }
 
-export const OfferCards: FunctionComponent<Props> = ({ offers, options, onSelect }) => {
+export const OfferCards: FunctionComponent<Props> = ({ offers, onSelect }) => {
   return (
     <CardsLayout>
       {map(
         (offer) => (
-          <OfferCard key={offer.slug} offer={offer} options={options} onSelect={onSelect} />
+          <OfferCard key={offer.slug} offer={offer} onSelect={onSelect} />
         ),
         offers
       )}

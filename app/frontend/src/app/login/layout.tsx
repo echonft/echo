@@ -9,7 +9,7 @@ import type { PropsWithChildren } from 'react'
 export default function render({ children }: PropsWithChildren) {
   return (
     <PageLayout background={PageLayoutBackground.Home}>
-      <Header style={HeaderStyle.Plain} />
+      <Header options={HeaderStyle.Plain} />
       <MainSectionLayout>
         <LoginLayout>{children}</LoginLayout>
       </MainSectionLayout>

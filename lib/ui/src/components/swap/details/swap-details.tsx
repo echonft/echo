@@ -4,7 +4,6 @@ import type { FunctionComponent } from 'react'
 
 export interface SwapDetailsProps {
   swap: Swap
-  onUpdate?: (swap: Swap) => unknown
 }
 
 export const SwapDetails: FunctionComponent<SwapDetailsProps> = () => {

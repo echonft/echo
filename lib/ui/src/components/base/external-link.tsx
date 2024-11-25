@@ -3,16 +3,16 @@ import { type FunctionComponent, type MouseEventHandler, type PropsWithChildren 
 
 interface Props {
   href: string
-  style?: {
+  options?: {
     inline?: boolean
   }
   onClick?: MouseEventHandler
 }
 
-export const ExternalLink: FunctionComponent<PropsWithChildren<Props>> = ({ href, style, onClick, children }) => {
+export const ExternalLink: FunctionComponent<PropsWithChildren<Props>> = ({ href, options, onClick, children }) => {
   return (
     <a
-      className={clsx(style?.inline ? 'inline' : 'block')}
+      className={clsx(options?.inline ? 'inline' : 'block')}
       href={href}
       target={'_blank'}
       rel={'noopener noreferrer nofollow'}

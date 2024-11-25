@@ -1,23 +1,25 @@
-import type { SearchResult as SearchResultModel } from '@echo/model/types/search-result'
-import { SearchResult, type SearchResultProps } from '@echo/ui/components/base/search/search-result'
+import type { SearchResult } from '@echo/model/types/search-result'
+import {
+  SearchResult as SearchResultComponent,
+  type SearchResultProps
+} from '@echo/ui/components/base/search/search-result'
 import { SearchResultEmpty } from '@echo/ui/components/base/search/search-result-empty'
-import type { Nullable } from '@echo/utils/types/nullable'
 import { addIndex, isEmpty, isNil, map } from 'ramda'
-import type { FunctionComponent } from 'react'
+import type { FunctionComponent, ReactNode } from 'react'
 
 interface Props {
-  results: SearchResultModel[]
-  style?: Nullable<{
+  results: SearchResult[]
+  options?: {
     categories?: {
       show?: boolean
     }
-  }>
-  onSelect?: (selection: SearchResultModel) => unknown
+  }
+  onSelect?: (selection: SearchResult) => unknown
 }
 
-export const SearchResults: FunctionComponent<Props> = ({ results, style, onSelect }) => {
-  function getSearchResultStyle(index: number): SearchResultProps['style'] {
-    if (index === 0 && !style?.categories?.show) {
+export const SearchResults: FunctionComponent<Props> = ({ results, options, onSelect }) => {
+  function getSearchResultOptions(index: number): SearchResultProps['options'] {
+    if (index === 0 && !options?.categories?.show) {
       return { rounded: 'top' }
     }
     if (!isNil(results) && index === results.length - 1) {
@@ -29,12 +31,17 @@ export const SearchResults: FunctionComponent<Props> = ({ results, style, onSele
   if (isEmpty(results)) {
     return <SearchResultEmpty />
   }
-  const mapIndexed = addIndex<SearchResultModel>(map)
+  const mapIndexed = addIndex<SearchResult, ReactNode>(map)
   return (
     <>
       {mapIndexed(
-        (result: SearchResultModel, index: number) => (
-          <SearchResult key={result.id} result={result} style={getSearchResultStyle(index)} onSelect={onSelect} />
+        (result, index) => (
+          <SearchResultComponent
+            key={result.id}
+            result={result}
+            options={getSearchResultOptions(index)}
+            onSelect={onSelect}
+          />
         ),
         results
       )}

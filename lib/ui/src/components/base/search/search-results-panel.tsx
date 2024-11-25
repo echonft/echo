@@ -1,7 +1,7 @@
 import type { SearchResultCategory } from '@echo/model/constants/search-result-category'
 import { compareSearchResults } from '@echo/model/helpers/search/compare-search-results'
 import { filterSearchResultsByCategory } from '@echo/model/helpers/search/filter-search-results-by-category'
-import type { SearchResult as SearchResultModel } from '@echo/model/types/search-result'
+import type { SearchResult } from '@echo/model/types/search-result'
 import { SearchResults } from '@echo/ui/components/base/search/search-results'
 import { SearchResultsCategories } from '@echo/ui/components/base/search/search-results-categories'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -11,16 +11,16 @@ import { isNil, pipe, sort } from 'ramda'
 import { type FunctionComponent, useEffect, useMemo, useState } from 'react'
 
 interface Props {
-  results: Nullable<SearchResultModel[]>
-  style?: Nullable<{
+  results: Nullable<SearchResult[]>
+  options?: {
     categories?: {
       show?: boolean
     }
-  }>
-  onSelect?: (selection: SearchResultModel) => unknown
+  }
+  onSelect?: (selection: SearchResult) => unknown
 }
 
-export const SearchResultsPanel: FunctionComponent<Props> = ({ results, style, onSelect }) => {
+export const SearchResultsPanel: FunctionComponent<Props> = ({ results, options, onSelect }) => {
   const [category, setCategory] = useState<Nullable<SearchResultCategory>>()
   const filteredResults = useMemo(() => {
     if (isNil(results)) {
@@ -58,8 +58,8 @@ export const SearchResultsPanel: FunctionComponent<Props> = ({ results, style, o
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <SearchResultsCategories show={style?.categories?.show} results={results} onChange={setCategory} />
-      <SearchResults results={filteredResults} style={style} onSelect={onSelect} />
+      <SearchResultsCategories show={options?.categories?.show} results={results} onChange={setCategory} />
+      <SearchResults results={filteredResults} options={options} onSelect={onSelect} />
     </motion.div>
   )
 }

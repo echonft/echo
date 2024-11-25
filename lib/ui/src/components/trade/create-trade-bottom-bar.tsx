@@ -6,14 +6,13 @@ import { CreateTradeBottomBarButtonLayout } from '@echo/ui/components/trade/layo
 import { CreateTradeBottomBarItemsLayout } from '@echo/ui/components/trade/layout/create-trade-bottom-bar-items-layout'
 import { CreateTradeBottomBarLayout } from '@echo/ui/components/trade/layout/create-trade-bottom-bar-layout'
 import { Direction } from '@echo/ui/constants/direction'
-import type { WithChildrenProps } from '@echo/ui/types/props/with-children-props'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
-import type { FunctionComponent } from 'react'
+import type { FunctionComponent, PropsWithChildren } from 'react'
 
-interface Props extends WithChildrenProps {
+interface Props {
   items: OwnedNft[]
   loading?: boolean
   targetCollection?: Nullable<Listing['target']>
@@ -22,7 +21,7 @@ interface Props extends WithChildrenProps {
 }
 
 // TODO Not sure if having the next button as children is ideal
-export const CreateTradeBottomBar: FunctionComponent<Props> = ({
+export const CreateTradeBottomBar: FunctionComponent<PropsWithChildren<Props>> = ({
   loading,
   items,
   targetCollection,

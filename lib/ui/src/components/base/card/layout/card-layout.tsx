@@ -1,34 +1,34 @@
 'use client'
-import type { WithChildrenProps } from '@echo/ui/types/props/with-children-props'
-import type { WithClassNameProps } from '@echo/ui/types/props/with-class-name-props'
-import type { WithLoadingProps } from '@echo/ui/types/props/with-loading-props'
+import { Color } from '@echo/ui/constants/color'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
-import type { FunctionComponent, MouseEventHandler } from 'react'
+import type { FunctionComponent, MouseEventHandler, PropsWithChildren } from 'react'
 
-export interface CardLayoutProps extends WithChildrenProps, WithLoadingProps, WithClassNameProps {
+export interface CardLayoutProps {
+  options?: {
+    borderColor?: Color.Yellow
+  }
   onClick?: MouseEventHandler
 }
 
-export const CardLayout: FunctionComponent<CardLayoutProps> = ({ loading, className, children, onClick }) => {
+export const CardLayout: FunctionComponent<PropsWithChildren<CardLayoutProps>> = ({ options, onClick, children }) => {
   return (
     <div
       className={clsx(
         'rounded-2xl',
         'w-[12.625rem]',
-        'h-max',
+        'card-height',
         'overflow-clip',
         'border',
         'border-solid',
-        'border-white/10',
+        options?.borderColor === Color.Yellow ? 'border-yellow-500' : 'border-white/10',
         'bg-dark-500',
         'group',
         'transition ease-in-out',
         'outline-none',
-        loading ? 'animate-pulse' : !isNil(onClick) && 'cursor-pointer',
-        className
+        !isNil(onClick) && 'cursor-pointer'
       )}
-      onClick={loading ? undefined : onClick}
+      onClick={onClick}
     >
       {children}
     </div>

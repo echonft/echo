@@ -10,13 +10,12 @@ interface Props {
   pictureUrl: Nullable<string>
   label: string
   state: OfferState
-  scaleDisabled?: boolean
 }
 
-export const OfferStackPicture: FunctionComponent<Props> = ({ pictureUrl, label, state, scaleDisabled }) => {
+export const OfferStackPicture: FunctionComponent<Props> = ({ pictureUrl, label, state }) => {
   return (
     <StackPictureLayout>
-      <StackImage src={pictureUrl} alt={label} scaleDisabled={scaleDisabled} />
+      <StackImage src={pictureUrl} alt={label} />
       <div className={clsx('absolute', 'bottom-2', 'left-2', 'h-max', 'w-max')}>
         <OfferCardStatus state={state} />
       </div>

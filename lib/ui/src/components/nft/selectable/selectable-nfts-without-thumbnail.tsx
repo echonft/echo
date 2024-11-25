@@ -33,7 +33,6 @@ export const SelectableNftsWithoutThumbnail: FunctionComponent<Props> = ({
         {map(
           (nft) => (
             <SelectableNftCard
-              className={clsx(isSelected(nft) && 'border-yellow-500')}
               key={serializeNft(nft)}
               nft={nft}
               selected={isSelected(nft)}

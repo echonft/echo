@@ -14,7 +14,7 @@ import { AnimatePresence } from 'framer-motion'
 import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
-interface Props extends Pick<SelectableNftsProps, 'action' | 'options' | 'style'> {
+interface Props extends Pick<SelectableNftsProps, 'action' | 'options'> {
   nfts: OwnedNft[]
   sortBy: NftSortBy
   onSelectionAction?: (selection: OwnedNft[]) => void
@@ -24,7 +24,6 @@ export const SelectableNftsWithFilters: FunctionComponent<Props> = ({
   action,
   options,
   sortBy,
-  style,
   nfts,
   onSelectionAction
 }) => {
@@ -70,7 +69,6 @@ export const SelectableNftsWithFilters: FunctionComponent<Props> = ({
           selection={selection.nfts}
           action={action}
           options={options}
-          style={style}
           onAction={(nft) => {
             onSelectionAction?.([nft])
           }}

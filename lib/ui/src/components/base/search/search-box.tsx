@@ -14,7 +14,7 @@ import { debounce } from 'throttle-debounce'
 
 export interface SearchBoxProps {
   resultsProvider: (query: string) => Promise<SearchResult[]>
-  style?: {
+  options?: {
     categories?: {
       show?: boolean
     }
@@ -24,7 +24,7 @@ export interface SearchBoxProps {
   onSelect?: (result: SearchResult) => void
 }
 
-export const SearchBox: FunctionComponent<SearchBoxProps> = ({ resultsProvider, style, onSelect }) => {
+export const SearchBox: FunctionComponent<SearchBoxProps> = ({ resultsProvider, options, onSelect }) => {
   const ref = useDetectClickOutside({
     onTriggered: () => {
       setSearching(false)
@@ -59,16 +59,17 @@ export const SearchBox: FunctionComponent<SearchBoxProps> = ({ resultsProvider, 
             search(query)
           }
         }}
-        style={unlessNil<NonNullable<typeof style>, Pick<NonNullable<typeof style>, 'placeHolder' | 'backgroundColor'>>(
-          pick(['placeHolder', 'backgroundColor'])
-        )(style)}
+        options={unlessNil<
+          SearchBoxProps['options'],
+          Pick<NonNullable<SearchBoxProps['options']>, 'placeHolder' | 'backgroundColor'>
+        >(pick(['placeHolder', 'backgroundColor']))(options)}
       />
       <AnimatePresence>
         <SearchResultsPanel
           results={results}
-          style={unlessNil<NonNullable<typeof style>, Pick<NonNullable<typeof style>, 'categories'>>(
+          options={unlessNil<SearchBoxProps['options'], Pick<NonNullable<SearchBoxProps['options']>, 'categories'>>(
             pick(['categories'])
-          )(style)}
+          )(options)}
           onSelect={onSelect}
         />
       </AnimatePresence>

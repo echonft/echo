@@ -1,69 +1,42 @@
 'use client'
-import { offerReceiver } from '@echo/model/helpers/offer/offer-receiver'
-import { offerReceiverNftItems } from '@echo/model/helpers/offer/offer-receiver-nft-items'
-import { offerSender } from '@echo/model/helpers/offer/offer-sender'
 import { offerSenderNftItems } from '@echo/model/helpers/offer/offer-sender-nft-items'
+import type { Offer } from '@echo/model/types/offer'
 import { CardFooter } from '@echo/ui/components/base/card/card-footer'
 import { CardLayout } from '@echo/ui/components/base/card/layout/card-layout'
 import { StackLayout } from '@echo/ui/components/base/stack/layout/stack-layout'
-import { StackFooter } from '@echo/ui/components/base/stack/stack-footer'
 import { OfferCardPicture } from '@echo/ui/components/offer/card/offer-card-picture'
 import { OfferStackPicture } from '@echo/ui/components/offer/card/offer-stack-picture'
 import { buildNftStack } from '@echo/ui/helpers/nft/build-nft-stack'
 import { nftLabel } from '@echo/ui/helpers/nft/nft-label'
-import { isOfferRoleSender } from '@echo/ui/helpers/offer/is-offer-role-sender'
-import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { isNonEmptyArray } from '@echo/utils/helpers/is-non-empty-array'
-import { clsx } from 'clsx'
-import { head, ifElse } from 'ramda'
-import { type FunctionComponent } from 'react'
+import { head } from 'ramda'
+import { type FunctionComponent, useCallback } from 'react'
 
-export interface OfferCardProps {
-  offer: OfferWithRole
-  options?: {
-    asLink?: boolean
-    scaleDisabled?: boolean
-  }
-  onSelect?: (offer: OfferWithRole) => unknown
+interface Props {
+  offer: Offer
+  onSelect?: (slug: Lowercase<string>) => void
 }
 
-export const OfferCard: FunctionComponent<OfferCardProps> = ({ offer, options, onSelect }) => {
-  const items = ifElse(isOfferRoleSender, offerSenderNftItems, offerReceiverNftItems)(offer)
-  const owner = ifElse(isOfferRoleSender, offerSender, offerReceiver)(offer)
+export const OfferCard: FunctionComponent<Props> = ({ offer, onSelect }) => {
+  const items = offerSenderNftItems(offer)
+  const select = useCallback(() => {
+    onSelect?.(offer.slug)
+  }, [offer.slug, onSelect])
+
   if (isNonEmptyArray(items)) {
     if (items.length > 1) {
-      const stack = buildNftStack(items, owner)
+      const stack = buildNftStack(items, offer.sender)
       return (
-        <StackLayout
-          className={clsx(options?.asLink && 'group-hover:border-yellow-500')}
-          onClick={() => {
-            onSelect?.(offer)
-          }}
-        >
-          <OfferStackPicture
-            pictureUrl={stack.pictureUrl}
-            label={stack.label}
-            state={offer.state}
-            scaleDisabled={options?.scaleDisabled}
-          />
-          <StackFooter title={stack.collection.name} subtitle={stack.label} />
+        <StackLayout onClick={select}>
+          <OfferStackPicture pictureUrl={stack.pictureUrl} label={stack.label} state={offer.state} />
+          <CardFooter title={stack.collection.name} subtitle={stack.label} />
         </StackLayout>
       )
     }
     const item = head(items)
     return (
-      <CardLayout
-        className={clsx(options?.asLink && 'group-hover:border-yellow-500')}
-        onClick={() => {
-          onSelect?.(offer)
-        }}
-      >
-        <OfferCardPicture
-          pictureUrl={item.token.pictureUrl}
-          label={nftLabel(item.token)}
-          state={offer.state}
-          scaleDisabled={options?.scaleDisabled}
-        />
+      <CardLayout onClick={select}>
+        <OfferCardPicture pictureUrl={item.token.pictureUrl} label={nftLabel(item.token)} state={offer.state} />
         <CardFooter title={item.token.collection.name} subtitle={nftLabel(item.token)} />
       </CardLayout>
     )

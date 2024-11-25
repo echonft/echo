@@ -31,6 +31,6 @@ export const Default: StoryObj<typeof Component> = {}
 
 export const NoCollection: StoryObj<typeof Component> = {
   args: {
-    collection: null
+    collection: undefined
   }
 }

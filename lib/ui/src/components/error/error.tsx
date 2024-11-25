@@ -19,7 +19,7 @@ export const Error: FunctionComponent<Props> = ({ error, reset }) => {
 
   return (
     <PageLayout>
-      <Header style={HeaderStyle.Plain} />
+      <Header options={HeaderStyle.Plain} />
       <MainSectionLayout>
         <Error500Page onReset={reset} />
       </MainSectionLayout>

@@ -8,7 +8,7 @@ import type { FunctionComponent, ReactNode } from 'react'
 const renderer = {
   link(href: string, text: ReactNode) {
     return (
-      <ExternalLink href={href} style={{ inline: true }} key={href}>
+      <ExternalLink href={href} options={{ inline: true }} key={href}>
         <span className={clsx('inline', 'text-yellow-500')}>{text}</span>
       </ExternalLink>
     )

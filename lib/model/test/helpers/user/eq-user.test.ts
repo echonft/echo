@@ -6,17 +6,8 @@ import { assoc, assocPath, dissoc } from 'ramda'
 describe('helpers - user - eqUser', () => {
   const user = userMockCrew
 
-  test('returns true when both users are null', () => {
-    expect(eqUser(null, null)).toBeTruthy()
-  })
-
   test('returns true when both users are undefined', () => {
     expect(eqUser(undefined, undefined)).toBeTruthy()
-  })
-
-  test('returns false when one user is null and the other is defined', () => {
-    expect(eqUser(null, user)).toBeFalsy()
-    expect(eqUser(user, null)).toBeFalsy()
   })
 
   test('returns false when one user is undefined and the other is defined', () => {
@@ -42,6 +33,6 @@ describe('helpers - user - eqUser', () => {
     const compareWithUser = eqUser(user)
     expect(compareWithUser(user)).toBeTruthy()
     expect(compareWithUser(assoc('username', 'other-username', user))).toBeFalsy()
-    expect(compareWithUser(null)).toBeFalsy()
+    expect(compareWithUser(undefined)).toBeFalsy()
   })
 })

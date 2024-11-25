@@ -45,7 +45,7 @@ export const Box: StoryObj<ComponentType> = {
       <SearchBox
         resultsProvider={search}
         onSelect={onSelect}
-        style={{ categories: { show: showCategories }, placeHolder: 'Search' }}
+        options={{ categories: { show: showCategories }, placeHolder: 'Search' }}
       />
     )
   }

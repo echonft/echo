@@ -7,13 +7,13 @@ import type { FunctionComponent } from 'react'
 
 export interface SearchResultProps {
   result: SearchResultModel
-  style?: {
+  options?: {
     rounded?: 'top' | 'bottom'
   }
-  onSelect?: (selection: SearchResultModel) => unknown
+  onSelect?: (selection: SearchResultModel) => void
 }
 
-export const SearchResult: FunctionComponent<SearchResultProps> = ({ result, style, onSelect }) => {
+export const SearchResult: FunctionComponent<SearchResultProps> = ({ result, options, onSelect }) => {
   const { label, pictureUrl } = result
   return (
     <button
@@ -30,8 +30,8 @@ export const SearchResult: FunctionComponent<SearchResultProps> = ({ result, sty
         result.category === SearchResultCategory.Collection && 'from-yellow-500/40',
         result.category === SearchResultCategory.User && 'from-purple-500/40',
         'to-transparent',
-        style?.rounded === 'top' && 'rounded-t-lg',
-        style?.rounded === 'bottom' && 'rounded-b-lg'
+        options?.rounded === 'top' && 'rounded-t-lg',
+        options?.rounded === 'bottom' && 'rounded-b-lg'
       )}
       onClick={() => {
         onSelect?.(result)
