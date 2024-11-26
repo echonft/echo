@@ -4,7 +4,6 @@ import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
 import { CreateTradeBottomBarItems } from '@echo/ui/components/trade/create-trade-bottom-bar-items'
 import { CreateTradeBottomBarButtonLayout } from '@echo/ui/components/trade/layout/create-trade-bottom-bar-button-layout'
 import { CreateTradeBottomBarItemsLayout } from '@echo/ui/components/trade/layout/create-trade-bottom-bar-items-layout'
-import { CreateTradeBottomBarLayout } from '@echo/ui/components/trade/layout/create-trade-bottom-bar-layout'
 import { Direction } from '@echo/ui/constants/direction'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -21,8 +20,7 @@ interface Props {
   onBack?: EmptyFunction
 }
 
-// TODO Not sure if having the next button as children is ideal
-export const CreateTradeBottomBar: FunctionComponent<PropsWithChildren<Props>> = ({
+export const TradeDetailsBottomBar: FunctionComponent<PropsWithChildren<Props>> = ({
   loading,
   items,
   targetCollection,
@@ -32,7 +30,7 @@ export const CreateTradeBottomBar: FunctionComponent<PropsWithChildren<Props>> =
 }) => {
   const t = useTranslations('trade.create')
   return (
-    <CreateTradeBottomBarLayout>
+    <div className={clsx('grid', 'grid-cols-3', 'w-full', 'h-32', 'py-5', 'items-center')}>
       <CreateTradeBottomBarButtonLayout>
         <button
           className={clsx(
@@ -56,15 +54,19 @@ export const CreateTradeBottomBar: FunctionComponent<PropsWithChildren<Props>> =
           <span className={clsx('prose-label-lg', 'btn-label-primary')}>{t('backBtn')}</span>
         </button>
       </CreateTradeBottomBarButtonLayout>
-      <CreateTradeBottomBarItemsLayout>
-        <CreateTradeBottomBarItems
-          items={items}
-          targetCollection={targetCollection?.collection}
-          targetQuantity={targetCollection?.quantity}
-          counterpartyItems={counterpartyItems}
-        />
-      </CreateTradeBottomBarItemsLayout>
-      <CreateTradeBottomBarButtonLayout>{children}</CreateTradeBottomBarButtonLayout>
-    </CreateTradeBottomBarLayout>
+      <div className={clsx('flex', 'flex-row', 'justify-center', 'items-center')}>
+        <CreateTradeBottomBarItemsLayout>
+          <CreateTradeBottomBarItems
+            items={items}
+            targetCollection={targetCollection?.collection}
+            targetQuantity={targetCollection?.quantity}
+            counterpartyItems={counterpartyItems}
+          />
+        </CreateTradeBottomBarItemsLayout>
+      </div>
+      <div className={clsx('flex', 'justify-end')}>
+        <CreateTradeBottomBarButtonLayout>{children}</CreateTradeBottomBarButtonLayout>
+      </div>
+    </div>
   )
 }

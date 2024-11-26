@@ -5,16 +5,17 @@ import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
-export const ListingDetailsModalBody: FunctionComponent<Omit<ListingDetailsModalProps, 'onClose'>> = ({
+export const ListingDetailsModalBody: FunctionComponent<ListingDetailsModalProps> = ({
   listing,
-  onUpdate
+  onUpdate,
+  onClose
 }) => {
   if (isNil(listing)) {
     return null
   }
   return (
     <div className={clsx('w-[66vw]', 'h-max', 'max-w-[70rem]')}>
-      <ListingDetails listing={listing} onUpdate={onUpdate} />
+      <ListingDetails listing={listing} onUpdate={onUpdate} onClose={onClose} />
     </div>
   )
 }

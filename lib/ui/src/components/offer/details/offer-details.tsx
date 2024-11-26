@@ -5,6 +5,7 @@ import { offerSenderNftItems } from '@echo/model/helpers/offer/offer-sender-nft-
 import { nftItemToNft } from '@echo/model/mappers/item/nft-item-to-nft'
 import { OfferDetailsButtons } from '@echo/ui/components/offer/details/action/offer-details-buttons'
 import { OfferDetailsItemsButtonsLayout } from '@echo/ui/components/offer/details/layout/offer-details-items-buttons-layout'
+import { TradeDetailsBodyLayout } from '@echo/ui/components/trade/layout/trade-details-body-layout'
 import { TradeDetailsLayout } from '@echo/ui/components/trade/layout/trade-details-layout'
 import { TradeDetailsItems } from '@echo/ui/components/trade/trade-details-items'
 import { TradeDetailsOfferState } from '@echo/ui/components/trade/trade-details-offer-state'
@@ -31,17 +32,19 @@ export const OfferDetails: FunctionComponent<OfferDetailsProps> = ({ offer, onUp
   return (
     <TradeDetailsLayout>
       <TradeDetailsOfferState trade={offer} />
-      <TradeDetailsItems
-        sender={sender}
-        senderNfts={senderNfts}
-        receiver={receiver}
-        receiverNfts={receiverNfts}
-        isSender={offer.role === OfferRole.Sender}
-        isReceiver={offer.role === OfferRole.Receiver}
-      />
-      <OfferDetailsItemsButtonsLayout>
-        <OfferDetailsButtons offer={offer} onSuccess={onUpdate} />
-      </OfferDetailsItemsButtonsLayout>
+      <TradeDetailsBodyLayout>
+        <TradeDetailsItems
+          sender={sender}
+          senderNfts={senderNfts}
+          receiver={receiver}
+          receiverNfts={receiverNfts}
+          isSender={offer.role === OfferRole.Sender}
+          isReceiver={offer.role === OfferRole.Receiver}
+        />
+        <OfferDetailsItemsButtonsLayout>
+          <OfferDetailsButtons offer={offer} onSuccess={onUpdate} />
+        </OfferDetailsItemsButtonsLayout>
+      </TradeDetailsBodyLayout>
     </TradeDetailsLayout>
   )
 }

@@ -16,7 +16,7 @@ export interface ListingDetailsModalProps extends Omit<ListingDetailsProps, 'lis
 export const ListingDetailsModal: FunctionComponent<ListingDetailsModalProps> = ({ listing, onClose, onUpdate }) => {
   return (
     <Modal open={!isNil(listing)} onClose={onClose}>
-      <ListingDetailsModalBody listing={listing} onUpdate={onUpdate} />
+      <ListingDetailsModalBody listing={listing} onUpdate={onUpdate} onClose={onClose} />
     </Modal>
   )
 }

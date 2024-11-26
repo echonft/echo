@@ -81,6 +81,7 @@ export const Details: StoryObj<ComponentType> = {
       setExpirationAndLocked,
       setRole(role)
     )(listingMock)
-    return <Component listing={renderedListing} onUpdate={onUpdate} />
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    return <Component listing={renderedListing} onUpdate={onUpdate} onClose={() => {}} />
   }
 }
