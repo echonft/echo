@@ -19,7 +19,7 @@ export const NftTradeCards: FunctionComponent<Props> = ({ pictureURL, alt, count
     <TradeCardsLayout>
       {direction === SwapDirection.Out && <TradeCardCount>{count}</TradeCardCount>}
       <TradeCardStackLayout>
-        <TradeCardPicture pictureURL={pictureURL} alt={alt} />
+        <TradeCardPicture src={pictureURL} alt={alt} />
       </TradeCardStackLayout>
       {direction === SwapDirection.In && <TradeCardCount>{count}</TradeCardCount>}
     </TradeCardsLayout>

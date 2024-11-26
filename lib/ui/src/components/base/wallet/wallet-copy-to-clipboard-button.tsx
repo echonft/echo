@@ -51,20 +51,24 @@ export const WalletCopyToClipboardButton: FunctionComponent<WalletConnectedButto
       <ExternalLink href={blockExplorerLinkForAddress(wallet)} options={{ inline: true }}>
         <div
           className={clsx(
-            'bg-white/[0.08]',
-            'hover:bg-white/[0.12]',
+            'bg-transparent',
+            'hover:bg-white/[0.08]',
+            'bg-clip-padding',
             'flex',
             'items-center',
-            'border-l-2',
+            'justify-center',
+            'w-max',
+            'h-full',
+            'border-t',
+            'border-r',
+            'border-b',
             'border-white/[0.08]',
             'rounded-r-lg',
             'p-2',
-            'text-white',
-            'w-max',
-            'h-[2.703125rem]'
+            'text-white'
           )}
         >
-          <ExternalLinkIconSvg width={16} height={16} />
+          <ExternalLinkIconSvg width={23} height={23} />
         </div>
       </ExternalLink>
     </div>

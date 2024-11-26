@@ -4,7 +4,7 @@ export const userMockCrew: User = {
   username: 'crewnft_',
   discord: {
     username: 'crewnft_',
-    avatarUrl: 'https://cdn.discordapp.com/avatars/884593489189433364/6080eecbd12f0f7bb2299690661535cf.png',
+    avatarUrl: 'https://cdn.discordapp.com/avatars/884593489189433364/af9b85212f149a6463648752bb657ad8.png',
     globalName: 'crew'
   },
   wallet: '0xf672715f2ba85794659a7150e8c21f8d157bfe1d'

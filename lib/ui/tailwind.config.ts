@@ -1,6 +1,6 @@
-// eslint-disable-next-line no-restricted-imports
-import { themeExtension } from './src/helpers/theme/theme'
+/* eslint-disable no-restricted-imports */
 import type { Config } from 'tailwindcss'
+import { themeExtension } from './src/helpers/theme/theme'
 
 const config: Config = {
   content: ['./src/**/*.{ts,tsx}'],

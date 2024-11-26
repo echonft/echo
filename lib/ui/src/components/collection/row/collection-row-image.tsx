@@ -1,33 +1,32 @@
-'use client'
 import { ImageNotFound } from '@echo/ui/components/base/image-not-found'
 import { ImagePlaceholder } from '@echo/ui/components/base/image-placeholder'
 import { ImageSizeable } from '@echo/ui/components/base/image-sizeable'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  src: Nullable<string>
   alt: string
+  src: Nullable<string>
 }
 
-export const TradeCardPicture: FunctionComponent<Props> = ({ src, alt }) => {
+export const CollectionRowImage: FunctionComponent<Props> = ({ alt, src }) => {
   const [error, setError] = useState(false)
   const [loaded, setLoaded] = useState(false)
 
   if (isNilOrEmpty(src) || error) {
-    return <ImageNotFound width={88} height={88} className={clsx('rounded-2xl')} />
+    return <ImageNotFound width={100} height={100} className={clsx('rounded')} />
   }
 
   return (
-    <div className={clsx('w-[5.5rem]', 'h-[5.5rem]', 'relative', 'rounded-2xl')}>
+    <div className={clsx('w-[6.25rem]', 'h-[6.25rem]', 'rounded', 'bg-dark-500')}>
       <ImageSizeable
-        className={clsx('select-none', 'w-auto', 'h-auto', 'rounded-2xl', 'object-center', 'object-contain')}
-        width={88}
-        height={88}
+        className={clsx('w-auto', 'h-auto', 'rounded', 'bg-dark-500')}
         src={src}
         alt={alt}
+        width={100}
+        height={100}
         priority={true}
         onLoad={() => {
           setLoaded(true)
@@ -37,11 +36,7 @@ export const TradeCardPicture: FunctionComponent<Props> = ({ src, alt }) => {
           setError(true)
         }}
       />
-      {loaded ? (
-        <div className={clsx('absolute', 'inset-0', 'bg-gradient-to-b', 'from-transparent', 'to-black')} />
-      ) : (
-        <ImagePlaceholder show={true} />
-      )}
+      <ImagePlaceholder show={!loaded} />
     </div>
   )
 }

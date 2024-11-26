@@ -1,39 +1,22 @@
 import { apiRoutes } from '@echo/routing/constants/api-routes'
-import { PictureSize } from '@echo/utils/constants/picture-size'
-import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
-import type { Nullable } from '@echo/utils/types/nullable'
-import type { ImageProps } from 'next/image'
-import { filter, isNil, lte, reduce, values } from 'ramda'
+import { isNil } from 'ramda'
 
-function getSize(width: number): Nullable<PictureSize> {
-  const pictureSizes = values(PictureSize)
-  const lteSizes: PictureSize[] = filter(lte(width), pictureSizes)
-  return reduce(
-    (closest: Nullable<PictureSize>, current: PictureSize): PictureSize => {
-      if (isNil(closest) || Math.abs(width - current) < Math.abs(width - closest)) {
-        return current
-      }
-      return closest
-    },
-    undefined,
-    lteSizes
-  )
+function getSize(width: number): number {
+  if (width <= 0) {
+    return 1
+  }
+  width--
+  width |= width >> 1
+  width |= width >> 2
+  width |= width >> 4
+  width |= width >> 8
+  width |= width >> 16
+  return width + 1
 }
 
-export function addPictureSize(
-  args: Partial<Omit<ImageProps, 'loader' | 'unoptimized' | 'src' | 'overrideSrc' | 'width'>> &
-    Record<'src', Nullable<string>> &
-    Record<'width', number>
-): string {
-  const size = getSize(args.width)
-  if (isNilOrEmpty(args.src) || isNil(size)) {
-    if (!isNil(size) && size < PictureSize.MD) {
-      return 'https://storage.googleapis.com/echo-dev-public/not-found-nft-small.png?alt=media'
-    }
-    return 'https://storage.googleapis.com/echo-dev-public/not-found-nft.png?alt=media'
-  }
+export function addPictureSize(src: string, width: number): string {
+  const size = getSize(width)
   try {
-    const { src } = args
     // IPFS
     const ipfsMatch = /^(ipfs):\/\/(.+)$/i.exec(src)
     if (!isNil(ipfsMatch)) {
@@ -67,6 +50,6 @@ export function addPictureSize(
     }
     return src
   } catch (_err) {
-    return args.src
+    return src
   }
 }

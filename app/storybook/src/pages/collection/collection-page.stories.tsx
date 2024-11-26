@@ -39,7 +39,12 @@ const metadata: Meta<typeof Component> = {
         </MainSectionLayout>
       </PageLayout>
     )
-  ]
+  ],
+  parameters: {
+    controls: {
+      exclude: ['collection', 'counts', 'listings', 'nfts', 'offers', 'swaps']
+    }
+  }
 }
 
 export default metadata

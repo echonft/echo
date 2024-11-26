@@ -18,7 +18,7 @@ export const UserTag: FunctionComponent<Props> = ({ user, isAuthUser = false }) 
   const { discord } = user
   const { username, globalName } = discord
   return (
-    <div className={clsx('w-max', 'text-white', 'uppercase', 'prose-display-md-bold')}>
+    <div className={clsx('w-max', 'text-white', 'prose-display-md-bold')}>
       <span>{isAuthUser ? t('authUser') : (globalName ?? username)}</span>
     </div>
   )

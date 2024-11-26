@@ -25,6 +25,11 @@ const metadata: Meta<typeof Component> = {
     offers: map(assoc('role', undefined), offerMocks),
     swaps: swapMocks,
     user: userMockCrew
+  },
+  parameters: {
+    controls: {
+      exclude: ['counts', 'listings', 'pendingListings', 'nfts', 'offers', 'swaps', 'user']
+    }
   }
 }
 

@@ -18,7 +18,7 @@ export interface OfferDetailsModalProps {
 export const OfferDetailsModal: FunctionComponent<OfferDetailsModalProps> = ({ offer, onClose, onUpdate }) => {
   const { className } = useBackground(getOfferBackground(offer))
   return (
-    <Modal open={!isNil(offer)} onClose={onClose} className={className} backButton={{ onBack: onClose }}>
+    <Modal open={!isNil(offer)} onClose={onClose} className={className}>
       <OfferDetailsModalBody offer={offer} onUpdate={onUpdate} />
     </Modal>
   )

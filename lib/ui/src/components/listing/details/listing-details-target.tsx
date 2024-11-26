@@ -1,26 +1,20 @@
 import type { Listing } from '@echo/model/types/listing'
-import { CollectionThumbnail } from '@echo/ui/components/collection/thumbnail/collection-thumbnail'
-import type { Nullable } from '@echo/utils/types/nullable'
+import { CollectionCard } from '@echo/ui/components/collection/card/collection-card'
+import { Color } from '@echo/ui/constants/color'
 import { clsx } from 'clsx'
-import { useTranslations } from 'next-intl'
-import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  target: Nullable<Listing['target']>
+  target: Listing['target']
 }
 
 export const ListingDetailsTarget: FunctionComponent<Props> = ({ target }) => {
-  const t = useTranslations('listing.details.target')
-  if (isNil(target)) {
-    return null
-  }
   return (
-    <div className={clsx('flex', 'flex-row', 'items-center', 'gap-4.5')}>
-      <span className={clsx('prose-paragraph-lg', '!text-[0.9375rem]', 'text-white')}>
-        {t('quantity', { count: target.quantity })}
-      </span>
-      <CollectionThumbnail collection={target.collection} />
+    <div className={clsx('flex', 'w-full', 'self-stretch', 'h-max', 'gap-4', 'items-center')}>
+      <CollectionCard collection={target.collection} options={{ borderColor: Color.Yellow as const }} />
+      {target.quantity > 1 ? (
+        <p className={clsx('w-max', 'text-white', 'prose-display-md-bold')}>{`X${target.quantity}`}</p>
+      ) : null}
     </div>
   )
 }

@@ -13,6 +13,7 @@ interface AuthUserStore {
 function getUserByUsername(username: string) {
   return find(propEq(username, 'username'), userMocks)
 }
+
 export const authUserStore = create<AuthUserStore>((set) => ({
   user: undefined,
   signIn: (username: string) => {

@@ -22,6 +22,7 @@ import { rejectOffer } from '@echo/storybook/mocks/reject-offer'
 import { searchCollections } from '@echo/storybook/mocks/search-collections'
 import { searchUsers } from '@echo/storybook/mocks/search-users'
 import { signNonce } from '@echo/storybook/mocks/sign-nonce'
+import { authUserStore } from '@echo/storybook/mocks/stores/auth-user-store'
 import { swap } from '@echo/storybook/mocks/swap'
 import { switchChain } from '@echo/storybook/mocks/switch-chain'
 import { walletLinkedTo } from '@echo/storybook/mocks/wallet-linked-to'
@@ -33,6 +34,7 @@ import { init } from '@sentry/nextjs'
 import { type Preview } from '@storybook/react'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import type { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import { NextIntlClientProvider } from 'next-intl'
 
@@ -41,6 +43,7 @@ dayjs.extend(relativeTime)
 const preview: Preview = {
   decorators: [
     (Story) => {
+      const user = authUserStore((state) => state.user)
       return (
         <NextIntlClientProvider messages={messages} locale={'en'}>
           <Web3Provider>
@@ -77,7 +80,7 @@ const preview: Preview = {
                   watchAccount
                 }}
               >
-                <SessionProvider>
+                <SessionProvider session={{ user } as Session} refetchWhenOffline={false} refetchOnWindowFocus={false}>
                   <Story />
                 </SessionProvider>
               </DependenciesProvider>

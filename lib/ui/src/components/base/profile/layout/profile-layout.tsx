@@ -1,44 +1,22 @@
+'use client'
+import { Banner } from '@echo/ui/components/base/banner'
 import { PaddedLayout } from '@echo/ui/components/base/layout/padded-layout'
-import { addPictureSize } from '@echo/ui/helpers/add-picture-size'
-import { themeExtension } from '@echo/ui/helpers/theme/theme'
-import { PictureSize } from '@echo/utils/constants/picture-size'
-import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
+import { useComponentWidth } from '@echo/ui/hooks/use-component-width'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
-import type { FunctionComponent, PropsWithChildren } from 'react'
+import { type FunctionComponent, type PropsWithChildren } from 'react'
 
-export interface ProfileBannerProps {
+interface Props {
   bannerUrl?: Nullable<string>
 }
 
-export const ProfileLayout: FunctionComponent<PropsWithChildren<ProfileBannerProps>> = ({ bannerUrl, children }) => {
-  const url = addPictureSize({ src: bannerUrl ?? '', width: PictureSize.XXL })
-  const isBackgroundImageNilOrEmpty = isNilOrEmpty(bannerUrl)
-  function getStyle() {
-    if (isBackgroundImageNilOrEmpty) {
-      return
-    }
-    return {
-      backgroundImage: `${themeExtension.backgroundImage.banner}, url('${url}')`
-    }
-  }
+export const ProfileLayout: FunctionComponent<PropsWithChildren<Props>> = ({ bannerUrl, children }) => {
+  const { ref, width } = useComponentWidth<HTMLDivElement>()
   return (
-    <div
-      className={clsx(
-        'w-full',
-        'h-full',
-        'select-none',
-        'overflow-clip',
-        !isBackgroundImageNilOrEmpty && ['bg-no-repeat', 'bg-cover', 'bg-center']
-      )}
-      style={getStyle()}
-    >
-      <PaddedLayout>
-        <div
-          className={clsx('flex', 'flex-col', 'gap-10', 'pt-16', !isBackgroundImageNilOrEmpty && 'backdrop-blur-md')}
-        >
-          {children}
-        </div>
+    <div className={clsx('w-full', 'h-full', 'relative')} ref={ref}>
+      <Banner src={bannerUrl} width={width} />
+      <PaddedLayout className={clsx('z-2')}>
+        <div className={clsx('flex', 'flex-col', 'gap-10', 'pt-16')}>{children}</div>
       </PaddedLayout>
     </div>
   )

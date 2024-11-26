@@ -1,7 +1,6 @@
 import { SearchResultCategory } from '@echo/model/constants/search-result-category'
 import type { SearchResult as SearchResultModel } from '@echo/model/types/search-result'
-import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
-import { PictureSize } from '@echo/utils/constants/picture-size'
+import { ImageSizeable } from '@echo/ui/components/base/image-sizeable'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
@@ -37,12 +36,12 @@ export const SearchResult: FunctionComponent<SearchResultProps> = ({ result, opt
         onSelect?.(result)
       }}
     >
-      <SizeableImage
-        className={clsx('w-8', 'h-8', 'rounded')}
+      <ImageSizeable
+        className={clsx('w-8', 'h-8', 'rounded', 'bg-dark-500')}
         src={pictureUrl}
         alt={label}
-        width={PictureSize.SM}
-        height={PictureSize.SM}
+        width={32}
+        height={32}
       />
       <span className={clsx('prose-label-md', 'text-white', 'truncate')}>{label}</span>
     </button>

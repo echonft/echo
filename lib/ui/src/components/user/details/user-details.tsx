@@ -24,7 +24,7 @@ export const UserDetails: FunctionComponent<Props> = ({ user, isAuthUser = false
   const { avatarUrl } = discord
   return (
     <UserDetailsLayout>
-      <InternalLink path={frontendRoutes.user.details.get({ username }).toString()}>
+      <InternalLink path={frontendRoutes.user.details.get({ username })}>
         <ProfilePicture alt={username} pictureUrl={avatarUrl} />
       </InternalLink>
       <UserDetailsDiscordTagAndWalletLayout>

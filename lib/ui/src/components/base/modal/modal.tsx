@@ -1,25 +1,17 @@
 'use client'
-import { ModalBackButton, type ModalBackButtonProps } from '@echo/ui/components/base/modal/modal-back-button'
-import { ModalTitle, type ModalTitleProps } from '@echo/ui/components/base/modal/modal-title'
+import { ModalTitle } from '@echo/ui/components/base/modal/modal-title'
 import type { WithClassNameProps } from '@echo/ui/types/props/with-class-name-props'
 import { Description, Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { Fragment, type FunctionComponent, type PropsWithChildren } from 'react'
 
-interface Props extends ModalTitleProps, WithClassNameProps {
+interface Props extends WithClassNameProps {
   open: boolean
+  title?: string
   onClose?: VoidFunction
-  backButton?: Omit<ModalBackButtonProps, 'show'>
 }
 
-export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
-  open,
-  title,
-  onClose,
-  backButton,
-  className,
-  children
-}) => {
+export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({ open, title, onClose, className, children }) => {
   return (
     <Dialog onClose={() => onClose?.()} open={open} className={clsx('relative', 'z-30')}>
       <DialogBackdrop
@@ -34,19 +26,7 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
           'data-[closed]:opacity-0'
         )}
       />
-      <div
-        className={clsx(
-          'fixed',
-          'inset-0',
-          'flex',
-          'w-screen',
-          'items-center',
-          'justify-center',
-          'bg-transparent',
-          'px-6',
-          'lg:px-12'
-        )}
-      >
+      <div className={clsx('fixed', 'inset-0', 'flex', 'w-screen', 'items-center', 'justify-center')}>
         <DialogPanel
           transition
           className={clsx(
@@ -60,9 +40,6 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
             'border-white/10',
             'rounded-2xl',
             'bg-dark-500',
-            'py-[1.88rem]',
-            'px-5',
-            'align-middle',
             'shadow-modal',
             'duration-300',
             'ease-out',
@@ -71,7 +48,6 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
             className
           )}
         >
-          <ModalBackButton {...backButton} />
           <ModalTitle title={title} />
           <Description as={Fragment}>{children}</Description>
         </DialogPanel>

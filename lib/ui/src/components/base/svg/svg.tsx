@@ -1,10 +1,10 @@
 import { useSvgSize } from '@echo/ui/hooks/use-svg-size'
+import type { WithClassNameProps } from '@echo/ui/types/props/with-class-name-props'
 import { clsx } from 'clsx'
 import { omit } from 'ramda'
 import { type FunctionComponent, type SVGProps } from 'react'
 
-export interface SvgProps extends Omit<SVGProps<SVGElement>, 'width' | 'height' | 'viewBox'> {
-  className?: string
+export interface SvgProps extends Omit<SVGProps<SVGElement>, 'width' | 'height' | 'viewBox'>, WithClassNameProps {
   width?: number
   height?: number
 }
@@ -16,11 +16,9 @@ interface Props extends SvgProps {
 
 export const Svg: FunctionComponent<Props> = ({ children, className, ...props }) => {
   const { viewBox, height, width } = useSvgSize(props)
-  // remove viewBoxWidth and viewBoxHeight from props
-  const cleanProps = omit(['viewBoxWidth', 'viewBoxHeight', 'ref'], props)
   return (
     <svg
-      {...cleanProps}
+      {...omit(['viewBoxWidth', 'viewBoxHeight', 'ref'], props)}
       viewBox={viewBox}
       width={width}
       height={height}

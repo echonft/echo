@@ -24,7 +24,7 @@ export const TargetTradeCard: FunctionComponent<Props> = ({ targetCollection, ta
     <TradeCardsLayout>
       {direction === SwapDirection.Out && <TradeCardCount>{targetQuantity}</TradeCardCount>}
       <TradeCardLayout>
-        <TradeCardPicture pictureURL={targetCollection.pictureUrl} alt={targetCollection.name} />
+        <TradeCardPicture src={targetCollection.pictureUrl} alt={targetCollection.name} />
       </TradeCardLayout>
       {direction === SwapDirection.In && <TradeCardCount>{targetQuantity}</TradeCardCount>}
     </TradeCardsLayout>

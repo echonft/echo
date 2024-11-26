@@ -1,9 +1,7 @@
 import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
+import { CollectionTileImage } from '@echo/ui/components/collection/tile/collection-tile-image'
 import { Size } from '@echo/ui/constants/size'
-import { addPictureSize } from '@echo/ui/helpers/add-picture-size'
-import { themeExtension } from '@echo/ui/helpers/theme/theme'
-import { PictureSize } from '@echo/utils/constants/picture-size'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -19,26 +17,23 @@ interface Props {
 
 export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, name, swapsCount, size }) => {
   const t = useTranslations('collection')
-  const url = addPictureSize({ src: pictureUrl ?? '', width: PictureSize.LG })
   return (
     <InternalLink path={frontendRoutes.collection.details.get({ slug })}>
       <div
         className={clsx(
+          'relative',
           'rounded-2xl',
-          'bg-contain',
           'px-7',
           'py-4.5',
           'flex',
           'flex-col',
           'justify-end',
-          size === Size.LG && ['w-[27rem]', 'h-[27rem]'],
-          size === Size.MD && ['w-[21rem]', 'h-[21rem]']
+          size === Size.MD && ['w-[21rem]', 'h-[21rem]'],
+          size === Size.LG && ['w-[27rem]', 'h-[27rem]']
         )}
-        style={{
-          backgroundImage: `${themeExtension.backgroundImage.collectionTitle}, url('${url}'), linear-gradient(0deg, ${themeExtension.colors.dark['500']}, ${themeExtension.colors.dark['500']})`
-        }}
       >
-        <div className={clsx('flex', 'flex-col', 'gap-2')}>
+        <CollectionTileImage src={pictureUrl} alt={name} size={size} />
+        <div className={clsx('flex', 'flex-col', 'gap-2', 'z-2')}>
           <p className={clsx('prose-header-xs-semi', 'text-white')}>{name}</p>
           <p className={clsx('prose-paragraph-xs-light', 'text-white')}>
             {t('tile.swapsCount', { count: swapsCount ?? 0 })}

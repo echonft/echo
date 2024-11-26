@@ -28,7 +28,7 @@ export const NftTradeCard: FunctionComponent<Props> = ({ items, direction }) => 
     }
     return (
       <TradeCardLayout>
-        <TradeCardPicture pictureURL={item.pictureUrl} alt={item.tokenId.toString()} />
+        <TradeCardPicture src={item.pictureUrl} alt={item.tokenId.toString()} />
       </TradeCardLayout>
     )
   }

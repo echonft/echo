@@ -1,10 +1,10 @@
 'use client'
-
 import type { OwnedNft } from '@echo/model/types/nft'
 import { ImagePlaceholder } from '@echo/ui/components/base/image-placeholder'
-import { SizeableImage } from '@echo/ui/components/base/sizeable-image'
+import { ImageSizeable } from '@echo/ui/components/base/image-sizeable'
 import { nftLabel } from '@echo/ui/helpers/nft/nft-label'
 import { PictureSize } from '@echo/utils/constants/picture-size'
+import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { clsx } from 'clsx'
 import { type FunctionComponent, useState } from 'react'
 
@@ -18,7 +18,7 @@ export const SelectableNftThumbnailImage: FunctionComponent<Props> = ({ nft, onL
   const [error, setError] = useState(false)
   const loading = !loaded && !error
 
-  if (error) {
+  if (isNilOrEmpty(nft.pictureUrl) || error) {
     return (
       <div
         className={clsx('h-32', 'w-32', 'rounded-2xl', 'min-w-0', 'flex', 'flex-col', 'justify-center', 'items-center')}
@@ -29,12 +29,13 @@ export const SelectableNftThumbnailImage: FunctionComponent<Props> = ({ nft, onL
     )
   }
   return (
-    <div className={clsx('h-32', 'w-32', 'rounded-2xl')}>
-      <SizeableImage
+    <div className={clsx('h-32', 'w-32', 'rounded-2xl', 'bg-dark-500')}>
+      <ImageSizeable
         className={clsx(
           'h-32',
           'w-32',
           'rounded-2xl',
+          'bg-dark-500',
           'transition-transform',
           'select-none',
           'object-center',

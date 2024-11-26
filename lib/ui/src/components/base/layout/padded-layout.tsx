@@ -6,5 +6,5 @@ interface Props {
 }
 
 export const PaddedLayout: FunctionComponent<PropsWithChildren<Props>> = ({ className, children }) => {
-  return <div className={clsx('w-full', 'px-6', 'lg:px-12', className)}>{children}</div>
+  return <div className={clsx('w-full', 'relative', 'px-6', 'lg:px-12', className)}>{children}</div>
 }

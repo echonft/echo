@@ -1,41 +1,10 @@
-import { addPictureSize } from '@echo/ui/helpers/add-picture-size'
-import { themeExtension } from '@echo/ui/helpers/theme/theme'
-import { PictureSize } from '@echo/utils/constants/picture-size'
-import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
-import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import type { FunctionComponent, PropsWithChildren } from 'react'
 
-interface Props {
-  backgroundPictureUrl?: Nullable<string>
-}
-
-export const TradeDetailsLayout: FunctionComponent<PropsWithChildren<Props>> = ({ backgroundPictureUrl, children }) => {
-  const url = addPictureSize({ src: backgroundPictureUrl, width: PictureSize.XXL })
-  const isBackgroundUrlNilOrEmpty = isNilOrEmpty(backgroundPictureUrl)
-  function getStyle() {
-    if (isBackgroundUrlNilOrEmpty) {
-      return
-    }
-    return {
-      backgroundImage: `${themeExtension.backgroundImage.banner}, url('${url}')`,
-      backgroundSize: '100% 33%'
-    }
-  }
+export const TradeDetailsLayout: FunctionComponent<PropsWithChildren> = ({ children }) => {
   return (
-    <div
-      className={clsx(
-        'w-full',
-        'h-full',
-        'select-none',
-        'overflow-clip',
-        !isBackgroundUrlNilOrEmpty && ['bg-no-repeat', 'bg-contain', 'bg-top']
-      )}
-      style={getStyle()}
-    >
-      <div className={clsx('flex', 'flex-col', 'gap-24', !isBackgroundUrlNilOrEmpty && 'backdrop-blur-xl')}>
-        {children}
-      </div>
+    <div className={clsx('w-full', 'h-max')}>
+      <div className={clsx('flex', 'flex-col', 'gap-24')}>{children}</div>
     </div>
   )
 }
