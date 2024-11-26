@@ -5,4 +5,4 @@ import { object } from 'zod'
 export const createOfferQueryParamsTransformSchema = object({
   items: serializeNftSchema.array().nonempty(),
   target: serializeCollectionSchema.optional()
-}).strict()
+})

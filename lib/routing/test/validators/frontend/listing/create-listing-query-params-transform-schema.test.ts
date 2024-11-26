@@ -5,7 +5,7 @@ import { serializeNft } from '@echo/model/serializers/serialize-nft'
 import { createListingQueryParamsTransformSchema } from '@echo/routing/validators/frontend/listing/create-listing-query-params-transform-schema'
 import { describe, expect, test } from '@jest/globals'
 
-describe('listingQueryParamsTransformSchema', () => {
+describe('createListingQueryParamsTransformSchema', () => {
   test('transforms items correctly', () => {
     expect(createListingQueryParamsTransformSchema.parse({ items: [nftMockPx1, nftMockPx2] })).toStrictEqual({
       items: [serializeNft(nftMockPx1), serializeNft(nftMockPx2)]

@@ -4,10 +4,8 @@ import { object } from 'zod'
 
 export const createListingQueryParamsTransformSchema = object({
   items: serializeNftSchema.array().nonempty()
-})
-  .strict()
-  .or(
-    object({
-      target: serializeCollectionSchema
-    }).strict()
-  )
+}).or(
+  object({
+    target: serializeCollectionSchema
+  })
+)

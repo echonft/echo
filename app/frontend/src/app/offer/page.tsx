@@ -8,7 +8,7 @@ import { isOwnedNft } from '@echo/model/helpers/nft/is-owned-nft'
 import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
 import type { CreateOfferSearchParams } from '@echo/routing/types/frontend/search-params/create-offer-search-params'
-import { createOfferSearchParamsDataSchema } from '@echo/routing/validators/frontend/offer/create-offer-search-params-data-schema'
+import { createOfferSearchParamsTransformSchema } from '@echo/routing/validators/frontend/offer/create-offer-search-params-transform-schema'
 import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
 import { Header } from '@echo/ui/components/base/header/header'
 import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
@@ -48,7 +48,7 @@ async function render({ searchParams, user }: Props) {
     items: is(String, searchParams.items) ? [searchParams.items] : searchParams.items
   }
 
-  const { items, target } = createOfferSearchParamsDataSchema.parse(normalizedSearchParams)
+  const { items, target } = createOfferSearchParamsTransformSchema.parse(normalizedSearchParams)
   const receiverNftsSelection = await pipe(
     map(getNftByIndex),
     promiseAll,

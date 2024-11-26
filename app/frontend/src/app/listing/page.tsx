@@ -8,7 +8,7 @@ import { nftIsOwnedBy } from '@echo/model/helpers/nft/nft-is-owned-by'
 import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
 import type { CreateListingSearchParams } from '@echo/routing/types/frontend/search-params/create-listing-search-params'
-import { createListingSearchParamsDataSchema } from '@echo/routing/validators/frontend/listing/create-listing-search-params-data-schema'
+import { createListingSearchParamsTransformSchema } from '@echo/routing/validators/frontend/listing/create-listing-search-params-transform-schema'
 import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
 import { Header } from '@echo/ui/components/base/header/header'
 import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
@@ -28,7 +28,7 @@ interface Props {
 }
 
 async function render({ searchParams, user }: Props) {
-  const { items, target } = createListingSearchParamsDataSchema.parse(searchParams)
+  const { items, target } = createListingSearchParamsTransformSchema.parse(searchParams)
   const listingItems = await pipe(
     map(getNftByIndex),
     promiseAll,

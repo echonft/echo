@@ -7,7 +7,7 @@ import { describe, expect, test } from '@jest/globals'
 import { map, pipe, prop } from 'ramda'
 import { ZodError } from 'zod'
 
-describe('offerQueryParamsSchema', () => {
+describe('createOfferQueryParamsSchema', () => {
   function expectZodError(data: unknown, path: (string | number | undefined)[]) {
     expect(() => createOfferQueryParamsSchema.parse(data)).toThrow()
     try {
