@@ -19,7 +19,7 @@ export const OfferDetailsModal: FunctionComponent<OfferDetailsModalProps> = ({ o
   const { className } = useBackground(getOfferBackground(offer))
   return (
     <Modal open={!isNil(offer)} onClose={onClose} className={className}>
-      <OfferDetailsModalBody offer={offer} onUpdate={onUpdate} />
+      <OfferDetailsModalBody offer={offer} onUpdate={onUpdate} onClose={onClose} />
     </Modal>
   )
 }
