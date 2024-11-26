@@ -70,7 +70,7 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
 
   return (
     <Modal open={open} onClose={loading ? undefined : onClose}>
-      <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
+      <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch', 'p-6')}>
         <ModalSubtitle>{t('create.subtitle')}</ModalSubtitle>
         <ModalDescription>{t('create.description', { count: baseOffer.senderItems.length })}</ModalDescription>
         <button

@@ -67,7 +67,7 @@ export const OfferDetailsContractApprovalModal: FunctionComponent<Props> = ({
 
   return (
     <Modal open={open} onClose={isLoading ? undefined : onClose} title={title}>
-      <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
+      <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch', 'p-')}>
         <ModalSubtitle>{subtitle}</ModalSubtitle>
         <div className={clsx('flex', 'flex-col', 'gap-2')}>
           {map(

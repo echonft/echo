@@ -33,13 +33,9 @@ export const CollectionItemsPanel: FunctionComponent<Props> = ({ collection, nft
   }
   function onCreateOffer(nft?: Nft) {
     if (isNil(nft)) {
-      router.push(
-        frontendRoutes.offer.create
-          .withQuery({ items: selection.nfts as NonEmptyArray<OwnedNft>, target: collection })
-          .get()
-      )
+      router.push(frontendRoutes.offer.create.withQuery({ items: selection.nfts as NonEmptyArray<OwnedNft> }).get())
     } else {
-      router.push(frontendRoutes.offer.create.withQuery({ items: [nft], target: collection }).get())
+      router.push(frontendRoutes.offer.create.withQuery({ items: [nft] }).get())
     }
   }
 
