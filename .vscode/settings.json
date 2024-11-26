@@ -10,6 +10,10 @@
   "javascript.preferences.organizeImports": {
     "typeOrder": "auto"
   },
+  "tailwindCSS.includeLanguages": {
+    "typescript": "javascript",
+    "typescriptreact": "javascript"
+  },
   "editor.tabSize": 2,
   "editor.detectIndentation": false
 }
