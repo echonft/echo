@@ -54,7 +54,7 @@ export const ListingDetails: FunctionComponent<ListingDetailsProps> = ({ listing
       <ListingDetailsState trade={listing} />
       <TradeDetailsBodyLayout>
         <ListingDetailsItems creator={creator} nfts={nfts} target={target} role={role} />
-        <TradeDetailsBottomBar items={nfts} targetCollection={target} onBack={onClose} loading={loading}>
+        <TradeDetailsBottomBar onBack={onClose} loading={loading}>
           <ListingDetailsButtons
             listing={listing}
             isMutating={loading}

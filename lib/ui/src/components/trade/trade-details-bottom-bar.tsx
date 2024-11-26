@@ -1,36 +1,21 @@
-import type { Listing } from '@echo/model/types/listing'
-import type { OwnedNft } from '@echo/model/types/nft'
 import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
-import { CreateTradeBottomBarItems } from '@echo/ui/components/trade/create-trade-bottom-bar-items'
 import { CreateTradeBottomBarButtonLayout } from '@echo/ui/components/trade/layout/create-trade-bottom-bar-button-layout'
-import { CreateTradeBottomBarItemsLayout } from '@echo/ui/components/trade/layout/create-trade-bottom-bar-items-layout'
 import { Direction } from '@echo/ui/constants/direction'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import type { FunctionComponent, PropsWithChildren } from 'react'
 
 interface Props {
-  items: OwnedNft[]
   loading?: boolean
-  targetCollection?: Nullable<Listing['target']>
-  counterpartyItems?: OwnedNft[]
   onBack?: EmptyFunction
 }
 
-export const TradeDetailsBottomBar: FunctionComponent<PropsWithChildren<Props>> = ({
-  loading,
-  items,
-  targetCollection,
-  counterpartyItems,
-  onBack,
-  children
-}) => {
+export const TradeDetailsBottomBar: FunctionComponent<PropsWithChildren<Props>> = ({ loading, onBack, children }) => {
   const t = useTranslations('trade.create')
   return (
-    <div className={clsx('grid', 'grid-cols-3', 'w-full', 'h-32', 'py-5', 'items-center')}>
+    <div className={clsx('grid', 'grid-cols-2', 'w-full', 'h-32', 'py-5', 'items-center')}>
       <CreateTradeBottomBarButtonLayout>
         <button
           className={clsx(
@@ -54,16 +39,6 @@ export const TradeDetailsBottomBar: FunctionComponent<PropsWithChildren<Props>> 
           <span className={clsx('prose-label-lg', 'btn-label-primary')}>{t('backBtn')}</span>
         </button>
       </CreateTradeBottomBarButtonLayout>
-      <div className={clsx('flex', 'flex-row', 'justify-center', 'items-center')}>
-        <CreateTradeBottomBarItemsLayout>
-          <CreateTradeBottomBarItems
-            items={items}
-            targetCollection={targetCollection?.collection}
-            targetQuantity={targetCollection?.quantity}
-            counterpartyItems={counterpartyItems}
-          />
-        </CreateTradeBottomBarItemsLayout>
-      </div>
       <div className={clsx('flex', 'justify-end')}>
         <CreateTradeBottomBarButtonLayout>{children}</CreateTradeBottomBarButtonLayout>
       </div>

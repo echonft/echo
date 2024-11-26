@@ -45,7 +45,8 @@ export const OfferDetails: FunctionComponent<OfferDetailsProps> = ({ offer, onUp
           isReceiver={offer.role === OfferRole.Receiver}
         />
       </TradeDetailsBodyLayout>
-      <TradeDetailsBottomBar items={senderNfts} counterpartyItems={receiverNfts} onBack={onClose}>
+      {/* FIXME Theres no loading state here because of how the OfferDetailsButtons is implemented */}
+      <TradeDetailsBottomBar onBack={onClose}>
         <OfferDetailsItemsButtonsLayout>
           <OfferDetailsButtons offer={offer} onSuccess={onUpdate} />
         </OfferDetailsItemsButtonsLayout>

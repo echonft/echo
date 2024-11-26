@@ -76,6 +76,7 @@ export const Details: StoryObj<ComponentType> = {
       setExpirationAndLocked,
       setRole
     )(offerMockToJohnnycage)
-    return <Component offer={renderedOffer} />
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    return <Component offer={renderedOffer} onClose={() => {}} />
   }
 }
