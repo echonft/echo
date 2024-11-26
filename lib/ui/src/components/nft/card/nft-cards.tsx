@@ -1,7 +1,7 @@
+import { serializeNft } from '@echo/model/serializers/serialize-nft'
 import { type Nft } from '@echo/model/types/nft'
 import { CardsLayout } from '@echo/ui/components/base/card/layout/cards-layout'
 import { NftCard, type NftCardProps } from '@echo/ui/components/nft/card/nft-card'
-import { keyOf } from '@echo/ui/components/nft/key-of'
 import type { Alignment } from '@echo/ui/constants/alignments'
 import { map } from 'ramda'
 import { type FunctionComponent } from 'react'
@@ -17,7 +17,7 @@ export const NftCards: FunctionComponent<Props> = ({ nfts, alignment, options })
     <CardsLayout alignment={alignment}>
       {map(
         (nft) => (
-          <NftCard key={keyOf(nft)} nft={nft} options={options} />
+          <NftCard key={serializeNft(nft)} nft={nft} options={options} />
         ),
         nfts
       )}

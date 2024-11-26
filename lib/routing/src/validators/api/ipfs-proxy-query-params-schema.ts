@@ -1,6 +1,5 @@
-import { PictureSize } from '@echo/utils/constants/picture-size'
-import { nativeEnum, object } from 'zod'
+import { number, object } from 'zod'
 
 export const ipfsProxyQueryParamsSchema = object({
-  width: nativeEnum(PictureSize)
+  width: number().int().positive()
 })

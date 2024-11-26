@@ -28,8 +28,6 @@ export const CardImage: FunctionComponent<Props> = ({ alt, src }) => {
           'bg-dark-500',
           'rounded-2xl',
           'transition-transform',
-          'w-auto',
-          'h-auto',
           'object-center',
           'object-contain',
           'group-hover:scale-125'
@@ -47,7 +45,11 @@ export const CardImage: FunctionComponent<Props> = ({ alt, src }) => {
           setError(true)
         }}
       />
-      <ImagePlaceholder show={!loaded} />
+      {loaded ? (
+        <div className={clsx('absolute', 'inset-0', 'rounded-2xl', 'bg-cardImageGradient', 'mix-blend-multiply')} />
+      ) : (
+        <ImagePlaceholder className={clsx('rounded-2xl')} show={true} />
+      )}
     </div>
   )
 }

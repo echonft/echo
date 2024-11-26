@@ -1,5 +1,5 @@
+import { serializeNft } from '@echo/model/serializers/serialize-nft'
 import type { OwnedNft } from '@echo/model/types/nft'
-import { keyOf } from '@echo/ui/components/nft/key-of'
 import { SelectableNftThumbnail } from '@echo/ui/components/nft/selectable-thumbnail/selectable-nft-thumbnail'
 import { clsx } from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -38,7 +38,7 @@ export const SelectableNftThumbnails: FunctionComponent<SelectableNftThumbnailCo
         {map(
           (nft) => (
             <SelectableNftThumbnail
-              key={keyOf(nft)}
+              key={serializeNft(nft)}
               nft={nft}
               onRemove={() => {
                 onRemove?.(nft)

@@ -41,7 +41,7 @@ export const StackLayout: FunctionComponent<PropsWithChildren<Props>> = ({ child
           '-z-10',
           'border-white/10',
           'border',
-          'bg-dark-250'
+          'bg-dark-500'
         )}
       />
     </div>

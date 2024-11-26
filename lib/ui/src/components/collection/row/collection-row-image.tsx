@@ -20,9 +20,9 @@ export const CollectionRowImage: FunctionComponent<Props> = ({ alt, src }) => {
   }
 
   return (
-    <div className={clsx('w-[6.25rem]', 'h-[6.25rem]', 'rounded', 'bg-dark-500')}>
+    <div className={clsx('w-[6.25rem]', 'h-[6.25rem]', 'rounded', 'bg-dark-500', 'relative')}>
       <ImageSizeable
-        className={clsx('w-auto', 'h-auto', 'rounded', 'bg-dark-500')}
+        className={clsx('rounded', 'bg-dark-500')}
         src={src}
         alt={alt}
         width={100}
@@ -36,7 +36,7 @@ export const CollectionRowImage: FunctionComponent<Props> = ({ alt, src }) => {
           setError(true)
         }}
       />
-      <ImagePlaceholder show={!loaded} />
+      <ImagePlaceholder className={clsx('rounded')} show={!loaded} />
     </div>
   )
 }

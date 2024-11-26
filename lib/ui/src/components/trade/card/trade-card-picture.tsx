@@ -23,7 +23,7 @@ export const TradeCardPicture: FunctionComponent<Props> = ({ src, alt }) => {
   return (
     <div className={clsx('w-[5.5rem]', 'h-[5.5rem]', 'relative', 'rounded-2xl')}>
       <ImageSizeable
-        className={clsx('select-none', 'w-auto', 'h-auto', 'rounded-2xl', 'object-center', 'object-contain')}
+        className={clsx('select-none', 'rounded-2xl', 'object-center', 'object-contain')}
         width={88}
         height={88}
         src={src}
@@ -38,9 +38,11 @@ export const TradeCardPicture: FunctionComponent<Props> = ({ src, alt }) => {
         }}
       />
       {loaded ? (
-        <div className={clsx('absolute', 'inset-0', 'bg-gradient-to-b', 'from-transparent', 'to-black')} />
+        <div
+          className={clsx('absolute', 'inset-0', 'bg-gradient-to-b', 'from-transparent', 'to-black', 'rounded-2xl')}
+        />
       ) : (
-        <ImagePlaceholder show={true} />
+        <ImagePlaceholder className={clsx('rounded-2xl')} show={true} />
       )}
     </div>
   )

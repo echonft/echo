@@ -21,21 +21,19 @@ export const StackImage: FunctionComponent<Props> = ({ alt, src }) => {
   }
 
   return (
-    <div className={clsx('rounded-2xl', 'w-[12.625rem]', 'h-[12.625rem]', 'relative', 'bg-dark-500')}>
+    <div className={clsx('rounded-2xl', 'w-[12.5rem]', 'h-[12.5rem]', 'relative', 'bg-dark-500')}>
       <ImageSizeable
         className={clsx(
           'select-none',
           'rounded-2xl',
           'bg-dark-500',
           'transition-transform',
-          'w-full',
-          'h-full',
           'object-center',
           'object-contain',
           'group-hover:scale-125'
         )}
-        width={202}
-        height={202}
+        width={200}
+        height={200}
         alt={alt}
         src={src}
         priority={true}
@@ -47,7 +45,11 @@ export const StackImage: FunctionComponent<Props> = ({ alt, src }) => {
           setError(true)
         }}
       />
-      <ImagePlaceholder show={!loaded} />
+      {loaded ? (
+        <div className={clsx('absolute', 'inset-0', 'rounded-2xl', 'bg-cardImageGradient', 'mix-blend-multiply')} />
+      ) : (
+        <ImagePlaceholder className={clsx('rounded-2xl')} show={true} />
+      )}
     </div>
   )
 }

@@ -16,7 +16,7 @@ export const ImageNotFound: FunctionComponent<Props> = ({ height, width, classNa
         'items-center',
         'justify-center',
         'text-yellow-500',
-        'bg-imageFilter',
+        'bg-cardImageGradient',
         'bg-center',
         'bg-no-repeat',
         'bg-contain',
@@ -29,7 +29,7 @@ export const ImageNotFound: FunctionComponent<Props> = ({ height, width, classNa
         className={clsx(
           'absolute',
           'inset-0',
-          'bg-imageFilter',
+          'bg-cardImageGradient',
           'bg-center',
           'bg-no-repeat',
           'bg-contain',

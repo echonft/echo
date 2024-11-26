@@ -22,7 +22,7 @@ export const CollectionTileImage: FunctionComponent<Props> = ({ alt, size, src }
   if (isNilOrEmpty(src) || error) {
     return (
       <div className={clsx('absolute', 'inset-0', 'rounded-2xl', 'bg-dark-500')}>
-        <div className={clsx('absolute', 'inset-0', 'bg-imageFilter')} />
+        <div className={clsx('absolute', 'inset-0', 'bg-collectionTitle')} />
         <ImageNotFound width={width} height={width} className={clsx('rounded-2xl')} />
       </div>
     )
@@ -46,7 +46,11 @@ export const CollectionTileImage: FunctionComponent<Props> = ({ alt, size, src }
           setError(true)
         }}
       />
-      {loaded ? <div className={clsx('absolute', 'inset-0', 'bg-imageFilter')} /> : <ImagePlaceholder show={true} />}
+      {loaded ? (
+        <div className={clsx('absolute', 'inset-0', 'rounded-2xl', 'bg-collectionTitle', 'mix-blend-multiply')} />
+      ) : (
+        <ImagePlaceholder className={clsx('rounded-2xl')} show={true} />
+      )}
     </div>
   )
 }

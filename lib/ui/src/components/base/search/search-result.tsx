@@ -36,13 +36,7 @@ export const SearchResult: FunctionComponent<SearchResultProps> = ({ result, opt
         onSelect?.(result)
       }}
     >
-      <ImageSizeable
-        className={clsx('w-8', 'h-8', 'rounded', 'bg-dark-500')}
-        src={pictureUrl}
-        alt={label}
-        width={32}
-        height={32}
-      />
+      <ImageSizeable className={clsx('rounded', 'bg-dark-500')} src={pictureUrl} alt={label} width={32} height={32} />
       <span className={clsx('prose-label-md', 'text-white', 'truncate')}>{label}</span>
     </button>
   )

@@ -2,12 +2,11 @@
 import { listingItems } from '@echo/model/helpers/listing/listing-items'
 import { nftItemToNft } from '@echo/model/mappers/item/nft-item-to-nft'
 import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
-import { ListingDetailsButtons } from '@echo/ui/components/listing/details/listing-details-buttons'
+import { ListingDetailsBottomBar } from '@echo/ui/components/listing/details/listing-details-bottom-bar'
 import { ListingDetailsItems } from '@echo/ui/components/listing/details/listing-details-items'
 import { ListingDetailsState } from '@echo/ui/components/listing/details/listing-details-state'
 import { TradeDetailsBodyLayout } from '@echo/ui/components/trade/layout/trade-details-body-layout'
 import { TradeDetailsLayout } from '@echo/ui/components/trade/layout/trade-details-layout'
-import { TradeDetailsBottomBar } from '@echo/ui/components/trade/trade-details-bottom-bar'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { useActions } from '@echo/ui/hooks/use-actions'
@@ -54,21 +53,18 @@ export const ListingDetails: FunctionComponent<ListingDetailsProps> = ({ listing
       <ListingDetailsState trade={listing} />
       <TradeDetailsBodyLayout>
         <ListingDetailsItems creator={creator} nfts={nfts} target={target} role={role} />
-        <TradeDetailsBottomBar onBack={onClose} loading={loading}>
-          <ListingDetailsButtons
-            listing={listing}
-            isMutating={loading}
-            onCancel={(listing) => {
-              setLoading(true)
-              void onCancel(listing.slug)
-            }}
-            onFill={() => {
-              router.push(
-                frontendRoutes.offer.create.withQuery({ items: nfts, target: listing.target.collection }).get()
-              )
-            }}
-          />
-        </TradeDetailsBottomBar>
+        <ListingDetailsBottomBar
+          listing={listing}
+          loading={loading}
+          onBack={onClose}
+          onCancel={(listing) => {
+            setLoading(true)
+            void onCancel(listing.slug)
+          }}
+          onFill={() => {
+            router.push(frontendRoutes.offer.create.withQuery({ items: nfts, target: listing.target.collection }).get())
+          }}
+        />
       </TradeDetailsBodyLayout>
     </TradeDetailsLayout>
   )

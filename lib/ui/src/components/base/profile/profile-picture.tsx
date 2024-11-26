@@ -27,7 +27,7 @@ export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({ picture
   }
 
   return (
-    <div className={clsx('h-28', 'w-28', 'rounded-2xl')}>
+    <div className={clsx('h-28', 'w-28', 'rounded-2xl', 'relative')}>
       <ImageSizeable
         className={clsx(
           'select-none',
@@ -36,8 +36,6 @@ export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({ picture
           'border-solid',
           'border-3',
           'border-yellow-500',
-          'h-28',
-          'w-28',
           'rounded-2xl'
         )}
         src={pictureUrl}
@@ -53,7 +51,7 @@ export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({ picture
           setError(true)
         }}
       />
-      <ImagePlaceholder show={!loaded} />
+      <ImagePlaceholder className={clsx('rounded-2xl')} show={!loaded} />
     </div>
   )
 }

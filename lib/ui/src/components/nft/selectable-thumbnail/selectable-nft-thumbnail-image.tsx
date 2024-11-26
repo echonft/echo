@@ -3,7 +3,6 @@ import type { OwnedNft } from '@echo/model/types/nft'
 import { ImagePlaceholder } from '@echo/ui/components/base/image-placeholder'
 import { ImageSizeable } from '@echo/ui/components/base/image-sizeable'
 import { nftLabel } from '@echo/ui/helpers/nft/nft-label'
-import { PictureSize } from '@echo/utils/constants/picture-size'
 import { isNilOrEmpty } from '@echo/utils/helpers/is-nil-or-empty'
 import { clsx } from 'clsx'
 import { type FunctionComponent, useState } from 'react'
@@ -16,7 +15,6 @@ interface Props {
 export const SelectableNftThumbnailImage: FunctionComponent<Props> = ({ nft, onLoadComplete }) => {
   const [loaded, setLoaded] = useState(false)
   const [error, setError] = useState(false)
-  const loading = !loaded && !error
 
   if (isNilOrEmpty(nft.pictureUrl) || error) {
     return (
@@ -29,11 +27,9 @@ export const SelectableNftThumbnailImage: FunctionComponent<Props> = ({ nft, onL
     )
   }
   return (
-    <div className={clsx('h-32', 'w-32', 'rounded-2xl', 'bg-dark-500')}>
+    <div className={clsx('h-32', 'w-32', 'rounded-2xl', 'bg-dark-500', 'relative')}>
       <ImageSizeable
         className={clsx(
-          'h-32',
-          'w-32',
           'rounded-2xl',
           'bg-dark-500',
           'transition-transform',
@@ -44,8 +40,8 @@ export const SelectableNftThumbnailImage: FunctionComponent<Props> = ({ nft, onL
         )}
         src={nft.pictureUrl}
         alt={nftLabel(nft)}
-        width={PictureSize.MD}
-        height={PictureSize.MD}
+        width={128}
+        height={128}
         onLoad={() => {
           setLoaded(true)
           onLoadComplete?.()
@@ -55,8 +51,11 @@ export const SelectableNftThumbnailImage: FunctionComponent<Props> = ({ nft, onL
           onLoadComplete?.()
         }}
       />
-      <ImagePlaceholder show={loading} />
-      <div className={clsx('absolute', 'inset-0', 'bg-nftCardGradient', loading && 'hidden')} />
+      {loaded ? (
+        <div className={clsx('absolute', 'inset-0', 'rounded-2xl', 'bg-cardImageGradient')} />
+      ) : (
+        <ImagePlaceholder className={clsx('rounded-2xl')} show={true} />
+      )}
     </div>
   )
 }

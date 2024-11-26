@@ -1,6 +1,6 @@
 'use client'
+import { serializeNft } from '@echo/model/serializers/serialize-nft'
 import type { OwnedNft } from '@echo/model/types/nft'
-import { keyOf } from '@echo/ui/components/nft/key-of'
 import {
   SelectableNftCard,
   type SelectableNftCardProps
@@ -35,7 +35,7 @@ export const SelectableNfts: FunctionComponent<SelectableNftsProps> = ({
         {map(
           (nft) => (
             <motion.div
-              key={keyOf(nft)}
+              key={serializeNft(nft)}
               layout={'position'}
               transition={{ ease: 'easeOut', duration: 0.2 }}
               initial={{ opacity: 0 }}

@@ -15,16 +15,15 @@ export const themeExtension = {
     banner: 'linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, #121212 100%)',
     btnGradient: 'linear-gradient(95.27deg, #EFF427 7.68%, #8F27F5 100%)',
     btnGradientHover: 'linear-gradient(95.27deg, rgba(239, 244, 39, 0.4) 7.68%, rgba(143, 39, 245, 0.4) 100%)',
-    collectionTitle: 'linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #000 101.27%)',
+    cardImageGradient: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 58.2%, #000000 119.55%)',
+    collectionTitle: 'linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, #121212 100%)',
     gradientGreen: 'linear-gradient(225deg, rgba(75, 191, 75, 0.20) 5.29%, rgba(0, 0, 0, 0.00) 63.02%)',
     gradientRed: 'linear-gradient(225deg, rgba(255, 64, 64, 0.20) 5.29%, rgba(0, 0, 0, 0.00) 63.02%)',
     gradientYellow: 'linear-gradient(225deg, rgba(239, 244, 39, 0.20) 5.29%, rgba(0, 0, 0, 0.00) 63.02%)',
     gradientYellowToTransparent: 'linear-gradient(90deg, #EFF427 0%, rgba(255, 255, 255, 0) 100%',
     home: 'linear-gradient(162deg, rgba(239, 244, 39, 0.20) -11.34%, #121212 42.54%)',
-    imageFilter: 'linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, #121212 100%)',
     joinDiscordLabel: 'linear-gradient(91deg, #EFF427 32.27%, rgba(255, 255, 255, 0.00) 128.1%)',
     nftButtonHover: 'linear-gradient(94deg, rgba(211, 190, 190, 0.12) -7.35%, rgba(217, 217, 217, 0.00) 104.39%)',
-    nftCardGradient: 'linear-gradient(180deg, rgba(0, 0, 0, 0.00) 58.2%, #000 119.55%)',
     stack: "url('https://storage.googleapis.com/echo-dev-public/stack-bg.svg?alt=media')"
   },
   borderColor: {

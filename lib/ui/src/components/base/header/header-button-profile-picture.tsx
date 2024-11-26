@@ -32,7 +32,7 @@ export const HeaderButtonProfilePicture: FunctionComponent = () => {
       )}
     >
       <ImageSizeable
-        className={clsx('w-12', 'h-auto', 'rounded-lg', 'bg-dark-500', 'object-center', 'object-contain')}
+        className={clsx('rounded-lg', 'bg-dark-500', 'object-center', 'object-contain')}
         src={avatarUrl}
         alt={username}
         width={48}
@@ -46,7 +46,7 @@ export const HeaderButtonProfilePicture: FunctionComponent = () => {
           setError(true)
         }}
       />
-      <ImagePlaceholder show={!loaded} />
+      <ImagePlaceholder className={clsx('rounded-lg')} show={!loaded} />
     </div>
   )
 }

@@ -1,13 +1,17 @@
+import { serializeNft } from '@echo/model/serializers/serialize-nft'
 import type { Address } from '@echo/model/types/address'
 import type { Listing } from '@echo/model/types/listing'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
-import { keyOf } from '@echo/ui/components/nft/key-of'
 import { concat, join, map, pipe, prop } from 'ramda'
 
 export const SWRKeys = {
   contract: {
-    areNftsInEscrow: pipe<[Nft[]], string[], string, string>(map(keyOf), join('-'), concat('are-nfts-in-escrow-')),
+    areNftsInEscrow: pipe<[Nft[]], string[], string, string>(
+      map(serializeNft),
+      join('-'),
+      concat('are-nfts-in-escrow-')
+    ),
     getEchoTradingFees: 'get-echo-trading-fees',
     getErc721approval: (contract: Address) => `get-erc721-approval-${contract}`,
     approveErc721: (contract: Address) => `approve-erc721-${contract}`,
