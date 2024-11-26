@@ -54,7 +54,7 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open,
 
   return (
     <Modal open={open} onClose={isMutating ? undefined : onClose} title={t('title')}>
-      <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
+      <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch', 'p-6')}>
         <ModalSubtitle>{t('accept.subtitle')}</ModalSubtitle>
         {!isNil(fees) && (
           <ModalDescription>{t('accept.description', { fees, count: offer.senderItems.length })}</ModalDescription>

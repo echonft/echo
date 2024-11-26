@@ -13,7 +13,9 @@ export const ModalTitle: FunctionComponent<ModalTitleProps> = ({ title }) => {
   }
   return (
     <DialogTitle as={Fragment}>
-      <span className={clsx('text-white', 'text-center', 'prose-header-sm-semi', 'pb-5', 'select-none')}>{title}</span>
+      <span className={clsx('text-white', 'text-center', 'prose-header-sm-semi', 'pb-5', 'pt-6', 'select-none')}>
+        {title}
+      </span>
     </DialogTitle>
   )
 }

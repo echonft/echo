@@ -58,7 +58,7 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ open, offer, o
 
   return (
     <Modal open={open} onClose={isMutating ? undefined : onClose} title={t('title')}>
-      <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
+      <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch', 'p-6')}>
         <ModalSubtitle>{t('execute.subtitle')}</ModalSubtitle>
         {!isNil(fees) && (
           <ModalDescription>{t('execute.description', { fees, count: offer.receiverItems.length })}</ModalDescription>
