@@ -1,4 +1,6 @@
 export enum OfferCreationSteps {
+  Counterparty = 'counterparty',
   Offer = 'offer',
-  Review = 'review'
+  Review = 'review',
+  Done = 'done'
 }
