@@ -30,8 +30,9 @@ export const OfferDetailsContractApprovalRow: FunctionComponent<Props> = ({
     isNil(approved) ? { name: SWRKeys.contract.getErc721approval(contract), contract, wallet: wallet } : undefined,
     getErc721ContractApproval,
     {
-      onSuccess: (data) => {
-        onSuccess?.(contract, data)
+      onSuccess: () => {
+        // FIXME For now we force the approval because the return is unreliable. Will investigate.
+        onSuccess?.(contract, false)
       },
       onError: errorCallback({
         onError: () => {
