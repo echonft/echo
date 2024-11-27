@@ -1,6 +1,7 @@
 'use client'
 import type { HexString } from '@echo/model/types/hex-string'
 import type { Offer } from '@echo/model/types/offer'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalDescription } from '@echo/ui/components/base/modal/modal-description'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
@@ -13,6 +14,7 @@ import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import clsx from 'clsx'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
@@ -25,6 +27,7 @@ interface Props {
 
 // TODO ERC20
 export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ open, offer, onClose }) => {
+  const router = useRouter()
   const t = useTranslations('offer.details.swapModal')
   const tError = useTranslations('error.offer')
   const { swap } = useDependencies()
@@ -33,13 +36,9 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ open, offer, o
     key: SWRKeys.swap.execute(offer),
     fetcher: swap,
     onSuccess: (_response) => {
-      // FIXME
-      // onSuccess?.(
-      //   pipe<[OfferWithRole], OfferWithRole, OfferWithRole>(
-      //     assoc('state', OfferState.Completed),
-      //     assoc('locked', true)
-      //   )(offer)
-      // )
+      // For now a simple redirect to the user profile.
+      // TODO Add a query in the profile to go to swap or show the swap modal?
+      router.push(frontendRoutes.user.profile.get())
     },
     onError: {
       alert: { severity: CalloutSeverity.Error, message: tError('swap') },
