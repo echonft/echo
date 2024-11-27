@@ -34,5 +34,10 @@ export async function offerExecutedEventHandler({
       addSwap,
       otherwise(alwaysVoid)
     )(offer)
+
+    // FIXME Not sure if this is how we want to handle this, but right now since we don't have a COMPLETED state
+    // on the offer anymore, we can just delete it. Otherwise the offer will still be shown in the UI as ACCEPTED.
+    // Perhaps we need to add a COMPLETED state to the offer and set it here?
+    await offerSnapshot.ref.delete()
   }
 }
