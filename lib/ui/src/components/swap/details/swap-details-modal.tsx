@@ -17,7 +17,7 @@ export const SwapDetailsModal: FunctionComponent<Props> = ({ swap, onClose }) =>
   const { className } = useBackground(Background.GreenGradient)
   return (
     <Modal open={!isNil(swap)} onClose={onClose} className={className}>
-      <SwapDetailsModalBody swap={swap} />
+      <SwapDetailsModalBody swap={swap} onClose={onClose} />
     </Modal>
   )
 }
