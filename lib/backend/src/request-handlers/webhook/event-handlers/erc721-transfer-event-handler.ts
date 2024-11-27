@@ -33,7 +33,7 @@ export async function erc721TransferEventHandler({ contract, from, to, tokenId }
     if (isNil(nftSnapshot)) {
       return
     }
-    await pipe(unescrowNft, otherwise(alwaysVoid))(nftSnapshot.id)
+    await pipe(unescrowNft, otherwise(alwaysVoid))(nftSnapshot.id, to)
     return
   }
   const nft = await pipe(getNftByIndex, otherwise(always<Nullable<NftDocument>>(undefined)))({ collection, tokenId })
