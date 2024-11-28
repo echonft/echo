@@ -48,7 +48,7 @@ export const TokenSelector: FunctionComponent<Props> = ({ onAddToken }) => {
         />
       </TokenSelectorInputLayout>
       <button
-        className={clsx('btn-primary-reverse', 'group', 'w-full', 'py-2.5')}
+        className={clsx('btn-primary', 'group', '!w-full')}
         disabled={
           isNil(quantity) ||
           quantity > selectedTokenBalance.balance ||
@@ -60,7 +60,7 @@ export const TokenSelector: FunctionComponent<Props> = ({ onAddToken }) => {
           }
         }}
       >
-        <span className={clsx('btn-label-primary-reverse', 'prose-label-md-semi')}>{t('btn')}</span>
+        <span className={clsx('btn-label-primary')}>{t('btn')}</span>
       </button>
     </TokenSelectorLayout>
   )

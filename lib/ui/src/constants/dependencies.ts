@@ -35,7 +35,7 @@ export const dependencies: Dependencies = {
   cancelOffer,
   createOffer,
   disconnectWallet,
-  getAccount: getAccount,
+  getAccount,
   getAllErc20TokenBalances,
   getEchoTradingFees,
   getErc20TokenBalance,

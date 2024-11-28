@@ -116,53 +116,11 @@ export const themeExtension = {
         fontWeight: 700
       }
     ] as fontSizeConfig,
-    'display-lg-light': [
-      '4rem',
-      {
-        lineHeight: '112%',
-        fontWeight: 300
-      }
-    ] as fontSizeConfig,
-    'display-md': [
-      '2.5rem',
-      {
-        lineHeight: '117%',
-        fontWeight: 500
-      }
-    ] as fontSizeConfig,
     'display-md-bold': [
       '2.5rem',
       {
         lineHeight: '117%',
         fontWeight: 700
-      }
-    ] as fontSizeConfig,
-    'display-md-light': [
-      '2.5rem',
-      {
-        lineHeight: '117%',
-        fontWeight: 300
-      }
-    ] as fontSizeConfig,
-    'display-sm': [
-      '2rem',
-      {
-        lineHeight: '119%',
-        fontWeight: 500
-      }
-    ] as fontSizeConfig,
-    'display-sm-bold': [
-      '2rem',
-      {
-        lineHeight: '119%',
-        fontWeight: 700
-      }
-    ] as fontSizeConfig,
-    'display-sm-light': [
-      '2rem',
-      {
-        lineHeight: '119%',
-        fontWeight: 300
       }
     ] as fontSizeConfig,
     'header-lg-semi': [
@@ -214,41 +172,6 @@ export const themeExtension = {
         fontWeight: 600
       }
     ] as fontSizeConfig,
-    'header-xs': [
-      '1rem',
-      {
-        lineHeight: '125%',
-        fontWeight: 500
-      }
-    ] as fontSizeConfig,
-    'paragraph-xl': [
-      '1.25rem',
-      {
-        lineHeight: '140%',
-        fontWeight: 500
-      }
-    ] as fontSizeConfig,
-    'paragraph-xl-light': [
-      '1.25rem',
-      {
-        lineHeight: '140%',
-        fontWeight: 300
-      }
-    ] as fontSizeConfig,
-    'paragraph-lg': [
-      '1.125rem',
-      {
-        lineHeight: '144%',
-        fontWeight: 500
-      }
-    ] as fontSizeConfig,
-    'paragraph-lg-light': [
-      '1.125rem',
-      {
-        lineHeight: '144%',
-        fontWeight: 300
-      }
-    ] as fontSizeConfig,
     'paragraph-md': [
       '1rem',
       {
@@ -256,25 +179,11 @@ export const themeExtension = {
         fontWeight: 500
       }
     ] as fontSizeConfig,
-    'paragraph-md-light': [
-      '1rem',
-      {
-        lineHeight: '157%',
-        fontWeight: 300
-      }
-    ] as fontSizeConfig,
     'paragraph-sm': [
       '0.875rem',
       {
         lineHeight: '157%',
         fontWeight: 500
-      }
-    ] as fontSizeConfig,
-    'paragraph-sm-light': [
-      '0.875rem',
-      {
-        lineHeight: '157%',
-        fontWeight: 300
       }
     ] as fontSizeConfig,
     'paragraph-xs': [
@@ -289,14 +198,6 @@ export const themeExtension = {
       {
         lineHeight: '150%',
         fontWeight: 300
-      }
-    ] as fontSizeConfig,
-    'label-lg-semi': [
-      '1.125rem',
-      {
-        lineHeight: '1.1875rem',
-        fontWeight: 600,
-        letterSpacing: '0.0225em'
       }
     ] as fontSizeConfig,
     'label-lg': [
@@ -377,30 +278,6 @@ export const themeExtension = {
         lineHeight: '155%',
         fontWeight: 500,
         letterSpacing: '0.02em'
-      }
-    ] as fontSizeConfig,
-    'caps-lg': [
-      '1rem',
-      {
-        lineHeight: '112%',
-        fontWeight: 600,
-        letterSpacing: '0.06em'
-      }
-    ] as fontSizeConfig,
-    'caps-md': [
-      '0.875rem',
-      {
-        lineHeight: '114%',
-        fontWeight: 600,
-        letterSpacing: '0.06em'
-      }
-    ] as fontSizeConfig,
-    'caps-sm': [
-      '0.75rem',
-      {
-        lineHeight: '117%',
-        fontWeight: 600,
-        letterSpacing: '0.06em'
       }
     ] as fontSizeConfig,
     'other-medium': [

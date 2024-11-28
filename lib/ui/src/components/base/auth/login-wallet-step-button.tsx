@@ -1,6 +1,6 @@
 'use client'
 import type { Address } from '@echo/model/types/address'
-import { WalletButtonLayout } from '@echo/ui/components/base/wallet/layout/wallet-button-layout'
+import { WalletButton } from '@echo/ui/components/base/wallet/wallet-button'
 import { useAccount } from '@echo/ui/hooks/use-account'
 import { useActions } from '@echo/ui/hooks/use-actions'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -30,7 +30,7 @@ export const LoginWalletStepButton: FunctionComponent<Props> = ({ onWalletLinked
     return (
       <ConnectKitButton.Custom>
         {({ show, isConnecting }) => (
-          <WalletButtonLayout
+          <WalletButton
             isConnecting={isConnecting}
             onClick={() => {
               show?.()
@@ -40,5 +40,5 @@ export const LoginWalletStepButton: FunctionComponent<Props> = ({ onWalletLinked
       </ConnectKitButton.Custom>
     )
   }
-  return <WalletButtonLayout isConnecting={true} />
+  return <WalletButton isConnecting={true} />
 }

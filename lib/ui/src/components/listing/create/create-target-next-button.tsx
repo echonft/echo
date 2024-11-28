@@ -44,13 +44,13 @@ export const CreateTargetNextButton: FunctionComponent<Props> = ({
 
   return (
     <button
-      className={clsx('btn-gradient', 'btn-size-alt', 'group', loading && 'animate-pulse')}
+      className={clsx('btn-gradient', 'group', loading && 'animate-pulse')}
       disabled={loading}
       onClick={() => {
         handleNext()
       }}
     >
-      <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{getNextBtnLabel()}</span>
+      <span className={clsx('btn-label-gradient')}>{getNextBtnLabel()}</span>
     </button>
   )
 }

@@ -74,16 +74,14 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
         <ModalSubtitle>{t('create.subtitle')}</ModalSubtitle>
         <ModalDescription>{t('create.description', { count: baseOffer.senderItems.length })}</ModalDescription>
         <button
-          className={clsx('btn-gradient', 'btn-size-alt', 'group', loading && 'animate-pulse')}
+          className={clsx('btn-gradient', 'group', loading && 'animate-pulse')}
           onClick={() => {
             setLoading(true)
             void onCreate(baseOffer)
           }}
           disabled={loading}
         >
-          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>
-            {t(loading ? 'create.btn.loading' : 'create.btn.label')}
-          </span>
+          <span className={clsx('btn-label-gradient')}>{t(loading ? 'create.btn.loading' : 'create.btn.label')}</span>
         </button>
       </div>
     </Modal>

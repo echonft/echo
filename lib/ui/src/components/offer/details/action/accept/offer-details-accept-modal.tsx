@@ -60,13 +60,13 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open,
           <ModalDescription>{t('accept.description', { fees, count: offer.senderItems.length })}</ModalDescription>
         )}
         <button
-          className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
+          className={clsx('btn-gradient', 'group', isMutating && 'animate-pulse')}
           onClick={() => {
             void triggerContractAccept(offer.idContract)
           }}
           disabled={isMutating}
         >
-          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>
+          <span className={clsx('btn-label-gradient')}>
             {t(isMutating ? 'accept.btn.loading' : 'accept.btn.label')}
           </span>
         </button>

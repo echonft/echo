@@ -19,24 +19,13 @@ export const HeaderButtonProfilePicture: FunctionComponent = () => {
     discord: { avatarUrl, username }
   } = user
   return (
-    <div
-      className={clsx(
-        'w-12',
-        'h-12',
-        'rounded-lg',
-        'relative',
-        'bg-dark-500',
-        'border',
-        'border-solid',
-        'border-white/[0.08]'
-      )}
-    >
+    <div className={clsx('w-11', 'h-11', 'rounded-r-lg', 'relative', 'bg-dark-500')}>
       <ImageSizeable
-        className={clsx('rounded-lg', 'bg-dark-500', 'object-center', 'object-contain')}
+        className={clsx('rounded-r-lg', 'bg-dark-500')}
         src={avatarUrl}
         alt={username}
-        width={48}
-        height={48}
+        width={44}
+        height={44}
         priority={true}
         onLoad={() => {
           setLoaded(true)
@@ -46,7 +35,21 @@ export const HeaderButtonProfilePicture: FunctionComponent = () => {
           setError(true)
         }}
       />
-      <ImagePlaceholder className={clsx('rounded-lg')} show={!loaded} />
+      {loaded ? (
+        <div
+          className={clsx(
+            'absolute',
+            'inset-0',
+            'bg-white',
+            'rounded-r-lg',
+            'transition-opacity',
+            'opacity-0',
+            'group-hover:opacity-5'
+          )}
+        />
+      ) : (
+        <ImagePlaceholder className={clsx('rounded-lg')} show={true} />
+      )}
     </div>
   )
 }

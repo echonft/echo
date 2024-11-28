@@ -17,12 +17,22 @@ const HeaderButton = dynamic(
   { ssr: false, loading: () => <HeaderButtonSkeleton /> }
 )
 
+const HeaderWalletStatusManager = dynamic(
+  () => import('@echo/ui/components/base/header/wallet-status-manager').then((mod) => mod.WalletStatusManager),
+  { ssr: false, loading: () => null }
+)
+
+const WalletChainManager = dynamic(
+  () => import('@echo/ui/components/base/wallet/wallet-chain-manager').then((mod) => mod.WalletChainManager),
+  { ssr: false, loading: () => null }
+)
+
 export const Header: FunctionComponent<Props> = ({ options = HeaderStyle.Default }) => {
   if (options === HeaderStyle.Plain) {
     return (
       <HeaderLayout>
         <InternalLink path={'/'}>
-          <EchoLogoSvg width={144} />
+          <EchoLogoSvg height={44} />
         </InternalLink>
       </HeaderLayout>
     )
@@ -31,10 +41,12 @@ export const Header: FunctionComponent<Props> = ({ options = HeaderStyle.Default
   return (
     <HeaderLayout>
       <InternalLink path={'/'}>
-        <EchoLogoSvg width={144} />
+        <EchoLogoSvg height={44} />
       </InternalLink>
       <HeaderSearch />
       <HeaderButton />
+      <HeaderWalletStatusManager />
+      <WalletChainManager />
     </HeaderLayout>
   )
 }

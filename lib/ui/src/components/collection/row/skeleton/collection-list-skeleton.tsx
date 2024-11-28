@@ -6,7 +6,8 @@ import type { FunctionComponent } from 'react'
 interface Props {
   count?: number
 }
-export const CollectionListSkeleton: FunctionComponent<Props> = ({ count = 5 }) => {
+
+export const CollectionListSkeleton: FunctionComponent<Props> = ({ count = 3 }) => {
   return (
     <CollectionListLayout>
       {pipe(

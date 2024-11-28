@@ -42,20 +42,20 @@ export const SearchResultCategoryPill: FunctionComponent<Props> = ({
         onToggleSelection?.(category, !selected)
       }}
     >
-      <span className={clsx('prose-label-md', 'text-white', 'select-none')}>{t(category, { count })}</span>
+      <span className={clsx('prose-label-sm-semi', 'text-white', 'select-none')}>{t(category, { count })}</span>
       <div
         className={clsx(
-          'w-6.5',
-          'h-6.5',
+          'w-5',
+          'h-5',
           'rounded-lg',
           'flex',
           'items-center',
           'justify-center',
-          'bg-dark-300',
+          'bg-dark-100',
           'select-none'
         )}
       >
-        <span className={clsx('prose-other-medium', 'text-white/50', 'select-none')}>{count}</span>
+        <span className={clsx('prose-label-xs-semi', 'text-white/75', 'select-none')}>{count}</span>
       </div>
     </button>
   )

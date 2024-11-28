@@ -31,9 +31,9 @@ export const WalletCopyToClipboardButton: FunctionComponent<WalletConnectedButto
         <CopyToClipboard text={formatAddress(wallet)}>
           <button
             id={buttonId}
-            className={clsx('btn-auth-alt', 'bg-white/[0.08]', 'border-none', 'rounded-none', 'rounded-l-lg')}
+            className={clsx('btn-primary', 'border', 'border-white/[0.08]', 'rounded-none', '!rounded-l-lg')}
           >
-            <span className={clsx('btn-label-auth')}>{shortenAddress(wallet)}</span>
+            <span className={clsx('btn-label-primary')}>{shortenAddress(wallet)}</span>
           </button>
         </CopyToClipboard>
         <Tooltip

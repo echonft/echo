@@ -23,7 +23,6 @@ export const TradeDetailsBottomBar: FunctionComponent<PropsWithChildren<Props>> 
             'flex',
             'flex-row',
             'gap-2.5',
-            'btn-size-alt',
             'group',
             loading && 'animate-pulse',
             isNil(onBack) && 'invisible'
@@ -33,10 +32,10 @@ export const TradeDetailsBottomBar: FunctionComponent<PropsWithChildren<Props>> 
             onBack?.()
           }}
         >
-          <span className={clsx('btn-label-primary')}>
+          <div className={clsx('btn-label-with-icon-layout', 'btn-label-primary')}>
             <SideCaretSvg direction={Direction.Left} />
-          </span>
-          <span className={clsx('prose-label-lg', 'btn-label-primary')}>{t('backBtn')}</span>
+            <span>{t('backBtn')}</span>
+          </div>
         </button>
       </CreateTradeBottomBarButtonLayout>
       <div className={clsx('flex', 'justify-end')}>

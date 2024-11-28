@@ -1,10 +1,10 @@
 'use client'
 import type { Address } from '@echo/model/types/address'
+import type { HexString } from '@echo/model/types/hex-string'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { useDependencies } from '@echo/ui/hooks/use-dependencies'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import type { HexString } from '@echo/model/types/hex-string'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
@@ -44,16 +44,14 @@ export const OfferDetailsApproveContractButton: FunctionComponent<Props> = ({
 
   return (
     <button
-      className={clsx('btn-gradient', 'btn-size-alt', 'group')}
+      className={clsx('btn-gradient', 'group')}
       onClick={() => {
         onLoading?.()
         void trigger(contract)
       }}
       disabled={isMutating}
     >
-      <span className={clsx('prose-label-lg', 'btn-label-gradient')}>
-        {t(isMutating ? 'btn.loading' : 'btn.label')}
-      </span>
+      <span className={clsx('btn-label-gradient')}>{t(isMutating ? 'btn.loading' : 'btn.label')}</span>
     </button>
   )
 }

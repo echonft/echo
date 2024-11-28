@@ -53,7 +53,7 @@ export const CollectionSelector: FunctionComponent<Props> = ({ collection, onAdd
       <CollectionSelectorInfo collection={collection} />
       <CollectionSelectorInput value={quantity} onChange={setQuantity} />
       <button
-        className={clsx('btn-primary-reverse', 'group', 'w-full', 'py-2.5')}
+        className={clsx('btn-primary', 'group', '!w-full')}
         disabled={isNil(quantity) || quantity <= 0}
         onClick={() => {
           if (!isNil(quantity) && gt(quantity, 0)) {
@@ -61,7 +61,7 @@ export const CollectionSelector: FunctionComponent<Props> = ({ collection, onAdd
           }
         }}
       >
-        <span className={clsx('btn-label-primary-reverse', 'prose-label-md-semi')}>{t('btn')}</span>
+        <span className={clsx('btn-label-primary')}>{t('btn')}</span>
       </button>
     </TokenSelectorLayout>
   )

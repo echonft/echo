@@ -37,8 +37,8 @@ export const ListingDetailsButtons: FunctionComponent<Props> = ({ listing, isMut
   if (isListingRoleTarget(listing)) {
     return (
       <ListingDetailsButtonsLayout>
-        <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} onClick={onFill}>
-          <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('fillBtn')}</span>
+        <button className={clsx('btn-gradient', 'group')} onClick={onFill}>
+          <span className={clsx('btn-label-gradient')}>{t('fillBtn')}</span>
         </button>
       </ListingDetailsButtonsLayout>
     )

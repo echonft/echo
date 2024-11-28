@@ -24,8 +24,8 @@ export const OfferDetailsContractApprovalModalButton: FunctionComponent<Props> =
   const t = useTranslations('offer.details.approveModal.btn')
   if (isNil(contract)) {
     return (
-      <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} disabled={true}>
-        <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('label')}</span>
+      <button className={clsx('btn-gradient', 'group')} disabled={true}>
+        <span className={clsx('btn-label-gradient')}>{t('label')}</span>
       </button>
     )
   }

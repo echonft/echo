@@ -8,9 +8,9 @@ interface Props {
 
 export const LoginStepLayout: FunctionComponent<PropsWithChildren<Props>> = ({ title, children }) => {
   return (
-    <div className={clsx('flex', 'flex-col', 'gap-12', 'items-center')}>
+    <div className={clsx('flex', 'flex-col', 'gap-12', 'items-center', 'h-max')}>
       <LoginTitle>{title}</LoginTitle>
-      <div className={clsx('flex', 'flex-col', 'gap-12', 'items-center')}>{children}</div>
+      <div className={clsx('flex', 'flex-col', 'gap-12', 'items-center', 'w-full', 'h-max')}>{children}</div>
     </div>
   )
 }

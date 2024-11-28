@@ -35,25 +35,16 @@ export const CreateTradeBottomBar: FunctionComponent<PropsWithChildren<Props>> =
     <CreateTradeBottomBarLayout>
       <CreateTradeBottomBarButtonLayout>
         <button
-          className={clsx(
-            'btn-primary',
-            'flex',
-            'flex-row',
-            'gap-2.5',
-            'btn-size-alt',
-            'group',
-            loading && 'animate-pulse',
-            isNil(onBack) && 'invisible'
-          )}
+          className={clsx('btn-primary', 'group', loading && 'animate-pulse', isNil(onBack) && 'invisible')}
           disabled={loading}
           onClick={() => {
             onBack?.()
           }}
         >
-          <span className={clsx('btn-label-primary')}>
+          <div className={clsx('btn-label-with-icon-layout', 'btn-label-primary')}>
             <SideCaretSvg direction={Direction.Left} />
-          </span>
-          <span className={clsx('prose-label-lg', 'btn-label-primary')}>{t('backBtn')}</span>
+            <span>{t('backBtn')}</span>
+          </div>
         </button>
       </CreateTradeBottomBarButtonLayout>
       <CreateTradeBottomBarItemsLayout>

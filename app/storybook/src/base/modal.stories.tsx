@@ -30,7 +30,7 @@ export const Modal: StoryObj<typeof Component> = {
       <div className={'h-screen'}>
         <div className={'flex flex-row justify-center items-center h-full'}>
           <button
-            className={'btn-gradient group btn-size-alt'}
+            className={'btn-gradient group'}
             onClick={() => {
               setIsOpen(true)
             }}
@@ -63,7 +63,7 @@ export const CloseDisabled: StoryObj<typeof Component> = {
             onClick={() => {
               setIsOpen(true)
             }}
-            className={'btn-gradient group btn-size-alt'}
+            className={'btn-gradient group'}
           >
             <span className={'prose-label-sm-semi btn-label-gradient'}>Open Modal</span>
           </button>

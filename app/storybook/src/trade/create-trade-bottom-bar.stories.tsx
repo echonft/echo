@@ -14,8 +14,8 @@ const metadata: Meta<typeof Component> = {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     onBack: () => {},
     children: (
-      <button className={'btn-gradient btn-size-alt group'}>
-        <span className={'prose-label-lg btn-label-gradient'}>{'Next'}</span>
+      <button className={'btn-gradient group'}>
+        <span className={'btn-label-gradient'}>{'Next'}</span>
       </button>
     )
   },
@@ -42,8 +42,8 @@ export const Loading: StoryObj<typeof Component> = {
   args: {
     loading: true,
     children: (
-      <button className={'btn-gradient btn-size-alt group animate-pulse'} disabled>
-        <span className={'prose-label-lg btn-label-gradient'}>{'Next'}</span>
+      <button className={'btn-gradient group animate-pulse'} disabled>
+        <span className={'btn-label-gradient'}>{'Next'}</span>
       </button>
     )
   }

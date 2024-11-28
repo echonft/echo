@@ -28,8 +28,8 @@ export const CreatedOfferRejected: FunctionComponent = () => {
           </span>
           <span className={clsx('text-white/70', 'prose-other-light', 'italic', 'px-12')}>{t('description')}</span>
         </OfferCreationTextLayout>
-        <button className={clsx('btn-gradient', 'h-max', 'w-full', 'py-2.5', 'group')} onClick={onClick}>
-          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('homepageBtn')}</span>
+        <button className={clsx('btn-gradient', 'group', '!w-full')} onClick={onClick}>
+          <span className={clsx('btn-label-gradient')}>{t('homepageBtn')}</span>
         </button>
       </OfferCreationSubLayout>
     </OfferCreationLayout>

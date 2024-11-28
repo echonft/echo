@@ -13,15 +13,15 @@ export const LoginDiscordStep: FunctionComponent = () => {
   return (
     <LoginStepLayout title={t('title')}>
       <button
-        className={clsx('btn-auth')}
+        className={clsx('btn-primary', 'group')}
         onClick={() => {
           router.push(discordOAuthUrl())
         }}
       >
-        <span className={'text-white'}>
-          <DiscordIconSvg width={24} height={24} />
-        </span>
-        <span className={clsx('btn-label-auth')}>{t('btn')}</span>
+        <div className={clsx('btn-label-with-icon-layout', 'btn-label-primary')}>
+          <DiscordIconSvg height={18} />
+          <span>{t('btn')}</span>
+        </div>
       </button>
     </LoginStepLayout>
   )

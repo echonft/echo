@@ -31,39 +31,40 @@ export const LoginJoinEchoStep: FunctionComponent<Props> = ({ username }) => {
 
   return (
     <LoginStepLayout title={t('title', { username })}>
-      <div className={clsx('w-full')}>
-        <ExternalLink href={discordInviteLink} onClick={onSkip}>
-          <div
-            className={clsx('w-full', 'bg-gradient-to-r', 'from-[#FFE70B]', 'to-[#0e0e0e]', 'rounded-lg', 'p-[1px]')}
-          >
-            <button
-              className={clsx(
-                'bg-[#0e0e0e]',
-                'rounded-lg',
-                'py-5',
-                'px-8',
-                'w-full',
-                'text-left',
-                'group',
-                'enabled:hover:bg-[#1f1e1e]'
-              )}
-            >
-              <span className={clsx('prose-header-md-semi', 'bg-joinDiscordLabel', 'italic', 'bg-clip-text')}>
-                {t('btn')}
-              </span>
-            </button>
-          </div>
-        </ExternalLink>
-      </div>
-      <div className={clsx('flex', 'justify-end', 'w-full')}>
+      <ExternalLink
+        className={clsx(
+          'w-full',
+          'bg-gradient-to-r',
+          'from-[#FFE70B]',
+          'to-[#0e0e0e]',
+          'rounded-lg',
+          'p-[1px]',
+          'group'
+        )}
+        href={discordInviteLink}
+        onClick={onSkip}
+      >
         <button
-          className={clsx('group', 'btn', 'gap-8', 'pr-2', 'pl-8', 'py-2.5', 'enabled:hover:bg-white/[0.08]')}
-          onClick={onSkip}
+          className={clsx(
+            'bg-[#0e0e0e]',
+            'group-hover:bg-[rgba(14,14,14,0.8)]',
+            'rounded-lg',
+            'py-5',
+            'px-8',
+            'w-full'
+          )}
         >
-          <span className={clsx('btn-label-secondary', 'prose-paragraph-sm', '!text-[0.9375rem]')}>{t('skipBtn')}</span>
-          <span className={clsx('btn-label-secondary')}>
-            <SideCaretSvg direction={Direction.Right} />
+          <span className={clsx('prose-header-md-semi', 'bg-joinDiscordLabel', 'italic', 'bg-clip-text')}>
+            {t('btn')}
           </span>
+        </button>
+      </ExternalLink>
+      <div className={clsx('flex', 'justify-end', 'w-full')}>
+        <button className={clsx('btn-primary', 'group')} onClick={onSkip}>
+          <div className={clsx('btn-label-with-icon-layout', 'btn-label-primary')}>
+            <span>{t('skipBtn')}</span>
+            <SideCaretSvg direction={Direction.Right} />
+          </div>
         </button>
       </div>
     </LoginStepLayout>

@@ -36,9 +36,9 @@ export const DiscordTile: FunctionComponent = () => {
         >
           {t('title')}
         </h1>
-        <ExternalLink href={discordInviteLink}>
-          <button className={clsx('btn-primary-reverse', 'btn-size', 'group')}>
-            <span className={clsx('prose-label-md-semi', 'btn-label-primary-reverse')}>{t('btn')}</span>
+        <ExternalLink className={clsx('h-max', 'w-max', 'rounded-lg', 'group')} href={discordInviteLink}>
+          <button className={clsx('btn', 'group', 'bg-yellow-500', 'group-hover:bg-white/[0.08]', '!w-full')}>
+            <span className={clsx('btn-label', 'text-black', 'group-hover:text-white')}>{t('btn')}</span>
           </button>
         </ExternalLink>
       </div>

@@ -5,7 +5,7 @@ export const messages = {
       title: 'Link your Discord profile to start swapping'
     },
     'join-discord': {
-      btn: 'Join our Discord Now!',
+      btn: 'Join our Discord now!',
       skipBtn: 'Skip',
       title:
         'Hey {username}! If you have come this far it is because you want to be part of the future of NFT swapping. Get ready to live the Echo experience and transform the Web3 space with us!'
@@ -92,7 +92,7 @@ export const messages = {
   },
   home: {
     discord: {
-      btn: 'Join our discord',
+      btn: 'Join our Discord',
       title: 'Join our community and start\nswapping now'
     },
     rankedCollections: {

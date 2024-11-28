@@ -3,7 +3,6 @@ import path, { dirname, join } from 'path'
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*stories.tsx'],
   addons: [
     { name: '@storybook/addon-essentials', options: { docs: false } },
     {
@@ -25,6 +24,10 @@ const config: StorybookConfig = {
       }
     }
   ],
+  env: (config) => ({
+    ...config,
+    NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL: 'localhost:6006'
+  }),
   framework: {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -34,10 +37,6 @@ const config: StorybookConfig = {
       nextConfigPath: path.resolve(__dirname, '../../frontend/next.config.js')
     }
   },
-  env: (config) => ({
-    ...config,
-    NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL: 'localhost:6006'
-  }),
   swc: () => ({
     jsc: {
       transform: {
@@ -47,6 +46,8 @@ const config: StorybookConfig = {
       }
     }
   }),
+  staticDirs: ['../public'],
+  stories: ['../src/**/*stories.tsx'],
   webpackFinal: (config) => {
     return {
       ...config,

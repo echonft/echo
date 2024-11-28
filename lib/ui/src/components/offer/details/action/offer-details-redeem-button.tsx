@@ -83,7 +83,7 @@ export const OfferDetailsRedeemButton: FunctionComponent<Props> = ({
   if (show) {
     return (
       <button
-        className={clsx('btn-gradient', 'btn-size', 'group', disabled && 'animate-pulse')}
+        className={clsx('btn-gradient', 'group', disabled && 'animate-pulse')}
         disabled={disabled}
         onClick={() => {
           if (isRedeemable) {
@@ -94,7 +94,7 @@ export const OfferDetailsRedeemButton: FunctionComponent<Props> = ({
           onClick?.()
         }}
       >
-        <span className={clsx('prose-label-lg', 'btn-label-gradient')}>
+        <span className={clsx('btn-label-gradient')}>
           {t(disabled ? 'redeemBtn.loading' : 'redeemBtn.label', { count })}
         </span>
       </button>

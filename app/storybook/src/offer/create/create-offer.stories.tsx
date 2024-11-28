@@ -3,11 +3,10 @@
 import { nftMocksCrew, nftMocksJohnny } from '@echo/model/mocks/nft-mock'
 import { userMockCrew, userMockJohnny } from '@echo/model/mocks/user-mock'
 import type { OwnedNft } from '@echo/model/types/nft'
-import { accountStatusStore } from '@echo/storybook/mocks/stores/account-status-store'
+import { authStore } from '@echo/storybook/mocks/stores/auth-store'
 import { CreateOfferFlow as Component } from '@echo/ui/components/offer/create/create-offer-flow'
 import type { Meta, StoryObj } from '@storybook/react'
 import { type NonEmptyArray, take } from 'ramda'
-import { useEffect } from 'react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/Create',
@@ -26,17 +25,11 @@ const metadata: Meta<typeof Component> = {
       }
     }
   },
+  loaders: [authStore.getState().signIn],
   parameters: {
     controls: {
       exclude: ['receiver', 'sender', 'senderNfts', 'receiverNfts', 'receiverNftsSelection']
     }
-  },
-  render: (args) => {
-    const { setConnected } = accountStatusStore()
-    useEffect(() => {
-      setConnected()
-    }, [])
-    return <Component {...args} />
   }
 }
 

@@ -7,8 +7,13 @@ interface Props extends SvgProps {
   direction: Direction
 }
 
-export const SideCaretSvg: FunctionComponent<Props> = ({ direction, ...rest }) => (
-  <Svg viewBoxWidth={9} viewBoxHeight={14} className={clsx(direction === Direction.Left ? 'rotate-180' : '')} {...rest}>
+export const SideCaretSvg: FunctionComponent<Props> = ({ className, direction, ...rest }) => (
+  <Svg
+    viewBoxWidth={9}
+    viewBoxHeight={14}
+    className={clsx(direction === Direction.Left && 'rotate-180', className)}
+    {...rest}
+  >
     <path
       fillRule="evenodd"
       clipRule="evenodd"

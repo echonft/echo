@@ -27,25 +27,16 @@ export const ListingDetailsBottomBar: FunctionComponent<Props> = ({ listing, loa
     <TradeDetailsBottomBarLayout>
       <div className={clsx('flex', 'flex-row', 'h-max', 'grow', 'basis-0', 'px-8')}>
         <button
-          className={clsx(
-            'btn-primary',
-            'flex',
-            'flex-row',
-            'gap-2.5',
-            'btn-size-alt',
-            'group',
-            loading && 'animate-pulse',
-            isNil(onBack) && 'invisible'
-          )}
+          className={clsx('btn-primary', 'group', loading && 'animate-pulse', isNil(onBack) && 'invisible')}
           disabled={loading}
           onClick={() => {
             onBack?.()
           }}
         >
-          <span className={clsx('btn-label-primary')}>
+          <div className={clsx('btn-label-with-icon-layout', 'btn-label-primary')}>
             <SideCaretSvg direction={Direction.Left} />
-          </span>
-          <span className={clsx('prose-label-sm-semi', 'btn-label-primary')}>{t('backBtn')}</span>
+            <span>{t('backBtn')}</span>
+          </div>
         </button>
       </div>
       <div className={clsx('flex', 'flex-row', 'h-max', 'w-max', 'flex-none', 'basis-0', 'items-center', 'gap-8')}>

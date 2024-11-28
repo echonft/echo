@@ -35,9 +35,7 @@ export const ExpirationSelector: FunctionComponent<Props> = ({ selectedExpiratio
               onClick={() => onSelectExpiration?.(expiration)}
               key={expiration}
             >
-              <span className={clsx('prose-label-md', 'text-white')}>
-                {t(`selector.${expiration as ExpirationValues}`)}
-              </span>
+              <span className={clsx('btn-label-primary')}>{t(`selector.${expiration as ExpirationValues}`)}</span>
             </button>
           ))
         )(Expiration)}

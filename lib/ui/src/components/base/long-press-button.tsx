@@ -67,14 +67,14 @@ export const LongPressButton: FunctionComponent<Props> = ({
     <div className={clsx('w-max', 'h-max')}>
       <button
         id={buttonId}
-        className={clsx('btn', 'btn-size-alt', 'group', loading && 'animate-pulse')}
+        className={clsx('btn', 'group', loading && 'animate-pulse')}
         disabled={loading ?? disabled}
         style={{
           background: `linear-gradient(to right, #BF0000 ${progressPercentage}%, #FF4040 ${progressPercentage}% 100%`
         }}
         {...bind()}
       >
-        <span className={clsx('prose-label-lg', 'btn-label-cancel')}>{label}</span>
+        <span className={clsx('btn-label-cancel')}>{label}</span>
       </button>
       <Tooltip
         className={clsx('tooltip')}

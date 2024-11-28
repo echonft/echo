@@ -15,7 +15,7 @@ interface Props {
 export const SearchResultCategories: FunctionComponent<Props> = ({ categories, onChange }) => {
   const [selection, setSelection] = useState<Nullable<SearchResultCategory>>(undefined)
   return (
-    <div className={clsx('h-max', 'w-full', 'flex', 'flex-row', 'gap-4', 'rounded-t-lg', 'p-4.5')}>
+    <div className={clsx('h-max', 'w-full', 'flex', 'flex-row', 'gap-4', 'rounded-t-lg', 'px-4', 'py-3')}>
       {map(
         ({ category, count }) => (
           <SearchResultCategoryPill

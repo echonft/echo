@@ -12,7 +12,7 @@ interface Props {
 const TabButton = forwardRef<HTMLButtonElement, PropsWithChildren>(function ({ children }, ref) {
   return (
     <button className={clsx('pill')} ref={ref}>
-      <span className={clsx('prose-label-md', 'text-white', 'select-none')}>{children}</span>
+      <span className={clsx('pill-label')}>{children}</span>
     </button>
   )
 })

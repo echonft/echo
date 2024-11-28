@@ -1,9 +1,8 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { accountStatusStore } from '@echo/storybook/mocks/stores/account-status-store'
+import { authStore } from '@echo/storybook/mocks/stores/auth-store'
 import { TokenSelector as Component } from '@echo/ui/components/trade/token-selector/token-selector'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { useEffect } from 'react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Trade/Token Selector',
@@ -15,13 +14,7 @@ const metadata: Meta<typeof Component> = {
     }
   },
   component: Component,
-  render: ({ onAddToken }) => {
-    const { connect } = accountStatusStore()
-    useEffect(() => {
-      connect()
-    }, [])
-    return <Component onAddToken={onAddToken} />
-  }
+  loaders: [authStore.getState().signIn]
 }
 export default metadata
 export const TokenSelector: StoryObj<typeof Component> = {}

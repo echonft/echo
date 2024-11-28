@@ -34,7 +34,7 @@ export const SearchInput: FunctionComponent<Props> = ({ query, searching, option
             visible={true}
           />
         ) : (
-          <SearchIconSvg width={24} height={24} />
+          <SearchIconSvg width={22} height={22} />
         )}
       </span>
       <AnimatePresence>
@@ -47,11 +47,11 @@ export const SearchInput: FunctionComponent<Props> = ({ query, searching, option
       </AnimatePresence>
       <Input
         className={clsx(
-          'h-12',
-          'px-14',
+          'h-11',
+          'px-11',
           'w-full',
           'rounded-lg',
-          'prose-label-lg',
+          'prose-label-sm-semi',
           'text-white',
           'bg-transparent',
           'outline-none'

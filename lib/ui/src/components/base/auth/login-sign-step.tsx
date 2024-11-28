@@ -67,14 +67,16 @@ export const LoginSignStep: FunctionComponent<Props> = ({ code }) => {
     <LoginStepLayout title={t('title')}>
       <button
         disabled={loading}
-        className={clsx('btn-auth', loading && 'animate-pulse')}
+        className={clsx('btn-primary', 'group', loading && 'animate-pulse')}
         onClick={() => {
           setLoading(true)
           void onSign()
         }}
       >
-        <WalletIconSvg width={24} />
-        <span className={clsx('btn-label-auth')}>{t('btn')}</span>
+        <div className={clsx('btn-label-with-icon-layout', 'btn-label-primary')}>
+          <WalletIconSvg height={22} />
+          <span>{t('btn')}</span>
+        </div>
       </button>
     </LoginStepLayout>
   )

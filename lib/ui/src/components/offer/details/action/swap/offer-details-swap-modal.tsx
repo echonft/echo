@@ -63,13 +63,13 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ open, offer, o
           <ModalDescription>{t('execute.description', { fees, count: offer.receiverItems.length })}</ModalDescription>
         )}
         <button
-          className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
+          className={clsx('btn-gradient', 'group', isMutating && 'animate-pulse')}
           onClick={() => {
             void trigger(offer.idContract)
           }}
           disabled={isMutating}
         >
-          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>
+          <span className={clsx('btn-label-gradient')}>
             {t(isMutating ? 'execute.btn.loading' : 'execute.btn.label')}
           </span>
         </button>

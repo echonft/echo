@@ -1,5 +1,5 @@
 'use client'
-import { Error as ErrorComponent } from '@echo/ui/components/error/error'
+import { Error500Page } from '@echo/ui/pages/error/error-500-page'
 
 interface Props {
   error: Error & Partial<Record<'digest', string>>
@@ -7,5 +7,5 @@ interface Props {
 }
 
 export default function ({ error, reset }: Props) {
-  return <ErrorComponent error={error} reset={reset} />
+  return <Error500Page error={error} reset={reset} />
 }
