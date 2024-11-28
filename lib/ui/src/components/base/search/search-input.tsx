@@ -47,7 +47,7 @@ export const SearchInput: FunctionComponent<Props> = ({ query, searching, option
       </AnimatePresence>
       <Input
         className={clsx(
-          'h-11',
+          'h-11.5',
           'px-11',
           'w-full',
           'rounded-lg',

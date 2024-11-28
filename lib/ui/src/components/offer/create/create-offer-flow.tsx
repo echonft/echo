@@ -5,10 +5,10 @@ import type { Offer } from '@echo/model/types/offer'
 import { CreateOfferNextButton } from '@echo/ui/components/offer/create/create-offer-next-button'
 import { CreateOfferReviewStep } from '@echo/ui/components/offer/create/create-offer-review-step'
 import { CreatedOfferCreated } from '@echo/ui/components/offer/created/created-offer-created'
-import { CreateTradeBottomBar } from '@echo/ui/components/trade/create-trade-bottom-bar'
-import { CreateTradeUserNftsSelection } from '@echo/ui/components/trade/create-trade-user-nfts-selection'
-import { CreateTradeStepLayout } from '@echo/ui/components/trade/layout/create-trade-step-layout'
-import { TradeStepIndicator } from '@echo/ui/components/trade/trade-step-indicator'
+import { CreateTradeBottomBar } from '@echo/ui/components/trade/create/create-trade-bottom-bar'
+import { CreateTradeUserNftsSelection } from '@echo/ui/components/trade/create/create-trade-user-nfts-selection'
+import { CreateTradeStepLayout } from '@echo/ui/components/trade/create/layout/create-trade-step-layout'
+import { CreateTradeStepIndicator } from '@echo/ui/components/trade/create/create-trade-step-indicator'
 import { OfferCreationSteps } from '@echo/ui/constants/offer-creation-steps'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
 import { clsx } from 'clsx'
@@ -71,7 +71,7 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
   return (
     <div className={clsx('flex', 'flex-col', 'gap-12')}>
       <div className={clsx('flex', 'items-center', 'justify-center')}>
-        <TradeStepIndicator step={currentStep} totalSteps={totalSteps} subtitles={subtitles} />
+        <CreateTradeStepIndicator step={currentStep} totalSteps={totalSteps} subtitles={subtitles} />
       </div>
       <CreateTradeStepLayout>
         {currentStep === 0 && (

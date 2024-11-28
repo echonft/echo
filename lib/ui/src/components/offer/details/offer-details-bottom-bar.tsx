@@ -1,30 +1,39 @@
-import type { Listing } from '@echo/model/types/listing'
+import { offerReceiverNftItems } from '@echo/model/helpers/offer/offer-receiver-nft-items'
+import { offerSenderNftItems } from '@echo/model/helpers/offer/offer-sender-nft-items'
+import type { NftItem } from '@echo/model/types/item'
 import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
-import { ListingDetailsButtons } from '@echo/ui/components/listing/details/listing-details-buttons'
+import {
+  OfferDetailsButtons,
+  type OfferDetailsButtonsProps
+} from '@echo/ui/components/offer/details/action/offer-details-buttons'
 import { TradeDetailsBottomBarCenterItemsLayout } from '@echo/ui/components/trade/details/layout/trade-details-bottom-bar-center-items-layout'
 import { TradeDetailsBottomBarLayout } from '@echo/ui/components/trade/details/layout/trade-details-bottom-bar-layout'
 import { TradeDetailsBottomBarLeftButtonsLayout } from '@echo/ui/components/trade/details/layout/trade-details-bottom-bar-left-buttons-layout'
 import { TradeDetailsBottomBarRightButtonsLayout } from '@echo/ui/components/trade/details/layout/trade-details-bottom-bar-right-buttons-layout'
 import { TradeDetailsBottomBarCenterItemsLogo } from '@echo/ui/components/trade/details/trade-details-bottom-bar-center-items-logo'
 import { TradeDetailsBottomBarNftItem } from '@echo/ui/components/trade/details/trade-details-bottom-bar-nft-item'
-import { TradeDetailsBottomBarTarget } from '@echo/ui/components/trade/details/trade-details-bottom-bar-target'
 import { Direction } from '@echo/ui/constants/direction'
-import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
+import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { head } from 'ramda'
+import { head, type NonEmptyArray, pipe } from 'ramda'
 import type { FunctionComponent } from 'react'
 
-interface Props {
-  listing: ListingWithRole
-  loading?: boolean
+interface Props extends OfferDetailsButtonsProps {
   onBack?: EmptyFunction
-  onCancel?: (listing: Listing) => void
-  onFill?: VoidFunction
 }
 
-export const ListingDetailsBottomBar: FunctionComponent<Props> = ({ listing, loading, onBack, onCancel, onFill }) => {
+export const OfferDetailsBottomBar: FunctionComponent<Props> = ({
+  offer,
+  loading,
+  onBack,
+  onError,
+  onLoading,
+  onRedeem,
+  onSwap,
+  onUpdate
+}) => {
   const t = useTranslations('trade.create')
   return (
     <TradeDetailsBottomBarLayout>
@@ -43,12 +52,24 @@ export const ListingDetailsBottomBar: FunctionComponent<Props> = ({ listing, loa
         </button>
       </TradeDetailsBottomBarLeftButtonsLayout>
       <TradeDetailsBottomBarCenterItemsLayout>
-        <TradeDetailsBottomBarNftItem item={head(listing.items)} />
+        <TradeDetailsBottomBarNftItem
+          item={pipe<[OfferWithRole], NonEmptyArray<NftItem>, NftItem>(offerSenderNftItems, head)(offer)}
+        />
         <TradeDetailsBottomBarCenterItemsLogo />
-        <TradeDetailsBottomBarTarget target={listing.target} />
+        <TradeDetailsBottomBarNftItem
+          item={pipe<[OfferWithRole], NonEmptyArray<NftItem>, NftItem>(offerReceiverNftItems, head)(offer)}
+        />
       </TradeDetailsBottomBarCenterItemsLayout>
       <TradeDetailsBottomBarRightButtonsLayout>
-        <ListingDetailsButtons listing={listing} isMutating={loading} onCancel={onCancel} onFill={onFill} />
+        <OfferDetailsButtons
+          offer={offer}
+          loading={loading}
+          onError={onError}
+          onLoading={onLoading}
+          onRedeem={onRedeem}
+          onSwap={onSwap}
+          onUpdate={onUpdate}
+        />
       </TradeDetailsBottomBarRightButtonsLayout>
     </TradeDetailsBottomBarLayout>
   )

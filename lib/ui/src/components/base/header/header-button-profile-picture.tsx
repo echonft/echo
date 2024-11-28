@@ -19,13 +19,13 @@ export const HeaderButtonProfilePicture: FunctionComponent = () => {
     discord: { avatarUrl, username }
   } = user
   return (
-    <div className={clsx('w-11', 'h-11', 'rounded-r-lg', 'relative', 'bg-dark-500')}>
+    <div className={clsx('w-11.5', 'h-11.5', 'rounded-r-lg', 'relative', 'bg-dark-500')}>
       <ImageSizeable
         className={clsx('rounded-r-lg', 'bg-dark-500')}
         src={avatarUrl}
         alt={username}
-        width={44}
-        height={44}
+        width={46}
+        height={46}
         priority={true}
         onLoad={() => {
           setLoaded(true)

@@ -14,7 +14,7 @@ interface Props {
   trade: Offer | Listing
 }
 
-export const TradeStateExpiration: FunctionComponent<Props> = ({ trade }) => {
+export const TradeDetailsStateExpiration: FunctionComponent<Props> = ({ trade }) => {
   const { locked, state, expiresAt } = trade
   const t = useTranslations('trade.details')
   const expired = state === OfferState.Expired || state === ListingState.Expired

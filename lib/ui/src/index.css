@@ -46,7 +46,7 @@
     @apply btn bg-white/[0.08] enabled:hover:bg-white/[0.12] enabled:active:bg-white/[0.12];
   }
   .btn-gradient {
-    @apply btn border border-solid border-transparent bg-btnGradient bg-origin-border enabled:hover:bg-btnGradientHover enabled:hover:border-yellow-500 enabled:active:bg-yellow-700;
+    @apply btn bg-btnGradient bg-origin-border enabled:hover:bg-btnGradientHover enabled:hover:border-yellow-500 enabled:active:bg-yellow-700;
   }
   .btn-cancel {
     @apply btn bg-red-400 enabled:hover:bg-red-600;
@@ -69,7 +69,7 @@
 }
 @layer utilities {
   .btn {
-    @apply flex flex-row flex-none justify-center items-center disabled:opacity-40 rounded-lg select-none outline-none h-max w-max transition-colors px-4 py-2.5 min-w-32;
+    @apply flex flex-row flex-none justify-center items-center border border-solid border-transparent disabled:opacity-40 rounded-lg select-none outline-none h-max w-max transition-colors px-4 py-2.5 min-w-32;
   }
   .btn-label {
     @apply h-max w-max truncate select-none prose-label-sm-semi;

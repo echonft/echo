@@ -50,8 +50,6 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
       alert: { severity: CalloutSeverity.Error, message: tError('cancel') },
       onError,
       loggerContext: {
-        component: OfferDetailsCancelButton.name,
-        fetcher: cancelOffer.name,
         offer
       }
     }
@@ -61,7 +59,7 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
     return (
       <LongPressButton
         id={offer.slug}
-        label={t(disabled ? 'loading' : 'label')}
+        label={t('label')}
         message={t('message')}
         disabled={disabled}
         onFinish={() => {

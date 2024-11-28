@@ -11,8 +11,8 @@ interface Props {
   show?: boolean
   disabled?: boolean
   onClick?: EmptyFunction
+  onError?: EmptyFunction
   onSuccess?: (offer: OfferWithRole) => unknown
-  onCancel?: EmptyFunction
 }
 
 export const OfferDetailsAcceptButton: FunctionComponent<Props> = ({
@@ -20,8 +20,8 @@ export const OfferDetailsAcceptButton: FunctionComponent<Props> = ({
   show,
   disabled,
   onClick,
-  onSuccess,
-  onCancel
+  onError,
+  onSuccess
 }) => {
   const t = useTranslations('offer.details')
   const [modalShown, setModalShown] = useState(false)
@@ -41,13 +41,16 @@ export const OfferDetailsAcceptButton: FunctionComponent<Props> = ({
         <OfferDetailsAcceptModalSwitch
           open={modalShown}
           offer={offer}
+          onError={() => {
+            setModalShown(false)
+            onError?.()
+          }}
           onSuccess={(offer: OfferWithRole) => {
             setModalShown(false)
             onSuccess?.(offer)
           }}
           onClose={() => {
             setModalShown(false)
-            onCancel?.()
           }}
         />
       </>

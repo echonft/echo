@@ -312,7 +312,8 @@ export const themeExtension = {
     3.75: '0.9375rem', //15px
     4.5: '1.125rem', // 18px
     6.5: '1.625rem', // 26px
-    7.5: '1.875rem' // 30px
+    7.5: '1.875rem', // 30px,
+    11.5: '2.875rem' // 46px,
   },
   zIndex: {
     '1': '1',

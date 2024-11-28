@@ -9,7 +9,11 @@ export interface TradeStepIndicatorProps {
   subtitles: string[]
 }
 
-export const TradeStepIndicator: FunctionComponent<TradeStepIndicatorProps> = ({ step, totalSteps, subtitles }) => {
+export const CreateTradeStepIndicator: FunctionComponent<TradeStepIndicatorProps> = ({
+  step,
+  totalSteps,
+  subtitles
+}) => {
   const t = useTranslations('trade')
   return (
     <div className={clsx('flex', 'flex-row')}>

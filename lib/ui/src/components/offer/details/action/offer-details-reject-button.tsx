@@ -50,7 +50,7 @@ export const OfferDetailsRejectButton: FunctionComponent<Props> = ({
     return (
       <LongPressButton
         id={offer.slug}
-        label={t(disabled ? 'loading' : 'label')}
+        label={t('label')}
         message={t('message')}
         disabled={disabled}
         onFinish={() => {

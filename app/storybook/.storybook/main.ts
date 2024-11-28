@@ -1,6 +1,5 @@
 import { type StorybookConfig } from '@storybook/nextjs'
 import path, { dirname, join } from 'path'
-import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
 
 const config: StorybookConfig = {
   addons: [
@@ -22,8 +21,12 @@ const config: StorybookConfig = {
           }
         ]
       }
-    }
+    },
+    getAbsolutePath('@storybook/addon-webpack5-compiler-swc')
   ],
+  core: {
+    disableWhatsNewNotifications: true
+  },
   env: (config) => ({
     ...config,
     NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL: 'localhost:6006'
@@ -44,48 +47,14 @@ const config: StorybookConfig = {
           runtime: 'automatic'
         }
       }
-    }
+    },
+    minify: false
   }),
   staticDirs: ['../public'],
   stories: ['../src/**/*stories.tsx'],
-  webpackFinal: (config) => {
-    return {
-      ...config,
-      optimization: {
-        ...config.optimization,
-        splitChunks: {
-          chunks: 'all',
-          maxInitialRequests: Infinity,
-          minSize: 30 * 1024,
-          cacheGroups: {
-            defaultVendors: {
-              test: /[\\/]node_modules[\\/]/,
-              priority: -10,
-              reuseExistingChunk: true
-            },
-            vendorPreview: {
-              test: /[\\/]node_modules[\\/]/,
-              priority: -20,
-              reuseExistingChunk: true
-            },
-            default: {
-              minChunks: 2,
-              priority: -30,
-              reuseExistingChunk: true
-            }
-          },
-          maxSize: 244 * 1024
-        }
-      },
-      performance: {
-        ...config.performance,
-        maxAssetSize: 244 * 1024
-      },
-      resolve: {
-        ...config.resolve,
-        plugins: [new TsconfigPathsPlugin()]
-      }
-    }
+  docs: {},
+  typescript: {
+    reactDocgen: 'react-docgen-typescript'
   }
 }
 export default config

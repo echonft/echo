@@ -1,5 +1,5 @@
 import type { NftItem } from '@echo/model/types/item'
-import { TradeDetailsBottomBarItemImage } from '@echo/ui/components/trade/trade-details-bottom-bar-item-image'
+import { TradeDetailsBottomBarItemImage } from '@echo/ui/components/trade/details/trade-details-bottom-bar-item-image'
 import { nftLabel } from '@echo/ui/helpers/nft/nft-label'
 import { type FunctionComponent } from 'react'
 

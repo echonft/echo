@@ -6,18 +6,16 @@ import { listingMock } from '@echo/model/mocks/listing-mock'
 import type { Listing } from '@echo/model/types/listing'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
-import {
-  ListingDetails as Component,
-  type ListingDetailsProps
-} from '@echo/ui/components/listing/details/listing-details'
+import { ListingDetails as Component } from '@echo/ui/components/listing/details/listing-details'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { append, assoc, pipe, values } from 'ramda'
-import { type FunctionComponent } from 'react'
+import { type FunctionComponent, useEffect, useState } from 'react'
 
-interface Props extends Pick<ListingDetailsProps, 'onUpdate'> {
+interface Props {
   state: ListingState
   role: ListingRole | 'none'
+  onClose: VoidFunction
 }
 
 type ComponentType = FunctionComponent<Props>
@@ -37,15 +35,10 @@ const metadata: Meta<ComponentType> = {
       options: values(ListingState),
       control: { type: 'select' }
     },
-    onUpdate: {
+    onClose: {
       table: {
         disable: true
       }
-    }
-  },
-  parameters: {
-    controls: {
-      exclude: ['onUpdate']
     }
   }
 }
@@ -53,35 +46,41 @@ const metadata: Meta<ComponentType> = {
 export default metadata
 
 export const Details: StoryObj<ComponentType> = {
-  render: ({ state, role, onUpdate }) => {
-    function setExpirationAndLocked(listing: Listing): Listing {
+  render: ({ state, role, onClose }) => {
+    const [listing, setListing] = useState<ListingWithRole>(assoc('role', undefined, listingMock))
+
+    function setExpirationAndLocked(listing: ListingWithRole): ListingWithRole {
       if (listing.state === ListingState.Expired) {
-        return pipe<[Listing], Listing, Listing>(assoc('expiresAt', expiredDate()), assoc('locked', true))(listing)
+        return (assoc('expiresAt', expiredDate()), assoc('locked', true))(listing)
       }
       if (listing.state !== ListingState.Open) {
-        return pipe<[Listing], Listing, Listing>(assoc('expiresAt', notExpiredDate()), assoc('locked', true))(listing)
+        return pipe(assoc('expiresAt', notExpiredDate()), assoc('locked', true))(listing)
       }
-      return pipe<[Listing], Listing, Listing>(assoc('expiresAt', notExpiredDate()), assoc('locked', false))(listing)
+      return pipe(assoc('expiresAt', notExpiredDate()), assoc('locked', false))(listing)
     }
 
-    function setRole(role: ListingRole | 'none') {
-      return function (listing: Listing): ListingWithRole {
-        if (role === ListingRole.Creator) {
-          return assoc('role', ListingRole.Creator, listing)
-        }
-        if (role === ListingRole.Target) {
-          return assoc('role', ListingRole.Target, listing)
-        }
-        return assoc('role', undefined, listing)
+    function setRole(listing: Listing): ListingWithRole {
+      if (role === ListingRole.Creator) {
+        return assoc('role', ListingRole.Creator, listing)
       }
+      if (role === ListingRole.Target) {
+        return assoc('role', ListingRole.Target, listing)
+      }
+      return assoc('role', undefined, listing)
     }
 
-    const renderedListing = pipe<[Listing], Listing, Listing, ListingWithRole>(
-      assoc('state', state),
-      setExpirationAndLocked,
-      setRole(role)
-    )(listingMock)
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    return <Component listing={renderedListing} onUpdate={onUpdate} onClose={() => {}} />
+    useEffect(() => {
+      setListing(pipe(assoc('state', state), setExpirationAndLocked, setRole))
+    }, [state, role])
+
+    return (
+      <Component
+        listing={listing}
+        onUpdate={(listing) => {
+          setListing(setRole(listing))
+        }}
+        onClose={onClose}
+      />
+    )
   }
 }

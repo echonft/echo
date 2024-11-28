@@ -4,12 +4,12 @@ import { swapReceiverNftItems } from '@echo/model/helpers/swap/swap-receiver-nft
 import { swapSenderNftItems } from '@echo/model/helpers/swap/swap-sender-nft-items'
 import { nftItemToNft } from '@echo/model/mappers/item/nft-item-to-nft'
 import type { Swap } from '@echo/model/types/swap'
-import { TradeDetailsBodyLayout } from '@echo/ui/components/trade/layout/trade-details-body-layout'
-import { TradeDetailsLayout } from '@echo/ui/components/trade/layout/trade-details-layout'
-import { TradeDetailsPaddedStateLayout } from '@echo/ui/components/trade/layout/trade-details-state-padded-layout'
-import { TradeDetailsBottomBar } from '@echo/ui/components/trade/trade-details-bottom-bar'
-import { TradeDetailsItems } from '@echo/ui/components/trade/trade-details-items'
-import { TradeDetailsOfferStateLabel } from '@echo/ui/components/trade/trade-details-offer-state-label'
+import { TradeDetailsBodyLayout } from '@echo/ui/components/trade/details/layout/trade-details-body-layout'
+import { TradeDetailsLayout } from '@echo/ui/components/trade/details/layout/trade-details-layout'
+import { TradeDetailsPaddedStateLayout } from '@echo/ui/components/trade/details/layout/trade-details-state-padded-layout'
+import { TradeDetailsBottomBar } from '@echo/ui/components/trade/details/trade-details-bottom-bar'
+import { TradeDetailsItems } from '@echo/ui/components/trade/details/trade-details-items'
+import { TradeDetailsOfferStateLabel } from '@echo/ui/components/trade/details/trade-details-offer-state-label'
 import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { assoc, pipe } from 'ramda'
@@ -43,9 +43,7 @@ export const SwapDetails: FunctionComponent<SwapDetailsProps> = ({ swap, onClose
           senderNfts={senderNfts}
           receiver={receiver}
           receiverNfts={receiverNfts}
-          // Since this is a completed swap, we don't need to show who is sender/receiver
-          isSender={false}
-          isReceiver={false}
+          role={undefined}
         />
       </TradeDetailsBodyLayout>
       <TradeDetailsBottomBar onBack={onClose} />

@@ -51,7 +51,7 @@ export const OfferDetailsApproveContractButton: FunctionComponent<Props> = ({
       }}
       disabled={isMutating}
     >
-      <span className={clsx('btn-label-gradient')}>{t(isMutating ? 'btn.loading' : 'btn.label')}</span>
+      <span className={clsx('btn-label-gradient')}>{t('btn')}</span>
     </button>
   )
 }

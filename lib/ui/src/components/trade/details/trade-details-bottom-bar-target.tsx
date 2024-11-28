@@ -1,5 +1,5 @@
 import type { Listing } from '@echo/model/types/listing'
-import { TradeDetailsBottomBarItemImage } from '@echo/ui/components/trade/trade-details-bottom-bar-item-image'
+import { TradeDetailsBottomBarItemImage } from '@echo/ui/components/trade/details/trade-details-bottom-bar-item-image'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 

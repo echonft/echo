@@ -22,7 +22,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: 'items'
+      exclude: ['items']
     }
   }
 }

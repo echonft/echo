@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { TradeStepIndicator as Component } from '@echo/ui/components/trade/trade-step-indicator'
+import { CreateTradeStepIndicator as Component } from '@echo/ui/components/trade/create/create-trade-step-indicator'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

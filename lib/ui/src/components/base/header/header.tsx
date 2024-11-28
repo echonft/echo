@@ -32,7 +32,7 @@ export const Header: FunctionComponent<Props> = ({ options = HeaderStyle.Default
     return (
       <HeaderLayout>
         <InternalLink path={'/'}>
-          <EchoLogoSvg height={44} />
+          <EchoLogoSvg height={46} />
         </InternalLink>
       </HeaderLayout>
     )
@@ -41,7 +41,7 @@ export const Header: FunctionComponent<Props> = ({ options = HeaderStyle.Default
   return (
     <HeaderLayout>
       <InternalLink path={'/'}>
-        <EchoLogoSvg height={44} />
+        <EchoLogoSvg height={46} />
       </InternalLink>
       <HeaderSearch />
       <HeaderButton />

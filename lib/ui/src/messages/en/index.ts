@@ -252,10 +252,7 @@ export const messages = {
           subtitle: 'To accept the offer, you first need to approve the Echo contract to escrow your NFTs'
         },
         accept: {
-          btn: {
-            label: 'Accept',
-            loading: 'Accepting...'
-          },
+          btn: 'Accept',
           subtitle: 'Great! Now you just need to sign the transaction to accept the offer.',
           description: `This transaction will cost {fees} ether.\nThis transaction will place your {count, plural, =1 {NFT} other {NFTs}} in escrow.
 Don't worry, its safe with us.`
@@ -263,34 +260,25 @@ Don't worry, its safe with us.`
         title: 'Accept Offer'
       },
       approveModal: {
-        btn: {
-          label: 'Approve',
-          loading: 'Approving...'
-        }
+        btn: 'Approve'
       },
       cancelBtn: {
         label: 'Cancel',
-        message: 'Hold to cancel',
-        loading: 'Cancelling...'
+        message: 'Hold to cancel'
       },
       completeBtn: 'Swap',
       expiredAt: 'Expired',
       expiresAt: 'Expires in',
       redeemBtn: {
-        label: 'Redeem your {count, plural, =1 {NFT} other {NFTs}}',
-        loading: 'Redeeming...'
+        label: 'Redeem your {count, plural, =1 {NFT} other {NFTs}}'
       },
       rejectBtn: {
         label: 'Reject',
-        message: 'Hold to reject',
-        loading: 'Rejecting...'
+        message: 'Hold to reject'
       },
       swapModal: {
         execute: {
-          btn: {
-            label: 'Swap',
-            loading: 'Swapping...'
-          },
+          btn: 'Swap',
           subtitle: 'Great! Now you just need to sign the transaction to execute the trade.',
           description:
             'This transaction will cost {fees} ether.\nThis transaction will swap your {count, plural, =1 {NFT} other {NFTs}}.'

@@ -4,11 +4,11 @@ import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 export const HeaderLayout: FunctionComponent<PropsWithChildren> = ({ children }) => {
   return (
-    <header
-      className={clsx('flex', 'flex-row', 'self-stretch', 'flex-none', 'bg-transparent', 'w-full', 'h-max', 'py-4.5')}
-    >
+    <header className={clsx('w-full', 'h-max', 'py-4.5')}>
       <PaddedLayout>
-        <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center', 'gap-6')}>{children}</div>
+        <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center', 'gap-6', 'w-full', 'h-max')}>
+          {children}
+        </div>
       </PaddedLayout>
     </header>
   )

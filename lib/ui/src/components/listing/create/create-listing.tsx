@@ -7,9 +7,9 @@ import type { OwnedNft } from '@echo/model/types/nft'
 import { CreateListingFirstStep } from '@echo/ui/components/listing/create/create-listing-first-step'
 import { CreateListingReviewStep } from '@echo/ui/components/listing/create/create-listing-review-step'
 import { CreateTargetNextButton } from '@echo/ui/components/listing/create/create-target-next-button'
-import { CreateTradeBottomBar } from '@echo/ui/components/trade/create-trade-bottom-bar'
-import { CreateTradeStepLayout } from '@echo/ui/components/trade/layout/create-trade-step-layout'
-import { TradeStepIndicator } from '@echo/ui/components/trade/trade-step-indicator'
+import { CreateTradeBottomBar } from '@echo/ui/components/trade/create/create-trade-bottom-bar'
+import { CreateTradeStepLayout } from '@echo/ui/components/trade/create/layout/create-trade-step-layout'
+import { CreateTradeStepIndicator } from '@echo/ui/components/trade/create/create-trade-step-indicator'
 import { ListingCreationSteps } from '@echo/ui/constants/listing-creation-steps'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -73,7 +73,7 @@ export const CreateListing: FunctionComponent<Props> = ({
   return (
     <div className={clsx('flex', 'flex-col', 'gap-12')}>
       <div className={clsx('flex', 'items-center', 'justify-center')}>
-        <TradeStepIndicator step={currentStep} totalSteps={totalSteps} subtitles={subtitles} />
+        <CreateTradeStepIndicator step={currentStep} totalSteps={totalSteps} subtitles={subtitles} />
       </div>
       <CreateTradeStepLayout>
         {currentStep === 0 && (

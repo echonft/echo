@@ -8,31 +8,35 @@ import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { useTranslations } from 'next-intl'
 import { assoc, pipe } from 'ramda'
-import { useState, type FunctionComponent } from 'react'
+import { type FunctionComponent, useState } from 'react'
 
 interface Props {
   offer: OfferWithRole
   open: boolean
   onClose?: EmptyFunction
-  onSuccess?: (offer: OfferWithRole) => unknown
+  onError?: EmptyFunction
+  onSuccess?: (offer: OfferWithRole) => void
 }
 
 // TODO ERC20
-export const OfferDetailsAcceptModalSwitch: FunctionComponent<Props> = ({ offer, open, onClose, onSuccess }) => {
+export const OfferDetailsAcceptModalSwitch: FunctionComponent<Props> = ({
+  offer,
+  open,
+  onClose,
+  onError,
+  onSuccess
+}) => {
   const t = useTranslations('offer.details.acceptModal')
   const [approved, setApproved] = useState(false)
-  // const { status } = useAccount()
   const receiverNfts = pipe(
     offerReceiverNftItems,
     nonEmptyMap(pipe(nftItemToNft(offer.sender), assoc('attributes', [])))
   )(offer)
 
-  // FIXME
-  // if (status !== 'connected') {
-  //   return <ConnectWalletModal open={open} onClose={onClose} />
-  // }
   if (approved) {
-    return <OfferDetailsAcceptModal offer={offer} open={open} onSuccess={onSuccess} onClose={onClose} />
+    return (
+      <OfferDetailsAcceptModal offer={offer} open={open} onSuccess={onSuccess} onClose={onClose} onError={onError} />
+    )
   }
 
   return (

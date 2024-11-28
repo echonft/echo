@@ -10,9 +10,9 @@ import { OfferDetails as Component, type OfferDetailsProps } from '@echo/ui/comp
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { append, assoc, pipe, values } from 'ramda'
-import { type FunctionComponent } from 'react'
+import { type FunctionComponent, useEffect, useState } from 'react'
 
-interface Props extends Pick<OfferDetailsProps, 'onUpdate'> {
+interface Props extends Omit<OfferDetailsProps, 'offer' | 'onUpdate'> {
   state: OfferState
   role: OfferRole | 'none'
 }
@@ -34,15 +34,20 @@ const metadata: Meta<ComponentType> = {
       options: pipe(values, append('none'))(OfferRole),
       control: { type: 'radio' }
     },
-    onUpdate: {
+    onClose: {
       table: {
         disable: true
       }
-    }
-  },
-  parameters: {
-    controls: {
-      exclude: ['onUpdate']
+    },
+    onRedeem: {
+      table: {
+        disable: true
+      }
+    },
+    onSwap: {
+      table: {
+        disable: true
+      }
     }
   }
 }
@@ -50,15 +55,17 @@ const metadata: Meta<ComponentType> = {
 export default metadata
 
 export const Details: StoryObj<ComponentType> = {
-  render: ({ state, role }) => {
-    function setExpirationAndLocked(offer: Offer): Offer {
+  render: ({ state, role, onClose, onRedeem, onSwap }) => {
+    const [offer, setOffer] = useState<OfferWithRole>(assoc('role', undefined, offerMockToJohnnycage))
+
+    function setExpirationAndLocked(offer: OfferWithRole): OfferWithRole {
       if (offer.state === OfferState.Expired) {
-        return pipe<[Offer], Offer, Offer>(assoc('expiresAt', expiredDate()), assoc('locked', true))(offer)
+        return pipe(assoc('expiresAt', expiredDate()), assoc('locked', true))(offer)
       }
       if (offer.state !== OfferState.Open) {
-        return pipe<[Offer], Offer, Offer>(assoc('expiresAt', notExpiredDate()), assoc('locked', true))(offer)
+        return pipe(assoc('expiresAt', notExpiredDate()), assoc('locked', true))(offer)
       }
-      return pipe<[Offer], Offer, Offer>(assoc('expiresAt', notExpiredDate()), assoc('locked', false))(offer)
+      return pipe(assoc('expiresAt', notExpiredDate()), assoc('locked', false))(offer)
     }
 
     function setRole(offer: Offer): OfferWithRole {
@@ -71,12 +78,20 @@ export const Details: StoryObj<ComponentType> = {
       return assoc('role', undefined, offer)
     }
 
-    const renderedOffer = pipe<[Offer], Offer, Offer, OfferWithRole>(
-      assoc('state', state),
-      setExpirationAndLocked,
-      setRole
-    )(offerMockToJohnnycage)
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    return <Component offer={renderedOffer} onClose={() => {}} />
+    useEffect(() => {
+      setOffer(pipe(assoc('state', state), setExpirationAndLocked, setRole))
+    }, [state, role])
+
+    return (
+      <Component
+        offer={offer}
+        onClose={onClose}
+        onRedeem={onRedeem}
+        onSwap={onSwap}
+        onUpdate={(offer) => {
+          setOffer(setRole(offer))
+        }}
+      />
+    )
   }
 }

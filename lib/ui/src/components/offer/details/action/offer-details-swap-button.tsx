@@ -1,5 +1,5 @@
 'use client'
-import { OfferDetailsSwapModalSwitch } from '@echo/ui/components/offer/details/action/swap/offer-details-swap-modal-switch'
+import { OfferDetailsSwapModal } from '@echo/ui/components/offer/details/action/swap/offer-details-swap-modal'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { clsx } from 'clsx'
@@ -11,8 +11,8 @@ interface Props {
   show?: boolean
   disabled?: boolean
   onClick?: EmptyFunction
-  onSuccess?: (offer: OfferWithRole) => unknown
-  onCancel?: EmptyFunction
+  onError?: EmptyFunction
+  onSuccess?: (offer: OfferWithRole) => void
 }
 
 export const OfferDetailsSwapButton: FunctionComponent<Props> = ({
@@ -21,7 +21,7 @@ export const OfferDetailsSwapButton: FunctionComponent<Props> = ({
   disabled,
   onClick,
   onSuccess,
-  onCancel
+  onError
 }) => {
   const t = useTranslations('offer.details')
   const [modalShown, setModalShown] = useState(false)
@@ -39,16 +39,16 @@ export const OfferDetailsSwapButton: FunctionComponent<Props> = ({
         >
           <span className={clsx('btn-label-gradient')}>{t('completeBtn')}</span>
         </button>
-        <OfferDetailsSwapModalSwitch
+        <OfferDetailsSwapModal
           open={modalShown}
           offer={offer}
           onSuccess={(offer: OfferWithRole) => {
             setModalShown(false)
             onSuccess?.(offer)
           }}
+          onError={onError}
           onClose={() => {
             setModalShown(false)
-            onCancel?.()
           }}
         />
       </>

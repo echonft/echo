@@ -20,12 +20,13 @@ import { type FunctionComponent } from 'react'
 interface Props {
   offer: OfferWithRole
   open: boolean
-  onSuccess?: (offer: OfferWithRole) => unknown
   onClose?: EmptyFunction
+  onError?: EmptyFunction
+  onSuccess?: (offer: OfferWithRole) => void
 }
 
 // TODO ERC20
-export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open, onSuccess, onClose }) => {
+export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open, onClose, onError, onSuccess }) => {
   const t = useTranslations('offer.details.acceptModal')
   const tError = useTranslations('error.offer')
   const { acceptOffer } = useDependencies()
@@ -41,15 +42,12 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open,
     },
     onError: {
       alert: { severity: CalloutSeverity.Error, message: tError('accept') },
-      onError: onClose,
+      onError: onError,
       loggerContext: {
-        component: OfferDetailsAcceptModal.name,
-        fetcher: acceptOffer.name,
         offer
       }
     }
   })
-
   const isMutating = isContractAcceptMutating || isNil(fees)
 
   return (
@@ -66,9 +64,7 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open,
           }}
           disabled={isMutating}
         >
-          <span className={clsx('btn-label-gradient')}>
-            {t(isMutating ? 'accept.btn.loading' : 'accept.btn.label')}
-          </span>
+          <span className={clsx('btn-label-gradient')}>{t('accept.btn')}</span>
         </button>
       </div>
     </Modal>

@@ -74,8 +74,6 @@ export const OfferDetailsRedeemButton: FunctionComponent<Props> = ({
       },
       onError,
       loggerContext: {
-        component: OfferDetailsRedeemButton.name,
-        fetcher: redeemOffer.name,
         offer
       }
     }
@@ -94,9 +92,7 @@ export const OfferDetailsRedeemButton: FunctionComponent<Props> = ({
           onClick?.()
         }}
       >
-        <span className={clsx('btn-label-gradient')}>
-          {t(disabled ? 'redeemBtn.loading' : 'redeemBtn.label', { count })}
-        </span>
+        <span className={clsx('btn-label-gradient')}>{t('redeemBtn.label', { count })}</span>
       </button>
     )
   }

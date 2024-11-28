@@ -1,5 +1,5 @@
 import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
-import { CreateTradeBottomBarButtonLayout } from '@echo/ui/components/trade/layout/create-trade-bottom-bar-button-layout'
+import { CreateTradeBottomBarButtonLayout } from '@echo/ui/components/trade/create/layout/create-trade-bottom-bar-button-layout'
 import { Direction } from '@echo/ui/constants/direction'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { clsx } from 'clsx'

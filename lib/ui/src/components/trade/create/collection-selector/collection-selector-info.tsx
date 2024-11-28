@@ -1,5 +1,5 @@
 import type { Collection } from '@echo/model/types/collection'
-import { CollectionSelectorCollectionPicture } from '@echo/ui/components/trade/collection-selector/collection-selector-collection-picture'
+import { CollectionSelectorCollectionPicture } from '@echo/ui/components/trade/create/collection-selector/collection-selector-collection-picture'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'

@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { Expiration } from '@echo/model/constants/expiration'
-import { ExpirationSelector as Component } from '@echo/ui/components/trade/expiration-selector/expiration-selector'
+import { ExpirationSelector as Component } from '@echo/ui/components/trade/create/expiration-selector/expiration-selector'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { useState } from 'react'
 

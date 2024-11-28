@@ -1,5 +1,5 @@
 import type { Erc20Token, TokenBalance } from '@echo/model/types/token'
-import { TokenSelectorInputMaxButton } from '@echo/ui/components/trade/token-selector/token-selector-input-max-button'
+import { TokenSelectorInputMaxButton } from '@echo/ui/components/trade/create/token-selector/token-selector-input-max-button'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'

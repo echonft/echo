@@ -2,7 +2,7 @@
 
 import { OfferRole } from '@echo/model/constants/offer-role'
 import { offerMockToJohnnycage } from '@echo/model/mocks/offer-mock'
-import { OfferDetailsSwapModalSwitch as Component } from '@echo/ui/components/offer/details/action/swap/offer-details-swap-modal-switch'
+import { OfferDetailsSwapModal as Component } from '@echo/ui/components/offer/details/action/swap/offer-details-swap-modal'
 import type { Meta, StoryObj } from '@storybook/react'
 import { assoc } from 'ramda'
 

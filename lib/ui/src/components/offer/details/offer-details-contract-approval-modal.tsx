@@ -20,12 +20,8 @@ interface Props {
   open: boolean
   title: string
   subtitle: string
-  onSuccess?: EmptyFunction
   onClose?: EmptyFunction
-}
-
-function contractApproved(approval: ContractApproval) {
-  return Boolean(approval.approved)
+  onSuccess?: EmptyFunction
 }
 
 // TODO Change name of this modal as it's used in the creation flow too
@@ -34,8 +30,8 @@ export const OfferDetailsContractApprovalModal: FunctionComponent<Props> = ({
   open,
   title,
   subtitle,
-  onSuccess,
-  onClose
+  onClose,
+  onSuccess
 }) => {
   const [approvals, setApprovals] = useState<ContractApproval[]>(offerItemsToContractApprovals(items))
   const [isLoading, setIsLoading] = useState(true)
@@ -60,7 +56,7 @@ export const OfferDetailsContractApprovalModal: FunctionComponent<Props> = ({
     if (isLoading && all(propIsNotNil('approved'), approvals)) {
       setIsLoading(false)
     }
-    if (all(contractApproved, approvals)) {
+    if (all(propEq(true, 'approved') as (approval: ContractApproval) => boolean, approvals)) {
       onSuccess?.()
     }
   }, [approvals, isLoading, onSuccess])

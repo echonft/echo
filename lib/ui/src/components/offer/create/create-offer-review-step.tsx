@@ -1,11 +1,12 @@
 import { Expiration } from '@echo/model/constants/expiration'
+import { OfferRole } from '@echo/model/constants/offer-role'
 import type { OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
-import { CreateTradeReviewTitle } from '@echo/ui/components/trade/create-trade-review-title'
-import { ExpirationSelector } from '@echo/ui/components/trade/expiration-selector/expiration-selector'
-import { CreateTradeExpirationLayout } from '@echo/ui/components/trade/layout/create-trade-expiration-layout'
-import { CreateTradeReviewStepLayout } from '@echo/ui/components/trade/layout/create-trade-review-step-layout'
-import { TradeDetailsItems } from '@echo/ui/components/trade/trade-details-items'
+import { CreateTradeReviewTitle } from '@echo/ui/components/trade/create/create-trade-review-title'
+import { ExpirationSelector } from '@echo/ui/components/trade/create/expiration-selector/expiration-selector'
+import { CreateTradeExpirationLayout } from '@echo/ui/components/trade/create/layout/create-trade-expiration-layout'
+import { CreateTradeReviewStepLayout } from '@echo/ui/components/trade/create/layout/create-trade-review-step-layout'
+import { TradeDetailsItems } from '@echo/ui/components/trade/details/trade-details-items'
 import clsx from 'clsx'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
@@ -46,8 +47,7 @@ export const CreateOfferReviewStep: FunctionComponent<Props> = ({
           senderNfts={senderNftsSelection}
           receiver={receiver}
           receiverNfts={receiverNftsSelection}
-          isSender={true}
-          isReceiver={false}
+          role={OfferRole.Sender}
         />
       </div>
     </CreateTradeReviewStepLayout>

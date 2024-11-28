@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { nftMockPx1, nftMocks, nftMocksCrew, nftMockSpiral1 } from '@echo/model/mocks/nft-mock'
-import { CreateTradeBottomBar as Component } from '@echo/ui/components/trade/create-trade-bottom-bar'
+import { CreateTradeBottomBar as Component } from '@echo/ui/components/trade/create/create-trade-bottom-bar'
 import type { Meta, StoryObj } from '@storybook/react'
 import { reverse } from 'ramda'
 
@@ -29,7 +29,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['items', 'onBack', 'counterpartyItems']
+      exclude: ['items', 'counterpartyItems']
     }
   }
 }
