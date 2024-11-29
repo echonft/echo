@@ -1,6 +1,5 @@
 'use client'
 import type { OwnedNft } from '@echo/model/types/nft'
-import type { Swap } from '@echo/model/types/swap'
 import { ListingsPanel } from '@echo/ui/components/base/navigation/panels/listings-panel'
 import { OffersPanel } from '@echo/ui/components/base/navigation/panels/offers-panel'
 import { SwapsPanel } from '@echo/ui/components/base/navigation/panels/swaps-panel'
@@ -12,10 +11,11 @@ import { SwapsTab } from '@echo/ui/components/base/navigation/tabs/swaps-tab'
 import { ProfileItemsPanel } from '@echo/ui/pages/profile/profile-items-panel'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
+import type { SwapWithRole } from '@echo/ui/types/swap-with-role'
 import type { TabOptions } from '@echo/ui/types/tab-options'
 import { isFalsy } from '@echo/utils/helpers/is-falsy'
 import { TabGroup, TabList, TabPanels } from '@headlessui/react'
-import { all, always, find, ifElse, isEmpty, isNil, map, pipe, prop, propEq } from 'ramda'
+import { all, always, find, findIndex, ifElse, isEmpty, isNil, map, pipe, prop, propEq } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 type TabName = 'items' | 'listings' | 'offers' | 'swaps' | 'explore'
@@ -25,10 +25,18 @@ interface Props {
   nfts: OwnedNft[]
   offers: OfferWithRole[]
   pendingListings: ListingWithRole[]
-  swaps: Swap[]
+  swaps: SwapWithRole[]
+  selection?: number
 }
 
-export const ProfileTabs: FunctionComponent<Props> = ({ listings, nfts, offers, pendingListings, swaps }) => {
+export const ProfileTabs: FunctionComponent<Props> = ({
+  listings,
+  nfts,
+  offers,
+  pendingListings,
+  swaps,
+  selection
+}) => {
   const tabs: TabOptions<TabName>[] = [
     {
       name: 'items',
@@ -60,8 +68,16 @@ export const ProfileTabs: FunctionComponent<Props> = ({ listings, nfts, offers, 
     // TODO empty view https://linear.app/echobot/issue/DEV-343/pages-with-tabs-empty-views
     return null
   }
+
+  function tabGroupProps() {
+    if (isNil(selection)) {
+      return {}
+    }
+    return { defaultIndex: findIndex(propEq('swaps', 'name'), tabs) }
+  }
+
   return (
-    <TabGroup>
+    <TabGroup {...tabGroupProps()}>
       <TabList className={'tab-list'}>
         <ItemsTab show={showTab('items')} />
         <ListingsTab show={showTab('listings')} />
@@ -73,7 +89,7 @@ export const ProfileTabs: FunctionComponent<Props> = ({ listings, nfts, offers, 
         <ProfileItemsPanel show={showTab('items')} nfts={nfts} />
         <ListingsPanel show={showTab('listings')} listings={listings} />
         <OffersPanel show={showTab('offers')} offers={offers} />
-        <SwapsPanel show={showTab('swaps')} swaps={swaps} />
+        <SwapsPanel show={showTab('swaps')} swaps={swaps} selection={selection} />
         <ListingsPanel show={showTab('explore')} listings={pendingListings} />
       </TabPanels>
     </TabGroup>

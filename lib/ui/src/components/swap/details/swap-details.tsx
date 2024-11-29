@@ -1,22 +1,19 @@
 'use client'
-import type { OfferState } from '@echo/model/constants/offer-state'
 import { swapReceiverNftItems } from '@echo/model/helpers/swap/swap-receiver-nft-items'
 import { swapSenderNftItems } from '@echo/model/helpers/swap/swap-sender-nft-items'
 import { nftItemToNft } from '@echo/model/mappers/item/nft-item-to-nft'
-import type { Swap } from '@echo/model/types/swap'
+import { SwapDetailsBottomBar } from '@echo/ui/components/swap/details/swap-details-bottom-bar'
 import { TradeDetailsBodyLayout } from '@echo/ui/components/trade/details/layout/trade-details-body-layout'
 import { TradeDetailsLayout } from '@echo/ui/components/trade/details/layout/trade-details-layout'
-import { TradeDetailsPaddedStateLayout } from '@echo/ui/components/trade/details/layout/trade-details-state-padded-layout'
-import { TradeDetailsBottomBar } from '@echo/ui/components/trade/details/trade-details-bottom-bar'
 import { TradeDetailsItems } from '@echo/ui/components/trade/details/trade-details-items'
-import { TradeDetailsOfferStateLabel } from '@echo/ui/components/trade/details/trade-details-offer-state-label'
+import type { SwapWithRole } from '@echo/ui/types/swap-with-role'
 import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { assoc, pipe } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 export interface SwapDetailsProps {
-  swap: Swap
+  swap: SwapWithRole
   onClose?: EmptyFunction
 }
 
@@ -33,20 +30,16 @@ export const SwapDetails: FunctionComponent<SwapDetailsProps> = ({ swap, onClose
 
   return (
     <TradeDetailsLayout>
-      <TradeDetailsPaddedStateLayout>
-        {/* FIXME: This is a temporary fix to show the swap state label. We need to update the swap state label to be a new component */}
-        <TradeDetailsOfferStateLabel state={'COMPLETED' as OfferState} />
-      </TradeDetailsPaddedStateLayout>
       <TradeDetailsBodyLayout>
         <TradeDetailsItems
           sender={sender}
           senderNfts={senderNfts}
           receiver={receiver}
           receiverNfts={receiverNfts}
-          role={undefined}
+          role={swap.role}
         />
       </TradeDetailsBodyLayout>
-      <TradeDetailsBottomBar onBack={onClose} />
+      <SwapDetailsBottomBar swap={swap} onBack={onClose} />
     </TradeDetailsLayout>
   )
 }

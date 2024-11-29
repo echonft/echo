@@ -29,10 +29,6 @@ export const CreateOfferModalSwitch: FunctionComponent<Props> = ({
   const t = useTranslations('offer.create.modal')
   const [approved, setApproved] = useState(false)
 
-  // if (status !== AccountStatus.Connected) {
-  //   return <ConnectWalletModal open={open} onClose={onClose} />
-  // }
-
   if (approved) {
     return (
       <CreateOfferModal

@@ -1,5 +1,4 @@
 'use client'
-import type { Swap } from '@echo/model/types/swap'
 import { HomeCollections } from '@echo/ui/pages/home/collection/home-collections'
 import { DiscordTile } from '@echo/ui/pages/home/discord/discord-tile'
 import { HomeHero } from '@echo/ui/pages/home/hero/home-hero'
@@ -8,12 +7,13 @@ import { HomeLayout } from '@echo/ui/pages/home/layout/home-layout'
 import { HomeSectionsLayout } from '@echo/ui/pages/home/layout/home-sections-layout'
 import { RecentSwaps } from '@echo/ui/pages/home/swap/recent-swaps'
 import type { CollectionWithRank } from '@echo/ui/types/collection-with-rank'
+import type { SwapWithRole } from '@echo/ui/types/swap-with-role'
 import { head, tail } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
   collections: CollectionWithRank[]
-  swaps: Swap[]
+  swaps: SwapWithRole[]
 }
 
 export const HomePage: FunctionComponent<Props> = ({ collections, swaps }) => {

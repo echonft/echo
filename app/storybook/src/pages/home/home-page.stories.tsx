@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { collectionMocks } from '@echo/model/mocks/collection-mock'
-import { swapMocks } from '@echo/model/mocks/swap-mock'
+import { swapMock } from '@echo/model/mocks/swap-mock'
 import { type Collection } from '@echo/model/types/collection'
 import { Header } from '@echo/ui/components/base/header/header'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
@@ -21,7 +21,13 @@ const metadata: Meta<typeof Component> = {
       concat(collectionMocks),
       addIndex(map)((collection, index) => pipe(assoc('swapsCount', 50 - index), assoc('rank', index + 1))(collection))
     )(collectionMocks),
-    swaps: pipe(concat(swapMocks), concat(swapMocks), concat(swapMocks), concat(swapMocks))(swapMocks)
+    swaps: [
+      assoc('role', undefined, swapMock),
+      assoc('role', undefined, swapMock),
+      assoc('role', undefined, swapMock),
+      assoc('role', undefined, swapMock),
+      assoc('role', undefined, swapMock)
+    ]
   },
   decorators: [
     (Story) => (

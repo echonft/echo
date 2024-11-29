@@ -1,6 +1,5 @@
 import type { Counts } from '@echo/model/types/counts'
 import type { OwnedNft } from '@echo/model/types/nft'
-import type { Swap } from '@echo/model/types/swap'
 import type { User } from '@echo/model/types/user'
 import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
 import { Header } from '@echo/ui/components/base/header/header'
@@ -13,6 +12,7 @@ import { AuthUserProfile } from '@echo/ui/components/user/profile/auth-user-prof
 import { ProfileTabs } from '@echo/ui/pages/profile/profile-tabs'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
+import type { SwapWithRole } from '@echo/ui/types/swap-with-role'
 import type { FunctionComponent } from 'react'
 
 interface Props {
@@ -21,8 +21,9 @@ interface Props {
   nfts: OwnedNft[]
   offers: OfferWithRole[]
   pendingListings: ListingWithRole[]
-  swaps: Swap[]
+  swaps: SwapWithRole[]
   user: User
+  selection?: number
 }
 
 export const ProfilePage: FunctionComponent<Props> = ({
@@ -32,7 +33,8 @@ export const ProfilePage: FunctionComponent<Props> = ({
   offers,
   pendingListings,
   swaps,
-  user
+  user,
+  selection
 }) => {
   return (
     <PageLayout>
@@ -49,6 +51,7 @@ export const ProfilePage: FunctionComponent<Props> = ({
               offers={offers}
               pendingListings={pendingListings}
               swaps={swaps}
+              selection={selection}
             />
           </NavigationSectionLayout>
         </NavigationLayout>

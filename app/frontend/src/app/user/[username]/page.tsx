@@ -10,7 +10,7 @@ import { toListingsWithRole } from '@echo/frontend/lib/helpers/listing/to-listin
 import { toOffersWithRole } from '@echo/frontend/lib/helpers/offer/to-offers-with-role'
 import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-array'
 import { otherwiseUndefined } from '@echo/frontend/lib/helpers/otherwise-undefined'
-import { toSwaps } from '@echo/frontend/lib/helpers/swap/to-swaps'
+import { toSwapsWithRole } from '@echo/frontend/lib/helpers/swap/to-swaps-with-role'
 import type { User } from '@echo/model/types/user'
 import type { OfferDetailsSearchParams } from '@echo/routing/types/frontend/search-params/offer-details-search-params'
 import { offerDetailsSearchParamsTransformSchema } from '@echo/routing/validators/frontend/offer/offer-details-search-params-transform-schema'
@@ -41,7 +41,7 @@ async function render({ params: { username }, searchParams, user: authUser }: Pr
   )(username)
   const offers = await pipe(getPendingOffersForUser, andThen(toOffersWithRole(authUser)), otherwiseEmptyArray)(username)
   const offersCount = await pipe(getUserOffersCount, otherwise(pipe(captureAndLogError, always(0))))(username)
-  const swaps = await pipe(getSwapsForUser, andThen(toSwaps), otherwiseEmptyArray)(username)
+  const swaps = await pipe(getSwapsForUser, andThen(toSwapsWithRole(user)), otherwiseEmptyArray)(username)
   const selection = offerDetailsSearchParamsTransformSchema.parse({ offers, searchParams })
 
   return (

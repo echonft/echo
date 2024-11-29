@@ -2,18 +2,19 @@
 import { Expiration } from '@echo/model/constants/expiration'
 import type { OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { CreateOfferNextButton } from '@echo/ui/components/offer/create/create-offer-next-button'
 import { CreateOfferReviewStep } from '@echo/ui/components/offer/create/create-offer-review-step'
-import { CreatedOfferCreated } from '@echo/ui/components/offer/created/created-offer-created'
 import { CreateTradeBottomBar } from '@echo/ui/components/trade/create/create-trade-bottom-bar'
+import { CreateTradeStepIndicator } from '@echo/ui/components/trade/create/create-trade-step-indicator'
 import { CreateTradeUserNftsSelection } from '@echo/ui/components/trade/create/create-trade-user-nfts-selection'
 import { CreateTradeStepLayout } from '@echo/ui/components/trade/create/layout/create-trade-step-layout'
-import { CreateTradeStepIndicator } from '@echo/ui/components/trade/create/create-trade-step-indicator'
 import { OfferCreationSteps } from '@echo/ui/constants/offer-creation-steps'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { type NonEmptyArray, values } from 'ramda'
+import { useRouter } from 'next/navigation'
+import { isNil, type NonEmptyArray, values } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
@@ -46,6 +47,7 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
     unselectNft: unselectReceiverNfts
   } = useNfts({ nfts: receiverNfts, selection: { nfts: receiverNftsSelection }, sortBy: 'collection' })
   const [expiration, setExpiration] = useState(Expiration.OneDay)
+  const router = useRouter()
 
   // Steps
   const [currentStep, setCurrentStep] = useState(0)
@@ -55,6 +57,10 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
   const [createdOffer, setCreatedOffer] = useState<Offer>()
 
   const handleNext = () => {
+    if (currentStep === 2 && !isNil(createdOffer)) {
+      router.replace(frontendRoutes.offer.details.withQuery({ offer: createdOffer }).get({ username: sender.username }))
+      return
+    }
     if (currentStep < totalSteps - 1) {
       setCurrentStep(currentStep + 1)
     }
@@ -102,7 +108,6 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
             onSelectExpiration={setExpiration}
           />
         )}
-        {currentStep === 3 && createdOffer && <CreatedOfferCreated offer={createdOffer} />}
       </CreateTradeStepLayout>
       {currentStep < totalSteps - 1 && (
         <CreateTradeBottomBar

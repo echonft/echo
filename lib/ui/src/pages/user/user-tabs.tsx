@@ -1,7 +1,6 @@
 'use client'
 
 import type { OwnedNft } from '@echo/model/types/nft'
-import type { Swap } from '@echo/model/types/swap'
 import { ListingsPanel } from '@echo/ui/components/base/navigation/panels/listings-panel'
 import { OffersPanel } from '@echo/ui/components/base/navigation/panels/offers-panel'
 import { SwapsPanel } from '@echo/ui/components/base/navigation/panels/swaps-panel'
@@ -12,6 +11,7 @@ import { SwapsTab } from '@echo/ui/components/base/navigation/tabs/swaps-tab'
 import { UserItemsPanel } from '@echo/ui/pages/user/user-items-panel'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
+import type { SwapWithRole } from '@echo/ui/types/swap-with-role'
 import type { TabOptions } from '@echo/ui/types/tab-options'
 import { isFalsy } from '@echo/utils/helpers/is-falsy'
 import { TabGroup, TabList, TabPanels } from '@headlessui/react'
@@ -25,7 +25,7 @@ interface Props {
   listings: ListingWithRole[]
   nfts: OwnedNft[]
   offers: OfferWithRole[]
-  swaps: Swap[]
+  swaps: SwapWithRole[]
   selection?: number
 }
 

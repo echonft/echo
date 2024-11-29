@@ -23,12 +23,12 @@ const metadata: Meta<typeof Component> = {
     pendingListings: [assoc('role', undefined, listingMock)],
     nfts: nftMocks,
     offers: map(assoc('role', undefined), offerMocks),
-    swaps: swapMocks,
+    swaps: map(assoc('role', undefined), swapMocks),
     user: userMockCrew
   },
   parameters: {
     controls: {
-      exclude: ['counts', 'listings', 'pendingListings', 'nfts', 'offers', 'swaps', 'user']
+      exclude: ['counts', 'listings', 'pendingListings', 'nfts', 'offers', 'swaps', 'user', 'selection']
     }
   }
 }
@@ -36,3 +36,9 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 export const Page: StoryObj<typeof Component> = {}
+
+export const WithSelectedSwap: StoryObj<typeof Component> = {
+  args: {
+    selection: 0
+  }
+}

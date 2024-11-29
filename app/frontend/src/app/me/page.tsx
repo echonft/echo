@@ -8,16 +8,19 @@ import { withLoggedInUser } from '@echo/frontend/lib/decorators/with-logged-in-u
 import { toListingsWithRole } from '@echo/frontend/lib/helpers/listing/to-listings-with-role'
 import { toOffersWithRole } from '@echo/frontend/lib/helpers/offer/to-offers-with-role'
 import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-array'
-import { toSwaps } from '@echo/frontend/lib/helpers/swap/to-swaps'
+import { toSwapsWithRole } from '@echo/frontend/lib/helpers/swap/to-swaps-with-role'
 import type { User } from '@echo/model/types/user'
+import type { SwapDetailsSearchParams } from '@echo/routing/types/frontend/search-params/swap-details-search-params'
+import { swapDetailsSearchParamsTransformSchema } from '@echo/routing/validators/frontend/swap/swap-details-search-params-transform-schema'
 import { ProfilePage } from '@echo/ui/pages/profile/profile-page'
 import { always, andThen, otherwise, pipe, prop } from 'ramda'
 
 interface Props {
   user: User
+  searchParams?: SwapDetailsSearchParams
 }
 
-async function render({ user }: Props) {
+async function render({ user, searchParams }: Props) {
   const nfts = await pipe(prop('username'), getNftsForOwner, otherwiseEmptyArray)(user)
   const listings = await pipe(
     prop('username'),
@@ -38,7 +41,8 @@ async function render({ user }: Props) {
     otherwiseEmptyArray
   )(user)
   const offersCount = await pipe(prop('username'), getUserOffersCount, otherwise(always(0)))(user)
-  const swaps = await pipe(prop('username'), getSwapsForUser, andThen(toSwaps), otherwiseEmptyArray)(user)
+  const swaps = await pipe(prop('username'), getSwapsForUser, andThen(toSwapsWithRole(user)), otherwiseEmptyArray)(user)
+  const selection = swapDetailsSearchParamsTransformSchema.parse({ swaps, searchParams })
 
   return (
     <ProfilePage
@@ -54,6 +58,7 @@ async function render({ user }: Props) {
       pendingListings={pendingListings}
       swaps={swaps}
       user={user}
+      selection={selection}
     />
   )
 }

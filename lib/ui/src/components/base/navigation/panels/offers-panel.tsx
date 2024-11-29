@@ -36,7 +36,9 @@ export const OffersPanel: FunctionComponent<Props> = ({ offers, selection, show 
             router.push(frontendRoutes.user.profile.get())
           }}
           onSwap={() => {
-            // TODO
+            if (!isNil(offer)) {
+              router.push(frontendRoutes.swap.details.withQuery({ swap: offer }).get())
+            }
           }}
           onUpdate={setOffer}
           onClose={() => {

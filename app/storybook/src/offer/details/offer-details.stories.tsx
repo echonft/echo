@@ -23,7 +23,7 @@ const metadata: Meta<ComponentType> = {
   title: 'Offer/Details',
   args: {
     state: OfferState.Open,
-    role: OfferRole.Sender
+    role: 'none'
   },
   argTypes: {
     state: {

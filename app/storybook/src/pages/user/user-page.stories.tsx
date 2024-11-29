@@ -26,7 +26,7 @@ const metadata: Meta<typeof Component> = {
     listings: [assoc('role', undefined, listingMock)],
     nfts: nftMocks,
     offers: map(assoc('role', undefined), offerMocks),
-    swaps: swapMocks,
+    swaps: map(assoc('role', undefined), swapMocks),
     user: userMockCrew
   },
   decorators: [

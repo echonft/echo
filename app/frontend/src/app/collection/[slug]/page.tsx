@@ -10,7 +10,7 @@ import { captureAndLogError } from '@echo/frontend/lib/helpers/capture-and-log-e
 import { toListingsWithRole } from '@echo/frontend/lib/helpers/listing/to-listings-with-role'
 import { toOffersWithRole } from '@echo/frontend/lib/helpers/offer/to-offers-with-role'
 import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-array'
-import { toSwaps } from '@echo/frontend/lib/helpers/swap/to-swaps'
+import { toSwapsWithRole } from '@echo/frontend/lib/helpers/swap/to-swaps-with-role'
 import type { Collection } from '@echo/model/types/collection'
 import type { OwnedNft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
@@ -44,7 +44,7 @@ async function render({ params: { slug }, searchParams, user }: Props) {
   )(slug)
   const listings = await pipe(getListingsForCollection, andThen(toListingsWithRole(user)), otherwiseEmptyArray)(slug)
   const offers = await pipe(getOffersForCollection, andThen(toOffersWithRole(user)), otherwiseEmptyArray)(slug)
-  const swaps = await pipe(getSwapsForCollection, andThen(toSwaps), otherwiseEmptyArray)(slug)
+  const swaps = await pipe(getSwapsForCollection, andThen(toSwapsWithRole(user)), otherwiseEmptyArray)(slug)
   const selection = listingDetailsSearchParamsTransformSchema.parse({ listings, searchParams })
 
   return (

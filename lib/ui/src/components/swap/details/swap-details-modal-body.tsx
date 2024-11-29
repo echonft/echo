@@ -1,6 +1,6 @@
 'use client'
-import type { Swap } from '@echo/model/types/swap'
 import { SwapDetails } from '@echo/ui/components/swap/details/swap-details'
+import type { SwapWithRole } from '@echo/ui/types/swap-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
@@ -8,7 +8,7 @@ import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  swap: Nullable<Swap>
+  swap: Nullable<SwapWithRole>
   onClose?: EmptyFunction
 }
 
