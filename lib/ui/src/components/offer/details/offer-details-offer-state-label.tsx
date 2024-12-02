@@ -7,7 +7,7 @@ interface Props {
   state: OfferState
 }
 
-export const TradeDetailsOfferStateLabel: FunctionComponent<Props> = ({ state }) => {
+export const OfferDetailsOfferStateLabel: FunctionComponent<Props> = ({ state }) => {
   const expired = state === OfferState.Expired
   const t = useTranslations('offer.state')
   if (expired) {

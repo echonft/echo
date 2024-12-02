@@ -10,5 +10,5 @@ export const TradeDetailsStateSeparator: FunctionComponent<Props> = ({ locked })
     return null
   }
 
-  return <div className={clsx('h-full', 'w-[0.1875rem]', 'py-4', 'bg-clip-content', 'bg-white/70', 'flex-none')} />
+  return <div className={clsx('w-[0.1875rem]', 'flex', 'flex-col', 'self-stretch', 'bg-white/70', 'mx-8')} />
 }

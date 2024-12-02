@@ -25,7 +25,7 @@ export const Banner: FunctionComponent<Props> = ({ src, width }) => {
 
   return (
     <div
-      className={clsx(['absolute', 'inset-0', 'bg-no-repeat', 'bg-cover', 'bg-center', 'blur-md'])}
+      className={clsx(['absolute', 'inset-0', 'bg-cover', 'bg-center', 'blur-md'])}
       style={{ backgroundImage: `${themeExtension.backgroundImage.banner}, url('${url}')` }}
     />
   )

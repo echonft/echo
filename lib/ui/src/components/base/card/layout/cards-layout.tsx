@@ -13,6 +13,7 @@ export const CardsLayout: FunctionComponent<PropsWithChildren<Props>> = ({ align
       className={clsx(
         'flex',
         'grow',
+        'shrink',
         'flex-wrap',
         'gap-5',
         'h-max',

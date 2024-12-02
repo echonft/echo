@@ -3,13 +3,13 @@ import { offerReceiverNftItems } from '@echo/model/helpers/offer/offer-receiver-
 import { offerSenderNftItems } from '@echo/model/helpers/offer/offer-sender-nft-items'
 import { nftItemToNft } from '@echo/model/mappers/item/nft-item-to-nft'
 import { OfferDetailsBottomBar } from '@echo/ui/components/offer/details/offer-details-bottom-bar'
-import { TradeDetailsBodyLayout } from '@echo/ui/components/trade/details/layout/trade-details-body-layout'
+import { OfferDetailsOfferState } from '@echo/ui/components/offer/details/offer-details-offer-state'
 import { TradeDetailsLayout } from '@echo/ui/components/trade/details/layout/trade-details-layout'
 import { TradeDetailsItems } from '@echo/ui/components/trade/details/trade-details-items'
-import { TradeDetailsOfferState } from '@echo/ui/components/trade/details/trade-details-offer-state'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
+import { clsx } from 'clsx'
 import { assoc, pipe } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
@@ -34,8 +34,8 @@ export const OfferDetails: FunctionComponent<OfferDetailsProps> = ({ offer, onCl
   )(offer)
   return (
     <TradeDetailsLayout>
-      <TradeDetailsOfferState trade={offer} />
-      <TradeDetailsBodyLayout>
+      <OfferDetailsOfferState offer={offer} />
+      <div className={clsx('flex', 'flex-col')}>
         <TradeDetailsItems
           sender={sender}
           senderNfts={senderNfts}
@@ -43,7 +43,7 @@ export const OfferDetails: FunctionComponent<OfferDetailsProps> = ({ offer, onCl
           receiverNfts={receiverNfts}
           role={offer.role}
         />
-      </TradeDetailsBodyLayout>
+      </div>
       <OfferDetailsBottomBar
         offer={offer}
         loading={loading}
