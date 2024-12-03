@@ -4,7 +4,6 @@ import type { User } from '@echo/model/types/user'
 import type { NonEmptyArray } from 'ramda'
 
 export interface Swap {
-  offerId: string
   receiver: User
   receiverItems: NonEmptyArray<Item>
   sender: User

@@ -3,11 +3,11 @@ import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { buildSwapEmbed } from '@echo/bot/swap/build-swap-embed'
 import { getSwapThreadOnEchoChannel } from '@echo/bot/swap/get-swap-thread-on-echo-channel'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
-import type { Swap } from '@echo/model/types/swap'
+import type { SwapDocument } from '@echo/firestore/types/model/swap-document'
 import i18next from 'i18next'
 import { isNil } from 'ramda'
 
-export async function postSwap(swap: Swap) {
+export async function postSwap(swap: SwapDocument) {
   const { sender, receiver } = swap
   const foundSender = await getUserByUsername(sender.username)
   if (isNil(foundSender)) {

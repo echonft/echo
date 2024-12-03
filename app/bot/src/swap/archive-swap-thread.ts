@@ -3,12 +3,12 @@ import { deleteThread } from '@echo/bot/helpers/delete-thread'
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { getSwapThreadOnEchoChannel } from '@echo/bot/swap/get-swap-thread-on-echo-channel'
 import { archiveOfferThread as firestoreArchiveOfferThread } from '@echo/firestore/crud/offer-thread/archive-offer-thread'
-import type { Swap } from '@echo/model/types/swap'
+import type { SwapDocument } from '@echo/firestore/types/model/swap-document'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import i18next from 'i18next'
 import { isNil, pipe } from 'ramda'
 
-export async function archiveSwapThread(swap: Swap) {
+export async function archiveSwapThread(swap: SwapDocument) {
   const { offerThread, thread } = await getSwapThreadOnEchoChannel(swap)
   if (!isNil(thread) && !isNil(offerThread)) {
     await sendToThread(thread, {
