@@ -104,7 +104,7 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
           />
         )}
       </CreateTradeStepLayout>
-      {currentStep < totalSteps - 1 && (
+      {currentStep < totalSteps && (
         <CreateTradeBottomBar
           items={receiverSelection.nfts}
           counterpartyItems={senderSelection.nfts}

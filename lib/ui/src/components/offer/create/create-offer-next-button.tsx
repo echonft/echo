@@ -33,7 +33,7 @@ export const CreateOfferNextButton: FunctionComponent<Props> = ({
   const [isApproveModalOpen, setIsApproveModalOpen] = useState(false)
 
   const handleNext = () => {
-    if (currentStep < totalSteps - 2) {
+    if (currentStep < totalSteps - 1) {
       onNext?.()
     } else {
       setIsApproveModalOpen(true)
@@ -41,7 +41,7 @@ export const CreateOfferNextButton: FunctionComponent<Props> = ({
   }
 
   const getNextBtnLabel = () => {
-    if (currentStep < totalSteps - 2) {
+    if (currentStep < totalSteps - 1) {
       return t('nextBtn')
     }
     return t('createBtn')
