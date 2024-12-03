@@ -30,7 +30,7 @@ export async function createOfferThread({
     autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
     type: ChannelType.PrivateThread
   })
-  logger.error({ offer, thread }, 'created thread for offer')
+  logger.info({ offer, thread }, 'created thread for offer')
   try {
     await thread.members.add(receiver.discord.id)
   } catch (err) {

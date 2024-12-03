@@ -12,9 +12,7 @@ export const ImageNotFound: FunctionComponent<Props> = ({ height, width, classNa
   return (
     <div
       className={clsx(
-        'flex',
-        'items-center',
-        'justify-center',
+        'relative',
         'text-yellow-500',
         'bg-cardImageGradient',
         'bg-center',
@@ -24,7 +22,7 @@ export const ImageNotFound: FunctionComponent<Props> = ({ height, width, classNa
       )}
       style={{ height, width }}
     >
-      <EchoIconSvg className={clsx()} width={Math.floor(0.5 * width)} />
+      <EchoIconSvg width={Math.floor(0.5 * width)} />
       <div
         className={clsx(
           'absolute',
