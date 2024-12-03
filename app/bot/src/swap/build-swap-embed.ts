@@ -5,12 +5,12 @@ import { nftItems } from '@echo/model/helpers/item/nft-items'
 import { offerReceiverItems } from '@echo/model/helpers/offer/offer-receiver-items'
 import { offerSenderItems } from '@echo/model/helpers/offer/offer-sender-items'
 import type { NftItem } from '@echo/model/types/item'
-import type { Offer } from '@echo/model/types/offer'
+import type { Swap } from '@echo/model/types/swap'
 import { type APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import i18next from 'i18next'
 import { addIndex, flatten, map, pipe } from 'ramda'
 
-export function buildSwapEmbed(offer: Offer, creator: UserDocument, counterparty: UserDocument) {
+export function buildSwapEmbed(swap: Swap, creator: UserDocument, counterparty: UserDocument) {
   return (
     new EmbedBuilder()
       .setTitle(i18next.t('swap.embed.title'))
@@ -22,7 +22,7 @@ export function buildSwapEmbed(offer: Offer, creator: UserDocument, counterparty
       )
       .setColor(0x00ff66)
       // TODO support ERC20
-      .setFields(fields(pipe(offerSenderItems, nftItems)(offer), pipe(offerReceiverItems, nftItems)(offer)))
+      .setFields(fields(pipe(offerSenderItems, nftItems)(swap), pipe(offerReceiverItems, nftItems)(swap)))
   )
 }
 

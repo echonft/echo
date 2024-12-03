@@ -7,7 +7,7 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import type { AnyThreadChannel } from 'discord.js'
 import { isNil } from 'ramda'
 
-interface GetOfferThreadOnEchoChannelReturn {
+export interface GetOfferThreadOnEchoChannelReturn {
   readonly offerThread: Nullable<OfferThreadDocument>
   readonly thread: Nullable<AnyThreadChannel>
 }
