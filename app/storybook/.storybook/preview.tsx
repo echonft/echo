@@ -1,6 +1,5 @@
 // noinspection JSUnusedGlobalSymbols
 
-import '@echo/ui-css/index.css'
 import { acceptOffer } from '@echo/storybook/mocks/accept-offer'
 import { approveErc721Contract } from '@echo/storybook/mocks/approve-erc721-contract'
 import { areNftsInEscrow } from '@echo/storybook/mocks/are-nfts-in-escrow'
@@ -26,6 +25,7 @@ import { authStore } from '@echo/storybook/mocks/stores/auth-store'
 import { swap } from '@echo/storybook/mocks/swap'
 import { switchChain } from '@echo/storybook/mocks/switch-chain'
 import { walletLinkedTo } from '@echo/storybook/mocks/wallet-linked-to'
+import '@echo/ui-css/index.css'
 import { ActionsProvider } from '@echo/ui/components/providers/actions-provider'
 import { DependenciesProvider } from '@echo/ui/components/providers/dependencies-provider'
 import { Web3Provider } from '@echo/ui/components/providers/web3-provider'
@@ -72,6 +72,9 @@ const preview: Preview = {
                   redeemOffer,
                   disconnectWallet,
                   getAccount,
+                  // @ts-expect-error TO BE REMOVED
+                  // eslint-disable-next-line @typescript-eslint/no-empty-function
+                  getEchoOffer: () => {},
                   getErc20TokenBalance,
                   getAllErc20TokenBalances,
                   getEchoTradingFees,

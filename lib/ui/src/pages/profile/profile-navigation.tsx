@@ -2,11 +2,13 @@
 import type { OwnedNft } from '@echo/model/types/nft'
 import { ListingsPanel } from '@echo/ui/components/base/navigation/panels/listings-panel'
 import { OffersPanel } from '@echo/ui/components/base/navigation/panels/offers-panel'
+import { RedeemableOffersPanel } from '@echo/ui/components/base/navigation/panels/redeemable-offers-panel'
 import { SwapsPanel } from '@echo/ui/components/base/navigation/panels/swaps-panel'
 import { ExploreTab } from '@echo/ui/components/base/navigation/tabs/explore-tab'
 import { ItemsTab } from '@echo/ui/components/base/navigation/tabs/items-tab'
 import { ListingsTab } from '@echo/ui/components/base/navigation/tabs/listings-tab'
 import { OffersTab } from '@echo/ui/components/base/navigation/tabs/offers-tab'
+import { RedeemableTab } from '@echo/ui/components/base/navigation/tabs/redeemable-tab'
 import { SwapsTab } from '@echo/ui/components/base/navigation/tabs/swaps-tab'
 import { ProfileItemsPanel } from '@echo/ui/pages/profile/profile-items-panel'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
@@ -18,7 +20,7 @@ import { TabGroup, TabList, TabPanels } from '@headlessui/react'
 import { all, always, find, findIndex, ifElse, isEmpty, isNil, map, pipe, prop, propEq } from 'ramda'
 import type { FunctionComponent } from 'react'
 
-type TabName = 'items' | 'listings' | 'offers' | 'swaps' | 'explore'
+type TabName = 'items' | 'listings' | 'offers' | 'swaps' | 'explore' | 'redeemable'
 
 interface Props {
   listings: ListingWithRole[]
@@ -26,6 +28,7 @@ interface Props {
   offers: OfferWithRole[]
   pendingListings: ListingWithRole[]
   swaps: SwapWithRole[]
+  redeemableOffers: OfferWithRole[]
   selection?: number
 }
 
@@ -35,6 +38,7 @@ export const ProfileNavigation: FunctionComponent<Props> = ({
   offers,
   pendingListings,
   swaps,
+  redeemableOffers,
   selection
 }) => {
   const tabs: TabOptions<TabName>[] = [
@@ -53,6 +57,10 @@ export const ProfileNavigation: FunctionComponent<Props> = ({
     {
       name: 'swaps',
       show: !isEmpty(swaps)
+    },
+    {
+      name: 'redeemable',
+      show: !isEmpty(redeemableOffers)
     },
     {
       name: 'explore',
@@ -83,6 +91,7 @@ export const ProfileNavigation: FunctionComponent<Props> = ({
         <ListingsTab show={showTab('listings')} />
         <OffersTab show={showTab('offers')} />
         <SwapsTab show={showTab('swaps')} />
+        <RedeemableTab show={showTab('redeemable')} />
         <ExploreTab show={showTab('explore')} />
       </TabList>
       <TabPanels>
@@ -90,6 +99,7 @@ export const ProfileNavigation: FunctionComponent<Props> = ({
         <ListingsPanel show={showTab('listings')} listings={listings} />
         <OffersPanel show={showTab('offers')} offers={offers} />
         <SwapsPanel show={showTab('swaps')} swaps={swaps} selection={selection} />
+        <RedeemableOffersPanel show={showTab('redeemable')} offers={redeemableOffers} />
         <ListingsPanel show={showTab('explore')} listings={pendingListings} />
       </TabPanels>
     </TabGroup>

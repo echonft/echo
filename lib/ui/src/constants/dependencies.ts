@@ -8,6 +8,7 @@ import { createOffer } from '@echo/web3-dom/services/create-offer'
 import { disconnectWallet } from '@echo/web3-dom/services/disconnect-wallet'
 import { getAccount, watchAccount } from '@echo/web3-dom/services/get-account'
 import { getAllErc20TokenBalances } from '@echo/web3-dom/services/get-all-erc20-token-balances'
+import { getEchoOffer } from '@echo/web3-dom/services/get-echo-offer'
 import { getEchoTradingFees } from '@echo/web3-dom/services/get-echo-trading-fees'
 import { getErc20TokenBalance } from '@echo/web3-dom/services/get-erc20-token-balance'
 import { getErc721ContractApproval } from '@echo/web3-dom/services/get-erc721-contract-approval'
@@ -38,6 +39,7 @@ export const dependencies: Dependencies = {
   getAccount,
   getAllErc20TokenBalances,
   getEchoTradingFees,
+  getEchoOffer,
   getErc20TokenBalance,
   getErc721ContractApproval,
   login,
