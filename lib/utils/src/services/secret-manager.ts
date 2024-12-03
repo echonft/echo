@@ -1,6 +1,5 @@
 import { base64DecodeSchema } from '@echo/model/validators/base64-decode-schema'
 import { SecretManagerError } from '@echo/utils/constants/errors/secret-manager-error'
-import { isCI } from '@echo/utils/constants/is-ci'
 import { NodeEnvironment, nodeEnvironment } from '@echo/utils/constants/node-environment'
 import type { Secret } from '@echo/utils/constants/secret'
 import { gcloudProjectId } from '@echo/utils/helpers/gcloud-project-id'
@@ -33,7 +32,7 @@ function getCredentials(): Credentials {
 
 async function connect(projectId: string): Promise<SecretManagerServiceClient> {
   const nodeEnv = nodeEnvironment()
-  if (nodeEnv === NodeEnvironment.Development || !isCI() || !isNil(process.env.K_SERVICE)) {
+  if (nodeEnv !== NodeEnvironment.Test || !isNil(process.env.K_SERVICE)) {
     const client = new SecretManagerServiceClient({ projectId })
     await client.initialize()
     return client
