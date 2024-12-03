@@ -25,7 +25,7 @@ export const ListingDetailsItems: FunctionComponent<Props> = ({ creator, nfts, t
     <TradeDetailsInfoLayout>
       <TradeDetailsUserInfoLayout>
         <UserDetails user={creator} isAuthUser={role === ListingRole.Creator} />
-        <NftCards nfts={nfts} alignment={Alignment.Left} options={{ borderColor: Color.Yellow as const }} />
+        <NftCards nfts={nfts} alignment={Alignment.Left} options={{ borderColor: Color.Yellow }} />
       </TradeDetailsUserInfoLayout>
       <ItemsSeparator />
       <ListingDetailsTargetDetails target={target} />

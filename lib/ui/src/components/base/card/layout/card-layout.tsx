@@ -5,13 +5,19 @@ import { isNil } from 'ramda'
 import type { FunctionComponent, MouseEventHandler, PropsWithChildren } from 'react'
 
 export interface CardLayoutProps {
+  disabled?: boolean
   options?: {
     borderColor?: Color.Yellow
   }
   onClick?: MouseEventHandler
 }
 
-export const CardLayout: FunctionComponent<PropsWithChildren<CardLayoutProps>> = ({ options, onClick, children }) => {
+export const CardLayout: FunctionComponent<PropsWithChildren<CardLayoutProps>> = ({
+  disabled,
+  options,
+  onClick,
+  children
+}) => {
   return (
     <div
       className={clsx(
@@ -26,7 +32,7 @@ export const CardLayout: FunctionComponent<PropsWithChildren<CardLayoutProps>> =
         'group',
         'transition ease-in-out',
         'outline-none',
-        !isNil(onClick) && 'cursor-pointer'
+        !disabled && !isNil(onClick) && 'cursor-pointer'
       )}
       onClick={onClick}
     >

@@ -11,7 +11,7 @@ interface Props {
 export const ListingDetailsTarget: FunctionComponent<Props> = ({ target }) => {
   return (
     <div className={clsx('flex', 'w-full', 'self-stretch', 'h-max', 'gap-4', 'items-center')}>
-      <CollectionCard collection={target.collection} options={{ borderColor: Color.Yellow as const }} />
+      <CollectionCard collection={target.collection} options={{ borderColor: Color.Yellow }} />
       {target.quantity > 1 ? (
         <p className={clsx('w-max', 'text-white', 'prose-display-md-bold')}>{`X${target.quantity}`}</p>
       ) : null}

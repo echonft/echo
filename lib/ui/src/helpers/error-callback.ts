@@ -1,4 +1,4 @@
-import { captureAndLogError } from '@echo/ui/helpers/capture-and-log-error'
+import { logError } from '@echo/ui/helpers/log-error'
 import type { Alert } from '@echo/ui/types/alert'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { getCurrentScope } from '@sentry/react'
@@ -19,7 +19,7 @@ function onError(args: OnErrorArgs) {
   const { alert, show, loggerContext, error } = args
   const user = getCurrentScope().getUser()
   const logObject = assoc('user', user, loggerContext ?? {})
-  captureAndLogError(error, {
+  logError(error, {
     logObject,
     severity: 'warning'
   })

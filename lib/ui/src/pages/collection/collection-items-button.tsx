@@ -1,4 +1,4 @@
-import { SelectableNftsActionButton } from '@echo/ui/components/nft/selectable/selectable-nfts-action-button'
+import { SelectableNftCardsActionButton } from '@echo/ui/components/nft/selectable-card/selectable-nft-cards-action-button'
 import { NftAction } from '@echo/ui/constants/nft-actions'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -19,5 +19,5 @@ export const CollectionItemsButton: FunctionComponent<Props> = ({ action, count,
       </button>
     )
   }
-  return <SelectableNftsActionButton action={action} count={count} onClick={onClick} />
+  return <SelectableNftCardsActionButton action={action} count={count} onClick={onClick} />
 }

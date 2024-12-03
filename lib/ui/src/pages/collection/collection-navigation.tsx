@@ -29,7 +29,14 @@ interface Props {
   selection?: number
 }
 
-export const CollectionTabs: FunctionComponent<Props> = ({ collection, listings, nfts, offers, swaps, selection }) => {
+export const CollectionNavigation: FunctionComponent<Props> = ({
+  collection,
+  listings,
+  nfts,
+  offers,
+  swaps,
+  selection
+}) => {
   const tabs: TabOptions<TabName>[] = [
     {
       name: 'items',

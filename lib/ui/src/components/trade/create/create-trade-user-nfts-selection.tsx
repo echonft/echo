@@ -3,7 +3,7 @@ import type { OwnedNft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
 import { Profile } from '@echo/ui/components/base/profile/profile'
 import { WalletCopyToClipboardButton } from '@echo/ui/components/base/wallet/wallet-copy-to-clipboard-button'
-import { SelectableNftsWithoutThumbnail } from '@echo/ui/components/nft/selectable/selectable-nfts-without-thumbnail'
+import { CreateTradeUserNfts } from '@echo/ui/components/trade/create/create-trade-user-nfts'
 import { UserProfileDetailsLayout } from '@echo/ui/components/user/profile/layout/user-profile-details-layout'
 import { UserTag } from '@echo/ui/components/user/profile/user-tag'
 import clsx from 'clsx'
@@ -38,7 +38,7 @@ export const CreateTradeUserNftsSelection: FunctionComponent<Props> = ({
           <WalletCopyToClipboardButton wallet={wallet} />
         </UserProfileDetailsLayout>
       </Profile>
-      <SelectableNftsWithoutThumbnail
+      <CreateTradeUserNfts
         nfts={nfts}
         selection={selection}
         options={{ owner: { hide: true } }}

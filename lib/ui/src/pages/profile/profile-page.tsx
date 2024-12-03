@@ -9,7 +9,7 @@ import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigat
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { AuthUserProfile } from '@echo/ui/components/user/profile/auth-user-profile'
-import { ProfileTabs } from '@echo/ui/pages/profile/profile-tabs'
+import { ProfileNavigation } from '@echo/ui/pages/profile/profile-navigation'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { SwapWithRole } from '@echo/ui/types/swap-with-role'
@@ -45,7 +45,7 @@ export const ProfilePage: FunctionComponent<Props> = ({
             <AuthUserProfile counts={counts} user={user} />
           </SectionLayout>
           <NavigationSectionLayout>
-            <ProfileTabs
+            <ProfileNavigation
               listings={listings}
               nfts={nfts}
               offers={offers}

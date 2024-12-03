@@ -20,8 +20,8 @@ export const SelectableNftCardButton: FunctionComponent<Props> = ({ action, onCl
           'w-full',
           'h-max',
           'px-2.75',
-          'pt-2.5',
-          'pb-2.75',
+          'py-2',
+          'rounded-b-2xl',
           'text-left',
           'hover:bg-nftButtonHover',
           'transition-opacity ease-in-out',
@@ -30,7 +30,7 @@ export const SelectableNftCardButton: FunctionComponent<Props> = ({ action, onCl
         )}
         onClick={onClick}
       >
-        <span className={clsx('prose-label-sm', 'text-yellow-500')}>{t(action)}</span>
+        <span className={clsx('prose-label-sm', 'text-yellow-500', '-translate-y-1')}>{t(action)}</span>
       </button>
     )
   }

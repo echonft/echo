@@ -1,4 +1,5 @@
 'use client'
+import { nftIsOwnedBy } from '@echo/model/helpers/nft/nft-is-owned-by'
 import type { Collection } from '@echo/model/types/collection'
 import type { Nft, OwnedNft } from '@echo/model/types/nft'
 import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
@@ -6,8 +7,9 @@ import { BottomBarLayout } from '@echo/ui/components/base/layout/bottom-bar-layo
 import { TraitFilterPanel } from '@echo/ui/components/nft/filters/by-traits/trait-filter-panel'
 import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panels-layout'
 import { NftsAndFiltersLayout } from '@echo/ui/components/nft/filters/layout/nfts-and-filters-layout'
-import { SelectableNfts } from '@echo/ui/components/nft/selectable/selectable-nfts'
+import { SelectableNftCards } from '@echo/ui/components/nft/selectable-card/selectable-nft-cards'
 import { NftAction } from '@echo/ui/constants/nft-actions'
+import { useAuthUser } from '@echo/ui/hooks/use-auth-user'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
 import { CollectionItemsButton } from '@echo/ui/pages/collection/collection-items-button'
 import { TabPanel } from '@headlessui/react'
@@ -24,6 +26,7 @@ interface Props {
 
 export const CollectionItemsPanel: FunctionComponent<Props> = ({ collection, nfts, show }) => {
   const router = useRouter()
+  const { user } = useAuthUser()
   const { filteredByNfts, selection, toggleTraitFilterSelection, selectNft, unselectNft } = useNfts({
     nfts,
     sortBy: 'owner'
@@ -52,10 +55,11 @@ export const CollectionItemsPanel: FunctionComponent<Props> = ({ collection, nft
               onToggleSelection={toggleTraitFilterSelection}
             />
           </NftFiltersPanelsLayout>
-          <SelectableNfts
+          <SelectableNftCards
             nfts={filteredByNfts.byTraits}
             selection={selection.nfts}
             action={NftAction.Offer}
+            disablePredicate={isNil(user) ? undefined : nftIsOwnedBy(user.username)}
             onAction={onCreateOffer}
             onSelect={selectNft}
             onUnselect={unselectNft}

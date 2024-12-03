@@ -12,15 +12,16 @@ import { type FunctionComponent } from 'react'
 interface Props {
   nft: OwnedNft
   action?: Nullable<NftAction>
+  disabled?: boolean
 }
 
-export const SelectableNftCardFooter: FunctionComponent<Props> = ({ nft, action }) => {
+export const SelectableNftCardFooter: FunctionComponent<Props> = ({ nft, action, disabled }) => {
   return (
     <SelectableNftCardFooterLayout>
       <div
         className={clsx(
           'translate-y-3.75',
-          !isNil(action) && ['group-hover:translate-y-0', 'transition-transform ease-in-out']
+          !disabled && !isNil(action) && ['group-hover:translate-y-0', 'transition-transform ease-in-out']
         )}
       >
         <CardTitle label={nft.collection.name} />

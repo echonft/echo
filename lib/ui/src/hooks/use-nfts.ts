@@ -10,7 +10,6 @@ import type { CollectionFilter } from '@echo/ui/types/collection-filter'
 import type { NftSortBy } from '@echo/ui/types/nft-sort-by'
 import type { TraitFilter } from '@echo/ui/types/trait-filter'
 import { includesWith } from '@echo/utils/helpers/includes-with'
-import { isInWith } from '@echo/utils/helpers/is-in-with'
 import type { Nullable } from '@echo/utils/types/nullable'
 import {
   always,
@@ -21,9 +20,7 @@ import {
   dissoc,
   either,
   filter,
-  find,
   head,
-  identity,
   ifElse,
   isEmpty,
   isNil,
@@ -90,10 +87,7 @@ function selectNft(nft: OwnedNft): (state: State) => State {
 
 function unselectNft(nft: OwnedNft): (state: State) => State {
   return function (state: State): State {
-    const sourceNft = find(eqNft(nft), state.source)
-    const addNft = isNil(sourceNft) ? identity : append(sourceNft)
-    return pipe<[State], State, State, State>(
-      modify<'nfts', OwnedNft[], OwnedNft[]>('nfts', addNft),
+    return pipe<[State], State, State>(
       modify<'selection', State['selection'], State['selection']>(
         'selection',
         modify<'nfts', OwnedNft[], OwnedNft[]>('nfts', reject(eqNft(nft)))
@@ -108,7 +102,7 @@ function onSelectionUpdate(state: State): State {
   const selectionFilterFn = isEmpty(selection)
     ? T
     : (eqOwnedNftOwner(head(selection as NonEmptyArray<OwnedNft>)) as (nft: Nft) => boolean)
-  const sortedNfts = pipe(reject(isInWith(selection, eqNft)), sort(state))(source)
+  const sortedNfts = sort(state)(source)
   return pipe<[State], State, State, State>(
     assoc('nfts', sortedNfts),
     modify<'nfts', OwnedNft[], OwnedNft[]>('nfts', filter(selectionFilterFn)),

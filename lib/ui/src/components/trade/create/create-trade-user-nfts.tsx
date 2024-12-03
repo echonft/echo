@@ -1,11 +1,11 @@
 'use client'
 import { serializeNft } from '@echo/model/serializers/serialize-nft'
 import type { OwnedNft } from '@echo/model/types/nft'
+import { SelectableNftCardsLayout } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-cards-layout'
 import {
   SelectableNftCard,
   type SelectableNftCardProps
 } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
-import { SelectableNftsLayout } from '@echo/ui/components/nft/selectable/layout/selectable-nfts-layout'
 import { clsx } from 'clsx'
 import { includes, isEmpty, map } from 'ramda'
 import { type FunctionComponent } from 'react'
@@ -17,7 +17,7 @@ interface Props extends Pick<SelectableNftCardProps, 'action' | 'options' | 'onA
   onUnselect?: (nft: OwnedNft) => unknown
 }
 
-export const SelectableNftsWithoutThumbnail: FunctionComponent<Props> = ({
+export const CreateTradeUserNfts: FunctionComponent<Props> = ({
   nfts,
   selection,
   action,
@@ -29,7 +29,7 @@ export const SelectableNftsWithoutThumbnail: FunctionComponent<Props> = ({
   const isSelected = (nft: OwnedNft) => includes(nft, selection)
   return (
     <div className={clsx('flex', 'flex-col', 'gap-8', 'grow')}>
-      <SelectableNftsLayout>
+      <SelectableNftCardsLayout>
         {map(
           (nft) => (
             <SelectableNftCard
@@ -45,7 +45,7 @@ export const SelectableNftsWithoutThumbnail: FunctionComponent<Props> = ({
           ),
           nfts
         )}
-      </SelectableNftsLayout>
+      </SelectableNftCardsLayout>
     </div>
   )
 }

@@ -5,7 +5,7 @@ import { NavigationLayout } from '@echo/ui/components/base/layout/navigation-lay
 import { NavigationSectionLayout } from '@echo/ui/components/base/layout/navigation-section-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { CollectionDetails } from '@echo/ui/components/collection/details/collection-details'
-import { CollectionTabs } from '@echo/ui/pages/collection/collection-tabs'
+import { CollectionNavigation } from '@echo/ui/pages/collection/collection-navigation'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { SwapWithRole } from '@echo/ui/types/swap-with-role'
@@ -37,7 +37,7 @@ export const CollectionPage: FunctionComponent<Props> = ({
         <CollectionDetails collection={mergeLeft(collection, counts)} />
       </SectionLayout>
       <NavigationSectionLayout>
-        <CollectionTabs
+        <CollectionNavigation
           collection={collection}
           listings={listings}
           nfts={nfts}
