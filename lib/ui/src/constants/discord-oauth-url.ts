@@ -1,10 +1,11 @@
 import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
+import { Environment, environment } from '@echo/utils/constants/environment'
 import { stringify } from 'qs'
 import { concat } from 'ramda'
 
 export function discordOAuthUrl(): string {
   const baseUrl = 'https://discord.com/oauth2/authorize'
-  const clientId = '1022253427436298250'
+  const clientId = environment() === Environment.Development ? '1022253427436298250' : '1224786309009113259'
   const redirectUrl = frontendRoutes.login.sign.getUrl()
   const query = stringify(
     {
