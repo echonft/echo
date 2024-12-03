@@ -7,7 +7,11 @@ import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import type { FunctionComponent } from 'react'
 
-export const LoginDiscordStep: FunctionComponent = () => {
+interface Props {
+  discordClientId: string
+}
+
+export const LoginDiscordStep: FunctionComponent<Props> = ({ discordClientId }) => {
   const router = useRouter()
   const t = useTranslations('auth.discord')
   return (
@@ -15,7 +19,7 @@ export const LoginDiscordStep: FunctionComponent = () => {
       <button
         className={clsx('btn-primary', 'group')}
         onClick={() => {
-          router.push(discordOAuthUrl())
+          router.push(discordOAuthUrl(discordClientId))
         }}
       >
         <div className={clsx('btn-label-with-icon-layout', 'btn-label-primary')}>
