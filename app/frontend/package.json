@@ -5,7 +5,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "next build && rimraf -g \".next/**/*.map\"",
+    "build": "next build",
     "clean": "rimraf .next",
     "dev": "next dev | pino-pretty -c",
     "lint": "eslint",
