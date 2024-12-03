@@ -14,7 +14,7 @@ import { useNfts } from '@echo/ui/hooks/use-nfts'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
-import { isNil, type NonEmptyArray, values } from 'ramda'
+import { type NonEmptyArray, values } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
@@ -54,13 +54,8 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
   const steps = values(OfferCreationSteps)
   const totalSteps = steps.length
   const subtitles = [t('steps.counterparty'), t('steps.offer'), t('steps.review'), t('steps.done')]
-  const [createdOffer, setCreatedOffer] = useState<Offer>()
 
   const handleNext = () => {
-    if (currentStep === 2 && !isNil(createdOffer)) {
-      router.replace(frontendRoutes.offer.details.withQuery({ offer: createdOffer }).get({ username: sender.username }))
-      return
-    }
     if (currentStep < totalSteps - 1) {
       setCurrentStep(currentStep + 1)
     }
@@ -123,8 +118,7 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
             receiverItems={receiverSelection.nfts}
             onNext={handleNext}
             onSuccess={(offer) => {
-              handleNext()
-              setCreatedOffer(offer)
+              router.replace(frontendRoutes.offer.details.withQuery({ offer }).get({ username: sender.username }))
             }}
           />
         </CreateTradeBottomBar>
