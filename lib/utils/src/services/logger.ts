@@ -1,4 +1,3 @@
-import { Environment, environment } from '@echo/utils/constants/environment'
 import { isCI } from '@echo/utils/constants/is-ci'
 import { logLevel } from '@echo/utils/constants/log-level'
 import { NodeEnvironment, nodeEnvironment } from '@echo/utils/constants/node-environment'
@@ -28,9 +27,6 @@ function getLogLevel(): LevelWithSilentOrString {
     if (nodeEnvironment() === NodeEnvironment.Production) {
       return 'info'
     }
-    if (nodeEnvironment() === NodeEnvironment.Test) {
-      return 'silent'
-    }
     return 'trace'
   }
   return level
@@ -38,7 +34,7 @@ function getLogLevel(): LevelWithSilentOrString {
 export function getBaseLogger(name: string, options?: LoggerOptions, stream?: DestinationStream) {
   return pino(
     {
-      enabled: !isCI() && environment() !== Environment.Test,
+      enabled: !isCI() && nodeEnvironment() !== NodeEnvironment.Test,
       level: getLogLevel(),
       name,
       formatters: {

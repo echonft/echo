@@ -2,8 +2,6 @@
 
 if [ "$ENV" = "development" ]; then
   project="echo-dev-fallback"
-elif [ "$ENV" = "staging" ]; then
-  project="echo-staging-ba121"
 elif [ "$ENV" = "production" ]; then
   project="echo-prod-b71e2"
 else

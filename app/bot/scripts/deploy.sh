@@ -8,10 +8,6 @@ elif [ "$ENV" = "production" ]; then
   app="echobot"
   machine_id="784e9d4c271418"
   config_file="fly.toml"
-elif [ "$ENV" = "staging" ]; then
-  app="echo-bot-staging"
-  machine_id="e82d92ef0243e8"
-  config_file="fly.staging.toml"
 else
   printf "\e[31mWrong ENV\n\e[0m"
   exit 1

@@ -1,13 +1,12 @@
 #!/bin/sh
 
 if [ ! "$ENV" ]; then
-  ENV=$(whiptail --default-item=development --notags --menu "Pick an environment" 10 30 3 \
+  ENV=$(whiptail --default-item=development --notags --menu "Pick an environment" 10 30 2 \
   "development" "Development" \
-  "staging" "Staging" \
   "production" "Production" 3>&1 1>&2 2>&3)
 fi
 
-if [ "$ENV" = "development" ] || [ "$ENV" = "staging" ] || [ "$ENV" = "production" ]; then
+if [ "$ENV" = "development" ] || [ "$ENV" = "production" ]; then
   dir=$(cd "$(dirname "$0")" && pwd)
   printf "\e[36mDeleting functions on %s...\n\e[0m" "$ENV"
   firebase use "$ENV" 1>/dev/null

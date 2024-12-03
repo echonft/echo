@@ -1,12 +1,11 @@
 #!/bin/sh
 
 
-ENV=$(whiptail --default-item=development --notags --menu "Pick an environment" 10 30 3 \
+ENV=$(whiptail --default-item=development --notags --menu "Pick an environment" 10 30 2 \
 "development" "Development" \
-"staging" "Staging" \
-"production" "Production (be careful!)" 3>&1 1>&2 2>&3)
+"production" "Production" 3>&1 1>&2 2>&3)
 
-if [ "$ENV" = "development" ] || [ "$ENV" = "staging" ] || [ "$ENV" = "production" ]; then
+if [ "$ENV" = "development" ] || [ "$ENV" = "production" ]; then
   dir=$(cd "$(dirname "$0")" && pwd)
   cd "$dir"/../../app/frontend/ || exit 1
   ENV="$ENV" CI="1" scripts/build.sh

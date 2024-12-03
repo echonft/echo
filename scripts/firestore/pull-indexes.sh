@@ -1,12 +1,10 @@
 #!/bin/sh
 
-ENV=$(whiptail --default-item=development --notags --menu "Pick an environment" 10 30 4 \
+ENV=$(whiptail --default-item=development --notags --menu "Pick an environment" 10 30 2 \
 "development" "Development" \
-"staging" "Staging" \
-"production" "Production" \
-"test" "Test" 3>&1 1>&2 2>&3)
+"production" "Production" 3>&1 1>&2 2>&3)
 
-if [ "$ENV" = "development" ] || [ "$ENV" = "staging" ] || [ "$ENV" = "production" ] || [ "$ENV" = "test" ]; then
+if [ "$ENV" = "development" ] || [ "$ENV" = "production" ]; then
   printf "\e[36mPulling Firestore indexes from %s...\n\e[0m" "$ENV"
   firebase use "$ENV"
   dir=$(cd "$(dirname "$0")" && pwd)

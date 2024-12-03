@@ -2,9 +2,9 @@
 
 ENV=$(whiptail --default-item=development --notags --menu "Pick an environment" 10 30 3 \
 "development" "Development" \
-"staging" "Staging" 3>&1 1>&2 2>&3)
+"production" "Production" 3>&1 1>&2 2>&3)
 
-if [ "$ENV" = "development" ] || [ "$ENV" = "staging" ] || [ "$ENV" = "production" ]; then
+if [ "$ENV" = "development" ] || [ "$ENV" = "production" ]; then
   printf "\e[36mClearing %s database...\n\e[0m" "$ENV"
   firebase use "$ENV" 1>/dev/null
   output=$(firebase firestore:databases:delete "(default)" --force)

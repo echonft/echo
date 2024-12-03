@@ -1,11 +1,10 @@
 #!/bin/sh
 
-VERCEL_PROJECT=$(whiptail --default-item=staging --notags --menu "Pick an project" 10 30 3 \
+VERCEL_PROJECT=$(whiptail --default-item=dev --notags --menu "Pick an project" 10 30 2 \
 "dev" "Development" \
-"staging" "Staging" \
 "production" "Production" 3>&1 1>&2 2>&3)
 
-if [ "$VERCEL_PROJECT" = "dev" ] || [ "$VERCEL_PROJECT" = "staging" ] || [ "$VERCEL_PROJECT" = "echo" ]; then
+if [ "$VERCEL_PROJECT" = "dev" ] || [ "$VERCEL_PROJECT" = "echo" ]; then
   printf "\e[36mDeploying project %s...\n\e[0m" "$VERCEL_PROJECT"
   vercel link -y -p "$VERCEL_PROJECT" 1>/dev/null 2>&1
   vercel --prod

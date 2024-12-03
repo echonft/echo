@@ -1,11 +1,10 @@
 #!/bin/sh
 
-ENV=$(whiptail --default-item=development --notags --menu "Pick an environment" 10 30 3 \
+ENV=$(whiptail --default-item=development --notags --menu "Pick an environment" 10 30 2 \
 "development" "Development" \
-"staging" "Staging" \
 "production" "Production" 3>&1 1>&2 2>&3)
 
-if [ "$ENV" = "development" ] || [ "$ENV" = "staging" ] || [ "$ENV" = "production" ]; then
+if [ "$ENV" = "development" ] || [ "$ENV" = "production" ]; then
   dir=$(cd "$(dirname "$0")" && pwd)
   MIGRATION=$(find "$dir"/../../lib/tasks/src/firestore-MIGRATIONs/  -type f -name "*.ts" -exec basename {} .ts \; | sort -n | tail -1)
   ENV="$ENV" MIGRATION="$MIGRATION" pnpm exec turbo run firestore:migration --filter=@echo/firestore

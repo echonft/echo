@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$VERCEL_PROJECT" = "dev" ] || [ "$VERCEL_PROJECT" = "staging" ] || [ "$VERCEL_PROJECT" = "echo" ]; then
+if [ "$VERCEL_PROJECT" = "dev" ] || [ "$VERCEL_PROJECT" = "echo" ]; then
   printf "\e[36mDeleting all old production deployments on %s...\n\e[0m" "$VERCEL_PROJECT"
   vercel link -y -p "$VERCEL_PROJECT" 1>/dev/null 2>&1
   EXIT_STATUS=0

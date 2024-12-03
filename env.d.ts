@@ -5,7 +5,7 @@ declare namespace NodeJS {
     env: {
       ANALYZE?: string
       CI?: 'true' | '1'
-      ENV?: 'production' | 'staging' | 'development' | 'test'
+      ENV?: 'production' | 'development'
       K_SERVICE?: string
       LOG_LEVEL?: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
       NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL: string

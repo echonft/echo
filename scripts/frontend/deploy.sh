@@ -1,17 +1,14 @@
 #!/bin/sh
 
 if [ ! "$ENV" ]; then
-  ENV=$(whiptail --default-item=development --notags --menu "Pick an environment" 10 30 3 \
+  ENV=$(whiptail --default-item=development --notags --menu "Pick an environment" 10 30 2 \
   "development" "Development" \
-  "staging" "Staging" \
   "production" "Production" 3>&1 1>&2 2>&3)
 fi
 
-if [ "$ENV" = "development" ] || [ "$ENV" = "staging" ] || [ "$ENV" = "production" ]; then
+if [ "$ENV" = "development" ] || [ "$ENV" = "production" ]; then
   if [ "$ENV" = "development" ]; then
     VERLCEL_PROJECT="dev"
-  elif [ "$ENV" = "staging" ]; then
-    VERLCEL_PROJECT="staging"
   else
     VERLCEL_PROJECT="echo"
   fi
