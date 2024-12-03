@@ -32,7 +32,7 @@ function getCredentials(): Credentials {
 
 async function connect(projectId: string): Promise<SecretManagerServiceClient> {
   const nodeEnv = nodeEnvironment()
-  if (nodeEnv !== NodeEnvironment.Test || !isNil(process.env.K_SERVICE)) {
+  if (nodeEnv === NodeEnvironment.Development || !isNil(process.env.K_SERVICE)) {
     const client = new SecretManagerServiceClient({ projectId })
     await client.initialize()
     return client
