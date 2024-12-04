@@ -22,6 +22,7 @@ interface Props {
   offers: OfferWithRole[]
   pendingListings: ListingWithRole[]
   swaps: SwapWithRole[]
+  redeemableOffers: OfferWithRole[]
   user: User
   selection?: number
 }
@@ -33,6 +34,7 @@ export const ProfilePage: FunctionComponent<Props> = ({
   offers,
   pendingListings,
   swaps,
+  redeemableOffers,
   user,
   selection
 }) => {
@@ -50,6 +52,7 @@ export const ProfilePage: FunctionComponent<Props> = ({
               nfts={nfts}
               offers={offers}
               pendingListings={pendingListings}
+              redeemableOffers={redeemableOffers}
               swaps={swaps}
               selection={selection}
             />

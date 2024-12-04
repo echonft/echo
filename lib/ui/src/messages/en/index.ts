@@ -121,7 +121,8 @@ export const messages = {
       items: 'Items',
       listings: 'Listings',
       offers: 'Offers',
-      swaps: 'Swaps'
+      swaps: 'Swaps',
+      redeemable: 'Redeemable'
     }
   },
   listing: {

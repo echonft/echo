@@ -8,6 +8,7 @@ import type { OptionalRecord } from '@echo/utils/types/optional-record'
 import type { AccountResult } from '@echo/web3-dom/services/get-account'
 import type { GetErc721ContractApprovalArgs } from '@echo/web3-dom/services/get-erc721-contract-approval'
 import type { SignNonceArgs, SignNonceResult } from '@echo/web3-dom/services/sign-nonce'
+import type { EchoOffer } from '@echo/web3/types/echo-offer'
 import type { SignInResponse } from 'next-auth/react'
 import type { NonEmptyArray } from 'ramda'
 
@@ -19,6 +20,7 @@ export interface Dependencies {
   createOffer: (offer: BaseOffer) => Promise<HexString>
   disconnectWallet: () => Promise<void>
   getAccount: () => AccountResult
+  getEchoOffer: (offerId: HexString) => Promise<Nullable<EchoOffer>>
   getErc20TokenBalance: (token: Erc20Token) => Promise<TokenBalance<Erc20Token>>
   getAllErc20TokenBalances: (tokens: NonEmptyArray<Erc20Token>) => Promise<NonEmptyArray<TokenBalance<Erc20Token>>>
   getEchoTradingFees: () => Promise<bigint>

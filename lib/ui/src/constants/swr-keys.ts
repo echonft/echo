@@ -1,5 +1,6 @@
 import { serializeNft } from '@echo/model/serializers/serialize-nft'
 import type { Address } from '@echo/model/types/address'
+import type { HexString } from '@echo/model/types/hex-string'
 import type { Listing } from '@echo/model/types/listing'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
@@ -13,6 +14,7 @@ export const SWRKeys = {
       concat('are-nfts-in-escrow-')
     ),
     getEchoTradingFees: 'get-echo-trading-fees',
+    getEchoOffers: (offerIds: HexString[]) => `get-echo-offers-${join('-', offerIds)}`,
     getErc721approval: (contract: Address) => `get-erc721-approval-${contract}`,
     approveErc721: (contract: Address) => `approve-erc721-${contract}`,
     createOffer: pipe<[Offer], string, string>(prop('slug'), concat('create-offer-')),
