@@ -9,7 +9,7 @@ export function useAreNftsInEscrow(nfts: Nft[] | undefined): boolean | undefined
   const { areNftsInEscrow } = useDependencies()
   const { data } = useSWR<boolean, Error>(
     isNilOrEmpty(nfts) ? undefined : { name: SWRKeys.contract.areNftsInEscrow(nfts), nfts },
-    areNftsInEscrow,
+    ({ nfts }: { nfts: Nft[] }) => areNftsInEscrow(nfts),
     {
       shouldRetryOnError: true,
       errorRetryCount: 3,

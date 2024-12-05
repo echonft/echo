@@ -69,7 +69,7 @@ export const OfferDetailsButtons: FunctionComponent<OfferDetailsButtonsProps> = 
 }) => {
   const shouldCheckForEscrow = offer.state === OfferState.Rejected || offer.state === OfferState.Expired
   const nftsToCheckForEscrow = isOfferRoleReceiver(offer)
-    ? pipe(offerReceiverNftItems, nonEmptyMap(pipe(nftItemToNft(offer.sender), assoc('attributes', []))))(offer)
+    ? pipe(offerReceiverNftItems, nonEmptyMap(pipe(nftItemToNft(offer.receiver), assoc('attributes', []))))(offer)
     : pipe(offerSenderNftItems, nonEmptyMap(pipe(nftItemToNft(offer.sender), assoc('attributes', []))))(offer)
   const areNftsInEscrow = useAreNftsInEscrow(shouldCheckForEscrow ? nftsToCheckForEscrow : undefined)
 
