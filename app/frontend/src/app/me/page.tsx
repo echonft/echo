@@ -9,7 +9,7 @@ import { toListingsWithRole } from '@echo/frontend/lib/helpers/listing/to-listin
 import { toOffersWithRole } from '@echo/frontend/lib/helpers/offer/to-offers-with-role'
 import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-array'
 import { toSwapsWithRole } from '@echo/frontend/lib/helpers/swap/to-swaps-with-role'
-import { getExpiredOffers } from '@echo/model/helpers/offer/get-expired-offers'
+import { getRedeemableOffers } from '@echo/model/helpers/offer/get-redeemable-offers'
 import type { User } from '@echo/model/types/user'
 import type { SwapDetailsSearchParams } from '@echo/routing/types/frontend/search-params/swap-details-search-params'
 import { swapDetailsSearchParamsTransformSchema } from '@echo/routing/validators/frontend/swap/swap-details-search-params-transform-schema'
@@ -41,7 +41,7 @@ async function render({ user, searchParams }: Props) {
     andThen(toOffersWithRole(user)),
     otherwiseEmptyArray
   )(user)
-  const redeemableOffers = getExpiredOffers(offers)
+  const redeemableOffers = getRedeemableOffers(offers)
   const offersCount = await pipe(prop('username'), getUserOffersCount, otherwise(always(0)))(user)
   const swaps = await pipe(prop('username'), getSwapsForUser, andThen(toSwapsWithRole(user)), otherwiseEmptyArray)(user)
   const selection = swapDetailsSearchParamsTransformSchema.parse({ swaps, searchParams })
