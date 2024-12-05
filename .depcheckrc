@@ -1,0 +1,3 @@
+ignores: ["@types/*", "tailwindcss", "@swc/core", "@jest/types", "jest-junit", "autoprefixer", "cssnano", "@storybook/*", "@next/bundle-analyzer"]
+ignore-patterns: ["next.config.js"]
+skip-missing: true

@@ -4,24 +4,6 @@ import path, { dirname, join } from 'path'
 const config: StorybookConfig = {
   addons: [
     { name: '@storybook/addon-essentials', options: { docs: false } },
-    {
-      name: '@storybook/addon-styling-webpack',
-      options: {
-        rules: [
-          {
-            test: /\.css$/,
-            sideEffects: true,
-            use: [
-              require.resolve('style-loader'),
-              {
-                loader: require.resolve('css-loader'),
-                options: {}
-              }
-            ]
-          }
-        ]
-      }
-    },
     getAbsolutePath('@storybook/addon-webpack5-compiler-swc')
   ],
   core: {

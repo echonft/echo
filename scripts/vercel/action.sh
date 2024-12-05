@@ -17,6 +17,7 @@ ACTION=$(whiptail --default-item=dev --notags --menu "Wat do?" 15 50 4 \
 "rm-all" "delete canceled + past production deployments" \
 "deploy" "deploy" 3>&1 1>&2 2>&3)
 
+dir=$(cd "$(dirname "$0")" && pwd)
 if [ "$ACTION" = "rm-canceled" ] || [ "$ACTION" = "rm-production" ] || [ "$ACTION" = "rm-all" ]; then
   VERCEL_PROJECT=$(whiptail --default-item=all --notags --menu "Pick an project" 10 40 3 \
   "all" "All" \
@@ -28,7 +29,7 @@ if [ "$ACTION" = "rm-canceled" ] || [ "$ACTION" = "rm-production" ] || [ "$ACTIO
   fi
   printf "\e[35mSelected action: %s\n\e[0m" "$ACTION"
   printf "\e[35mSelected project: %s\n\e[0m" "$VERCEL_PROJECT"
-  dir=$(cd "$(dirname "$0")" && pwd)
+  echo "directory: $dir"
   if [ "$ACTION" = "rm-canceled" ]; then
       if [ "$VERCEL_PROJECT" = "all" ]; then
         rm_canceled "dev"

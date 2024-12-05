@@ -2,15 +2,15 @@
 import nextIntl from 'next-intl/plugin'
 import { withSentryConfig } from '@sentry/nextjs'
 import NextBundleAnalyzer from '@next/bundle-analyzer'
-import { hostname } from 'node:os'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
     serverActions: {
-      allowedOrigins: [hostname()]
-    },
-    typedRoutes: true
+      allowedOrigins: [
+        process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
+      ]
+    }
   },
   images: {
     remotePatterns: [
@@ -25,22 +25,14 @@ const nextConfig = {
     ],
     unoptimized: true
   },
-  productionBrowserSourceMaps: true,
   swcMinify: true,
-  transpilePackages: [
-    '@echo/backend',
-    '@echo/firestore',
-    '@echo/model',
-    '@echo/nft-scan',
-    '@echo/routing',
-    '@echo/ui',
-    '@echo/utils',
-    '@echo/web3',
-    '@echo/web3-dom'
-  ]
+  webpack: (config) => {
+    config.devtool = 'hidden-source-map'
+    return config
+  }
 }
 const withNextIntl = nextIntl('./src/i18n.ts')
-const withSentry = withSentryConfig(withNextIntl(nextConfig))
+const withSentry = withSentryConfig(withNextIntl(nextConfig), { sourcemaps: { deleteSourcemapsAfterUpload: true } })
 
 export default NextBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',

@@ -9,6 +9,7 @@
     "clean": "rimraf dist",
     "dev": "tsx watch src/index.ts | pino-pretty -c",
     "lint": "eslint",
+    "modules:check": "depcheck --config=\"../../.depcheckrc\"",
     "modules:remove": "rimraf node_modules",
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",
@@ -22,8 +23,8 @@
     "tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@sentry/node": "8.40.0",
-    "@sentry/profiling-node": "8.40.0",
+    "@sentry/node": "8.42.0",
+    "@sentry/profiling-node": "8.42.0",
     "discord.js": "14.16.3",
     "i18next": "23.16.8",
     "ramda": "0.30.1"

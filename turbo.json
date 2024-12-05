@@ -26,6 +26,7 @@
       "persistent": true
     },
     "lint": {},
+    "modules:check": {},
     "modules:remove": {
       "cache": false
     },

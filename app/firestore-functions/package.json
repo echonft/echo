@@ -9,6 +9,7 @@
     "build": "tsup",
     "deploy": "scripts/deploy.sh",
     "lint": "eslint",
+    "modules:check": "depcheck --config=\"../../.depcheckrc\"",
     "modules:remove": "rimraf node_modules",
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",

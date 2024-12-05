@@ -32,5 +32,4 @@ SECRET_MANAGER_EMAIL="$SECRET_MANAGER_EMAIL" \
 SECRET_MANAGER_PRIVATE_KEY="$SECRET_MANAGER_PRIVATE_KEY" \
 NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL="localhost:3000" \
 NODE_ENV="production" \
-CI="$CI" \
- next build
+pnpm exec turbo build --filter=@echo/frontend
