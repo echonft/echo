@@ -68,7 +68,7 @@ export const OfferDetailsRedeemButton: FunctionComponent<Props> = ({
     onError: {
       alert: {
         severity: CalloutSeverity.Error,
-        message: tError('cancel', {
+        message: tError('redeem', {
           count
         })
       },
