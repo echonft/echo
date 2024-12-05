@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url'
 import jestPlugin from 'eslint-plugin-jest'
 import globals from 'globals'
 import eslintPluginReact from 'eslint-plugin-react'
+// noinspection JSFileReferences
 import eslintPluginReactRecommended from 'eslint-plugin-react/configs/recommended.js'
 import { fixupPluginRules } from '@eslint/compat'
 import eslintConfigGoogle from 'eslint-config-google'

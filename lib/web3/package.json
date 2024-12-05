@@ -19,7 +19,7 @@
   "dependencies": {
     "exponential-backoff": "3.1.1",
     "ramda": "0.30.1",
-    "viem": "2.21.53",
+    "viem": "2.21.54",
     "zod": "3.23.8"
   },
   "devDependencies": {
