@@ -1,3 +1,4 @@
+import { isOfferRedeemable } from '@echo/backend/helpers/offer/is-offer-redeemable'
 import { getListingsForCreator } from '@echo/firestore/crud/listing/get-listings-for-creator'
 import { getPendingListingsForUser } from '@echo/firestore/crud/listing/get-pending-listings-for-user'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
@@ -9,11 +10,12 @@ import { toListingsWithRole } from '@echo/frontend/lib/helpers/listing/to-listin
 import { toOffersWithRole } from '@echo/frontend/lib/helpers/offer/to-offers-with-role'
 import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-array'
 import { toSwapsWithRole } from '@echo/frontend/lib/helpers/swap/to-swaps-with-role'
-import { getRedeemableOffers } from '@echo/model/helpers/offer/get-redeemable-offers'
 import type { User } from '@echo/model/types/user'
 import type { SwapDetailsSearchParams } from '@echo/routing/types/frontend/search-params/swap-details-search-params'
 import { swapDetailsSearchParamsTransformSchema } from '@echo/routing/validators/frontend/swap/swap-details-search-params-transform-schema'
 import { ProfilePage } from '@echo/ui/pages/profile/profile-page'
+import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
+import pFilter from 'p-filter'
 import { always, andThen, otherwise, pipe, prop } from 'ramda'
 
 interface Props {
@@ -41,7 +43,7 @@ async function render({ user, searchParams }: Props) {
     andThen(toOffersWithRole(user)),
     otherwiseEmptyArray
   )(user)
-  const redeemableOffers = getRedeemableOffers(offers)
+  const redeemableOffers = await pFilter<OfferWithRole>(offers, isOfferRedeemable(user.username))
   const offersCount = await pipe(prop('username'), getUserOffersCount, otherwise(always(0)))(user)
   const swaps = await pipe(prop('username'), getSwapsForUser, andThen(toSwapsWithRole(user)), otherwiseEmptyArray)(user)
   const selection = swapDetailsSearchParamsTransformSchema.parse({ swaps, searchParams })

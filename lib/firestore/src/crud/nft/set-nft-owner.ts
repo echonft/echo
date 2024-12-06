@@ -1,4 +1,4 @@
-import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
+import { getNftSnapshotByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { nftsCollection } from '@echo/firestore/helpers/collection/collections'
 import { updateReference } from '@echo/firestore/helpers/reference/update-reference'
 import type { NftDocument } from '@echo/firestore/types/model/nft-document'
@@ -12,7 +12,7 @@ interface SetNftOwnerArgs {
 }
 
 export async function setNftOwner({ nft, owner }: SetNftOwnerArgs): Promise<NftDocument> {
-  const snapshot = await getNftSnapshot(nft)
+  const snapshot = await getNftSnapshotByIndex(nft)
   if (isNil(snapshot)) {
     return Promise.reject(Error(NftError.NotFound))
   }

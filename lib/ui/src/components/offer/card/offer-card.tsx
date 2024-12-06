@@ -8,7 +8,6 @@ import { OfferCardPicture } from '@echo/ui/components/offer/card/offer-card-pict
 import { OfferStackPicture } from '@echo/ui/components/offer/card/offer-stack-picture'
 import { buildNftStack } from '@echo/ui/helpers/nft/build-nft-stack'
 import { nftLabel } from '@echo/ui/helpers/nft/nft-label'
-import { isNonEmptyArray } from '@echo/utils/helpers/is-non-empty-array'
 import { head } from 'ramda'
 import { type FunctionComponent, useCallback } from 'react'
 
@@ -23,23 +22,20 @@ export const OfferCard: FunctionComponent<Props> = ({ offer, onSelect }) => {
     onSelect?.(offer.slug)
   }, [offer.slug, onSelect])
 
-  if (isNonEmptyArray(items)) {
-    if (items.length > 1) {
-      const stack = buildNftStack(items, offer.sender)
-      return (
-        <StackLayout onClick={select}>
-          <OfferStackPicture pictureUrl={stack.pictureUrl} label={stack.label} state={offer.state} />
-          <CardFooter title={stack.collection.name} subtitle={stack.label} />
-        </StackLayout>
-      )
-    }
-    const item = head(items)
+  if (items.length > 1) {
+    const stack = buildNftStack(items, offer.sender)
     return (
-      <CardLayout onClick={select}>
-        <OfferCardPicture pictureUrl={item.token.pictureUrl} label={nftLabel(item.token)} state={offer.state} />
-        <CardFooter title={item.token.collection.name} subtitle={nftLabel(item.token)} />
-      </CardLayout>
+      <StackLayout onClick={select}>
+        <OfferStackPicture pictureUrl={stack.pictureUrl} label={stack.label} state={offer.state} />
+        <CardFooter title={stack.collection.name} subtitle={stack.label} />
+      </StackLayout>
     )
   }
-  return null
+  const item = head(items)
+  return (
+    <CardLayout onClick={select}>
+      <OfferCardPicture pictureUrl={item.token.pictureUrl} label={nftLabel(item.token)} state={offer.state} />
+      <CardFooter title={item.token.collection.name} subtitle={nftLabel(item.token)} />
+    </CardLayout>
+  )
 }

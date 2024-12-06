@@ -2,7 +2,7 @@ import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import { getOfferThreadOnEchoChannel } from '@echo/bot/offer/get-offer-thread-on-echo-channel'
 import { getEscrowedNftSnapshot } from '@echo/firestore/crud/nft/get-escrowed-nft-snapshot'
-import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
+import { getNftSnapshotByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { OfferError } from '@echo/model/constants/errors/offer-error'
 import { offerReceiverNftItems } from '@echo/model/helpers/offer/offer-receiver-nft-items'
@@ -22,7 +22,7 @@ async function getUserDiscordId(username: string) {
 }
 
 async function isNftFromItemInEscrow(item: NftItem): Promise<boolean> {
-  const nftSnapshot = await getNftSnapshot(item.token)
+  const nftSnapshot = await getNftSnapshotByIndex(item.token)
   if (!isNil(nftSnapshot)) {
     return pipe(prop('id'), getEscrowedNftSnapshot, andThen(complement(isNil)), otherwise(always(false)))(nftSnapshot)
   }
