@@ -17,7 +17,7 @@ import type { SwapWithRole } from '@echo/ui/types/swap-with-role'
 import type { TabOptions } from '@echo/ui/types/tab-options'
 import { isFalsy } from '@echo/utils/helpers/is-falsy'
 import { TabGroup, TabList, TabPanels } from '@headlessui/react'
-import { all, always, find, findIndex, ifElse, isEmpty, isNil, map, pipe, prop, propEq } from 'ramda'
+import { all, always, filter, find, findIndex, ifElse, isEmpty, isNil, map, pipe, prop, propEq } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 type TabName = 'items' | 'listings' | 'offers' | 'swaps' | 'explore' | 'redeemable'
@@ -81,7 +81,8 @@ export const ProfileNavigation: FunctionComponent<Props> = ({
     if (isNil(selection)) {
       return {}
     }
-    return { defaultIndex: findIndex(propEq('swaps', 'name'), tabs) }
+    const defaultIndex = pipe(filter(propEq(true, 'show')), findIndex(propEq('swaps', 'name')))(tabs)
+    return { defaultIndex }
   }
 
   return (

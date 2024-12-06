@@ -27,7 +27,9 @@ const nextConfig = {
   },
   swcMinify: true,
   webpack: (config) => {
-    config.devtool = 'hidden-source-map'
+    if (process.env.NODE_ENV === 'production') {
+      config.devtool = 'hidden-source-map'
+    }
     return config
   }
 }

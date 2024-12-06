@@ -1,8 +1,7 @@
 import { userDocumentToModel } from '@echo/firestore/converters/user-document-to-model'
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { escrowNft } from '@echo/firestore/crud/nft/escrow-nft'
-import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
-import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
+import { getNftByIndex, getNftSnapshotByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { unescrowNft } from '@echo/firestore/crud/nft/unescrow-nft'
@@ -27,7 +26,7 @@ export async function erc721TransferEventHandler({ contract, from, to, tokenId }
   }
   if (from === echoAddress) {
     const nftSnapshot = await pipe(
-      getNftSnapshot,
+      getNftSnapshotByIndex,
       otherwise(always<Nullable<QueryDocumentSnapshot<NftDocument>>>(undefined))
     )({ collection, tokenId })
     if (isNil(nftSnapshot)) {

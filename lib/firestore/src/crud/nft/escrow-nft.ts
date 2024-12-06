@@ -1,5 +1,5 @@
 import { getEscrowedNftSnapshot } from '@echo/firestore/crud/nft/get-escrowed-nft-snapshot'
-import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft-snapshot'
+import { getNftSnapshotByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { removeNftOwner } from '@echo/firestore/crud/nft/remove-nft-owner'
 import { escrowedNftsCollection } from '@echo/firestore/helpers/collection/collections'
 import { setReference } from '@echo/firestore/helpers/reference/set-reference'
@@ -9,7 +9,7 @@ import type { Nft, OwnedNftIndex } from '@echo/model/types/nft'
 import { isNil } from 'ramda'
 
 export async function escrowNft(nft: OwnedNftIndex): Promise<string> {
-  const snapshot = await getNftSnapshot(nft)
+  const snapshot = await getNftSnapshotByIndex(nft)
   if (isNil(snapshot)) {
     return Promise.reject(Error(NftError.NotFound))
   }
