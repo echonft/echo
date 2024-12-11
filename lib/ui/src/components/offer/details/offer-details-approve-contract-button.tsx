@@ -4,15 +4,14 @@ import type { HexString } from '@echo/model/types/hex-string'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { useDependencies } from '@echo/ui/hooks/use-dependencies'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
 interface Props {
   contract: Address
-  onApproved?: (contract: Address, approved: boolean) => unknown
-  onLoading?: EmptyFunction
+  onApproved?: (contract: Address, approved: boolean) => void
+  onLoading?: VoidFunction
   onError?: (contract: Address) => void
 }
 

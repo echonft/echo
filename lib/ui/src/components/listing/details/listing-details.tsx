@@ -11,7 +11,6 @@ import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { useActions } from '@echo/ui/hooks/use-actions'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
@@ -20,8 +19,8 @@ import { type FunctionComponent, useCallback, useState } from 'react'
 
 export interface ListingDetailsProps {
   listing: ListingWithRole
-  onUpdate?: (listing: ListingWithRole) => unknown
-  onClose?: EmptyFunction
+  onUpdate?: (listing: ListingWithRole) => void
+  onClose?: VoidFunction
 }
 
 export const ListingDetails: FunctionComponent<ListingDetailsProps> = ({ listing, onUpdate, onClose }) => {

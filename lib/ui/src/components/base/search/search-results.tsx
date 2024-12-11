@@ -14,7 +14,7 @@ interface Props {
       show?: boolean
     }
   }
-  onSelect?: (selection: SearchResult) => unknown
+  onSelect?: (selection: SearchResult) => void
 }
 
 export const SearchResults: FunctionComponent<Props> = ({ results, options, onSelect }) => {

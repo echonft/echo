@@ -1,14 +1,13 @@
 import { logError } from '@echo/ui/helpers/log-error'
 import type { Alert } from '@echo/ui/types/alert'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { getCurrentScope } from '@sentry/react'
 import { assoc, isNil } from 'ramda'
 
 export interface ErrorCallback {
   alert?: Alert
   loggerContext?: Record<string, unknown>
-  show?: (alert: Alert) => unknown
-  onError?: EmptyFunction
+  show?: (alert: Alert) => void
+  onError?: VoidFunction
 }
 
 interface OnErrorArgs extends ErrorCallback {

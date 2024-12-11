@@ -8,14 +8,13 @@ import { TradeDetailsLayout } from '@echo/ui/components/trade/details/layout/tra
 import { TradeDetailsItems } from '@echo/ui/components/trade/details/trade-details-items'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { clsx } from 'clsx'
 import { assoc, pipe } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 export interface OfferDetailsProps {
   offer: OfferWithRole
-  onClose?: EmptyFunction
+  onClose?: VoidFunction
   onRedeem?: (offer: OfferWithRole) => void
   onSwap?: VoidFunction
   onUpdate?: (offer: OfferWithRole) => void

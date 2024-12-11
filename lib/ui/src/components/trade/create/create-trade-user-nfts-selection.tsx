@@ -13,8 +13,8 @@ interface Props {
   user: User
   nfts: OwnedNft[]
   selection: OwnedNft[]
-  onSelect?: (nft: OwnedNft) => unknown
-  onUnselect?: (nft: OwnedNft) => unknown
+  onSelect?: (nft: OwnedNft) => void
+  onUnselect?: (nft: OwnedNft) => void
 }
 
 export const CreateTradeUserNftsSelection: FunctionComponent<Props> = ({

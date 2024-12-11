@@ -10,7 +10,6 @@ import { TradeDetailsBottomBarNftItem } from '@echo/ui/components/trade/details/
 import { TradeDetailsBottomBarTarget } from '@echo/ui/components/trade/details/trade-details-bottom-bar-target'
 import { Direction } from '@echo/ui/constants/direction'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { head } from 'ramda'
@@ -19,7 +18,7 @@ import type { FunctionComponent } from 'react'
 interface Props {
   listing: ListingWithRole
   loading?: boolean
-  onBack?: EmptyFunction
+  onBack?: VoidFunction
   onCancel?: (listing: Listing) => void
   onFill?: VoidFunction
 }

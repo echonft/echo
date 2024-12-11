@@ -40,7 +40,12 @@ export const Managed: StoryObj<ComponentType> = {
     const { show } = useAlertStore()
     return (
       <>
-        <button onClick={() => show(alert)} className={'btn-gradient group'}>
+        <button
+          onClick={() => {
+            show(alert)
+          }}
+          className={'btn-gradient group'}
+        >
           <span className={'prose-label-sm-semi btn-label-gradient'}>Show</span>
         </button>
         <CalloutManager />

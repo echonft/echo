@@ -8,7 +8,6 @@ import { isOfferRoleReceiver } from '@echo/ui/helpers/offer/is-offer-role-receiv
 import { useDependencies } from '@echo/ui/hooks/use-dependencies'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import clsx from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
@@ -17,9 +16,9 @@ interface Props {
   offer: OfferWithRole
   show?: boolean
   disabled?: boolean
-  onClick?: EmptyFunction
-  onSuccess?: (offer: OfferWithRole) => unknown
-  onError?: EmptyFunction
+  onClick?: VoidFunction
+  onError?: VoidFunction
+  onSuccess?: (offer: OfferWithRole) => void
 }
 
 // TODO ERC20

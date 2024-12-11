@@ -11,7 +11,6 @@ import { useDependencies } from '@echo/ui/hooks/use-dependencies'
 import { useEchoTradingFees } from '@echo/ui/hooks/use-echo-trading-fees'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import clsx from 'clsx'
 import { useTranslations } from 'next-intl'
 import { assoc, isNil } from 'ramda'
@@ -20,8 +19,8 @@ import { type FunctionComponent } from 'react'
 interface Props {
   offer: OfferWithRole
   open: boolean
-  onClose?: EmptyFunction
-  onError?: EmptyFunction
+  onClose?: VoidFunction
+  onError?: VoidFunction
   onSuccess?: (offer: OfferWithRole) => void
 }
 

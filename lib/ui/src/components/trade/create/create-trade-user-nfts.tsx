@@ -13,8 +13,8 @@ import { type FunctionComponent } from 'react'
 interface Props extends Pick<SelectableNftCardProps, 'action' | 'options' | 'onAction'> {
   nfts: OwnedNft[]
   selection: OwnedNft[]
-  onSelect?: (nft: OwnedNft) => unknown
-  onUnselect?: (nft: OwnedNft) => unknown
+  onSelect?: (nft: OwnedNft) => void
+  onUnselect?: (nft: OwnedNft) => void
 }
 
 export const CreateTradeUserNfts: FunctionComponent<Props> = ({

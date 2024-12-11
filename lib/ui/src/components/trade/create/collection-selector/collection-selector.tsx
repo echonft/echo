@@ -14,8 +14,8 @@ import { type FunctionComponent, useState } from 'react'
 
 interface Props {
   collection: Nullable<Collection>
-  onAddQuantity?: (quantity: number) => unknown
-  onSelect?: (collection: Collection) => unknown
+  onAddQuantity?: (quantity: number) => void
+  onSelect?: (collection: Collection) => void
 }
 
 export const CollectionSelector: FunctionComponent<Props> = ({ collection, onAddQuantity }) => {

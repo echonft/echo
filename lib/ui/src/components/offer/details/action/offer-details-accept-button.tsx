@@ -1,7 +1,6 @@
 'use client'
 import { OfferDetailsAcceptModalSwitch } from '@echo/ui/components/offer/details/action/accept/offer-details-accept-modal-switch'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useState } from 'react'
@@ -10,9 +9,9 @@ interface Props {
   offer: OfferWithRole
   show?: boolean
   disabled?: boolean
-  onClick?: EmptyFunction
-  onError?: EmptyFunction
-  onSuccess?: (offer: OfferWithRole) => unknown
+  onClick?: VoidFunction
+  onError?: VoidFunction
+  onSuccess?: (offer: OfferWithRole) => void
 }
 
 export const OfferDetailsAcceptButton: FunctionComponent<Props> = ({

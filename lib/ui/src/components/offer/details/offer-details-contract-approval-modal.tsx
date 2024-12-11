@@ -9,7 +9,6 @@ import { OfferDetailsContractApprovalRow } from '@echo/ui/components/offer/detai
 import { offerItemsToContractApprovals } from '@echo/ui/mappers/offer-items-to-contract-approvals'
 import type { ContractApproval } from '@echo/ui/types/contract-approval'
 import { propIsNotNil } from '@echo/utils/helpers/prop-is-not-nil'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { all, assoc, find, isNil, map, type NonEmptyArray, propEq, when } from 'ramda'
@@ -20,8 +19,8 @@ interface Props {
   open: boolean
   title: string
   subtitle: string
-  onClose?: EmptyFunction
-  onSuccess?: EmptyFunction
+  onClose?: VoidFunction
+  onSuccess?: VoidFunction
 }
 
 // TODO Change name of this modal as it's used in the creation flow too

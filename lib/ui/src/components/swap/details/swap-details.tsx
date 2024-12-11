@@ -7,14 +7,13 @@ import { TradeDetailsLayout } from '@echo/ui/components/trade/details/layout/tra
 import { TradeDetailsItems } from '@echo/ui/components/trade/details/trade-details-items'
 import type { SwapWithRole } from '@echo/ui/types/swap-with-role'
 import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { clsx } from 'clsx'
 import { assoc, pipe } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 export interface SwapDetailsProps {
   swap: SwapWithRole
-  onClose?: EmptyFunction
+  onClose?: VoidFunction
 }
 
 export const SwapDetails: FunctionComponent<SwapDetailsProps> = ({ swap, onClose }) => {

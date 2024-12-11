@@ -5,7 +5,6 @@ import { OfferDetailsAcceptModal } from '@echo/ui/components/offer/details/actio
 import { OfferDetailsContractApprovalModal } from '@echo/ui/components/offer/details/offer-details-contract-approval-modal'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { useTranslations } from 'next-intl'
 import { assoc, pipe } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
@@ -13,8 +12,8 @@ import { type FunctionComponent, useState } from 'react'
 interface Props {
   offer: OfferWithRole
   open: boolean
-  onClose?: EmptyFunction
-  onError?: EmptyFunction
+  onClose?: VoidFunction
+  onError?: VoidFunction
   onSuccess?: (offer: OfferWithRole) => void
 }
 

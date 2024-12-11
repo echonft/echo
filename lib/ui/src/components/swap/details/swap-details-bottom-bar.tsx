@@ -10,7 +10,6 @@ import { TradeDetailsBottomBarCenterItemsLogo } from '@echo/ui/components/trade/
 import { TradeDetailsBottomBarNftItem } from '@echo/ui/components/trade/details/trade-details-bottom-bar-nft-item'
 import { Direction } from '@echo/ui/constants/direction'
 import type { SwapWithRole } from '@echo/ui/types/swap-with-role'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { head, type NonEmptyArray, pipe } from 'ramda'
@@ -18,7 +17,7 @@ import type { FunctionComponent } from 'react'
 
 interface Props {
   swap: SwapWithRole
-  onBack?: EmptyFunction
+  onBack?: VoidFunction
 }
 
 export const SwapDetailsBottomBar: FunctionComponent<Props> = ({ swap, onBack }) => {

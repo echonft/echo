@@ -11,7 +11,6 @@ import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { useActions } from '@echo/ui/hooks/use-actions'
 import { useDependencies } from '@echo/ui/hooks/use-dependencies'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { generateOfferId } from '@echo/web3-dom/helpers/generate-offer-id'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -23,8 +22,8 @@ interface Props {
   senderItems: NonEmptyArray<OwnedNft>
   receiverItems: NonEmptyArray<OwnedNft>
   expiration: Expiration
-  onClose?: EmptyFunction
-  onSuccess?: (offer: Offer) => unknown
+  onClose?: VoidFunction
+  onSuccess?: (offer: Offer) => void
 }
 
 export const CreateOfferModal: FunctionComponent<Props> = ({

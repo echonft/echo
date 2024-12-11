@@ -2,17 +2,16 @@
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { OfferDetailsModalBody } from '@echo/ui/components/offer/details/offer-details-modal-body'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 export interface OfferDetailsModalProps {
   offer: Nullable<OfferWithRole>
-  onClose?: EmptyFunction
+  onClose?: VoidFunction
   onRedeem?: (offer: OfferWithRole) => void
   onSwap?: VoidFunction
-  onUpdate?: (offer: OfferWithRole) => unknown
+  onUpdate?: (offer: OfferWithRole) => void
 }
 
 export const OfferDetailsModal: FunctionComponent<OfferDetailsModalProps> = ({

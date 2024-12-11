@@ -20,9 +20,9 @@ export interface SelectableNftCardProps {
   action?: Nullable<NftAction>
   disabled?: boolean
   selected?: boolean
-  onSelect?: (nft: OwnedNft) => unknown
-  onUnselect?: (nft: OwnedNft) => unknown
-  onAction?: (nft: OwnedNft) => unknown
+  onSelect?: (nft: OwnedNft) => void
+  onUnselect?: (nft: OwnedNft) => void
+  onAction?: (nft: OwnedNft) => void
 }
 
 const Button: FunctionComponent<Pick<SelectableNftCardProps, 'nft' | 'action' | 'disabled' | 'onAction'>> = ({

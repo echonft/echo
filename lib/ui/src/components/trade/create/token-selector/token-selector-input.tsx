@@ -7,7 +7,7 @@ import type { FunctionComponent } from 'react'
 interface Props {
   tokenBalance: TokenBalance<Erc20Token>
   value: number | undefined
-  onChange?: (value: number) => unknown
+  onChange?: (value: number) => void
 }
 
 export const TokenSelectorInput: FunctionComponent<Props> = ({ tokenBalance, value, onChange }) => {

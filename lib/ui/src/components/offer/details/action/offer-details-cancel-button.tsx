@@ -8,7 +8,6 @@ import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { useDependencies } from '@echo/ui/hooks/use-dependencies'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { useTranslations } from 'next-intl'
 import { assoc, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
@@ -17,9 +16,9 @@ interface Props {
   offer: OfferWithRole
   show?: boolean
   disabled?: boolean
-  onClick?: EmptyFunction
-  onSuccess?: (offer: OfferWithRole) => unknown
-  onError?: EmptyFunction
+  onClick?: VoidFunction
+  onError?: VoidFunction
+  onSuccess?: (offer: OfferWithRole) => void
 }
 
 // TODO ERC20 + ERC1155

@@ -4,7 +4,6 @@ import type { OwnedNft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { CreateOfferModal } from '@echo/ui/components/offer/create/create-offer-modal'
 import { OfferDetailsContractApprovalModal } from '@echo/ui/components/offer/details/offer-details-contract-approval-modal'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { useTranslations } from 'next-intl'
 import type { NonEmptyArray } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
@@ -14,8 +13,8 @@ interface Props {
   open: boolean
   senderItems: NonEmptyArray<OwnedNft>
   receiverItems: NonEmptyArray<OwnedNft>
-  onClose?: EmptyFunction
-  onSuccess?: (offer: Offer) => unknown
+  onClose?: VoidFunction
+  onSuccess?: (offer: Offer) => void
 }
 
 export const CreateOfferModalSwitch: FunctionComponent<Props> = ({

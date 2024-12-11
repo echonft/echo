@@ -4,7 +4,7 @@ import { create } from 'zustand'
 
 export interface AlertStoreApi {
   alerts: Alert[]
-  show: (alert: Alert) => unknown
+  show: (alert: Alert) => void
   dismiss: VoidFunction
 }
 

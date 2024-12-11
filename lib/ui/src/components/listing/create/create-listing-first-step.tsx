@@ -13,11 +13,11 @@ interface Props {
   creator: Listing['creator']
   nfts: OwnedNft[]
   selection: OwnedNft[]
-  onSelect?: (nft: OwnedNft) => unknown
-  onUnselect?: (nft: OwnedNft) => unknown
+  onSelect?: (nft: OwnedNft) => void
+  onUnselect?: (nft: OwnedNft) => void
   target: Nullable<Collection>
-  onAddQuantity?: (quantity: number) => unknown
-  onSelectTarget?: (collection: Collection) => unknown
+  onAddQuantity?: (quantity: number) => void
+  onSelectTarget?: (collection: Collection) => void
 }
 
 export const CreateListingFirstStep: FunctionComponent<Props> = ({

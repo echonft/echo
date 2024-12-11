@@ -1,5 +1,4 @@
 'use client'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { clsx } from 'clsx'
 import { add, isNil, min, pipe } from 'ramda'
 import { type FunctionComponent, useCallback, useEffect, useRef, useState } from 'react'
@@ -13,7 +12,7 @@ interface Props {
   threshold?: number
   disabled?: boolean
   loading?: boolean
-  onFinish?: EmptyFunction
+  onFinish?: VoidFunction
 }
 
 export const LongPressButton: FunctionComponent<Props> = ({

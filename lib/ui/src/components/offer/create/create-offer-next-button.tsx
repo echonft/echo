@@ -16,7 +16,7 @@ interface Props {
   receiverItems: OwnedNft[]
   totalSteps: number
   onNext?: () => void
-  onSuccess?: (offer: Offer) => unknown
+  onSuccess?: (offer: Offer) => void
 }
 
 export const CreateOfferNextButton: FunctionComponent<Props> = ({

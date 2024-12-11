@@ -6,7 +6,6 @@ import { CreateTradeBottomBarButtonLayout } from '@echo/ui/components/trade/crea
 import { CreateTradeBottomBarItemsLayout } from '@echo/ui/components/trade/create/layout/create-trade-bottom-bar-items-layout'
 import { CreateTradeBottomBarLayout } from '@echo/ui/components/trade/create/layout/create-trade-bottom-bar-layout'
 import { Direction } from '@echo/ui/constants/direction'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -18,7 +17,7 @@ interface Props {
   loading?: boolean
   targetCollection?: Nullable<Listing['target']>
   counterpartyItems?: OwnedNft[]
-  onBack?: EmptyFunction
+  onBack?: VoidFunction
 }
 
 // TODO Not sure if having the next button as children is ideal

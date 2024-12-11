@@ -4,7 +4,7 @@ import type { FunctionComponent } from 'react'
 
 interface Props {
   value: number | undefined
-  onChange?: (value: number) => unknown
+  onChange?: (value: number) => void
 }
 
 export const CollectionSelectorInput: FunctionComponent<Props> = ({ value, onChange }) => {

@@ -13,7 +13,7 @@ import { find, gt, head, isNil, map, type NonEmptyArray, pathEq, pipe, prop } fr
 import { type Dispatch, type FunctionComponent, type SetStateAction, useState } from 'react'
 
 interface Props {
-  onAddToken?: (token: Erc20Token, quantity: number) => unknown
+  onAddToken?: (token: Erc20Token, quantity: number) => void
 }
 
 export const TokenSelector: FunctionComponent<Props> = ({ onAddToken }) => {

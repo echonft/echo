@@ -15,7 +15,7 @@ interface Props {
   contract: Address
   wallet: Address
   approved?: boolean
-  onSuccess?: (contract: Address, approved: boolean) => unknown
+  onSuccess?: (contract: Address, approved: boolean) => void
 }
 
 export const OfferDetailsContractApprovalRow: FunctionComponent<Props> = ({

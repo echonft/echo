@@ -14,14 +14,13 @@ import { TradeDetailsBottomBarCenterItemsLogo } from '@echo/ui/components/trade/
 import { TradeDetailsBottomBarNftItem } from '@echo/ui/components/trade/details/trade-details-bottom-bar-nft-item'
 import { Direction } from '@echo/ui/constants/direction'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { head, type NonEmptyArray, pipe } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props extends OfferDetailsButtonsProps {
-  onBack?: EmptyFunction
+  onBack?: VoidFunction
 }
 
 export const OfferDetailsBottomBar: FunctionComponent<Props> = ({

@@ -8,7 +8,7 @@ import type { FunctionComponent } from 'react'
 interface Props {
   selectedToken: Erc20Token
   tokens: Erc20Token[]
-  onTokenChanged?: (token: Erc20Token) => unknown
+  onTokenChanged?: (token: Erc20Token) => void
 }
 
 export const TokenSelectorMenu: FunctionComponent<Props> = ({ selectedToken, tokens, onTokenChanged }) => {
