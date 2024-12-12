@@ -1,5 +1,4 @@
 import { FetchError } from '@echo/pallet/constants/errors/fetch-error'
-import { palletApiRoutes } from '@echo/pallet/constants/pallet-api-routes'
 import { fetchInit } from '@echo/pallet/helpers/fetch-init'
 import { error } from '@echo/pallet/helpers/logger'
 import {
@@ -16,7 +15,9 @@ export async function fetchCollectionNfts({
   page,
   pageSize = DEFAULT_PAGE_SIZE
 }: FetchCollectionNftsRequest): Promise<FetchNftsByCollectionResponse> {
-  const url = palletApiRoutes.nfts.fetchByCollection.withQuery({ page, pageSize }).getUrl({ seiAddress })
+  // FIXME
+  // const url = palletApiRoutes.nfts.fetchByCollection.withQuery({ page, pageSize }).getUrl({ seiAddress })
+  const url = `https://api.pallet.exchange/api/v3/nfts/${seiAddress}/tokens?page=${page}&pageSize=${pageSize}`
   const init = fetchInit()
 
   const response = await backOff(() => fetch(url, init), {

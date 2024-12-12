@@ -1,15 +1,15 @@
 import { fetchCollectionDetails } from '@echo/pallet/fetchers/fetch-collection-details'
 import { error, info } from '@echo/pallet/helpers/logger'
-import type { CollectionDetailsResponse } from '@echo/pallet/types/response/collection-details-response'
+import type { FetchCollectionDetailsResponse } from '@echo/pallet/types/response/fetch-collection-details-response'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil, otherwise, pipe } from 'ramda'
 
-export async function getCollectionDetails(seiAddress: string): Promise<Nullable<CollectionDetailsResponse>> {
+export async function getCollectionDetails(seiAddress: string): Promise<Nullable<FetchCollectionDetailsResponse>> {
   info({ seiAddress }, 'fetching collection details from Pallet...')
 
   const response = await pipe(
     fetchCollectionDetails,
-    otherwise<CollectionDetailsResponse, Nullable<CollectionDetailsResponse>>((err) => {
+    otherwise<FetchCollectionDetailsResponse, Nullable<FetchCollectionDetailsResponse>>((err) => {
       error({ err, seiAddress }, 'Failed to fetch collection details from Pallet')
       return undefined
     })

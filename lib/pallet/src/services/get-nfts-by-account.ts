@@ -1,12 +1,12 @@
 import type { Address } from '@echo/model/types/address'
 import { fetchNftsByAccount } from '@echo/pallet/fetchers/fetch-nfts-by-account'
 import { error, info } from '@echo/pallet/helpers/logger'
-import type { FetchNftsByAccountResponse } from '@echo/pallet/types/response/fetch-nfts-response'
+import type { FetchNftsByAccountResponse } from '@echo/pallet/types/response/fetch-nfts-by-account-response'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil, otherwise, pipe } from 'ramda'
 
 export async function getNftsByAccount(account: Address): Promise<FetchNftsByAccountResponse> {
-  info({ account }, 'fetching NFTs from Pallet...')
+  info({ account }, 'fetching NFTs by account from Pallet...')
 
   const response = await pipe(
     fetchNftsByAccount,

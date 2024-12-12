@@ -83,14 +83,11 @@ const transformToNft = (data: unknown) =>
       animationUrl: pipe(prop('animation_url'), removeNullOrEmptyString),
       attributes: pipe(
         prop('traits'),
-        unless(
-          isNilOrEmpty,
-          array.transform((traits) =>
-            traits.map((trait) => ({
-              trait: trait.type,
-              value: trait.value
-            }))
-          )
+        unless(isNilOrEmpty, (traits) =>
+          traits.map((trait) => ({
+            trait: trait.type,
+            value: trait.value
+          }))
         )
       ),
       owner: pipe(prop('owner_info'), when(propIsNotNil('evm_address'), prop('evm_address')))
