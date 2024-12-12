@@ -1,18 +1,18 @@
 import { collectionToSearchResult } from '@echo/model/mappers/collection/collection-to-search-result'
 import { collectionMocks } from '@echo/model/mocks/collection-mock'
 import type { SearchResult } from '@echo/model/types/search-result'
-import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { promiseAll } from '@echo/utils/helpers/promise-all'
 import { toPromise } from '@echo/utils/helpers/to-promise'
+import { rangeDelay } from 'delay'
 import { either, filter, map, pipe, propSatisfies, test, toLower } from 'ramda'
 
-export function searchCollections(query: string): Promise<SearchResult[]> {
+export async function searchCollections(query: string): Promise<SearchResult[]> {
   const regex = new RegExp(toLower(query), 'ig')
   const search = pipe(toLower, test(regex))
-  return pipe(
+  const value = await pipe(
     filter(either(propSatisfies(search, 'name'), propSatisfies(search, 'slug'))),
     map(pipe(collectionToSearchResult, toPromise)),
-    promiseAll,
-    delayPromise(1000)
+    promiseAll
   )(collectionMocks)
+  return rangeDelay(800, 1600, { value })
 }

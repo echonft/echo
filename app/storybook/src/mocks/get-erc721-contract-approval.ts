@@ -1,8 +1,7 @@
 import { contractApprovalStore } from '@echo/storybook/mocks/stores/contract-approval-store'
-import { toPromise } from '@echo/utils/helpers/to-promise'
-import { delayPromise } from '@echo/utils/helpers/delay-promise'
-import { pipe, prop } from 'ramda'
+import { rangeDelay } from 'delay'
 
 export function getErc721ContractApproval(): Promise<boolean> {
-  return pipe(prop('approved'), toPromise, delayPromise(800))(contractApprovalStore.getState())
+  const value = contractApprovalStore.getState().approved
+  return rangeDelay(800, 1600, { value })
 }

@@ -1,9 +1,7 @@
 import { listingMock } from '@echo/model/mocks/listing-mock'
 import type { Listing } from '@echo/model/types/listing'
-import { delayPromise } from '@echo/utils/helpers/delay-promise'
-import { toPromise } from '@echo/utils/helpers/to-promise'
-import { pipe } from 'ramda'
+import { rangeDelay } from 'delay'
 
 export function createListing(): Promise<Listing> {
-  return pipe(toPromise, delayPromise(800))(listingMock)
+  return rangeDelay(800, 1600, { value: listingMock })
 }
