@@ -1,5 +1,4 @@
 'use client'
-import { OfferState } from '@echo/model/constants/offer-state'
 import type { HexString } from '@echo/model/types/hex-string'
 import type { Offer } from '@echo/model/types/offer'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
@@ -8,6 +7,7 @@ import { isOfferRoleReceiver } from '@echo/ui/helpers/offer/is-offer-role-receiv
 import { useDependencies } from '@echo/ui/hooks/use-dependencies'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
+import { timestampIsPast } from '@echo/utils/helpers/timestamp-is-past'
 import clsx from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
@@ -34,9 +34,8 @@ export const OfferDetailsRedeemButton: FunctionComponent<Props> = ({
   const tError = useTranslations('error.offer')
   const { cancelOffer, redeemOffer } = useDependencies()
   const count = isOfferRoleReceiver(offer) ? offer.receiverItems.length : offer.senderItems.length
-  const isRedeemable = offer.state === OfferState.Expired
-  // In the case the offer is rejected (frontend only), user can redeem by cancelling.
-  // Otherwise we use the redeem contract call
+  // we need to check the expiration date rather than the state here, because the offer can be expired, but in another final state (e.g. REJECTED)
+  const isRedeemable = timestampIsPast(offer.expiresAt)
   const { trigger: triggerContractCancel } = useSWRTrigger<HexString, Offer['idContract']>({
     key: SWRKeys.offer.contractCancel(offer),
     fetcher: cancelOffer,

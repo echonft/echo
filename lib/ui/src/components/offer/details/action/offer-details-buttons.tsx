@@ -13,7 +13,7 @@ import { isOfferRoleSender } from '@echo/ui/helpers/offer/is-offer-role-sender'
 import { useAreNftsInEscrow } from '@echo/ui/hooks/use-are-nfts-in-escrow'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
-import { anyPass, assoc, isNil, pipe } from 'ramda'
+import { assoc, isNil, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 export interface OfferDetailsButtonsProps {
@@ -49,13 +49,6 @@ function showRedeemButton(areNftsInEscrow: boolean | undefined) {
   }
   return areNftsInEscrow
 }
-function shouldShowButtons(offer: OfferWithRole, areNftsInEscrow: boolean | undefined) {
-  // FIXME could be cleaner
-  return (
-    anyPass([showAcceptButton, showCancelButton, showRejectButton, showSwapButton])(offer) ||
-    showRedeemButton(areNftsInEscrow)
-  )
-}
 
 // TODO Need to add ERC20 escrow check
 export const OfferDetailsButtons: FunctionComponent<OfferDetailsButtonsProps> = ({
@@ -73,52 +66,48 @@ export const OfferDetailsButtons: FunctionComponent<OfferDetailsButtonsProps> = 
     : pipe(offerSenderNftItems, nonEmptyMap(pipe(nftItemToNft(offer.sender), assoc('attributes', []))))(offer)
   const areNftsInEscrow = useAreNftsInEscrow(shouldCheckForEscrow ? nftsToCheckForEscrow : undefined)
 
-  // Don't show anything if no buttons should be shown
-  if (shouldShowButtons(offer, areNftsInEscrow)) {
-    return (
-      <>
-        <OfferDetailsAcceptButton
-          offer={offer}
-          show={showAcceptButton(offer)}
-          onClick={onLoading}
-          onError={onError}
-          onSuccess={onUpdate}
-          disabled={loading}
-        />
-        <OfferDetailsSwapButton
-          offer={offer}
-          show={showSwapButton(offer)}
-          onClick={onLoading}
-          onSuccess={onSwap}
-          onError={onError}
-          disabled={loading}
-        />
-        <OfferDetailsRejectButton
-          offer={offer}
-          show={showRejectButton(offer)}
-          onClick={onLoading}
-          onSuccess={onUpdate}
-          onError={onError}
-          disabled={loading}
-        />
-        <OfferDetailsCancelButton
-          offer={offer}
-          show={showCancelButton(offer)}
-          onClick={onLoading}
-          onSuccess={onUpdate}
-          onError={onError}
-          disabled={loading}
-        />
-        <OfferDetailsRedeemButton
-          offer={offer}
-          show={showRedeemButton(areNftsInEscrow)}
-          onClick={onLoading}
-          onSuccess={onRedeem}
-          onError={onError}
-          disabled={loading}
-        />
-      </>
-    )
-  }
-  return null
+  return (
+    <>
+      <OfferDetailsAcceptButton
+        offer={offer}
+        show={showAcceptButton(offer)}
+        onClick={onLoading}
+        onError={onError}
+        onSuccess={onUpdate}
+        disabled={loading}
+      />
+      <OfferDetailsSwapButton
+        offer={offer}
+        show={showSwapButton(offer)}
+        onClick={onLoading}
+        onSuccess={onSwap}
+        onError={onError}
+        disabled={loading}
+      />
+      <OfferDetailsRejectButton
+        offer={offer}
+        show={showRejectButton(offer)}
+        onClick={onLoading}
+        onSuccess={onUpdate}
+        onError={onError}
+        disabled={loading}
+      />
+      <OfferDetailsCancelButton
+        offer={offer}
+        show={showCancelButton(offer)}
+        onClick={onLoading}
+        onSuccess={onUpdate}
+        onError={onError}
+        disabled={loading}
+      />
+      <OfferDetailsRedeemButton
+        offer={offer}
+        show={showRedeemButton(areNftsInEscrow)}
+        onClick={onLoading}
+        onSuccess={onRedeem}
+        onError={onError}
+        disabled={loading}
+      />
+    </>
+  )
 }

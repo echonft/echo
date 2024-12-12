@@ -2,9 +2,5 @@ import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 export const HeaderButtonSkeleton: FunctionComponent = () => {
-  return (
-    <div className={clsx('btn-primary')}>
-      <span className={clsx('btn-label-primary', 'w-[8.75rem]')} />
-    </div>
-  )
+  return <div className={clsx('bg-white/[0.08]', 'w-48', 'h-12', 'animate-pulse')} />
 }
