@@ -1,10 +1,10 @@
 import { ListingState } from '@echo/model/constants/listing-state'
 import { listingMock } from '@echo/model/mocks/listing-mock'
 import type { Listing } from '@echo/model/types/listing'
-import { delayPromise } from '@echo/utils/helpers/delay-promise'
-import { toPromise } from '@echo/utils/helpers/to-promise'
+import { rangeDelay } from 'delay'
 import { assoc, pipe } from 'ramda'
 
 export function cancelListing(): Promise<Listing> {
-  return pipe(assoc('state', ListingState.Cancelled), assoc('locked', true), toPromise, delayPromise(800))(listingMock)
+  const value = pipe(assoc('state', ListingState.Cancelled), assoc('locked', true))(listingMock)
+  return rangeDelay(800, 1600, { value })
 }

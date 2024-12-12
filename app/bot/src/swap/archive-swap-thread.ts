@@ -4,9 +4,9 @@ import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { getSwapThreadOnEchoChannel } from '@echo/bot/swap/get-swap-thread-on-echo-channel'
 import { archiveOfferThread as firestoreArchiveOfferThread } from '@echo/firestore/crud/offer-thread/archive-offer-thread'
 import type { SwapDocument } from '@echo/firestore/types/model/swap-document'
-import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import i18next from 'i18next'
-import { isNil, pipe } from 'ramda'
+import { setTimeout } from 'node:timers/promises'
+import { isNil } from 'ramda'
 
 export async function archiveSwapThread(swap: SwapDocument) {
   const { offerThread, thread } = await getSwapThreadOnEchoChannel(swap)
@@ -14,7 +14,8 @@ export async function archiveSwapThread(swap: SwapDocument) {
     await sendToThread(thread, {
       content: i18next.t('offer.thread.close')
     })
-    await pipe(deleteThread, delayPromise(archiveThreadDelay))(thread)
+    await setTimeout(archiveThreadDelay)
+    await deleteThread(thread)
     logger.info({ thread }, 'thread deleted')
     const archiveOfferThread = await firestoreArchiveOfferThread(offerThread.offerId)
     logger.info({ offerThread: archiveOfferThread }, 'archived thread in Firestore')

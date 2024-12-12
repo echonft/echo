@@ -1,7 +1,5 @@
-import { toPromise } from '@echo/utils/helpers/to-promise'
-import { delayPromise } from '@echo/utils/helpers/delay-promise'
-import { pipe } from 'ramda'
+import { rangeDelay } from 'delay'
 
 export async function areNftsInEscrow(): Promise<boolean> {
-  return pipe(toPromise, delayPromise(800))(true)
+  return rangeDelay(800, 1600, { value: true })
 }
