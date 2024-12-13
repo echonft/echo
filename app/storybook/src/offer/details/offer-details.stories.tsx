@@ -33,21 +33,6 @@ const metadata: Meta<ComponentType> = {
     role: {
       options: pipe(values, append('none'))(OfferRole),
       control: { type: 'radio' }
-    },
-    onClose: {
-      table: {
-        disable: true
-      }
-    },
-    onRedeem: {
-      table: {
-        disable: true
-      }
-    },
-    onSwap: {
-      table: {
-        disable: true
-      }
     }
   }
 }
@@ -55,7 +40,7 @@ const metadata: Meta<ComponentType> = {
 export default metadata
 
 export const Details: StoryObj<ComponentType> = {
-  render: ({ state, role, onClose, onRedeem, onSwap }) => {
+  render: ({ state, role }) => {
     const [offer, setOffer] = useState<OfferWithRole>(assoc('role', undefined, offerMockToJohnnycage))
 
     function setExpirationAndLocked(offer: OfferWithRole): OfferWithRole {
@@ -82,16 +67,6 @@ export const Details: StoryObj<ComponentType> = {
       setOffer(pipe(assoc('state', state), setExpirationAndLocked, setRole))
     }, [state, role])
 
-    return (
-      <Component
-        offer={offer}
-        onClose={onClose}
-        onRedeem={onRedeem}
-        onSwap={onSwap}
-        onUpdate={(offer) => {
-          setOffer(setRole(offer))
-        }}
-      />
-    )
+    return <Component offer={offer} />
   }
 }

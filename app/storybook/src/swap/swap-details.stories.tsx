@@ -24,11 +24,6 @@ const metadata: Meta<ComponentType> = {
     role: {
       options: pipe(values, append('none'))(OfferRole),
       control: { type: 'radio' }
-    },
-    onClose: {
-      table: {
-        disable: true
-      }
     }
   }
 }
@@ -36,7 +31,7 @@ const metadata: Meta<ComponentType> = {
 export default metadata
 
 export const Details: StoryObj<ComponentType> = {
-  render: ({ role, onClose }) => {
+  render: ({ role }) => {
     const [swap, setSwap] = useState<SwapWithRole>(assoc('role', undefined, swapMock))
 
     function setRole(swap: Swap | SwapWithRole): SwapWithRole {
@@ -53,6 +48,6 @@ export const Details: StoryObj<ComponentType> = {
       setSwap(setRole)
     }, [role])
 
-    return <Component swap={swap} onClose={onClose} />
+    return <Component swap={swap} />
   }
 }

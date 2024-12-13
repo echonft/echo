@@ -2,6 +2,7 @@
 import { offerReceiverNftItems } from '@echo/model/helpers/offer/offer-receiver-nft-items'
 import { offerSenderNftItems } from '@echo/model/helpers/offer/offer-sender-nft-items'
 import { nftItemToNft } from '@echo/model/mappers/item/nft-item-to-nft'
+import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { OfferDetailsBottomBar } from '@echo/ui/components/offer/details/offer-details-bottom-bar'
 import { OfferDetailsOfferState } from '@echo/ui/components/offer/details/offer-details-offer-state'
 import { TradeDetailsLayout } from '@echo/ui/components/trade/details/layout/trade-details-layout'
@@ -15,10 +16,9 @@ import { type FunctionComponent, useState } from 'react'
 
 export interface OfferDetailsProps {
   offer: OfferWithRole
-  onSwap?: VoidFunction
 }
 
-export const OfferDetails: FunctionComponent<OfferDetailsProps> = ({ offer, onSwap }) => {
+export const OfferDetails: FunctionComponent<OfferDetailsProps> = ({ offer }) => {
   const router = useRouter()
   const { sender, receiver } = offer
   const [updatedOffer, setUpdatedOffer] = useState(offer)
@@ -59,7 +59,10 @@ export const OfferDetails: FunctionComponent<OfferDetailsProps> = ({ offer, onSw
           setUpdatedOffer(offer)
           setLoading(false)
         }}
-        onSwap={onSwap}
+        // TODO Not sure if that's the behaviour we want, but will work for now
+        onSwap={() => {
+          router.push(frontendRoutes.user.profile.getUrl())
+        }}
         onUpdate={(offer) => {
           setUpdatedOffer(offer)
           setLoading(false)
