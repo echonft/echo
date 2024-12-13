@@ -15,9 +15,7 @@ export function buildListingEmbed(listing: Listing, creator: UserDocument) {
     .setDescription(i18next.t('listing.embed.description', { user: userMention(creator.discord.id) }))
     .setColor(0x00ff66)
     .setFields(fields(listing.items, listing.target))
-    .setURL(
-      frontendRoutes.listing.details.withQuery({ listing: listing }).getUrl({ slug: listing.target.collection.slug })
-    )
+    .setURL(frontendRoutes.listing.details.getUrl({ slug: listing.slug }))
 }
 
 function fields(items: NonEmptyArray<NftItem>, target: Listing['target']): APIEmbedField[] {

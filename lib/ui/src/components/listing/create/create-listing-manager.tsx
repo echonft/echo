@@ -39,9 +39,7 @@ export const CreateListingManager: FunctionComponent<Props> = ({ creator, creato
           target: target,
           expiration
         })
-        router.replace(
-          frontendRoutes.listing.details.withQuery({ listing }).getUrl({ slug: listing.target.collection.slug })
-        )
+        router.replace(frontendRoutes.listing.details.getUrl({ slug: listing.slug }))
       } catch (err) {
         errorCallback({
           alert: { severity: CalloutSeverity.Error, message: t('new') },

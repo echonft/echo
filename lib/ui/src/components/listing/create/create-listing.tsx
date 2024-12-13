@@ -8,8 +8,8 @@ import { CreateListingFirstStep } from '@echo/ui/components/listing/create/creat
 import { CreateListingReviewStep } from '@echo/ui/components/listing/create/create-listing-review-step'
 import { CreateTargetNextButton } from '@echo/ui/components/listing/create/create-target-next-button'
 import { CreateTradeBottomBar } from '@echo/ui/components/trade/create/create-trade-bottom-bar'
-import { CreateTradeStepLayout } from '@echo/ui/components/trade/create/layout/create-trade-step-layout'
 import { CreateTradeStepIndicator } from '@echo/ui/components/trade/create/create-trade-step-indicator'
+import { CreateTradeStepLayout } from '@echo/ui/components/trade/create/layout/create-trade-step-layout'
 import { ListingCreationSteps } from '@echo/ui/constants/listing-creation-steps'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -51,10 +51,10 @@ export const CreateListing: FunctionComponent<Props> = ({
   const [currentStep, setCurrentStep] = useState(0)
   const steps = values(ListingCreationSteps)
   const totalSteps = steps.length
-  const subtitles = [t('steps.collection'), t('steps.review'), t('steps.done')]
+  const subtitles = [t('steps.collection'), t('steps.review')]
 
   const handleNext = () => {
-    if (currentStep < totalSteps - 2) {
+    if (currentStep < totalSteps - 1) {
       setCurrentStep(currentStep + 1)
     } else {
       // FIXME Should not be undefined at this point
@@ -101,7 +101,12 @@ export const CreateListing: FunctionComponent<Props> = ({
           />
         )}
       </CreateTradeStepLayout>
-      <CreateTradeBottomBar items={selection.nfts} targetCollection={targetSelection} onBack={handleBack}>
+      <CreateTradeBottomBar
+        items={selection.nfts}
+        targetCollection={targetSelection}
+        onBack={handleBack}
+        loading={loading}
+      >
         <CreateTargetNextButton
           creatorNfts={selection.nfts}
           target={targetSelection}
