@@ -83,7 +83,7 @@ export const CollectionNavigation: FunctionComponent<Props> = ({
       </TabList>
       <TabPanels>
         <CollectionItemsPanel show={showTab('items')} collection={collection} nfts={nfts} />
-        <ListingsPanel show={showTab('listings')} listings={listings} selection={selection} />
+        <ListingsPanel show={showTab('listings')} listings={listings} />
         <OffersPanel show={showTab('offers')} offers={offers} />
         <SwapsPanel show={showTab('swaps')} swaps={swaps} />
       </TabPanels>

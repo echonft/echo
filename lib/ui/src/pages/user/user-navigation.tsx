@@ -77,7 +77,7 @@ export const UserNavigation: FunctionComponent<Props> = ({ isAuthUser, listings,
       <TabPanels>
         <UserItemsPanel show={showTab('items')} isAuthUser={isAuthUser} nfts={nfts} />
         <ListingsPanel show={showTab('listings')} listings={listings} />
-        <OffersPanel show={showTab('offers')} offers={offers} selection={selection} />
+        <OffersPanel show={showTab('offers')} offers={offers} />
         <SwapsPanel show={showTab('swaps')} swaps={swaps} />
       </TabPanels>
     </TabGroup>

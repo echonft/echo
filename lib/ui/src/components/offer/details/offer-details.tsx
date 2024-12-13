@@ -9,19 +9,19 @@ import { TradeDetailsItems } from '@echo/ui/components/trade/details/trade-detai
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
 import { clsx } from 'clsx'
+import { useRouter } from 'next/navigation'
 import { assoc, pipe } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 export interface OfferDetailsProps {
   offer: OfferWithRole
-  onClose?: VoidFunction
-  onRedeem?: (offer: OfferWithRole) => void
   onSwap?: VoidFunction
-  onUpdate?: (offer: OfferWithRole) => void
 }
 
-export const OfferDetails: FunctionComponent<OfferDetailsProps> = ({ offer, onClose, onRedeem, onSwap, onUpdate }) => {
+export const OfferDetails: FunctionComponent<OfferDetailsProps> = ({ offer, onSwap }) => {
+  const router = useRouter()
   const { sender, receiver } = offer
+  const [updatedOffer, setUpdatedOffer] = useState(offer)
   const [loading, setLoading] = useState(false)
   const receiverNfts = pipe(
     offerReceiverNftItems,
@@ -33,7 +33,7 @@ export const OfferDetails: FunctionComponent<OfferDetailsProps> = ({ offer, onCl
   )(offer)
   return (
     <TradeDetailsLayout>
-      <OfferDetailsOfferState offer={offer} />
+      <OfferDetailsOfferState offer={updatedOffer} />
       <div className={clsx('flex', 'flex-col')}>
         <TradeDetailsItems
           sender={sender}
@@ -44,18 +44,26 @@ export const OfferDetails: FunctionComponent<OfferDetailsProps> = ({ offer, onCl
         />
       </div>
       <OfferDetailsBottomBar
-        offer={offer}
+        offer={updatedOffer}
         loading={loading}
-        onBack={onClose}
+        onBack={() => {
+          router.back()
+        }}
         onError={() => {
           setLoading(false)
         }}
         onLoading={() => {
           setLoading(true)
         }}
-        onRedeem={onRedeem}
+        onRedeem={(offer) => {
+          setUpdatedOffer(offer)
+          setLoading(false)
+        }}
         onSwap={onSwap}
-        onUpdate={onUpdate}
+        onUpdate={(offer) => {
+          setUpdatedOffer(offer)
+          setLoading(false)
+        }}
       />
     </TradeDetailsLayout>
   )
