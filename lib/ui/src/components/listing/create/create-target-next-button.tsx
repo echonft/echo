@@ -28,7 +28,7 @@ export const CreateTargetNextButton: FunctionComponent<Props> = ({
   const loading = isCreateTargetNextButtonDisabled(creatorNfts, target, currentStep)
 
   const handleNext = () => {
-    if (currentStep < totalSteps - 2) {
+    if (currentStep < totalSteps - 1) {
       onNext()
     } else {
       onSuccess?.()
@@ -36,7 +36,7 @@ export const CreateTargetNextButton: FunctionComponent<Props> = ({
   }
 
   const getNextBtnLabel = () => {
-    if (currentStep < totalSteps - 2) {
+    if (currentStep < totalSteps - 1) {
       return t('nextBtn')
     }
     return t('createBtn')

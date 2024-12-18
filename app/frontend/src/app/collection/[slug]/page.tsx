@@ -14,8 +14,6 @@ import { toSwapsWithRole } from '@echo/frontend/lib/helpers/swap/to-swaps-with-r
 import type { Collection } from '@echo/model/types/collection'
 import type { OwnedNft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
-import type { ListingDetailsSearchParams } from '@echo/routing/types/frontend/search-params/listing-details-search-params'
-import { listingDetailsSearchParamsTransformSchema } from '@echo/routing/validators/frontend/listing/listing-details-search-params-transform-schema'
 import { CollectionPage } from '@echo/ui/pages/collection/collection-page'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound } from 'next/navigation'
@@ -25,11 +23,10 @@ interface Props {
   params: {
     slug: Lowercase<string>
   }
-  searchParams?: ListingDetailsSearchParams
   user: Nullable<User>
 }
 
-async function render({ params: { slug }, searchParams, user }: Props) {
+async function render({ params: { slug }, user }: Props) {
   const collection = await pipe(
     getCollection,
     otherwise<Nullable<Collection>>(pipe(captureAndLogError, always(undefined)))
@@ -45,7 +42,6 @@ async function render({ params: { slug }, searchParams, user }: Props) {
   const listings = await pipe(getListingsForCollection, andThen(toListingsWithRole(user)), otherwiseEmptyArray)(slug)
   const offers = await pipe(getOffersForCollection, andThen(toOffersWithRole(user)), otherwiseEmptyArray)(slug)
   const swaps = await pipe(getSwapsForCollection, andThen(toSwapsWithRole(user)), otherwiseEmptyArray)(slug)
-  const selection = listingDetailsSearchParamsTransformSchema.parse({ listings, searchParams })
 
   return (
     <CollectionPage
@@ -55,7 +51,6 @@ async function render({ params: { slug }, searchParams, user }: Props) {
       nfts={nfts}
       offers={offers}
       swaps={swaps}
-      selection={selection}
     />
   )
 }

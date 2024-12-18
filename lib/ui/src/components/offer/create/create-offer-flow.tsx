@@ -118,7 +118,7 @@ export const CreateOfferFlow: FunctionComponent<Props> = ({
             receiverItems={receiverSelection.nfts}
             onNext={handleNext}
             onSuccess={(offer) => {
-              router.replace(frontendRoutes.offer.details.withQuery({ offer }).get({ username: sender.username }))
+              router.replace(frontendRoutes.offer.details.getUrl({ slug: offer.slug }))
             }}
           />
         </CreateTradeBottomBar>

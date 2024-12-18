@@ -12,8 +12,6 @@ import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-
 import { otherwiseUndefined } from '@echo/frontend/lib/helpers/otherwise-undefined'
 import { toSwapsWithRole } from '@echo/frontend/lib/helpers/swap/to-swaps-with-role'
 import type { User } from '@echo/model/types/user'
-import type { OfferDetailsSearchParams } from '@echo/routing/types/frontend/search-params/offer-details-search-params'
-import { offerDetailsSearchParamsTransformSchema } from '@echo/routing/validators/frontend/offer/offer-details-search-params-transform-schema'
 import { UserPage } from '@echo/ui/pages/user/user-page'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound } from 'next/navigation'
@@ -23,11 +21,10 @@ interface Props {
   params: {
     username: string
   }
-  searchParams?: OfferDetailsSearchParams
   user: Nullable<User>
 }
 
-async function render({ params: { username }, searchParams, user: authUser }: Props) {
+async function render({ params: { username }, user: authUser }: Props) {
   const user = await pipe(getUserByUsername, otherwiseUndefined)(username)
   if (isNil(user)) {
     notFound()
@@ -42,7 +39,6 @@ async function render({ params: { username }, searchParams, user: authUser }: Pr
   const offers = await pipe(getPendingOffersForUser, andThen(toOffersWithRole(authUser)), otherwiseEmptyArray)(username)
   const offersCount = await pipe(getUserOffersCount, otherwise(pipe(captureAndLogError, always(0))))(username)
   const swaps = await pipe(getSwapsForUser, andThen(toSwapsWithRole(user)), otherwiseEmptyArray)(username)
-  const selection = offerDetailsSearchParamsTransformSchema.parse({ offers, searchParams })
 
   return (
     <UserPage
@@ -58,7 +54,6 @@ async function render({ params: { username }, searchParams, user: authUser }: Pr
       offers={offers}
       swaps={swaps}
       user={user}
-      selection={selection}
     />
   )
 }

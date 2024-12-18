@@ -15,7 +15,6 @@ import { type FunctionComponent, useEffect, useState } from 'react'
 interface Props {
   state: ListingState
   role: ListingRole | 'none'
-  onClose: VoidFunction
 }
 
 type ComponentType = FunctionComponent<Props>
@@ -34,11 +33,6 @@ const metadata: Meta<ComponentType> = {
     state: {
       options: values(ListingState),
       control: { type: 'select' }
-    },
-    onClose: {
-      table: {
-        disable: true
-      }
     }
   }
 }
@@ -46,7 +40,7 @@ const metadata: Meta<ComponentType> = {
 export default metadata
 
 export const Details: StoryObj<ComponentType> = {
-  render: ({ state, role, onClose }) => {
+  render: ({ state, role }) => {
     const [listing, setListing] = useState<ListingWithRole>(assoc('role', undefined, listingMock))
 
     function setExpirationAndLocked(listing: ListingWithRole): ListingWithRole {
@@ -73,14 +67,6 @@ export const Details: StoryObj<ComponentType> = {
       setListing(pipe(assoc('state', state), setExpirationAndLocked, setRole))
     }, [state, role])
 
-    return (
-      <Component
-        listing={listing}
-        onUpdate={(listing) => {
-          setListing(setRole(listing))
-        }}
-        onClose={onClose}
-      />
-    )
+    return <Component listing={listing} />
   }
 }

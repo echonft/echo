@@ -24,7 +24,6 @@ interface Props {
   swaps: SwapWithRole[]
   redeemableOffers: OfferWithRole[]
   user: User
-  selection?: number
 }
 
 export const ProfilePage: FunctionComponent<Props> = ({
@@ -35,8 +34,7 @@ export const ProfilePage: FunctionComponent<Props> = ({
   pendingListings,
   swaps,
   redeemableOffers,
-  user,
-  selection
+  user
 }) => {
   return (
     <PageLayout>
@@ -54,7 +52,6 @@ export const ProfilePage: FunctionComponent<Props> = ({
               pendingListings={pendingListings}
               redeemableOffers={redeemableOffers}
               swaps={swaps}
-              selection={selection}
             />
           </NavigationSectionLayout>
         </NavigationLayout>

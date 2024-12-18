@@ -1,8 +1,6 @@
 'use client'
-
 import { frontendRoutes } from '@echo/routing/constants/frontend-routes'
 import { OfferCards } from '@echo/ui/components/offer/card/offer-cards'
-import { OfferDetailsModal } from '@echo/ui/components/offer/details/offer-details-modal'
 import { SWRKeys } from '@echo/ui/constants/swr-keys'
 import { useDependencies } from '@echo/ui/hooks/use-dependencies'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
@@ -10,7 +8,7 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { TabPanel } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/navigation'
-import { find, isNil, nth, pipe, propEq } from 'ramda'
+import { isNil, nth } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
 import useSWR from 'swr'
 
@@ -62,22 +60,7 @@ export const RedeemableOffersPanel: FunctionComponent<Props> = ({ offers, select
         <OfferCards
           offers={filteredOffers}
           onSelect={(slug) => {
-            pipe(find<OfferWithRole>(propEq(slug, 'slug')), setOffer)(filteredOffers)
-          }}
-        />
-        <OfferDetailsModal
-          offer={offer}
-          onRedeem={() => {
-            router.push(frontendRoutes.user.profile.get())
-          }}
-          onSwap={() => {
-            if (!isNil(offer)) {
-              router.push(frontendRoutes.swap.details.withQuery({ swap: offer }).get())
-            }
-          }}
-          onUpdate={setOffer}
-          onClose={() => {
-            setOffer(undefined)
+            router.push(frontendRoutes.offer.details.getUrl({ slug }))
           }}
         />
       </TabPanel>

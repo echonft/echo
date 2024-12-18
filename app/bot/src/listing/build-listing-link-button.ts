@@ -7,7 +7,7 @@ export function buildListingLinkButton(listing: Listing) {
   return new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder()
       .setLabel(i18next.t('listing.button'))
-      .setURL(frontendRoutes.listing.details.withQuery({ listing }).getUrl({ slug: listing.target.collection.slug }))
+      .setURL(frontendRoutes.listing.details.getUrl({ slug: listing.slug }))
       .setStyle(ButtonStyle.Link)
   )
 }

@@ -19,11 +19,9 @@ import { type FunctionComponent, useCallback, useState } from 'react'
 
 export interface ListingDetailsProps {
   listing: ListingWithRole
-  onUpdate?: (listing: ListingWithRole) => void
-  onClose?: VoidFunction
 }
 
-export const ListingDetails: FunctionComponent<ListingDetailsProps> = ({ listing, onUpdate, onClose }) => {
+export const ListingDetails: FunctionComponent<ListingDetailsProps> = ({ listing }) => {
   const t = useTranslations('error.listing')
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -31,8 +29,8 @@ export const ListingDetails: FunctionComponent<ListingDetailsProps> = ({ listing
   const onCancel = useCallback(
     async (slug: Lowercase<string>) => {
       try {
-        const cancelledListing = await cancelListing(slug)
-        onUpdate?.(assoc('role', listing.role, cancelledListing))
+        await cancelListing(slug)
+        router.push(frontendRoutes.user.profile.getUrl())
       } catch (err) {
         errorCallback({
           alert: { severity: CalloutSeverity.Error, message: t('cancel') },
@@ -42,7 +40,7 @@ export const ListingDetails: FunctionComponent<ListingDetailsProps> = ({ listing
         setLoading(false)
       }
     },
-    [cancelListing, listing, onUpdate, t]
+    [cancelListing, listing, router, t]
   )
   const { target, creator, role } = listing
   const nfts = pipe(listingItems, nonEmptyMap(pipe(nftItemToNft(listing.creator), assoc('attributes', []))))(listing)
@@ -55,7 +53,9 @@ export const ListingDetails: FunctionComponent<ListingDetailsProps> = ({ listing
         <ListingDetailsBottomBar
           listing={listing}
           loading={loading}
-          onBack={onClose}
+          onBack={() => {
+            router.back()
+          }}
           onCancel={(listing) => {
             setLoading(true)
             void onCancel(listing.slug)

@@ -15,7 +15,7 @@ import type { SwapWithRole } from '@echo/ui/types/swap-with-role'
 import type { TabOptions } from '@echo/ui/types/tab-options'
 import { isFalsy } from '@echo/utils/helpers/is-falsy'
 import { TabGroup, TabList, TabPanels } from '@headlessui/react'
-import { all, always, filter, find, findIndex, ifElse, isEmpty, isNil, map, pipe, prop, propEq } from 'ramda'
+import { all, always, find, ifElse, isEmpty, isNil, map, pipe, prop, propEq } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 type TabName = 'items' | 'listings' | 'offers' | 'swaps'
@@ -26,17 +26,9 @@ interface Props {
   nfts: OwnedNft[]
   offers: OfferWithRole[]
   swaps: SwapWithRole[]
-  selection?: number
 }
 
-export const CollectionNavigation: FunctionComponent<Props> = ({
-  collection,
-  listings,
-  nfts,
-  offers,
-  swaps,
-  selection
-}) => {
+export const CollectionNavigation: FunctionComponent<Props> = ({ collection, listings, nfts, offers, swaps }) => {
   const tabs: TabOptions<TabName>[] = [
     {
       name: 'items',
@@ -59,13 +51,6 @@ export const CollectionNavigation: FunctionComponent<Props> = ({
       show: !isEmpty(swaps)
     }
   ]
-  function tabGroupProps() {
-    if (isNil(selection)) {
-      return {}
-    }
-    const defaultIndex = pipe(filter(propEq(true, 'show')), findIndex(propEq('listings', 'name')))(tabs)
-    return { defaultIndex }
-  }
   function showTab(name: TabName) {
     return pipe(find<TabOptions<TabName>>(propEq(name, 'name')), ifElse(isNil, always(false), prop('show')))(tabs)
   }
@@ -74,7 +59,7 @@ export const CollectionNavigation: FunctionComponent<Props> = ({
     return null
   }
   return (
-    <TabGroup {...tabGroupProps()}>
+    <TabGroup>
       <TabList className={'tab-list'}>
         <ItemsTab show={showTab('items')} />
         <ListingsTab show={showTab('listings')} />
@@ -83,7 +68,7 @@ export const CollectionNavigation: FunctionComponent<Props> = ({
       </TabList>
       <TabPanels>
         <CollectionItemsPanel show={showTab('items')} collection={collection} nfts={nfts} />
-        <ListingsPanel show={showTab('listings')} listings={listings} selection={selection} />
+        <ListingsPanel show={showTab('listings')} listings={listings} />
         <OffersPanel show={showTab('offers')} offers={offers} />
         <SwapsPanel show={showTab('swaps')} swaps={swaps} />
       </TabPanels>

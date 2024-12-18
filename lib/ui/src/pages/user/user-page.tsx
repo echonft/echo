@@ -19,33 +19,16 @@ interface Props {
   offers: OfferWithRole[]
   swaps: SwapWithRole[]
   user: User
-  selection?: number
 }
 
-export const UserPage: FunctionComponent<Props> = ({
-  isAuthUser,
-  counts,
-  listings,
-  nfts,
-  offers,
-  swaps,
-  user,
-  selection
-}) => {
+export const UserPage: FunctionComponent<Props> = ({ isAuthUser, counts, listings, nfts, offers, swaps, user }) => {
   return (
     <NavigationLayout>
       <SectionLayout>
         <UserProfile counts={counts} user={user} />
       </SectionLayout>
       <NavigationSectionLayout>
-        <UserNavigation
-          isAuthUser={isAuthUser}
-          listings={listings}
-          nfts={nfts}
-          offers={offers}
-          swaps={swaps}
-          selection={selection}
-        />
+        <UserNavigation isAuthUser={isAuthUser} listings={listings} nfts={nfts} offers={offers} swaps={swaps} />
       </NavigationSectionLayout>
     </NavigationLayout>
   )

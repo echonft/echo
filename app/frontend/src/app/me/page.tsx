@@ -11,8 +11,6 @@ import { toOffersWithRole } from '@echo/frontend/lib/helpers/offer/to-offers-wit
 import { otherwiseEmptyArray } from '@echo/frontend/lib/helpers/otherwise-empty-array'
 import { toSwapsWithRole } from '@echo/frontend/lib/helpers/swap/to-swaps-with-role'
 import type { User } from '@echo/model/types/user'
-import type { SwapDetailsSearchParams } from '@echo/routing/types/frontend/search-params/swap-details-search-params'
-import { swapDetailsSearchParamsTransformSchema } from '@echo/routing/validators/frontend/swap/swap-details-search-params-transform-schema'
 import { ProfilePage } from '@echo/ui/pages/profile/profile-page'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import pFilter from 'p-filter'
@@ -20,10 +18,9 @@ import { always, andThen, otherwise, pipe, prop } from 'ramda'
 
 interface Props {
   user: User
-  searchParams?: SwapDetailsSearchParams
 }
 
-async function render({ user, searchParams }: Props) {
+async function render({ user }: Props) {
   const nfts = await pipe(prop('username'), getNftsForOwner, otherwiseEmptyArray)(user)
   const listings = await pipe(
     prop('username'),
@@ -46,7 +43,6 @@ async function render({ user, searchParams }: Props) {
   const redeemableOffers = await pFilter<OfferWithRole>(offers, isOfferRedeemable(user.username))
   const offersCount = await pipe(prop('username'), getUserOffersCount, otherwise(always(0)))(user)
   const swaps = await pipe(prop('username'), getSwapsForUser, andThen(toSwapsWithRole(user)), otherwiseEmptyArray)(user)
-  const selection = swapDetailsSearchParamsTransformSchema.parse({ swaps, searchParams })
 
   return (
     <ProfilePage
@@ -63,7 +59,6 @@ async function render({ user, searchParams }: Props) {
       redeemableOffers={redeemableOffers}
       swaps={swaps}
       user={user}
-      selection={selection}
     />
   )
 }

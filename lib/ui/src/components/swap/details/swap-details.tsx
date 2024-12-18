@@ -8,15 +8,16 @@ import { TradeDetailsItems } from '@echo/ui/components/trade/details/trade-detai
 import type { SwapWithRole } from '@echo/ui/types/swap-with-role'
 import { nonEmptyMap } from '@echo/utils/helpers/non-empty-map'
 import { clsx } from 'clsx'
+import { useRouter } from 'next/navigation'
 import { assoc, pipe } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 export interface SwapDetailsProps {
   swap: SwapWithRole
-  onClose?: VoidFunction
 }
 
-export const SwapDetails: FunctionComponent<SwapDetailsProps> = ({ swap, onClose }) => {
+export const SwapDetails: FunctionComponent<SwapDetailsProps> = ({ swap }) => {
+  const router = useRouter()
   const { sender, receiver } = swap
   const receiverNfts = pipe(
     swapReceiverNftItems,
@@ -38,7 +39,12 @@ export const SwapDetails: FunctionComponent<SwapDetailsProps> = ({ swap, onClose
           role={swap.role}
         />
       </div>
-      <SwapDetailsBottomBar swap={swap} onBack={onClose} />
+      <SwapDetailsBottomBar
+        swap={swap}
+        onBack={() => {
+          router.back()
+        }}
+      />
     </TradeDetailsLayout>
   )
 }
