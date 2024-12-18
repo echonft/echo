@@ -17,7 +17,7 @@ import type { SwapWithRole } from '@echo/ui/types/swap-with-role'
 import type { TabOptions } from '@echo/ui/types/tab-options'
 import { isFalsy } from '@echo/utils/helpers/is-falsy'
 import { TabGroup, TabList, TabPanels } from '@headlessui/react'
-import { all, always, filter, find, findIndex, ifElse, isEmpty, isNil, map, pipe, prop, propEq } from 'ramda'
+import { all, always, find, ifElse, isEmpty, isNil, map, pipe, prop, propEq } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 type TabName = 'items' | 'listings' | 'offers' | 'swaps' | 'explore' | 'redeemable'
@@ -29,7 +29,6 @@ interface Props {
   pendingListings: ListingWithRole[]
   swaps: SwapWithRole[]
   redeemableOffers: OfferWithRole[]
-  selection?: number
 }
 
 export const ProfileNavigation: FunctionComponent<Props> = ({
@@ -38,8 +37,7 @@ export const ProfileNavigation: FunctionComponent<Props> = ({
   offers,
   pendingListings,
   swaps,
-  redeemableOffers,
-  selection
+  redeemableOffers
 }) => {
   const tabs: TabOptions<TabName>[] = [
     {
@@ -77,16 +75,8 @@ export const ProfileNavigation: FunctionComponent<Props> = ({
     return null
   }
 
-  function tabGroupProps() {
-    if (isNil(selection)) {
-      return {}
-    }
-    const defaultIndex = pipe(filter(propEq(true, 'show')), findIndex(propEq('swaps', 'name')))(tabs)
-    return { defaultIndex }
-  }
-
   return (
-    <TabGroup {...tabGroupProps()}>
+    <TabGroup>
       <TabList className={'tab-list'}>
         <ItemsTab show={showTab('items')} />
         <ListingsTab show={showTab('listings')} />
@@ -99,7 +89,7 @@ export const ProfileNavigation: FunctionComponent<Props> = ({
         <ProfileItemsPanel show={showTab('items')} nfts={nfts} />
         <ListingsPanel show={showTab('listings')} listings={listings} />
         <OffersPanel show={showTab('offers')} offers={offers} />
-        <SwapsPanel show={showTab('swaps')} swaps={swaps} selection={selection} />
+        <SwapsPanel show={showTab('swaps')} swaps={swaps} />
         <RedeemableOffersPanel show={showTab('redeemable')} offers={redeemableOffers} />
         <ListingsPanel show={showTab('explore')} listings={pendingListings} />
       </TabPanels>

@@ -19,32 +19,16 @@ interface Props {
   nfts: OwnedNft[]
   offers: OfferWithRole[]
   swaps: SwapWithRole[]
-  selection?: number
 }
 
-export const CollectionPage: FunctionComponent<Props> = ({
-  collection,
-  counts,
-  listings,
-  nfts,
-  offers,
-  selection,
-  swaps
-}) => {
+export const CollectionPage: FunctionComponent<Props> = ({ collection, counts, listings, nfts, offers, swaps }) => {
   return (
     <NavigationLayout>
       <SectionLayout>
         <CollectionDetails collection={mergeLeft(collection, counts)} />
       </SectionLayout>
       <NavigationSectionLayout>
-        <CollectionNavigation
-          collection={collection}
-          listings={listings}
-          nfts={nfts}
-          offers={offers}
-          swaps={swaps}
-          selection={selection}
-        />
+        <CollectionNavigation collection={collection} listings={listings} nfts={nfts} offers={offers} swaps={swaps} />
       </NavigationSectionLayout>
     </NavigationLayout>
   )

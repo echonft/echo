@@ -50,9 +50,3 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 export const Page: StoryObj<typeof Component> = {}
-
-export const WithSelectedListing: StoryObj<typeof Component> = {
-  args: {
-    selection: 0
-  }
-}

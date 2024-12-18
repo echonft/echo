@@ -12,7 +12,7 @@ describe('builders - buildNewListingButtons', () => {
 
   it('should build a new listing button with a link to the listing', () => {
     const result = buildListingLinkButton(listingMock)
-    const expectedLink = 'https://undefined/collection/pxmythics-genesis?listing=juzmtpgkm62mmhecmbn4'
+    const expectedLink = 'https://undefined/listing/juzmtpgkm62mmhecmbn4'
     expect(result).toBeInstanceOf(ActionRowBuilder)
     const components = result.components
     expect(components).toHaveLength(1)
